@@ -4836,6 +4836,12 @@ d9:['Clause(절)','주어+동사를 갖춘, 문장 속의 작은 문장'],d10:['
 d13:['Syntax(구문)','단어가 모여 문장을 이루는 규칙과 짜임'],d14:['Structure(구조)','문장 성분이 어떻게 얽혀 있는지 큰 틀 파악'],d15:['Pattern(문형)','자주 쓰는 문장 틀을 보고 알맞은 성분 찾기'],d16:['Grammar(문법)','영어 문장의 규칙 전반을 묻는 종합 문제'],
 d17:['Construction(구성)','긴 문장을 성분별로 나누고 다시 짜 맞추기'],d18:['Sequence(순서)','단어·성분이 놓이는 올바른 순서 맞추기']};
 function rdescHTML(id){const r=RDESC[id];return r?`<b>${r[0]}</b> — ${r[1]}`:'';}
+/* 던전 대표 몬스터가 겹치지 않도록 지정 (목록·보스 모두) */
+const DMON={d2:'slimeking',g2:'minotaur',pv:'sphinx',id:'siren',tn:'hourglass',md:'witch',rp:'wisp',ps:'kraken',pf:'scorpion',rv:'crab',pc:'griffin',sj:'hauntedarmor',cp:'cyclops',cj:'troll',pn:'tycoon',ot:'tortoise',iv:'thunderbird',pe:'werewolf',ng:'inkslime',rs:'livingbook',sx:'clockknight',d18:'timethief'};
+Object.keys(DMON).forEach(id=>{const d=DUNGEONS.find(x=>x.id===id);if(!d||!MON[DMON[id]])return;d.mon=DMON[id];
+ if(typeof GRMAP!=='undefined'&&GRMAP[id]){GRMAP[id].boss.mon=DMON[id];GRMAP[id].boss.filter='';}
+ if(typeof EXMAP!=='undefined'&&EXMAP[id]){EXMAP[id].boss.mon=DMON[id];EXMAP[id].boss.filter='';}
+ if(BOSS[id])BOSS[id].mon=DMON[id];});
 
 /* ===== 문법 던전 문제 형식 다양화: 객관식 외에 주관식(빈칸 쓰기 / 오류 고쳐 쓰기 / 문장 전체 쓰기) ===== */
 const GQX_P={beginner:{gw:.22,gf:.10,gsw:.08},intermediate:{gw:.22,gf:.16,gsw:.12},expert:{gw:.22,gf:.2,gsw:.18}};

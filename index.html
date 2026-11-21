@@ -908,6 +908,14 @@ canvas.px[data-src="SPR"][data-k="shaman"],canvas.px[data-src="SPR"][data-k^="cs
 .credit{margin:14px 0 4px;padding:10px 12px;border-radius:10px;background:#00000040;color:#e8dcc0;font-size:11px;line-height:1.55;text-align:center}.credit b{color:#ffd36b}
 .dailyrow .dmast{flex-direction:column;align-items:flex-start;gap:1px;padding:6px 8px;font-size:13px}.dailyrow .dmast small{font-size:9px}.dailyrow .dbody{padding:6px 8px}
 .sndhint{top:auto;bottom:34%;font-size:11px;padding:3px 10px;white-space:nowrap}
+.rdesc{display:block;margin-top:4px;color:#e9dcb8;font-size:12px;line-height:1.45}
+/* 일일 던전 + 출석판: 낮게 */
+.dailyrow{margin:0 0 8px}.dailyrow .dailycard{border-width:2px;border-radius:10px;display:flex;flex-direction:column}.dailyrow .dmast{padding:3px 7px}.dailyrow .dmast small{display:none}
+.dailyrow .dbody{padding:3px 7px;display:flex;flex-direction:column;gap:0}.dailyrow .dcat,.dailyrow .dko,.dailyrow .dailycard .hint{display:none}.dailyrow .dhead{font-size:11px;line-height:1.25;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.dailyrow .attb{padding:3px 6px;border-radius:10px;display:flex;flex-direction:column;justify-content:center}.dailyrow .attt{font-size:11px;display:inline}.dailyrow .atts{display:inline;font-size:9px;margin-left:4px}
+.dailyrow .attg{grid-template-columns:repeat(15,1fr);gap:1px;margin:3px 0}.dailyrow .atc{aspect-ratio:1;border-radius:3px}.dailyrow .atc small{display:none}.dailyrow .atc .ati{font-size:8px;min-height:8px}
+.dailyrow .attb .hint{font-size:8px;line-height:1.2}
+.dailyrow .attb .hint{display:none}.dailyrow .dmast{font-size:12px}.dailyrow .attg{margin:4px 0 2px}
 
 </style>
 </head>
@@ -2160,8 +2168,8 @@ function rpgDsel(){
  <div class="dtools"><button class="btn-s" id="tolv">${LEVELS[LV()].ic} 문제 난이도: <b>${LEVELS[LV()].n}</b> · 바꾸기</button><button class="btn-s savebtn" id="rsave">💾 저장하기</button><button class="btn-s rankbtn" id="torank">${rankBtnLabel()}</button><button class="btn-s" id="togift">🎁 보상 코드</button><button class="btn-s" id="tologin">👤 다른 계정으로 로그인</button></div>
  ${G.toastSave?'<div class="feedback ok" style="margin:0 0 10px">💾 저장했어요! 같은 이름으로 들어오면 골드·장비·진행 상황이 이어져요.</div>':''}${rpgResumeHTML()}
  <div class="dgrid">${L.map(d=>{const i=RT[d.id],u=rpgUnlocked(d),e=estats(i),b=estats(i,true),cl=SV.rcleared.includes(d.id),rec=GEAR[RREC[Math.min(7,Math.floor(i))]];
-  return `<button class="dcard rcard" ${u?'':'disabled'} data-rd="${d.id}"><span class="size">RPG Lv.${L.indexOf(d)+1}</span>${cl?'<span class="lock" style="color:var(--green)">✅ 클리어</span>':u?'':'<span class="lock">🔒 이전 던전 클리어</span>'}
-  <h3>${d.name}</h3><div class="mon">${sp(d.mon,'','MON')}<div class="hint">적 HP ${e.hp} · 공격 ${e.atk}<br>보스 HP ${b.hp} · 공격 ${b.atk}<br>권장 장비: ${rec.nm} 이상<br>보상: 💰 일반 ${rgoldOf(i)} · 보스 ${rgoldOf(i,true)} · 클리어 보너스 +${rgoldOf(i,true)}<br>💎 한 판 약 ${learnKillTotal(d)+LEVELS[LV()].b}개 (클리어 포함)<br><span style="opacity:.75">※ 장비·직업 효과에 따라 조금 더 받아요</span></div></div></button>`;}).join('')}</div></div>`;
+  return `<button class="dcard rcard" ${u?'':'disabled'} data-rd="${d.id}"><span class="size">RPG Lv.${RLV[d.id]}</span>${cl?'<span class="lock" style="color:var(--green)">✅ 클리어</span>':u?'':'<span class="lock">🔒 이전 던전 클리어</span>'}
+  <h3>${d.name}</h3><div class="mon">${sp(d.mon,'','MON')}<div class="hint">권장 장비: ${rec.nm} 이상<br><span class="rdesc">${rdescHTML(d.id)}</span></div></div></button>`;}).join('')}</div></div>`;
  bindModeTabs();if(G.dev)bindRpgDev();
  $('todaily').onclick=()=>{G.dg=DAILY;G.mates=DAILY.need.slice();G.pets=1;genRunDaily();sfx('select');G.scr='news';render();};
  $('toforge').onclick=()=>{G.scr='forge';G.toast=null;render();};
@@ -4807,6 +4815,27 @@ function regionScreen(k){
    return;}
   regionScreen(G.reg);};
 })();
+
+/* RPG 레벨 묶음: 비슷한 난이도의 던전 2~5개를 한 레벨로 */
+const RLVG=[['d1','d2','d3','d4','d5'],['d6','g1','g2'],['tn','md','pv','id'],['d7','d8','rp','ps'],['pf','rv','pc','cp'],['cj','pn','ot','iv'],['pe','ng','d9','d10'],['sj','rs','d11','d12'],['sx','d13','d14'],['d15','d16','d17','d18']];
+const RLVT=[0.5,2.5,3.5,4.5,5.2,5.8,6.2,6.6,6.8,7];
+const RLV={},ROI={};
+RLVG.forEach((g,k)=>g.forEach(id=>{RLV[id]=k+1;RT[id]=RLVT[k];ROI[id]=Object.keys(ROI).length;}));
+rpgDungeons=function(){return DUNGEONS.filter(d=>d.open&&RLV[d.id]&&(!d.verbal||templeUnlocked()||G.dev)).sort((a,b)=>ROI[a.id]-ROI[b.id]);};
+const RDESC={
+d1:['1형식','주어(S)와 동사(V)만으로 끝나는 가장 짧은 문장'],d2:['2형식','주어가 어떤 상태·신분인지 보어(C)로 설명하는 문장'],d3:['3형식','동사의 대상이 되는 목적어(O)가 있는 문장'],d4:['4형식','~에게(간접목적어) ~을(직접목적어) 주는 문장'],d5:['5형식','목적어가 어떻게 되는지 목적격보어(OC)로 알려 주는 문장'],
+d6:['1~5형식 종합','다섯 가지 문장 형식을 한꺼번에 가려내는 최종 시험'],
+d7:['Infinitive','to + 동사원형. 동사 모양 그대로 명사·형용사·부사 역할을 하는 말'],d8:['Gerund·Participle','동사에 -ing를 붙여 명사(동명사)나 꾸미는 말(분사)이 된 것'],
+g1:['be동사','am·is·are·was·were를 주어에 맞게 고르기'],g2:['의문문·부정문','do·does·did로 묻고 부정하는 문장 만들기'],pv:['영어 속담','영어 속담의 빈칸을 채우며 우리말 속담과 비교하기'],id:['숙어·구동사','전치사·부사와 짝을 이루는 숙어 완성하기'],
+tn:['시제','현재·과거·미래·진행 등 때를 나타내는 동사의 모양'],md:['조동사','can·must·should처럼 동사에 뜻을 더해 주는 도우미 동사'],rp:['관계대명사','who·which·that으로 앞의 명사를 설명하는 문장 연결'],ps:['수동태','주어가 동작을 당하는 문장 (be + 과거분사)'],
+pf:['현재완료','과거부터 지금까지 이어지는 일 (have + 과거분사)'],rv:['관계부사','where·when·why·how로 장소·때·이유·방법을 설명하는 연결'],pc:['분사·분사구문','-ing/-ed로 꾸미거나 접속사 없이 문장을 줄이는 표현'],cp:['비교급·최상급','더 ~한, 가장 ~한을 나타내는 형용사·부사의 변화'],
+cj:['접속사','문장과 문장을 이어 주는 말 (because, although, if …)'],pn:['대명사·관사','I/my/me, a/an/the처럼 이름 대신 쓰거나 명사 앞에 붙이는 말'],ot:['전치사','시간·장소·방향을 나타내는 at, on, in 등 명사 앞 말'],iv:['to부정사·동명사','동사 뒤에 to V가 오는지 -ing가 오는지 고르기'],
+pe:['지각·사역동사','see·hear·make·let 뒤에 목적어와 동사원형이 오는 문장'],ng:['명사·감탄문','복수형, 셀 수 없는 명사, there be, 명령문과 감탄문'],rs:['화법·간접의문문','남의 말을 전하거나 의문문을 문장 속에 넣는 방법'],sj:['가정법','사실과 다른 상상을 말하는 if 문장 (would, had p.p.)'],
+sx:['도치·강조·병렬','Never have I…처럼 어순을 뒤집거나 강조·나열하는 문장'],
+d9:['Clause(절)','주어+동사를 갖춘, 문장 속의 작은 문장'],d10:['Phrase(구)','주어+동사 없이 덩어리로 한 가지 역할을 하는 말'],d11:['Predicate(술부)','주어를 뺀 나머지, 동사가 중심이 되는 부분'],d12:['Sentence(문장)','주어와 동사로 완전한 뜻을 전하는 글의 기본 단위'],
+d13:['Syntax(구문)','단어가 모여 문장을 이루는 규칙과 짜임'],d14:['Structure(구조)','문장 성분이 어떻게 얽혀 있는지 큰 틀 파악'],d15:['Pattern(문형)','자주 쓰는 문장 틀을 보고 알맞은 성분 찾기'],d16:['Grammar(문법)','영어 문장의 규칙 전반을 묻는 종합 문제'],
+d17:['Construction(구성)','긴 문장을 성분별로 나누고 다시 짜 맞추기'],d18:['Sequence(순서)','단어·성분이 놓이는 올바른 순서 맞추기']};
+function rdescHTML(id){const r=RDESC[id];return r?`<b>${r[0]}</b> — ${r[1]}`:'';}
 
 /* ===== 문법 던전 문제 형식 다양화: 객관식 외에 주관식(빈칸 쓰기 / 오류 고쳐 쓰기 / 문장 전체 쓰기) ===== */
 const GQX_P={beginner:{gw:.22,gf:.10,gsw:.08},intermediate:{gw:.22,gf:.16,gsw:.12},expert:{gw:.22,gf:.2,gsw:.18}};

@@ -4773,11 +4773,11 @@ const GLANG_BOX=`<div class="story" style="margin:6px 0 10px">📖 <b>그래머 
 /* --- 지도 --- */
 const d6Done=()=>G.dev||SV.cleared.includes('d6');
 const REGS={
- form:{ic:'🏰',nm:'신택스 왕국',sub:'Syntax Kingdom · 1~5형식 · 마왕성 (튜토리얼 대륙)',open:()=>true,col:'#c8a24a'},
- gram:{ic:'📚',nm:'그래머 대륙',sub:'Grammar Continent · be동사부터 가정법까지 · 본 대륙',open:d6Done,col:'#5aa86a'},
- prov:{ic:'📜',nm:'속담섬',sub:'영어 속담 빈칸 채우기',open:d6Done,col:'#b88adb'},
- idiom:{ic:'⚓',nm:'숙어섬',sub:'숙어·구동사 마스터',open:d6Done,col:'#4aa0d8'},
- port:{ic:'🚢',nm:'원정 항구',sub:'1~5형식 복습 원정 · 4곳',open:d6Done,col:'#d8704a'}};
+ form:{ic:'🏰',nm:'신택스(Syntax·문장구조) 왕국',sub:'1~5형식 · 마왕성 (튜토리얼 지역)',open:()=>true,col:'#c8a24a'},
+ gram:{ic:'📚',nm:'그래머(Grammar·문법) 대륙',sub:'be동사부터 가정법까지 · 본 대륙',open:d6Done,col:'#5aa86a'},
+ prov:{ic:'📜',nm:'프로버브(Proverb·속담) 섬',sub:'영어 속담 빈칸 채우기',open:d6Done,col:'#b88adb'},
+ idiom:{ic:'⚓',nm:'이디엄(Idiom·숙어) 섬',sub:'숙어·구동사 마스터',open:d6Done,col:'#4aa0d8'},
+ port:{ic:'🚢',nm:'엑스피디션(Expedition·원정) 항구',sub:'1~5형식 복습 원정 · 4곳',open:d6Done,col:'#d8704a'}};
 const GRAM_TODO0=['시제','조동사','관계대명사','수동태','완료','관계부사','분사구문','가정법','비교급·최상급','접속사·명사절','대명사·관사','전치사·기타'];
 const PORTS=['d9','d10','d11','d12'],FAR=['d13','d14','d15'];
 function regProg(k){const ids=k==='form'?['d1','d2','d3','d4','d5','d6']:k==='gram'?['g1','g2','tn','md','d7','d8','rp','ps','pf','rv','pc','sj','cp','cj','pn','ot','iv','pe','ng','rs','sx']:k==='prov'?['pv']:k==='idiom'?['id']:PORTS;

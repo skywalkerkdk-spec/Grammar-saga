@@ -861,6 +861,8 @@ canvas.px[data-src="SPR"][data-k="shaman"],canvas.px[data-src="SPR"][data-k^="cs
 .skgrid.sk3{grid-template-columns:repeat(auto-fill,minmax(230px,1fr))}.skbtn.skill{justify-content:space-between}.skbtn.skill span{display:block;margin-top:2px;line-height:1.35}.skbtn:disabled{opacity:.4;cursor:not-allowed;box-shadow:none}.skcost{font-style:normal;color:#ffd85a;font-weight:900;white-space:nowrap}.debc.bufc{background:#1f4d2e;border-color:#4fd18a}.debc.edbc{background:#4d2a1f;border-color:#e0894f}
 .rdt.warn{background:#7a1f1f;color:#fff;animation:rdwarn .6s infinite alternate}@keyframes rdwarn{to{transform:scale(1.12)}}.special.rsk{margin-bottom:8px}
 
+.savetoast{position:fixed;left:50%;top:18px;transform:translateX(-50%);z-index:99999;background:#1f4d2e;border:2px solid #4fd18a;color:#fff;font-weight:900;padding:10px 20px;border-radius:14px;box-shadow:0 6px 24px #000a;transition:opacity .45s,transform .45s}.savetoast.out{opacity:0;transform:translateX(-50%) translateY(-14px)}
+
 </style>
 </head>
 <body>
@@ -943,6 +945,7 @@ function drawPet(cv,petKey,eq){const x=cv.getContext('2d');x.clearRect(0,0,48,48
 function petc(cls,opt){return `<canvas class="px ${cls||''}" width="48" height="48" data-pet="${opt||'me'}"></canvas>`;}
 
 /* ---------- 저장 (이 브라우저에만) ---------- */
+function saveToast(msg){try{const o=document.querySelector('.savetoast');if(o)o.remove();const d=document.createElement('div');d.className='savetoast';d.textContent=msg||'💾 저장했습니다!';document.body.appendChild(d);setTimeout(()=>d.classList.add('out'),1800);setTimeout(()=>d.remove(),2300);}catch(e){}}
 function defSave(){return{cry:0,rg:0,skin:'base',skins:['base'],gear:{sword:'s0',armor:'a0',shield:'h0'},gearOwned:['s0','a0','h0'],rcleared:[],mode:'learn',owned:[],pets:['cat'],pet:'cat',eq:{head:null,face:null,back:null,neck:null,mouth:null},cleared:[],rhero:null,cskin:{}};}
 let SV=defSave();
 function loadSave(n){try{const s=JSON.parse(localStorage.getItem('sg_save_'+n)||'null');if(s){const d=defSave();const r=Object.assign(d,s,{eq:Object.assign(d.eq,s.eq||{}),gear:Object.assign(d.gear,s.gear||{})});if(s.cry==null)r.cry=s.gold||0;delete r.gold;return r;}}catch(e){}return defSave();}
@@ -1475,7 +1478,7 @@ function dsel(){G.rpg=false;if(SV.mode==='rpg'&&rpgOpen())return rpgDsel();
  $('toshop').onclick=()=>{G.scr='shop';G.toast=null;render();};
  $('tolv').onclick=()=>{G.scr='level';render();};
  {const fb=$('toforgeL');if(fb)fb.onclick=()=>{G.stoneBoot=0;G.scr='forge';G.toast=null;G.enhRes=null;sfx('select');render();};}
- $('dsave').onclick=()=>{saveNow();sfx('select');G.toastSave=true;render();};
+ $('dsave').onclick=()=>{saveNow();sfx('select');G.toastSave=true;render();saveToast();};
  $('tologin').onclick=()=>{saveNow();sfx('select');G.scr='title';render();};
  if(G.dev)bindDev();
  const tt=$('totemple');if(tt)tt.onclick=()=>{sfx('bell');G.scr='temple';render();};
@@ -1569,7 +1572,7 @@ function battle(){
  <div class="monster ${e.boss?'boss':''}" id="mon">${monHTML(e)}</div></div>
  <div class="card" id="qc">${qbody(e)}</div>`;
  bindQ(e);saveRun();if(!G.dev)markSeen(e);if(G.rvm)rvDecorate();
- $('saveout').onclick=()=>{saveRun();sfx('select');G.toastSave=true;G.scr='dsel';render();};
+ $('saveout').onclick=()=>{saveRun();sfx('select');G.toastSave=true;G.scr='dsel';render();saveToast();};
  if(G.dev){$('devskip').onclick=()=>{G.ei++;G.done=false;G.b=null;G.pick=null;G.sel=null;G.first=true;if(G.ei>=G.run.length){clearRun();G.scr=(G.dg.full&&!G.dg.mix)?'ending':'clear';G.endPhase='roll';}render();};$('devout').onclick=()=>{G.scr='dsel';render();};}
 }
 function qlabel(t){return ({build:'⚔️ 성분 배치',pet:'🐾 수식어(펫) 떼어 내기',judge:'🤔 지금 파티로 잡을 수 있을까?',choose:'🎯 알맞은 말 고르기',deploy:'🏰 출전 동료 고르기',trait:'⛪ 특성 골라 출전'}[t])||(typeof QX!=='undefined'&&QX[t]&&QX[t].label)||t;}
@@ -2116,7 +2119,7 @@ function rpgDsel(){
  $('toraid').onclick=()=>{G.scr='rdlobby';sfx('select');render();};
  $('tolv').onclick=()=>{G.scr='level';render();};
  $('tologin').onclick=()=>{saveNow();sfx('select');G.scr='title';render();};
- $('rsave').onclick=()=>{saveNow();sfx('select');G.toastSave=true;render();};G.toastSave=false;
+ $('rsave').onclick=()=>{saveNow();sfx('select');G.toastSave=true;render();saveToast();};G.toastSave=false;
  const rg=$('rrGo');if(rg){rg.onclick=()=>{if(rpgLoadRun()){sfx('formed');render();}};$('rrDel').onclick=()=>{rpgClearRun();sfx('click');render();};}
  document.querySelectorAll('[data-rd]').forEach(b=>b.onclick=()=>{rpgStart(DUNGEONS.find(d=>d.id===b.dataset.rd));});
 }
@@ -2273,7 +2276,7 @@ function rbattle(){
  <div class="card" id="qc">${rpgBody()}</div>`;
  if(R.special&&!G.done){const ar=$('arena'),S=SKILL[R.skk]||SKILL.tank;ar.classList.add('spmode');ar.style.setProperty('--c',S.col);}
  rpgBind();rpgSaveRun();
- $('rsaveout').onclick=()=>{rpgSaveRun();saveNow();sfx('select');G.toastSave=true;G.rpg=false;G.scr='dsel';render();};
+ $('rsaveout').onclick=()=>{rpgSaveRun();saveNow();sfx('select');G.toastSave=true;G.rpg=false;G.scr='dsel';render();saveToast();};
  $('rquit').onclick=ev=>{const b=ev.currentTarget;if(!b.dataset.sure){b.dataset.sure=1;b.textContent='⚠️ 정말 포기? (골드 절반 잃음) 한 번 더 누르기';return;}rpgLose(true);};
  if(G.dev){$('rkill').onclick=()=>{e.hp=0;rpgKill();};
   $('rgauge').onclick=()=>{R.gauge=3;R.choosing=false;if(R.phase!=='atk'){R.phase='atk';rpgNextQ();}render();};
@@ -4299,7 +4302,7 @@ function mapBtns(){const h=document.querySelector('#app .hud');if(!h)return;
  mk('tolv',`${LEVELS[LV()].ic} ${LEVELS[LV()].n}`,()=>{G.scr='level';render();});
  mk('toforgeM','⚒️ 대장간',()=>{G.scr='forge';G.toast=null;G.enhRes=null;sfx('select');render();});
  if(G.dev)mk('devstone','🛠️ 강화석+5',()=>{SV.stone=(SV.stone||0)+5;saveNow();sfx('coins');render();});
- mk('dsave','💾 저장하기',()=>{saveNow();sfx('select');G.toastSave=true;render();});
+ mk('dsave','💾 저장하기',()=>{saveNow();sfx('select');G.toastSave=true;render();saveToast();});
  mk('tologin','🚪 돌아가기',()=>{saveNow();sfx('select');G.scr='title';render();});}
 function dcardG(d,tag){const u=d.open!==false&&(d.exp?expOpen(d):true),cl=SV.cleared.includes(d.id);
  return `<button class="dcard ${d.exp?'expcard':''}" ${u?'':'disabled'} data-id="${d.id}"><span class="size">${tag}</span>${cl?'<span class="lock" style="color:var(--green)">✅ 클리어</span>':u?'':'<span class="lock">🔒</span>'}

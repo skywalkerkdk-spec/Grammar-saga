@@ -41,7 +41,7 @@ canvas.px{image-rendering:pixelated}
 .dcard:hover:not(:disabled){border-color:var(--gold);transform:translateY(-3px)}
 .dcard:disabled{opacity:.5;cursor:not-allowed}
 .dcard .size{display:inline-block;background:var(--gold);color:#2a1d07;font-weight:900;border-radius:8px;padding:0 10px;font-size:15px}
-.dcard h3{font-family:'Black Han Sans',sans-serif;font-weight:400;font-size:24px;margin:6px 0 2px}
+.dcard h3{font-family:'Noto Sans KR','Malgun Gothic','Apple SD Gothic Neo',sans-serif;font-weight:700;font-size:21px;line-height:1.3;margin:6px 0 2px;letter-spacing:0}
 .dcard .mon{display:flex;align-items:center;gap:10px;margin:8px 0}
 .dcard .mon canvas{width:56px;height:56px}
 .lock{position:absolute;top:12px;right:14px;font-size:14px;color:var(--muted)}
@@ -1052,11 +1052,11 @@ const DUNGEONS=[
   sample:'The alchemist <u>turned</u> <b>the stone</b> <b>gold</b>. <span style="opacity:.55">(the stone = gold)</span>',
   formed:'탱커(<b>주어</b>) + 사제(<b>동사</b>) + 딜러(<b>목적어</b>) + 서브딜러(<b>목적격보어</b>). 딜러가 노린 대상을 서브딜러가 <b>다른 것으로 바꿔</b> 줘요(O → OC, O = OC). 이것이 <b>5형식</b>이에요.<br>⚠️ <i>made <b>me</b> <b>a sandwich</b></i>처럼 me ≠ a sandwich라면 상점가의 4형식! 이런 문장은 후퇴하세요.',
   next:'드디어 마지막 <b>마왕성</b>! 이번엔 모든 동료를 데리고 가서, 적이 외치는 문장마다 필요한 동료만 골라 출전시켜야 해요.'},
- {id:'d7',size:4,form:'to부정사',name:'인피니티브(Infinitive·부정사) 신전',mon:'trainee',open:true,verbal:'knight',need:['healer','paladin'],enc:true,
+ {id:'d7',size:4,form:'to부정사',name:'타락한 인피니티브(Infinitive·부정사) 신전',mon:'trainee',open:true,verbal:'knight',need:['healer','paladin'],enc:true,
   desc:'어둠에 물든 옛 기사단의 신전. 타락한 기사와 정령들이 to부정사 문장을 외친다! 문장 속 <b>to부정사</b>가 맡은 자리에 맞는 특성의 성기사를 출전시켜라!',
   formed:'to부정사(<b>to + 동사원형</b>)는 문장 속에서 여러 자리를 맡아요. 🛡️ 방패(주어) · 🔨 망치(목적어) · ✨ 버프(보어) · 🐾 소환(수식어)! 표시된 to부정사 덩어리가 어느 자리인지 보고 알맞은 성기사를 보내세요.',sample:'I want <b>to win</b>. → 목적어 자리 → 🔨 망치 성기사!',
   next:'이번엔 <b>제룬드(Gerund·동명사) 숲</b>에서 -ing(동명사·분사)를 다뤄 보세요!'},
- {id:'d8',size:4,form:'동명사·분사',name:'제룬드(Gerund·동명사) 숲',mon:'sprout',open:true,verbal:'druid',need:['healer','shaman'],enc:true,
+ {id:'d8',size:4,form:'동명사·분사',name:'타락한 제룬드(Gerund·동명사) 숲',mon:'sprout',open:true,verbal:'druid',need:['healer','shaman'],enc:true,
   desc:'어둠의 마력에 잠식된 드루이드의 숲. 문장 속 <b>-ing 덩어리</b>가 동명사인지 분사인지, 어느 자리를 맡았는지 보고 알맞은 드루이드를 보내라!',
   formed:'동사원형 + <b>-ing</b>는 두 얼굴을 가졌어요. <b>동명사</b>(~하는 것)는 🐻 곰(주어) · 🐯 호랑이(목적어) · ✨ 버프(보어)! <b>현재분사</b>(~하는, ~하고 있는)는 🐾 소환(명사를 꾸밈)이나 ✨ 버프(목적격보어)! 표시된 -ing 덩어리를 보고 알맞은 드루이드를 보내세요.',sample:'I enjoy <b>dancing</b>. → 목적어 자리 → 🐆 호랑이 드루이드!',
   next:'전직의 신전을 모두 돌파했어요! 다른 난이도로 다시 도전하거나 마왕성에 재도전해 보세요.'},
@@ -1396,6 +1396,7 @@ G=fresh();G.scr='splash';
 const $=id=>document.getElementById(id);
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 function paint(cv,d){const x=cv.getContext('2d');x.clearRect(0,0,cv.width,cv.height);d.r.forEach((row,yy)=>{for(let xx=0;xx<row.length;xx++){const c=d.p[row[xx]];if(c){x.fillStyle=c;x.fillRect(xx,yy,1,1);}}});}
+function bossSp(d){const v=typeof VBOSS!=='undefined'&&d.verbal&&VBOSS[d.id];if(!v)return '';return sp(v.mon,'','SPR').replace('<canvas ',`<canvas style="filter:${v.filter}" `);}
 function sp(k,cls,src){src=src||'SPR';const d=(src==='SPR'?SPR:src==='MON'?MON:BUST)[k];if(!d)return '';const n=d.r.length;return `<canvas class="px ${cls||''}" width="${n}" height="${n}" data-k="${k}" data-src="${src}"></canvas>`;}
 function fill(root){root=root||document;
  root.querySelectorAll('canvas[data-k]').forEach(c=>{const s=c.dataset.src;paint(c,(s==='SPR'?SPR:s==='MON'?MON:BUST)[c.dataset.k]);});
@@ -1901,7 +1902,7 @@ function temple(){
  <div class="feedback ok" style="text-align:left"><b>💡 핵심 정리</b><br>· 같은 to부정사·-ing라도 <b>문장 속 자리</b>에 따라 주어·목적어·보어·수식어가 된다.<br>· -ing가 <b>"~하는 것"</b>이면 동명사(곰·호랑이·버프), <b>"~하는/~하고 있는"</b>이면 현재분사(소환·목적격보어 버프).<br>· 준동사 덩어리는 아무리 길어도 <b>한 명의 동료</b>처럼 한 자리만 맡는다!</div>
  <div class="jtree"><div class="jhead">${sp('tank')}<div><b>주인공 전직</b> <span class="hint">지금: ${HERO[SV.hero||null]}</span><br><span class="hint">주어 자리를 to부정사나 동명사가 맡으면 = 주인공 전사가 전직한 것! 직업을 골라 보세요.</span></div></div>
   <div class="hrow"><button class="btn-s ${!SV.hero?'on':''}" data-hero="">🛡️ 전사 (명사 주어)</button><button class="btn-s ${SV.hero==='knight'?'on':''}" data-hero="knight">🛡️ 방패 성기사 (To learn…)</button><button class="btn-s ${SV.hero==='druid'?'on':''}" data-hero="druid">🐻 곰 드루이드 (Learning…)</button></div></div>
- <div class="dgrid">${DUNGEONS.filter(d=>d.verbal).map(d=>`<button class="dcard" data-vd="${d.id}"><span class="size">전직 던전 · ${d.form}</span>${SV.cleared.includes(d.id)?'<span class="lock" style="color:var(--green)">✅ 클리어</span>':''}<h3>${d.name}</h3><div class="mon">${sp(JOB[d.verbal].base)}<div class="hint">${d.desc}</div></div></button>`).join('')}</div>
+ <div class="dgrid">${DUNGEONS.filter(d=>d.verbal).map(d=>`<button class="dcard" data-vd="${d.id}"><span class="size">전직 던전 · ${d.form}</span>${SV.cleared.includes(d.id)?'<span class="lock" style="color:var(--green)">✅ 클리어</span>':''}<h3>${d.name}</h3><div class="mon">${bossSp(d)||sp(JOB[d.verbal].base)}<div class="hint">${d.desc}</div></div></button>`).join('')}</div>
  <button class="ghost" id="tback">← 던전 목록</button></div>`;
  document.querySelectorAll('[data-hero]').forEach(b=>b.onclick=()=>{SV.hero=b.dataset.hero||null;saveNow();sfx(SV.hero?'spell':'click');render();});
  document.querySelectorAll('[data-vd]').forEach(b=>b.onclick=()=>{G.dg=DUNGEONS.find(d=>d.id===b.dataset.vd);G.mates=G.dg.need.slice();G.pets=1;G.scr='formed';render();});
@@ -2173,7 +2174,7 @@ function rpgDsel(){
  ${G.toastSave?'<div class="feedback ok" style="margin:0 0 10px">💾 저장했어요! 같은 이름으로 들어오면 골드·장비·진행 상황이 이어져요.</div>':''}${rpgResumeHTML()}
  <div class="dgrid">${L.map(d=>{const i=RT[d.id],u=rpgUnlocked(d),e=estats(i),b=estats(i,true),cl=SV.rcleared.includes(d.id),rec=GEAR[RREC[Math.min(7,Math.floor(i))]];
   return `<button class="dcard rcard" ${u?'':'disabled'} data-rd="${d.id}"><span class="size">RPG Lv.${RLV[d.id]}</span>${cl?'<span class="lock" style="color:var(--green)">✅ 클리어</span>':u?'':'<span class="lock">🔒 이전 던전 클리어</span>'}
-  <h3>${d.name}</h3><div class="mon">${sp(d.mon,'','MON')}<div class="hint">권장 장비: ${rec.nm} 이상<br><span class="rdesc">${rdescHTML(d.id)}</span></div></div></button>`;}).join('')}</div></div>`;
+  <h3>${d.name}</h3><div class="mon">${bossSp(d)||sp(d.mon,'','MON')}<div class="hint">권장 장비: ${rec.nm} 이상<br><span class="rdesc">${rdescHTML(d.id)}</span></div></div></button>`;}).join('')}</div></div>`;
  bindModeTabs();if(G.dev)bindRpgDev();
  $('todaily').onclick=()=>{G.dg=DAILY;G.mates=DAILY.need.slice();G.pets=1;genRunDaily();sfx('select');G.scr='news';render();};
  $('toforge').onclick=()=>{G.scr='forge';G.toast=null;render();};

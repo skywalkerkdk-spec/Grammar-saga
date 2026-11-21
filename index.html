@@ -868,6 +868,7 @@ canvas.px[data-src="SPR"][data-k="shaman"],canvas.px[data-src="SPR"][data-k^="cs
 .rkr{min-width:42px;font-weight:900;text-align:center}.rkn{flex:1;font-weight:800;word-break:break-all}.rks{font-weight:900;color:#ffd85a}.rkx{flex-basis:100%;font-size:12px;color:#aab}
 .rkh{margin:14px 0 4px}.rkch{display:flex;flex-direction:column;gap:5px}.rkcr{display:flex;flex-wrap:wrap;gap:4px 10px;background:var(--panel2);border-radius:10px;padding:7px 10px;font-size:13px}.rkcr b{flex-basis:100%}
 .rkgift{margin:8px 0}.rkrw{margin-top:10px}#rkkey{width:100%;margin:6px 0}
+.btn-s.rankbtn{background:#5a3fa0;border-color:#c9a8ff;color:#fff;font-weight:900}
 
 </style>
 </head>
@@ -1475,7 +1476,7 @@ function dsel(){G.rpg=false;if(SV.mode==='rpg'&&rpgOpen())return rpgDsel();
  $('app').innerHTML=hud()+`<div class="card"><div class="speaker">탱커의 결심</div>
  <div class="story">어느 던전에 도전할까? <b>파티 인원</b>은 던전마다 다르다. (펫은 인원에 포함되지 않음)</div>${modeTabs()}${dailyCard()}
  <button class="shopbtn" id="toshop">${petc('mini')}<div><b>🐾 길드 상점 (펫·스킨)</b><span>수정으로 펫·꾸미기·주인공 스킨을 사 보세요 · 보유 💎 ${SV.cry}</span></div></button>
- <div class="dtools"><button class="btn-s" id="tolv">${LEVELS[LV()].ic} 난이도: <b>${LEVELS[LV()].n}</b> (${LEVELS[LV()].sub}) · 바꾸기</button><button class="btn-s" id="toforgeL">⚒️ 대장간 · 무기 강화 <b>(강화석 ${SV.stone||0}개)</b>${G.stoneBoot?` <small>(이전 기록에서 강화석 ${G.stoneBoot}개 지급!)</small>`:''}</button><button class="btn-s savebtn" id="dsave">💾 저장하기</button><button class="btn-s" id="torank">${rankBtnLabel()}</button><button class="btn-s" id="togift">🎁 보상 코드</button><button class="btn-s" id="tologin">👤 다른 계정으로 로그인</button></div>
+ <div class="dtools"><button class="btn-s" id="tolv">${LEVELS[LV()].ic} 난이도: <b>${LEVELS[LV()].n}</b> (${LEVELS[LV()].sub}) · 바꾸기</button><button class="btn-s" id="toforgeL">⚒️ 대장간 · 무기 강화 <b>(강화석 ${SV.stone||0}개)</b>${G.stoneBoot?` <small>(이전 기록에서 강화석 ${G.stoneBoot}개 지급!)</small>`:''}</button><button class="btn-s savebtn" id="dsave">💾 저장하기</button><button class="btn-s rankbtn" id="torank">${rankBtnLabel()}</button><button class="btn-s" id="togift">🎁 보상 코드</button><button class="btn-s" id="tologin">👤 다른 계정으로 로그인</button></div>
  ${G.dev?devPanel():''}${G.toastSave?'<div class="feedback ok" style="margin:0 0 10px">💾 저장했어요! 다음에 같은 이름으로 들어오면 이어서 할 수 있어요.</div>':''}${resumeHTML()}
  ${shardBar()}<div class="dgrid">${DUNGEONS.filter(d=>!d.verbal&&!d.mix).map(d=>`<button class="dcard ${d.id==='d6'&&!dOpen(d)?'dlock':''}" ${dOpen(d)?'':'disabled'} data-id="${d.id}">
  <span class="size">${d.full?'풀파티 최종 던전':d.size+'인 '+(d.id==='d4'?'필드':'던전')}</span>${d.open?(d.id==='d6'&&!dOpen(d)?`<span class="lock">🔒 수정 조각 ${shardN()}/5</span>`:SV.cleared.includes(d.id)?'<span class="lock" style="color:var(--green)">✅ 클리어</span>':''):'<span class="lock">🔒 준비 중</span>'}
@@ -2113,7 +2114,7 @@ function rpgDsel(){
  ${modeTabs()}${dailyCard()}${G.dev?rpgDevPanel():''}${heroBar()}${statPanel()}
  <div class="dtools"><button class="shopbtn forgebtn" id="toforge"><span style="font-size:32px">⚒️</span><div><b>대장간 (장비)</b><span>💰 골드로 칼·갑옷·방패를 사요 · 보유 💰 ${SV.rg}</span></div></button>
  <button class="shopbtn" id="toshop">${petc('mini')}<div><b>🐾 길드 상점</b><span>💎 수정으로 펫·스킨 · 보유 💎 ${SV.cry}</span></div></button><button class="shopbtn pvbtn" id="topvp"><span style="font-size:32px">⚔️</span><div><b>배틀 아레나</b><span>친구 캐릭터와 1:1 대결 · 전적 🏆 ${(SV.pvp||{}).w||0}승</span></div></button><button class="shopbtn pvbtn raidbtn" id="toraid"><span style="font-size:32px">🐉</span><div><b>레이드</b><span>친구들과 2~6명이 힘을 합쳐 보스 토벌</span></div></button></div>
- <div class="dtools"><button class="btn-s" id="tolv">${LEVELS[LV()].ic} 문제 난이도: <b>${LEVELS[LV()].n}</b> · 바꾸기</button><button class="btn-s savebtn" id="rsave">💾 저장하기</button><button class="btn-s" id="tologin">👤 다른 계정으로 로그인</button></div>
+ <div class="dtools"><button class="btn-s" id="tolv">${LEVELS[LV()].ic} 문제 난이도: <b>${LEVELS[LV()].n}</b> · 바꾸기</button><button class="btn-s savebtn" id="rsave">💾 저장하기</button><button class="btn-s rankbtn" id="torank">${rankBtnLabel()}</button><button class="btn-s" id="togift">🎁 보상 코드</button><button class="btn-s" id="tologin">👤 다른 계정으로 로그인</button></div>
  ${G.toastSave?'<div class="feedback ok" style="margin:0 0 10px">💾 저장했어요! 같은 이름으로 들어오면 골드·장비·진행 상황이 이어져요.</div>':''}${rpgResumeHTML()}
  <div class="dgrid">${L.map(d=>{const i=RT[d.id],u=rpgUnlocked(d),e=estats(i),b=estats(i,true),cl=SV.rcleared.includes(d.id),rec=GEAR[RREC[i]];
   return `<button class="dcard rcard" ${u?'':'disabled'} data-rd="${d.id}"><span class="size">RPG Lv.${i+1}</span>${cl?'<span class="lock" style="color:var(--green)">✅ 클리어</span>':u?'':'<span class="lock">🔒 이전 던전 클리어</span>'}
@@ -2128,6 +2129,7 @@ function rpgDsel(){
  $('tolv').onclick=()=>{G.scr='level';render();};
  $('tologin').onclick=()=>{saveNow();sfx('select');G.scr='title';render();};
  $('rsave').onclick=()=>{saveNow();sfx('select');G.toastSave=true;render();saveToast();};G.toastSave=false;
+ {const rb=$('torank');if(rb)rb.onclick=()=>{G.scr='rank';sfx('select');render();};const gb=$('togift');if(gb)gb.onclick=giftAsk;}
  const rg=$('rrGo');if(rg){rg.onclick=()=>{if(rpgLoadRun()){sfx('formed');render();}};$('rrDel').onclick=()=>{rpgClearRun();sfx('click');render();};}
  document.querySelectorAll('[data-rd]').forEach(b=>b.onclick=()=>{rpgStart(DUNGEONS.find(d=>d.id===b.dataset.rd));});
 }
@@ -4313,9 +4315,10 @@ function mapBtns(){const h=document.querySelector('#app .hud');if(!h)return;
  mk('tolv',`${LEVELS[LV()].ic} ${LEVELS[LV()].n}`,()=>{G.scr='level';render();});
  mk('toforgeM','⚒️ 대장간',()=>{G.scr='forge';G.toast=null;G.enhRes=null;sfx('select');render();});
  if(G.dev)mk('devstone','🛠️ 강화석+5',()=>{SV.stone=(SV.stone||0)+5;saveNow();sfx('coins');render();});
- mk('torank',rankBtnLabel(),()=>{G.scr='rank';sfx('select');render();});
- mk('togiftM','🎁 보상 코드',giftAsk);
  mk('dsave','💾 저장하기',()=>{saveNow();sfx('select');G.toastSave=true;render();saveToast();});
+ mk('torank','🏆 랭킹'+(G.rkClaim?' 🎁':''),()=>{G.scr='rank';sfx('select');render();});
+ {const rb=document.getElementById('torank');if(rb)rb.classList.add('rankbtn');}
+ mk('togiftM','🎁 보상 코드',giftAsk);
  mk('tologin','🚪 돌아가기',()=>{saveNow();sfx('select');G.scr='title';render();});}
 function dcardG(d,tag){const u=d.open!==false&&(d.exp?expOpen(d):true),cl=SV.cleared.includes(d.id);
  return `<button class="dcard ${d.exp?'expcard':''}" ${u?'':'disabled'} data-id="${d.id}"><span class="size">${tag}</span>${cl?'<span class="lock" style="color:var(--green)">✅ 클리어</span>':u?'':'<span class="lock">🔒</span>'}

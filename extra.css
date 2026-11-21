@@ -711,3 +711,4 @@ canvas.px[data-src="SPR"][data-k="shaman"],canvas.px[data-src="SPR"][data-k^="cs
 .rkr{min-width:42px;font-weight:900;text-align:center}.rkn{flex:1;font-weight:800;word-break:break-all}.rks{font-weight:900;color:#ffd85a}.rkx{flex-basis:100%;font-size:12px;color:#aab}
 .rkh{margin:14px 0 4px}.rkch{display:flex;flex-direction:column;gap:5px}.rkcr{display:flex;flex-wrap:wrap;gap:4px 10px;background:var(--panel2);border-radius:10px;padding:7px 10px;font-size:13px}.rkcr b{flex-basis:100%}
 .rkgift{margin:8px 0}.rkrw{margin-top:10px}#rkkey{width:100%;margin:6px 0}
+.btn-s.rankbtn{background:#5a3fa0;border-color:#c9a8ff;color:#fff;font-weight:900}

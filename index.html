@@ -1478,7 +1478,7 @@ function level(){
  <div class="story">어느 난이도의 의뢰를 받을까요? 난이도가 높을수록 문장이 길고 복잡해지고, <b>보상 수정(💎)</b>도 커져요.</div>
  <div class="lvgrid">${Object.entries(LEVELS).map(([k,v])=>`<button class="lvcard ${cur===k?'on':''}" data-lv="${k}">
   <div class="lvic">${v.ic}</div><h3>${v.n}</h3><div class="lvsub">${v.sub}</div><p>${v.desc}</p>
-  <div class="lvex">예) <i>${esc(v.ex)}</i></div><div class="lvg">💎 몬스터당 ${v.g}개 · 클리어 ${v.b}개</div></button>`).join('')}</div>
+  <div class="lvex">예) <i>${esc(v.ex)}</i></div><div class="lvg">💎 몬스터당 ${v.g}개 (보스 ×2) · 클리어 ${v.b}개<br><small>이미 깬 던전을 다시 하면 💎 절반 · 장비·직업 효과 별도</small></div></button>`).join('')}</div>
  <p class="hint" style="text-align:center;margin:10px 0 0">난이도는 던전 선택 화면에서 언제든 바꿀 수 있어요.</p></div>`;
  document.querySelectorAll('.lvcard').forEach(b=>b.onclick=()=>{sfx('select');SV.level=b.dataset.lv;saveNow();G.scr=G.introDone||SV.cleared.length?'dsel':'intro';render();});
 }
@@ -1736,7 +1736,7 @@ function bindQ(e){flav();bubbleSync();
 }
 function resolve(e,ok,mine){if(G.rvm){rvResolve(e,ok);return;}if(rdOn()){rdResolve(e,ok);return;}if(G.rpg){rpgResolve(e,ok);return;}if(pvOn()){pvResolve(e,ok);return;}
  G.gotGold=0;
- if(G.first){const wt=e.wt||1;G.tot++;G.totw=(G.totw||0)+wt;if(ok){G.ok++;G.okw=(G.okw||0)+wt;G.cmb=(G.cmb||0)+1;if(G.cmb>(G.maxCmb||0))G.maxCmb=G.cmb;G.gotGold=Math.max(1,bonusC(Math.round(LEVELS[LV()].g*(e.boss?2:1)*(SV.cleared.includes(G.dg.id)?.5:1)*(e.wt||1))));SV.cry+=G.gotGold;G.goldRun+=G.gotGold;saveNow();}else{G.cmb=0;G.wrongs.push({e,mine:mine||'',q:e.sentence||e.c.map(c=>c[0]).join(' ')+'.',t:qlabel(e.type)});}G.first=false;}
+ if(G.first){const wt=e.wt||1;G.tot++;G.totw=(G.totw||0)+wt;if(ok){G.ok++;G.okw=(G.okw||0)+wt;G.cmb=(G.cmb||0)+1;if(G.cmb>(G.maxCmb||0))G.maxCmb=G.cmb;G.gotGold=Math.max(1,bonusC(Math.round(LEVELS[LV()].g*(e.boss?2:1)*(SV.cleared.includes(G.dg.id)?.5:1))));SV.cry+=G.gotGold;G.goldRun+=G.gotGold;saveNow();}else{G.cmb=0;G.wrongs.push({e,mine:mine||'',q:e.sentence||e.c.map(c=>c[0]).join(' ')+'.',t:qlabel(e.type)});}G.first=false;}
  G.done=true;G.pick=ok?'ok':'no';G.healed=false;
  if(!ok){G.hp--;G.streak=0;}else if(G.hp<3){G.streak=(G.streak||0)+1;if(G.streak>=3){G.hp++;G.healed=true;G.streak=0;}}else G.streak=0;
  const pty=$('pty'),mon=$('mon'),ar=$('arena');
@@ -2139,7 +2139,7 @@ function rpgDsel(){
  ${G.toastSave?'<div class="feedback ok" style="margin:0 0 10px">💾 저장했어요! 같은 이름으로 들어오면 골드·장비·진행 상황이 이어져요.</div>':''}${rpgResumeHTML()}
  <div class="dgrid">${L.map(d=>{const i=RT[d.id],u=rpgUnlocked(d),e=estats(i),b=estats(i,true),cl=SV.rcleared.includes(d.id),rec=GEAR[RREC[i]];
   return `<button class="dcard rcard" ${u?'':'disabled'} data-rd="${d.id}"><span class="size">RPG Lv.${i+1}</span>${cl?'<span class="lock" style="color:var(--green)">✅ 클리어</span>':u?'':'<span class="lock">🔒 이전 던전 클리어</span>'}
-  <h3>${d.name}</h3><div class="mon">${sp(d.mon,'','MON')}<div class="hint">적 HP ${e.hp} · 공격 ${e.atk}<br>보스 HP ${b.hp} · 공격 ${b.atk}<br>권장 장비: ${rec.nm} 이상<br>보상: 💰 ${rgoldOf(i)}~${rgoldOf(i,true)} · 💎</div></div></button>`;}).join('')}</div></div>`;
+  <h3>${d.name}</h3><div class="mon">${sp(d.mon,'','MON')}<div class="hint">적 HP ${e.hp} · 공격 ${e.atk}<br>보스 HP ${b.hp} · 공격 ${b.atk}<br>권장 장비: ${rec.nm} 이상<br>보상: 💰 일반 ${rgoldOf(i)} · 보스 ${rgoldOf(i,true)} · 클리어 보너스 +${rgoldOf(i,true)}<br>💎 한 판 약 ${learnKillTotal(d)+LEVELS[LV()].b}개 (클리어 포함) · 다시 깨면 💎 절반<br><span style="opacity:.75">※ 장비·직업 효과에 따라 조금 더 받아요</span></div></div></button>`;}).join('')}</div></div>`;
  bindModeTabs();if(G.dev)bindRpgDev();
  $('todaily').onclick=()=>{G.dg=DAILY;G.mates=DAILY.need.slice();G.pets=1;genRunDaily();sfx('select');G.scr='news';render();};
  $('toforge').onclick=()=>{G.scr='forge';G.toast=null;render();};

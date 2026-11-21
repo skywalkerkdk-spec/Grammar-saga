@@ -2614,6 +2614,8 @@ function pvStart(mode,opp,o){o=o||{};const me=profOf(SV,G.name);
  G.pv={mode,P:o.P||[pvMk(me,false),pvMk(opp,mode==='ai')],me:o.me||0,cur:o.cur!=null?o.cur:(Math.random()<0.5?0:1),phase:'atk',q:null,oq:null,log:'',turn:0};
  G.dg=PV_ARENA;G.mates=[];G.pets=1;G.rpg=false;G.scr='pvbattle';sfx('formed');
  if(mode==='net'){if(NET.host)pvNetTurn(true);else render();}else pvNewTurn(true);}
+const PV_TATK=45,PV_TDEF=20;
+function pvAtkTimeout(tok){const V=G.pv;if(!V||V.mode!=='net'||!NET.host||V.phase!=='atk'||V.atkTok!==tok)return;V.atkTok=0;V.deadline=0;G.done=true;G.pick='no';pvCalc(false);V.log='⏰ 시간 초과! '+V.log;netState();pvShow(0);}
 const PVDEB={weak:'weak',vuln:'armorbreak',stun:'slow'};
 function pvSkList(A){return Object.prototype.hasOwnProperty.call(SK,A.pr.c)?SK[A.pr.c]:SK.tank;}
 function pvSkCur(A){const L=pvSkList(A);return L[A.ski||0]||L[0];}
@@ -2623,14 +2625,14 @@ function pvMakeDodge(c){if(!Array.isArray(c)||c.length<2)c=[['The knight','S'],[
  const others=shuffle(DROLES.filter(x=>x!==r)).slice(0,3),opts=shuffle([r].concat(others));return {kind:'role',c,hi:k,opts:opts.map(x=>RK[x]),ans:opts.indexOf(r)};}
 function pvDefRemote(){const V=G.pv,D=V.P[1-V.cur];return !!D.ai||(V.mode==='net'&&(1-V.cur)!==V.me);}
 function pvSrcC(){const V=G.pv,s=(V.mode==='net'&&V.cur!==V.me)?V.oq:V.q;return s&&s.c;}
-function pvAtkDone(ok){const V=G.pv,A=V.P[V.cur],D=V.P[1-V.cur],S=A.special?pvSkCur(A):null;
+function pvAtkDone(ok){const V=G.pv,A=V.P[V.cur],D=V.P[1-V.cur],S=A.special?pvSkCur(A):null;V.atkTok=0;V.deadline=0;
  if(!ok||(S&&S.dmg===0)){pvCalc(ok);return false;}
  V.phase='def';V.waitRes=false;V.dok=ok;V.dres=null;V.dq=null;V.fx=null;V.log='';const tok=V.defTok=Date.now();
  if(!pvDefRemote()){V.dq=pvMakeDodge(pvSrcC());V.t0=Date.now();}
  else if(D.ai)setTimeout(()=>{if(G.pv===V&&V.phase==='def'&&V.defTok===tok){const o=Math.random()<Math.min(.9,pvAcc(D.pr));pvDefDone({ok:o,fast:o&&Math.random()<.4});}},1500);
- else setTimeout(()=>{if(G.pv===V&&V.phase==='def'&&V.defTok===tok)pvDefDone({ok:false,fast:false});},25000);
+ if(V.mode==='net'){V.deadline=tok+PV_TDEF*1000;setTimeout(()=>{if(G.pv===V&&V.phase==='def'&&V.defTok===tok)pvDefDone({ok:false,fast:false});},PV_TDEF*1000+400);}
  return true;}
-function pvDefDone(def){const V=G.pv;if(!V||V.phase!=='def')return;V.defTok=0;pvCalc(V.dok,def);if(V.mode==='net'&&NET.host)netState();pvShow(0);}
+function pvDefDone(def){const V=G.pv;if(!V||V.phase!=='def')return;V.defTok=0;V.deadline=0;pvCalc(V.dok,def);if(V.mode==='net'&&NET.host)netState();pvShow(0);}
 function pvDodge(i){const V=G.pv,q=V.dq;if(!q||V.dres||V.phase!=='def')return;q.pick=i;q.ok=i===q.ans;const fast=q.ok&&Date.now()-V.t0<6000;V.dres={ok:q.ok,fast};sfx(q.ok?'select':'wrong');
  if(V.mode==='net'&&!NET.host){netSend({t:'dans',ok:q.ok,fast});render();return;}
  pvDefDone(V.dres);}
@@ -2697,7 +2699,7 @@ function pvBattle(){const V=G.pv,A=V.P[V.cur],me=V.me||0;G.dg=PV_ARENA;
 function pvRemote(){const V=G.pv,A=V.P[V.cur];return A.ai||(V.mode==='net'&&V.cur!==V.me);}
 function pvSent(q){const s=q.c.map(x=>x[0]).join(' ');return esc(s.charAt(0).toUpperCase()+s.slice(1))+'.';}
 function pvBody(){const V=G.pv,A=V.P[V.cur],mine=V.mode==='net'&&V.cur===V.me;
- let h=`<div class="pvturn ${V.cur===(V.me||0)?'L':'R'}">${V.cur===(V.me||0)?'🔵':'🔴'} <b>${esc(A.pr.n)}</b>의 공격 턴 <small>(${LEVELS[A.pr.lv].sub} 문제)</small>${V.mode==='hot'&&V.phase==='atk'?' — 화면을 '+esc(A.pr.n)+'에게!':''}${mine&&V.phase==='atk'?' — 내 차례!':''}</div>`;
+ let h=`<div class="pvturn ${V.cur===(V.me||0)?'L':'R'}">${V.cur===(V.me||0)?'🔵':'🔴'} <b>${esc(A.pr.n)}</b>의 공격 턴 <small>(${LEVELS[A.pr.lv].sub} 문제)</small>${V.mode==='hot'&&V.phase==='atk'?' — 화면을 '+esc(A.pr.n)+'에게!':''}${mine&&V.phase==='atk'?' — 내 차례!':''}${V.mode==='net'&&V.deadline&&(V.phase==='atk'||V.phase==='def')?` <span class="rdt" id="pvt">⏱ ${Math.max(0,Math.round((V.deadline-Date.now())/1000))}초</span>`:''}</div>`;
  if(V.phase==='def')return h+pvDefBody();
  if(pvRemote()){const q=A.ai?V.q:V.oq;
   if(V.phase==='atk')return h+`<div class="story">${A.ai?'🤖':'🌐'} ${esc(A.pr.n)}이(가) ${A.special||(q&&q.sp)?'✨ 스킬 문장을':'문장을'} 분석하는 중… <span class="dots">…</span></div>${q?`<div class="sentence">${pvSent(q)}</div>`:''}<p class="hint">상대가 답을 내면 바로 결과가 나와요. 같이 문장을 분석해 보세요!</p>`;
@@ -2716,7 +2718,7 @@ function pvAfter(e){const V=G.pv,ok=G.pick==='ok';let h=`<div class="feedback ${
 function pvNextBtn(){const V=G.pv,D=V.P[1-V.cur],N=V.P[1-V.cur];if(V.waitRes)return '';
  if(V.mode==='net')return V.nextSent?'<p class="hint">⏳ 다음 턴을 기다리는 중…</p>':D.hp<=0?`<button class="next" id="pvnx">🏆 결과 보기</button>`:`<button class="next" id="pvnx">▶ 다음 턴 (${esc(N.pr.n)})</button>`;
  return D.hp<=0?`<button class="next" id="pvnx">🏆 결과 보기</button>`:`<button class="next" id="pvnx">▶ ${esc(N.pr.n)}의 턴${N.ai?'':' 시작'}</button>`;}
-function pvBind(){const V=G.pv;bubbleSync();const sb=$('pvsp');if(sb)sb.onclick=pvSpecial;document.querySelectorAll('[data-pvsk]').forEach(b=>b.onclick=()=>pvSkUse(+b.dataset.pvsk));const sbk=$('pvskback');if(sbk)sbk.onclick=()=>{G.pv.skpick=false;sfx('click');render();};
+function pvBind(){const V=G.pv;bubbleSync();clearInterval(V.tick);V.tick=setInterval(()=>{if(G.pv!==V||G.scr!=='pvbattle'){clearInterval(V.tick);return;}const t=$('pvt');if(t&&V.deadline){const L=Math.max(0,Math.round((V.deadline-Date.now())/1000));t.textContent='⏱ '+L+'초';t.classList.toggle('warn',L<=10);}},500);const sb=$('pvsp');if(sb)sb.onclick=pvSpecial;document.querySelectorAll('[data-pvsk]').forEach(b=>b.onclick=()=>pvSkUse(+b.dataset.pvsk));const sbk=$('pvskback');if(sbk)sbk.onclick=()=>{G.pv.skpick=false;sfx('click');render();};
  if(V.phase==='def')document.querySelectorAll('[data-pd]').forEach(b=>b.onclick=()=>pvDodge(+b.dataset.pd));
  if(V.phase!=='def'&&!pvRemote()&&V.q)bindQ(V.q);
  const n=$('pvnx');if(n)n.onclick=()=>{
@@ -2775,9 +2777,9 @@ function netLost(){if(G.scr==='pvbattle'&&G.pv&&G.pv.mode==='net'&&G.pv.phase!==
 function netSanPr(o){try{const j=JSON.stringify(o);const b=btoa(unescape(encodeURIComponent(j))).replace(/=+$/,'');return pvParse('SG1-'+b+'-'+pvHash(b));}catch(e){return null;}}
 function netStartGame(){if(!NET.host||!NET.opp)return;const me=profOf(SV,G.name);const P=[pvMk(me,false),pvMk(NET.opp,false)];const cur=Math.random()<0.5?0:1;
  netSend({t:'start',pr:[me,NET.opp],cur});pvStart('net',null,{P,me:0,cur});}
-function netPack(){const V=G.pv;return {t:'state',P:V.P.map(x=>({hp:x.hp,gauge:x.gauge,deb:x.deb,special:x.special,buf:x.buf||{}})),cur:V.cur,phase:V.phase,log:V.log,fx:V.fx,turn:V.turn,pmsg:V.pmsg||'',lastOk:V.lastOk,snd:V.snd||null};}
+function netPack(){const V=G.pv;return {t:'state',P:V.P.map(x=>({hp:x.hp,gauge:x.gauge,deb:x.deb,special:x.special,buf:x.buf||{}})),cur:V.cur,phase:V.phase,log:V.log,fx:V.fx,turn:V.turn,pmsg:V.pmsg||'',lastOk:V.lastOk,snd:V.snd||null,left:V.deadline?Math.max(0,Math.round((V.deadline-Date.now())/1000)):0};}
 function netState(){netSend(netPack());}
-function pvNetTurn(first){const V=G.pv,A=V.P[V.cur];V.turn++;V.pmsg=first?'':tickDeb2(A);V.phase='atk';V.fx=null;V.nextSent=false;netState();pvLocalTurnStart();render();}
+function pvNetTurn(first){const V=G.pv,A=V.P[V.cur];V.turn++;V.pmsg=first?'':tickDeb2(A);V.phase='atk';V.fx=null;V.nextSent=false;const tk=V.atkTok=Date.now();V.deadline=tk+PV_TATK*1000;setTimeout(()=>pvAtkTimeout(tk),PV_TATK*1000+400);netState();pvLocalTurnStart();render();}
 function pvNetNext(){const V=G.pv;if(V.phase!=='atkres')return;const D=V.P[1-V.cur];if(D.hp<=0){netSend({t:'end',win:V.cur});pvEnd(V.cur,false);return;}V.cur=1-V.cur;pvNetTurn();}
 function netOnData(d){if(!d||typeof d!=='object')return;NET.last=Date.now();if(d.t==='ping')return;if(d.t==='bye'){if(NET.conn){const c=NET.conn;NET.conn=null;try{c.close();}catch(e){}}netLost();return;}const V=G.pv;
  if(d.t==='busy'){netSetMsg('❌ 그 방은 이미 대결 중이에요.');return;}
@@ -2794,7 +2796,7 @@ function netOnData(d){if(!d||typeof d!=='object')return;NET.last=Date.now();if(d
  if(d.t==='next'&&NET.host){pvNetNext();return;}
  if(d.t==='state'&&!NET.host){const prevPhase=V.phase,prevCur=V.cur,newTurn=(+d.turn||0)!==V.turn;
   d.P.forEach((x,i)=>{const P=V.P[i];P.hp=Math.max(0,Math.min(P.max,+x.hp||0));P.gauge=Math.max(0,Math.min(3,+x.gauge||0));P.deb=(x.deb&&typeof x.deb==='object')?x.deb:{};P.buf=rdSanSt(x.buf,BUF);if(i!==V.me||d.phase!=='atk')P.special=!!x.special;});
-  V.cur=d.cur===1?1:0;V.turn=+d.turn||V.turn;V.log=String(d.log||'');V.lastOk=!!d.lastOk;V.pmsg=String(d.pmsg||'');
+  V.deadline=(+d.left>0)?Date.now()+Math.min(60,+d.left)*1000:0;V.cur=d.cur===1?1:0;V.turn=+d.turn||V.turn;V.log=String(d.log||'');V.lastOk=!!d.lastOk;V.pmsg=String(d.pmsg||'');
   if(d.phase==='def'){V.phase='def';V.waitRes=false;V.dres=null;V.dq=null;V.fx=null;if((1-V.cur)===V.me){const s=V.oq;V.dq=pvMakeDodge(s&&s.c);V.t0=Date.now();}render();return;}
   if(d.phase==='atk'){V.phase='atk';V.nextSent=false;V.waitRes=false;if(newTurn||prevPhase!=='atk'||prevCur!==V.cur||(!V.q&&V.cur===V.me)){pvLocalTurnStart();render();}return;}
   if(d.phase==='atkres'){V.phase='atkres';V.waitRes=false;if(V.cur===V.me&&!G.done){G.done=true;G.pick=V.lastOk?'ok':'no';}V.fx=d.fx||null;V.snd=d.snd;pvShow(0);}

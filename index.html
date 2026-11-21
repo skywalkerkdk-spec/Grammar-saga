@@ -4479,6 +4479,9 @@ function giftDevMake(){const v=prompt('보상 내용을 "💎수정,💰골드,�
  try{navigator.clipboard.writeText(code);}catch(e){}
  prompt('보상 코드가 만들어졌어요 (복사됨). 이 코드를 학생에게 보내세요. 학생 한 명당 1번씩만 받을 수 있어요.',code);}
 
+/* 개발자 모드: 보상 코드 버튼을 누르면 '만들기/입력' 선택 */
+(function(){const _a=giftAsk;giftAsk=function(){if(G.dev&&confirm('🛠️ 개발자 모드\n\n[확인] = 보상 코드 만들기\n[취소] = 코드 입력하기'))return giftDevMake();return _a();};})();
+
 /* ---------- 🏆 랭킹 (주간 랭킹 + 명예의 전당) ---------- */
 let RANK_URL='https://script.google.com/macros/s/AKfycbxGtV0puXA1N9vfHavcfotByGf75gk-vd6xRD50uxoXhmUM6IsDmAI9rbai8seFC0Iy/exec'; /* ← 선생님이 배포한 랭킹 서버(Apps Script) 주소를 여기에 넣어요 */
 const RK_BOARDS=[['dg','🗡️ 던전'],['ar','⚔️ 아레나'],['rd','🐉 레이드'],['acc','🎯 정확도']];

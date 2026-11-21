@@ -858,6 +858,8 @@ canvas.px[data-src="SPR"][data-k="shaman"],canvas.px[data-src="SPR"][data-k^="cs
 @keyframes eglow{0%{box-shadow:0 0 0 0 #ffe27a;transform:scale(.9)}40%{box-shadow:0 0 30px 10px #ffe27a;transform:scale(1.06)}100%{box-shadow:0 0 0 0 transparent;transform:scale(1)}}
 @keyframes eshk{0%,100%{transform:translateX(0)}20%{transform:translateX(-8px)}40%{transform:translateX(8px)}60%{transform:translateX(-5px)}80%{transform:translateX(5px)}}
 
+.skgrid.sk3{grid-template-columns:repeat(auto-fill,minmax(230px,1fr))}.skbtn.skill{justify-content:space-between}.skbtn.skill span{display:block;margin-top:2px;line-height:1.35}.skbtn:disabled{opacity:.4;cursor:not-allowed;box-shadow:none}.skcost{font-style:normal;color:#ffd85a;font-weight:900;white-space:nowrap}.debc.bufc{background:#1f4d2e;border-color:#4fd18a}.debc.edbc{background:#4d2a1f;border-color:#e0894f}
+
 </style>
 </head>
 <body>
@@ -1361,7 +1363,7 @@ function cutin(k,cb,opt){
  <svg class="lines" viewBox="0 0 800 320" preserveAspectRatio="none"><g>${ln}</g></svg>
  <div class="band2"></div><div class="band" style="background:${c.band};border-color:${c.edge}"></div>
  ${k==='pet'?petc('por'):sp(k,'por','BUST')}
- <div class="ctxt"><div class="cnm ol3">${opt?opt.who:CL[k].nm}${!opt&&CL[k].cls?`<small>(${CL[k].cls})</small>`:''}</div><div class="crole ol2">${opt?'💥 필살기 「'+opt.skill+'」':CL[k].gram+' · '+CL[k].en}</div><div class="cq ol2">"${opt?opt.q:c.q}"</div></div>
+ <div class="ctxt"><div class="cnm ol3">${opt?opt.who:CL[k].nm}${!opt&&CL[k].cls?`<small>(${CL[k].cls})</small>`:''}</div><div class="crole ol2">${opt?(opt.lab||'💥 필살기')+' 「'+opt.skill+'」':CL[k].gram+' · '+CL[k].en}</div><div class="cq ol2">"${opt?opt.q:c.q}"</div></div>
  <div class="flash" style="background:${c.flash}"></div><div class="cskip">클릭하면 넘어갑니다</div></div></div>`;
  fill($('layer'));sfx('whoosh');sfx(c.s==='pet'?(SV.pet==='cat'?'meow':'pop'):c.s);
  let done=false;const end=()=>{if(done)return;done=true;$('layer').innerHTML='';cb&&cb();};
@@ -2169,11 +2171,38 @@ const SKILL={
  pet:{nm:'수식어 냥냥 펀치',q:'있어도 그만 없어도 그만? 오늘은 아니다! 필살 펀치!',fx:'🐾',col:'#f0a24f'}
 };
 function skillWho(k){return k==='pet'?PETS[SV.pet].nm:CL[k].nm+(CL[k].cls?'('+CL[k].cls+')':'');}
-function skillPicker(){const ks=['tank'].concat(G.mates.filter(k=>k!=='tank')).concat(['pet']);
- return `<span class="qtype">💥 필살기</span><div class="story"><b>누구의 필살기를 쓸까?</b> 고른 동료가 필살기를 외치고, 어려운 문제가 나와요. 맞히면 데미지 <b>2배</b>!</div>
- <div class="skgrid">${ks.map(k=>`<button class="skbtn" data-sk2="${k}" style="--c:${SKILL[k].col}">${k==='pet'?petc():sp(k)}<div><b>${skillWho(k)}</b><span>${SKILL[k].fx} 「${SKILL[k].nm}」</span></div></button>`).join('')}</div>
+const BUF={atk:{ic:'⚔️',nm:'공격 강화',d:'공격력 +30%'},def:{ic:'🛡️',nm:'방어 강화',d:'받는 피해 -35%'},eva:{ic:'💨',nm:'회피 강화',d:'회피율 +20%'}};
+const EDB={weak:{ic:'💔',nm:'적 약화',d:'적 공격력 -35%'},vuln:{ic:'🎯',nm:'약점 노출',d:'받는 피해 +30%'},stun:{ic:'😵',nm:'기절',d:'다음 적의 턴을 건너뜀'}};
+const SK={
+ tank:[{nm:'주어 방패 돌진',fx:'🛡️',cost:3,dmg:2,cleanse:1},{nm:'방패 강타',fx:'💥',cost:1,dmg:1,deb:{weak:2}},{nm:'철벽 태세',fx:'🧱',cost:2,dmg:0,buf:{def:3}},{nm:'도발의 함성',fx:'📣',cost:2,dmg:0,deb:{weak:3},buf:{def:2}},{nm:'방패 밀치기',fx:'🚧',cost:2,dmg:1,deb:{stun:1}},{nm:'전열 정비',fx:'🛡️',cost:1,dmg:1,buf:{def:2}}],
+ healer:[{nm:'동사 성광 폭발',fx:'✨',cost:3,dmg:2,cleanse:1},{nm:'성스러운 치유',fx:'💚',cost:2,dmg:0,heal:.4,cleanse:1},{nm:'축복의 빛',fx:'🌟',cost:2,dmg:0,buf:{atk:3}},{nm:'정화의 종',fx:'🔔',cost:1,dmg:0,heal:.2,cleanse:1},{nm:'심판의 빛',fx:'☀️',cost:1,dmg:1,deb:{vuln:2}},{nm:'신성한 가호',fx:'🕊️',cost:2,dmg:0,heal:.15,buf:{def:3}}],
+ paladin:[{nm:'보어 축복의 망치',fx:'🔨',cost:3,dmg:2,cleanse:1},{nm:'성스러운 일격',fx:'⚔️',cost:1,dmg:1,buf:{atk:2}},{nm:'수호의 맹세',fx:'🙏',cost:2,dmg:0,buf:{def:3},heal:.1},{nm:'정의의 낙인',fx:'🎯',cost:2,dmg:0,deb:{vuln:3}},{nm:'빛의 사슬',fx:'⛓️',cost:2,dmg:1,deb:{stun:1}},{nm:'응징',fx:'⚡',cost:1,dmg:1,deb:{weak:2}}],
+ dealer:[{nm:'목적어 관통 화살',fx:'🏹',cost:3,dmg:2},{nm:'연속 사격',fx:'🏹',cost:2,dmg:1.5},{nm:'약점 조준',fx:'🎯',cost:2,dmg:0,deb:{vuln:3}},{nm:'마비 화살',fx:'💫',cost:2,dmg:1,deb:{stun:1}},{nm:'독 묻힌 화살',fx:'☠️',cost:1,dmg:1,deb:{weak:2}},{nm:'사냥꾼의 집중',fx:'👁️',cost:2,dmg:0,buf:{atk:3}}],
+ shaman:[{nm:'목적격보어 대주술',fx:'🔮',cost:3,dmg:2,cleanse:1},{nm:'약화의 저주',fx:'🌀',cost:2,dmg:0,deb:{weak:3}},{nm:'영혼 결속',fx:'👻',cost:2,dmg:0,buf:{atk:3}},{nm:'저주 낙인',fx:'🔯',cost:1,dmg:1,deb:{vuln:2}},{nm:'정령의 춤',fx:'🍃',cost:1,dmg:1,buf:{eva:2}},{nm:'혼란의 주문',fx:'😵‍💫',cost:2,dmg:1,deb:{stun:1}}],
+ trader:[{nm:'간접목적어 황금 폭탄',fx:'💰',cost:3,dmg:2},{nm:'매수 공작',fx:'💸',cost:2,dmg:0,deb:{stun:1,weak:2}},{nm:'행운의 동전',fx:'🪙',cost:2,dmg:0,buf:{eva:3}},{nm:'거래 성사',fx:'🤝',cost:1,dmg:1,buf:{atk:2}},{nm:'가격 흥정',fx:'🏷️',cost:1,dmg:1,deb:{vuln:2}},{nm:'보급 상자',fx:'📦',cost:2,dmg:0,buf:{atk:2,def:2}}],
+ item:[{nm:'직접목적어 보물 대폭발',fx:'💎',cost:3,dmg:2},{nm:'폭죽',fx:'🎆',cost:1,dmg:1,deb:{weak:2}},{nm:'보물 부적',fx:'🧿',cost:2,dmg:0,buf:{def:3}},{nm:'섬광탄',fx:'📸',cost:2,dmg:1,deb:{stun:1}},{nm:'강화 물약',fx:'🧪',cost:2,dmg:0,buf:{atk:3}},{nm:'깨지는 유물',fx:'🏺',cost:1,dmg:1,deb:{vuln:2}}],
+ pet:[{nm:'수식어 냥냥 펀치',fx:'🐾',cost:3,dmg:2},{nm:'할퀴기',fx:'🐱',cost:1,dmg:1,deb:{weak:2}},{nm:'응원의 야옹',fx:'📢',cost:2,dmg:0,buf:{atk:3}},{nm:'몸 비비기',fx:'💞',cost:1,dmg:1,buf:{eva:2}},{nm:'깜짝 점프',fx:'🙀',cost:2,dmg:1,deb:{stun:1}},{nm:'털 세우기',fx:'😾',cost:2,dmg:0,deb:{weak:3}}]
+};
+function curSk(){const R=G.rp;return (SK[R.skk]||SK.tank)[R.ski||0];}
+function skDesc(s){const a=[];if(s.dmg>1)a.push('강타 ×'+s.dmg);else if(s.dmg===1)a.push('공격');
+ if(s.heal)a.push('파티 HP '+Math.round(s.heal*100)+'% 회복');if(s.cleanse)a.push('정화');
+ if(s.buf)Object.keys(s.buf).forEach(k=>a.push('파티 '+BUF[k].nm+' '+s.buf[k]+'턴'));
+ if(s.deb)Object.keys(s.deb).forEach(k=>a.push('적 '+EDB[k].nm+' '+s.deb[k]+'턴'));return a.join(' + ');}
+function skApply(sk){const R=G.rp,en=R.en[R.ei],m=[];
+ if(sk.buf)Object.keys(sk.buf).forEach(k=>{R.buf=R.buf||{};R.buf[k]=Math.max(R.buf[k]||0,sk.buf[k]);m.push(BUF[k].ic+BUF[k].nm+'('+sk.buf[k]+'턴)');});
+ if(sk.deb)Object.keys(sk.deb).forEach(k=>{if(k==='stun'&&en.boss&&Math.random()<.5){m.push('😵 기절은 저항당했다');return;}R.edb=R.edb||{};R.edb[k]=Math.max(R.edb[k]||0,sk.deb[k]);m.push(EDB[k].ic+EDB[k].nm+'('+sk.deb[k]+'턴)');});
+ return m;}
+function stChips(o,T,pre){const ks=Object.keys(o||{});return ks.length?`<div class="debs">${ks.map(k=>`<span class="debc ${pre}" title="${T[k].d}">${T[k].ic}${T[k].nm} ${o[k]}</span>`).join('')}</div>`:'';}
+function skillPicker(){const R=G.rp;
+ if(R.choosing===2&&R.skm){const k=R.skm,S=SKILL[k];
+  return `<span class="qtype">✨ 스킬 · ${skillWho(k)}</span><div class="story"><b>어떤 스킬을 쓸까?</b> 게이지 <b>${R.gauge}/3</b> · ◆ 만큼 소모해요. 문제를 맞히면 발동! (◆◆ 이상은 어려운 문제)</div>
+  <div class="skgrid sk3">${SK[k].map((s,i)=>`<button class="skbtn skill" data-sk3="${i}" ${s.cost>R.gauge?'disabled':''} style="--c:${S.col}"><div><b>${s.fx} ${s.nm}</b><span>${skDesc(s)}</span></div><em class="skcost">${'◆'.repeat(s.cost)}</em></button>`).join('')}</div>
+  <button class="btn-s" id="skback">↩ 동료 다시 고르기</button> <button class="btn-s" id="skcancel">나중에 쓰기</button>`;}
+ const ks=['tank'].concat(G.mates.filter(k=>k!=='tank')).concat(['pet']);
+ return `<span class="qtype">✨ 스킬</span><div class="story"><b>누구의 스킬을 쓸까?</b> 동료마다 스킬 6가지! 공격·버프·디버프·회복을 상황에 맞게 골라 보세요. (게이지 ${R.gauge}/3)</div>
+ <div class="skgrid">${ks.map(k=>`<button class="skbtn" data-sk2="${k}" style="--c:${SKILL[k].col}">${k==='pet'?petc():sp(k)}<div><b>${skillWho(k)}</b><span>${SKILL[k].fx} 스킬 6종</span></div></button>`).join('')}</div>
  <button class="btn-s" id="skcancel">↩ 나중에 쓰기</button>`;}
-function spFx(k,dmg){const ar=$('arena');if(!ar)return;const S=SKILL[k]||SKILL.tank;
+function spFx(k,dmg){const ar=$('arena');if(!ar)return;let S=SKILL[k]||SKILL.tank;try{if(G.rp&&G.rp.special){const c=curSk();S=Object.assign({},S,{nm:c.nm,fx:c.fx});}}catch(e){}
  const o=document.createElement('div');o.className='spburst';o.style.setProperty('--c',S.col);
  let p='';for(let i=0;i<18;i++){const a=i/18*Math.PI*2,r=90+Math.random()*90;p+=`<i style="--x:${Math.cos(a)*r}px;--y:${Math.sin(a)*r*0.6}px;animation-delay:${Math.random()*0.15}s">${S.fx}</i>`;}
  o.innerHTML=`<div class="ring"></div><div class="ring r2"></div>${p}<div class="spname">「${S.nm}」</div>`;ar.appendChild(o);
@@ -2224,18 +2253,21 @@ function rpgNextQ(){const R=G.rp,e=R.en[R.ei];if(!R.pool.length)R.pool=rpgPool(G
  const q=Object.assign({},takeFresh(R.pool));q.mname=e.mname;q.boss=false;q.talk=R.talked?'':e.talk;R.talked=true;
  q.prompt=q.type==='build'?'⚔️ 내 턴! 문장 조각마다 성분을 배치해 공격하자.':q.type==='pet'?'⚔️ 내 턴! 수식어(펫)만 떼어 내고 공격하자.':q.type==='choose'&&!q.qlab?'⚔️ 내 턴! 빈칸에 알맞은 말을 골라 공격하자.':q.prompt;
  if(!q.talk&&q.type==='deploy')q.talk=e.taunt||'받아라!';R.q=q;markSeen(q);R.special=false;G.done=false;G.b=null;G.pick=null;G.sel=null;G.first=true;}
+function rpgToDef(){const R=G.rp,en=R.en[R.ei];
+ if(R.edb&&R.edb.stun>0){const pm=tickDeb(R);R.phase='atk';rpgNextQ();render();setTimeout(()=>{const a=$('arena');if(a){const d=document.createElement('div');d.className='rtoast';d.innerHTML=`😵 ${en.mname}은(는) 기절해서 움직이지 못했다!`+(pm?'<br>'+pm:'');a.appendChild(d);}},50);return;}
+ R.phase='def';R.dq=makeDodge();R.t0=Date.now();render();}
 function rpgHardQ(){const lv=SV.level;SV.level='expert';let r=[];try{for(let t=0;t<2;t++)r=r.concat(genRun(G.dg).filter(e=>e.type!=='judge'));}finally{SV.level=lv;}
  let cand=r.filter(e=>(e.type==='build'||e.type==='trait'||e.type==='deploy')&&!isRecent(e));if(!cand.length)cand=r.filter(e=>!isRecent(e));if(!cand.length)cand=r;
  cand.sort((a,b)=>b.c.length-a.c.length);const top=cand.slice(0,Math.min(4,cand.length));const q=Object.assign({},pick(top));
- const en0=G.rp.en[G.rp.ei];markSeen(q);q.mname=en0.mname;q.boss=false;q.talk=q.type==='deploy'?'필살기라고? 받아 주마!':'';if(q.type==='build')q.prompt='💥 필살기! 가장 어려운 문장이다. 성분을 모두 맞히면 데미지 2배!';return q;}
+ const en0=G.rp.en[G.rp.ei];markSeen(q);q.mname=en0.mname;q.boss=false;q.talk=q.type==='deploy'?'스킬이라고? 받아 주마!':'';if(q.type==='build')q.prompt='✨ 스킬! 가장 어려운 문장이다. 성분을 모두 맞히면 스킬 발동!';return q;}
 function hpbar(cur,max,cls){const p=Math.max(0,Math.round(cur/max*100));return `<div class="rhp ${cls||''}"><div style="width:${p}%"></div><span>${Math.max(0,cur)} / ${max}</span></div>`;}
 function rbattle(){
  const R=G.rp,e=R.en[R.ei],st=pstats();
- $('app').innerHTML=hud(`<span class="mut">${G.dg.name} · 적 ${R.ei+1}/${R.en.length}</span><span class="gauge" title="필살기 게이지">💥${'■'.repeat(R.gauge)}${'□'.repeat(3-R.gauge)}</span><button class="btn-s" id="rsaveout">💾 저장하고 나가기</button><button class="btn-s" id="rquit">🏳️ 포기</button>${G.dev?'<span class="devbar"><button class="btn-s" id="rkill">⏭ 적 처치</button><button class="btn-s" id="rgauge">💥 게이지</button><button class="btn-s" id="rheal">❤️ 회복</button><button class="btn-s" id="rlow">🪦 HP 1</button><button class="btn-s" id="rwin">🏆 즉시 클리어</button></span>':''}`)+`
+ $('app').innerHTML=hud(`<span class="mut">${G.dg.name} · 적 ${R.ei+1}/${R.en.length}</span><span class="gauge" title="스킬 게이지">✨${'■'.repeat(R.gauge)}${'□'.repeat(3-R.gauge)}</span><button class="btn-s" id="rsaveout">💾 저장하고 나가기</button><button class="btn-s" id="rquit">🏳️ 포기</button>${G.dev?'<span class="devbar"><button class="btn-s" id="rkill">⏭ 적 처치</button><button class="btn-s" id="rgauge">💥 게이지</button><button class="btn-s" id="rheal">❤️ 회복</button><button class="btn-s" id="rlow">🪦 HP 1</button><button class="btn-s" id="rwin">🏆 즉시 클리어</button></span>':''}`)+`
  <div class="arena ${G.dg.id}" id="arena"><div class="ground"></div>
- <div class="pname">${esc(G.name)} <small>(${HWORD[rhero()]})</small> ${hpbar(R.php,R.pmax,'me')}${debChips(R.deb)}</div>
+ <div class="pname">${esc(G.name)} <small>(${HWORD[rhero()]})</small> ${hpbar(R.php,R.pmax,'me')}${debChips(R.deb)}${stChips(R.buf,BUF,'bufc')}</div>
  ${(()=>{const h=rhero();const ms=(h==='tank'?[]:['tank']).concat(G.mates.filter(k=>k!==h&&k!=='tank'));const F=fmtParty([h].concat(ms),k=>k===h?sp(heroSpr(h,eqSkin(h)),'heroc'):sp(k),petRow('pet'),G.dg&&G.dg.full&&G.mates.length>=4);return `<div class="party ${G.dg&&G.dg.full&&G.mates.length>=4?'fullp':''}${G.dg&&G.dg.id==='d4'&&e.boss?' bigp':''}" id="pty" style="--nc:${F.nc}">${F.html}</div>`;})()}
- <div class="mname">${e.boss?'👑 ':''}${e.mname}${hpbar(e.hp,e.max,'en')}</div>
+ <div class="mname">${e.boss?'👑 ':''}${e.mname}${hpbar(e.hp,e.max,'en')}${stChips(R.edb,EDB,'edbc')}</div>
  <div class="monster ${e.boss?'boss':''}" id="mon">${monHTML(e)}</div></div>
  <div class="card" id="qc">${rpgBody()}</div>`;
  if(R.special&&!G.done){const ar=$('arena'),S=SKILL[R.skk]||SKILL.tank;ar.classList.add('spmode');ar.style.setProperty('--c',S.col);}
@@ -2257,8 +2289,8 @@ function rpgBody(){const R=G.rp;
   let h='';
   if(R.phase==='atk'&&R.choosing)return skillPicker();
   if(R.phase==='atk'&&!G.done&&!R.special&&R.php<R.pmax&&(R.hl||0)<3)h+=`<button class="healbtn" id="hlbtn">💚 회복 <small>(HP +${rpgHealAmt()} · 이번 전투 ${3-(R.hl||0)}회 남음 · 이번 턴 공격 대신 사용)</small></button>`;
-  if(R.phase==='atk'&&!G.done&&R.gauge>=3&&!R.special&&!(R.deb&&R.deb.silence))h+=`<button class="special" id="spbtn">💥 필살기 발동! <small>(동료를 골라 어려운 문제에 도전 · 맞히면 데미지 2배)</small></button>`;
-  if(R.special&&!G.done){const S=SKILL[R.skk]||SKILL.tank;h+=`<div class="sptag" style="--c:${S.col}">${S.fx} <b>${skillWho(R.skk)}</b>의 필살기 「${S.nm}」 준비 완료! 이 문제를 맞히면 데미지 <b>2배</b>, 틀리면 빗나가요.</div>`;}
+  if(R.phase==='atk'&&!G.done&&R.gauge>=1&&!R.special&&!(R.deb&&R.deb.silence))h+=`<button class="special" id="spbtn">✨ 스킬 사용 <small>(게이지 ${R.gauge}/3 · 동료와 스킬을 골라요)</small></button>`;
+  if(R.special&&!G.done){const S=SKILL[R.skk]||SKILL.tank,K=curSk();h+=`<div class="sptag" style="--c:${S.col}">${K.fx} <b>${skillWho(R.skk)}</b>의 「${K.nm}」 준비 완료! 이 문제를 맞히면 <b>${skDesc(K)}</b>, 틀리면 빗나가요.</div>`;}
   return h+qbody(R.q);}
  if(R.phase==='def'||R.phase==='defres')return rpgDefBody();
  return '';}
@@ -2269,14 +2301,17 @@ function rpgAfterAtk(e){const R=G.rp,ok=G.pick==='ok',en=R.en[R.ei];
  h+= en.hp<=0?`<button class="next" id="rnx">${R.ei<R.en.length-1?'다음 적 ▶':'🏆 결과 보기'}</button>`:`<button class="next" id="rnx">🛡️ 적의 턴 ▶</button>`;
  return h;}
 function rpgBind(){const R=G.rp;bubbleSync();
- if(R.phase==='atkres'&&R.hres){const n=$('rnx');if(n)n.onclick=()=>{R.hres=null;R.phase='def';R.dq=makeDodge();R.t0=Date.now();render();};return;}
+ if(R.phase==='atkres'&&R.hres){const n=$('rnx');if(n)n.onclick=()=>{R.hres=null;rpgToDef();};return;}
  const hb=$('hlbtn');if(hb)hb.onclick=rpgHeal;
  const hc=$('hlcancel');if(hc)hc.onclick=()=>{R.healing=false;sfx('click');render();};
- const sb=$('spbtn');if(sb)sb.onclick=()=>{R.choosing=true;sfx('select');$('qc').innerHTML=rpgBody();fill($('qc'));rpgBind();};
- if(R.choosing&&R.phase==='atk'&&$('skcancel')){document.querySelectorAll('[data-sk2]').forEach(b=>b.onclick=()=>{const k=b.dataset.sk2;R.choosing=false;R.skk=k;const S=SKILL[k];
-   cutin(k,()=>{R.special=true;R.gauge=0;R.q=rpgHardQ();G.b=null;G.sel=null;render();const ar=$('arena');if(ar){ar.classList.add('spmode');ar.style.setProperty('--c',S.col);}},{who:skillWho(k),skill:S.nm,q:S.q});});
-  $('skcancel').onclick=()=>{R.choosing=false;sfx('click');$('qc').innerHTML=rpgBody();fill($('qc'));rpgBind();};return;}
- if(R.phase==='atk'||R.phase==='atkres'){bindQ(R.q);if(G.done){const n=$('rnx');if(n)n.onclick=()=>{const en=R.en[R.ei];if(en.hp<=0)rpgKill();else{R.phase='def';R.dq=makeDodge();R.t0=Date.now();render();}};}}
+ const sb=$('spbtn');if(sb)sb.onclick=()=>{R.choosing=1;sfx('select');$('qc').innerHTML=rpgBody();fill($('qc'));rpgBind();};
+ if(R.choosing&&R.phase==='atk'&&$('skcancel')){const rr=()=>{$('qc').innerHTML=rpgBody();fill($('qc'));rpgBind();};
+  document.querySelectorAll('[data-sk2]').forEach(b=>b.onclick=()=>{R.skm=b.dataset.sk2;R.choosing=2;sfx('select');rr();});
+  const bk=$('skback');if(bk)bk.onclick=()=>{R.choosing=1;sfx('click');rr();};
+  document.querySelectorAll('[data-sk3]').forEach(b=>b.onclick=()=>{const k=R.skm,i=+b.dataset.sk3,sk=SK[k][i];if(sk.cost>R.gauge)return;R.choosing=false;R.skk=k;R.ski=i;R.gauge-=sk.cost;const S=SKILL[k];
+   cutin(k,()=>{R.special=true;if(sk.cost>=2)R.q=rpgHardQ();G.b=null;G.sel=null;render();const ar=$('arena');if(ar){ar.classList.add('spmode');ar.style.setProperty('--c',S.col);}},{who:skillWho(k),skill:sk.nm,q:i===0?S.q:sk.fx+' '+sk.nm+'! 받아라!',lab:'✨ 스킬'});});
+  $('skcancel').onclick=()=>{R.choosing=false;sfx('click');rr();};return;}
+ if(R.phase==='atk'||R.phase==='atkres'){bindQ(R.q);if(G.done){const n=$('rnx');if(n)n.onclick=()=>{const en=R.en[R.ei];if(en.hp<=0)rpgKill();else rpgToDef();};}}
  else rpgDefBind();
 }
 function rpgResolve(e,ok){const R=G.rp,en=R.en[R.ei],st=pstats(),D=R.deb||{};
@@ -2286,12 +2321,16 @@ function rpgResolve(e,ok){const R=G.rp,en=R.en[R.ei],st=pstats(),D=R.deb||{};
   setTimeout(()=>{render();if(ok)try{healFx($('arena'),$('pty'),R.hres.n);}catch(e){}},ok?250:350);setTimeout(rpgSaveRun,700);return;}
  G.done=true;G.pick=ok?'ok':'no';R.phase='atkres';R.choosing=false;setTimeout(rpgSaveRun,700);
  const pty=$('pty'),mon=$('mon'),ar=$('arena');
- if(ok){const atkr=atkPick($('pty'),R.special?R.skk:null);let dmg=Math.round(st.atk*(0.9+Math.random()*0.2)*(D.weak?0.6:1));const crit=R.special;if(crit){dmg*=2;R.deb={};}en.hp=Math.max(0,en.hp-dmg);if(!crit&&!D.silence)R.gauge=Math.min(3,R.gauge+1);
-  if(crit)setTimeout(()=>spFx(R.skk,dmg),200);
-  R.log=`${crit?'💥 필살기 「'+(SKILL[R.skk]||SKILL.tank).nm+'」 대성공! (디버프 정화) ':'⚔️ <b>'+esc(atkr.name)+'</b>의 공격! '}${D.weak&&!crit?'💔(약화) ':''}${en.mname}에게 <b>${dmg}</b>의 피해를 입혔다!`+(en.hp<=0?' 격파!':'')+(R.gauge>=3&&en.hp>0?' <span class="hint">💥 필살기 준비 완료!</span>':'');
-  sfx('slash');atkFx(pty,mon,ar,{crit,who:atkr.el});setTimeout(()=>{sfx(crit?'crit':'hit');mon.classList.add('hit');const d=document.createElement('div');d.className='dmg'+(crit?' bigdmg':'');d.textContent=(crit?'CRITICAL ':'')+'-'+dmg;ar.appendChild(d);},220);
+ if(ok){const S=R.special?curSk():null,hasDmg=!S||S.dmg>0,B=R.buf||{},E=R.edb||{},atkr=atkPick($('pty'),R.special?R.skk:null);let dmg=0,extra=[];const crit=!!(S&&S.dmg>=2);
+  if(hasDmg){dmg=Math.round(st.atk*(0.9+Math.random()*0.2)*(D.weak?0.6:1)*(S?S.dmg:1)*(B.atk?1.3:1)*(E.vuln?1.3:1));en.hp=Math.max(0,en.hp-dmg);}
+  if(S&&S.cleanse){R.deb={};extra.push('✨ 상태 이상 정화');}
+  if(!S&&!D.silence)R.gauge=Math.min(3,R.gauge+1);
+  if(S){if(S.heal){const n=Math.min(Math.round(R.pmax*S.heal),R.pmax-R.php);R.php+=n;extra.push('💚 파티 HP +'+n);setTimeout(()=>{try{healFx($('arena'),$('pty'),n);}catch(e){}},500);}
+   extra=extra.concat(skApply(S));setTimeout(()=>spFx(R.skk,dmg),200);}
+  R.log=(S?`✨ <b>${skillWho(R.skk)}</b>의 「${S.nm}」 발동! `:`⚔️ <b>${esc(atkr.name)}</b>의 공격! `)+(D.weak&&hasDmg?'💔(약화) ':'')+(hasDmg?`${en.mname}에게 <b>${dmg}</b>의 피해를 입혔다!`+(en.hp<=0?' 격파!':''):'')+(extra.length?'<br>'+extra.join(' · '):'')+(!S&&R.gauge>=1&&en.hp>0?' <span class="hint">✨ 스킬 사용 가능!</span>':'');
+  sfx(hasDmg?'slash':'formed');if(hasDmg){atkFx(pty,mon,ar,{crit,who:atkr.el});setTimeout(()=>{sfx(crit?'crit':'hit');mon.classList.add('hit');const d=document.createElement('div');d.className='dmg'+(crit?' bigdmg':'');d.textContent=(crit?'CRITICAL ':'')+'-'+dmg;ar.appendChild(d);},220);}
   if(en.hp<=0)setTimeout(()=>{mon.classList.add('dead2');sfx('kill');},800);
- }else{atkMiss();if(R.special){const ar=$('arena');if(ar)ar.classList.remove('spmode');}R.log=(R.special?'💥 필살기 실패… 기술이 빗나갔다! ':'💨 공격이 빗나갔다! ')+`${en.mname}은(는) 멀쩡하다.`;sfx('wrong');$('qc').classList.add('shake');}
+ }else{atkMiss();if(R.special){const ar=$('arena');if(ar)ar.classList.remove('spmode');}R.log=(R.special?'✨ 스킬 실패… 기술이 빗나갔다! ':'💨 공격이 빗나갔다! ')+`${en.mname}은(는) 멀쩡하다.`;sfx('wrong');$('qc').classList.add('shake');}
  setTimeout(()=>{$('qc').innerHTML=rpgBody();fill($('qc'));rpgBind();const eb=document.querySelector('.mname .rhp');if(eb)eb.outerHTML=hpbar(en.hp,en.max,'en');},ok?650:250);
 }
 /* 디버프 */
@@ -2303,8 +2342,9 @@ const MDEB={slime:['poison'],slimes:['poison'],qslime:['poison'],flask:['poison'
  efire:['poison'],ewater:['slow'],ewind:['confuse'],eearth:['armorbreak'],elight:['fog'],demonking:['silence','confuse','weak','fog']};
 function debOf(mon){return MDEB[mon]||Object.keys(DEBUFF);}
 function addDeb(R,k){R.deb=R.deb||{};R.deb[k]=Math.max(R.deb[k]||0,DEBUFF[k].t);return `<span class="debhit">${DEBUFF[k].ic} <b>${DEBUFF[k].nm}</b>에 걸렸다! <small>(${DEBUFF[k].d} · ${DEBUFF[k].t}턴)</small></span>`;}
-function tickDeb(R){if(!R.deb)return '';let msg='';if(R.deb.poison){const d=Math.max(1,Math.round(R.pmax*0.06));const before=R.php;R.php=Math.max(1,R.php-d);msg=`☠️ 독 피해 -${before-R.php}`;}
+function tickDeb(R){tickSt(R);if(!R.deb)return '';let msg='';if(R.deb.poison){const d=Math.max(1,Math.round(R.pmax*0.06));const before=R.php;R.php=Math.max(1,R.php-d);msg=`☠️ 독 피해 -${before-R.php}`;}
  Object.keys(R.deb).forEach(k=>{R.deb[k]--;if(R.deb[k]<=0)delete R.deb[k];});return msg;}
+function tickSt(R){['buf','edb'].forEach(n=>{const o=R[n];if(!o)return;Object.keys(o).forEach(k=>{o[k]--;if(o[k]<=0)delete o[k];});});}
 function debChips(D){D=D||{};const ks=Object.keys(D);return ks.length?`<div class="debs">${ks.map(k=>`<span class="debc" title="${DEBUFF[k].d}">${DEBUFF[k].ic}${DEBUFF[k].nm} ${D[k]}</span>`).join('')}</div>`:'';}
 /* 회피 문제 */
 const DROLES=['S','V','C','O','IO','DO','OC','M'];
@@ -2329,8 +2369,8 @@ function rpgDefBind(){const R=G.rp;bubbleSync();
  if(R.phase==='def'){document.querySelectorAll('[data-d]').forEach(b=>b.onclick=()=>rpgDodge(+b.dataset.d));return;}
  const n=$('rdn');if(n)n.onclick=()=>{if(R.php<=0){rpgLose(false);return;}const pm=tickDeb(R);R.phase='atk';rpgNextQ();render();if(pm)setTimeout(()=>{const a=$('arena');if(a){const d=document.createElement('div');d.className='rtoast';d.innerHTML=pm;a.appendChild(d);}},50);};}
 function rpgDodge(i){const R=G.rp,q=R.dq,en=R.en[R.ei],st=pstats(),D=R.deb||{};q.pick=i;q.ok=i===q.ans;const fast=q.ok&&!D.slow&&Date.now()-R.t0<6000;
- const ch=Math.min(90,(D.slow?st.eva/2:st.eva)+(q.ok?(D.slow?25:45):0)+(fast?10:0));if(D.armorbreak)st.def=0;const roll=Math.random()*100;
- let dmg=Math.max(1,Math.round(en.atk*(0.9+Math.random()*0.2))-st.def);let msg;const pty=$('pty'),mon=$('mon');
+ const ch=Math.min(90,(D.slow?st.eva/2:st.eva)+(q.ok?(D.slow?25:45):0)+(fast?10:0)+((R.buf&&R.buf.eva)?20:0));if(D.armorbreak)st.def=0;const roll=Math.random()*100;
+ let dmg=Math.max(1,Math.round(en.atk*(0.9+Math.random()*0.2))-st.def);if(R.buf&&R.buf.def)dmg=Math.max(1,Math.round(dmg*.65));if(R.edb&&R.edb.weak)dmg=Math.max(1,Math.round(dmg*.65));let msg;const pty=$('pty'),mon=$('mon');
  mon.classList.add('matk');
  if(roll<ch){dmg=0;msg=q.ok?(fast?'⚡ 번개 같은 회피! 공격을 완벽히 피했다!':'💨 회피 성공! 공격을 피했다!'):'🍀 운 좋게 피했다!';sfx('retreat');}
  else if(q.ok){const d0=dmg;dmg=Math.max(1,Math.round(dmg/2));msg=`😖 회피에 실패했다.<br>🔰 방어에 성공해서 피해 <b>${d0}</b>${njosa(d0,'을')} <b>${dmg}</b>${njosa(dmg,'로')} 줄였다.`;sfx('hit');pty.classList.add('shake');}
@@ -2342,7 +2382,7 @@ function rpgKill(){const R=G.rp;if(R.ei>=R.en.length-1&&R.wr&&R.wr.length&&!R.rv
  const en=R.en[R.ei],i=RT[G.dg.id];const gp=(HPERK[rhero()].gold||1),g=Math.round(bonusG(rgoldOf(i,en.boss))*gp),c=rpgKillC(en);
  SV.rg+=g;SV.cry+=c;R.gold+=g;R.cry+=c;saveNow();sfx('coins');
  if(R.ei>=R.en.length-1){const first=!SV.rcleared.includes(G.dg.id);const bg=R.rvskip?0:bonusG(rgoldOf(i,true)),bc=R.rvskip?0:rpgClearC();SV.rg+=bg;SV.cry+=bc;R.gold+=bg;R.cry+=bc;if(first)SV.rcleared.push(G.dg.id);G.stoneMsg=[];grantStone('dg:'+G.dg.id,1,esc(G.dg.name)+' 첫 클리어');saveNow();R.win=true;R.first=first;G.scr='rresult';render();return;}
- R.ei++;R.hl=0;R.healing=false;R.talked=false;R.phase='atk';R.deb={};R.toast=`💰 +${g} · 💎 +${c}`;rpgNextQ();render();
+ R.ei++;R.hl=0;R.healing=false;R.talked=false;R.phase='atk';R.deb={};R.edb={};R.toast=`💰 +${g} · 💎 +${c}`;rpgNextQ();render();
  setTimeout(()=>{const a=$('arena');if(a&&R.toast){const d=document.createElement('div');d.className='rtoast';d.innerHTML=R.toast;a.appendChild(d);R.toast=null;}},50);}
 function rpgLose(quit){const R=G.rp,lost=Math.floor(R.gold/2);SV.rg=Math.max(0,SV.rg-lost);saveNow();R.win=false;R.lost=lost;R.quit=quit;G.scr='rresult';render();}
 function rresult(){const R=G.rp,d=G.dg;rpgClearRun();
@@ -3250,7 +3290,7 @@ cutin=function(k,cb,opt){
  if(!opt||!SPCUT[k])return _c(k,cb,opt);
  const S=SKILL[k]||{col:'#ffd85a'},cc=CUT[k]||{};
  $('layer').innerHTML=`<div class="ov spov spx" id="ov"><div class="stage sp2" style="--c:${S.col}"><img class="spimg" alt="" src="${Array.isArray(SPCUT[k])?SPCUT[k][Math.floor(Math.random()*SPCUT[k].length)]:SPCUT[k]}"><div class="spshade"></div><div class="spline"></div>
- <div class="ctxt2"><div class="cnm ol3">${opt.who}</div><div class="crole ol2">💥 필살기 「${opt.skill}」</div><div class="cq ol2">"${opt.q}"</div></div>
+ <div class="ctxt2"><div class="cnm ol3">${opt.who}</div><div class="crole ol2">${opt.lab||'💥 필살기'} 「${opt.skill}」</div><div class="cq ol2">"${opt.q}"</div></div>
  <div class="flash" style="background:${S.col}"></div><div class="cskip">클릭하면 넘어갑니다</div></div></div>`;
  sfx('whoosh');if(cc.s)sfx(cc.s);
  let done=false;const end=()=>{if(done)return;done=true;$('layer').innerHTML='';cb&&cb();};

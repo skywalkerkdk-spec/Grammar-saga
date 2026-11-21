@@ -837,6 +837,27 @@ canvas.px[data-src="SPR"][data-k="shaman"],canvas.px[data-src="SPR"][data-k^="cs
 .qrbox{margin:10px auto 2px;text-align:center}
 .qrbox .qrsvg{display:block;margin:0 auto 4px;border-radius:10px;background:#fff;max-width:100%;height:auto}
 
+.stonechip{background:#3a2c58;color:#ffd85a;border-radius:10px;padding:2px 8px;font-weight:900;margin-left:6px}
+.stonegain{margin:10px 0;padding:10px 12px;border:2px solid #ffd85a;border-radius:12px;background:rgba(255,216,90,.1);font-weight:700;text-align:left}
+.enhbox{margin:10px 0 14px;padding:12px;border:2px solid #c88a3a;border-radius:14px;background:linear-gradient(180deg,rgba(200,138,58,.16),rgba(60,30,10,.25))}
+.enhbox .eh{font-family:'Black Han Sans',sans-serif;font-size:19px;display:flex;justify-content:space-between;align-items:center;gap:8px}
+.enhbox .est{font-size:14px;color:#ffd85a}
+.enhbox .ew{display:flex;gap:12px;align-items:center;margin:8px 0}
+.enhbox .plus{color:#ffd85a}
+.eladder{display:flex;gap:4px;flex-wrap:wrap;margin:6px 0}
+.eladder .el{flex:0 0 calc(20% - 4px);text-align:center;font-size:12px;font-weight:900;padding:3px 0;border-radius:8px;background:#2a2036;opacity:.6}
+.eladder .el small{display:block;font-size:10px;font-weight:700}
+.eladder .el.on{background:#7a4a14;opacity:1;color:#ffe9a6}
+.eladder .el.nx{outline:2px solid #ffd85a;opacity:1}
+.eres{margin:8px 0;padding:10px;border-radius:12px;text-align:center;font-size:18px;font-weight:900}
+.eres small{display:block;font-size:12px;font-weight:700;opacity:.9;margin-top:2px}
+.eres.busy{background:#3a2a18;animation:ehamm .38s ease-in-out infinite}
+.eres.ok{background:linear-gradient(90deg,#7a5a00,#c89b00,#7a5a00);color:#fff6c8;animation:eglow 1s ease-out}
+.eres.no{background:#4a1c24;color:#ffc2c2;animation:eshk .5s}
+@keyframes ehamm{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px) rotate(-1.5deg)}}
+@keyframes eglow{0%{box-shadow:0 0 0 0 #ffe27a;transform:scale(.9)}40%{box-shadow:0 0 30px 10px #ffe27a;transform:scale(1.06)}100%{box-shadow:0 0 0 0 transparent;transform:scale(1)}}
+@keyframes eshk{0%,100%{transform:translateX(0)}20%{transform:translateX(-8px)}40%{transform:translateX(8px)}60%{transform:translateX(-5px)}80%{transform:translateX(5px)}}
+
 </style>
 </head>
 <body>
@@ -1357,7 +1378,7 @@ function openGuide(){
  <button class="next" onclick="$('layer').innerHTML=''">닫기</button></div></div>`;
  fill($('layer'));$('mbg').onclick=e=>{if(e.target.id==='mbg')$('layer').innerHTML='';};
 }
-function hud(extra){return `<div class="hud"><span class="nm">${SV.hero==='druid'?'🐻':'🛡️'} ${esc(G.name)}${SV.hero?` <small>(${HERO[SV.hero].slice(2)})</small>`:''}</span><span class="gold">💎 ${SV.cry}</span>${SV.mode==='rpg'&&rpgOpen()?`<span class="rgold">💰 ${SV.rg}</span>`:''}${G.started&&SV.level?`<span class="lvb">${LEVELS[LV()].ic} ${LEVELS[LV()].n}</span>`:''}${extra||''}<span class="sp"></span><button class="btn-s mute" onclick="toggleMute()">${AU.muted?'🔇 소리 꺼짐':'🔊 소리 켜짐'}</button><button class="btn-s" onclick="openGuide()">📖 도감</button></div>`;}
+function hud(extra){return `<div class="hud"><span class="nm">${SV.hero==='druid'?'🐻':'🛡️'} ${esc(G.name)}${SV.hero?` <small>(${HERO[SV.hero].slice(2)})</small>`:''}</span><span class="gold">💎 ${SV.cry}</span>${SV.stone>0?`<span class="stonechip">⚒️ ${SV.stone}</span>`:''}${SV.mode==='rpg'&&rpgOpen()?`<span class="rgold">💰 ${SV.rg}</span>`:''}${G.started&&SV.level?`<span class="lvb">${LEVELS[LV()].ic} ${LEVELS[LV()].n}</span>`:''}${extra||''}<span class="sp"></span><button class="btn-s mute" onclick="toggleMute()">${AU.muted?'🔇 소리 꺼짐':'🔊 소리 켜짐'}</button><button class="btn-s" onclick="openGuide()">📖 도감</button></div>`;}
 
 /* ---------- 화면 ---------- */
 function render(){window.scrollTo({top:0});applySkin();const f={splash,title,level,grave,ending,temple,intro,dsel,party,defeat,formed,battle,clear,shop,forge,rbattle,rresult,hsel:heroSel,news:newsPaper,pvp:pvLobby,pvbattle:pvBattle,pvres:pvRes,rdlobby:rdLobby,rdbattle:rdBattle}[G.scr];document.body.dataset.bg=G.scr==='splash'?'':(G.scr==='battle'||G.scr==='rbattle'||G.scr==='pvbattle'||G.scr==='rdbattle')?(G.dg.bg||G.dg.id):'guild';f();fill($('app'));syncBgm();}
@@ -1442,7 +1463,7 @@ function dsel(){G.rpg=false;if(SV.mode==='rpg'&&rpgOpen())return rpgDsel();
  $('app').innerHTML=hud()+`<div class="card"><div class="speaker">탱커의 결심</div>
  <div class="story">어느 던전에 도전할까? <b>파티 인원</b>은 던전마다 다르다. (펫은 인원에 포함되지 않음)</div>${modeTabs()}${dailyCard()}
  <button class="shopbtn" id="toshop">${petc('mini')}<div><b>🐾 길드 상점 (펫·스킨)</b><span>수정으로 펫·꾸미기·주인공 스킨을 사 보세요 · 보유 💎 ${SV.cry}</span></div></button>
- <div class="dtools"><button class="btn-s" id="tolv">${LEVELS[LV()].ic} 난이도: <b>${LEVELS[LV()].n}</b> (${LEVELS[LV()].sub}) · 바꾸기</button><button class="btn-s savebtn" id="dsave">💾 저장하기</button><button class="btn-s" id="tologin">👤 다른 계정으로 로그인</button></div>
+ <div class="dtools"><button class="btn-s" id="tolv">${LEVELS[LV()].ic} 난이도: <b>${LEVELS[LV()].n}</b> (${LEVELS[LV()].sub}) · 바꾸기</button><button class="btn-s" id="toforgeL">⚒️ 대장간 · 무기 강화${G.stoneBoot?` <small>(이전 기록에서 강화석 ${G.stoneBoot}개 지급!)</small>`:''}</button><button class="btn-s savebtn" id="dsave">💾 저장하기</button><button class="btn-s" id="tologin">👤 다른 계정으로 로그인</button></div>
  ${G.dev?devPanel():''}${G.toastSave?'<div class="feedback ok" style="margin:0 0 10px">💾 저장했어요! 다음에 같은 이름으로 들어오면 이어서 할 수 있어요.</div>':''}${resumeHTML()}
  ${shardBar()}<div class="dgrid">${DUNGEONS.filter(d=>!d.verbal&&!d.mix).map(d=>`<button class="dcard ${d.id==='d6'&&!dOpen(d)?'dlock':''}" ${dOpen(d)?'':'disabled'} data-id="${d.id}">
  <span class="size">${d.full?'풀파티 최종 던전':d.size+'인 '+(d.id==='d4'?'필드':'던전')}</span>${d.open?(d.id==='d6'&&!dOpen(d)?`<span class="lock">🔒 수정 조각 ${shardN()}/5</span>`:SV.cleared.includes(d.id)?'<span class="lock" style="color:var(--green)">✅ 클리어</span>':''):'<span class="lock">🔒 준비 중</span>'}
@@ -1450,6 +1471,7 @@ function dsel(){G.rpg=false;if(SV.mode==='rpg'&&rpgOpen())return rpgDsel();
  bindModeTabs();$('todaily').onclick=()=>{G.dg=DAILY;G.mates=DAILY.need.slice();G.pets=1;genRunDaily();sfx('select');G.scr='news';render();};
  $('toshop').onclick=()=>{G.scr='shop';G.toast=null;render();};
  $('tolv').onclick=()=>{G.scr='level';render();};
+ {const fb=$('toforgeL');if(fb)fb.onclick=()=>{G.stoneBoot=0;G.scr='forge';G.toast=null;G.enhRes=null;sfx('select');render();};}
  $('dsave').onclick=()=>{saveNow();sfx('select');G.toastSave=true;render();};
  $('tologin').onclick=()=>{saveNow();sfx('select');G.scr='title';render();};
  if(G.dev)bindDev();
@@ -1726,7 +1748,7 @@ function clear(){
  if(G.wrongs.length&&G.rvFor!==G.wrongs&&!G.rvm&&!G.dev){startReview(G.wrongs.map(w=>w.e),skip=>{G.rvFor=G.wrongs;if(skip)G.rvSkipFor=G.wrongs;G.scr='clear';render();});return;}
  const d=G.dg,rate=G.tot?Math.round(G.ok/G.tot*100):0;
  const first=!SV.cleared.includes(d.id);const bonus=Math.max(1,bonusC(Math.round(LEVELS[LV()].b*(first?1:.5))));
- const rvSk=G.rvSkipFor===G.wrongs;if(!G.clearPaid){if(!rvSk){SV.cry+=bonus;G.goldRun+=bonus;}if(first)SV.cleared.push(d.id);saveNow();G.clearPaid=true;}
+ const rvSk=G.rvSkipFor===G.wrongs;if(!G.clearPaid){if(!rvSk){SV.cry+=bonus;G.goldRun+=bonus;}if(first)SV.cleared.push(d.id);G.stoneMsg=[];stoneOnClear(d);saveNow();G.clearPaid=true;}
  let title,em;if(rate>=90){title='전설의 파티 리더';em='👑';}else if(rate>=70){title='믿음직한 탱커';em='🛡️';}else{title='성장 중인 견습 탱커';em='🌱';}
  $('app').innerHTML=hud()+`<div class="card">
  <div class="big-emoji">${em}</div><h2 class="tf" style="text-align:center;font-size:34px;margin:0;color:var(--gold)">${d.name} 클리어!</h2>
@@ -1737,7 +1759,7 @@ function clear(){
   <h3 style="margin-top:0">📜 모험 기록서</h3>
   <p>모험가: <b>${esc(G.name)}</b><br>던전: <b>${d.name}</b> (${FLAB(d)})<br>첫 시도 정답: <b>${G.ok} / ${G.tot} (${rate}%)</b> · 파티 전멸 <b>${G.fails}회</b> · 🪦 쓰러짐 <b>${G.deaths}회</b><br>획득 수정: <b>💎 ${G.goldRun}</b> ${rvSk?'(복습 건너뜀 · 클리어 보너스 없음)':G.wrongs.length?`(복습 완료 · 클리어 보너스 ${bonus} 포함)`:`(클리어 보너스 ${bonus} 포함)`} · 보유 <b>💎 ${SV.cry}</b></p></div>
   <div style="text-align:center">${petc('bigpet')}<div class="hint">${PETS[SV.pet].nm}</div></div></div>
-  ${noteHTML()}
+  ${stoneHTML()}${noteHTML()}
   <button class="next" id="copyn">📋 오답 노트 복사</button><span class="hint" id="copymsg" style="margin-left:10px"></span>
   <textarea id="notetxt" class="notetxt hide" readonly></textarea>
  </div>
@@ -1762,7 +1784,7 @@ function devPanel(){
  const D=DUNGEONS.map(d=>`<button class="btn-s" data-dj="${d.id}:0">${d.name}</button><button class="btn-s" data-dj="${d.id}:boss">👑 보스</button>`).join('');
  return `<div class="devp"><b>🛠️ 개발자 모드</b> <span class="hint">학생 화면에는 보이지 않아요</span>
  <div class="devrow"><button class="btn-s" data-dx="ending">🎬 엔딩 바로 보기</button><button class="btn-s" data-dx="dark">🌑 흑막 장면</button><button class="btn-s" data-dx="final">📜 마지막 화면</button></div>
- <div class="devrow"><button class="btn-s" data-dj="d6:sc">👑 사천왕부터</button><button class="btn-s" data-dj="d6:king">👿 마왕전 바로</button><button class="btn-s" data-dx="grave">🪦 묘지 테스트</button><button class="btn-s" data-dx="gold">💎💰 +1000</button></div>
+ <div class="devrow"><button class="btn-s" data-dj="d6:sc">👑 사천왕부터</button><button class="btn-s" data-dj="d6:king">👿 마왕전 바로</button><button class="btn-s" data-dx="grave">🪦 묘지 테스트</button><button class="btn-s" data-dx="gold">💎💰 +1000</button><button class="btn-s" data-dx="stone">⚒️ 강화석 +5</button></div>
  <div class="devrow">${D}</div></div>`;}
 function devStart(id){G.rpg=false;const d=DUNGEONS.find(x=>x.id===id);G.dg=d;G.mates=d.full?d.need.slice():d.need.slice();G.pets=1;G.run=genRun(d);G.hp=3;G.deaths=0;G.streak=0;G.ei=0;G.done=false;G.first=true;G.b=null;G.pick=null;G.ok=0;G.tot=0;G.wrongs=[];G.goldRun=0;G.clearPaid=false;}
 function bindDev(){
@@ -1770,6 +1792,7 @@ function bindDev(){
   if(m==='boss')G.ei=Math.max(0,G.run.findIndex(e=>e.boss));
   if(m==='sc')G.ei=4;if(m==='king')G.ei=G.run.length-3;G.scr='battle';render();});
  document.querySelectorAll('[data-dx]').forEach(b=>b.onclick=()=>{const x=b.dataset.dx;
+  if(x==='stone'){SV.stone=(SV.stone||0)+5;saveNow();render();return;}
   if(x==='gold'){SV.cry+=1000;SV.rg=(SV.rg||0)+1000;saveNow();render();return;}
   if(x==='grave'){devStart('d1');G.hp=1;G.scr='battle';render();return;}
   devStart('d6');G.ok=15;G.tot=15;G.scr='ending';G.endPhase=x==='ending'?'roll':x;render();});}
@@ -2040,7 +2063,8 @@ const GEAR={};
 const GPRICE=[0,100,250,500,900,1400,2000,2800,3800,5200];Object.values(GEAR).forEach(g=>g.price=GPRICE[g.t]);
 const GSLOT={sword:['⚔️ 칼','공격력'],armor:['🛡️ 갑옷','방어력·HP'],shield:['🔰 방패','회피율']};
 function gstat(g){return g.type==='sword'?`공격력 +${g.atk}`:g.type==='armor'?`방어력 +${g.def} · HP +${g.hp}`:`회피율 +${g.eva}%`;}
-function pstatsOf(g,c){const s=GEAR[g.sword]||GEAR.s0,a=GEAR[g.armor]||GEAR.a0,h=GEAR[g.shield]||GEAR.h0,P=HPERK[c]||{};return {atk:Math.round((8+s.atk)*(P.atk||1)),def:a.def+(P.def||0),hp:Math.round((100+a.hp)*(P.hp||1)),eva:h.eva};}
+function swL(g){return g.sl!=null?Math.max(0,Math.min(10,+g.sl||0)):(typeof SV!=='undefined'&&SV&&g===SV.gear?((SV.enh||{})[g.sword]||0):0);}
+function pstatsOf(g,c){const s=GEAR[g.sword]||GEAR.s0,a=GEAR[g.armor]||GEAR.a0,h=GEAR[g.shield]||GEAR.h0,P=HPERK[c]||{};return {atk:Math.round((8+s.atk)*(P.atk||1)*(1+0.10*swL(g))),def:a.def+(P.def||0),hp:Math.round((100+a.hp)*(P.hp||1)),eva:h.eva};}
 function pstats(){return pstatsOf(SV.gear,rhero());}
 function gearc(k,cls){return `<canvas class="px gearc ${cls||''}" width="24" height="24" data-gear="${k}"></canvas>`;}
 const rpgOpen=()=>SV.cleared.includes('d6')||!!G.dev;
@@ -2058,7 +2082,7 @@ function modeTabs(){const o=rpgOpen();
 function bindModeTabs(){document.querySelectorAll('[data-mode]').forEach(b=>b.onclick=()=>{if(b.dataset.mode==='rpg'&&!rpgOpen())return;SV.mode=b.dataset.mode;saveNow();sfx('select');render();});}
 
 function statPanel(){const s=pstats();
- return `<div class="rstat"><div class="rgear">${['sword','armor','shield'].map(t=>`<div class="rgi">${gearc(SV.gear[t])}<small>${GEAR[SV.gear[t]].nm}</small></div>`).join('')}</div>
+ return `<div class="rstat"><div class="rgear">${['sword','armor','shield'].map(t=>`<div class="rgi">${gearc(SV.gear[t])}<small>${GEAR[SV.gear[t]].nm}${t==='sword'&&swL(SV.gear)?' +'+swL(SV.gear):''}</small></div>`).join('')}</div>
  <div class="rnums"><span>⚔️ 공격력 <b>${s.atk}</b></span><span>🛡️ 방어력 <b>${s.def}</b></span><span>❤️ HP <b>${s.hp}</b></span><span>💨 회피율 <b>${s.eva}%</b></span><span>🦸 스킨 효과 <b>${fxText(eqSkin(rhero()))}</b></span></div></div>`;}
 function heroBar(){const h=rhero();return `<div class="herobar">${sp(heroSpr(h,eqSkin(h)),'hbig')}<div><b>🦸 내 주인공: ${HWORD[h]}</b> <span class="hint">(${skName(h,eqSkin(h))})</span><br><span class="hperk">직업 특성: ${HPERK[h].d}</span></div><button class="btn-s" id="tohsel">🔄 주인공 바꾸기</button></div>`;}
 function heroSel(){const h=rhero(),first=!SV.rhero;
@@ -2119,15 +2143,17 @@ function forge(){
  $('app').innerHTML=hud()+`<div class="card">
  <div class="shophead">${sp('tank')}<div><div class="speaker">⚒️ 대장간</div><div class="story">장비는 주인공만 착용해요. 산 장비는 언제든 다시 바꿔 낄 수 있어요. 보유 💰 <b>${SV.rg}</b></div></div></div>
  ${statPanel()}
+ ${enhHTML()}
  ${t?`<div class="feedback ok"><b>${t}</b></div>`:''}
  <div class="stabs">${Object.entries(GSLOT).map(([k,v])=>`<button class="stab ${tab===k?'on':''}" data-ft="${k}">${v[0]} <small>(${v[1]})</small></button>`).join('')}</div>
  <div class="sgrid">${ks.map(k=>{const g=GEAR[k],own=SV.gearOwned.includes(k),on=SV.gear[tab]===k;
-  return `<div class="sitem gitem ${on?'on':''}">${gearc(k,'big')}<b>${g.nm}</b><span class="gst">${gstat(g)}</span>
+  return `<div class="sitem gitem ${on?'on':''}">${gearc(k,'big')}<b>${g.nm}${g.type==='sword'&&((SV.enh||{})[k])?` <span class="plus">+${SV.enh[k]}</span>`:''}</b><span class="gst">${gstat(g)}</span>
   ${on?'<span class="tagok">⭐ 착용 중</span>':own?`<button class="btn-s" data-gw="${k}">착용</button>`:`<button class="buy" data-gb="${k}" ${SV.rg<g.price?'disabled':''}>💰 ${g.price}</button>`}</div>`;}).join('')}</div>
  <button class="next" id="out">🗺️ 던전 목록으로</button></div>`;
  document.querySelectorAll('[data-ft]').forEach(b=>b.onclick=()=>{G.forgeTab=b.dataset.ft;G.toast=null;sfx('click');render();});
  document.querySelectorAll('[data-gb]').forEach(b=>b.onclick=()=>{const k=b.dataset.gb,g=GEAR[k];if(SV.rg<g.price)return;SV.rg-=g.price;SV.gearOwned.push(k);SV.gear[g.type]=k;saveNow();sfx('coins');G.toast=`${g.nm} 구매 완료! 바로 착용했어요. (${gstat(g)})`;render();});
  document.querySelectorAll('[data-gw]').forEach(b=>b.onclick=()=>{const k=b.dataset.gw;SV.gear[GEAR[k].type]=k;saveNow();sfx('select');G.toast=null;render();});
+ {const eb=$('enh');if(eb)eb.onclick=enhTry;}
  $('out').onclick=()=>{G.scr='dsel';render();};
 }
 
@@ -2315,12 +2341,12 @@ function rpgDodge(i){const R=G.rp,q=R.dq,en=R.en[R.ei],st=pstats(),D=R.deb||{};q
 function rpgKill(){const R=G.rp;if(R.ei>=R.en.length-1&&R.wr&&R.wr.length&&!R.rvd&&!G.dev){const en0=R.en[R.ei];startReview(R.wr,skip=>{G.rpg=true;R.rvd=true;if(skip)R.rvskip=true;rpgKill();});return;}
  const en=R.en[R.ei],i=RT[G.dg.id];const gp=(HPERK[rhero()].gold||1),g=Math.round(bonusG(rgoldOf(i,en.boss))*gp),c=rpgKillC(en);
  SV.rg+=g;SV.cry+=c;R.gold+=g;R.cry+=c;saveNow();sfx('coins');
- if(R.ei>=R.en.length-1){const first=!SV.rcleared.includes(G.dg.id);const bg=R.rvskip?0:bonusG(rgoldOf(i,true)),bc=R.rvskip?0:rpgClearC();SV.rg+=bg;SV.cry+=bc;R.gold+=bg;R.cry+=bc;if(first)SV.rcleared.push(G.dg.id);saveNow();R.win=true;R.first=first;G.scr='rresult';render();return;}
+ if(R.ei>=R.en.length-1){const first=!SV.rcleared.includes(G.dg.id);const bg=R.rvskip?0:bonusG(rgoldOf(i,true)),bc=R.rvskip?0:rpgClearC();SV.rg+=bg;SV.cry+=bc;R.gold+=bg;R.cry+=bc;if(first)SV.rcleared.push(G.dg.id);G.stoneMsg=[];grantStone('dg:'+G.dg.id,1,esc(G.dg.name)+' 첫 클리어');saveNow();R.win=true;R.first=first;G.scr='rresult';render();return;}
  R.ei++;R.hl=0;R.healing=false;R.talked=false;R.phase='atk';R.deb={};R.toast=`💰 +${g} · 💎 +${c}`;rpgNextQ();render();
  setTimeout(()=>{const a=$('arena');if(a&&R.toast){const d=document.createElement('div');d.className='rtoast';d.innerHTML=R.toast;a.appendChild(d);R.toast=null;}},50);}
 function rpgLose(quit){const R=G.rp,lost=Math.floor(R.gold/2);SV.rg=Math.max(0,SV.rg-lost);saveNow();R.win=false;R.lost=lost;R.quit=quit;G.scr='rresult';render();}
 function rresult(){const R=G.rp,d=G.dg;rpgClearRun();
- $('app').innerHTML=hud()+`<div class="card" style="text-align:center">${R.win?`<h2 class="tf" style="font-size:30px">🏆 ${d.name} 정복!</h2>${R.first?'<p class="story">🎉 처음 클리어! 다음 RPG 던전이 열렸어요.</p>':''}`:`<h2 class="tf" style="font-size:30px">🪦 ${R.quit?'후퇴했다…':'파티가 쓰러졌다…'}</h2><p class="story">이번 탐험에서 얻은 골드의 절반(💰 ${R.lost})을 잃었어요. 장비를 강화하고 다시 도전해 보세요!</p>`}
+ $('app').innerHTML=hud()+`<div class="card" style="text-align:center">${R.win?`<h2 class="tf" style="font-size:30px">🏆 ${d.name} 정복!</h2>${R.first?'<p class="story">🎉 처음 클리어! 다음 RPG 던전이 열렸어요.</p>':''}${stoneHTML()}`:`<h2 class="tf" style="font-size:30px">🪦 ${R.quit?'후퇴했다…':'파티가 쓰러졌다…'}</h2><p class="story">이번 탐험에서 얻은 골드의 절반(💰 ${R.lost})을 잃었어요. 장비를 강화하고 다시 도전해 보세요!</p>`}
  <p class="story">이번 탐험: 💰 <b>${R.gold-(R.lost||0)}</b> · 💎 <b>${R.cry}</b><br>보유: 💰 <b>${SV.rg}</b> · 💎 <b>${SV.cry}</b></p>
  <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap"><button class="next" id="again">🔁 다시 도전</button><button class="next" id="forge2">⚒️ 대장간</button><button class="next" id="out">🗺️ 던전 목록</button></div></div>`;
  $('again').onclick=()=>rpgStart(d);$('forge2').onclick=()=>{G.rpg=false;G.scr='forge';render();};$('out').onclick=()=>{G.rpg=false;G.scr='dsel';render();};
@@ -2507,15 +2533,15 @@ function dailyReview(){const N=todayNews();let bonus='';
 const PV_ARENA={id:'pvp',all8:true,name:'⚔️ 배틀 아레나',bg:'d14',need:[],mon:'darkknight'};
 const PV_DAYMAX=5;
 function pvHash(s){let h=7;for(let i=0;i<s.length;i++)h=(h*31+s.charCodeAt(i))>>>0;return h.toString(36).slice(-4);}
-function profOf(sv,name){const c=rhero(sv);return {n:name,c,sk:eqSkin(c,sv),g:Object.assign({sword:'s0',armor:'a0',shield:'h0'},sv.gear||{}),p:sv.pet||'cat',eq:sv.eq||{},lv:LEVELS[sv.level]?sv.level:'beginner',r:(sv.rcleared||[]).length,w:(sv.pvp&&sv.pvp.w)||0};}
+function profOf(sv,name){const c=rhero(sv);return {n:name,c,sk:eqSkin(c,sv),g:Object.assign({sword:'s0',armor:'a0',shield:'h0'},sv.gear||{},{sl:Math.max(0,Math.min(10,((sv.enh||{})[(sv.gear||{}).sword||'s0'])||0))}),p:sv.pet||'cat',eq:sv.eq||{},lv:LEVELS[sv.level]?sv.level:'beginner',r:(sv.rcleared||[]).length,w:(sv.pvp&&sv.pvp.w)||0};}
 function pvCode(){const j=JSON.stringify(profOf(SV,G.name));const b=btoa(unescape(encodeURIComponent(j))).replace(/=+$/,'');return 'SG1-'+b+'-'+pvHash(b);}
 function pvParse(code){try{code=(code||'').replace(/\s+/g,'');const m=code.match(/^SG1-([A-Za-z0-9+/]+)-([a-z0-9]{1,4})$/);if(!m||pvHash(m[1])!==m[2])return null;
  const o=JSON.parse(decodeURIComponent(escape(atob(m[1]))));if(!o||!o.n||!o.g)return null;
- const ok=k=>GEAR[k]?k:null;o.g={sword:ok(o.g.sword)||'s0',armor:ok(o.g.armor)||'a0',shield:ok(o.g.shield)||'h0'};if(!HCLS.includes(o.c))o.c='tank';if(!SKINS[o.sk])o.sk='base';if(!PETSPR[o.p])o.p='cat';if(!LEVELS[o.lv])o.lv='beginner';o.eq=o.eq||{};return o;}catch(e){return null;}}
+ const ok=k=>GEAR[k]?k:null;o.g={sword:ok(o.g.sword)||'s0',armor:ok(o.g.armor)||'a0',shield:ok(o.g.shield)||'h0',sl:Math.max(0,Math.min(10,Math.round(+o.g.sl||0)))};if(!HCLS.includes(o.c))o.c='tank';if(!SKINS[o.sk])o.sk='base';if(!PETSPR[o.p])o.p='cat';if(!LEVELS[o.lv])o.lv='beginner';o.eq=o.eq||{};return o;}catch(e){return null;}}
 function pvPetc(pr,cls){return `<canvas class="px ${cls||''}" width="48" height="48" data-pet="pv|${pr.p}|${encodeURIComponent(JSON.stringify(pr.eq||{}))}"></canvas>`;}
 function pvCard(pr,tag){const st=pstatsOf(pr.g,pr.c);
  return `<div class="pvcard"><div class="pvfig">${sp(heroSpr(pr.c,pr.sk))}${pvPetc(pr,'mini')}</div><div><b>${esc(pr.n)}</b> <small>${HWORD[pr.c]||'전사'}</small> ${tag||''}<div class="hint">${LEVELS[pr.lv].ic} ${LEVELS[pr.lv].sub} · RPG 클리어 ${pr.r}개${pr.w?` · 🏆 ${pr.w}승`:''}</div>
- <div class="pvst">⚔️ ${st.atk} · 🛡️ ${st.def} · ❤️ ${st.hp} · 💨 ${st.eva}%</div><div class="hint">${['sword','armor','shield'].map(k=>gearc(pr.g[k],'mini')+GEAR[pr.g[k]].nm).join(' ')}</div></div></div>`;}
+ <div class="pvst">⚔️ ${st.atk} · 🛡️ ${st.def} · ❤️ ${st.hp} · 💨 ${st.eva}%</div><div class="hint">${['sword','armor','shield'].map(k=>gearc(pr.g[k],'mini')+GEAR[pr.g[k]].nm+(k==='sword'&&pr.g.sl?' +'+pr.g.sl:'')).join(' ')}</div></div></div>`;}
 function localSaves(){const r=[];try{for(let i=0;i<localStorage.length;i++){const k=localStorage.key(i);if(k&&k.startsWith('sg_save_')){const n=k.slice(8);if(n&&n!==G.name)r.push(n);}}}catch(e){}return r.sort();}
 function pvLobby(){G.rpg=false;const me=profOf(SV,G.name),rec=SV.pvp||{w:0,l:0},L=localSaves();
  $('app').innerHTML=hud()+`<div class="card"><div class="speaker">⚔️ 배틀 아레나</div>
@@ -2917,6 +2943,7 @@ function rdOnEnd(){const R=G.rd;if(R.rewarded)return;R.rewarded=true;const e=R.e
  const d=SV.raidDay&&SV.raidDay.k===dayKey()?SV.raidDay:{k:dayKey(),n:0};
  if(win&&d.n<RD_DAYMAX){d.n++;SV.raidDay=d;rw.cry=bonusC(20+(e.mvp===me?10:0));rw.gold=bonusG(60+(e.mvp===me?40:0));SV.cry=(SV.cry||0)+rw.cry;SV.rg=(SV.rg||0)+rw.gold;saveNow();}
  else if(win){rw.capped=true;SV.raidDay=d;}
+ {const Bz=R.boss;rw.stone=0;if(Bz&&Bz.hp<=Bz.max*0.5)rw.stone+=grantStone('rd:'+R.bossId+':half',1);if(win)rw.stone+=grantStone('rd:'+R.bossId+':win',1);if(rw.stone)saveNow();}
  R.rw=rw;}
 /* ---------- 전투 화면 ---------- */
 function rdCell(p,i){const me=G.rd.me===i,ratio=Math.max(0,Math.round(p.hp/p.max*100));const dk=Object.keys(p.deb||{}).filter(k=>DEBUFF[k]).map(k=>DEBUFF[k].ic).join('');
@@ -2970,7 +2997,7 @@ function rdAfter_(e){return '';}
 function rdEndBody(){const R=G.rd,e=R.endInfo,rw=R.rw||{};
  return `<div class="feedback ${e.win?'ok':'no'}"><div style="font-weight:900;font-size:22px">${e.win?'🏆 레이드 승리!':'💀 레이드 실패…'}</div>
  <div class="rdstat">${e.stats.map((s,i)=>`<div class="${i===R.me?'me':''}">${i===e.mvp?'🌟 ':''}${esc(s.n)}${s.left?' (퇴장)':''} — ⚔️ ${s.dmg} · 💚 ${s.heal}</div>`).join('')}</div>
- ${e.win?(rw.capped?`<p class="hint">오늘 레이드 보상(${RD_DAYMAX}회)을 모두 받았어요. 연습은 계속할 수 있어요!</p>`:`<p>보상: 💎 +${rw.cry} · 💰 +${rw.gold}${e.mvp===R.me?' (MVP 보너스 포함!)':''}</p>`):'<p class="hint">다음엔 더 잘 막아 봐요. 문장 형식을 정확히 분석하면 회피율이 크게 올라가요!</p>'}</div>
+ ${rw.stone?`<p class="stonegain">⚒️ 강화석 +${rw.stone}개 획득!</p>`:''}${e.win?(rw.capped?`<p class="hint">오늘 레이드 보상(${RD_DAYMAX}회)을 모두 받았어요. 연습은 계속할 수 있어요!</p>`:`<p>보상: 💎 +${rw.cry} · 💰 +${rw.gold}${e.mvp===R.me?' (MVP 보너스 포함!)':''}</p>`):'<p class="hint">다음엔 더 잘 막아 봐요. 문장 형식을 정확히 분석하면 회피율이 크게 올라가요!</p>'}</div>
  <button class="next" id="rdlb">🐉 레이드 로비로</button>`;}
 function rdBind(){const R=G.rd,me=R.P[R.me];bubbleSync();
  if(R.phase==='atk'&&me&&me.alive&&R.q&&!G.done)bindQ(R.q);
@@ -4166,6 +4193,7 @@ function mapScreen(){
 function mapBtns(){const h=document.querySelector('#app .hud');if(!h)return;
  const mk=(id,t,f)=>{if(document.getElementById(id))return;const b=document.createElement('button');b.className='btn-s';b.id=id;b.innerHTML=t;b.onclick=f;h.appendChild(b);};
  mk('tolv',`${LEVELS[LV()].ic} ${LEVELS[LV()].n}`,()=>{G.scr='level';render();});
+ mk('toforgeM','⚒️ 대장간',()=>{G.scr='forge';G.toast=null;G.enhRes=null;sfx('select');render();});
  mk('dsave','💾 저장하기',()=>{saveNow();sfx('select');G.toastSave=true;render();});
  mk('tologin','🚪 돌아가기',()=>{saveNow();sfx('select');G.scr='title';render();});}
 function dcardG(d,tag){const u=d.open!==false&&(d.exp?expOpen(d):true),cl=SV.cleared.includes(d.id);
@@ -4259,6 +4287,37 @@ function deepGo(){const d=window.__deep;if(!d)return;window.__deep=null;
  else if(d.k==='rd'){G.scr='rdlobby';render();setTimeout(()=>{try{rdJoin(d.v);}catch(e){}},200);}
  else if(d.k==='sg1'){G.scr='pvp';render();setTimeout(()=>{const f=$('fcode');if(f){f.value=d.v;if(f.oninput)f.oninput();}},150);}}
 (function(){const _r=render;render=function(){const x=_r.apply(this,arguments);try{if(G.scr==='dsel'&&window.__deep)setTimeout(deepGo,60);}catch(e){}return x;};})();
+
+/* ---------- ⚒️ 강화석 · 무기 강화 ---------- */
+const ENH_MAX=10,ENH_MAIN=['d1','d2','d3','d4','d5','d6'];
+const enhRate=t=>t<=3?0.5:t<=6?0.3:0.1; /* t = 올리려는 목표 단계 */
+function stoneInit(o){if(!o)return 0;o.stone=o.stone||0;o.enh=o.enh||{};o.sgot=o.sgot||[];o.lvc=o.lvc||{};let n=0;
+ if(!o.sgInit){o.sgInit=1;new Set([...(o.cleared||[]),...(o.rcleared||[])]).forEach(id=>{const k='dg:'+id;if(!o.sgot.includes(k)){o.sgot.push(k);o.stone++;n++;}});}
+ return n;}
+(function(){const _ls=loadSave;loadSave=function(nm){const o=_ls(nm);const n=stoneInit(o);if(n){if(nm===G.name)G.stoneBoot=(G.stoneBoot||0)+n;try{localStorage.setItem('sg_save_'+nm,JSON.stringify(o));}catch(e){}}return o;};})();
+function grantStone(key,n,why){if(G.dev)return 0;if(!SV.sgot)stoneInit(SV);if(SV.sgot.includes(key))return 0;SV.sgot.push(key);SV.stone=(SV.stone||0)+n;if(why)(G.stoneMsg=G.stoneMsg||[]).push('⚒️ 강화석 +'+n+' — '+why);return n;}
+function stoneOnClear(d){if(!d||d.daily)return;grantStone('dg:'+d.id,1,esc(d.name)+' 첫 클리어');
+ const lv=SV.level;if(LEVELS[lv]&&ENH_MAIN.includes(d.id)){SV.lvc=SV.lvc||{};const a=SV.lvc[lv]=SV.lvc[lv]||[];if(!a.includes(d.id))a.push(d.id);
+  if(ENH_MAIN.every(x=>a.includes(x)))grantStone('lv:'+lv,1,LEVELS[lv].ic+' '+LEVELS[lv].n+' 난이도 전부 클리어!');}}
+function stoneHTML(){const m=G.stoneMsg;if(!m||!m.length)return '';return `<div class="stonegain">${m.map(x=>'<div>'+x+'</div>').join('')}<div class="hint">강화석은 ⚒️ 대장간에서 무기 강화에 써요. 구하기 어려우니 아껴 쓰세요!</div></div>`;}
+function enhHTML(){const k=SV.gear.sword,w=GEAR[k],L=(SV.enh||{})[k]||0,st=SV.stone||0,maxed=L>=ENH_MAX,h=rhero()||'tank';
+ const a0=pstatsOf(Object.assign({},SV.gear,{sl:L}),h).atk,a1=pstatsOf(Object.assign({},SV.gear,{sl:Math.min(ENH_MAX,L+1)}),h).atk;
+ const ladder=Array.from({length:ENH_MAX},(_,i)=>`<span class="el ${i+1<=L?'on':''} ${i+1===L+1?'nx':''}">+${i+1}<small>${Math.round(enhRate(i+1)*100)}%</small></span>`).join('');
+ const R=G.enhRes;let res='';
+ if(G.enhBusy)res=`<div class="eres busy">🔨 쾅! 쾅! 쾅!<small>두드리는 중…</small></div>`;
+ else if(R)res=R.ok?`<div class="eres ok">✨ 강화 성공! <b>+${R.from} → +${R.to}</b><small>무기가 더 날카로워졌다!</small></div>`:`<div class="eres no">💥 강화 실패…${R.note==='down'?` <b>+${R.from} → +${R.to}</b><small>단계가 내려갔어요 (+5 이상은 실패 시 −1)</small>`:'<small>강화석만 사라졌어요. 단계는 그대로예요.</small>'}</div>`;
+ return `<div class="enhbox"><div class="eh">⚒️ 무기 강화 <span class="est">보유 강화석 ⚒️ <b>${st}</b></span></div>
+ <div class="ew">${gearc(k,'big')}<div class="ewi"><b>${w.nm} <span class="plus">+${L}</span></b>
+ <div class="hint">${maxed?'최대 강화예요!':`⚔️ 공격력 <b>${a0}</b> → <b>${a1}</b> · 성공 확률 <b>${Math.round(enhRate(L+1)*100)}%</b> · 필요 ⚒️ 1개`}</div>
+ <div class="hint">${L>=5&&!maxed?'⚠️ +5 이상에서 실패하면 단계가 1 내려가요!':'+5 이상에서 실패하면 단계가 1 내려가요. (+4 이하는 안전)'}</div></div></div>
+ <div class="eladder">${ladder}</div>${res}
+ <button class="next" id="enh" ${G.enhBusy||st<1||maxed?'disabled':''}>${maxed?'🏁 최대 강화':st<1?'⚒️ 강화석이 없어요':`⚒️ 강화 시도 (+${L} → +${L+1})`}</button>
+ <p class="hint">강화석은 던전을 처음 클리어할 때(1개씩), 난이도별로 1~6번 던전을 모두 클리어할 때, 레이드 보스를 일정 이상 몰아붙일 때 얻어요. 강화는 무기마다 따로 쌓여요.</p></div>`;}
+function enhTry(){const k=SV.gear.sword;SV.enh=SV.enh||{};const L=SV.enh[k]||0;if(G.enhBusy||(SV.stone||0)<1||L>=ENH_MAX)return;
+ G.enhBusy=true;G.enhRes=null;sfx('click');render();[0,380,760].forEach(t=>setTimeout(()=>sfx('hit'),t));
+ setTimeout(()=>{if(!G.enhBusy)return;SV.stone=Math.max(0,(SV.stone||0)-1);const ok=Math.random()<enhRate(L+1);let nl=L,note='';
+  if(ok)nl=L+1;else if(L>=5){nl=L-1;note='down';}
+  SV.enh[k]=nl;saveNow();G.enhBusy=false;G.enhRes={ok,from:L,to:nl,note};sfx(ok?'fanfare':'wrong');if(G.scr==='forge')render();},1150);}
 
 render();tryAuto();setTimeout(tryAuto,300);
 setInterval(()=>{document.body.classList.toggle('muted-wait',!(AU.ctx&&AU.ctx.state==='running')&&G.scr==='splash');},500);

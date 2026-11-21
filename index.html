@@ -888,6 +888,8 @@ canvas.px[data-src="SPR"][data-k="shaman"],canvas.px[data-src="SPR"][data-k^="cs
 .wfhint{margin:8px 0;font-weight:800}.wfw{display:inline-block;background:#ffe9a8;color:#4a3410;border-radius:9px;padding:3px 9px;margin:3px 4px 3px 0;font-weight:900}
 .wfin{width:100%;resize:none;font-size:18px}
 
+.rdsyn{margin:8px 0;padding:8px;border-radius:10px;background:#0006;font-size:13px;line-height:1.8}.rdsyn span{display:inline-block;margin:2px 6px 2px 0;padding:1px 8px;border-radius:9px;background:#ffe9a8;color:#4a3410;font-weight:800}
+
 </style>
 </head>
 <body>
@@ -2204,10 +2206,10 @@ const SKILL={
  pet:{nm:'수식어 냥냥 펀치',q:'있어도 그만 없어도 그만? 오늘은 아니다! 필살 펀치!',fx:'🐾',col:'#f0a24f'}
 };
 function skillWho(k){return k==='pet'?PETS[SV.pet].nm:CL[k].nm+(CL[k].cls?'('+CL[k].cls+')':'');}
-const BUF={atk:{ic:'⚔️',nm:'공격 강화',d:'공격력 +30%'},def:{ic:'🛡️',nm:'방어 강화',d:'받는 피해 -35%'},eva:{ic:'💨',nm:'회피 강화',d:'회피율 +20%'}};
+const BUF={atk:{ic:'⚔️',nm:'공격 강화',d:'공격력 +30%'},def:{ic:'🛡️',nm:'방어 강화',d:'받는 피해 -35%'},eva:{ic:'💨',nm:'회피 강화',d:'회피율 +20%'},share:{ic:'🛡️',nm:'분담',d:'받는 피해를 방패 전사가 대신 받아 절반으로'},cover:{ic:'🤝',nm:'대신 맞기',d:'위험할 때 방패 전사가 대신 맞아 피해 절반, 쓰러질 피해도 버팀'}};
 const EDB={weak:{ic:'💔',nm:'적 약화',d:'적 공격력 -35%'},vuln:{ic:'🎯',nm:'약점 노출',d:'받는 피해 +30%'},stun:{ic:'😵',nm:'기절',d:'다음 적의 턴을 건너뜀'}};
 const SK={
- tank:[{nm:'주어 방패 돌진',fx:'🛡️',cost:3,dmg:2,cleanse:1},{nm:'방패 강타',fx:'💥',cost:1,dmg:1,deb:{weak:2}},{nm:'철벽 태세',fx:'🧱',cost:2,dmg:0,buf:{def:3}},{nm:'도발의 함성',fx:'📣',cost:2,dmg:0,deb:{weak:3},buf:{def:2}},{nm:'방패 밀치기',fx:'🚧',cost:2,dmg:1,deb:{stun:1}},{nm:'전열 정비',fx:'🛡️',cost:1,dmg:1,buf:{def:2}}],
+ tank:[{nm:'주어 방패 돌진',fx:'🛡️',cost:3,dmg:2,cleanse:1},{nm:'방패 강타',fx:'💥',cost:1,dmg:1,deb:{weak:2}},{nm:'방패 밀치기',fx:'🚧',cost:2,dmg:1,deb:{stun:1}},{nm:'분담의 방패',fx:'🛡️',cost:2,dmg:0,buf:{share:3},txt:'파티가 받는 피해를 내가 몰아서 받되 절반만! (3턴)'},{nm:'희생의 방패',fx:'🤝',cost:2,dmg:0,buf:{cover:3},txt:'쓰러질 위기의 동료 대신 맞아 피해 절반, 치명타도 버팀 (3턴)'},{nm:'불굴의 방패벽',fx:'🧱',cost:2,dmg:0,buf:{def:3},cleanse:1,heal:.1}],
  healer:[{nm:'동사 성광 폭발',fx:'✨',cost:3,dmg:2,cleanse:1},{nm:'성스러운 치유',fx:'💚',cost:2,dmg:0,heal:.4,cleanse:1},{nm:'축복의 빛',fx:'🌟',cost:2,dmg:0,buf:{atk:3}},{nm:'정화의 종',fx:'🔔',cost:1,dmg:0,heal:.2,cleanse:1},{nm:'심판의 빛',fx:'☀️',cost:1,dmg:1,deb:{vuln:2}},{nm:'신성한 가호',fx:'🕊️',cost:2,dmg:0,heal:.15,buf:{def:3}}],
  paladin:[{nm:'보어 축복의 망치',fx:'🔨',cost:3,dmg:2,cleanse:1},{nm:'성스러운 일격',fx:'⚔️',cost:1,dmg:1,buf:{atk:2}},{nm:'수호의 맹세',fx:'🙏',cost:2,dmg:0,buf:{def:3},heal:.1},{nm:'정의의 낙인',fx:'🎯',cost:2,dmg:0,deb:{vuln:3}},{nm:'빛의 사슬',fx:'⛓️',cost:2,dmg:1,deb:{stun:1}},{nm:'응징',fx:'⚡',cost:1,dmg:1,deb:{weak:2}}],
  dealer:[{nm:'목적어 관통 화살',fx:'🏹',cost:3,dmg:2},{nm:'연속 사격',fx:'🏹',cost:2,dmg:1.5},{nm:'약점 조준',fx:'🎯',cost:2,dmg:0,deb:{vuln:3}},{nm:'마비 화살',fx:'💫',cost:2,dmg:1,deb:{stun:1}},{nm:'독 묻힌 화살',fx:'☠️',cost:1,dmg:1,deb:{weak:2}},{nm:'사냥꾼의 집중',fx:'👁️',cost:2,dmg:0,buf:{atk:3}}],
@@ -2219,7 +2221,7 @@ const SK={
 function curSk(){const R=G.rp;return (SK[R.skk]||SK.tank)[R.ski||0];}
 function skDesc(s,pv){const a=[];if(s.dmg>1)a.push('강타 ×'+s.dmg);else if(s.dmg===1)a.push('공격');
  if(s.heal)a.push((pv?'내':'파티')+' HP '+Math.round(s.heal*100)+'% 회복');if(s.cleanse)a.push('정화');
- if(s.buf)Object.keys(s.buf).forEach(k=>a.push((pv?'나 ':'파티 ')+BUF[k].nm+' '+s.buf[k]+'턴'));
+ if(s.txt)a.push(s.txt);else if(s.buf)Object.keys(s.buf).forEach(k=>a.push((pv?'나 ':'파티 ')+BUF[k].nm+' '+s.buf[k]+'턴'));
  if(s.deb)Object.keys(s.deb).forEach(k=>{const m=pv&&typeof PVDEB!=='undefined'?DEBUFF[PVDEB[k]]:EDB[k];a.push((pv?'상대 ':'적 ')+m.nm+' '+s.deb[k]+'턴');});return a.join(' + ');}
 function skApply(sk){const R=G.rp,en=R.en[R.ei],m=[];
  if(sk.buf)Object.keys(sk.buf).forEach(k=>{R.buf=R.buf||{};R.buf[k]=Math.max(R.buf[k]||0,sk.buf[k]);m.push(BUF[k].ic+BUF[k].nm+'('+sk.buf[k]+'턴)');});
@@ -2403,12 +2405,14 @@ function rpgDefBind(){const R=G.rp;bubbleSync();
  const n=$('rdn');if(n)n.onclick=()=>{if(R.php<=0){rpgLose(false);return;}const pm=tickDeb(R);R.phase='atk';rpgNextQ();render();if(pm)setTimeout(()=>{const a=$('arena');if(a){const d=document.createElement('div');d.className='rtoast';d.innerHTML=pm;a.appendChild(d);}},50);};}
 function rpgDodge(i){const R=G.rp,q=R.dq,en=R.en[R.ei],st=pstats(),D=R.deb||{};q.pick=i;q.ok=i===q.ans;rpgCnt(q.ok);const fast=q.ok&&!D.slow&&Date.now()-R.t0<6000;
  const ch=Math.min(90,(D.slow?st.eva/2:st.eva)+(q.ok?(D.slow?25:45):0)+(fast?10:0)+((R.buf&&R.buf.eva)?20:0));if(D.armorbreak)st.def=0;const roll=Math.random()*100;
- let dmg=Math.max(1,Math.round(en.atk*(0.9+Math.random()*0.2))-st.def);if(R.buf&&R.buf.def)dmg=Math.max(1,Math.round(dmg*.65));if(R.edb&&R.edb.weak)dmg=Math.max(1,Math.round(dmg*.65));let msg;const pty=$('pty'),mon=$('mon');
+ let dmg=Math.max(1,Math.round(en.atk*(0.9+Math.random()*0.2))-st.def);if(R.buf&&R.buf.def)dmg=Math.max(1,Math.round(dmg*.65));if(R.edb&&R.edb.weak)dmg=Math.max(1,Math.round(dmg*.65));let msg;const pty=$('pty'),mon=$('mon');let gnote='';
  mon.classList.add('matk');
  if(roll<ch){dmg=0;msg=q.ok?(fast?'⚡ 번개 같은 회피! 공격을 완벽히 피했다!':'💨 회피 성공! 공격을 피했다!'):'🍀 운 좋게 피했다!';sfx('retreat');}
  else if(q.ok){const d0=dmg;dmg=Math.max(1,Math.round(dmg/2));msg=`😖 회피에 실패했다.<br>🔰 방어에 성공해서 피해 <b>${d0}</b>${njosa(d0,'을')} <b>${dmg}</b>${njosa(dmg,'로')} 줄였다.`;sfx('hit');pty.classList.add('shake');}
  else{msg=`😖 회피에 실패했다.<br>💥 방어에도 실패해서 <b>${dmg}</b>의 피해를 받았다!`;sfx('wrong');pty.classList.add('shake');}
- R.php=Math.max(0,R.php-dmg);R.dres={hurt:dmg>0};if(dmg>0&&R.php>0&&Math.random()<(en.boss?0.6:0.4)*(HPERK[rhero()].resist||1)){const k=pick(debOf(en.mon));msg+='<br>'+addDeb(R,k);sfx('wrong');}setTimeout(rpgSaveRun,500);R.log=msg+(R.php<=0?' 파티가 쓰러졌다…':'');R.phase='defres';
+ if(dmg>0&&R.buf&&R.buf.share){dmg=Math.max(1,Math.round(dmg/2));gnote='<br>🛡️ 방패 전사가 피해를 나눠 받아 <b>절반</b>!';}
+ if(dmg>0&&R.buf&&R.buf.cover&&R.php<=R.pmax*0.5){dmg=Math.max(1,Math.round(dmg/2));gnote+='<br>🤝 위험한 동료 대신 방패 전사가 맞아 <b>절반</b>!';if(R.php-dmg<=0){dmg=R.php-1;gnote+=' 치명타를 버텨 냈다!';delete R.buf.cover;}}
+ R.php=Math.max(0,R.php-dmg);R.dres={hurt:dmg>0};if(dmg>0&&R.php>0&&Math.random()<(en.boss?0.6:0.4)*(HPERK[rhero()].resist||1)){const k=pick(debOf(en.mon));msg+='<br>'+addDeb(R,k);sfx('wrong');}setTimeout(rpgSaveRun,500);R.log=msg+gnote+(gnote?'<br>➡️ 실제로 받은 피해 <b>'+dmg+'</b>':'')+(R.php<=0?' 파티가 쓰러졌다…':'');R.phase='defres';
  const ft=dmg<=0?'MISS!':'-'+dmg,fc=dmg<=0?'pmiss':q.ok?'pblock':'phurt';
  setTimeout(()=>{render();const a=$('arena');if(a){const d=document.createElement('div');d.className='dmg pdmg '+fc;d.textContent=ft;a.appendChild(d);}},450);}
 function rpgKill(){const R=G.rp;if(R.ei>=R.en.length-1&&R.wr&&R.wr.length&&!R.rvd&&!G.dev){const en0=R.en[R.ei];startReview(R.wr,skip=>{G.rpg=true;R.rvd=true;if(skip)R.rvskip=true;rpgKill();});return;}
@@ -2701,7 +2705,10 @@ function pvCalc(ok,def){const V=G.pv,A=V.P[V.cur],D=V.P[1-V.cur];V.phase='atkres
   if(hasD){dmg=Math.round((A.st.atk*1.2+6)*(0.9+Math.random()*0.2)*(A.deb.weak?0.6:1)*(S?S.dmg:1)*(B.atk?1.3:1)*(DB.def?0.65:1)-(D.deb.armorbreak?0:D.st.def*0.5));dmg=Math.max(3,dmg);}
   const eva0=(D.deb.slow?D.st.eva/2:D.st.eva)+(DB.eva?20:0),eva=def?Math.min(90,eva0+(def.ok?(D.deb.slow?25:45):0)+(def.fast&&!D.deb.slow?10:0)):eva0;const dodge=hasD&&!S&&Math.random()*100<eva;
   if(dodge){V.log=`💨 ${esc(D.pr.n)}이(가) 공격을 피했다!${def&&def.fast?' ⚡번개 회피!':''}`;V.snd='retreat';}
-  else{let blk='';if(def&&def.ok&&hasD){dmg=Math.max(3,Math.round(dmg*(S?.6:.5)));blk=' 🔰 방어 성공! 피해 감소';}D.hp=Math.max(0,D.hp-dmg);const ex=[];
+  else{let blk='';if(def&&def.ok&&hasD){dmg=Math.max(3,Math.round(dmg*(S?.6:.5)));blk=' 🔰 방어 성공! 피해 감소';}
+   if(hasD&&dmg>0&&DB.share){dmg=Math.max(1,Math.round(dmg/2));blk+=' 🛡️ 분담의 방패! 피해 절반';}
+   if(hasD&&dmg>0&&DB.cover&&D.hp<=D.max*0.5){dmg=Math.max(1,Math.round(dmg/2));blk+=' 🤝 희생의 방패!';if(D.hp-dmg<=0){dmg=Math.max(0,D.hp-1);blk+=' 치명타를 버텨 냈다!';delete D.buf.cover;}}
+   D.hp=Math.max(0,D.hp-dmg);const ex=[];
    if(S){if(S.cleanse){A.deb={};ex.push('✨ 상태 이상 정화');}
     if(S.heal){const n=Math.min(Math.round(A.max*S.heal),A.max-A.hp);A.hp+=n;ex.push('💚 HP +'+n);}
     A.buf=A.buf||{};if(S.buf)Object.keys(S.buf).forEach(k=>{A.buf[k]=Math.max(A.buf[k]||0,S.buf[k]);ex.push(BUF[k].ic+BUF[k].nm+'('+S.buf[k]+'턴)');});
@@ -2893,6 +2900,7 @@ function rdRoomView(L){L=L||{players:[],boss:G.rdBossSel||'demon'};const b=rdBos
  const hasAtk=true;
  return `<div class="pvbox netbox"><h3>🏠 방 코드 <b class="netcode">${RDN.code||'····'}</b> · ${b.ic} ${b.mname}</h3>
  ${RDN.host&&RDN.code?qrBox('rd',RDN.code,150,'M','📷 QR로 바로 입장'):''}<div class="pvlist rdroom">${L.players.map((p,i)=>`<div class="pvpick">${sp(heroSpr(p.c,p.sk))}<div><b>${esc(p.n)}${i===0?' 👑':''}</b><span>${LEVELS[p.lv]?LEVELS[p.lv].sub:''} · ⚔️${pstatsOf(p.g,p.c).atk} ❤️${pstatsOf(p.g,p.c).hp}${p.c==='healer'?' · 치유':''}</span></div></div>`).join('')}</div>
+${(()=>{const y=rdSynOf(L.players.map(p=>p.c));return y.txt.length?`<div class="rdsyn"><b>🤝 파티 효과</b> ${y.txt.map(t=>`<span>${t}</span>`).join('')}</div>`:`<div class="rdsyn"><b>🤝 파티 효과</b> <span class="hint">전사·공수·성기사·주술사·상인이 있으면 파티가 강해져요!</span></div>`;})()}
  <p class="hint">${L.players.length} / ${RD_MAX}명${RDN.host?(L.players.length<2?' · 친구가 코드를 입력하면 여기에 나타나요 (2명부터 시작)':hasAtk?'':' · 공격 담당이 한 명도 없어요(사제만 있음)'):' · 방장이 시작할 때까지 기다려요'}</p>
  ${RDN.host?`<button class="next" id="rstart" ${L.players.length<2||!hasAtk?'disabled':''}>⚔️ 레이드 시작</button>`:''}<button class="btn-s" id="rleave">나가기</button></div>`;}
 /* ---------- 접속 ---------- */
@@ -2939,12 +2947,16 @@ function rdClientData(d){if(!d||typeof d!=='object')return;RDN.last=Date.now();
   const b=rdBoss(R.bossId);R.boss={hp:+d.bmax,max:+d.bmax,mon:b.mon,mname:b.mname,stage:0,stun:false};G.rd=R;G.dg=RD_ARENA;G.mates=[];G.pets=0;G.rpg=false;G.scr='rdbattle';sfx('formed');render();return;}
  if(d.t==='snap')rdApply(d.s);}
 /* ---------- 전투 상태(방장) ---------- */
+/* 직업별 파티 효과: 해당 직업이 파티에 한 명이라도 있으면 파티 전체에 적용 (중복 없음) */
+const RD_SYN={tank:{k:'hp',v:.15,t:'🛡️ 전사: 파티 HP +15%'},dealer:{k:'atk',v:.10,t:'🏹 공수: 파티 공격력 +10%'},paladin:{k:'def',v:.10,t:'⚔️ 성기사: 파티 방어력 +10%'},shaman:{k:'deb',v:.30,t:'🔮 주술사: 보스 디버프 확률 -30%'},trader:{k:'rew',v:.10,t:'💰 상인: 레이드 보상 +10%'}};
+function rdSynOf(cs){const o={hp:0,atk:0,def:0,deb:0,rew:0,txt:[]};const seen={};(cs||[]).forEach(c=>{const s=RD_SYN[c];if(!s||seen[c])return;seen[c]=1;o[s.k]=s.v;o.txt.push(s.t);});return o;}
 function rdMk(pr,seat){const st=pstatsOf(pr.g,pr.c);return {seat,pr,st,hp:st.hp,max:st.hp,alive:true,left:false,deb:{},ans:null,role:pr.c==='healer'?'heal':'atk',dmg:0,heal:0,charge:0,cdt:0};}
 function rdStart(){const R=G.rd;if(!RDN.host||R.started||R.P.length<2)return;
  R.started=true;const b=rdBoss(R.bossId);
  const teamAtk=R.P.reduce((s,p)=>s+p.st.atk*(p.role==='heal'?0.6:1),0),avgHp=R.P.reduce((s,p)=>s+p.max,0)/R.P.length;
  const bmax=Math.max(200,Math.round(teamAtk*0.72*11));
  R.boss={hp:bmax,max:bmax,mon:b.mon,mname:b.mname,stage:0,stun:false,atk:Math.max(14,Math.round(avgHp*0.3)),force:false};
+ R.syn=rdSynOf(R.P.map(p=>p.pr.c));R.P.forEach(p=>{const y=R.syn;p.st=Object.assign({},p.st,{hp:Math.round(p.st.hp*(1+y.hp)),atk:Math.round(p.st.atk*(1+y.atk)),def:Math.round(p.st.def*(1+y.def))});p.max=p.hp=p.st.hp;});
  R.rnd=0;R.me=0;R.phase='start';R.log='';R.timers=[];R.stats={};R.buf={};R.bdb={};
  R.P.forEach((p,i)=>{if(i>0)rdSend(RDN.conns[i],{t:'start',pl:R.P.map(x=>x.pr),boss:R.bossId,bmax,me:i});});
  G.dg=RD_ARENA;G.mates=[];G.pets=0;G.rpg=false;G.scr='rdbattle';sfx('formed');R.me=0;render();
@@ -2979,7 +2991,7 @@ function rdOnCharge(seat){const R=G.rd;if(!R||R.phase==='end'||!R.started)return
 function rdSkEff(p,S,lines){const R=G.rd,B=R.boss,ex=[];R.buf=R.buf||{};R.bdb=R.bdb||{};
  if(S.cleanse){R.P.forEach(x=>{if(x.alive&&!x.left)x.deb={};});ex.push('✨ 전원 상태 이상 정화');}
  if(S.heal){let tot=0;R.P.forEach(x=>{if(!x.alive||x.left)return;const n=Math.min(Math.round(x.max*S.heal),x.max-x.hp);x.hp+=n;tot+=n;});p.heal+=tot;ex.push('💚 파티 전체 회복 (합계 +'+tot+')');}
- if(S.buf)Object.keys(S.buf).forEach(k=>{R.buf[k]=Math.max(R.buf[k]||0,S.buf[k]);ex.push(BUF[k].ic+'파티 '+BUF[k].nm);});
+ if(S.buf)Object.keys(S.buf).forEach(k=>{R.buf[k]=Math.max(R.buf[k]||0,S.buf[k]);if(k==='share'||k==='cover')R.tk=p.seat;ex.push(BUF[k].ic+'파티 '+BUF[k].nm);});
  if(S.deb)Object.keys(S.deb).forEach(k=>{if(k==='stun'){if(Math.random()<.6){B.stun=true;ex.push('😵 '+esc(B.mname)+' 기절!');}else ex.push('😵 기절은 저항당했다');return;}R.bdb[k]=Math.max(R.bdb[k]||0,S.deb[k]);ex.push(EDB[k].ic+esc(B.mname)+' '+EDB[k].nm);});
  lines.push(`✨ <b>${esc(p.pr.n)}</b>의 「${S.nm}」${ex.length?' — '+ex.join(' · '):' 발동!'}`);}
 function rdResolveAtk(){const R=G.rd;if(R.phase!=='atk')return;clearTimeout(R.tmA);R.phase='atkres';const B=R.boss,lines=[],hits=[],b0=B.hp;let total=0;
@@ -3020,16 +3032,18 @@ function rdStartDef(){const R=G.rd,B=R.boss,b=rdBoss(R.bossId);if(R.phase==='end
  clearTimeout(R.tmD);{const rn=R.rnd;R.tmD=setTimeout(()=>{if(G.rd===R&&R.phase==='def'&&R.rnd===rn)rdResolveDef();},RD_TDEF*1000+400);R.timers.push(R.tmD);}}
 function rdResolveDef(){const R=G.rd;if(R.phase!=='def')return;clearTimeout(R.tmD);R.phase='defres';const B=R.boss,A=R.act,lines=[],hits=[];let allOk=true;
  const dm={normal:1,debuff:0.45,aoe:0.5,special:2.4}[A.type];
- const bdeb=debOf(rdBoss(R.bossId).mon).filter(k=>k!=='silence');
+ const bdeb=debOf(rdBoss(R.bossId).mon).filter(k=>k!=='silence');let redir=0;const dk=(R.syn&&R.syn.deb)||0;
  A.targets.forEach(i=>{const p=R.P[i];if(!p||!p.alive||p.left)return;const h0=p.hp;const ok=!!(p.ans&&p.ans.ok),fast=!!(p.ans&&p.ans.fast)&&ok&&!p.deb.slow;if(!ok)allOk=false;
   let ch=Math.min(90,(p.deb.slow?p.st.eva/2:p.st.eva)+(ok?(p.deb.slow?25:45):0)+(fast?10:0)+((R.buf&&R.buf.eva)?20:0));
   let def=p.deb.armorbreak?0:p.st.def;let d=Math.max(1,Math.round(B.atk*dm*(0.9+Math.random()*0.2))-def);if(R.buf&&R.buf.def)d=Math.max(1,Math.round(d*.65));if(R.bdb&&R.bdb.weak)d=Math.max(1,Math.round(d*.65));
   const roll=Math.random()*100;let res;
   if(A.type==='special'){if(ok){d=Math.max(1,Math.round(d*0.35));res='block';}else res='hit';}
   else if(roll<ch){d=0;res='dodge';}else if(ok){d=Math.max(1,Math.round(d/2));res='block';}else res='hit';
+  {const tk=R.tk!=null?R.P[R.tk]:null;if(d>0&&tk&&tk.alive&&!tk.left&&p.seat!==tk.seat&&R.buf&&(R.buf.share||(R.buf.cover&&p.hp-d<=p.max*0.35))){redir+=Math.max(1,Math.round(d/2));lines.push(`🛡️ ${esc(tk.pr.n)}이(가) ${esc(p.pr.n)} 대신 피해를 받는다!`);d=0;res='block';}}
   if(d>0){p.hp=Math.max(0,p.hp-d);if(p.hp<=0){p.alive=false;p.deb={};lines.push(`🪦 ${esc(p.pr.n)}이(가) 쓰러졌다!`);}
-   else if(A.type==='debuff'||(A.type!=='special'&&Math.random()<0.12)){const k=bdeb[Math.floor(Math.random()*bdeb.length)];if(k){p.deb[k]=Math.max(p.deb[k]||0,DEBUFF[k].t);lines.push(`${DEBUFF[k].ic} ${esc(p.pr.n)} — ${DEBUFF[k].nm}!`);}}}
+   else if((A.type==='debuff'&&Math.random()>=dk)||(A.type!=='debuff'&&A.type!=='special'&&Math.random()<0.12*(1-dk))){const k=bdeb[Math.floor(Math.random()*bdeb.length)];if(k){p.deb[k]=Math.max(p.deb[k]||0,DEBUFF[k].t);lines.push(`${DEBUFF[k].ic} ${esc(p.pr.n)} — ${DEBUFF[k].nm}!`);}}}
   hits.push({s:p.seat,d,res,h0});});
+ {const tk=R.tk!=null?R.P[R.tk]:null;if(redir>0&&tk&&tk.alive&&!tk.left){const h0=tk.hp;tk.hp=Math.max(0,tk.hp-redir);const ht=hits.find(h=>h.s===tk.seat);if(ht){ht.d+=redir;if(ht.res==='dodge')ht.res='block';}else hits.push({s:tk.seat,d:redir,res:'block',h0});if(tk.hp<=0){tk.alive=false;tk.deb={};lines.push(`🪦 ${esc(tk.pr.n)}이(가) 쓰러졌다!`);}}}
  const sum=hits.map(h=>`${esc(R.P[h.s].pr.n)} ${h.res==='dodge'?'💨회피':h.res==='block'?`🔰-${h.d}`:`💥-${h.d}`}`).join(' · ');
  lines.unshift(sum);
  if(A.type==='special'&&allOk){B.stun=true;lines.push(`🌟 특수기술을 막아 냈다! ${esc(B.mname)}이(가) 기절! 다음 공격은 <b>×1.5</b>!`);}
@@ -3070,7 +3084,7 @@ function rdUpdProgress(){const R=G.rd;R.P.forEach((p,i)=>{const e=document.query
 function rdWaitTxt(){const R=G.rd;let n=0,m=0;R.P.forEach(p=>{if(!p.alive||p.left)return;if(R.phase==='def'&&R.act&&!R.act.targets.includes(p.seat))return;m++;if(p.done)n++;});return `⏳ 다른 모험가를 기다리는 중 (${n}/${m})`;}
 function rdOnEnd(){const R=G.rd;if(R.rewarded)return;R.rewarded=true;const e=R.endInfo;if(!e)return;const me=R.me,win=!!e.win;let rw={cry:0,gold:0,capped:false};
  const d=SV.raidDay&&SV.raidDay.k===dayKey()?SV.raidDay:{k:dayKey(),n:0};
- if(win&&d.n<RD_DAYMAX){d.n++;SV.raidDay=d;rw.cry=bonusC(20+(e.mvp===me?10:0));rw.gold=bonusG(60+(e.mvp===me?40:0));SV.cry=(SV.cry||0)+rw.cry;SV.rg=(SV.rg||0)+rw.gold;saveNow();}
+ if(win&&d.n<RD_DAYMAX){d.n++;SV.raidDay=d;const rm=1+rdSynOf(R.P.map(p=>p.pr.c)).rew;rw.cry=Math.round(bonusC(20+(e.mvp===me?10:0))*rm);rw.gold=Math.round(bonusG(60+(e.mvp===me?40:0))*rm);rw.rm=rm>1;SV.cry=(SV.cry||0)+rw.cry;SV.rg=(SV.rg||0)+rw.gold;saveNow();}
  else if(win){rw.capped=true;SV.raidDay=d;}
  {const Bz=R.boss;rw.stone=0;if(Bz&&Bz.hp<=Bz.max*0.5)rw.stone+=grantStone('rd:'+R.bossId+':half',1);if(win)rw.stone+=grantStone('rd:'+R.bossId+':win',1);if(rw.stone)saveNow();}
  try{rankRaid(R,e);}catch(x){}
@@ -3132,7 +3146,7 @@ function rdAfter_(e){return '';}
 function rdEndBody(){const R=G.rd,e=R.endInfo,rw=R.rw||{};
  return `<div class="feedback ${e.win?'ok':'no'}"><div style="font-weight:900;font-size:22px">${e.win?'🏆 레이드 승리!':'💀 레이드 실패…'}</div>
  <div class="rdstat">${e.stats.map((s,i)=>`<div class="${i===R.me?'me':''}">${i===e.mvp?'🌟 ':''}${esc(s.n)}${s.left?' (퇴장)':''} — ⚔️ ${s.dmg} · 💚 ${s.heal}</div>`).join('')}</div>
- ${rw.stone?`<p class="stonegain">⚒️ 강화석 +${rw.stone}개 획득!</p>`:''}${e.win?(rw.capped?`<p class="hint">오늘 레이드 보상(${RD_DAYMAX}회)을 모두 받았어요. 연습은 계속할 수 있어요!</p>`:`<p>보상: 💎 +${rw.cry} · 💰 +${rw.gold}${e.mvp===R.me?' (MVP 보너스 포함!)':''}</p>`):'<p class="hint">다음엔 더 잘 막아 봐요. 문장 형식을 정확히 분석하면 회피율이 크게 올라가요!</p>'}</div>
+ ${rw.stone?`<p class="stonegain">⚒️ 강화석 +${rw.stone}개 획득!</p>`:''}${e.win?(rw.capped?`<p class="hint">오늘 레이드 보상(${RD_DAYMAX}회)을 모두 받았어요. 연습은 계속할 수 있어요!</p>`:`<p>보상: 💎 +${rw.cry} · 💰 +${rw.gold}${e.mvp===R.me?' (MVP 보너스 포함!)':''}${rw.rm?' · 💰 상인 효과 +10%':''}</p>`):'<p class="hint">다음엔 더 잘 막아 봐요. 문장 형식을 정확히 분석하면 회피율이 크게 올라가요!</p>'}</div>
  <button class="next" id="rdlb">🐉 레이드 로비로</button>`;}
 function rdBind(){const R=G.rd,me=R.P[R.me];bubbleSync();
  if(R.phase==='atk'&&me&&me.alive&&R.q&&!G.done&&!R.skp)bindQ(R.q);

@@ -730,3 +730,5 @@ canvas.px[data-src="SPR"][data-k="shaman"],canvas.px[data-src="SPR"][data-k^="cs
 .wrrow{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:10px 0}.wrlab{font-weight:800}
 .wfhint{margin:8px 0;font-weight:800}.wfw{display:inline-block;background:#ffe9a8;color:#4a3410;border-radius:9px;padding:3px 9px;margin:3px 4px 3px 0;font-weight:900}
 .wfin{width:100%;resize:none;font-size:18px}
+
+.rdsyn{margin:8px 0;padding:8px;border-radius:10px;background:#0006;font-size:13px;line-height:1.8}.rdsyn span{display:inline-block;margin:2px 6px 2px 0;padding:1px 8px;border-radius:9px;background:#ffe9a8;color:#4a3410;font-weight:800}

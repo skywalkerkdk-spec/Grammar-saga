@@ -2425,7 +2425,7 @@ function makeDodge(){const R=G.rp;let src=null;for(let k=0;k<20&&!src;k++){const
  return {kind:'role',c,hi:k,opts:opts.map(x=>RK[x]),ans:opts.indexOf(r)};}
 function dodgeSentence(q){const s=q.c.map((x,i)=>i===q.hi?`<u class="dhi">${esc(x[0])}</u>`:esc(x[0])).join(' ');return s.charAt(0).toUpperCase()+s.slice(1)+'.';}
 function rpgDefBody(){const R=G.rp,q=R.dq,en=R.en[R.ei],st=pstats();
- let h=`<span class="qtype">🛡️ 적의 턴 · 회피</span><div class="talk">💬 <b>${esc(en.mname)}</b>: "${esc(en.taunt||'받아라!')}"</div>
+ let h=`<span class="qtype">🛡️ 적의 턴 · 회피</span><div class="talk">💬 <b>${esc(en.mname)}</b>: "${esc(tauntNext(en))}"</div>
  <div class="story">${en.mname}이(가) 문장을 휘두르며 공격해 온다! ${q.kind==='form'?'<b>이 문장은 몇 형식?</b>':'<b>밑줄 친 부분의 성분은?</b>'} 맞히면 회피율이 크게 올라가요. <span class="hint">(기본 회피 ${st.eva}% · 정답 +45% · 6초 안에 맞히면 +10%${R.deb&&R.deb.slow?' · 🐌 둔화 중: 회피 절반':''})</span> <span class="hint">⚠️ 공격을 맞으면 ${debOf(en.mon).map(k=>DEBUFF[k].ic+DEBUFF[k].nm).join('·')}에 걸릴 수 있어요.</span></div>
  <div class="sentence">${dodgeSentence(q)}</div><div class="choices dchoices">${q.opts.map((o,i)=>{let cls='choice';if(R.phase==='defres'){if(i===q.pick)cls+=i===q.ans?' correct':' wrong';}return `<button class="${cls}" data-d="${i}" ${R.phase==='defres'?'disabled':''}>${o}</button>`;}).join('')}</div>`;
  if(R.phase==='defres')h+=`<div class="feedback ${R.dres.hurt?'no':'ok'}"><div style="font-weight:900;font-size:19px">${R.log}</div>${q.ok?'':'<span class="hint">정답은 알려 주지 않아요. 다음 회피 문제에서 만회해요!</span>'}</div>`+(R.php<=0?`<button class="next grave-btn" id="rdn">🪦 쓰러졌다… </button>`:`<button class="next" id="rdn">⚔️ 내 턴 ▶</button>`);
@@ -5145,6 +5145,15 @@ const GMEME=['보스의 전성기는 언제인가요? 저는… 지금입니다!
  try{RD_BOSS.forEach(b=>{b.say.push(...GMEME,...GTIP.slice(0,6).map(t=>t));});}catch(e){}
  try{EXPED.forEach(x=>{x.boss.t.push(GMEME[0]);});}catch(e){}
 })();
+
+/* 적의 턴 대사: 같은 말을 연달아 반복하지 않도록 돌려 쓰기 */
+const GEN_TAUNT=['이 문장을 피할 수 있겠느냐!','집중해라, 성분을 놓치면 아플 거다!','내 문장의 형식을 꿰뚫어 보아라!','어디 한번 맞혀 보시지!','눈을 똑바로 뜨고 보아라!','흥, 이번 공격은 어떨까?','방심하면 한 방이다!','문장의 뼈대를 읽어야 살 수 있다!','자, 간다! 정신 차려라!','이 정도는 피하겠지?','문법을 모르면 피할 수 없다!','받아라, 내 필살 문장!'];
+function tauntNext(en){if(!en)return '받아라!';let base=[];try{if(en.boss&&G.dg&&BTALK[G.dg.id]&&BTALK[G.dg.id].x)base=BTALK[G.dg.id].x.slice();else if(MT[en.mon]&&MT[en.mon].x)base=MT[en.mon].x.slice();}catch(e){}
+ if(en.taunt&&!base.includes(en.taunt))base.unshift(en.taunt);
+ const pool=base.concat(GEN_TAUNT);en._tl=en._tl||[];
+ let c=pool.filter(s=>!en._tl.includes(s));if(!c.length){en._tl=[];c=pool.slice();}
+ const s=en._tl.length===0&&en.taunt?en.taunt:c[Math.floor(Math.random()*c.length)];
+ en._tl.push(s);if(en._tl.length>Math.min(8,pool.length-1))en._tl.shift();return s;}
 
 render();tryAuto();setTimeout(tryAuto,300);
 setInterval(()=>{document.body.classList.toggle('muted-wait',!(AU.ctx&&AU.ctx.state==='running')&&G.scr==='splash');},500);

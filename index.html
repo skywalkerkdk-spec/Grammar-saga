@@ -902,6 +902,13 @@ canvas.px[data-src="SPR"][data-k="shaman"],canvas.px[data-src="SPR"][data-k^="cs
 
 .gqbl{display:inline-block;min-width:60px;border-bottom:3px solid #ffd36b;margin:0 3px}.gfbad{color:#ff8a8a;text-decoration:underline wavy #ff8a8a}
 
+.dailyrow{display:flex;gap:8px;align-items:stretch;margin:0 0 12px}.dailyrow .dailycard{flex:1 1 50%;min-width:0;margin:0;font-size:12px}.dailyrow .dailycard .dhead{font-size:14px}.dailyrow .dailycard .dko{font-size:11px}.dailyrow .dailycard .hint{font-size:10px}.dailyrow .dailycard small{font-size:10px}
+.dailyrow .attb{flex:1 1 50%;min-width:0;margin:0;padding:6px;box-sizing:border-box}.dailyrow .attt{font-size:12px;margin-bottom:0}.dailyrow .atts{font-size:10px;margin:0 0 4px;color:#ffd36b;font-weight:800}
+.dailyrow .attg{grid-template-columns:repeat(6,1fr);gap:2px;margin-bottom:4px}.dailyrow .atc{border-radius:5px;font-size:8px}.dailyrow .atc .ati{font-size:10px;min-height:10px}.dailyrow .atc small{font-size:7px}.dailyrow .attb .hint{font-size:9px;margin:0}
+.credit{margin:14px 0 4px;padding:10px 12px;border-radius:10px;background:#00000040;color:#e8dcc0;font-size:11px;line-height:1.55;text-align:center}.credit b{color:#ffd36b}
+.dailyrow .dmast{flex-direction:column;align-items:flex-start;gap:1px;padding:6px 8px;font-size:13px}.dailyrow .dmast small{font-size:9px}.dailyrow .dbody{padding:6px 8px}
+.sndhint{top:auto;bottom:34%;font-size:11px;padding:3px 10px;white-space:nowrap}
+
 </style>
 </head>
 <body>
@@ -1428,12 +1435,13 @@ function hud(extra){return `<div class="hud"><span class="nm">${SV.hero==='druid
 /* ---------- 화면 ---------- */
 function render(){window.scrollTo({top:0});applySkin();const f={splash,title,level,grave,ending,temple,intro,dsel,party,defeat,formed,battle,clear,shop,forge,rbattle,rresult,hsel:heroSel,news:newsPaper,rank:rankScreen,pvp:pvLobby,pvbattle:pvBattle,pvres:pvRes,rdlobby:rdLobby,rdbattle:rdBattle}[G.scr];document.body.dataset.bg=G.scr==='splash'?'':(G.scr==='battle'||G.scr==='rbattle'||G.scr==='pvbattle'||G.scr==='rdbattle')?(G.dg.bg||G.dg.id):'guild';f();fill($('app'));syncBgm();}
 
+const CREDIT=`<div class="credit"><b>GRAMMAR SAGA · OPEN BETA</b><br>CREATED BY DK KANG<br>Copyright © 2026 DK KANG<br>본 게임의 제작자는 DK KANG입니다.<br>이미지, 음악 및 폰트는 AI 도구를 활용하여 제작되었습니다.<br>무단 복제 및 배포를 금지합니다.<br>ALL RIGHTS RESERVED.</div>`;
 function splash(){
  $('app').innerHTML=`<div class="splash" id="spl">
   <div style="text-align:right;margin-bottom:8px"><button class="btn-s mute" onclick="event.stopPropagation();toggleMute()">${AU.muted?'🔇 소리 꺼짐':'🔊 소리 켜짐'}</button></div>
   <div class="spimg"><img src="title.jpg" alt="Grammar Saga 타이틀"><div class="spflash" id="spf"></div>
    <div class="press ${G.started?'hide':''}" id="press">▶ 화면을 터치하세요 · TOUCH TO START</div><div class="sndhint" id="sndhint">🔊 소리가 안 들리면 화면 아무 곳이나 한 번 눌러 주세요</div></div>
-  <div class="spmenu ${G.started?'':'hide'}" id="spm"><button class="next big" id="newgame">⚔️ 모험 시작</button></div>
+  <div class="spmenu ${G.started?'':'hide'}" id="spm"><button class="next big" id="newgame">⚔️ 모험 시작</button></div>${CREDIT}
  </div>`;
  const start=()=>{if(G.started)return;G.started=true;ainit();syncBgm();sfx('whoosh');sfx('sword');
   $('spf').classList.add('on');$('press').classList.add('hide');$('spm').classList.remove('hide');};
@@ -1458,7 +1466,7 @@ function title(){
   <div class="xrow"><input class="input" id="xn" placeholder="내 모험가 이름" maxlength="20"><button class="btn-s" id="xmk">📤 저장 코드 만들기</button></div>
   <textarea id="xcode" rows="3" placeholder="여기에 저장 코드가 나와요 / 받은 저장 코드를 여기에 붙여 넣으세요"></textarea>
   <div class="xrow"><button class="btn-s" id="xcp">📋 복사</button><button class="btn-s" id="xin">📥 가져오기</button></div><div class="hint" id="xmsg"></div></details>
- </div></div>`;
+ </div>${CREDIT}</div>`;
  const lm=t=>{$('lmsg').innerHTML=t;};let _sure='';
  const begin=(n,dev)=>{G=fresh(n);G.started=true;G.dev=dev;SV=loadSave(G.name);if(dev){sfx('fanfare');if(!SV.level)SV.level='expert';G.introDone=true;G.scr='dsel';}else G.scr='level';render();};
  const go=async()=>{let n=($('nmi').value||'').trim(),p=($('pwi').value||'');const DEVID={zx:'Mr.KANG',qw:'Mr.KANG-Qw',as:'Mr.KANG-As'};const dev=Object.prototype.hasOwnProperty.call(DEVID,n.toLowerCase());
@@ -2594,14 +2602,13 @@ function attStamp(){const a=SV.att=SV.att||{last:'',streak:0,best:0,cl:[]};if(a.
  saveNow();return {streak:a.streak,pos,rw};}
 function attBoard(){const n=attStreak(),pos=attPos(n),a=SV.att||{},cl=a.cl||[],doneToday=SV.dailyDone===dayKey()&&a.last===dayKey();
  const nx=[5,10,20,30].find(d=>d>pos)||30;
- return `<div class="attb"><div class="attt">📅 <b>출석 도장판</b> <span class="atts">🔥 연속 ${n}일${a.best?` · 최고 ${a.best}일`:''}</span></div>
- <div class="attg">${Array.from({length:30},(_,i)=>{const d=i+1,rw=ATT_RW[d],on=d<=pos;return `<div class="atc ${on?'on':''} ${rw?'ms':''} ${rw&&cl.includes(d)&&on?'got':''}">${rw?`<span class="ati">${on?'🎁':'🎁'}</span>`:`<span class="ati">${on?'💮':''}</span>`}<small>${d}</small></div>`;}).join('')}</div>
- <div class="hint">${doneToday?'✅ 오늘 도장을 찍었어요!':'오늘의 던전을 클리어하면 도장이 찍혀요.'} 다음 보상 <b>${nx}일</b>: ${ATT_RW[nx].t} <span>(하루를 빠지면 처음부터)</span></div>
- <div class="hint attrw">${[5,10,20,30].map(d=>`<span class="${pos>=d&&cl.includes(d)?'got':''}">${d}일 ${ATT_RW[d].t}</span>`).join('')}</div></div>`;}
+ return `<div class="attb"><div class="attt">📅 <b>출석 도장판</b></div><div class="atts">🔥 연속 ${n}일${a.best?` · 최고 ${a.best}일`:''}</div>
+ <div class="attg">${Array.from({length:30},(_,i)=>{const d=i+1,rw=ATT_RW[d],on=d<=pos;return `<div class="atc ${on?'on':''} ${rw?'ms':''} ${rw&&cl.includes(d)&&on?'got':''}">${rw?`<span class="ati">🎁</span>`:`<span class="ati">${on?'💮':''}</span>`}<small>${d}</small></div>`;}).join('')}</div>
+ <div class="hint">${doneToday?'✅ 오늘 도장 완료!':'오늘의 던전 클리어 시 도장!'} 다음 보상 <b>${nx}일</b>: ${ATT_RW[nx].t}</div></div>`;}
 function dailyCard(){const N=todayNews(),T=todayTheme(),done=SV.dailyDone===dayKey();const dt=new Date();
- return `<button class="dailycard" id="todaily"><div class="dmast"><span>📰 오늘의 던전</span><small>${dt.getMonth()+1}월 ${dt.getDate()}일 · ${T.nm} · ${LVTAG()}</small></div>
+ return `<div class="dailyrow"><button class="dailycard" id="todaily"><div class="dmast"><span>📰 오늘의 던전</span><small>${dt.getMonth()+1}월 ${dt.getDate()}일 · ${T.nm} · ${LVTAG()}</small></div>
  <div class="dbody"><span class="dcat">${NEWSCAT[N.cat]||'📖 읽기'}</span><b class="dhead">${N.e} ${esc(N.t)}</b><span class="dko">${esc(N.k)}</span>
- <span class="hint">${done?'✅ 오늘의 보상을 받았어요! (다시 도전은 가능)':'기사 한 문단을 읽고 문장마다 성분을 분석하면 <b>💎 보너스 수정</b>!'}</span></div></button>`+attBoard();}
+ <span class="hint">${done?'✅ 오늘의 보상을 받았어요! (다시 도전은 가능)':'기사 한 문단을 읽고 문장마다 성분을 분석하면 <b>💎 보너스 수정</b>!'}</span></div></button>`+attBoard()+`</div>`;}
 function NV(N){const L=LV(),k=L==='expert'?'v3':L==='intermediate'?'v2':'v1';return N[k]||N.v1||[];}
 function vocabKey(){return dayKey()+':'+LV();}
 function vocabPage(){const N=todayNews(),T=todayTheme(),V=NV(N);G.vin=G.vin||{};

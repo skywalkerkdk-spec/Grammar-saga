@@ -744,3 +744,10 @@ canvas.px[data-src="SPR"][data-k="shaman"],canvas.px[data-src="SPR"][data-k^="cs
 .rdwk{margin:6px 0;padding:6px 10px;border-radius:10px;background:#0005;font-size:13px}.rdwk.low b{color:#ff8a8a}.rok{color:#6fe08a;font-weight:800;font-size:12px}.rdkick{margin-left:auto;font-size:12px}.rdready{padding:6px 0}
 
 .gqbl{display:inline-block;min-width:60px;border-bottom:3px solid #ffd36b;margin:0 3px}.gfbad{color:#ff8a8a;text-decoration:underline wavy #ff8a8a}
+
+.dailyrow{display:flex;gap:8px;align-items:stretch;margin:0 0 12px}.dailyrow .dailycard{flex:1 1 50%;min-width:0;margin:0;font-size:12px}.dailyrow .dailycard .dhead{font-size:14px}.dailyrow .dailycard .dko{font-size:11px}.dailyrow .dailycard .hint{font-size:10px}.dailyrow .dailycard small{font-size:10px}
+.dailyrow .attb{flex:1 1 50%;min-width:0;margin:0;padding:6px;box-sizing:border-box}.dailyrow .attt{font-size:12px;margin-bottom:0}.dailyrow .atts{font-size:10px;margin:0 0 4px;color:#ffd36b;font-weight:800}
+.dailyrow .attg{grid-template-columns:repeat(6,1fr);gap:2px;margin-bottom:4px}.dailyrow .atc{border-radius:5px;font-size:8px}.dailyrow .atc .ati{font-size:10px;min-height:10px}.dailyrow .atc small{font-size:7px}.dailyrow .attb .hint{font-size:9px;margin:0}
+.credit{margin:14px 0 4px;padding:10px 12px;border-radius:10px;background:#00000040;color:#e8dcc0;font-size:11px;line-height:1.55;text-align:center}.credit b{color:#ffd36b}
+.dailyrow .dmast{flex-direction:column;align-items:flex-start;gap:1px;padding:6px 8px;font-size:13px}.dailyrow .dmast small{font-size:9px}.dailyrow .dbody{padding:6px 8px}
+.sndhint{top:auto;bottom:34%;font-size:11px;padding:3px 10px;white-space:nowrap}

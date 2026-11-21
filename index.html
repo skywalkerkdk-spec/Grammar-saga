@@ -1435,7 +1435,7 @@ function hud(extra){return `<div class="hud"><span class="nm">${SV.hero==='druid
 /* ---------- 화면 ---------- */
 function render(){window.scrollTo({top:0});applySkin();const f={splash,title,level,grave,ending,temple,intro,dsel,party,defeat,formed,battle,clear,shop,forge,rbattle,rresult,hsel:heroSel,news:newsPaper,rank:rankScreen,pvp:pvLobby,pvbattle:pvBattle,pvres:pvRes,rdlobby:rdLobby,rdbattle:rdBattle}[G.scr];document.body.dataset.bg=G.scr==='splash'?'':(G.scr==='battle'||G.scr==='rbattle'||G.scr==='pvbattle'||G.scr==='rdbattle')?(G.dg.bg||G.dg.id):'guild';f();fill($('app'));syncBgm();}
 
-const CREDIT=`<div class="credit"><b>GRAMMAR SAGA · OPEN BETA</b><br>CREATED BY DK KANG<br>Copyright © 2026 DK KANG<br>본 게임의 제작자는 DK KANG입니다.<br>이미지, 음악 및 폰트는 AI 도구를 활용하여 제작되었습니다.<br>무단 복제 및 배포를 금지합니다.<br>ALL RIGHTS RESERVED.</div>`;
+const CREDIT=`<div class="credit">본 게임의 제작자는 DK KANG입니다.<br>이미지, 음악 및 폰트는 AI 도구를 활용하여 제작되었습니다.<br>학생들의 영어학습을 위해서는 얼마든지 쓰셔도 좋습니다.<br>다만 무단 복제 및 변형은 금지합니다.</div>`;
 function splash(){
  $('app').innerHTML=`<div class="splash" id="spl">
   <div style="text-align:right;margin-bottom:8px"><button class="btn-s mute" onclick="event.stopPropagation();toggleMute()">${AU.muted?'🔇 소리 꺼짐':'🔊 소리 켜짐'}</button></div>

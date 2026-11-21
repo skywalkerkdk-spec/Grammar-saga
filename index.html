@@ -4463,29 +4463,29 @@ function enhTry(){const k=SV.gear.sword;SV.enh=SV.enh||{};const L=SV.enh[k]||0;i
 /* ---------- 🎁 보상 코드 (교사가 발급 → 학생이 입력, 계정당 1회) ---------- */
 function giftHash(s){let a=0x811c9dc5,b=0x1b873593;for(let i=0;i<s.length;i++){const c=s.charCodeAt(i);a=Math.imul(a^c,16777619)>>>0;b=Math.imul(b+c+(a&255),2246822519)>>>0;b^=b>>>13;}return (a.toString(36)+b.toString(36)).slice(0,10);}
 const GIFT_SALT='sg-gift-k9';
-/* 6자리 코드 = 조합(1) + 번호(2) + 검증(3). 골드 0/100/300/500/1000 × 강화석 0/1/3/5/10/30 */
+/* 6자리 코드 = 조합(2) + 번호(2) + 검증(2). 수정·골드 0/100/300/500/1000 × 강화석 0/1/3/5/10/30 */
 const GIFT_G=[0,100,300,500,1000],GIFT_S=[0,1,3,5,10,30];
-function giftChk(b){return giftHash(b+GIFT_SALT).slice(0,3).toUpperCase().padEnd(3,'0');}
-function giftMake(g,s){const gi=GIFT_G.indexOf(g),si=GIFT_S.indexOf(s);if(gi<0||si<0||(!gi&&!si))return null;
- const id=Math.random().toString(36).slice(2,4).toUpperCase().padEnd(2,'0'),b=(gi*6+si).toString(36).toUpperCase()+id;return b+giftChk(b);}
+function giftChk(b){return giftHash(b+GIFT_SALT).slice(0,2).toUpperCase().padEnd(2,'0');}
+function giftMake(c,g,s){const ci=GIFT_G.indexOf(c),gi=GIFT_G.indexOf(g),si=GIFT_S.indexOf(s);if(ci<0||gi<0||si<0||(!ci&&!gi&&!si))return null;
+ const id=Math.random().toString(36).slice(2,4).toUpperCase().padEnd(2,'0'),b=((ci*5+gi)*6+si).toString(36).toUpperCase().padStart(2,'0')+id;return b+giftChk(b);}
 function giftParse(code){const raw=(code||'').trim();
  if(/^SGGIFT-/.test(raw)){const m=/^SGGIFT-([A-Za-z0-9+/]+)-([a-z0-9]+)$/.exec(raw);if(!m||giftHash(m[1]+GIFT_SALT)!==m[2])return null;
   try{const o=JSON.parse(decodeURIComponent(escape(atob(m[1]))));if(!o||!o.i)return null;return o;}catch(e){return null;}}
  const t=raw.toUpperCase().replace(/[^0-9A-Z]/g,'');if(t.length===14){const body=t.slice(0,10);
   if(giftHash(body+GIFT_SALT).slice(0,4).toUpperCase().padEnd(4,'0')!==t.slice(10))return null;
   return {i:t.slice(0,4),c:parseInt(t.slice(4,6),36),g:parseInt(t.slice(6,9),36),s:parseInt(t.slice(9,10),36),m:''};}
- if(t.length!==6||giftChk(t.slice(0,3))!==t.slice(3))return null;
- const n=parseInt(t[0],36),gi=Math.floor(n/6),si=n%6;if(gi>4||(!gi&&!si))return null;return {i:t.slice(0,3),c:0,g:GIFT_G[gi],s:GIFT_S[si],m:''};}
+ if(t.length!==6||giftChk(t.slice(0,4))!==t.slice(4))return null;
+ const n=parseInt(t.slice(0,2),36),si=n%6,gi=Math.floor(n/6)%5,ci=Math.floor(n/30);if(ci>4||(!ci&&!gi&&!si))return null;return {i:t.slice(0,4),c:GIFT_G[ci],g:GIFT_G[gi],s:GIFT_S[si],m:''};}
 function giftRedeem(code){const o=giftParse(code);if(!o)return {ok:false,msg:'❌ 보상 코드가 올바르지 않아요. 전부 복사했는지 확인하세요.'};
  SV.gifts=SV.gifts||[];if(SV.gifts.includes(o.i))return {ok:false,msg:'이미 받은 보상 코드예요.'};
  const c=Math.max(0,Math.min(9999,o.c|0)),g=Math.max(0,Math.min(99999,o.g|0)),s=Math.max(0,Math.min(99,o.s|0));
  SV.gifts.push(o.i);SV.cry=(SV.cry||0)+c;SV.rg=(SV.rg||0)+g;SV.stone=(SV.stone||0)+s;saveNow();
  return {ok:true,msg:'🎁 보상을 받았어요!'+(c?' 💎 +'+c:'')+(g?' 💰 +'+g:'')+(s?' ⚒️ +'+s:'')+(o.m?' ('+o.m+')':'')};}
 function giftAsk(){const code=prompt('선생님께 받은 🎁 보상 코드를 붙여 넣으세요');if(code==null)return;const now=Date.now();if((G.gfLock||0)>now){saveToast('⏳ 잠시 후에 다시 입력하세요.');return;}const r=giftRedeem(code);if(!r.ok&&/올바르지/.test(r.msg)){G.gfBad=(G.gfBad||0)+1;if(G.gfBad>=5){G.gfLock=now+600000;G.gfBad=0;r.msg='❌ 5번 틀려서 10분 동안 입력할 수 없어요.';}}else if(r.ok)G.gfBad=0;sfx(r.ok?'fanfare':'wrong');saveToast(r.msg);if(r.ok)render();}
-function giftDevMake(){const g=prompt('💰 골드를 고르세요: 0, 100, 300, 500, 1000','300');if(g==null)return;const s=prompt('⚒️ 강화석을 고르세요: 0, 1, 3, 5, 10, 30','5');if(s==null)return;
- const code=giftMake(parseInt(g,10)||0,parseInt(s,10)||0);if(!code){alert('목록에 있는 값만 쓸 수 있어요. (둘 다 0은 불가)');return;}
+function giftDevMake(){const c=prompt('💎 수정을 고르세요: 0, 100, 300, 500, 1000','0');if(c==null)return;const g=prompt('💰 골드를 고르세요: 0, 100, 300, 500, 1000','300');if(g==null)return;const s=prompt('⚒️ 강화석을 고르세요: 0, 1, 3, 5, 10, 30','5');if(s==null)return;
+ const C=parseInt(c,10)||0,Gd=parseInt(g,10)||0,S=parseInt(s,10)||0,code=giftMake(C,Gd,S);if(!code){alert('목록에 있는 값만 쓸 수 있어요. (모두 0은 불가)');return;}
  try{navigator.clipboard.writeText(code);}catch(e){}
- prompt('보상 코드(6자리, 복사됨): 💰'+(parseInt(g,10)||0)+' ⚒️'+(parseInt(s,10)||0)+'\n학생 한 명당 1번씩만 받을 수 있어요.',code);}
+ prompt('보상 코드(6자리, 복사됨): 💎'+C+' 💰'+Gd+' ⚒️'+S+'\n학생 한 명당 1번씩만 받을 수 있어요.',code);}
 
 /* 개발자 모드: 보상 코드 버튼을 누르면 '만들기/입력' 선택 */
 (function(){const _a=giftAsk;giftAsk=function(){if(G.dev&&confirm('🛠️ 개발자 모드\n\n[확인] = 보상 코드 만들기\n[취소] = 코드 입력하기'))return giftDevMake();return _a();};})();

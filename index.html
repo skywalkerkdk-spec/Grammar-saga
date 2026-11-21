@@ -1362,8 +1362,11 @@ function title(){
  <p class="hint">탱커(주어)가 되어 던전에 맞는 파티를 꾸리고, 문장 형식을 정복하세요.</p>
  <div class="card" style="max-width:520px;margin:20px auto;text-align:center">
  <p style="margin-top:0">모험가 이름을 입력하세요</p>
- <input class="input" id="nmi" placeholder="" maxlength="20">
- <p class="hint" style="margin:8px 0 0">같은 이름으로 들어오면 모은 수정·골드와 펫, 장비가 이어져요. (이 기기에서만)</p>
+ <input class="input" id="nmi" placeholder="이름" maxlength="20" autocomplete="off">
+ <input class="input" id="pwi" type="password" placeholder="비밀번호 (이 기기에서 들어온 적 있으면 비워도 돼요)" maxlength="30" autocomplete="off" style="margin-top:8px">
+ <div id="svn" style="margin-top:8px"></div>
+ <p class="hint" style="margin:8px 0 0">처음이면 비밀번호를 새로 정하세요. 같은 이름 + 비밀번호로 <b>다른 기기에서도</b> 기록(수정·펫·장비)이 이어져요.</p>
+ <div class="hint" id="lmsg" style="margin:6px 0 0;min-height:20px"></div>
  <div><button class="next" id="go">⚔️ 모험 시작</button></div>
  <details class="xfer"><summary>📦 진행 상황 옮기기 (다른 주소·다른 기기)</summary>
   <p class="hint">① 원래 쓰던 주소에서 이름을 넣고 <b>저장 코드 만들기</b> → 코드 복사<br>② 새 주소(또는 다른 기기)에서 코드를 붙여 넣고 <b>가져오기</b></p>
@@ -1371,8 +1374,15 @@ function title(){
   <textarea id="xcode" rows="3" placeholder="여기에 저장 코드가 나와요 / 받은 저장 코드를 여기에 붙여 넣으세요"></textarea>
   <div class="xrow"><button class="btn-s" id="xcp">📋 복사</button><button class="btn-s" id="xin">📥 가져오기</button></div><div class="hint" id="xmsg"></div></details>
  </div></div>`;
- const go=()=>{let n=($('nmi').value||'').trim();const DEVID={zx:'Mr.KANG',qw:'Mr.KANG-Qw',as:'Mr.KANG-As'};const dev=Object.prototype.hasOwnProperty.call(DEVID,n.toLowerCase());if(dev)n=DEVID[n.toLowerCase()];G=fresh(n);G.started=true;G.dev=dev;SV=loadSave(G.name);if(dev){sfx('fanfare');if(!SV.level)SV.level='expert';G.introDone=true;G.scr='dsel';}else G.scr='level';render();};
- $('go').onclick=go;$('nmi').onkeydown=e=>{if(e.key==='Enter')go();};
+ const lm=t=>{$('lmsg').innerHTML=t;};let _sure='';
+ const begin=(n,dev)=>{G=fresh(n);G.started=true;G.dev=dev;SV=loadSave(G.name);if(dev){sfx('fanfare');if(!SV.level)SV.level='expert';G.introDone=true;G.scr='dsel';}else G.scr='level';render();};
+ const go=async()=>{let n=($('nmi').value||'').trim(),p=($('pwi').value||'');const DEVID={zx:'Mr.KANG',qw:'Mr.KANG-Qw',as:'Mr.KANG-As'};const dev=Object.prototype.hasOwnProperty.call(DEVID,n.toLowerCase());
+  if(dev){begin(DEVID[n.toLowerCase()],true);return;}
+  if(!n){lm('이름을 입력하세요.');return;}
+  const b=$('go');if(b.disabled)return;b.disabled=true;
+  try{const ok=await cloudLogin(n,p,{msg:lm,sure:{get:()=>_sure,set:v=>{_sure=v;}}});if(ok){begin(n,false);}}finally{b.disabled=false;}};
+ $('go').onclick=go;$('nmi').onkeydown=e=>{if(e.key==='Enter')$('pwi').focus();};$('pwi').onkeydown=e=>{if(e.key==='Enter')go();};
+ {const sn=savedNames();if(sn.length){$('svn').innerHTML='<div class="hint" style="margin:0 0 4px">이 기기에서 쓴 이름 (누르면 바로 시작)</div>'+sn.map(x=>'<button class="btn-s svn" data-n="'+esc(x)+'" style="margin:2px">'+esc(x)+'</button>').join('');$('svn').querySelectorAll('.svn').forEach(el=>el.onclick=()=>{$('nmi').value=el.dataset.n;$('pwi').value='';go();});}}
  const xm=t=>{$('xmsg').innerHTML=t;};
  $('xmk').onclick=()=>{const n=($('xn').value||'').trim();if(!n){xm('이름을 입력하세요.');return;}let raw=null;try{raw=localStorage.getItem('sg_save_'+n);}catch(e){}if(!raw){xm('❌ 이 기기에 「'+esc(n)+'」 저장 기록이 없어요.');return;}
   const b=btoa(unescape(encodeURIComponent(JSON.stringify({n,s:JSON.parse(raw)})))).replace(/=+$/,'');$('xcode').value='SGSAVE1-'+b+'-'+pvHash(b);xm('✅ 저장 코드를 만들었어요. 복사해서 새 주소에서 붙여 넣으세요.');};
@@ -4096,6 +4106,51 @@ function regionScreen(k){
    return;}
   regionScreen(G.reg);};
 })();
+
+/* ---------- 클라우드 계정 (이름 + 비밀번호 · 구글 시트 저장) ---------- */
+const CLOUD_URL='https://script.google.com/macros/s/AKfycbzGyf6xjlJ7UDBUfWcFglQ3z2R3951is295ebYP-VFI5jCJC4AT3aPtDU2wfo5H-Zs9/exec';
+let CLOUD=null,_cT=null,_cDirty=false,_cBusy=false;
+function lsg(k){try{return localStorage.getItem(k);}catch(e){return null;}}
+function lss(k,v){try{localStorage.setItem(k,v);}catch(e){}}
+function lsd(k){try{localStorage.removeItem(k);}catch(e){}}
+async function sha(s){try{const b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(s));return Array.from(new Uint8Array(b)).map(x=>x.toString(16).padStart(2,'0')).join('');}catch(e){let h=7,g=11;for(let i=0;i<s.length;i++){h=(h*31+s.charCodeAt(i))>>>0;g=(g*37+s.charCodeAt(i)*(i+1))>>>0;}return 'f'+h.toString(36)+g.toString(36);}}
+function pwHash(n,p){return sha('sagaPW|'+n+'|'+p);}
+async function cpost(o,keep){const ac=new AbortController();const t=setTimeout(()=>ac.abort(),keep?8000:15000);try{const r=await fetch(CLOUD_URL,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(o),redirect:'follow',signal:ac.signal,keepalive:!!keep});return await r.json();}finally{clearTimeout(t);}}
+function slimSave(){const o=Object.assign({},SV);delete o.seenQ;return o;}
+function metaSave(){return{lv:SV.level||'',cry:SV.cry||0,cl:(SV.cleared||[]).length};}
+function cloudBadge(t,c){let b=document.getElementById('cloudst');if(!CLOUD||G.scr==='title'||G.scr==='splash'){if(b)b.style.display='none';return;}
+ if(!b){b=document.createElement('div');b.id='cloudst';b.style.cssText='position:fixed;right:8px;bottom:6px;z-index:50;font:12px sans-serif;background:rgba(0,0,0,.55);color:#fff;padding:3px 8px;border-radius:10px;pointer-events:none';document.body.appendChild(b);}
+ b.style.display='';b.style.color=c||'#fff';b.textContent=t;}
+function cloudDirty(){if(!CLOUD||G.dev)return;if(CLOUD.stale){cloudBadge('☁ 연결 안 됨 · 이 기기에만 저장','#fc8');return;}_cDirty=true;if(!_cT)_cT=setTimeout(()=>{_cT=null;cloudFlush();},10000);}
+async function cloudFlush(keep){const c=CLOUD;if(!c||!_cDirty||c.stale||_cBusy&&!keep)return;_cDirty=false;_cBusy=true;cloudBadge('☁ 저장 중…');
+ try{const r=await cpost({a:'save',n:c.n,p:c.h,m:metaSave(),s:slimSave()},keep);if(r&&r.ok)cloudBadge('☁ 저장됨','#9f9');else{_cDirty=true;cloudBadge('☁ 저장 실패'+(r&&r.err==='pw'?' (비밀번호 변경됨)':''),'#f99');}}
+ catch(e){_cDirty=true;cloudBadge('☁ 연결 안 됨 · 이 기기에 저장','#fc8');}_cBusy=false;}
+function cloudLogout(){if(CLOUD&&_cDirty)cloudFlush(true);CLOUD=null;_cDirty=false;if(_cT){clearTimeout(_cT);_cT=null;}cloudBadge();}
+function mergeSave(n,srv){let loc=null;try{loc=JSON.parse(lsg('sg_save_'+n)||'null');}catch(e){}
+ let use=srv||loc,localNewer=false;if(srv&&loc&&(loc.ts||0)>(srv.ts||0)){use=loc;localNewer=true;}
+ if(use===srv&&loc&&loc.seenQ)use.seenQ=loc.seenQ;if(use)lss('sg_save_'+n,JSON.stringify(use));return localNewer;}
+(function(){const _sn=saveNow;saveNow=function(){if(!G.dev)SV.ts=Date.now();_sn();cloudDirty();};
+ window.addEventListener('pagehide',()=>{if(CLOUD&&_cDirty)cloudFlush(true);});
+ document.addEventListener('visibilitychange',()=>{if(document.hidden&&CLOUD&&_cDirty)cloudFlush(true);});
+ const _r=render;render=function(){const x=_r.apply(this,arguments);try{if(G.scr==='title')cloudLogout();else cloudBadge('☁ 연결됨','#9f9');}catch(e){}return x;};})();
+function savedNames(){const r=[];try{for(let i=0;i<localStorage.length;i++){const k=localStorage.key(i);if(k&&k.startsWith('sg_auth_'))r.push(k.slice(8));}}catch(e){}return r.sort();}
+async function cloudLogin(n,p,ui){ /* ui:{msg,sure:{get,set}} → 성공 시 true */
+ const auth=lsg('sg_auth_'+n);let h;
+ if(!p){if(!auth){ui.msg('🔑 비밀번호를 입력하세요. 처음이면 새로 정하세요.');return false;}h=auth;}
+ else{if(p.length<3){ui.msg('🔑 비밀번호는 3글자 이상이에요.');return false;}h=await pwHash(n,p);}
+ ui.msg('⏳ 확인하는 중… (처음엔 몇 초 걸릴 수 있어요)');
+ let r;try{r=await cpost({a:'load',n,p:h});}catch(e){
+  if(auth&&!p&&lsg('sg_save_'+n)){CLOUD={n,h:auth,stale:true};return true;}
+  ui.msg('❌ 인터넷에 연결되지 않았어요. 연결을 확인하고 다시 눌러 주세요.');return false;}
+ if(r&&r.ok){const nw=mergeSave(n,r.s);lss('sg_auth_'+n,h);CLOUD={n,h};if(nw)_cDirty=true;if(nw)setTimeout(()=>cloudFlush(),500);return true;}
+ if(r&&r.err==='pw'){lsd('sg_auth_'+n);ui.msg('❌ 비밀번호가 달라요. 다시 확인하세요.');return false;}
+ if(r&&r.err==='none'){
+  if(!p){lsd('sg_auth_'+n);ui.msg('이 이름의 계정이 없어요. 비밀번호를 입력해 새로 만드세요.');return false;}
+  const key=n+'|'+p;if(ui.sure.get()!==key){ui.sure.set(key);ui.msg('🆕 처음 오셨네요! 「'+esc(n)+'」 이름으로 새 계정을 만듭니다. 맞으면 <b>모험 시작</b>을 한 번 더 누르세요.<br>(비밀번호를 잊으면 선생님께 말씀드려야 해요.)');return false;}
+  const sv=loadSave(n);let r2;try{r2=await cpost({a:'register',n,p:h,m:{lv:sv.level||'',cry:sv.cry||0,cl:(sv.cleared||[]).length},s:Object.assign({},sv,{seenQ:undefined,ts:Date.now()})});}catch(e){ui.msg('❌ 인터넷에 연결되지 않았어요.');return false;}
+  if(r2&&r2.ok){lss('sg_auth_'+n,h);CLOUD={n,h};return true;}
+  ui.msg(r2&&r2.err==='exists'?'❌ 그 이름은 이미 있어요. 비밀번호를 확인하세요.':'❌ 계정을 만들지 못했어요. 잠시 뒤 다시 시도하세요.');return false;}
+ ui.msg('❌ 서버 응답 오류예요. 잠시 뒤 다시 시도하세요.');return false;}
 
 render();tryAuto();setTimeout(tryAuto,300);
 setInterval(()=>{document.body.classList.toggle('muted-wait',!(AU.ctx&&AU.ctx.state==='running')&&G.scr==='splash');},500);

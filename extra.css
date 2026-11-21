@@ -720,3 +720,13 @@ canvas.px[data-src="SPR"][data-k="shaman"],canvas.px[data-src="SPR"][data-k^="cs
 .ttl{font-size:11px;font-weight:800;color:#f0c04f}
 .rktitle{margin:8px 0;padding:8px;border-radius:10px;background:#0006}.rkts{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
 @media(max-width:560px){.ttag{font-size:10px}}
+/* 주관식 */
+.wrin{font:inherit;font-weight:800;font-size:17px;padding:8px 10px;border-radius:10px;border:2px solid #8a6d3b;background:#fff8e6;color:#3a2a10;margin:2px 3px;box-sizing:border-box}
+.wrin:focus{outline:none;border-color:#e0922a;box-shadow:0 0 0 3px rgba(255,190,80,.5)}
+.wrin.ok{background:#d9f2c8;border-color:#5a9a3a}.wrin.no{background:#ffd9d9;border-color:#c25050}
+.wrin:disabled{opacity:.9}
+.wrsent{display:flex;flex-wrap:wrap;gap:6px 8px;align-items:flex-end;font-size:20px;font-weight:800;margin:10px 0;line-height:1.9}
+.wrbl{display:inline-flex;flex-direction:column;align-items:center}.wrbl .wrin{text-align:center;max-width:46vw;margin:0 2px}.wrko{font-size:11px;color:#c9b88a;margin-top:2px;font-weight:700}
+.wrrow{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:10px 0}.wrlab{font-weight:800}
+.wfhint{margin:8px 0;font-weight:800}.wfw{display:inline-block;background:#ffe9a8;color:#4a3410;border-radius:9px;padding:3px 9px;margin:3px 4px 3px 0;font-weight:900}
+.wfin{width:100%;resize:none;font-size:18px}

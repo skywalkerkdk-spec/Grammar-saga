@@ -1279,7 +1279,7 @@ function bgmTick(){if(!AU.ctx||!AU.track)return;const t=AU.track==='menu'?((AU.c
 /* 배경음악: 실제 악기 샘플로 녹음한 오케스트라 음원(bgm_*.mp3)을 반복 재생. 불러오지 못하면 기존 합성음으로 대체 */
 AU.buf={};AU.lru=[];AU.cur=null;
 function bgmLoad(n){if(AU.buf[n]){AU.lru=AU.lru.filter(x=>x!==n);AU.lru.push(n);return AU.buf[n];}
- const p=fetch('bgm_'+n+'.mp3?v=12').then(r=>{if(!r.ok)throw new Error('http');return r.arrayBuffer();}).then(b=>new Promise((res,rej)=>AU.ctx.decodeAudioData(b,res,rej)));
+ const p=fetch('bgm_'+n+'.mp3?v=13').then(r=>{if(!r.ok)throw new Error('http');return r.arrayBuffer();}).then(b=>new Promise((res,rej)=>AU.ctx.decodeAudioData(b,res,rej)));
  AU.buf[n]=p;AU.lru.push(n);p.catch(()=>{delete AU.buf[n];});
  while(AU.lru.length>4){const old=AU.lru.shift();if(!AU.cur||AU.cur.name!==old)delete AU.buf[old];}
  return p;}
@@ -1295,7 +1295,7 @@ function bgm(name){
  AU.bgmG.gain.cancelScheduledValues(now);AU.bgmG.gain.setValueAtTime(0.62,now);
  bgmLoad(name).then(buf=>{if(AU.cur!==me)return;const s=c.createBufferSource();s.buffer=buf;s.loop=!menu;s.connect(g);if(menu)s.onended=()=>{if(AU.cur===me&&AU.track==='menu'){AU.track=null;bgm('menu');}};s.start();me.src=s;g.gain.setTargetAtTime(1,c.currentTime+0.4,0.3);})
  .catch(()=>{if(AU.cur!==me)return;
-   try{const el=new Audio('bgm_'+name+'.mp3?v=12');el.loop=!menu;if(menu)el.onended=()=>{if(AU.cur===me&&AU.track==='menu'){AU.track=null;bgm('menu');}};el.crossOrigin='anonymous';const ms=c.createMediaElementSource(el);ms.connect(g);me.el=el;
+   try{const el=new Audio('bgm_'+name+'.mp3?v=13');el.loop=!menu;if(menu)el.onended=()=>{if(AU.cur===me&&AU.track==='menu'){AU.track=null;bgm('menu');}};el.crossOrigin='anonymous';const ms=c.createMediaElementSource(el);ms.connect(g);me.el=el;
     el.play().then(()=>{if(AU.cur===me)g.gain.setTargetAtTime(1,c.currentTime+0.4,0.3);else el.pause();}).catch(()=>{el.pause();synthBgm(name,me);});
     el.onerror=()=>{el.pause();synthBgm(name,me);};}
    catch(e){synthBgm(name,me);}});
@@ -1378,7 +1378,7 @@ function openGuide(){
  <button class="next" onclick="$('layer').innerHTML=''">닫기</button></div></div>`;
  fill($('layer'));$('mbg').onclick=e=>{if(e.target.id==='mbg')$('layer').innerHTML='';};
 }
-function hud(extra){return `<div class="hud"><span class="nm">${SV.hero==='druid'?'🐻':'🛡️'} ${esc(G.name)}${SV.hero?` <small>(${HERO[SV.hero].slice(2)})</small>`:''}</span><span class="gold">💎 ${SV.cry}</span>${SV.stone>0?`<span class="stonechip">⚒️ ${SV.stone}</span>`:''}${SV.mode==='rpg'&&rpgOpen()?`<span class="rgold">💰 ${SV.rg}</span>`:''}${G.started&&SV.level?`<span class="lvb">${LEVELS[LV()].ic} ${LEVELS[LV()].n}</span>`:''}${extra||''}<span class="sp"></span><button class="btn-s mute" onclick="toggleMute()">${AU.muted?'🔇 소리 꺼짐':'🔊 소리 켜짐'}</button><button class="btn-s" onclick="openGuide()">📖 도감</button></div>`;}
+function hud(extra){return `<div class="hud"><span class="nm">${SV.hero==='druid'?'🐻':'🛡️'} ${esc(G.name)}${SV.hero?` <small>(${HERO[SV.hero].slice(2)})</small>`:''}</span><span class="gold">💎 ${SV.cry}</span>${G.started?`<span class="stonechip" title="강화석">⚒️ ${SV.stone||0}</span>`:''}${SV.mode==='rpg'&&rpgOpen()?`<span class="rgold">💰 ${SV.rg}</span>`:''}${G.started&&SV.level?`<span class="lvb">${LEVELS[LV()].ic} ${LEVELS[LV()].n}</span>`:''}${extra||''}<span class="sp"></span><button class="btn-s mute" onclick="toggleMute()">${AU.muted?'🔇 소리 꺼짐':'🔊 소리 켜짐'}</button><button class="btn-s" onclick="openGuide()">📖 도감</button></div>`;}
 
 /* ---------- 화면 ---------- */
 function render(){window.scrollTo({top:0});applySkin();const f={splash,title,level,grave,ending,temple,intro,dsel,party,defeat,formed,battle,clear,shop,forge,rbattle,rresult,hsel:heroSel,news:newsPaper,pvp:pvLobby,pvbattle:pvBattle,pvres:pvRes,rdlobby:rdLobby,rdbattle:rdBattle}[G.scr];document.body.dataset.bg=G.scr==='splash'?'':(G.scr==='battle'||G.scr==='rbattle'||G.scr==='pvbattle'||G.scr==='rdbattle')?(G.dg.bg||G.dg.id):'guild';f();fill($('app'));syncBgm();}
@@ -1463,7 +1463,7 @@ function dsel(){G.rpg=false;if(SV.mode==='rpg'&&rpgOpen())return rpgDsel();
  $('app').innerHTML=hud()+`<div class="card"><div class="speaker">탱커의 결심</div>
  <div class="story">어느 던전에 도전할까? <b>파티 인원</b>은 던전마다 다르다. (펫은 인원에 포함되지 않음)</div>${modeTabs()}${dailyCard()}
  <button class="shopbtn" id="toshop">${petc('mini')}<div><b>🐾 길드 상점 (펫·스킨)</b><span>수정으로 펫·꾸미기·주인공 스킨을 사 보세요 · 보유 💎 ${SV.cry}</span></div></button>
- <div class="dtools"><button class="btn-s" id="tolv">${LEVELS[LV()].ic} 난이도: <b>${LEVELS[LV()].n}</b> (${LEVELS[LV()].sub}) · 바꾸기</button><button class="btn-s" id="toforgeL">⚒️ 대장간 · 무기 강화${G.stoneBoot?` <small>(이전 기록에서 강화석 ${G.stoneBoot}개 지급!)</small>`:''}</button><button class="btn-s savebtn" id="dsave">💾 저장하기</button><button class="btn-s" id="tologin">👤 다른 계정으로 로그인</button></div>
+ <div class="dtools"><button class="btn-s" id="tolv">${LEVELS[LV()].ic} 난이도: <b>${LEVELS[LV()].n}</b> (${LEVELS[LV()].sub}) · 바꾸기</button><button class="btn-s" id="toforgeL">⚒️ 대장간 · 무기 강화 <b>(강화석 ${SV.stone||0}개)</b>${G.stoneBoot?` <small>(이전 기록에서 강화석 ${G.stoneBoot}개 지급!)</small>`:''}</button><button class="btn-s savebtn" id="dsave">💾 저장하기</button><button class="btn-s" id="tologin">👤 다른 계정으로 로그인</button></div>
  ${G.dev?devPanel():''}${G.toastSave?'<div class="feedback ok" style="margin:0 0 10px">💾 저장했어요! 다음에 같은 이름으로 들어오면 이어서 할 수 있어요.</div>':''}${resumeHTML()}
  ${shardBar()}<div class="dgrid">${DUNGEONS.filter(d=>!d.verbal&&!d.mix).map(d=>`<button class="dcard ${d.id==='d6'&&!dOpen(d)?'dlock':''}" ${dOpen(d)?'':'disabled'} data-id="${d.id}">
  <span class="size">${d.full?'풀파티 최종 던전':d.size+'인 '+(d.id==='d4'?'필드':'던전')}</span>${d.open?(d.id==='d6'&&!dOpen(d)?`<span class="lock">🔒 수정 조각 ${shardN()}/5</span>`:SV.cleared.includes(d.id)?'<span class="lock" style="color:var(--green)">✅ 클리어</span>':''):'<span class="lock">🔒 준비 중</span>'}
@@ -2153,7 +2153,7 @@ function forge(){
  document.querySelectorAll('[data-ft]').forEach(b=>b.onclick=()=>{G.forgeTab=b.dataset.ft;G.toast=null;sfx('click');render();});
  document.querySelectorAll('[data-gb]').forEach(b=>b.onclick=()=>{const k=b.dataset.gb,g=GEAR[k];if(SV.rg<g.price)return;SV.rg-=g.price;SV.gearOwned.push(k);SV.gear[g.type]=k;saveNow();sfx('coins');G.toast=`${g.nm} 구매 완료! 바로 착용했어요. (${gstat(g)})`;render();});
  document.querySelectorAll('[data-gw]').forEach(b=>b.onclick=()=>{const k=b.dataset.gw;SV.gear[GEAR[k].type]=k;saveNow();sfx('select');G.toast=null;render();});
- {const eb=$('enh');if(eb)eb.onclick=enhTry;}
+ {const eb=$('enh');if(eb)eb.onclick=enhTry;const ed=$('enhdev');if(ed)ed.onclick=()=>{SV.stone=(SV.stone||0)+5;saveNow();sfx('coins');render();};}
  $('out').onclick=()=>{G.scr='dsel';render();};
 }
 
@@ -4194,6 +4194,7 @@ function mapBtns(){const h=document.querySelector('#app .hud');if(!h)return;
  const mk=(id,t,f)=>{if(document.getElementById(id))return;const b=document.createElement('button');b.className='btn-s';b.id=id;b.innerHTML=t;b.onclick=f;h.appendChild(b);};
  mk('tolv',`${LEVELS[LV()].ic} ${LEVELS[LV()].n}`,()=>{G.scr='level';render();});
  mk('toforgeM','⚒️ 대장간',()=>{G.scr='forge';G.toast=null;G.enhRes=null;sfx('select');render();});
+ if(G.dev)mk('devstone','🛠️ 강화석+5',()=>{SV.stone=(SV.stone||0)+5;saveNow();sfx('coins');render();});
  mk('dsave','💾 저장하기',()=>{saveNow();sfx('select');G.toastSave=true;render();});
  mk('tologin','🚪 돌아가기',()=>{saveNow();sfx('select');G.scr='title';render();});}
 function dcardG(d,tag){const u=d.open!==false&&(d.exp?expOpen(d):true),cl=SV.cleared.includes(d.id);
@@ -4312,6 +4313,7 @@ function enhHTML(){const k=SV.gear.sword,w=GEAR[k],L=(SV.enh||{})[k]||0,st=SV.st
  <div class="hint">${L>=5&&!maxed?'⚠️ +5 이상에서 실패하면 단계가 1 내려가요!':'+5 이상에서 실패하면 단계가 1 내려가요. (+4 이하는 안전)'}</div></div></div>
  <div class="eladder">${ladder}</div>${res}
  <button class="next" id="enh" ${G.enhBusy||st<1||maxed?'disabled':''}>${maxed?'🏁 최대 강화':st<1?'⚒️ 강화석이 없어요':`⚒️ 강화 시도 (+${L} → +${L+1})`}</button>
+${G.dev?'<button class="btn-s" id="enhdev">🛠️ 강화석 +5 (개발자)</button>':''}
  <p class="hint">강화석은 던전을 처음 클리어할 때(1개씩), 난이도별로 1~6번 던전을 모두 클리어할 때, 레이드 보스를 일정 이상 몰아붙일 때 얻어요. 강화는 무기마다 따로 쌓여요.</p></div>`;}
 function enhTry(){const k=SV.gear.sword;SV.enh=SV.enh||{};const L=SV.enh[k]||0;if(G.enhBusy||(SV.stone||0)<1||L>=ENH_MAX)return;
  G.enhBusy=true;G.enhRes=null;sfx('click');render();[0,380,760].forEach(t=>setTimeout(()=>sfx('hit'),t));

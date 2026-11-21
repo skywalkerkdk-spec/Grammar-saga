@@ -992,28 +992,28 @@ function saveNow(){try{localStorage.setItem('sg_save_'+G.name,JSON.stringify(SV)
 
 /* ---------- 던전 데이터 ---------- */
 const DUNGEONS=[
- {id:'d1',size:2,form:1,name:'서브젝트(Subject) 숲',mon:'slime',open:true,need:['healer'],enc:true,
+ {id:'d1',size:2,form:1,name:'고요한 숲',mon:'slime',open:true,need:['healer'],enc:true,
   desc:'졸린 숲 몬스터들이 어슬렁거린다. 버텨야 할 무리도, 집중 공격할 보스도 없는 평화로운 숲.',
   clue:'Birds '+BL+' in the forest.',sample:'Birds <u>sing</u> <span style="opacity:.55">(in the forest)</span>.',
   formed:'탱커(<b>주어</b>)와 사제(<b>동사</b>) 둘이면 출발할 수 있는 던전! 이것이 바로 <b>1형식</b>이에요.',
-  next:'3인 던전 <b>컴플리먼트(Complement) 동굴</b>과 <b>오브젝트(Object) 협곡</b>에서 이번에 후퇴했던 <i>She looks tired.</i>, <i>He loves music.</i>를 잡으러 가요!'},
- {id:'d2',size:3,form:2,name:'컴플리먼트(Complement) 동굴',mon:'slime',open:true,need:['healer','paladin'],enc:true,
+  next:'3인 던전 <b>슬라임 떼의 동굴</b>과 <b>골렘의 협곡</b>에서 이번에 후퇴했던 <i>She looks tired.</i>, <i>He loves music.</i>를 잡으러 가요!'},
+ {id:'d2',size:3,form:2,name:'슬라임 떼의 동굴',mon:'slime',open:true,need:['healer','paladin'],enc:true,
   desc:'슬라임이 떼로 몰려온다! 탱커 혼자서는 버티기 힘들다. 탱커 곁에서 함께 막아 줄 동료가 필요하다.',
   clue:'The warrior became '+BL+'.',noVerb:'The warrior '+BL+' strong.',lackS:'The warrior became '+BL+'.',
   lack:{dealer:'슬라임 떼가 탱커에게 한꺼번에 몰려왔다! 딜러는 한 마리만 노려 쏘다가… 혼자 버티던 탱커가 쓰러졌다.',_:'몰려드는 슬라임을 함께 막아 줄 동료가 없어 탱커가 쓰러졌다.'},
   lackGram:'<i>become, look, smell</i> 같은 동사 뒤에는 "~을"(목적어)이 아니라 <b>주어를 설명하는 서브탱커(주격보어)</b>가 필요해요. The warrior = strong!',
   sample:'She <u>became</u> <b>a doctor</b>. <span style="opacity:.55">(She = a doctor)</span>',
   formed:'탱커(<b>주어</b>) + 사제(<b>동사</b>) + 서브탱커(<b>주격보어</b>). 서브탱커는 탱커 곁에서 탱커를 설명하고 지켜 줘요(S = C). 이것이 <b>2형식</b>이에요.',
-  next:'다음은 4인 필드 <b>인디렉트(Indirect) 상점가</b>(4형식)! 이번에 후퇴했던 <i>She gave me a book.</i>을 거래로 해결하러 가요.'},
- {id:'d3',size:3,form:3,name:'오브젝트(Object) 협곡',mon:'golem',open:true,need:['healer','dealer'],enc:true,
+  next:'다음은 4인 필드 <b>상인의 상점가</b>(4형식)! 이번에 후퇴했던 <i>She gave me a book.</i>을 거래로 해결하러 가요.'},
+ {id:'d3',size:3,form:3,name:'골렘의 협곡',mon:'golem',open:true,need:['healer','dealer'],enc:true,
   desc:'단단한 골렘 한 마리가 길을 막고 있다. 막기만 해서는 끝나지 않는다. 목표를 정확히 노릴 화력이 필요하다.',
   clue:'The warrior attacked '+BL+'.',noVerb:'The warrior '+BL+' the golem.',lackS:'The warrior attacked '+BL+'.',
   lack:{paladin:'서브탱커가 탱커를 잘 지켰지만, 골렘에게 꽂을 공격이 없어 딜이 모자랐다! 결국 지쳐서 전멸.',_:'골렘에게 꽂을 공격이 없어 딜이 모자랐다! 결국 지쳐서 전멸.'},
   lackGram:'<i>attack, love, reach</i> 같은 동사 뒤에는 동작이 꽂힐 <b>목표, 딜러(목적어)</b>가 필요해요. The warrior ≠ the golem!',
   sample:'I <u>love</u> <b>music</b>. <span style="opacity:.55">(I ≠ music)</span>',
   formed:'탱커(<b>주어</b>) + 사제(<b>동사</b>) + 딜러(<b>목적어</b>). 딜러는 동작이 꽂히는 목표를 노려요(S ≠ O). 이것이 <b>3형식</b>이에요.',
-  next:'다음은 4인 필드 <b>인디렉트(Indirect) 상점가</b>(4형식)와 <b>오브젝트 컴플리먼트(OC) 공방</b>(5형식)! 이번에 후퇴했던 <i>The news made me happy.</i>를 잡으러 가요.'},
- {id:'d4',size:4,form:4,name:'인디렉트(Indirect) 상점가',mon:'shopkeep',open:true,need:['healer','trader','item'],enc:true,flav:'shop',
+  next:'다음은 4인 필드 <b>상인의 상점가</b>(4형식)와 <b>연금술사의 공방</b>(5형식)! 이번에 후퇴했던 <i>The news made me happy.</i>를 잡으러 가요.'},
+ {id:'d4',size:4,form:4,name:'상인의 상점가',mon:'shopkeep',open:true,need:['healer','trader','item'],enc:true,flav:'shop',
   desc:'칼을 휘두를 곳이 아니다! 까다로운 상인들과 <b>거래</b>를 해야 하는 시장. 누구<b>에게</b> 무엇<b>을</b> 줄지 정할 동료가 필요하다.',
   clue:'The merchant gave '+BL+' '+BL+'.',noVerb:'The merchant '+BL+' us a sword.',lackS:'The merchant gave '+BL+' '+BL+'.',
   lack:{dealer:'딜러가 상인에게 화살을 겨눴다! 경비병이 몰려와 파티는 시장에서 쫓겨났다. 여기선 공격이 아니라 거래가 필요해!',
@@ -1022,9 +1022,9 @@ const DUNGEONS=[
   lackGram:'<i>give, send, show, buy, teach</i> 같은 동사는 <b>누구에게</b>(트레이더 · 간접목적어)와 <b>무엇을</b>(아이템 · 직접목적어) 두 자리가 필요해요. 둘 중 하나라도 비면 거래가 안 돼요!',
   sample:'She <u>gave</u> <b>me</b> <b>a book</b>. <span style="opacity:.55">(나에게 · 책을)</span>',
   formed:'탱커(<b>주어</b>) + 사제(<b>동사</b>) + 트레이더(<b>간접목적어</b> ~에게) + 아이템(<b>직접목적어</b> ~을). 거래 상대와 물건이 함께 있어야 거래 성사! 이것이 <b>4형식</b>이에요.<br>⚠️ <i>gave a book <b>to me</b></i>처럼 <b>to/for</b>가 붙으면 <i>to me</i>는 펫(수식어)이 되어 <b>3형식</b>! 이런 손님은 그냥 지나가세요.',
-  next:'다음은 <b>오브젝트 컴플리먼트(OC) 공방</b>(5형식)! 이번에 지나쳤던 <i>The news made me happy.</i>를 잡으러 가요.'},
- {id:'d5',size:4,form:5,name:'오브젝트 컴플리먼트(OC) 공방',mon:'homunculus',open:true,need:['healer','dealer','shaman'],enc:true,
-  desc:'돌을 금으로, 철을 은으로! 무엇이든 <b>다른 것으로 바꿔 버리는</b> 오브젝트 컴플리먼트(OC) 공방. 딜러가 노린 대상을 <b>무엇으로 바꿀지</b> 정해 줄 버퍼가 함께 있어야 한다.',
+  next:'다음은 <b>연금술사의 공방</b>(5형식)! 이번에 지나쳤던 <i>The news made me happy.</i>를 잡으러 가요.'},
+ {id:'d5',size:4,form:5,name:'연금술사의 공방',mon:'homunculus',open:true,need:['healer','dealer','shaman'],enc:true,
+  desc:'돌을 금으로, 철을 은으로! 무엇이든 <b>다른 것으로 바꿔 버리는</b> 연금술사의 공방. 딜러가 노린 대상을 <b>무엇으로 바꿀지</b> 정해 줄 버퍼가 함께 있어야 한다.',
   clue:'The alchemist turned the stone '+BL+'.',noVerb:'The alchemist '+BL+' the stone gold.',lackS:'The alchemist turned the stone '+BL+'.',
   lack:{paladin:'서브탱커가 버프를 걸었지만 탱커에게만 걸렸다! 딜러가 노린 돌은 아무것으로도 변하지 않았고… 연금술사의 역습에 파티 전멸.',
    trader:'트레이더가 연금술사에게 금을 사겠다고 했다! 연금술사는 웃으며 파티를 개구리로 바꿔 버렸다.',
@@ -1033,11 +1033,11 @@ const DUNGEONS=[
   sample:'The alchemist <u>turned</u> <b>the stone</b> <b>gold</b>. <span style="opacity:.55">(the stone = gold)</span>',
   formed:'탱커(<b>주어</b>) + 사제(<b>동사</b>) + 딜러(<b>목적어</b>) + 서브딜러(<b>목적격보어</b>). 딜러가 노린 대상을 서브딜러가 <b>다른 것으로 바꿔</b> 줘요(O → OC, O = OC). 이것이 <b>5형식</b>이에요.<br>⚠️ <i>made <b>me</b> <b>a sandwich</b></i>처럼 me ≠ a sandwich라면 상점가의 4형식! 이런 문장은 후퇴하세요.',
   next:'드디어 마지막 <b>마왕성</b>! 이번엔 모든 동료를 데리고 가서, 적이 외치는 문장마다 필요한 동료만 골라 출전시켜야 해요.'},
- {id:'d7',size:4,form:'to부정사',name:'인피니티브(Infinitive) 신전',mon:'trainee',open:true,verbal:'knight',need:['healer','paladin'],enc:true,
+ {id:'d7',size:4,form:'to부정사',name:'인피니티브(Infinitive·부정사) 신전',mon:'trainee',open:true,verbal:'knight',need:['healer','paladin'],enc:true,
   desc:'어둠에 물든 옛 기사단의 신전. 타락한 기사와 정령들이 to부정사 문장을 외친다! 문장 속 <b>to부정사</b>가 맡은 자리에 맞는 특성의 성기사를 출전시켜라!',
   formed:'to부정사(<b>to + 동사원형</b>)는 문장 속에서 여러 자리를 맡아요. 🛡️ 방패(주어) · 🔨 망치(목적어) · ✨ 버프(보어) · 🐾 소환(수식어)! 표시된 to부정사 덩어리가 어느 자리인지 보고 알맞은 성기사를 보내세요.',sample:'I want <b>to win</b>. → 목적어 자리 → 🔨 망치 성기사!',
-  next:'이번엔 <b>제룬드(Gerund) 숲</b>에서 -ing(동명사·분사)를 다뤄 보세요!'},
- {id:'d8',size:4,form:'동명사·분사',name:'제룬드(Gerund) 숲',mon:'sprout',open:true,verbal:'druid',need:['healer','shaman'],enc:true,
+  next:'이번엔 <b>제룬드(Gerund·동명사) 숲</b>에서 -ing(동명사·분사)를 다뤄 보세요!'},
+ {id:'d8',size:4,form:'동명사·분사',name:'제룬드(Gerund·동명사) 숲',mon:'sprout',open:true,verbal:'druid',need:['healer','shaman'],enc:true,
   desc:'어둠의 마력에 잠식된 드루이드의 숲. 문장 속 <b>-ing 덩어리</b>가 동명사인지 분사인지, 어느 자리를 맡았는지 보고 알맞은 드루이드를 보내라!',
   formed:'동사원형 + <b>-ing</b>는 두 얼굴을 가졌어요. <b>동명사</b>(~하는 것)는 🐻 곰(주어) · 🐯 호랑이(목적어) · ✨ 버프(보어)! <b>현재분사</b>(~하는, ~하고 있는)는 🐾 소환(명사를 꾸밈)이나 ✨ 버프(목적격보어)! 표시된 -ing 덩어리를 보고 알맞은 드루이드를 보내세요.',sample:'I enjoy <b>dancing</b>. → 목적어 자리 → 🐆 호랑이 드루이드!',
   next:'전직의 신전을 모두 돌파했어요! 다른 난이도로 다시 도전하거나 마왕성에 재도전해 보세요.'},
@@ -1056,7 +1056,7 @@ const DEFEAT1={
 const BROLES=()=>{const id=G.dg&&G.dg.id;if(G.dg&&(G.dg.daily||G.dg.all8))return ['S','V','C','O','IO','DO','OC','M'];if(G.dg&&G.dg.verbal)return ['S','V','C','O','OC','M'];return ['S','V','C','O'].concat(id==='d4'?['IO','DO']:[],id==='d5'?['OC']:[],['M']);};
 const RK={S:'주어',V:'동사',C:'주격보어',O:'목적어',IO:'간접목적어',DO:'직접목적어',OC:'목적격보어',M:'수식어'};
 const rtag=r=>`${RK[r]}(${CL[R2K[r]].nm})`;
-const FORMPLACE={1:'2인 던전 서브젝트(Subject) 숲',2:'3인 던전 컴플리먼트(Complement) 동굴',3:'3인 던전 오브젝트(Object) 협곡',4:'4인 필드 인디렉트(Indirect) 상점가',5:'4인 던전 오브젝트 컴플리먼트(OC) 공방'};
+const FORMPLACE={1:'2인 던전 고요한 숲',2:'3인 던전 슬라임 떼의 동굴',3:'3인 던전 골렘의 협곡',4:'4인 필드 상인의 상점가',5:'4인 던전 연금술사의 공방'};
 /* ---------- 문제 은행 (플레이할 때마다 무작위 출제) ----------
    c: [영어 조각, 성분, 성분이 드러나는 우리말]  tr: 자연스러운 해석  n: 덧붙일 설명
    성분: S 주어 / V 동사 / C 주격보어 / O 목적어 / IO 간접목적어 / DO 직접목적어 / OC 목적격보어 / M 수식어 */
@@ -1503,7 +1503,7 @@ function intro(){
 }
 function templeCard(){const u=templeUnlocked();
  return `<button class="dcard temple-card ${u?'':'tlock'}" id="totemple" ${u?'':'disabled'}><span class="size">✨ 전직 · 준동사 던전</span>${u?'':'<span class="lock">🔒 마왕성 클리어 후</span>'}
- <h3>⛪ 전직의 신전</h3><div class="mon"><div class="tmon">${u?sp('bearform')+sp('paladin')+sp('pantherform'):'<span style="font-size:54px">❔</span>'}</div><div class="hint">${u?'to부정사·동명사의 힘으로 전직하고, 새 던전(인피니티브(Infinitive) 신전·제룬드(Gerund) 숲)에 도전하세요!':'마왕성을 클리어하면 무언가가 열린다…'}</div></div></button>`;}
+ <h3>⛪ 전직의 신전</h3><div class="mon"><div class="tmon">${u?sp('bearform')+sp('paladin')+sp('pantherform'):'<span style="font-size:54px">❔</span>'}</div><div class="hint">${u?'to부정사·동명사의 힘으로 전직하고, 새 던전(인피니티브(Infinitive·부정사) 신전·제룬드(Gerund·동명사) 숲)에 도전하세요!':'마왕성을 클리어하면 무언가가 열린다…'}</div></div></button>`;}
 function dsel(){G.rpg=false;if(SV.mode==='rpg'&&rpgOpen())return rpgDsel();
  $('app').innerHTML=hud()+`<div class="card"><div class="speaker">탱커의 결심</div>
  <div class="story">어느 던전에 도전할까? <b>파티 인원</b>은 던전마다 다르다. (펫은 인원에 포함되지 않음)</div>${modeTabs()}${dailyCard()}
@@ -1943,7 +1943,7 @@ function creditsHTML(){
  return `<div class="cr-title">Grammar Saga</div><div class="cr-sub">Sentence Patterns</div>
  ${sec('🏆 마왕을 물리친 영웅',[`<b class="cr-hero">${esc(G.name)}</b>`])}
  ${sec('⚔️ 파티',cls.map(k=>`${sp(k)} <b>${full(k)}</b> — ${RK[CL[k].r]}`).concat([`${petc()} <b>펫</b> — 수식어 (인원 외)`]))}
- ${sec('🗺️ 모험의 길',['서브젝트(Subject) 숲 — 1형식','컴플리먼트(Complement) 동굴 — 2형식','오브젝트(Object) 협곡 — 3형식','인디렉트(Indirect) 상점가 — 4형식','오브젝트 컴플리먼트(OC) 공방 — 5형식','마왕성 — 1~5형식'])}
+ ${sec('🗺️ 모험의 길',['고요한 숲 — 1형식','슬라임 떼의 동굴 — 2형식','골렘의 협곡 — 3형식','상인의 상점가 — 4형식','연금술사의 공방 — 5형식','마왕성 — 1~5형식'])}
  ${sec('👾 출연 몬스터',['슬라임 · 박쥐 · 버섯 · 숲의 수호목','슬라임 떼 · 슬라임 킹','골렘 · 골렘 대장 (3형제 중 첫째, 사실 외동)','잡화 상인 · 대장장이 · 물약 상인 · 황금 거상','호문쿨루스 · 살아 있는 플라스크 · 수은 슬라임 · 광기의 연금술사','임프 · 해골 병사 · 흑기사'])}
  ${sec('👑 사천왕',['화염의 군주 이그니스 (자칭 최약체)','빙결의 여제 프로스트 (사실 최약체)','폭풍의 기사 템페스트','대지의 거인 가이아 (다섯 번째는 없음)','그리고… 마왕'])}
  ${sec('🎮 기획 · 스토리 · 캐릭터 설정',['Mr.KANG'])}
@@ -2061,7 +2061,7 @@ function shop(){
  <div class="preview">${petc('prev')}<div class="hint">함께하는 펫: ${PETS[SV.pet].nm}</div></div></div>
  ${t?`<div class="feedback ok"><b>${t.msg}</b><div class="sentence" style="font-size:22px;margin:8px 0">The shopkeeper <u>sold</u> <span class="io">me</span> <span class="do">${t.en}</span>.</div>
   <div class="chips">${chipc('tank').replace('탱커(전사)','The shopkeeper')}<b>+</b>${chipc('healer').replace('힐러(사제)','sold')}<b>+</b>${chipc('trader').replace('트레이더(상인)','me')}<b>+</b>${chipc('item').replace('아이템(보물)',t.en)}</div>
-  <span class="hint">"나에게(me) ${t.nm}을(를)" 판 거래 문장! 받는 사람 = 트레이더 자리, 건네는 물건 = 아이템 자리 → <b>4형식</b> (인디렉트(Indirect) 상점가에서 더 배워요)</span></div>`:''}
+  <span class="hint">"나에게(me) ${t.nm}을(를)" 판 거래 문장! 받는 사람 = 트레이더 자리, 건네는 물건 = 아이템 자리 → <b>4형식</b> (상인의 상점가에서 더 배워요)</span></div>`:''}
  <div class="stabs">${tabs.map(([k,l])=>`<button class="stab ${tab===k?'on':''}" data-tab="${k}">${l}</button>`).join('')}</div>
  ${body}
  <p class="hint">학습 모드에서 몬스터를 <b>첫 시도</b>에 잡으면 💎 수정을 얻어요. RPG 모드에서는 💎 수정과 💰 골드를 함께 얻어요. 💎 수정은 펫·꾸미기·스킨, 💰 골드는 대장간 장비에 써요. 기록은 이 기기의 브라우저에만 저장돼요.</p>
@@ -2455,52 +2455,52 @@ function rpgClearC(){return Math.max(1,bonusC(Math.round(LEVELS[LV()].b*rpgRep()
 
 /* ================= 대륙 원정: 1~5형식 랜덤 던전 10곳 ================= */
 const EXPED=[
- {id:'d9',name:'클로즈(Clause) 늪지',mons:['zombie','troll','mushroom','slime','harpy'],
+ {id:'d9',name:'클로즈(Clause·절) 늪지',mons:['zombie','troll','mushroom','slime','harpy'],
   boss:{mon:'treant',mname:'늪의 군주 모르가스',filter:'hue-rotate(60deg) saturate(.7) brightness(.75)',
    t:['안개 속에서 길을 잃은 자들이여… 늪은 문장을 삼킨다!','늪은 깊다… 성분 하나만 틀려도 빠져나올 수 없지!','내가 무릎을 꿇었던 것은… 늪 속에서 추진력을 얻기 위함이었다!'],
    k:'안개가… 걷힌다… 늪에도 햇빛이 드는구나…',x:['꾸르륵… 늪에 빠졌구나!','안개처럼 흐릿한 답이군!']},
   desc:'짙은 안개가 깔린 늪. 좀비와 트롤이 1~5형식 문장을 외치며 다가온다!'},
- {id:'d10',name:'프레이즈(Phrase) 얼음 동굴',mons:['kobold','bat','slime','ewater','golem'],
+ {id:'d10',name:'프레이즈(Phrase·구) 얼음 동굴',mons:['kobold','bat','slime','ewater','golem'],
   boss:{mon:'golemboss',mname:'서리 거인 요툰',filter:'sepia(1) saturate(2.5) hue-rotate(170deg) brightness(1.15)',
    t:['쩌억… 동굴에 들어온 순간 너희 문장은 얼어붙는다!','Winter is coming… 아니, 이미 왔다!','얼음처럼 차가운 문장을 받아라!'],
    k:'얼음이… 녹는다… 봄이… 오는구나…',x:['쩡! 얼어붙은 답이다!','차갑다 차가워! 틀렸다!']},
   desc:'고드름이 빛나는 얼음 동굴. 미끄러지지 않게 성분을 정확히 붙잡아라!'},
- {id:'d11',name:'프레디킷(Predicate) 화산 협곡',mons:['efire','imp','hellhound','golem','wyvern'],
+ {id:'d11',name:'프레디킷(Predicate·술부) 화산 협곡',mons:['efire','imp','hellhound','golem','wyvern'],
   boss:{mon:'wyvern',mname:'화산룡 이그니로스',filter:'hue-rotate(-20deg) saturate(1.8)',big:true,
    t:['크아아! 용암보다 뜨거운 문장을 받아라!','협곡을 건너려면 불꽃 시험을 통과해야 한다!','너희도 그럴듯한 계획이 있겠지. 불타기 전까지는!'],
    k:'크르르… 불꽃이… 사그라든다…',x:['화르륵! 틀린 답은 재가 된다!','용암에 발이 빠졌군!']},
   desc:'용암이 흐르는 협곡. 불꽃 정령과 지옥견이 길을 막는다!'},
- {id:'d12',name:'센텐스(Sentence) 저택',mons:['banshee','skeleton','vampire','mimic','zombie'],
+ {id:'d12',name:'센텐스(Sentence·문장) 저택',mons:['banshee','skeleton','vampire','mimic','zombie'],
   boss:{mon:'lich',mname:'망령 백작 그레이브',filter:'hue-rotate(160deg) brightness(1.1)',big:true,
    t:['어서 오게, 손님들… 이 저택에서 나간 자는 아무도 없지…','촛불이 꺼지기 전에 문장을 맞혀 보게!','왕위를 계승하고 있습니다, 아버지… 아니, 저택을 계승했지!'],
    k:'드디어… 저택에서… 떠날 수 있겠군… 고맙네…',x:['후후후… 틀린 손님은 손님방에 영원히 머물게 되지!','유령도 웃을 답이군!']},
   desc:'밤마다 비명이 들리는 저택. 문이 하나씩 열릴 때마다 다른 형식의 문장이 기다린다!'},
- {id:'d13',name:'신택스(Syntax) 피라미드',mons:['mummy','skeleton','medusa','ewind','mimic'],
+ {id:'d13',name:'신택스(Syntax·구문) 피라미드',mons:['mummy','skeleton','medusa','ewind','mimic'],
   boss:{mon:'mummy',mname:'파라오 아멘라',filter:'sepia(.6) saturate(2) hue-rotate(10deg)',big:true,
    t:['3천 년 동안 이 문장을 기다렸다!','파라오의 저주! 형식을 틀리면 붕대에 감긴다!','피라미드의 비밀은… 문장의 뼈대에 있다!'],
    k:'붕대가… 풀린다… 이제야 편히 쉬겠구나…',x:['파라오의 저주를 받아라!','모래바람처럼 흩어진 답이군!']},
   desc:'끝없는 모래 위의 피라미드. 미라와 메두사가 고대의 문장을 지키고 있다!'},
- {id:'d14',name:'스트럭처(Structure) 성채',mons:['harpy','gargoyle','elight','ewind','wyvern'],
+ {id:'d14',name:'스트럭처(Structure·구조) 성채',mons:['harpy','gargoyle','elight','ewind','wyvern'],
   boss:{mon:'darkknight',mname:'천공의 기사 아스트라',filter:'hue-rotate(180deg) brightness(1.35) saturate(1.3)',big:true,
    t:['구름 위의 성채에 온 것을 환영한다, 용사들이여!','하늘은 넓고 문장은 다양하다! 1형식부터 5형식까지 받아라!','난 상대가 초보 용사라도 최선을 다한다!'],
    k:'훌륭하다… 너희에게 하늘의 길을 열어 주마.',x:['구름처럼 가벼운 답이군!','하늘에서 떨어지지 않게 조심해라!']},
   desc:'구름 위에 떠 있는 성채. 바람의 정령과 하피가 하늘길을 지킨다!'},
- {id:'d15',name:'패턴(Pattern) 항구',mons:['goblin','orc','ewater','mimic','kobold'],
+ {id:'d15',name:'패턴(Pattern·문형) 항구',mons:['goblin','orc','ewater','mimic','kobold'],
   boss:{mon:'ogre',mname:'해적 선장 스컬비어드',filter:'hue-rotate(190deg) saturate(1.2)',big:true,
    t:['요호호! 이 항구의 보물은 모두 내 거다!','해적의 규칙 제1조! 문장 성분은 정확하게!','넌 내 선원이 돼라! …싫다고? 그럼 승부다!'],
    k:'요호… 졌다… 보물 지도는… 너희가 가져라…',x:['요호호! 틀린 답은 바다에 던져 버려라!','배멀미 나는 답이군!']},
   desc:'해적들이 점령한 항구. 보물 상자인 척하는 미믹을 조심하라!'},
- {id:'d16',name:'그래머(Grammar) 도서관',mons:['homunculus','flask','mimic','gargoyle','banshee'],
+ {id:'d16',name:'그래머(Grammar·문법) 도서관',mons:['homunculus','flask','mimic','gargoyle','banshee'],
   boss:{mon:'alchemist',mname:'금서의 사서 노바',filter:'hue-rotate(200deg) saturate(1.3)',big:true,
    t:['쉿! 도서관에서는 정숙… 하지만 문장은 크게 외쳐라!','이곳의 책에는 모든 형식의 문장이 잠들어 있다!','연체료는… 정답으로 내라!'],
    k:'좋아… 대출 카드를 발급해 주지. 언제든 공부하러 와라.',x:['쉿! 틀렸다!','책을 거꾸로 읽었나?']},
   desc:'먼지 쌓인 금서의 도서관. 책장 사이에서 살아 있는 문장이 튀어나온다!'},
- {id:'d17',name:'컨스트럭션(Construction) 둥지',mons:['wyvern','kobold','hellhound','efire','minotaur'],
+ {id:'d17',name:'컨스트럭션(Construction·구성) 둥지',mons:['wyvern','kobold','hellhound','efire','minotaur'],
   boss:{mon:'wyvern',mname:'고룡 아즈다르',filter:'hue-rotate(-90deg) saturate(1.6) brightness(.8)',big:true,
    t:['천 년 만에 손님이군… 내 보물을 노리러 왔나?','용의 문장은 길고 무겁다! 버틸 수 있겠나!','너흰 아직 준비가 되지 않았다!'],
    k:'크르르… 오랜만에 즐거웠다… 보물은… 조금만 가져가라…',x:['크아아! 용의 숨결을 받아라!','용 앞에서 그 정도 답이라니!']},
   desc:'전설의 고룡이 잠든 둥지. 와이번과 코볼트가 둥지를 지킨다!'},
- {id:'d18',name:'시퀀스(Sequence) 탑',mons:['elight','eearth','darkknight','succubus','cyclops','vampire'],
+ {id:'d18',name:'시퀀스(Sequence·순서) 탑',mons:['elight','eearth','darkknight','succubus','cyclops','vampire'],
   boss:{mon:'demonking',mname:'시간의 군주 크로노스',filter:'hue-rotate(160deg) saturate(1.4) brightness(1.1)',big:true,
    t:['과거·현재·미래의 모든 문장이 이 탑에 모여 있다!','시간을 멈추면… 문장도 멈출까?','이 탑의 꼭대기에 오른 자는 아직 없다!'],
    k:'시간이… 다시 흐른다… 너희가 진정한 문장의 용사다…',x:['째깍째깍… 틀렸다!','시간을 되돌려도 그 답은 아니다!']},
@@ -4082,11 +4082,11 @@ intro=function(){const s=INTRO[G.intro];
 
 const STORY={
  pre:{
-  d1:[L('sage','첫 의뢰일세. 서브젝트(Subject) 숲에는 가장 짧은 문장, <b>주어(Subject) + 동사(Verb)</b>만 남은 슬라임들이 떠돌고 있지.'),L('healer','{N}, 제가 함께할게요. 문장은 주어와 동사만 있어도 완성될 수 있어요. 목적어가 없어도 괜찮아요!')],
-  d2:[L('sage','컴플리먼트(Complement) 동굴이네. 이곳의 문장은 <b>주어 + 동사 + 보어(Complement)</b>. 주어의 상태를 말해 주는 보어가 꼭 필요하지.'),L('paladin','내 차례군. 동사 뒤에서 주어의 상태를 받쳐 주는 게 내 일이다. 나를 데려가라, {N}.')],
-  d3:[L('sage','오브젝트(Object) 협곡에는 동사가 <b>무엇을</b> 향하는지 보여 주는 문장, 즉 <b>목적어(Object)</b>가 있는 문장이 가득하네.'),L('dealer','목적어 사냥이라면 내 전문이지! 정확히 맞혀 줄게, 기대해도 좋아.')],
+  d1:[L('sage','첫 의뢰일세. 고요한 숲에는 가장 짧은 문장, <b>주어(Subject) + 동사(Verb)</b>만 남은 슬라임들이 떠돌고 있지.'),L('healer','{N}, 제가 함께할게요. 문장은 주어와 동사만 있어도 완성될 수 있어요. 목적어가 없어도 괜찮아요!')],
+  d2:[L('sage','슬라임 떼의 동굴이네. 이곳의 문장은 <b>주어 + 동사 + 보어(Complement)</b>. 주어의 상태를 말해 주는 보어가 꼭 필요하지.'),L('paladin','내 차례군. 동사 뒤에서 주어의 상태를 받쳐 주는 게 내 일이다. 나를 데려가라, {N}.')],
+  d3:[L('sage','골렘의 협곡에는 동사가 <b>무엇을</b> 향하는지 보여 주는 문장, 즉 <b>목적어(Object)</b>가 있는 문장이 가득하네.'),L('dealer','목적어 사냥이라면 내 전문이지! 정확히 맞혀 줄게, 기대해도 좋아.')],
   d4:[L('sage','상점가는 거래가 끊겨 버렸다네. 문장도 <b>누구에게</b>(간접목적어, Indirect Object), <b>무엇을</b>(직접목적어, Direct Object) 두 가지를 모두 줘야 완성되지.'),L('trader','제 차례군요! “누구에게”는 제가, “무엇을”은 디렉이 맡아요. 둘이 함께 가야 거래가 성사돼요!'),L('item','(덜컥덜컥) 저도 함께 갈게요…!')],
-  d5:[L('sage','오브젝트 컴플리먼트(OC) 공방이네. 여기서는 목적어가 <b>어떤 상태가 되는지</b>(목적격보어, Object Complement)까지 밝혀야 하는 문장이 나오지.'),L('shaman','…내 주문이 필요하겠네. “make me happy” 같은 문장이야. 목적어를 바꾸는 건 내가 한다.'),L('dealer','주술사 혼자는 불안한데, 나도 가 줄게!')],
+  d5:[L('sage','연금술사의 공방이네. 여기서는 목적어가 <b>어떤 상태가 되는지</b>(목적격보어, Object Complement)까지 밝혀야 하는 문장이 나오지.'),L('shaman','…내 주문이 필요하겠네. “make me happy” 같은 문장이야. 목적어를 바꾸는 건 내가 한다.'),L('dealer','주술사 혼자는 불안한데, 나도 가 줄게!')],
   d6:[L('sage','마왕성이네… 1형식부터 5형식까지 모든 문장이 뒤섞여 있다네. 모두 함께 가되, 문장마다 <b>필요한 성분만 출전</b>시키게.'),L('healer','{N}, 우리 모두 함께예요. 끝까지 해내요!'),L('king','크크… 마침표를 되찾겠다고? 모든 문장을 끝맺지 못하게 만들어 주마. 와라, 문장의 용사여!')],
   d7:[L('sage','마왕이 쓰러진 뒤에도 끝나지 않은 동사들이 남아 있다네. <b>to부정사(to-infinitive)</b>… 동사의 모습을 하고 명사, 형용사, 부사 노릇을 하는 <b>준동사(Verbal)</b>들이지. 신전의 기사단이 그 어둠에 삼켜졌어.'),L('paladin','…기사단장 오르도 님이 어둠에 물들었다니. 가자, {N}. 내 방패의 진짜 힘을 깨울 때다.')],
   d8:[L('sage','이번에는 <b>동명사(Gerund)와 분사(Participle)</b>, 동사에 -ing를 붙인 준동사들이 문제일세. 동사 노릇을 잊은 채 숲을 어둠으로 덮었지.'),L('shaman','…숲의 장로가 변했어. 그 숲은 원래 부드러운 곳이었는데. 내가 같이 갈게.')]
@@ -4670,16 +4670,16 @@ for(const k in __G4){(GQG[k]=GQG[k]||[]).push(...__G4[k]);}
 
 /* ===== 세계 지도 · 그래머 대륙 · 속담섬 · 숙어섬 · 원정 항구 ===== */
 const GR=[ /* 그래머 대륙 등의 던전 정의 */
- {id:'g1',reg:'gram',name:'비(Be) 동사 초원',bg:'d1',trk:'forest',pool:'g1',lab:'be동사',mons:['slime','goblin','kobold','bat','mushroom'],
+ {id:'g1',reg:'gram',name:'비(Be·be동사) 초원',bg:'d1',trk:'forest',pool:'g1',lab:'be동사',mons:['slime','goblin','kobold','bat','mushroom'],
   boss:{mon:'treant',mname:'초원의 수호자 비이',filter:'hue-rotate(-30deg) saturate(1.2)',t:['am, is, are… 주어에 맞는 be동사를 고르는 자만 이 초원을 지날 수 있다!','주어가 단수냐 복수냐! 그것이 문제로다!','내가 무릎을 꿇다니… 초원의 비밀을 풀었구나!'],k:'be동사의 길이 열렸다… 문법 대륙의 여정을 계속하거라!',x:['초원의 바람이 비웃는구나!','주어를 다시 살펴보거라!']},
-  desc:'그래머 대륙의 첫 관문. 주어에 맞는 be동사(am/is/are/was/were)를 빈칸에 채우자!',next:'비(Be) 동사 초원을 지났어요! 다음은 <b>퀘스천(Question) 동굴</b>이에요.'},
- {id:'g2',reg:'gram',name:'퀘스천(Question) 동굴',bg:'d2',trk:'cave',pool:'g2',lab:'의문문·부정문',mons:['bat','kobold','slime','goblin','skeleton'],
+  desc:'그래머 대륙의 첫 관문. 주어에 맞는 be동사(am/is/are/was/were)를 빈칸에 채우자!',next:'비(Be·be동사) 초원을 지났어요! 다음은 <b>퀘스천(Question·의문문) 동굴</b>이에요.'},
+ {id:'g2',reg:'gram',name:'퀘스천(Question·의문문) 동굴',bg:'d2',trk:'cave',pool:'g2',lab:'의문문·부정문',mons:['bat','kobold','slime','goblin','skeleton'],
   boss:{mon:'golemboss',mname:'동굴 심문관 두웃',filter:'hue-rotate(200deg) brightness(.9)',t:['Do? Does? Did? 동굴에 들어온 자여, 질문에 제대로 답하라!','부정문엔 don’t도 doesn’t도 didn’t도 있다… 구별할 수 있겠느냐?','내가 던진 질문에 모두 답하다니…!'],k:'질문이 끝났다… 너는 의문문과 부정문의 주인이다…',x:['동굴이 메아리친다… 틀렸다!','do인지 does인지 did인지 다시!']},
-  desc:'do·does·did로 묻고 부정하는 동굴. 알맞은 말로 의문문·부정문을 완성하자!',next:'퀘스천(Question) 동굴을 지났어요!'},
- {id:'pv',reg:'prov',name:'속담의 섬 · 지혜의 숲',bg:'d16',trk:'market',pool:'pv',lab:'영어 속담',mons:['goblin','mushroom','bat','kobold','slime'],
+  desc:'do·does·did로 묻고 부정하는 동굴. 알맞은 말로 의문문·부정문을 완성하자!',next:'퀘스천(Question·의문문) 동굴을 지났어요!'},
+ {id:'pv',reg:'prov',name:'프로버브(Proverb·속담) 섬',bg:'d16',trk:'market',pool:'pv',lab:'영어 속담',mons:['goblin','mushroom','bat','kobold','slime'],
   boss:{mon:'ogre',mname:'현자 거인 프로버브',filter:'hue-rotate(40deg) saturate(1.3)',t:['속담은 조상들의 지혜! 빈칸에 알맞은 말을 채워 보거라!','옛말에 틀린 말이 없다… 너는 얼마나 아느냐?','내가 아는 지혜를 모두 알다니…!'],k:'지혜의 숲이 환히 빛난다… 속담을 아는 자여, 가거라!',x:['속담도 모르느냐!','옛말을 다시 새겨 보거라!']},
   desc:'영어 속담이 사는 섬. 속담의 빈칸을 채우며 우리말 속담과 비교해 보자!',next:'속담의 섬을 정복했어요! 영어 속담이 한결 친근해졌죠?'},
- {id:'id',reg:'idiom',name:'숙어의 섬 · 해적 항구',bg:'d15',trk:'pirate',pool:'id',lab:'숙어·구동사',mons:['goblin','orc','kobold','mimic','slime'],
+ {id:'id',reg:'idiom',name:'이디엄(Idiom·숙어) 항구',bg:'d15',trk:'pirate',pool:'id',lab:'숙어·구동사',mons:['goblin','orc','kobold','mimic','slime'],
   boss:{mon:'ogre',mname:'해적 선장 이디엄',filter:'hue-rotate(190deg) saturate(1.3)',t:['look for, take off, give up… 숙어를 모르면 이 섬을 못 떠난다!','전치사 하나가 뜻을 완전히 바꾼다! 아느냐?','내 숙어 보물을 모두 가져가다니…!'],k:'좋다, 보물은 네 것이다… 숙어 마스터여!',x:['엉뚱한 전치사를 골랐구나!','숙어는 통째로 외워야 하느니라!']},
   desc:'숙어와 구동사가 가득한 섬. 알맞은 전치사·부사·단어를 골라 숙어를 완성하자!',next:'숙어의 섬을 정복했어요! 숙어 보물을 손에 넣었어요.'}
 ];
@@ -4688,7 +4688,7 @@ const GQD={};Object.keys(GQH).forEach(k=>GQD[k]=GQH[k].slice());if(typeof GQG!==
 (function(){const BS=[['treant','hue-rotate(-30deg) saturate(1.2)'],['golemboss','hue-rotate(200deg) brightness(.9)'],['wyvern','hue-rotate(-20deg) saturate(1.6)'],['lich','hue-rotate(160deg) brightness(1.1)'],['mummy','sepia(.6) saturate(2)'],['darkknight','hue-rotate(180deg) brightness(.9)'],['ogre','hue-rotate(60deg) saturate(1.2)']];
  const MS=[['slime','goblin','kobold','bat','mushroom'],['bat','kobold','skeleton','goblin','slime'],['imp','hellhound','golem','efire','goblin'],['zombie','skeleton','vampire','banshee','mimic'],['harpy','gargoyle','ewind','elight','wyvern'],['orc','goblin','ogre','kobold','mimic']];
  const BGS=['d3','d9','d10','d11','d12','d13','d14','d5','d17','d18','d16','d4','d1','d7','d15','d8','d6'],TR=['golem','cave','ice','fire','temple','desert','ice','market','fire','castle','market','market','forest','temple','pirate','dark','castle'];
- [['tn','텐스(Tense) 평원','시제'],['md','모달(Modal) 계곡','조동사'],['rp','릴레이티브(Relative) 숲','관계대명사'],['ps','패시브(Passive) 호수','수동태'],['pf','퍼펙트(Perfect) 사막','완료'],['rv','릴레이티브 어드버브(Relative Adverb) 항구','관계부사'],['pc','파티서플(Participle) 협곡','분사구문'],['sj','서브정티브(Subjunctive) 성채','가정법'],['cp','컴패러티브(Comparative) 언덕','비교급·최상급'],['cj','컨정션(Conjunction) 다리','접속사·명사절'],['pn','프로나운(Pronoun) 마을','대명사·관사'],['ot','프리포지션(Preposition) 섬길','전치사·기타'],['iv','버벌(Verbal) 고원','to부정사·동명사'],['pe','코저티브(Causative) 숲','지각·사역·감각동사'],['ng','노운(Noun) 마을','명사·명령문·감탄문'],['rs','리포티드 스피치(Reported Speech) 항구','화법·간접의문문'],['sx','인버전(Inversion) 성','도치·강조·병렬·동격']].forEach((r,i)=>{
+ [['tn','텐스(Tense·시제) 평원','시제'],['md','모달(Modal·조동사) 계곡','조동사'],['rp','렐러티브(Relative·관계대명사) 숲','관계대명사'],['ps','패시브(Passive·수동태) 호수','수동태'],['pf','퍼펙트(Perfect·완료) 사막','완료'],['rv','렐러티브 어드버브(Relative Adverb·관계부사) 항구','관계부사'],['pc','파티서플(Participle·분사) 협곡','분사구문'],['sj','서브정티브(Subjunctive·가정법) 성채','가정법'],['cp','컴패러티브(Comparative·비교) 언덕','비교급·최상급'],['cj','컨정션(Conjunction·접속사) 다리','접속사·명사절'],['pn','프로나운(Pronoun·대명사) 마을','대명사·관사'],['ot','프리포지션(Preposition·전치사) 섬길','전치사·기타'],['iv','버벌(Verbal·준동사) 고원','to부정사·동명사'],['pe','코저티브(Causative·사역) 숲','지각·사역·감각동사'],['ng','노운(Noun·명사) 마을','명사·명령문·감탄문'],['rs','리포티드 스피치(Reported Speech·화법) 항구','화법·간접의문문'],['sx','인버전(Inversion·도치) 성','도치·강조·병렬·동격']].forEach((r,i)=>{
   const b=BS[i%BS.length];GR.push({id:r[0],reg:'gram',name:r[1],bg:BGS[i],trk:TR[i],pool:r[0],lab:r[2],mons:MS[i%MS.length],
    boss:{mon:b[0],mname:r[2]+'의 수문장',filter:b[1],t:[`${r[2]}! 이 문을 지나려면 빈칸을 정확히 채워야 한다!`,`${r[2]}의 규칙을 정말 알고 있느냐?`,`내가 무릎을 꿇다니… ${r[2]}를 꿰뚫었구나!`],k:`${r[2]}의 길이 열렸다… 앞으로 나아가라!`,x:['틀렸다! 규칙을 다시 떠올려라!','아직 멀었구나!']},
    desc:`${r[2]} 문제로 이루어진 던전. 문장의 빈칸에 알맞은 말을 골라 보자!`,next:`${r[1]}을(를) 지났어요!`});});})();

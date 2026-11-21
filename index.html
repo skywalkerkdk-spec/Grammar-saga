@@ -1469,7 +1469,7 @@ function dsel(){G.rpg=false;if(SV.mode==='rpg'&&rpgOpen())return rpgDsel();
  $('app').innerHTML=hud()+`<div class="card"><div class="speaker">탱커의 결심</div>
  <div class="story">어느 던전에 도전할까? <b>파티 인원</b>은 던전마다 다르다. (펫은 인원에 포함되지 않음)</div>${modeTabs()}${dailyCard()}
  <button class="shopbtn" id="toshop">${petc('mini')}<div><b>🐾 길드 상점 (펫·스킨)</b><span>수정으로 펫·꾸미기·주인공 스킨을 사 보세요 · 보유 💎 ${SV.cry}</span></div></button>
- <div class="dtools"><button class="btn-s" id="tolv">${LEVELS[LV()].ic} 난이도: <b>${LEVELS[LV()].n}</b> (${LEVELS[LV()].sub}) · 바꾸기</button><button class="btn-s" id="toforgeL">⚒️ 대장간 · 무기 강화 <b>(강화석 ${SV.stone||0}개)</b>${G.stoneBoot?` <small>(이전 기록에서 강화석 ${G.stoneBoot}개 지급!)</small>`:''}</button><button class="btn-s savebtn" id="dsave">💾 저장하기</button><button class="btn-s" id="tologin">👤 다른 계정으로 로그인</button></div>
+ <div class="dtools"><button class="btn-s" id="tolv">${LEVELS[LV()].ic} 난이도: <b>${LEVELS[LV()].n}</b> (${LEVELS[LV()].sub}) · 바꾸기</button><button class="btn-s" id="toforgeL">⚒️ 대장간 · 무기 강화 <b>(강화석 ${SV.stone||0}개)</b>${G.stoneBoot?` <small>(이전 기록에서 강화석 ${G.stoneBoot}개 지급!)</small>`:''}</button><button class="btn-s savebtn" id="dsave">💾 저장하기</button><button class="btn-s" id="togift">🎁 보상 코드</button><button class="btn-s" id="tologin">👤 다른 계정으로 로그인</button></div>
  ${G.dev?devPanel():''}${G.toastSave?'<div class="feedback ok" style="margin:0 0 10px">💾 저장했어요! 다음에 같은 이름으로 들어오면 이어서 할 수 있어요.</div>':''}${resumeHTML()}
  ${shardBar()}<div class="dgrid">${DUNGEONS.filter(d=>!d.verbal&&!d.mix).map(d=>`<button class="dcard ${d.id==='d6'&&!dOpen(d)?'dlock':''}" ${dOpen(d)?'':'disabled'} data-id="${d.id}">
  <span class="size">${d.full?'풀파티 최종 던전':d.size+'인 '+(d.id==='d4'?'필드':'던전')}</span>${d.open?(d.id==='d6'&&!dOpen(d)?`<span class="lock">🔒 수정 조각 ${shardN()}/5</span>`:SV.cleared.includes(d.id)?'<span class="lock" style="color:var(--green)">✅ 클리어</span>':''):'<span class="lock">🔒 준비 중</span>'}
@@ -1479,6 +1479,7 @@ function dsel(){G.rpg=false;if(SV.mode==='rpg'&&rpgOpen())return rpgDsel();
  $('tolv').onclick=()=>{G.scr='level';render();};
  {const fb=$('toforgeL');if(fb)fb.onclick=()=>{G.stoneBoot=0;G.scr='forge';G.toast=null;G.enhRes=null;sfx('select');render();};}
  $('dsave').onclick=()=>{saveNow();sfx('select');G.toastSave=true;render();saveToast();};
+ {const gb=$('togift');if(gb)gb.onclick=giftAsk;}
  $('tologin').onclick=()=>{saveNow();sfx('select');G.scr='title';render();};
  if(G.dev)bindDev();
  const tt=$('totemple');if(tt)tt.onclick=()=>{sfx('bell');G.scr='temple';render();};
@@ -1790,7 +1791,7 @@ function devPanel(){
  const D=DUNGEONS.map(d=>`<button class="btn-s" data-dj="${d.id}:0">${d.name}</button><button class="btn-s" data-dj="${d.id}:boss">👑 보스</button>`).join('');
  return `<div class="devp"><b>🛠️ 개발자 모드</b> <span class="hint">학생 화면에는 보이지 않아요</span>
  <div class="devrow"><button class="btn-s" data-dx="ending">🎬 엔딩 바로 보기</button><button class="btn-s" data-dx="dark">🌑 흑막 장면</button><button class="btn-s" data-dx="final">📜 마지막 화면</button></div>
- <div class="devrow"><button class="btn-s" data-dj="d6:sc">👑 사천왕부터</button><button class="btn-s" data-dj="d6:king">👿 마왕전 바로</button><button class="btn-s" data-dx="grave">🪦 묘지 테스트</button><button class="btn-s" data-dx="gold">💎💰 +1000</button><button class="btn-s" data-dx="stone">⚒️ 강화석 +5</button></div>
+ <div class="devrow"><button class="btn-s" data-dj="d6:sc">👑 사천왕부터</button><button class="btn-s" data-dj="d6:king">👿 마왕전 바로</button><button class="btn-s" data-dx="grave">🪦 묘지 테스트</button><button class="btn-s" data-dx="gold">💎💰 +1000</button><button class="btn-s" data-dx="stone">⚒️ 강화석 +5</button><button class="btn-s" data-dx="gift">🎁 보상 코드 만들기</button></div>
  <div class="devrow">${D}</div></div>`;}
 function devStart(id){G.rpg=false;const d=DUNGEONS.find(x=>x.id===id);G.dg=d;G.mates=d.full?d.need.slice():d.need.slice();G.pets=1;G.run=genRun(d);G.hp=3;G.deaths=0;G.streak=0;G.ei=0;G.done=false;G.first=true;G.b=null;G.pick=null;G.ok=0;G.tot=0;G.wrongs=[];G.goldRun=0;G.clearPaid=false;}
 function bindDev(){
@@ -1798,6 +1799,7 @@ function bindDev(){
   if(m==='boss')G.ei=Math.max(0,G.run.findIndex(e=>e.boss));
   if(m==='sc')G.ei=4;if(m==='king')G.ei=G.run.length-3;G.scr='battle';render();});
  document.querySelectorAll('[data-dx]').forEach(b=>b.onclick=()=>{const x=b.dataset.dx;
+  if(x==='gift'){giftDevMake();return;}
   if(x==='stone'){SV.stone=(SV.stone||0)+5;saveNow();render();return;}
   if(x==='gold'){SV.cry+=1000;SV.rg=(SV.rg||0)+1000;saveNow();render();return;}
   if(x==='grave'){devStart('d1');G.hp=1;G.scr='battle';render();return;}
@@ -2614,7 +2616,7 @@ function pvStart(mode,opp,o){o=o||{};const me=profOf(SV,G.name);
  G.pv={mode,P:o.P||[pvMk(me,false),pvMk(opp,mode==='ai')],me:o.me||0,cur:o.cur!=null?o.cur:(Math.random()<0.5?0:1),phase:'atk',q:null,oq:null,log:'',turn:0};
  G.dg=PV_ARENA;G.mates=[];G.pets=1;G.rpg=false;G.scr='pvbattle';sfx('formed');
  if(mode==='net'){if(NET.host)pvNetTurn(true);else render();}else pvNewTurn(true);}
-const PV_TATK=45,PV_TDEF=20;
+const PV_TATK=30,PV_TDEF=20;
 function pvAtkTimeout(tok){const V=G.pv;if(!V||V.mode!=='net'||!NET.host||V.phase!=='atk'||V.atkTok!==tok)return;V.atkTok=0;V.deadline=0;G.done=true;G.pick='no';pvCalc(false);V.log='⏰ 시간 초과! '+V.log;netState();pvShow(0);}
 const PVDEB={weak:'weak',vuln:'armorbreak',stun:'slow'};
 function pvSkList(A){return Object.prototype.hasOwnProperty.call(SK,A.pr.c)?SK[A.pr.c]:SK.tank;}
@@ -2767,7 +2769,7 @@ function netJoin(code){if(!netAvail())return;code=(code||'').toUpperCase().repla
  netClose();NET.host=false;NET.code=code;netSetMsg('⏳ 방에 들어가는 중…');const pr=new Peer(PEEROPT());NET.peer=pr;netWatch();
  pr.on('open',()=>{const c=pr.connect(NETPFX+code.toLowerCase(),{reliable:true});NET.conn=c;netBind(c);});
  pr.on('error',netErr);}
-function netBind(c){c.on('open',()=>{clearTimeout(NET.to);NET.last=Date.now();clearInterval(NET.hb);NET.hb=setInterval(()=>{if(NET.conn!==c){clearInterval(NET.hb);return;}netSend({t:'ping'});if(Date.now()-NET.last>12000){clearInterval(NET.hb);NET.conn=null;try{c.close();}catch(e){}netLost();}},3000);netSetMsg('🤝 연결됐어요! 상대 정보를 받는 중…');c.send({t:'hello',pr:profOf(SV,G.name),v:1});});
+function netBind(c){c.on('open',()=>{clearTimeout(NET.to);NET.last=Date.now();clearInterval(NET.hb);NET.hb=setInterval(()=>{if(NET.conn!==c){clearInterval(NET.hb);return;}netSend({t:'ping'});if(Date.now()-NET.last>40000){clearInterval(NET.hb);NET.conn=null;try{c.close();}catch(e){}netLost();}},3000);netSetMsg('🤝 연결됐어요! 상대 정보를 받는 중…');c.send({t:'hello',pr:profOf(SV,G.name),v:1});});
  c.on('data',netOnData);
  c.on('close',()=>{if(NET.conn!==c)return;NET.conn=null;netLost();});
  c.on('error',()=>{});}
@@ -2895,7 +2897,7 @@ function rdJoin(code){if(!netAvail())return;code=(code||'').toUpperCase().replac
  RDN.to=setTimeout(()=>{if(!RDN.hostConn||!RDN.hostConn.open)rdMsg('❌ 방에 연결하지 못했어요.');},12000);
  pr.on('open',()=>{const c=pr.connect(RD_PFX+code.toLowerCase(),{reliable:true});RDN.hostConn=c;
   c.on('open',()=>{clearTimeout(RDN.to);rdMsg('🤝 연결됐어요! 방장이 시작할 때까지 기다려요.');G.rd={P:[],phase:'lobby',timers:[],lobby:{players:[],boss:'demon'},isClient:true};rdSend(c,{t:'hello',pr:profOf(SV,G.name)});
-   RDN.last=Date.now();clearInterval(RDN.hb);RDN.hb=setInterval(()=>{rdSend(c,{t:'ping'});if(Date.now()-RDN.last>15000){clearInterval(RDN.hb);rdHostLost();}},3000);});
+   RDN.last=Date.now();clearInterval(RDN.hb);RDN.hb=setInterval(()=>{rdSend(c,{t:'ping'});if(Date.now()-RDN.last>40000){clearInterval(RDN.hb);rdHostLost();}},3000);});
   c.on('data',rdClientData);c.on('close',()=>{if(RDN.hostConn===c)rdHostLost();});c.on('error',()=>{});});
  pr.on('error',rdErr);}
 function rdHostLost(){clearInterval(RDN.hb);if(!RDN.hostConn&&!G.rd)return;RDN.hostConn=null;
@@ -4304,6 +4306,7 @@ function mapBtns(){const h=document.querySelector('#app .hud');if(!h)return;
  mk('tolv',`${LEVELS[LV()].ic} ${LEVELS[LV()].n}`,()=>{G.scr='level';render();});
  mk('toforgeM','⚒️ 대장간',()=>{G.scr='forge';G.toast=null;G.enhRes=null;sfx('select');render();});
  if(G.dev)mk('devstone','🛠️ 강화석+5',()=>{SV.stone=(SV.stone||0)+5;saveNow();sfx('coins');render();});
+ mk('togiftM','🎁 보상 코드',giftAsk);
  mk('dsave','💾 저장하기',()=>{saveNow();sfx('select');G.toastSave=true;render();saveToast();});
  mk('tologin','🚪 돌아가기',()=>{saveNow();sfx('select');G.scr='title';render();});}
 function dcardG(d,tag){const u=d.open!==false&&(d.exp?expOpen(d):true),cl=SV.cleared.includes(d.id);
@@ -4423,12 +4426,39 @@ function enhHTML(){const k=SV.gear.sword,w=GEAR[k],L=(SV.enh||{})[k]||0,st=SV.st
  <div class="eladder">${ladder}</div>${res}
  <button class="next" id="enh" ${G.enhBusy||st<1||maxed?'disabled':''}>${maxed?'🏁 최대 강화':st<1?'⚒️ 강화석이 없어요':`⚒️ 강화 시도 (+${L} → +${L+1})`}</button>
 ${G.dev?'<button class="btn-s" id="enhdev">🛠️ 강화석 +5 (개발자)</button>':''}
+ <p class="hint">📋 받은 내역: 던전 <b>${(SV.sgot||[]).filter(x=>x.startsWith('dg:')).length}</b>개 · 난이도 <b>${(SV.sgot||[]).filter(x=>x.startsWith('lv:')).length}</b>개 · 레이드 <b>${(SV.sgot||[]).filter(x=>x.startsWith('rd:')).length}</b>개 · 보상 코드 <b>${(SV.gifts||[]).length}</b>회 (던전은 처음 클리어할 때 1번만 받아요)</p>
  <p class="hint">강화석은 던전을 처음 클리어할 때(1개씩), 난이도별로 1~6번 던전을 모두 클리어할 때, 레이드 보스를 일정 이상 몰아붙일 때 얻어요. 강화는 무기마다 따로 쌓여요.</p></div>`;}
 function enhTry(){const k=SV.gear.sword;SV.enh=SV.enh||{};const L=SV.enh[k]||0;if(G.enhBusy||(SV.stone||0)<1||L>=ENH_MAX)return;
  G.enhBusy=true;G.enhRes=null;sfx('click');render();[0,380,760].forEach(t=>setTimeout(()=>sfx('hit'),t));
  setTimeout(()=>{if(!G.enhBusy)return;SV.stone=Math.max(0,(SV.stone||0)-1);const ok=Math.random()<enhRate(L+1);let nl=L,note='';
   if(ok)nl=L+1;else if(L>=5){nl=L-1;note='down';}
   SV.enh[k]=nl;saveNow();G.enhBusy=false;G.enhRes={ok,from:L,to:nl,note};sfx(ok?'fanfare':'wrong');if(G.scr==='forge')render();},1150);}
+
+/* ---------- 화면 꺼짐 방지 (레이드·아레나 중) ---------- */
+(function(){let wl=null;const want=()=>['rdbattle','rdlobby','pvbattle'].includes(G.scr);
+ async function on(){try{if(!wl&&navigator.wakeLock&&want()){wl=await navigator.wakeLock.request('screen');wl.addEventListener('release',()=>{wl=null;});}}catch(e){wl=null;}}
+ function off(){try{if(wl){wl.release();wl=null;}}catch(e){}}
+ const _r=render;render=function(){const x=_r.apply(this,arguments);if(want())on();else off();return x;};
+ document.addEventListener('visibilitychange',()=>{if(!document.hidden&&want())on();});})();
+
+/* ---------- 🎁 보상 코드 (교사가 발급 → 학생이 입력, 계정당 1회) ---------- */
+function giftHash(s){let a=0x811c9dc5,b=0x1b873593;for(let i=0;i<s.length;i++){const c=s.charCodeAt(i);a=Math.imul(a^c,16777619)>>>0;b=Math.imul(b+c+(a&255),2246822519)>>>0;b^=b>>>13;}return (a.toString(36)+b.toString(36)).slice(0,10);}
+const GIFT_SALT='sg-gift-k9';
+function giftMake(c,g,s,memo){const id=Math.random().toString(36).slice(2,8);const o={i:id,c:c|0,g:g|0,s:s|0,m:String(memo||'').slice(0,30)};
+ const b=btoa(unescape(encodeURIComponent(JSON.stringify(o)))).replace(/=+$/,'');return 'SGGIFT-'+b+'-'+giftHash(b+GIFT_SALT);}
+function giftParse(code){const m=/^SGGIFT-([A-Za-z0-9+/]+)-([a-z0-9]+)$/.exec((code||'').trim());if(!m||giftHash(m[1]+GIFT_SALT)!==m[2])return null;
+ try{const o=JSON.parse(decodeURIComponent(escape(atob(m[1]))));if(!o||!o.i)return null;return o;}catch(e){return null;}}
+function giftRedeem(code){const o=giftParse(code);if(!o)return {ok:false,msg:'❌ 보상 코드가 올바르지 않아요. 전부 복사했는지 확인하세요.'};
+ SV.gifts=SV.gifts||[];if(SV.gifts.includes(o.i))return {ok:false,msg:'이미 받은 보상 코드예요.'};
+ const c=Math.max(0,Math.min(9999,o.c|0)),g=Math.max(0,Math.min(99999,o.g|0)),s=Math.max(0,Math.min(99,o.s|0));
+ SV.gifts.push(o.i);SV.cry=(SV.cry||0)+c;SV.rg=(SV.rg||0)+g;SV.stone=(SV.stone||0)+s;saveNow();
+ return {ok:true,msg:'🎁 보상을 받았어요!'+(c?' 💎 +'+c:'')+(g?' 💰 +'+g:'')+(s?' ⚒️ +'+s:'')+(o.m?' ('+o.m+')':'')};}
+function giftAsk(){const code=prompt('선생님께 받은 🎁 보상 코드를 붙여 넣으세요');if(code==null)return;const r=giftRedeem(code);sfx(r.ok?'fanfare':'wrong');saveToast(r.msg);if(r.ok)render();}
+function giftDevMake(){const v=prompt('보상 내용을 "💎수정,💰골드,⚒️강화석" 순서로 입력하세요 (예: 10,500,2)','0,0,1');if(v==null)return;
+ const p=v.split(',').map(x=>parseInt(x,10)||0);const memo=prompt('메모 (선택, 학생에게 보여요) 예: 오류 보상','오류 보상')||'';
+ const code=giftMake(p[0],p[1],p[2],memo);
+ try{navigator.clipboard.writeText(code);}catch(e){}
+ prompt('보상 코드가 만들어졌어요 (복사됨). 이 코드를 학생에게 보내세요. 학생 한 명당 1번씩만 받을 수 있어요.',code);}
 
 render();tryAuto();setTimeout(tryAuto,300);
 setInterval(()=>{document.body.classList.toggle('muted-wait',!(AU.ctx&&AU.ctx.state==='running')&&G.scr==='splash');},500);

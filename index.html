@@ -2159,8 +2159,8 @@ function rpgDsel(){
  <button class="shopbtn" id="toshop">${petc('mini')}<div><b>🐾 길드 상점</b><span>💎 수정으로 펫·스킨 · 보유 💎 ${SV.cry}</span></div></button><button class="shopbtn pvbtn" id="topvp"><span style="font-size:32px">⚔️</span><div><b>배틀 아레나</b><span>친구 캐릭터와 1:1 대결 · 전적 🏆 ${(SV.pvp||{}).w||0}승</span></div></button><button class="shopbtn pvbtn raidbtn" id="toraid"><span style="font-size:32px">🐉</span><div><b>레이드</b><span>친구들과 2~6명이 힘을 합쳐 보스 토벌</span></div></button></div>
  <div class="dtools"><button class="btn-s" id="tolv">${LEVELS[LV()].ic} 문제 난이도: <b>${LEVELS[LV()].n}</b> · 바꾸기</button><button class="btn-s savebtn" id="rsave">💾 저장하기</button><button class="btn-s rankbtn" id="torank">${rankBtnLabel()}</button><button class="btn-s" id="togift">🎁 보상 코드</button><button class="btn-s" id="tologin">👤 다른 계정으로 로그인</button></div>
  ${G.toastSave?'<div class="feedback ok" style="margin:0 0 10px">💾 저장했어요! 같은 이름으로 들어오면 골드·장비·진행 상황이 이어져요.</div>':''}${rpgResumeHTML()}
- <div class="dgrid">${L.map(d=>{const i=RT[d.id],u=rpgUnlocked(d),e=estats(i),b=estats(i,true),cl=SV.rcleared.includes(d.id),rec=GEAR[RREC[i]];
-  return `<button class="dcard rcard" ${u?'':'disabled'} data-rd="${d.id}"><span class="size">RPG Lv.${i+1}</span>${cl?'<span class="lock" style="color:var(--green)">✅ 클리어</span>':u?'':'<span class="lock">🔒 이전 던전 클리어</span>'}
+ <div class="dgrid">${L.map(d=>{const i=RT[d.id],u=rpgUnlocked(d),e=estats(i),b=estats(i,true),cl=SV.rcleared.includes(d.id),rec=GEAR[RREC[Math.min(7,Math.floor(i))]];
+  return `<button class="dcard rcard" ${u?'':'disabled'} data-rd="${d.id}"><span class="size">RPG Lv.${L.indexOf(d)+1}</span>${cl?'<span class="lock" style="color:var(--green)">✅ 클리어</span>':u?'':'<span class="lock">🔒 이전 던전 클리어</span>'}
   <h3>${d.name}</h3><div class="mon">${sp(d.mon,'','MON')}<div class="hint">적 HP ${e.hp} · 공격 ${e.atk}<br>보스 HP ${b.hp} · 공격 ${b.atk}<br>권장 장비: ${rec.nm} 이상<br>보상: 💰 일반 ${rgoldOf(i)} · 보스 ${rgoldOf(i,true)} · 클리어 보너스 +${rgoldOf(i,true)}<br>💎 한 판 약 ${learnKillTotal(d)+LEVELS[LV()].b}개 (클리어 포함)<br><span style="opacity:.75">※ 장비·직업 효과에 따라 조금 더 받아요</span></div></div></button>`;}).join('')}</div></div>`;
  bindModeTabs();if(G.dev)bindRpgDev();
  $('todaily').onclick=()=>{G.dg=DAILY;G.mates=DAILY.need.slice();G.pets=1;genRunDaily();sfx('select');G.scr='news';render();};
@@ -4699,12 +4699,13 @@ const GQD={};Object.keys(GQH).forEach(k=>GQD[k]=GQH[k].slice());if(typeof GQG!==
   const b=BS[i%BS.length];GR.push({id:r[0],reg:'gram',name:r[1],bg:BGS[i],trk:TR[i],pool:r[0],lab:r[2],mons:MS[i%MS.length],
    boss:{mon:b[0],mname:r[2]+'의 수문장',filter:b[1],t:[`${r[2]}! 이 문을 지나려면 빈칸을 정확히 채워야 한다!`,`${r[2]}의 규칙을 정말 알고 있느냐?`,`내가 무릎을 꿇다니… ${r[2]}를 꿰뚫었구나!`],k:`${r[2]}의 길이 열렸다… 앞으로 나아가라!`,x:['틀렸다! 규칙을 다시 떠올려라!','아직 멀었구나!']},
    desc:`${r[2]} 문제로 이루어진 던전. 문장의 빈칸에 알맞은 말을 골라 보자!`,next:`${r[1]}을(를) 지났어요!`});});})();
+const ORDI=GR.map(x=>x.id);
 GR.forEach(x=>{
  DUNGEONS.push({id:x.id,size:8,form:x.lab,name:x.name,mon:x.boss.mon,open:true,full:true,mix:true,gram:true,reg:x.reg,gramLab:x.lab,bg:x.bg,need:['healer','paladin','dealer','shaman','trader','item'],enc:true,
   desc:x.desc,
   formed:`${x.name}에서는 <b>모든 동료</b>가 함께 갑니다. 문장의 빈칸에 들어갈 알맞은 말을 골라 적을 쓰러뜨리세요! 해석과 설명을 꼼꼼히 읽으면 더 오래 기억돼요.`,
   sample:'She <b>____</b> my sister. → is',next:x.next});
- MONS[x.id]=x.mons;BOSS[x.id]={mon:x.boss.mon,mname:x.boss.mname};RT[x.id]=5;BTRK[x.id]=x.trk;
+ MONS[x.id]=x.mons;BOSS[x.id]={mon:x.boss.mon,mname:x.boss.mname};RT[x.id]=5+(ORDI.indexOf(x.id)>=0?ORDI.indexOf(x.id):0)*2/Math.max(1,ORDI.length-1);BTRK[x.id]=x.trk;
 });
 const GRMAP=Object.fromEntries(GR.map(x=>[x.id,x]));
 

@@ -870,6 +870,14 @@ canvas.px[data-src="SPR"][data-k="shaman"],canvas.px[data-src="SPR"][data-k^="cs
 .rkgift{margin:8px 0}.rkrw{margin-top:10px}#rkkey{width:100%;margin:6px 0}
 .btn-s.rankbtn{background:#5a3fa0;border-color:#c9a8ff;color:#fff;font-weight:900}
 
+/* 칭호 */
+.ttag{display:inline-block;max-width:100%;box-sizing:border-box;font-size:11px;font-weight:900;color:#2a1a00;background:linear-gradient(#ffe27a,#f0b840);border:1px solid #fff6;border-radius:9px;padding:1px 8px;margin-bottom:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;box-shadow:0 0 8px #f0c04f99;text-shadow:none}
+.ttag.t2{background:linear-gradient(#e4e8f0,#aab4c8);box-shadow:0 0 6px #aab4c866}
+.rdp .ttag{font-size:9px;padding:0 5px;display:block;margin:0 auto 1px;width:fit-content}
+.ttl{font-size:11px;font-weight:800;color:#f0c04f}
+.rktitle{margin:8px 0;padding:8px;border-radius:10px;background:#0006}.rkts{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+@media(max-width:560px){.ttag{font-size:10px}}
+
 </style>
 </head>
 <body>
@@ -2587,14 +2595,14 @@ function dailyReview(){const N=todayNews();let bonus='';
 const PV_ARENA={id:'pvp',all8:true,name:'⚔️ 배틀 아레나',bg:'d14',need:[],mon:'darkknight'};
 const PV_DAYMAX=5;
 function pvHash(s){let h=7;for(let i=0;i<s.length;i++)h=(h*31+s.charCodeAt(i))>>>0;return h.toString(36).slice(-4);}
-function profOf(sv,name){const c=rhero(sv);return {n:name,c,sk:eqSkin(c,sv),g:Object.assign({sword:'s0',armor:'a0',shield:'h0'},sv.gear||{},{sl:Math.max(0,Math.min(10,((sv.enh||{})[(sv.gear||{}).sword||'s0'])||0))}),p:sv.pet||'cat',eq:sv.eq||{},lv:LEVELS[sv.level]?sv.level:'beginner',r:(sv.rcleared||[]).length,w:(sv.pvp&&sv.pvp.w)||0};}
+function profOf(sv,name){const c=rhero(sv);return {n:name,c,sk:eqSkin(c,sv),g:Object.assign({sword:'s0',armor:'a0',shield:'h0'},sv.gear||{},{sl:Math.max(0,Math.min(10,((sv.enh||{})[(sv.gear||{}).sword||'s0'])||0))}),p:sv.pet||'cat',eq:sv.eq||{},lv:LEVELS[sv.level]?sv.level:'beginner',r:(sv.rcleared||[]).length,w:(sv.pvp&&sv.pvp.w)||0,ti:(sv.titles&&sv.title&&sv.titles[sv.title]&&typeof TITLES!=='undefined'&&TITLES[sv.title])?sv.title:''};}
 function pvCode(){const j=JSON.stringify(profOf(SV,G.name));const b=btoa(unescape(encodeURIComponent(j))).replace(/=+$/,'');return 'SG1-'+b+'-'+pvHash(b);}
 function pvParse(code){try{code=(code||'').replace(/\s+/g,'');const m=code.match(/^SG1-([A-Za-z0-9+/]+)-([a-z0-9]{1,4})$/);if(!m||pvHash(m[1])!==m[2])return null;
  const o=JSON.parse(decodeURIComponent(escape(atob(m[1]))));if(!o||!o.n||!o.g)return null;
- const ok=k=>GEAR[k]?k:null;o.g={sword:ok(o.g.sword)||'s0',armor:ok(o.g.armor)||'a0',shield:ok(o.g.shield)||'h0',sl:Math.max(0,Math.min(10,Math.round(+o.g.sl||0)))};if(!HCLS.includes(o.c))o.c='tank';if(!SKINS[o.sk])o.sk='base';if(!PETSPR[o.p])o.p='cat';if(!LEVELS[o.lv])o.lv='beginner';o.eq=o.eq||{};return o;}catch(e){return null;}}
+ const ok=k=>GEAR[k]?k:null;o.g={sword:ok(o.g.sword)||'s0',armor:ok(o.g.armor)||'a0',shield:ok(o.g.shield)||'h0',sl:Math.max(0,Math.min(10,Math.round(+o.g.sl||0)))};if(!HCLS.includes(o.c))o.c='tank';if(!SKINS[o.sk])o.sk='base';if(!PETSPR[o.p])o.p='cat';if(!LEVELS[o.lv])o.lv='beginner';o.eq=o.eq||{};if(typeof TITLES==='undefined'||!TITLES[o.ti])o.ti='';return o;}catch(e){return null;}}
 function pvPetc(pr,cls){return `<canvas class="px ${cls||''}" width="48" height="48" data-pet="pv|${pr.p}|${encodeURIComponent(JSON.stringify(pr.eq||{}))}"></canvas>`;}
 function pvCard(pr,tag){const st=pstatsOf(pr.g,pr.c);
- return `<div class="pvcard"><div class="pvfig">${sp(heroSpr(pr.c,pr.sk))}${pvPetc(pr,'mini')}</div><div><b>${esc(pr.n)}</b> <small>${HWORD[pr.c]||'전사'}</small> ${tag||''}<div class="hint">${LEVELS[pr.lv].ic} ${LEVELS[pr.lv].sub} · RPG 클리어 ${pr.r}개${pr.w?` · 🏆 ${pr.w}승`:''}</div>
+ return `<div class="pvcard"><div class="pvfig">${sp(heroSpr(pr.c,pr.sk))}${pvPetc(pr,'mini')}</div><div><b>${esc(pr.n)}</b> <small>${HWORD[pr.c]||'전사'}</small> ${tag||''}${pr.ti?'<div class="ttl">'+ttName(pr.ti)+'</div>':''}<div class="hint">${LEVELS[pr.lv].ic} ${LEVELS[pr.lv].sub} · RPG 클리어 ${pr.r}개${pr.w?` · 🏆 ${pr.w}승`:''}</div>
  <div class="pvst">⚔️ ${st.atk} · 🛡️ ${st.def} · ❤️ ${st.hp} · 💨 ${st.eva}%</div><div class="hint">${['sword','armor','shield'].map(k=>gearc(pr.g[k],'mini')+GEAR[pr.g[k]].nm+(k==='sword'&&pr.g.sl?' +'+pr.g.sl:'')).join(' ')}</div></div></div>`;}
 function localSaves(){const r=[];try{for(let i=0;i<localStorage.length;i++){const k=localStorage.key(i);if(k&&k.startsWith('sg_save_')){const n=k.slice(8);if(n&&n!==G.name)r.push(n);}}}catch(e){}return r.sort();}
 function pvLobby(){G.rpg=false;const me=profOf(SV,G.name),rec=SV.pvp||{w:0,l:0},L=localSaves();
@@ -2695,7 +2703,7 @@ function pvShow(delay){const V=G.pv;if(V.snd){sfx(V.snd);V.snd=null;}
  setTimeout(()=>{if(G.scr!=='pvbattle')return;render();if(V.fx){const me=V.me||0,side=V.fx.who===me?'L':'R',oside=side==='L'?'R':'L';const ar=$('arena');const a=document.querySelector('.pvside.'+side),d=document.querySelector('.pvside.'+oside);if(a)a.classList.add('lunge');if(d)setTimeout(()=>d.classList.add('hit'),200);
    if(ar){const p=document.createElement('div');p.className='dmg pvd '+oside+(V.fx.crit?' bigdmg':'');p.textContent=(V.fx.crit?'CRITICAL ':'')+'-'+V.fx.dmg;if(!V.fx.nodmg)setTimeout(()=>ar.appendChild(p),220);}if(V.fx.k){const kk=Object.prototype.hasOwnProperty.call(SK,V.fx.k)?V.fx.k:'tank',sk=SK[kk][+V.fx.i||0]||SK[kk][0],dd=V.fx.dmg;setTimeout(()=>spFx(kk,dd,sk),150);}V.fx=null;}},delay||0);}
 function pvSide(P,cls,active){return `<div class="pvside ${cls} ${active?'act':''}"><div class="pvname">${active?'▶ ':''}${esc(P.pr.n)}${P.ai?' 🤖':''} <small>${HWORD[P.pr.c]||''}</small> <span class="gauge">✨${'■'.repeat(P.gauge)}${'□'.repeat(3-P.gauge)}</span>${hpbar(P.hp,P.max,cls==='L'?'me':'en')}${debChips(P.deb)}${stChips(P.buf,BUF,'bufc')}</div>
- <div class="pvfig2">${sp(heroSpr(P.pr.c,P.pr.sk))}${pvPetc(P.pr,'')}</div></div>`;}
+ ${ttag(P.pr.ti)}<div class="pvfig2">${sp(heroSpr(P.pr.c,P.pr.sk))}${pvPetc(P.pr,'')}</div></div>`;}
 const PVMODE={ai:'🤖 친구 코드 대결',hot:'👥 2인 대전',net:'🌐 실시간 대전'};
 function pvBattle(){const V=G.pv,A=V.P[V.cur],me=V.me||0;G.dg=PV_ARENA;
  $('app').innerHTML=hud(`<span class="mut">⚔️ 배틀 아레나 · ${PVMODE[V.mode]} · ${V.turn}턴</span><button class="btn-s" id="pvquit">🏳️ 기권</button>`)+`
@@ -3058,7 +3066,7 @@ function rdOnEnd(){const R=G.rd;if(R.rewarded)return;R.rewarded=true;const e=R.e
  R.rw=rw;}
 /* ---------- 전투 화면 ---------- */
 function rdCell(p,i){const me=G.rd.me===i,ratio=Math.max(0,Math.round(p.hp/p.max*100));const dk=Object.keys(p.deb||{}).filter(k=>DEBUFF[k]).map(k=>DEBUFF[k].ic).join('');
- return `<div class="rdp ${p.alive?'':'dead'} ${me?'me':''} ${p.left?'gone':''}" data-s="${i}"><div class="rdn">${me?'▶ ':''}${esc(p.pr.n)}</div><div class="rdhp"><i style="width:${ratio}%"></i></div><div class="rdd">${dk}<span class="rdok" style="visibility:${p.done?'visible':'hidden'}">✔</span><span class="rdch">${p.charge?'⚡'+p.charge:''}</span></div>${sp(heroSpr(p.pr.c,p.pr.sk))}</div>`;}
+ return `<div class="rdp ${p.alive?'':'dead'} ${me?'me':''} ${p.left?'gone':''}" data-s="${i}"><div class="rdn">${me?'▶ ':''}${esc(p.pr.n)}</div><div class="rdhp"><i style="width:${ratio}%"></i></div><div class="rdd">${dk}<span class="rdok" style="visibility:${p.done?'visible':'hidden'}">✔</span><span class="rdch">${p.charge?'⚡'+p.charge:''}</span></div>${ttag(p.pr.ti,1)}${sp(heroSpr(p.pr.c,p.pr.sk))}</div>`;}
 function rdBattle(){const R=G.rd,B=R.boss,b=rdBoss(R.bossId),stg=['','⚠️ 2단계','🔥 3단계','💢 최종 단계'][B.stage]||'';
  const st=B.stage;
  $('app').innerHTML=hud(`<span class="mut">🐉 레이드 · ${esc(B.mname)}${stg?' · '+stg:''}</span><button class="btn-s" id="rdquit">🏳️ 나가기</button>`)+`
@@ -3977,7 +3985,7 @@ function preStory(then){const d=G.dg;if(!d||d.daily||d.exp||G.dev||G.rvm)return 
 
 /* ===== 던전 선택 화면: 난이도·저장·로그인 버튼을 맨 위 상단 박스로 이동 ===== */
 function hudTools(){try{const h=document.querySelector('#app .hud');if(!h)return;
- ['tolv','dsave','rsave','tologin'].forEach(id=>{const b=document.getElementById(id);if(b)h.appendChild(b);});
+ ['tolv','dsave','rsave','torank','togift','tologin'].forEach(id=>{const b=document.getElementById(id);if(b)h.appendChild(b);});
  document.querySelectorAll('#app .dtools').forEach(d=>{if(!d.children.length)d.remove();});}catch(e){}}
 (function(){if(typeof rpgDsel!=='function')return;const _r=rpgDsel;rpgDsel=function(){_r();hudTools();};})();
 
@@ -4474,6 +4482,14 @@ function giftDevMake(){const v=prompt('보상 내용을 "💎수정,💰골드,�
 /* ---------- 🏆 랭킹 (주간 랭킹 + 명예의 전당) ---------- */
 let RANK_URL='https://script.google.com/macros/s/AKfycbxGtV0puXA1N9vfHavcfotByGf75gk-vd6xRD50uxoXhmUM6IsDmAI9rbai8seFC0Iy/exec'; /* ← 선생님이 배포한 랭킹 서버(Apps Script) 주소를 여기에 넣어요 */
 const RK_BOARDS=[['dg','🗡️ 던전'],['ar','⚔️ 아레나'],['rd','🐉 레이드'],['acc','🎯 정확도']];
+/* 칭호: 주간 랭킹 보상을 받을 때 획득(1위=챔피언, 2~3위=랭커). bonus는 나중에 능력치 추가용 자리 */
+const TITLES={};(function(){const ic={dg:'🗡️',ar:'⚔️',rd:'🐉',acc:'🎯'},nm={dg:'던전',ar:'아레나',rd:'레이드',acc:'정확도'};
+ Object.keys(ic).forEach(b=>{TITLES[b+'1']={ic:ic[b],nm:nm[b]+' 주간 챔피언',s:'챔피언',bonus:null};TITLES[b+'2']={ic:ic[b],nm:nm[b]+' 주간 랭커',s:'랭커',bonus:null};});})();
+function ttName(id){const t=TITLES[id];return t?t.ic+' '+esc(t.nm):'';}
+function ttag(id,short){const t=TITLES[id];return t?`<div class="ttag t${id.slice(-1)}">${t.ic}${short?esc(t.s):esc(t.nm)}</div>`:'';}
+function rankTitleBox(){const o=SV.titles||{},ids=Object.keys(o).filter(k=>TITLES[k]&&o[k]>0);
+ if(!ids.length)return '';return `<div class="rktitle"><b>🏷️ 내 칭호</b> <span class="hint">장착하면 아레나·레이드에서 캐릭터 머리 위에 떠요</span><div class="rkts">${ids.map(k=>`<button class="btn-s ${SV.title===k?'on':''}" data-tt="${k}">${ttName(k)}${o[k]>1?' ×'+o[k]:''}</button>`).join('')}<button class="btn-s" data-tt="">✖ 해제</button></div></div>`;}
+function rankTitleBind(){document.querySelectorAll('[data-tt]').forEach(b=>b.onclick=()=>{SV.title=b.dataset.tt;saveNow();sfx('select');const bx=$('rktbox');if(bx){bx.innerHTML=rankTitleBox();rankTitleBind();}});}
 const RK_LV={beginner:1,intermediate:1.3,expert:1.6};
 const rankOn=()=>!!RANK_URL&&!!CLOUD&&!G.dev;
 async function rankPost(o,ms){const ac=new AbortController();const t=setTimeout(()=>ac.abort(),ms||12000);try{const r=await fetch(RANK_URL,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(o),redirect:'follow',signal:ac.signal});return await r.json();}finally{clearTimeout(t);}}
@@ -4514,15 +4530,15 @@ function rkKeyName(b,k){if(b==='dg'){const d=DUNGEONS.find(x=>x.id===k.slice(0,-
 function rkX(b,x){if(!x)return '';if(x.cnt!=null)return x.cnt+'개 종목 기록';if(b==='ar')return `${x.w||0}승 / ${x.m||0}판`;if(b==='acc')return `${x.ok}/${x.tot}문제`;if(b==='dg')return x.t!=null?`${sec2(x.t)} · 정확도 ${x.a}%`:'';if(b==='rd')return x.d!=null?`딜 ${x.d} · 치유 ${x.h}${x.w?' · 승리':''}`:'';return '';}
 function rkRows(b,rows,me,unit){if(!rows||!rows.length)return '<p class="hint">아직 기록이 없어요. 첫 번째 주인공이 되어 보세요!</p>';
  return `<div class="rklist">${rows.map(o=>`<div class="rkrow ${me&&o.n===me?'me':''} r${o.r<=3?o.r:''}"><span class="rkr">${rkMedal(o.r)}</span><span class="rkn">${esc(o.n)}</span><span class="rks">${o.s}${unit||'점'}</span>${rkX(b,o.x)?`<span class="rkx">${esc(rkX(b,o.x))}</span>`:''}</div>`).join('')}</div>`;}
-function rkRewardTxt(R){return (R||[]).map(x=>`${x.upto===1?'🥇 1위':x.upto===2?'🥈 2위':x.upto===3?'🥉 3위':'~'+x.upto+'위'}: 💎${x.c} 💰${x.g}${x.s?' ⚒️'+x.s:''}`).join(' · ');}
+function rkRewardTxt(R){return (R||[]).map(x=>`${x.upto===1?'🥇 1위':x.upto===2?'🥈 2위':x.upto===3?'🥉 3위':'~'+x.upto+'위'}: ${x.c?'💎'+x.c+' ':''}💰${x.g}${x.s?' ⚒️'+x.s:''}`).join(' · ');}
 async function rankFetch(key,body){G.rkc=G.rkc||{};const c=G.rkc[key];if(c&&Date.now()-c.t<30000)return c.d;try{const d=await rankPost(body);if(d&&d.ok){G.rkc[key]={t:Date.now(),d};return d;}}catch(e){}return null;}
 function rankScreen(){const K=G.rk=G.rk||{view:'week',tab:'dg',key:''};const me=CLOUD?CLOUD.n:'';
  const isHof=K.view==='hof',tabs=RK_BOARDS.map(([id,nm])=>`<button class="btn-s ${K.tab===id?'on':''}" data-rt="${id}">${nm}</button>`).join('');
  $('app').innerHTML=hud(`<span class="mut">🏆 랭킹</span><button class="btn-s" id="rkback">↩ 돌아가기</button>`)+`<div class="card rankcard">
  <div class="rkvw"><button class="btn-s ${!isHof?'on':''}" data-rv="week">📅 주간 랭킹</button><button class="btn-s ${isHof?'on':''}" data-rv="hof">🏛️ 명예의 전당</button></div>
  ${!RANK_URL?'<p class="story">🛠️ 랭킹 서버를 준비하고 있어요. 조금만 기다려 주세요!</p>':!CLOUD?'<p class="story">🔑 이름·비밀번호로 로그인한 계정만 랭킹에 참여할 수 있어요.</p>':''}
- <div id="rkclaim"></div><div class="rktabs">${tabs}</div><div id="rkbody"><p class="hint">불러오는 중…</p></div></div>`;
- $('rkback').onclick=()=>{G.scr='dsel';sfx('click');render();};
+ <div id="rktbox">${rankTitleBox()}</div><div id="rkclaim"></div><div class="rktabs">${tabs}</div><div id="rkbody"><p class="hint">불러오는 중…</p></div></div>`;
+ $('rkback').onclick=()=>{G.scr='dsel';sfx('click');render();};rankTitleBind();
  document.querySelectorAll('[data-rv]').forEach(b=>b.onclick=()=>{K.view=b.dataset.rv;K.key='';sfx('click');rankScreen();});
  document.querySelectorAll('[data-rt]').forEach(b=>b.onclick=()=>{K.tab=b.dataset.rt;K.key='';sfx('click');rankScreen();});
  if(RANK_URL){rankClaimBox();rankBody();}}
@@ -4551,7 +4567,7 @@ async function rankClaimBox(){const box=$('rkclaim');if(!box||!rankOn())return;l
  const bx=$('rkclaim');if(!bx||!d||!d.ok||!d.items.length)return;G.rkClaim=true;const t=d.total;
  bx.innerHTML=`<div class="feedback ok rkgift"><b>🎁 지난 주 랭킹 보상이 있어요!</b><div class="hint">${d.items.map(i=>`${esc(i.w)} 주 ${RK_BOARDS.find(x=>x[0]===i.b)[1]} <b>${i.r}위</b>`).join(' · ')}</div><div style="margin:6px 0">${t.c?'💎 +'+t.c+' ':''}${t.g?'💰 +'+t.g+' ':''}${t.s?'⚒️ +'+t.s:''}</div><button class="next" id="rkget">🎁 보상 받기</button></div>`;
  $('rkget').onclick=async()=>{const b=$('rkget');b.disabled=true;let r;try{r=await rankPost({a:'claim',n:CLOUD.n,t:CLOUD.h});}catch(e){b.disabled=false;saveToast('❌ 인터넷 연결을 확인하세요.');return;}
-  if(r&&r.ok&&r.items.length){const tt=r.total;SV.cry=(SV.cry||0)+tt.c;SV.rg=(SV.rg||0)+tt.g;SV.stone=(SV.stone||0)+tt.s;saveNow();G.rkClaim=false;sfx('fanfare');saveToast('🎁 보상을 받았어요!');$('rkclaim').innerHTML='<div class="feedback ok">🎁 보상을 받았어요! 💎 +'+tt.c+' 💰 +'+tt.g+(tt.s?' ⚒️ +'+tt.s:'')+'</div>';}
+  if(r&&r.ok&&r.items.length){const tt=r.total;SV.cry=(SV.cry||0)+tt.c;SV.rg=(SV.rg||0)+tt.g;SV.stone=(SV.stone||0)+tt.s;const nt=[];r.items.forEach(i=>{if(i.r<=3){const id=i.b+(i.r===1?'1':'2');SV.titles=SV.titles||{};SV.titles[id]=(SV.titles[id]||0)+1;if(!SV.title)SV.title=id;nt.push(TITLES[id].ic+' '+TITLES[id].nm);}});saveNow();G.rkClaim=false;sfx('fanfare');saveToast('🎁 보상을 받았어요!');$('rkclaim').innerHTML='<div class="feedback ok">🎁 보상을 받았어요! '+(tt.c?'💎 +'+tt.c+' ':'')+'💰 +'+tt.g+(tt.s?' ⚒️ +'+tt.s:'')+(nt.length?'<br>🏷️ 새 칭호: <b>'+nt.join(', ')+'</b>':'')+'</div>';const tb=$('rktbox');if(tb){tb.innerHTML=rankTitleBox();rankTitleBind();}}
   else{b.disabled=false;saveToast('받을 보상이 없어요.');}};}
 /* 로그인 후 보상 확인(점 표시) */
 let _rkChk=0;async function rankCheck(){if(!rankOn()||Date.now()-_rkChk<600000)return;_rkChk=Date.now();rankFlush();try{const d=await rankPost({a:'claims',n:CLOUD.n,t:CLOUD.h});if(d&&d.ok&&d.items.length){G.rkClaim=true;const b=$('torank');if(b&&!/🎁/.test(b.textContent))b.textContent+=' 🎁';}}catch(e){}}

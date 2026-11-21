@@ -712,3 +712,11 @@ canvas.px[data-src="SPR"][data-k="shaman"],canvas.px[data-src="SPR"][data-k^="cs
 .rkh{margin:14px 0 4px}.rkch{display:flex;flex-direction:column;gap:5px}.rkcr{display:flex;flex-wrap:wrap;gap:4px 10px;background:var(--panel2);border-radius:10px;padding:7px 10px;font-size:13px}.rkcr b{flex-basis:100%}
 .rkgift{margin:8px 0}.rkrw{margin-top:10px}#rkkey{width:100%;margin:6px 0}
 .btn-s.rankbtn{background:#5a3fa0;border-color:#c9a8ff;color:#fff;font-weight:900}
+
+/* 칭호 */
+.ttag{display:inline-block;max-width:100%;box-sizing:border-box;font-size:11px;font-weight:900;color:#2a1a00;background:linear-gradient(#ffe27a,#f0b840);border:1px solid #fff6;border-radius:9px;padding:1px 8px;margin-bottom:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;box-shadow:0 0 8px #f0c04f99;text-shadow:none}
+.ttag.t2{background:linear-gradient(#e4e8f0,#aab4c8);box-shadow:0 0 6px #aab4c866}
+.rdp .ttag{font-size:9px;padding:0 5px;display:block;margin:0 auto 1px;width:fit-content}
+.ttl{font-size:11px;font-weight:800;color:#f0c04f}
+.rktitle{margin:8px 0;padding:8px;border-radius:10px;background:#0006}.rkts{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+@media(max-width:560px){.ttag{font-size:10px}}

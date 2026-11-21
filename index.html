@@ -4502,6 +4502,8 @@ function rankTitleBox(){const o=SV.titles||{},ids=Object.keys(o).filter(k=>TITLE
  if(!ids.length)return '';return `<div class="rktitle"><b>🏷️ 내 칭호</b> <span class="hint">장착하면 아레나·레이드에서 캐릭터 머리 위에 떠요</span><div class="rkts">${ids.map(k=>`<button class="btn-s ${SV.title===k?'on':''}" data-tt="${k}">${ttName(k)}${o[k]>1?' ×'+o[k]:''}</button>`).join('')}<button class="btn-s" data-tt="">✖ 해제</button></div></div>`;}
 function rankTitleBind(){document.querySelectorAll('[data-tt]').forEach(b=>b.onclick=()=>{SV.title=b.dataset.tt;saveNow();sfx('select');const bx=$('rktbox');if(bx){bx.innerHTML=rankTitleBox();rankTitleBind();}});}
 const RK_LV={beginner:1,intermediate:1.3,expert:1.6};
+/* 정확도 난이도 보정: 어려운 난이도에서 틀린 문제는 1/배율만큼만 틀린 것으로 센다 */
+function rkAcc(ok,tot){ok=Math.max(0,ok|0);tot=Math.max(ok,tot|0);const w=RK_LV[SV.level]||1;return [{k:'ok',v:Math.min(400,ok)},{k:'tot',v:Math.min(400,ok+Math.round((tot-ok)/w))}];}
 const rankOn=()=>!!RANK_URL&&!!CLOUD&&!G.dev;
 async function rankPost(o,ms){const ac=new AbortController();const t=setTimeout(()=>ac.abort(),ms||12000);try{const r=await fetch(RANK_URL,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(o),redirect:'follow',signal:ac.signal});return await r.json();}finally{clearTimeout(t);}}
 const rkqKey=()=>'sg_rkq_'+(CLOUD?CLOUD.n:'');
@@ -4521,24 +4523,24 @@ function dgScore(o){const acc=o.tot?o.ok/o.tot:0,par=Math.max(1,o.par),sp=Math.m
 function rankDgLearn(){if(!rankOn()||G.rvm||!G.dg||G.dg.daily||!G.tot)return;
  const sec=(Date.now()-(G.t0||Date.now()))/1000,r=dgScore({ok:G.ok,tot:G.tot,sec,par:G.tot*14,combo:G.maxCmb||0,surv:(G.hp||0)/3});
  rankSubmit('dg',[{k:G.dg.id+'L',v:r.score,ex:{t:Math.round(sec),a:r.acc,lv:SV.level}}]);
- rankSubmit('acc',[{k:'ok',v:Math.min(400,G.ok)},{k:'tot',v:Math.min(400,G.tot)}]);}
+ rankSubmit('acc',rkAcc(G.ok,G.tot));}
 function rankDgRpg(R){if(!rankOn()||!G.dg||G.dg.daily||!R.qt)return;
  const sec=(Date.now()-(R.t0||Date.now()))/1000,r=dgScore({ok:R.qo||0,tot:R.qt,sec,par:R.qt*14,combo:R.mc||0,surv:R.pmax?R.php/R.pmax:0});
  rankSubmit('dg',[{k:G.dg.id+'R',v:r.score,ex:{t:Math.round(sec),a:r.acc,lv:SV.level}}]);
- rankSubmit('acc',[{k:'ok',v:Math.min(400,R.qo||0)},{k:'tot',v:Math.min(400,R.qt)}]);}
+ rankSubmit('acc',rkAcc(R.qo||0,R.qt));}
 function rpgCnt(ok){const R=G.rp;if(!R)return;R.qt=(R.qt||0)+1;if(ok){R.qo=(R.qo||0)+1;R.cmb=(R.cmb||0)+1;if(R.cmb>(R.mc||0))R.mc=R.cmb;}else R.cmb=0;}
 function rankArena(V,wi,quit){if(!rankOn()||V.mode!=='net'||(V.turn||0)<3)return;const me=V.me||0,win=wi===me,c=V.cnt||{ok:0,tot:0},acc=c.tot?c.ok/c.tot:0,P=V.P[me];
  const hpf=P&&P.max?P.hp/P.max:0;let pts=(win?30:8)+Math.round(10*acc)+(win&&hpf>=.5?5:0);if(quit&&!win)pts=3;
- rankSubmit('ar',[{k:'pts',v:pts},{k:'win',v:win?1:0},{k:'mat',v:1}]);if(c.tot)rankSubmit('acc',[{k:'ok',v:Math.min(400,c.ok)},{k:'tot',v:Math.min(400,c.tot)}]);}
+ rankSubmit('ar',[{k:'pts',v:pts},{k:'win',v:win?1:0},{k:'mat',v:1}]);if(c.tot)rankSubmit('acc',rkAcc(c.ok,c.tot));}
 function rankRaid(R,e){if(!rankOn()||!e)return;const me=e.stats&&e.stats[R.me];if(!me||me.left)return;const bm=Math.max(1,R.boss.max),team=Math.max(1,R.P.reduce((s,p)=>s+p.max,0));
  const win=!!e.win,rounds=Math.max(1,Math.ceil((R.rnd||1)/2));
  const sc=(win?300:0)+Math.round(400*Math.min(1,me.dmg/(bm*0.5)))+Math.round(200*Math.min(1,me.heal/(team*0.5)))+(me.alive?50:0)+(e.mvp===R.me?100:0)+(win?Math.max(0,150-10*rounds):0);
  rankSubmit('rd',[{k:R.bossId,v:Math.min(1200,sc),ex:{w:win?1:0,d:me.dmg,h:me.heal,r:rounds}}]);
- if(R.qa)rankSubmit('acc',[{k:'ok',v:Math.min(400,R.qo||0)},{k:'tot',v:Math.min(400,R.qa)}]);}
+ if(R.qa)rankSubmit('acc',rkAcc(R.qo||0,R.qa));}
 /* ---------- 화면 ---------- */
 const rkMedal=r=>r===1?'🥇':r===2?'🥈':r===3?'🥉':r+'위';
 function rkKeyName(b,k){if(b==='dg'){const d=DUNGEONS.find(x=>x.id===k.slice(0,-1));return (d?d.name:k)+(k.slice(-1)==='R'?' (RPG)':' (학습)');}if(b==='rd'){const x=RD_BOSS.find(y=>y.id===k);return x?x.mname:k;}return k;}
-function rkX(b,x){if(!x)return '';if(x.cnt!=null)return x.cnt+'개 종목 기록';if(b==='ar')return `${x.w||0}승 / ${x.m||0}판`;if(b==='acc')return `${x.ok}/${x.tot}문제`;if(b==='dg')return x.t!=null?`${sec2(x.t)} · 정확도 ${x.a}%`:'';if(b==='rd')return x.d!=null?`딜 ${x.d} · 치유 ${x.h}${x.w?' · 승리':''}`:'';return '';}
+function rkX(b,x){if(!x)return '';if(x.cnt!=null)return x.cnt+'개 종목 기록';if(b==='ar')return `${x.w||0}승 / ${x.m||0}판`;if(b==='acc')return `정답 ${x.ok}개 (난이도 보정)`;if(b==='dg')return x.t!=null?`${sec2(x.t)} · 정확도 ${x.a}%`:'';if(b==='rd')return x.d!=null?`딜 ${x.d} · 치유 ${x.h}${x.w?' · 승리':''}`:'';return '';}
 function rkRows(b,rows,me,unit){if(!rows||!rows.length)return '<p class="hint">아직 기록이 없어요. 첫 번째 주인공이 되어 보세요!</p>';
  return `<div class="rklist">${rows.map(o=>`<div class="rkrow ${me&&o.n===me?'me':''} r${o.r<=3?o.r:''}"><span class="rkr">${rkMedal(o.r)}</span><span class="rkn">${esc(o.n)}</span><span class="rks">${o.s}${unit||'점'}</span>${rkX(b,o.x)?`<span class="rkx">${esc(rkX(b,o.x))}</span>`:''}</div>`).join('')}</div>`;}
 function rkRewardTxt(R){return (R||[]).map(x=>`${x.upto===1?'🥇 1위':x.upto===2?'🥈 2위':x.upto===3?'🥉 3위':'~'+x.upto+'위'}: ${x.c?'💎'+x.c+' ':''}💰${x.g}${x.s?' ⚒️'+x.s:''}`).join(' · ');}

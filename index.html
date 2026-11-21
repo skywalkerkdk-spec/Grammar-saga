@@ -826,6 +826,14 @@ canvas.px[data-src="SPR"][data-k="shaman"],canvas.px[data-src="SPR"][data-k^="cs
 .rdp .rdch{color:#ffd85a;font-weight:900;margin-left:3px;text-shadow:0 0 4px #000}
 .rdht .choice small{opacity:.8;margin-left:4px}
 
+.shardbar{margin:10px 0;padding:10px 12px;border:2px solid #8f7bd8;border-radius:14px;background:rgba(143,123,216,.12)}
+.shardbar .shh{font-size:14px;margin-bottom:6px}
+.shardbar .shs{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+.shardbar .sh{display:flex;flex-direction:column;align-items:center;font-size:24px;opacity:.55;min-width:52px}
+.shardbar .sh.on{opacity:1;filter:drop-shadow(0 0 8px #9ee4ff)}
+.shardbar .sh small{font-size:11px;font-weight:700;margin-top:2px}
+.dcard.dlock{filter:grayscale(.7);opacity:.7}
+
 </style>
 </head>
 <body>
@@ -1433,8 +1441,8 @@ function dsel(){G.rpg=false;if(SV.mode==='rpg'&&rpgOpen())return rpgDsel();
  <button class="shopbtn" id="toshop">${petc('mini')}<div><b>🐾 길드 상점 (펫·스킨)</b><span>수정으로 펫·꾸미기·주인공 스킨을 사 보세요 · 보유 💎 ${SV.cry}</span></div></button>
  <div class="dtools"><button class="btn-s" id="tolv">${LEVELS[LV()].ic} 난이도: <b>${LEVELS[LV()].n}</b> (${LEVELS[LV()].sub}) · 바꾸기</button><button class="btn-s savebtn" id="dsave">💾 저장하기</button><button class="btn-s" id="tologin">👤 다른 계정으로 로그인</button></div>
  ${G.dev?devPanel():''}${G.toastSave?'<div class="feedback ok" style="margin:0 0 10px">💾 저장했어요! 다음에 같은 이름으로 들어오면 이어서 할 수 있어요.</div>':''}${resumeHTML()}
- <div class="dgrid">${DUNGEONS.filter(d=>!d.verbal&&!d.mix).map(d=>`<button class="dcard" ${d.open?'':'disabled'} data-id="${d.id}">
- <span class="size">${d.full?'풀파티 최종 던전':d.size+'인 '+(d.id==='d4'?'필드':'던전')}</span>${d.open?(SV.cleared.includes(d.id)?'<span class="lock" style="color:var(--green)">✅ 클리어</span>':''):'<span class="lock">🔒 준비 중</span>'}
+ ${shardBar()}<div class="dgrid">${DUNGEONS.filter(d=>!d.verbal&&!d.mix).map(d=>`<button class="dcard ${d.id==='d6'&&!dOpen(d)?'dlock':''}" ${dOpen(d)?'':'disabled'} data-id="${d.id}">
+ <span class="size">${d.full?'풀파티 최종 던전':d.size+'인 '+(d.id==='d4'?'필드':'던전')}</span>${d.open?(d.id==='d6'&&!dOpen(d)?`<span class="lock">🔒 수정 조각 ${shardN()}/5</span>`:SV.cleared.includes(d.id)?'<span class="lock" style="color:var(--green)">✅ 클리어</span>':''):'<span class="lock">🔒 준비 중</span>'}
  <h3>${d.name}</h3><div class="mon">${sp(d.mon,'','MON')}<div class="hint">${d.desc}</div></div></button>`).join('')}${templeCard()}</div>${expSection()}</div>`;
  bindModeTabs();$('todaily').onclick=()=>{G.dg=DAILY;G.mates=DAILY.need.slice();G.pets=1;genRunDaily();sfx('select');G.scr='news';render();};
  $('toshop').onclick=()=>{G.scr='shop';G.toast=null;render();};
@@ -1779,6 +1787,11 @@ const TKEY=r=>r==='S'?'S':(r==='O'||r==='IO'||r==='DO')?'O':(r==='C'||r==='OC')?
 const TORD=['S','O','C','M'];
 function traitCard(job,k,cls){const t=JOB[job].tr[k];return `<span class="tsp ${t.spr?'form':''}" style="--tf:${t.f}">${sp(t.spr||JOB[job].base)}</span>`;}
 const HERO={null:'전사',knight:'🛡️ 방패 성기사',druid:'🐻 곰 드루이드'};
+const SHARDS=['d1','d2','d3','d4','d5'];
+function shardN(){return SHARDS.filter(x=>SV.cleared.includes(x)).length;}
+function dOpen(d){if(!d.open)return false;if(d.id==='d6')return !!G.dev||shardN()>=5||SV.cleared.includes('d6');return true;}
+function shardBar(){if(G.dev||SV.cleared.includes('d6'))return '';const n=shardN();
+ return `<div class="shardbar"><div class="shh">💠 <b>피리어드 수정 조각</b> ${n} / 5 <span class="hint">— 1~5형식 던전을 하나씩 클리어하면 조각을 얻어요. 다섯 조각을 모아야 <b>마왕성</b>에 도전할 수 있어요!</span></div><div class="shs">${SHARDS.map((x,i)=>`<span class="sh ${SV.cleared.includes(x)?'on':''}">${SV.cleared.includes(x)?'💠':'◇'}<small>${i+1}형식</small></span>`).join('')}</div></div>`;}
 function templeUnlocked(){return G.dev||SV.cleared.includes('d6');}
 
 function morph(J,k){const pty=$('pty');if(!pty)return;const cv=[...pty.querySelectorAll('canvas[data-k]')].find(c=>c.dataset.k===J.base||c.dataset.morph);if(!cv)return;

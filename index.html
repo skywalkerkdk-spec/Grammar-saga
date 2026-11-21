@@ -2941,7 +2941,7 @@ function rdBegin(){const R=G.rd;if(!R||R.phase==='end')return;R.rnd++;R.fx=null;
  ['buf','bdb'].forEach(n=>{const o=R[n];if(!o)return;Object.keys(o).forEach(k=>{o[k]--;if(o[k]<=0)delete o[k];});});
  R.P.forEach(p=>{p.ans=null;});R.phase='atk';R.log=msgs.join(' · ');
  const need=R.P.filter(p=>p.alive&&!p.left);R.deadline=Date.now()+RD_TATK*1000;rdSnap();
- R.timers.push(setTimeout(()=>{if(G.rd===R&&R.phase==='atk')rdResolveAtk();},RD_TATK*1000+400));}
+ clearTimeout(R.tmA);{const rn=R.rnd;R.tmA=setTimeout(()=>{if(G.rd===R&&R.phase==='atk'&&R.rnd===rn)rdResolveAtk();},RD_TATK*1000+400);R.timers.push(R.tmA);}}
 function rdCheckAll(){const R=G.rd;if(R.phase==='atk'){if(R.P.filter(p=>p.alive&&!p.left).every(p=>p.ans!=null))rdResolveAtk();}
  else if(R.phase==='def'){const t=R.act.targets.map(i=>R.P[i]).filter(p=>p.alive&&!p.left);if(t.every(p=>p.ans!=null))rdResolveDef();}}
 function rdOnAns(seat,ok,rnd,kind,fast,ex){const R=G.rd;if(!R||rnd!==R.rnd)return;const p=R.P[seat];if(!p||!p.alive||p.left||p.ans!=null)return;
@@ -2955,7 +2955,7 @@ function rdSkEff(p,S,lines){const R=G.rd,B=R.boss,ex=[];R.buf=R.buf||{};R.bdb=R.
  if(S.buf)Object.keys(S.buf).forEach(k=>{R.buf[k]=Math.max(R.buf[k]||0,S.buf[k]);ex.push(BUF[k].ic+'파티 '+BUF[k].nm);});
  if(S.deb)Object.keys(S.deb).forEach(k=>{if(k==='stun'){if(Math.random()<.6){B.stun=true;ex.push('😵 '+esc(B.mname)+' 기절!');}else ex.push('😵 기절은 저항당했다');return;}R.bdb[k]=Math.max(R.bdb[k]||0,S.deb[k]);ex.push(EDB[k].ic+esc(B.mname)+' '+EDB[k].nm);});
  lines.push(`✨ <b>${esc(p.pr.n)}</b>의 「${S.nm}」${ex.length?' — '+ex.join(' · '):' 발동!'}`);}
-function rdResolveAtk(){const R=G.rd;if(R.phase!=='atk')return;R.phase='atkres';const B=R.boss,lines=[],hits=[],b0=B.hp;let total=0;
+function rdResolveAtk(){const R=G.rd;if(R.phase!=='atk')return;clearTimeout(R.tmA);R.phase='atkres';const B=R.boss,lines=[],hits=[],b0=B.hp;let total=0;
  const mult=B.stun?1.5:1,alive=R.P.filter(p=>p.alive&&!p.left),isHeal=p=>p.role==='heal'&&p.ans&&p.ans.act==='heal';
  const skl=[],tmo=alive.filter(p=>!p.ans).map(p=>esc(p.pr.n));
  alive.forEach(p=>{if(isHeal(p))return;const ok=!!(p.ans&&p.ans.ok),S=(p.ans&&p.ans.sk!=null)?(SK[p.pr.c]||SK.tank)[p.ans.sk]:null;
@@ -2990,8 +2990,8 @@ function rdStartDef(){const R=G.rd,B=R.boss,b=rdBoss(R.bossId);if(R.phase==='end
  const tn=type==='special'?esc(R.P[targets[0]].pr.n):'';
  R.log=type==='special'?`💥 <b>${esc(B.mname)}의 특수기술 「${nm}」!</b> <b>${tn}</b>을(를) 노린다! 정답으로 막아 내면 보스가 기절해요!`:`${esc(B.mname)}의 「${nm}」! ${type==='debuff'?'전체 공격 + 디버프!':'전체 공격!'} 모두 막아라!`;
  R.deadline=Date.now()+RD_TDEF*1000;rdSnap();
- R.timers.push(setTimeout(()=>{if(G.rd===R&&R.phase==='def')rdResolveDef();},RD_TDEF*1000+400));}
-function rdResolveDef(){const R=G.rd;if(R.phase!=='def')return;R.phase='defres';const B=R.boss,A=R.act,lines=[],hits=[];let allOk=true;
+ clearTimeout(R.tmD);{const rn=R.rnd;R.tmD=setTimeout(()=>{if(G.rd===R&&R.phase==='def'&&R.rnd===rn)rdResolveDef();},RD_TDEF*1000+400);R.timers.push(R.tmD);}}
+function rdResolveDef(){const R=G.rd;if(R.phase!=='def')return;clearTimeout(R.tmD);R.phase='defres';const B=R.boss,A=R.act,lines=[],hits=[];let allOk=true;
  const dm={normal:1,debuff:0.45,aoe:0.5,special:2.4}[A.type];
  const bdeb=debOf(rdBoss(R.bossId).mon).filter(k=>k!=='silence');
  A.targets.forEach(i=>{const p=R.P[i];if(!p||!p.alive||p.left)return;const h0=p.hp;const ok=!!(p.ans&&p.ans.ok),fast=!!(p.ans&&p.ans.fast)&&ok&&!p.deb.slow;if(!ok)allOk=false;

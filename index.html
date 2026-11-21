@@ -4842,6 +4842,18 @@ Object.keys(DMON).forEach(id=>{const d=DUNGEONS.find(x=>x.id===id);if(!d||!MON[D
  if(typeof GRMAP!=='undefined'&&GRMAP[id]){GRMAP[id].boss.mon=DMON[id];GRMAP[id].boss.filter='';}
  if(typeof EXMAP!=='undefined'&&EXMAP[id]){EXMAP[id].boss.mon=DMON[id];EXMAP[id].boss.filter='';}
  if(BOSS[id])BOSS[id].mon=DMON[id];});
+/* 던전별 졸병 몬스터 7종 (겹침 최소화, 테마별) */
+const DMOBS={g1:'slime,mushroom,boar,bat,goblin,kobold,spider',g2:'bat,kobold,skeleton,goblin,spider,mimic,golem',pv:'werewolf,mushroom,swamptoad,harpy,boar,cursedoll,troll',id:'crab,siren,croc,orc,mimic,kobold,ewater',
+tn:'clockknight,timethief,wisp,jackghost,bat,imp,mimic',md:'flask,homunculus,imp,gargoyle,kobold,hellhound,golem',rp:'mushroom,spider,boar,swamptoad,eearth,werewolf,elight',ps:'ewater,croc,crab,siren,swamptoad,hydra,slime',
+pf:'mummy,eearth,cyclops,skeleton,harpy,pharaoh,orc',rv:'goblin,orc,kobold,mimic,ewater,bat,piratecap',pc:'harpy,gargoyle,wyvern,ewind,bat,cloudspirit,elight',sj:'skeleton,vampire,banshee,zombie,jackghost,cursedoll,lich',
+cp:'minotaur,ogre,troll,boar,orc,golem,yeti',cj:'goblin,kobold,orc,gargoyle,golem,mimic,harpy',pn:'shopkeep,smith,mimic,goblin,witch,kobold,cursedoll',ot:'crab,siren,croc,swamptoad,ewater,harpy,salamander',
+iv:'griffin,wyvern,babydragon,dragonegg,harpy,eearth,boar',pe:'spider,mushroom,vampire,zombie,boar,wisp,succubus',ng:'shopkeep,smith,broom,slime,goblin,kobold,mushroom',rs:'siren,crab,orc,goblin,kraken,mimic,ewater',
+sx:'darkknight,dragonknight,gargoyle,vampire,succubus,lich,skeleton',
+d9:'zombie,troll,mushroom,swamptoad,croc,spider,wisp',d10:'snowman,yeti,frostwolf,ewater,bat,kobold,golem',d11:'efire,imp,hellhound,salamander,phoenix,golem,wyvern',d12:'banshee,skeleton,vampire,mimic,zombie,cursedoll,jackghost',
+d13:'mummy,skeleton,medusa,ewind,mimic,scorpion,eearth',d14:'harpy,gargoyle,elight,ewind,wyvern,hauntedarmor,griffin',d15:'goblin,orc,ewater,mimic,kobold,crab,siren',d16:'livingbook,inkslime,broom,witch,flask,homunculus,imp',
+d17:'babydragon,dragonegg,dragonknight,harpy,gargoyle,salamander,efire',d18:'hourglass,clockknight,wisp,elight,cloudspirit,gargoyle,imp'};
+Object.keys(DMOBS).forEach(id=>{const L=DMOBS[id].split(',').filter(m=>MON[m]&&MT[m]&&VAR[m]);if(L.length<4)return;MONS[id]=L;
+ if(typeof GRMAP!=='undefined'&&GRMAP[id])GRMAP[id].mons=L;if(typeof EXMAP!=='undefined'&&EXMAP[id])EXMAP[id].mons=L;});
 
 /* ===== 문법 던전 문제 형식 다양화: 객관식 외에 주관식(빈칸 쓰기 / 오류 고쳐 쓰기 / 문장 전체 쓰기) ===== */
 const GQX_P={beginner:{gw:.22,gf:.10,gsw:.08},intermediate:{gw:.22,gf:.16,gsw:.12},expert:{gw:.22,gf:.2,gsw:.18}};

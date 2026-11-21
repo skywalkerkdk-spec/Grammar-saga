@@ -1501,7 +1501,7 @@ function title(){
   try{localStorage.setItem('sg_save_'+o.n,JSON.stringify(o.s));}catch(e){xm('❌ 저장에 실패했어요.');return;}$('nmi').value=o.n;sfx('fanfare');xm('✅ 「'+esc(o.n)+'」의 진행 상황을 가져왔어요! 위의 모험 시작을 누르세요.');};
 }
 const INTRO=[
- {sp:'길드 안내원',t:'신텍스 대륙의 모험가 길드에 온 걸 환영해요! 이 대륙의 던전은 모두 <b>영어 문장</b>으로 이루어져 있어요. 오늘의 주인공을 소개할게요.',cut:'tank'},
+ {sp:'길드 안내원',t:'신택스 왕국의 모험가 길드에 온 걸 환영해요! 이 대륙의 던전은 모두 <b>영어 문장</b>으로 이루어져 있어요. 오늘의 주인공을 소개할게요.',cut:'tank'},
  {sp:'길드 안내원',t:'당신은 <b>탱커(전사)</b>, 문장의 <b>주어</b>예요. 언제나 파티의 맨 앞에 서죠. 하지만 혼자서는 던전에 들어갈 수 없어요.'},
  {sp:'길드 안내원',t:'던전마다 <b>필요한 파티 인원</b>이 정해져 있어요. 인원 수와 몬스터를 잘 보고, 알맞은 동료를 구해 보세요. 몬스터를 첫 시도에 잡으면 <b>💎 수정</b>을 얻고, <b>길드 상점</b>에서 펫·꾸미기·주인공 스킨을 살 수 있어요!'}
 ];
@@ -4079,7 +4079,7 @@ const CAST={
 const L=(w,t)=>({w,t});
 INTRO.length=0;
 INTRO.push(
- L('sage','…드디어 왔구나, {N}. 이 신텍스 대륙은 <b>문장(Sentence)</b>으로 이루어져 있다네. 그 문장을 끝맺어 주는 보물이 바로 <b>피리어드(Period, 마침표) 수정</b>이었지.'),
+ L('sage','…드디어 왔구나, {N}. 이 신택스 왕국은 <b>문장(Sentence)</b>으로 이루어져 있다네. 그 문장을 끝맺어 주는 보물이 바로 <b>피리어드(Period, 마침표) 수정</b>이었지.'),
  L('sage','그런데 마왕 <b>프래그먼트(Fragment, 문장 파편)</b>가 피리어드 수정을 산산조각 내 버렸네. 끝을 잃은 문장들은 던전의 몬스터로 변해 버렸어.'),
  L('sage','자네는 문장의 맨 앞에 서는 자, <b>주어(Subject)</b>의 계승자일세. 하지만 주어 혼자서는 문장이 완성되지 않지. 길드에 모인 동료들을 소개하겠네.'),
  L('healer','처음 뵙겠어요, {N}! 저는 사제 <b>버벨라</b>, 문장을 움직이는 <b>동사(Verb)</b>예요. 제가 없으면 문장 속에서는 아무 일도 일어나지 않아요!'),
@@ -4718,7 +4718,7 @@ const GQD={};Object.keys(GQH).forEach(k=>GQD[k]=GQH[k].slice());if(typeof GQG!==
 (function(){const BS=[['treant','hue-rotate(-30deg) saturate(1.2)'],['golemboss','hue-rotate(200deg) brightness(.9)'],['wyvern','hue-rotate(-20deg) saturate(1.6)'],['lich','hue-rotate(160deg) brightness(1.1)'],['mummy','sepia(.6) saturate(2)'],['darkknight','hue-rotate(180deg) brightness(.9)'],['ogre','hue-rotate(60deg) saturate(1.2)']];
  const MS=[['slime','goblin','kobold','bat','mushroom'],['bat','kobold','skeleton','goblin','slime'],['imp','hellhound','golem','efire','goblin'],['zombie','skeleton','vampire','banshee','mimic'],['harpy','gargoyle','ewind','elight','wyvern'],['orc','goblin','ogre','kobold','mimic']];
  const BGS=['d3','d9','d10','d11','d12','d13','d14','d5','d17','d18','d16','d4','d1','d7','d15','d8','d6'],TR=['golem','cave','ice','fire','temple','desert','ice','market','fire','castle','market','market','forest','temple','pirate','dark','castle'];
- [['tn','텐스(Tense·시제) 평원','시제'],['md','모달(Modal·조동사) 계곡','조동사'],['rp','렐러티브(Relative·관계대명사) 숲','관계대명사'],['ps','패시브(Passive·수동태) 호수','수동태'],['pf','퍼펙트(Perfect·완료) 사막','완료'],['rv','렐러티브 어드버브(Relative Adverb·관계부사) 항구','관계부사'],['pc','파티서플(Participle·분사) 협곡','분사구문'],['sj','서브정티브(Subjunctive·가정법) 성채','가정법'],['cp','컴패러티브(Comparative·비교) 언덕','비교급·최상급'],['cj','컨정션(Conjunction·접속사) 다리','접속사·명사절'],['pn','프로나운(Pronoun·대명사) 마을','대명사·관사'],['ot','프리포지션(Preposition·전치사) 섬길','전치사·기타'],['iv','버벌(Verbal·준동사) 고원','to부정사·동명사'],['pe','코저티브(Causative·사역) 숲','지각·사역·감각동사'],['ng','노운(Noun·명사) 마을','명사·명령문·감탄문'],['rs','리포티드 스피치(Reported Speech·화법) 항구','화법·간접의문문'],['sx','인버전(Inversion·도치) 성','도치·강조·병렬·동격']].forEach((r,i)=>{
+ [['tn','텐스(Tense·시제) 평원','시제'],['md','모달(Modal·조동사) 계곡','조동사'],['rp','렐러티브(Relative·관계대명사) 숲','관계대명사'],['ps','패시브(Passive·수동태) 호수','수동태'],['pf','퍼펙트(Perfect·완료) 사막','완료'],['rv','렐러티브 애드버브(Relative Adverb·관계부사) 항구','관계부사'],['pc','파티서플(Participle·분사) 협곡','분사구문'],['sj','서브정티브(Subjunctive·가정법) 성채','가정법'],['cp','컴패러티브(Comparative·비교) 언덕','비교급·최상급'],['cj','컨정션(Conjunction·접속사) 다리','접속사·명사절'],['pn','프로나운(Pronoun·대명사) 마을','대명사·관사'],['ot','프리포지션(Preposition·전치사) 섬길','전치사·기타'],['iv','버벌(Verbal·준동사) 고원','to부정사·동명사'],['pe','코저티브(Causative·사역) 숲','지각·사역·감각동사'],['ng','노운(Noun·명사) 마을','명사·명령문·감탄문'],['rs','리포티드 스피치(Reported Speech·화법) 항구','화법·간접의문문'],['sx','인버전(Inversion·도치) 성','도치·강조·병렬·동격']].forEach((r,i)=>{
   const b=BS[i%BS.length];GR.push({id:r[0],reg:'gram',name:r[1],bg:BGS[i],trk:TR[i],pool:r[0],lab:r[2],mons:MS[i%MS.length],
    boss:{mon:b[0],mname:r[2]+'의 수문장',filter:b[1],t:[`${r[2]}! 이 문을 지나려면 빈칸을 정확히 채워야 한다!`,`${r[2]}의 규칙을 정말 알고 있느냐?`,`내가 무릎을 꿇다니… ${r[2]}를 꿰뚫었구나!`],k:`${r[2]}의 길이 열렸다… 앞으로 나아가라!`,x:['틀렸다! 규칙을 다시 떠올려라!','아직 멀었구나!']},
    desc:`${r[2]} 문제로 이루어진 던전. 문장의 빈칸에 알맞은 말을 골라 보자!`,next:`${r[1]}을(를) 지났어요!`});});})();
@@ -4773,7 +4773,7 @@ const GLANG_BOX=`<div class="story" style="margin:6px 0 10px">📖 <b>그래머 
 /* --- 지도 --- */
 const d6Done=()=>G.dev||SV.cleared.includes('d6');
 const REGS={
- form:{ic:'🏰',nm:'신텍스 대륙',sub:'Syntax Continent · 1~5형식 · 마왕성 (튜토리얼 대륙)',open:()=>true,col:'#c8a24a'},
+ form:{ic:'🏰',nm:'신택스 왕국',sub:'Syntax Kingdom · 1~5형식 · 마왕성 (튜토리얼 대륙)',open:()=>true,col:'#c8a24a'},
  gram:{ic:'📚',nm:'그래머 대륙',sub:'Grammar Continent · be동사부터 가정법까지 · 본 대륙',open:d6Done,col:'#5aa86a'},
  prov:{ic:'📜',nm:'속담섬',sub:'영어 속담 빈칸 채우기',open:d6Done,col:'#b88adb'},
  idiom:{ic:'⚓',nm:'숙어섬',sub:'숙어·구동사 마스터',open:d6Done,col:'#4aa0d8'},
@@ -4786,7 +4786,7 @@ function mapScreen(){
  const cells=Object.keys(REGS).map(k=>{const r=REGS[k],o=r.open();
   return `<button class="isl ${o?'':'fog'}" data-reg="${k}" ${o?'':'disabled'} style="--ic:${r.col}"><div class="ico">${o?r.ic:'🌫️'}</div><b>${o?r.nm:'안개 속의 땅'}</b><span>${o?r.sub:'🔒 마왕성을 클리어하면 안개가 걷혀요'}</span>${o?`<em>${regProg(k)} 클리어</em>`:''}</button>`;}).join('');
  $('app').innerHTML=hud()+`<div class="card"><div class="speaker">세계 지도</div>
- <div class="story">마침표 수정이 되살아나자, 신텍스 대륙의 문장들은 더 넓은 세계로 퍼져 나갔다. 본 대륙인 그래머 대륙이 기다리고 있다. 어디로 떠나 볼까?</div>
+ <div class="story">마침표 수정이 되살아나자, 신택스 왕국의 문장들은 더 넓은 세계로 퍼져 나갔다. 본 대륙인 그래머 대륙이 기다리고 있다. 어디로 떠나 볼까?</div>
  ${modeTabs()}<div class="wmap">${cells}</div></div>`;
  bindModeTabs();document.querySelectorAll('.isl[data-reg]').forEach(b=>b.onclick=()=>{G.reg=b.dataset.reg;sfx('select');render();});
  mapBtns();}

@@ -859,6 +859,7 @@ canvas.px[data-src="SPR"][data-k="shaman"],canvas.px[data-src="SPR"][data-k^="cs
 @keyframes eshk{0%,100%{transform:translateX(0)}20%{transform:translateX(-8px)}40%{transform:translateX(8px)}60%{transform:translateX(-5px)}80%{transform:translateX(5px)}}
 
 .skgrid.sk3{grid-template-columns:repeat(auto-fill,minmax(230px,1fr))}.skbtn.skill{justify-content:space-between}.skbtn.skill span{display:block;margin-top:2px;line-height:1.35}.skbtn:disabled{opacity:.4;cursor:not-allowed;box-shadow:none}.skcost{font-style:normal;color:#ffd85a;font-weight:900;white-space:nowrap}.debc.bufc{background:#1f4d2e;border-color:#4fd18a}.debc.edbc{background:#4d2a1f;border-color:#e0894f}
+.rdt.warn{background:#7a1f1f;color:#fff;animation:rdwarn .6s infinite alternate}@keyframes rdwarn{to{transform:scale(1.12)}}.special.rsk{margin-bottom:8px}
 
 </style>
 </head>
@@ -2184,10 +2185,10 @@ const SK={
  pet:[{nm:'수식어 냥냥 펀치',fx:'🐾',cost:3,dmg:2},{nm:'할퀴기',fx:'🐱',cost:1,dmg:1,deb:{weak:2}},{nm:'응원의 야옹',fx:'📢',cost:2,dmg:0,buf:{atk:3}},{nm:'몸 비비기',fx:'💞',cost:1,dmg:1,buf:{eva:2}},{nm:'깜짝 점프',fx:'🙀',cost:2,dmg:1,deb:{stun:1}},{nm:'털 세우기',fx:'😾',cost:2,dmg:0,deb:{weak:3}}]
 };
 function curSk(){const R=G.rp;return (SK[R.skk]||SK.tank)[R.ski||0];}
-function skDesc(s){const a=[];if(s.dmg>1)a.push('강타 ×'+s.dmg);else if(s.dmg===1)a.push('공격');
- if(s.heal)a.push('파티 HP '+Math.round(s.heal*100)+'% 회복');if(s.cleanse)a.push('정화');
- if(s.buf)Object.keys(s.buf).forEach(k=>a.push('파티 '+BUF[k].nm+' '+s.buf[k]+'턴'));
- if(s.deb)Object.keys(s.deb).forEach(k=>a.push('적 '+EDB[k].nm+' '+s.deb[k]+'턴'));return a.join(' + ');}
+function skDesc(s,pv){const a=[];if(s.dmg>1)a.push('강타 ×'+s.dmg);else if(s.dmg===1)a.push('공격');
+ if(s.heal)a.push((pv?'내':'파티')+' HP '+Math.round(s.heal*100)+'% 회복');if(s.cleanse)a.push('정화');
+ if(s.buf)Object.keys(s.buf).forEach(k=>a.push((pv?'나 ':'파티 ')+BUF[k].nm+' '+s.buf[k]+'턴'));
+ if(s.deb)Object.keys(s.deb).forEach(k=>{const m=pv&&typeof PVDEB!=='undefined'?DEBUFF[PVDEB[k]]:EDB[k];a.push((pv?'상대 ':'적 ')+m.nm+' '+s.deb[k]+'턴');});return a.join(' + ');}
 function skApply(sk){const R=G.rp,en=R.en[R.ei],m=[];
  if(sk.buf)Object.keys(sk.buf).forEach(k=>{R.buf=R.buf||{};R.buf[k]=Math.max(R.buf[k]||0,sk.buf[k]);m.push(BUF[k].ic+BUF[k].nm+'('+sk.buf[k]+'턴)');});
  if(sk.deb)Object.keys(sk.deb).forEach(k=>{if(k==='stun'&&en.boss&&Math.random()<.5){m.push('😵 기절은 저항당했다');return;}R.edb=R.edb||{};R.edb[k]=Math.max(R.edb[k]||0,sk.deb[k]);m.push(EDB[k].ic+EDB[k].nm+'('+sk.deb[k]+'턴)');});
@@ -2202,7 +2203,7 @@ function skillPicker(){const R=G.rp;
  return `<span class="qtype">✨ 스킬</span><div class="story"><b>누구의 스킬을 쓸까?</b> 동료마다 스킬 6가지! 공격·버프·디버프·회복을 상황에 맞게 골라 보세요. (게이지 ${R.gauge}/3)</div>
  <div class="skgrid">${ks.map(k=>`<button class="skbtn" data-sk2="${k}" style="--c:${SKILL[k].col}">${k==='pet'?petc():sp(k)}<div><b>${skillWho(k)}</b><span>${SKILL[k].fx} 스킬 6종</span></div></button>`).join('')}</div>
  <button class="btn-s" id="skcancel">↩ 나중에 쓰기</button>`;}
-function spFx(k,dmg){const ar=$('arena');if(!ar)return;let S=SKILL[k]||SKILL.tank;try{if(G.rp&&G.rp.special){const c=curSk();S=Object.assign({},S,{nm:c.nm,fx:c.fx});}}catch(e){}
+function spFx(k,dmg,sk){const ar=$('arena');if(!ar)return;let S=SKILL[k]||SKILL.tank;try{const c=sk||((G.rp&&G.rp.special&&G.scr==='rbattle')?curSk():null);if(c)S=Object.assign({},S,{nm:c.nm,fx:c.fx});}catch(e){}
  const o=document.createElement('div');o.className='spburst';o.style.setProperty('--c',S.col);
  let p='';for(let i=0;i<18;i++){const a=i/18*Math.PI*2,r=90+Math.random()*90;p+=`<i style="--x:${Math.cos(a)*r}px;--y:${Math.sin(a)*r*0.6}px;animation-delay:${Math.random()*0.15}s">${S.fx}</i>`;}
  o.innerHTML=`<div class="ring"></div><div class="ring r2"></div>${p}<div class="spname">「${S.nm}」</div>`;ar.appendChild(o);
@@ -2610,40 +2611,75 @@ function pvStart(mode,opp,o){o=o||{};const me=profOf(SV,G.name);
  G.pv={mode,P:o.P||[pvMk(me,false),pvMk(opp,mode==='ai')],me:o.me||0,cur:o.cur!=null?o.cur:(Math.random()<0.5?0:1),phase:'atk',q:null,oq:null,log:'',turn:0};
  G.dg=PV_ARENA;G.mates=[];G.pets=1;G.rpg=false;G.scr='pvbattle';sfx('formed');
  if(mode==='net'){if(NET.host)pvNetTurn(true);else render();}else pvNewTurn(true);}
+const PVDEB={weak:'weak',vuln:'armorbreak',stun:'slow'};
+function pvSkList(A){return Object.prototype.hasOwnProperty.call(SK,A.pr.c)?SK[A.pr.c]:SK.tank;}
+function pvSkCur(A){const L=pvSkList(A);return L[A.ski||0]||L[0];}
+function pvMakeDodge(c){if(!Array.isArray(c)||c.length<2)c=[['The knight','S'],['smiles','V']];
+ if(Math.random()<0.45){const f=FORM_OF(c);return {kind:'form',c,opts:[1,2,3,4,5].map(n=>n+'형식'),ans:f-1};}
+ const idx=c.map((x,i)=>i),cand=idx.filter(i=>c[i][1]!=='M'),k=Math.random()<0.75&&cand.length?pick(cand):pick(idx),r=c[k][1];
+ const others=shuffle(DROLES.filter(x=>x!==r)).slice(0,3),opts=shuffle([r].concat(others));return {kind:'role',c,hi:k,opts:opts.map(x=>RK[x]),ans:opts.indexOf(r)};}
+function pvDefRemote(){const V=G.pv,D=V.P[1-V.cur];return !!D.ai||(V.mode==='net'&&(1-V.cur)!==V.me);}
+function pvSrcC(){const V=G.pv,s=(V.mode==='net'&&V.cur!==V.me)?V.oq:V.q;return s&&s.c;}
+function pvAtkDone(ok){const V=G.pv,A=V.P[V.cur],D=V.P[1-V.cur],S=A.special?pvSkCur(A):null;
+ if(!ok||(S&&S.dmg===0)){pvCalc(ok);return false;}
+ V.phase='def';V.waitRes=false;V.dok=ok;V.dres=null;V.dq=null;V.fx=null;V.log='';const tok=V.defTok=Date.now();
+ if(!pvDefRemote()){V.dq=pvMakeDodge(pvSrcC());V.t0=Date.now();}
+ else if(D.ai)setTimeout(()=>{if(G.pv===V&&V.phase==='def'&&V.defTok===tok){const o=Math.random()<Math.min(.9,pvAcc(D.pr));pvDefDone({ok:o,fast:o&&Math.random()<.4});}},1500);
+ else setTimeout(()=>{if(G.pv===V&&V.phase==='def'&&V.defTok===tok)pvDefDone({ok:false,fast:false});},25000);
+ return true;}
+function pvDefDone(def){const V=G.pv;if(!V||V.phase!=='def')return;V.defTok=0;pvCalc(V.dok,def);if(V.mode==='net'&&NET.host)netState();pvShow(0);}
+function pvDodge(i){const V=G.pv,q=V.dq;if(!q||V.dres||V.phase!=='def')return;q.pick=i;q.ok=i===q.ans;const fast=q.ok&&Date.now()-V.t0<6000;V.dres={ok:q.ok,fast};sfx(q.ok?'select':'wrong');
+ if(V.mode==='net'&&!NET.host){netSend({t:'dans',ok:q.ok,fast});render();return;}
+ pvDefDone(V.dres);}
+function pvDefBody(){const V=G.pv,A=V.P[V.cur],D=V.P[1-V.cur],S=A.special?pvSkCur(A):null;
+ if(pvDefRemote())return `<div class="story">🛡️ <b>${esc(D.pr.n)}</b>${D.ai?' 🤖':''}이(가) 공격을 막으려 하고 있어요… <span class="dots">…</span></div><p class="hint">상대가 방어 문제를 풀면 바로 결과가 나와요.</p>`;
+ const q=V.dq;if(!q)return '<p class="story">⏳ 준비 중…</p>';
+ const head=`<span class="qtype">🛡️ 방어 턴${V.mode==='hot'?' — 화면을 '+esc(D.pr.n)+'에게!':''}</span>`;
+ const sent=`<div class="sentence">${dodgeSentence(q)}</div>`;
+ if(V.dres)return head+sent+`<div class="feedback ${V.dres.ok?'ok':'no'}"><b>${V.dres.ok?'✅ 방어 태세! 결과를 기다려요':'❌ 아쉬워요! 결과를 기다려요'}</b></div>`;
+ return head+`<div class="story"><b>${esc(A.pr.n)}</b>의 ${S?'「'+S.nm+'」':'공격'}이 날아온다! ${q.kind==='form'?'<b>이 문장은 몇 형식?</b>':'<b>밑줄 친 부분의 성분은?</b>'} <span class="hint">${S?'스킬은 피할 수 없지만 정답이면 피해가 40% 줄어요.':'정답이면 회피율 +45% · 회피에 실패해도 피해가 절반! (6초 안에 맞히면 +10%)'}</span></div>${sent}<div class="choices dchoices">${q.opts.map((o,i)=>`<button class="choice" data-pd="${i}">${o}</button>`).join('')}</div>`;}
 function pvQ(lv,hard){const pool=mixPool(POOL[lv]?lv:'beginner');let it;
  if(hard){const H=mixPool('expert');let best=null;for(let i=0;i<14;i++){const c=pick(H[1+Math.floor(Math.random()*5)]);if(c&&!isRecent(c)&&(!best||c.c.length>best.c.length))best=c;}it=best||pick(H[1+Math.floor(Math.random()*5)]);}
  else{for(let k=0;k<40&&!it;k++){const c=pick(pool[1+Math.floor(Math.random()*5)]);if(c&&!isRecent(c))it=c;}if(!it)it=pick(pool[1+Math.floor(Math.random()*5)]);}
  pushRecent(it);
- return {type:'build',c:it.c,tr:it.tr,n:it.n||'',mname:'',prompt:hard?'💥 필살기! 가장 어려운 문장이다. 성분을 모두 맞히면 데미지 2배 + 상대에게 디버프!':'⚔️ 공격 턴! 문장 조각마다 성분을 배치해 공격하자.'};}
-function pvLocalTurnStart(){const V=G.pv,A=V.P[V.cur];A.special=false;G.done=false;G.b=null;G.pick=null;G.sel=null;G.first=true;V.q=null;V.oq=null;V.aiok=null;
+ return {type:'build',c:it.c,tr:it.tr,n:it.n||'',mname:'',prompt:hard?'✨ 스킬! 가장 어려운 문장이다. 성분을 모두 맞히면 스킬이 발동해요!':'⚔️ 공격 턴! 문장 조각마다 성분을 배치해 공격하자.'};}
+function pvLocalTurnStart(){const V=G.pv,A=V.P[V.cur];A.special=false;A.ski=0;V.skpick=false;V.dq=null;V.dres=null;V.defTok=0;G.done=false;G.b=null;G.pick=null;G.sel=null;G.first=true;V.q=null;V.oq=null;V.aiok=null;
  if(V.mode!=='net'||V.cur===V.me){V.q=pvQ(A.pr.lv,false);if(V.mode==='net')netSend({t:'q',c:V.q.c,tr:V.q.tr,sp:false});}}
 function pvNewTurn(first){const V=G.pv,A=V.P[V.cur];V.turn++;V.pmsg=first?'':tickDeb2(A);V.phase='atk';pvLocalTurnStart();
  render();if(A.ai)setTimeout(pvAiTurn,1400);}
-function tickDeb2(A){if(!A.deb)return '';let msg='';if(A.deb.poison){const d=Math.max(1,Math.round(A.max*0.06)),b=A.hp;A.hp=Math.max(1,A.hp-d);msg=`☠️ ${esc(A.pr.n)} 독 피해 -${b-A.hp}`;}Object.keys(A.deb).forEach(k=>{A.deb[k]--;if(A.deb[k]<=0)delete A.deb[k];});return msg;}
+function tickDeb2(A){if(A.buf)Object.keys(A.buf).forEach(k=>{A.buf[k]--;if(A.buf[k]<=0)delete A.buf[k];});if(!A.deb)return '';let msg='';if(A.deb.poison){const d=Math.max(1,Math.round(A.max*0.06)),b=A.hp;A.hp=Math.max(1,A.hp-d);msg=`☠️ ${esc(A.pr.n)} 독 피해 -${b-A.hp}`;}Object.keys(A.deb).forEach(k=>{A.deb[k]--;if(A.deb[k]<=0)delete A.deb[k];});return msg;}
 function pvAiTurn(){const V=G.pv;if(!V||G.scr!=='pvbattle')return;const A=V.P[V.cur];if(!A.ai||V.phase!=='atk')return;
- if(A.gauge>=3&&!A.deb.silence){A.special=true;A.gauge=0;V.q=pvQ('expert',true);}
- const fx=(A.deb.fog?0.1:0)+(A.deb.confuse?0.1:0);const ok=Math.random()<pvAcc(A.pr)-fx-(A.special?0.12:0);
- V.aiok=ok;pvCalc(ok);pvShow(0);}
-function pvSpecial(){const V=G.pv,A=V.P[V.cur];if(A.gauge<3||A.deb.silence)return;A.special=true;A.gauge=0;V.q=pvQ('expert',true);if(V.mode==='net')netSend({t:'q',c:V.q.c,tr:V.q.tr,sp:true});G.b=null;G.sel=null;sfx('crit');render();const ar=$('arena');if(ar){ar.classList.add('spmode');ar.style.setProperty('--c','#f0c04f');}}
+ if(!A.deb.silence&&A.gauge>=1){const L=pvSkList(A),C=L.filter(s=>s.cost<=A.gauge&&!(s.heal&&A.hp>A.max*.7)&&!(s.buf&&!s.dmg&&Object.keys(s.buf).every(k=>A.buf&&A.buf[k]>0)));
+  if(C.length&&(A.gauge>=3||Math.random()<.35)){const s=(A.gauge>=3&&Math.random()<.6)?C.slice().sort((x,y)=>y.cost-x.cost)[0]:pick(C);A.special=true;A.ski=L.indexOf(s);A.gauge-=s.cost;if(s.cost>=2)V.q=pvQ('expert',true);}}
+ const fx=(A.deb.fog?0.1:0)+(A.deb.confuse?0.1:0);const ok=Math.random()<pvAcc(A.pr)-fx-(A.special&&pvSkCur(A).cost>=2?0.12:0);
+ V.aiok=ok;if(pvAtkDone(ok))render();else pvShow(0);}
+function pvSpecial(){const V=G.pv,A=V.P[V.cur];if(A.gauge<1||A.deb.silence)return;V.skpick=true;sfx('select');render();}
+function pvSkUse(i){const V=G.pv,A=V.P[V.cur],s=pvSkList(A)[i];if(!s||A.gauge<s.cost||A.deb.silence)return;V.skpick=false;A.special=true;A.ski=i;A.gauge-=s.cost;
+ if(s.cost>=2){V.q=pvQ('expert',true);if(V.mode==='net')netSend({t:'q',c:V.q.c,tr:V.q.tr,sp:true});}G.b=null;G.sel=null;sfx('crit');render();const ar=$('arena');if(ar){ar.classList.add('spmode');ar.style.setProperty('--c','#f0c04f');}}
+function pvSkPicker(A){const L=pvSkList(A);return `<div class="story"><b>✨ 스킬 선택</b> 게이지 <b>${A.gauge}/3</b> · ◆만큼 소모해요. 문제를 맞히면 발동! <span class="hint">(스킬은 피할 수 없어요 · ◆◆ 이상은 어려운 문제)</span></div><div class="skgrid sk3">${L.map((s,i)=>`<button class="skbtn skill" data-pvsk="${i}" ${s.cost>A.gauge?'disabled':''} style="--c:#f0c04f"><div><b>${s.fx} ${s.nm}</b><span>${skDesc(s,1)}</span></div><em class="skcost">${'◆'.repeat(s.cost)}</em></button>`).join('')}</div><button class="btn-s" id="pvskback">↩ 돌아가기</button>`;}
 function pvResolve(e,ok){const V=G.pv;G.done=true;G.pick=ok?'ok':'no';
- if(V.mode==='net'){V.waitRes=true;if(NET.host){pvCalc(ok);netState();pvShow(500);}else{netSend({t:'ans',ok,sp:!!V.P[V.cur].special});rerQ(V.q);}return;}
- pvCalc(ok);pvShow(500);}
+ if(V.mode==='net'){V.waitRes=true;if(NET.host){if(pvAtkDone(ok)){netState();setTimeout(()=>{if(G.scr==='pvbattle')render();},500);}else{netState();pvShow(500);}}else{netSend({t:'ans',ok,sp:!!V.P[V.cur].special,sk:V.P[V.cur].special?(V.P[V.cur].ski||0):null});rerQ(V.q);}return;}
+ if(pvAtkDone(ok))setTimeout(()=>{if(G.scr==='pvbattle')render();},500);else pvShow(500);}
 function pvSides(){const V=G.pv;return V.cur===(V.me||0)?['L','R']:['R','L'];}
-function pvCalc(ok){const V=G.pv,A=V.P[V.cur],D=V.P[1-V.cur];V.phase='atkres';V.waitRes=false;V.lastOk=ok;
+function pvCalc(ok,def){const V=G.pv,A=V.P[V.cur],D=V.P[1-V.cur];V.phase='atkres';V.waitRes=false;V.lastOk=ok;
  const [side,oside]=pvSides();V.fx=null;
- if(ok){let dmg=Math.round((A.st.atk*1.2+6)*(0.9+Math.random()*0.2)*(A.deb.weak?0.6:1)*(A.special?2:1)-(D.deb.armorbreak?0:D.st.def*0.5));dmg=Math.max(3,dmg);
-  const eva=D.deb.slow?D.st.eva/2:D.st.eva;const dodge=!A.special&&Math.random()*100<eva;
-  if(dodge){V.log=`💨 ${esc(D.pr.n)}이(가) 공격을 피했다!`;V.snd='retreat';}
-  else{D.hp=Math.max(0,D.hp-dmg);let extra='';
-   if(A.special){A.deb={};const k=pick(['poison','weak','silence','fog','confuse','slow','armorbreak']);D.deb[k]=DEBUFF[k].t;extra=`<br><span class="debhit">${DEBUFF[k].ic} ${esc(D.pr.n)}에게 <b>${DEBUFF[k].nm}</b>! <small>(${DEBUFF[k].d})</small></span>`;}
+ if(ok){const S=A.special?pvSkCur(A):null,B=A.buf||{},DB=D.buf||{},hasD=!S||S.dmg>0;let dmg=0;
+  if(hasD){dmg=Math.round((A.st.atk*1.2+6)*(0.9+Math.random()*0.2)*(A.deb.weak?0.6:1)*(S?S.dmg:1)*(B.atk?1.3:1)*(DB.def?0.65:1)-(D.deb.armorbreak?0:D.st.def*0.5));dmg=Math.max(3,dmg);}
+  const eva0=(D.deb.slow?D.st.eva/2:D.st.eva)+(DB.eva?20:0),eva=def?Math.min(90,eva0+(def.ok?(D.deb.slow?25:45):0)+(def.fast&&!D.deb.slow?10:0)):eva0;const dodge=hasD&&!S&&Math.random()*100<eva;
+  if(dodge){V.log=`💨 ${esc(D.pr.n)}이(가) 공격을 피했다!${def&&def.fast?' ⚡번개 회피!':''}`;V.snd='retreat';}
+  else{let blk='';if(def&&def.ok&&hasD){dmg=Math.max(3,Math.round(dmg*(S?.6:.5)));blk=' 🔰 방어 성공! 피해 감소';}D.hp=Math.max(0,D.hp-dmg);const ex=[];
+   if(S){if(S.cleanse){A.deb={};ex.push('✨ 상태 이상 정화');}
+    if(S.heal){const n=Math.min(Math.round(A.max*S.heal),A.max-A.hp);A.hp+=n;ex.push('💚 HP +'+n);}
+    A.buf=A.buf||{};if(S.buf)Object.keys(S.buf).forEach(k=>{A.buf[k]=Math.max(A.buf[k]||0,S.buf[k]);ex.push(BUF[k].ic+BUF[k].nm+'('+S.buf[k]+'턴)');});
+    if(S.deb)Object.keys(S.deb).forEach(k=>{const m=PVDEB[k];D.deb[m]=Math.max(D.deb[m]||0,DEBUFF[m].t);ex.push(DEBUFF[m].ic+esc(D.pr.n)+' '+DEBUFF[m].nm);});}
    else if(!A.deb.silence)A.gauge=Math.min(3,A.gauge+1);
-   V.log=`${A.special?'💥 필살기 대성공! ':'⚔️ 명중! '}${A.deb.weak&&!A.special?'💔(약화) ':''}${esc(D.pr.n)}에게 <b>${dmg}</b> 데미지!${D.hp<=0?' 쓰러뜨렸다!':''}${extra}`;
-   V.fx={who:V.cur,dmg,crit:A.special};V.snd=A.special?'crit':'hit';}
- }else{V.log=`${A.special?'💥 필살기 실패… ':'💨 '}${esc(A.pr.n)}의 공격이 빗나갔다!`;V.snd='wrong';}}
+   V.log=(S?`✨ <b>${esc(A.pr.n)}</b>의 「${S.nm}」 발동! `:'⚔️ 명중! ')+(A.deb.weak&&!S?'💔(약화) ':'')+(hasD?`${esc(D.pr.n)}에게 <b>${dmg}</b> 데미지!${blk}${D.hp<=0?' 쓰러뜨렸다!':''}`:'')+(ex.length?`<br><span class="debhit">${ex.join(' · ')}</span>`:'');
+   V.fx={who:V.cur,dmg,crit:!!(S&&S.dmg>=2),nodmg:!hasD,k:S?A.pr.c:null,i:S?(A.ski||0):0};V.snd=S?(hasD?'crit':'formed'):'hit';}
+ }else{V.log=`${A.special?'✨ 스킬 실패… ':'💨 '}${esc(A.pr.n)}의 공격이 빗나갔다!`;V.snd='wrong';}}
 function pvShow(delay){const V=G.pv;if(V.snd){sfx(V.snd);V.snd=null;}
  setTimeout(()=>{if(G.scr!=='pvbattle')return;render();if(V.fx){const me=V.me||0,side=V.fx.who===me?'L':'R',oside=side==='L'?'R':'L';const ar=$('arena');const a=document.querySelector('.pvside.'+side),d=document.querySelector('.pvside.'+oside);if(a)a.classList.add('lunge');if(d)setTimeout(()=>d.classList.add('hit'),200);
-   if(ar){const p=document.createElement('div');p.className='dmg pvd '+oside+(V.fx.crit?' bigdmg':'');p.textContent=(V.fx.crit?'CRITICAL ':'')+'-'+V.fx.dmg;setTimeout(()=>ar.appendChild(p),220);}if(V.fx.crit){const dd=V.fx.dmg;setTimeout(()=>spFx('tank',dd),150);}V.fx=null;}},delay||0);}
-function pvSide(P,cls,active){return `<div class="pvside ${cls} ${active?'act':''}"><div class="pvname">${active?'▶ ':''}${esc(P.pr.n)}${P.ai?' 🤖':''} <small>${HWORD[P.pr.c]||''}</small> <span class="gauge">💥${'■'.repeat(P.gauge)}${'□'.repeat(3-P.gauge)}</span>${hpbar(P.hp,P.max,cls==='L'?'me':'en')}${debChips(P.deb)}</div>
+   if(ar){const p=document.createElement('div');p.className='dmg pvd '+oside+(V.fx.crit?' bigdmg':'');p.textContent=(V.fx.crit?'CRITICAL ':'')+'-'+V.fx.dmg;if(!V.fx.nodmg)setTimeout(()=>ar.appendChild(p),220);}if(V.fx.k){const kk=Object.prototype.hasOwnProperty.call(SK,V.fx.k)?V.fx.k:'tank',sk=SK[kk][+V.fx.i||0]||SK[kk][0],dd=V.fx.dmg;setTimeout(()=>spFx(kk,dd,sk),150);}V.fx=null;}},delay||0);}
+function pvSide(P,cls,active){return `<div class="pvside ${cls} ${active?'act':''}"><div class="pvname">${active?'▶ ':''}${esc(P.pr.n)}${P.ai?' 🤖':''} <small>${HWORD[P.pr.c]||''}</small> <span class="gauge">✨${'■'.repeat(P.gauge)}${'□'.repeat(3-P.gauge)}</span>${hpbar(P.hp,P.max,cls==='L'?'me':'en')}${debChips(P.deb)}${stChips(P.buf,BUF,'bufc')}</div>
  <div class="pvfig2">${sp(heroSpr(P.pr.c,P.pr.sk))}${pvPetc(P.pr,'')}</div></div>`;}
 const PVMODE={ai:'🤖 친구 코드 대결',hot:'👥 2인 대전',net:'🌐 실시간 대전'};
 function pvBattle(){const V=G.pv,A=V.P[V.cur],me=V.me||0;G.dg=PV_ARENA;
@@ -2659,12 +2695,14 @@ function pvRemote(){const V=G.pv,A=V.P[V.cur];return A.ai||(V.mode==='net'&&V.cu
 function pvSent(q){const s=q.c.map(x=>x[0]).join(' ');return esc(s.charAt(0).toUpperCase()+s.slice(1))+'.';}
 function pvBody(){const V=G.pv,A=V.P[V.cur],mine=V.mode==='net'&&V.cur===V.me;
  let h=`<div class="pvturn ${V.cur===(V.me||0)?'L':'R'}">${V.cur===(V.me||0)?'🔵':'🔴'} <b>${esc(A.pr.n)}</b>의 공격 턴 <small>(${LEVELS[A.pr.lv].sub} 문제)</small>${V.mode==='hot'&&V.phase==='atk'?' — 화면을 '+esc(A.pr.n)+'에게!':''}${mine&&V.phase==='atk'?' — 내 차례!':''}</div>`;
+ if(V.phase==='def')return h+pvDefBody();
  if(pvRemote()){const q=A.ai?V.q:V.oq;
-  if(V.phase==='atk')return h+`<div class="story">${A.ai?'🤖':'🌐'} ${esc(A.pr.n)}이(가) ${A.special||(q&&q.sp)?'💥 필살기 문장을':'문장을'} 분석하는 중… <span class="dots">…</span></div>${q?`<div class="sentence">${pvSent(q)}</div>`:''}<p class="hint">상대가 답을 내면 바로 결과가 나와요. 같이 문장을 분석해 보세요!</p>`;
+  if(V.phase==='atk')return h+`<div class="story">${A.ai?'🤖':'🌐'} ${esc(A.pr.n)}이(가) ${A.special||(q&&q.sp)?'✨ 스킬 문장을':'문장을'} 분석하는 중… <span class="dots">…</span></div>${q?`<div class="sentence">${pvSent(q)}</div>`:''}<p class="hint">상대가 답을 내면 바로 결과가 나와요. 같이 문장을 분석해 보세요!</p>`;
   return h+`${q?`<div class="sentence">${pvSent(q)}</div>`:''}<div class="feedback ${V.lastOk?'no':'ok'}"><div style="font-weight:900;font-size:19px">${V.log}</div>${V.lastOk&&q?glossHTML(q):'<span class="hint">상대가 성분을 잘못 배치했어요!</span>'}</div>${pvNextBtn()}`;}
- if(V.phase==='atk'&&V.q){if(!G.done&&A.gauge>=3&&!A.special&&!A.deb.silence)h+=`<button class="special" id="pvsp">💥 필살기 발동! <small>(어려운 문제 · 맞히면 데미지 2배 + 상대 디버프 · 피할 수 없음)</small></button>`;
-  if(A.special)h+=`<div class="sptag" style="--c:#f0c04f">💥 필살기 준비 완료! 이 문제를 맞히면 데미지 <b>2배</b>!</div>`;
-  if(A.deb.silence)h+=`<div class="debnote">🔇 침묵: 필살기 게이지가 차지 않아요.</div>`;
+ if(V.phase==='atk'&&V.q){if(V.skpick&&!G.done&&!A.special)return h+pvSkPicker(A);
+  if(!G.done&&A.gauge>=1&&!A.special&&!A.deb.silence)h+=`<button class="special" id="pvsp">✨ 스킬 사용 <small>(게이지 ${A.gauge}/3 · 스킬은 피할 수 없어요)</small></button>`;
+  if(A.special){const K=pvSkCur(A);h+=`<div class="sptag" style="--c:#f0c04f">${K.fx} <b>${K.nm}</b> 준비 완료! 문제를 맞히면 <b>${skDesc(K,1)}</b> 발동!</div>`;}
+  if(A.deb.silence)h+=`<div class="debnote">🔇 침묵: 스킬 게이지가 차지 않아요.</div>`;
   if(G.done&&V.waitRes)return h+qbody(V.q).replace(/<div class="feedback[\s\S]*$/,'')+'<p class="story">⏳ 결과를 확인하는 중…</p>';
   return h+qbody(V.q);}
  if(!V.q)return h+'<p class="story">⏳ 준비 중…</p>';
@@ -2675,8 +2713,9 @@ function pvAfter(e){const V=G.pv,ok=G.pick==='ok';let h=`<div class="feedback ${
 function pvNextBtn(){const V=G.pv,D=V.P[1-V.cur],N=V.P[1-V.cur];if(V.waitRes)return '';
  if(V.mode==='net')return V.nextSent?'<p class="hint">⏳ 다음 턴을 기다리는 중…</p>':D.hp<=0?`<button class="next" id="pvnx">🏆 결과 보기</button>`:`<button class="next" id="pvnx">▶ 다음 턴 (${esc(N.pr.n)})</button>`;
  return D.hp<=0?`<button class="next" id="pvnx">🏆 결과 보기</button>`:`<button class="next" id="pvnx">▶ ${esc(N.pr.n)}의 턴${N.ai?'':' 시작'}</button>`;}
-function pvBind(){const V=G.pv;bubbleSync();const sb=$('pvsp');if(sb)sb.onclick=pvSpecial;
- if(!pvRemote()&&V.q)bindQ(V.q);
+function pvBind(){const V=G.pv;bubbleSync();const sb=$('pvsp');if(sb)sb.onclick=pvSpecial;document.querySelectorAll('[data-pvsk]').forEach(b=>b.onclick=()=>pvSkUse(+b.dataset.pvsk));const sbk=$('pvskback');if(sbk)sbk.onclick=()=>{G.pv.skpick=false;sfx('click');render();};
+ if(V.phase==='def')document.querySelectorAll('[data-pd]').forEach(b=>b.onclick=()=>pvDodge(+b.dataset.pd));
+ if(V.phase!=='def'&&!pvRemote()&&V.q)bindQ(V.q);
  const n=$('pvnx');if(n)n.onclick=()=>{
   if(V.mode==='net'){V.nextSent=true;if(NET.host)pvNetNext();else{netSend({t:'next'});n.outerHTML='<p class="hint">⏳ 다음 턴을 기다리는 중…</p>';}return;}
   const D=V.P[1-V.cur];if(D.hp<=0){pvEnd(V.cur,false);return;}V.cur=1-V.cur;pvNewTurn();};}
@@ -2733,7 +2772,7 @@ function netLost(){if(G.scr==='pvbattle'&&G.pv&&G.pv.mode==='net'&&G.pv.phase!==
 function netSanPr(o){try{const j=JSON.stringify(o);const b=btoa(unescape(encodeURIComponent(j))).replace(/=+$/,'');return pvParse('SG1-'+b+'-'+pvHash(b));}catch(e){return null;}}
 function netStartGame(){if(!NET.host||!NET.opp)return;const me=profOf(SV,G.name);const P=[pvMk(me,false),pvMk(NET.opp,false)];const cur=Math.random()<0.5?0:1;
  netSend({t:'start',pr:[me,NET.opp],cur});pvStart('net',null,{P,me:0,cur});}
-function netPack(){const V=G.pv;return {t:'state',P:V.P.map(x=>({hp:x.hp,gauge:x.gauge,deb:x.deb,special:x.special})),cur:V.cur,phase:V.phase,log:V.log,fx:V.fx,turn:V.turn,pmsg:V.pmsg||'',lastOk:V.lastOk,snd:V.snd||null};}
+function netPack(){const V=G.pv;return {t:'state',P:V.P.map(x=>({hp:x.hp,gauge:x.gauge,deb:x.deb,special:x.special,buf:x.buf||{}})),cur:V.cur,phase:V.phase,log:V.log,fx:V.fx,turn:V.turn,pmsg:V.pmsg||'',lastOk:V.lastOk,snd:V.snd||null};}
 function netState(){netSend(netPack());}
 function pvNetTurn(first){const V=G.pv,A=V.P[V.cur];V.turn++;V.pmsg=first?'':tickDeb2(A);V.phase='atk';V.fx=null;V.nextSent=false;netState();pvLocalTurnStart();render();}
 function pvNetNext(){const V=G.pv;if(V.phase!=='atkres')return;const D=V.P[1-V.cur];if(D.hp<=0){netSend({t:'end',win:V.cur});pvEnd(V.cur,false);return;}V.cur=1-V.cur;pvNetTurn();}
@@ -2747,11 +2786,13 @@ function netOnData(d){if(!d||typeof d!=='object')return;NET.last=Date.now();if(d
  if(d.t==='quit'){pvEnd(V.me,true);return;}
  if(d.t==='end'&&!NET.host){pvEnd(d.win===1?1:0,false);return;}
  if(d.t==='q'){if(V.cur!==V.me&&Array.isArray(d.c)){V.oq={c:d.c.slice(0,12).map(x=>[String(x[0]).slice(0,80),String(x[1]),String(x[2]||'').slice(0,80)]),tr:String(d.tr||'').slice(0,200),sp:!!d.sp,type:'build'};if(G.scr==='pvbattle')rerQ(V.q);}return;}
- if(d.t==='ans'&&NET.host){if(V.cur!==1||V.phase!=='atk')return;const A=V.P[1];if(d.sp){if(A.gauge>=3&&!A.deb.silence){A.special=true;A.gauge=0;}}pvCalc(!!d.ok);netState();pvShow(0);return;}
+ if(d.t==='ans'&&NET.host){if(V.cur!==1||V.phase!=='atk')return;const A=V.P[1];if(d.sk!=null){const L=pvSkList(A),i=Math.round(+d.sk),s=L[i];if(s&&A.gauge>=s.cost&&!A.deb.silence){A.special=true;A.ski=i;A.gauge-=s.cost;}}if(pvAtkDone(!!d.ok)){netState();render();}else{netState();pvShow(0);}return;}
+ if(d.t==='dans'&&NET.host){if(V.phase!=='def'||V.cur!==0||V.dres)return;V.dres={ok:!!d.ok,fast:!!d.fast};pvDefDone(V.dres);return;}
  if(d.t==='next'&&NET.host){pvNetNext();return;}
  if(d.t==='state'&&!NET.host){const prevPhase=V.phase,prevCur=V.cur,newTurn=(+d.turn||0)!==V.turn;
-  d.P.forEach((x,i)=>{const P=V.P[i];P.hp=Math.max(0,Math.min(P.max,+x.hp||0));P.gauge=Math.max(0,Math.min(3,+x.gauge||0));P.deb=(x.deb&&typeof x.deb==='object')?x.deb:{};if(i!==V.me||d.phase!=='atk')P.special=!!x.special;});
+  d.P.forEach((x,i)=>{const P=V.P[i];P.hp=Math.max(0,Math.min(P.max,+x.hp||0));P.gauge=Math.max(0,Math.min(3,+x.gauge||0));P.deb=(x.deb&&typeof x.deb==='object')?x.deb:{};P.buf=rdSanSt(x.buf,BUF);if(i!==V.me||d.phase!=='atk')P.special=!!x.special;});
   V.cur=d.cur===1?1:0;V.turn=+d.turn||V.turn;V.log=String(d.log||'');V.lastOk=!!d.lastOk;V.pmsg=String(d.pmsg||'');
+  if(d.phase==='def'){V.phase='def';V.waitRes=false;V.dres=null;V.dq=null;V.fx=null;if((1-V.cur)===V.me){const s=V.oq;V.dq=pvMakeDodge(s&&s.c);V.t0=Date.now();}render();return;}
   if(d.phase==='atk'){V.phase='atk';V.nextSent=false;V.waitRes=false;if(newTurn||prevPhase!=='atk'||prevCur!==V.cur||(!V.q&&V.cur===V.me)){pvLocalTurnStart();render();}return;}
   if(d.phase==='atkres'){V.phase='atkres';V.waitRes=false;if(V.cur===V.me&&!G.done){G.done=true;G.pick=V.lastOk?'ok':'no';}V.fx=d.fx||null;V.snd=d.snd;pvShow(0);}
   return;}}
@@ -2771,7 +2812,7 @@ try{new MutationObserver(ms=>{ms.forEach(m=>{if(m.type==='characterData')josaTex
 
 /* ================= 레이드 (2~6인 협동 보스전) ================= */
 const RD_ARENA={id:'raid',all8:true,name:'🐉 레이드',bg:'d6',need:[],mon:'demonking'};
-const RD_MAX=6,RD_DAYMAX=3,RD_TATK=30,RD_TDEF=15,RD_PFX='syntaxsaga-raid-';
+const RD_MAX=6,RD_DAYMAX=3,RD_TATK=45,RD_TDEF=20,RD_PFX='syntaxsaga-raid-';
 const RD_BOSS=[
  {id:'demon',mon:'demonking',mname:'마왕',ic:'👿',desc:'침묵·혼란·약화로 괴롭히는 어둠의 군주',
   atk:['암흑 참격','저주의 손길','지옥불 파도','종말의 심판'],
@@ -2838,7 +2879,7 @@ function rdHost(){if(!netAvail())return;const keep=G.rdBossSel||'demon';rdClose(
   c.on('data',d=>{if(!d||typeof d!=='object')return;const seat=S();
    if(d.t==='hello'&&seat<0){const p=netSanPr(d.pr);if(!p||R.started||R.P.length>=RD_MAX){rdSend(c,{t:'full'});return;}const ns=R.P.length;R.P.push(rdMk(p,ns));RDN.conns[ns]=c;rdPushLobby();return;}
    if(seat<0)return;
-   if(d.t==='a')rdOnAns(seat,!!d.ok,+d.rnd,'a',false,{act:d.act,to:d.to});
+   if(d.t==='a')rdOnAns(seat,!!d.ok,+d.rnd,'a',false,{act:d.act,to:d.to,sk:d.sk});
    else if(d.t==='c')rdOnCharge(seat);
    else if(d.t==='d')rdOnAns(seat,!!d.ok,+d.rnd,'d',!!d.fast);
    else if(d.t==='bye')rdDrop(seat);});
@@ -2870,7 +2911,7 @@ function rdStart(){const R=G.rd;if(!RDN.host||R.started||R.P.length<2)return;
  const teamAtk=R.P.reduce((s,p)=>s+p.st.atk*(p.role==='heal'?0.6:1),0),avgHp=R.P.reduce((s,p)=>s+p.max,0)/R.P.length;
  const bmax=Math.max(200,Math.round(teamAtk*0.72*11));
  R.boss={hp:bmax,max:bmax,mon:b.mon,mname:b.mname,stage:0,stun:false,atk:Math.max(14,Math.round(avgHp*0.3)),force:false};
- R.rnd=0;R.me=0;R.phase='start';R.log='';R.timers=[];R.stats={};
+ R.rnd=0;R.me=0;R.phase='start';R.log='';R.timers=[];R.stats={};R.buf={};R.bdb={};
  R.P.forEach((p,i)=>{if(i>0)rdSend(RDN.conns[i],{t:'start',pl:R.P.map(x=>x.pr),boss:R.bossId,bmax,me:i});});
  G.dg=RD_ARENA;G.mates=[];G.pets=0;G.rpg=false;G.scr='rdbattle';sfx('formed');R.me=0;render();
  R.timers.push(setTimeout(()=>rdBegin(),1500));}
@@ -2883,30 +2924,40 @@ function rdDrop(seat){const R=G.rd;if(!R)return;const p=R.P[seat];if(!p||p.left)
 function rdSnapshot(prog){const R=G.rd;return {prog:!!prog,rnd:R.rnd,phase:R.phase,
  boss:{hp:R.boss.hp,max:R.boss.max,stage:R.boss.stage,stun:!!R.boss.stun},
  P:R.P.map(p=>({hp:p.hp,max:p.max,alive:p.alive,left:p.left,deb:p.deb,done:p.ans!=null,role:p.role,c:p.charge||0})),
- act:R.act||null,log:R.log||'',fx:R.fx||null,left:R.deadline?Math.max(0,Math.round((R.deadline-Date.now())/1000)):0,end:R.endInfo||null};}
+ bf:R.buf||{},bd:R.bdb||{},act:R.act||null,log:R.log||'',fx:R.fx||null,left:R.deadline?Math.max(0,Math.round((R.deadline-Date.now())/1000)):0,end:R.endInfo||null};}
 function rdSnap(prog){const s=rdSnapshot(prog);rdBcast({t:'snap',s});rdApply(s);}
 function rdAfter(ms,fn){const R=G.rd;R.timers.push(setTimeout(()=>{if(G.rd===R)fn();},ms));}
 function rdBegin(){const R=G.rd;if(!R||R.phase==='end')return;R.rnd++;R.fx=null;R.act=null;R.deb_msg=[];
  const msgs=[];
  R.P.forEach(p=>{if(!p.alive)return;if(p.deb.poison){const d=Math.max(1,Math.round(p.max*0.06)),b=p.hp;p.hp=Math.max(1,p.hp-d);msgs.push(`☠️ ${esc(p.pr.n)} 독 -${b-p.hp}`);}
   Object.keys(p.deb).forEach(k=>{p.deb[k]--;if(p.deb[k]<=0)delete p.deb[k];});});
+ ['buf','bdb'].forEach(n=>{const o=R[n];if(!o)return;Object.keys(o).forEach(k=>{o[k]--;if(o[k]<=0)delete o[k];});});
  R.P.forEach(p=>{p.ans=null;});R.phase='atk';R.log=msgs.join(' · ');
  const need=R.P.filter(p=>p.alive&&!p.left);R.deadline=Date.now()+RD_TATK*1000;rdSnap();
  R.timers.push(setTimeout(()=>{if(G.rd===R&&R.phase==='atk')rdResolveAtk();},RD_TATK*1000+400));}
 function rdCheckAll(){const R=G.rd;if(R.phase==='atk'){if(R.P.filter(p=>p.alive&&!p.left).every(p=>p.ans!=null))rdResolveAtk();}
  else if(R.phase==='def'){const t=R.act.targets.map(i=>R.P[i]).filter(p=>p.alive&&!p.left);if(t.every(p=>p.ans!=null))rdResolveDef();}}
 function rdOnAns(seat,ok,rnd,kind,fast,ex){const R=G.rd;if(!R||rnd!==R.rnd)return;const p=R.P[seat];if(!p||!p.alive||p.left||p.ans!=null)return;
- if(kind==='a'&&R.phase==='atk'){const o={ok:!!ok,act:'atk',ch:p.charge||0};if(p.role==='heal'&&ex&&ex.act==='heal'){o.act='heal';const t=+ex.to;o.to=(t>=0&&t<R.P.length)?t:-1;}p.ans=o;}
+ if(kind==='a'&&R.phase==='atk'){const o={ok:!!ok,act:'atk',ch:0};if(p.role==='heal'&&ex&&ex.act==='heal'){o.act='heal';const t=+ex.to;o.to=(t>=0&&t<R.P.length)?t:-1;}else if(ex&&ex.sk!=null){const si=Math.round(+ex.sk),S=(SK[p.pr.c]||SK.tank)[si];if(S&&(p.charge||0)>=S.cost){o.sk=si;p.charge-=S.cost;}}p.ans=o;}
  else if(kind==='d'&&R.phase==='def'&&R.act.targets.includes(seat)){p.ans={ok,fast};}else return;
  rdSnap(true);rdCheckAll();}
 function rdOnCharge(seat){const R=G.rd;if(!R||R.phase==='end'||!R.started)return;const p=R.P[seat];if(!p||!p.alive||p.left)return;const now=Date.now();if(now-(p.cdt||0)<700)return;p.cdt=now;if((p.charge||0)>=3)return;p.charge=(p.charge||0)+1;rdSnap(true);}
+function rdSkEff(p,S,lines){const R=G.rd,B=R.boss,ex=[];R.buf=R.buf||{};R.bdb=R.bdb||{};
+ if(S.cleanse){R.P.forEach(x=>{if(x.alive&&!x.left)x.deb={};});ex.push('✨ 전원 상태 이상 정화');}
+ if(S.heal){let tot=0;R.P.forEach(x=>{if(!x.alive||x.left)return;const n=Math.min(Math.round(x.max*S.heal),x.max-x.hp);x.hp+=n;tot+=n;});p.heal+=tot;ex.push('💚 파티 전체 회복 (합계 +'+tot+')');}
+ if(S.buf)Object.keys(S.buf).forEach(k=>{R.buf[k]=Math.max(R.buf[k]||0,S.buf[k]);ex.push(BUF[k].ic+'파티 '+BUF[k].nm);});
+ if(S.deb)Object.keys(S.deb).forEach(k=>{if(k==='stun'){if(Math.random()<.6){B.stun=true;ex.push('😵 '+esc(B.mname)+' 기절!');}else ex.push('😵 기절은 저항당했다');return;}R.bdb[k]=Math.max(R.bdb[k]||0,S.deb[k]);ex.push(EDB[k].ic+esc(B.mname)+' '+EDB[k].nm);});
+ lines.push(`✨ <b>${esc(p.pr.n)}</b>의 「${S.nm}」${ex.length?' — '+ex.join(' · '):' 발동!'}`);}
 function rdResolveAtk(){const R=G.rd;if(R.phase!=='atk')return;R.phase='atkres';const B=R.boss,lines=[],hits=[],b0=B.hp;let total=0;
  const mult=B.stun?1.5:1,alive=R.P.filter(p=>p.alive&&!p.left),isHeal=p=>p.role==='heal'&&p.ans&&p.ans.act==='heal';
- alive.forEach(p=>{if(isHeal(p))return;const ok=!!(p.ans&&p.ans.ok);
-  if(ok){const ch=Math.min(p.ans.ch||0,p.charge||0),d=Math.round(p.st.atk*(0.9+Math.random()*0.2)*(p.deb.weak?0.6:1)*mult*(1+0.35*ch));total+=d;p.dmg+=d;hits.push({s:p.seat,d,ch});p.charge-=ch;}
-  else hits.push({s:p.seat,d:0});});
+ const skl=[],tmo=alive.filter(p=>!p.ans).map(p=>esc(p.pr.n));
+ alive.forEach(p=>{if(isHeal(p))return;const ok=!!(p.ans&&p.ans.ok),S=(p.ans&&p.ans.sk!=null)?(SK[p.pr.c]||SK.tank)[p.ans.sk]:null;
+  if(ok){if(!S||S.dmg>0){const d=Math.round(p.st.atk*(0.9+Math.random()*0.2)*(p.deb.weak?0.6:1)*mult*(S?S.dmg:1)*(R.buf&&R.buf.atk?1.3:1)*(R.bdb&&R.bdb.vuln?1.3:1));total+=d;p.dmg+=d;hits.push({s:p.seat,d,ch:S&&S.dmg>=2?1:0});}
+   if(S)skl.push({p,S});}
+  else{hits.push({s:p.seat,d:0});if(S)lines.push(`💦 ${esc(p.pr.n)}의 「${S.nm}」이(가) 빗나갔다…`);}});
  B.hp=Math.max(0,B.hp-total);
- lines.push(total?`⚔️ ${esc(B.mname)}에게 <b>${total}</b> 데미지!${B.stun?' (기절 중 ×1.5)':''}`:`💨 모두 빗나갔다!`);
+ if(tmo.length)lines.push(`⏰ 시간 초과: ${tmo.join(', ')}`);
+ if(total)lines.push(`⚔️ ${esc(B.mname)}에게 <b>${total}</b> 데미지!${B.stun?' (기절 중 ×1.5)':''}`);else if(!skl.length)lines.push(`💨 모두 빗나갔다!`);
  alive.forEach(p=>{if(!isHeal(p))return;const ok=!!p.ans.ok;if(!ok){hits.push({s:p.seat,h:0,to:-1});lines.push(`💦 ${esc(p.pr.n)}의 치유가 빗나갔다…`);return;}
   let tg=R.P[p.ans.to];if(!tg||tg.left)tg=null;
   if(tg&&tg.alive&&tg.hp>=tg.max)tg=null;
@@ -2915,6 +2966,7 @@ function rdResolveAtk(){const R=G.rd;if(R.phase!=='atk')return;R.phase='atkres';
   const ch=Math.min(p.ans.ch||0,p.charge||0),cm=1+0.35*ch;p.charge-=ch;
   if(!tg.alive){tg.alive=true;tg.hp=Math.max(1,Math.round(tg.max*Math.min(0.9,0.35*cm)));tg.deb={};p.heal+=tg.hp;lines.push(`✨ ${esc(p.pr.n)}이(가) ${esc(tg.pr.n)}을(를) 되살렸다!`);hits.push({s:p.seat,h:tg.hp,to:tg.seat,rev:1,ch});}
   else{const amt=Math.round((p.st.atk*2.4+p.max*0.06)*cm),b=tg.hp;tg.hp=Math.min(tg.max,tg.hp+amt);p.heal+=tg.hp-b;tg.deb={};lines.push(`💚 ${esc(p.pr.n)}이(가) ${esc(tg.pr.n)}을(를) <b>${tg.hp-b}</b> 치유!`);hits.push({s:p.seat,h:tg.hp-b,to:tg.seat,ch});}});
+ skl.forEach(o=>rdSkEff(o.p,o.S,lines));
  const ratio=B.hp/B.max,newStage=ratio<=0.25?3:ratio<=0.5?2:ratio<=0.75?1:0;
  if(B.hp>0&&newStage>B.stage){B.stage=newStage;B.force=true;lines.push(`⚠️ ${esc(B.mname)}의 기운이 폭발적으로 커진다! 곧 <b>특수기술</b>이 온다!`);}
  const W=1700+Math.min(6,hits.length)*640;
@@ -2936,8 +2988,8 @@ function rdResolveDef(){const R=G.rd;if(R.phase!=='def')return;R.phase='defres';
  const dm={normal:1,debuff:0.45,aoe:0.5,special:2.4}[A.type];
  const bdeb=debOf(rdBoss(R.bossId).mon).filter(k=>k!=='silence');
  A.targets.forEach(i=>{const p=R.P[i];if(!p||!p.alive||p.left)return;const h0=p.hp;const ok=!!(p.ans&&p.ans.ok),fast=!!(p.ans&&p.ans.fast)&&ok&&!p.deb.slow;if(!ok)allOk=false;
-  let ch=Math.min(90,(p.deb.slow?p.st.eva/2:p.st.eva)+(ok?(p.deb.slow?25:45):0)+(fast?10:0));
-  let def=p.deb.armorbreak?0:p.st.def;let d=Math.max(1,Math.round(B.atk*dm*(0.9+Math.random()*0.2))-def);
+  let ch=Math.min(90,(p.deb.slow?p.st.eva/2:p.st.eva)+(ok?(p.deb.slow?25:45):0)+(fast?10:0)+((R.buf&&R.buf.eva)?20:0));
+  let def=p.deb.armorbreak?0:p.st.def;let d=Math.max(1,Math.round(B.atk*dm*(0.9+Math.random()*0.2))-def);if(R.buf&&R.buf.def)d=Math.max(1,Math.round(d*.65));if(R.bdb&&R.bdb.weak)d=Math.max(1,Math.round(d*.65));
   const roll=Math.random()*100;let res;
   if(A.type==='special'){if(ok){d=Math.max(1,Math.round(d*0.35));res='block';}else res='hit';}
   else if(roll<ch){d=0;res='dodge';}else if(ok){d=Math.max(1,Math.round(d/2));res='block';}else res='hit';
@@ -2961,20 +3013,23 @@ function rdMakeDodge(){const lv=rdLevelOf(G.rd.P[G.rd.me]);let c=null;for(let k=
  if(Math.random()<0.45){const f=FORM_OF(c);return {kind:'form',c,opts:[1,2,3,4,5].map(n=>n+'형식'),ans:f-1};}
  const idx=c.map((x,i)=>i),cand=idx.filter(i=>c[i][1]!=='M'),k=Math.random()<0.75&&cand.length?pick(cand):pick(idx),r=c[k][1];
  const others=shuffle(DROLES.filter(x=>x!==r)).slice(0,3),opts=shuffle([r].concat(others));return {kind:'role',c,hi:k,opts:opts.map(x=>RK[x]),ans:opts.indexOf(r)};}
+function rdSanSt(o,T){const q={};if(o&&typeof o==='object')Object.keys(T).forEach(k=>{const v=+o[k];if(v>0)q[k]=Math.min(9,Math.round(v));});return q;}
 function rdApply(s){const R=G.rd;if(!R||!s)return;
  if(R.isClient){R.boss.hp=Math.max(0,Math.min(R.boss.max,+s.boss.hp||0));R.boss.stage=+s.boss.stage||0;R.boss.stun=!!s.boss.stun;
   (s.P||[]).forEach((x,i)=>{const p=R.P[i];if(!p)return;p.hp=Math.max(0,+x.hp||0);p.max=Math.max(1,+x.max||1);p.alive=!!x.alive;p.left=!!x.left;p.deb=(x.deb&&typeof x.deb==='object')?x.deb:{};p.done=!!x.done;p.role=x.role==='heal'?'heal':'atk';p.charge=Math.max(0,Math.min(3,+x.c||0));});
-  R.phase=String(s.phase);R.act=s.act;R.log=String(s.log||'');R.fx=s.fx;R.endInfo=s.end;}
+  R.buf=rdSanSt(s.bf,BUF);R.bdb=rdSanSt(s.bd,EDB);R.phase=String(s.phase);R.act=s.act;R.log=String(s.log||'');R.fx=s.fx;R.endInfo=s.end;}
  else{R.P.forEach(p=>{p.done=p.ans!=null;});}
  const me=R.P[R.me];R.left=s.left?Date.now()+s.left*1000:0;
  if(s.prog){rdUpdProgress();return;}
- if(R.phase==='atk'&&R.myRnd!==s.rnd){R.myRnd=s.rnd;G.done=false;G.b=null;G.pick=null;G.sel=null;G.first=true;R.q=null;R.dq=null;R.cq=null;R.hc=null;R.hs=null;
+ if(R.phase==='atk'&&R.myRnd!==s.rnd){R.myRnd=s.rnd;G.done=false;G.b=null;G.pick=null;G.sel=null;G.first=true;R.q=null;R.dq=null;R.cq=null;R.hc=null;R.hs=null;R.sk=null;R.skp=false;
   if(me&&me.alive&&!me.left){if(me.role==='heal')R.hs='choose';else rdMakeQ();}}
  if(R.phase==='def'&&R.myRnd!==s.rnd){R.myRnd=s.rnd;R.dq=null;R.dres=null;R.cq=null;G.done=false;if(me&&me.alive&&R.act&&R.act.targets.includes(R.me)){R.dq=rdMakeDodge();R.t0=Date.now();}}
  if(R.phase==='end')rdOnEnd();
  if(G.scr==='rdbattle'){render();rdPlayFx();}}
-function rdMakeQ(){const R=G.rd,me=R.P[R.me],heal=R.hc&&R.hc.act==='heal';R.q=pvQ(rdLevelOf(me),false);
- R.q.prompt=heal?`💚 ${esc(R.P[R.hc.to]?R.P[R.hc.to].pr.n:'동료')}을(를) 치유! 문장 성분을 맞히면 성공해요.`:`⚔️ 공격 턴! 문장 조각마다 성분을 배치해 공격하자.${(me.charge||0)?` (⚡충전 +${35*me.charge}%)`:''}`;}
+function rdMakeQ(){const R=G.rd,me=R.P[R.me],heal=R.hc&&R.hc.act==='heal',S=(!heal&&R.sk!=null)?(SK[me.pr.c]||SK.tank)[R.sk]:null;R.q=pvQ(rdLevelOf(me),!!(S&&S.cost>=2));
+ R.q.prompt=heal?`💚 ${esc(R.P[R.hc.to]?R.P[R.hc.to].pr.n:'동료')}을(를) 치유! 문장 성분을 맞히면 성공해요.`:S?`✨ 「${S.nm}」! 문장 성분을 맞히면 스킬이 발동해요.`:'⚔️ 공격 턴! 문장 조각마다 성분을 배치해 공격하자.';}
+function rdSkPicker(){const R=G.rd,me=R.P[R.me],c=me.charge||0,L=SK[me.pr.c]||SK.tank,col=(SKILL[me.pr.c]||SKILL.tank).col;
+ return `<div class="story"><b>✨ 스킬 선택</b> ⚡ 힘 <b>${c}/3</b> · ◆만큼 소모해요. <span class="hint">(쉬는 동안 문제를 풀어 힘을 모아요 · 스킬도 문제를 맞혀야 발동)</span></div><div class="skgrid sk3">${L.map((s,i)=>`<button class="skbtn skill" data-rsk="${i}" ${s.cost>c?'disabled':''} style="--c:${col}"><div><b>${s.fx} ${s.nm}</b><span>${skDesc(s)}</span></div><em class="skcost">${'◆'.repeat(s.cost)}</em></button>`).join('')}</div><button class="btn-s" data-rskx="1">↩ 돌아가기</button>`;}
 function rdRefreshBody(){const c=$('qc');if(c){c.innerHTML=rdBody();fill(c);rdBind();}}
 function rdUpdProgress(){const R=G.rd;R.P.forEach((p,i)=>{const e=document.querySelector(`.rdp[data-s="${i}"] .rdok`);if(e)e.style.visibility=p.done?'visible':'hidden';const c=document.querySelector(`.rdp[data-s="${i}"] .rdch`);if(c)c.textContent=p.charge?'⚡'+p.charge:'';});
  const w=$('rdwait');if(w)w.innerHTML=rdWaitTxt();const d=$('cgd');const me=R.P[R.me];if(d&&me){const c=me.charge||0;d.textContent='●'.repeat(c)+'○'.repeat(3-c);}}
@@ -2992,15 +3047,15 @@ function rdBattle(){const R=G.rd,B=R.boss,b=rdBoss(R.bossId),stg=['','⚠️ 2�
  const st=B.stage;
  $('app').innerHTML=hud(`<span class="mut">🐉 레이드 · ${esc(B.mname)}${stg?' · '+stg:''}</span><button class="btn-s" id="rdquit">🏳️ 나가기</button>`)+`
  <div class="arena raidarena ${RD_ARENA.bg}" id="arena"><div class="ground"></div>
- <div class="mname">${b.ic} ${esc(B.mname)}${B.stun?' 😵':''}${hpbar(B.hp,B.max,'en')}</div>
+ <div class="mname">${b.ic} ${esc(B.mname)}${B.stun?' 😵':''}${hpbar(B.hp,B.max,'en')}${stChips(R.buf,BUF,'bufc')}${stChips(R.bdb,EDB,'edbc')}</div>
  <div class="monster boss raidboss ${B.stun?'stun':''}" id="mon">${sp(b.mon,'','MON')}</div>
  <div class="party raid n${R.P.length}" id="pty">${R.P.map(rdCell).join('')}</div></div>
  <div class="card" id="qc">${rdBody()}</div>`;
  rdBind();
  $('rdquit').onclick=ev=>{const x=ev.currentTarget;if(!x.dataset.sure){x.dataset.sure=1;x.textContent='⚠️ 정말 나갈까요? 한 번 더';return;}rdClose();G.scr='rdlobby';render();};}
 function rdChargeBox(){const R=G.rd,me=R.P[R.me];if(!me||!me.alive||me.left)return '';const c=me.charge||0;
- const dots='●'.repeat(c)+'○'.repeat(3-c),head=`<div class="cgh">⚡ <b>힘 모으기</b> <b id="cgd">${dots}</b> <span class="hint">정답 1개 = +1 (최대 3) · 다음 내 ${me.role==='heal'?'공격·치유':'공격'}이 <b>+35%</b>씩 강해져요</span></div>`;
- if(c>=3)return `<div class="rdcharge">${head}<div class="story">⚡ 충전 완료! 다음 차례에 강력한 한 방을 날려요!</div></div>`;
+ const dots='●'.repeat(c)+'○'.repeat(3-c),head=`<div class="cgh">⚡ <b>힘 모으기</b> <b id="cgd">${dots}</b> <span class="hint">정답 1개 = +1 (최대 3) · ✨ 스킬을 쓰는 데 필요해요(◆)</span></div>`;
+ if(c>=3)return `<div class="rdcharge">${head}<div class="story">⚡ 충전 완료! 다음 차례에 ✨ 스킬로 강력한 한 방을 날려요!</div></div>`;
  if(!R.cq)R.cq=rdMakeDodge();const q=R.cq;
  if(q.res)return `<div class="rdcharge">${head}<div class="sentence">${dodgeSentence(q)}</div><div class="hint" style="font-weight:900">${q.ok?'✅ 충전 +1!':'❌ 아쉬워요! 다음 문제에서 만회해요'}</div></div>`;
  return `<div class="rdcharge">${head}<div class="story small">${q.kind==='form'?'<b>이 문장은 몇 형식?</b>':'<b>밑줄 친 부분의 성분은?</b>'}</div><div class="sentence">${dodgeSentence(q)}</div><div class="choices dchoices">${q.opts.map((o,i)=>`<button class="choice" data-c="${i}">${o}</button>`).join('')}</div></div>`;}
@@ -3008,9 +3063,10 @@ function rdCgDraw(){const w=$('rdcgw');if(w){w.innerHTML=rdChargeBox();w.querySe
 function rdChargeAns(i){const R=G.rd,me=R.P[R.me],q=R.cq;if(!q||q.res)return;q.pick=i;q.ok=i===q.ans;q.res=true;sfx(q.ok?'select':'wrong');
  if(q.ok&&(me.charge||0)<3){if(RDN.host)rdOnCharge(R.me);else{me.charge=(me.charge||0)+1;rdSend(RDN.hostConn,{t:'c'});}}
  rdCgDraw();const key=R.rnd+R.phase;setTimeout(()=>{if(G.rd!==R||R.rnd+R.phase!==key)return;R.cq=rdMakeDodge();rdCgDraw();},q.ok?800:1100);}
-function rdHealChoice(){const R=G.rd,cand=R.P.filter(p=>!p.left&&(!p.alive||p.hp<p.max));
+function rdHealChoice(){const R=G.rd,me=R.P[R.me],cand=R.P.filter(p=>!p.left&&(!p.alive||p.hp<p.max));
+ if(R.hs==='skill')return rdSkPicker();
  if(R.hs==='target')return `<div class="story"><b>💚 누구를 치유할까요?</b> <span class="hint">(쓰러진 동료는 부활!)</span></div><div class="choices rdht">${cand.map(p=>`<button class="choice" data-ht="${p.seat}">${p.alive?'💚':'🪦'} ${esc(p.pr.n)} <small>${p.alive?Math.round(p.hp/p.max*100)+'%':'부활'}</small></button>`).join('')}</div><button class="btn-s" data-hb="1">← 뒤로</button>`;
- return `<div class="story"><b>🙏 사제의 차례!</b> 이번 턴에 무엇을 할까요? <span class="hint">(어느 쪽이든 문제를 맞혀야 성공해요)</span></div><div class="choices"><button class="choice" data-hc="atk">⚔️ 공격하기</button><button class="choice" data-hc="heal" ${cand.length?'':'disabled'}>💚 치유하기${cand.length?'':' (치유할 동료 없음)'}</button></div>`;}
+ return `<div class="story"><b>🙏 사제의 차례!</b> 이번 턴에 무엇을 할까요? <span class="hint">(어느 쪽이든 문제를 맞혀야 성공해요)</span></div><div class="choices"><button class="choice" data-hc="atk">⚔️ 공격하기</button><button class="choice" data-hc="heal" ${cand.length?'':'disabled'}>💚 치유하기${cand.length?'':' (치유할 동료 없음)'}</button><button class="choice" data-hsk="1" ${(me.charge||0)>=1?'':'disabled'}>✨ 스킬 <small>(⚡${me.charge||0}/3)</small></button></div>`;}
 function rdBody(){const R=G.rd,me=R.P[R.me],ph=R.phase,e=R.endInfo;
  if(ph==='end'&&e)return rdEndBody();
  if(ph==='start')return '<div class="story">⚔️ 레이드 시작! 보스가 모습을 드러냈다…</div>';
@@ -3019,8 +3075,12 @@ function rdBody(){const R=G.rd,me=R.P[R.me],ph=R.phase,e=R.endInfo;
  if(me&&(!me.alive||me.left))h+=`<div class="story">🪦 쓰러졌어요… 사제가 부활시켜 줄 때까지 동료를 응원해요!</div>`;
  if(ph==='atk'){
   if(me&&me.alive&&R.hs&&!R.q&&!G.done)return h+`<div class="rdtop">${tm}</div>`+rdHealChoice();
+  if(me&&me.alive&&R.q&&R.skp&&!G.done)return h+`<div class="rdtop">${tm}</div>`+rdSkPicker();
   if(me&&me.alive&&R.q){h+=`<div class="rdtop">${tm}</div>`;
    if(G.done)return h+qbodyDone(R.q)+`<div class="story" id="rdwait">${rdWaitTxt()}</div>`+cg+(R.log?`<div class="hint">${R.log}</div>`:'');
+   {const S=R.sk!=null?(SK[me.pr.c]||SK.tank)[R.sk]:null;
+    if(S)h+=`<div class="sptag">${S.fx} <b>${S.nm}</b> 준비! 맞히면 발동 · <button class="btn-s" data-rskx="1">취소</button></div>`;
+    else if(me.role!=='heal'&&(me.charge||0)>=1)h+=`<button class="special rsk" data-rskp="1">✨ 스킬 사용 <small>(⚡${me.charge}/3 · 쉬는 동안 힘을 모아요)</small></button>`;}
    return h+qbody(R.q);}
   return h+`<div class="story" id="rdwait">${rdWaitTxt()}</div>${R.log?`<div class="hint">${R.log}</div>`:''}`;}
  if(ph==='atkres'||ph==='defres')return h+`<div class="feedback ${ph==='atkres'?'ok':'no'}"><div style="font-weight:900;font-size:17px;line-height:1.5">${R.log}</div></div>`+(R.endInfo?'':'<p class="hint">잠시 후 다음 차례로 넘어가요…</p>');
@@ -3040,17 +3100,21 @@ function rdEndBody(){const R=G.rd,e=R.endInfo,rw=R.rw||{};
  ${rw.stone?`<p class="stonegain">⚒️ 강화석 +${rw.stone}개 획득!</p>`:''}${e.win?(rw.capped?`<p class="hint">오늘 레이드 보상(${RD_DAYMAX}회)을 모두 받았어요. 연습은 계속할 수 있어요!</p>`:`<p>보상: 💎 +${rw.cry} · 💰 +${rw.gold}${e.mvp===R.me?' (MVP 보너스 포함!)':''}</p>`):'<p class="hint">다음엔 더 잘 막아 봐요. 문장 형식을 정확히 분석하면 회피율이 크게 올라가요!</p>'}</div>
  <button class="next" id="rdlb">🐉 레이드 로비로</button>`;}
 function rdBind(){const R=G.rd,me=R.P[R.me];bubbleSync();
- if(R.phase==='atk'&&me&&me.alive&&R.q&&!G.done)bindQ(R.q);
+ if(R.phase==='atk'&&me&&me.alive&&R.q&&!G.done&&!R.skp)bindQ(R.q);
  if(R.phase==='def'&&me&&me.alive&&R.dq&&!G.done)document.querySelectorAll('[data-d]').forEach(b=>b.onclick=()=>rdDodge(+b.dataset.d));
  document.querySelectorAll('[data-hc]').forEach(b=>b.onclick=()=>{sfx('select');if(b.dataset.hc==='atk'){R.hc={act:'atk'};R.hs=null;rdMakeQ();}else R.hs='target';rdRefreshBody();});
  document.querySelectorAll('[data-ht]').forEach(b=>b.onclick=()=>{sfx('select');R.hc={act:'heal',to:+b.dataset.ht};R.hs=null;rdMakeQ();rdRefreshBody();});
  document.querySelectorAll('[data-hb]').forEach(b=>b.onclick=()=>{R.hs='choose';rdRefreshBody();});
  document.querySelectorAll('[data-c]').forEach(b=>b.onclick=()=>rdChargeAns(+b.dataset.c));
+ document.querySelectorAll('[data-hsk]').forEach(b=>b.onclick=()=>{sfx('select');R.hs='skill';rdRefreshBody();});
+ document.querySelectorAll('[data-rskp]').forEach(b=>b.onclick=()=>{sfx('select');R.skp=true;rdRefreshBody();});
+ document.querySelectorAll('[data-rsk]').forEach(b=>b.onclick=()=>{const i=+b.dataset.rsk,S=(SK[me.pr.c]||SK.tank)[i];if(!S||S.cost>(me.charge||0))return;sfx('select');R.sk=i;R.skp=false;R.hs=null;if(me.role==='heal')R.hc={act:'atk'};rdMakeQ();G.b=null;G.sel=null;rdRefreshBody();});
+ document.querySelectorAll('[data-rskx]').forEach(b=>b.onclick=()=>{sfx('click');R.sk=null;R.skp=false;if(me.role==='heal'){R.q=null;R.hc=null;R.hs='choose';}else{rdMakeQ();G.b=null;G.sel=null;}rdRefreshBody();});
  const lb=$('rdlb');if(lb)lb.onclick=()=>{rdClose();G.scr='rdlobby';render();};
- clearInterval(R.tick);R.tick=setInterval(()=>{if(G.rd!==R||G.scr!=='rdbattle'){clearInterval(R.tick);return;}const t=$('rdt');if(t&&R.left)t.textContent='⏱ '+Math.max(0,Math.round((R.left-Date.now())/1000))+'초';},500);}
-function rdSubmit(kind,ok,fast,ex){const R=G.rd;if(RDN.host)rdOnAns(0,ok,R.rnd,kind,fast,ex);else rdSend(RDN.hostConn,{t:kind,ok,fast:!!fast,rnd:R.myRnd,act:ex&&ex.act,to:ex&&ex.to});}
+ clearInterval(R.tick);R.tick=setInterval(()=>{if(G.rd!==R||G.scr!=='rdbattle'){clearInterval(R.tick);return;}const t=$('rdt');if(t&&R.left){const L=Math.max(0,Math.round((R.left-Date.now())/1000));t.textContent='⏱ '+L+'초';t.classList.toggle('warn',L<=10);}},500);}
+function rdSubmit(kind,ok,fast,ex){const R=G.rd;if(RDN.host)rdOnAns(0,ok,R.rnd,kind,fast,ex);else rdSend(RDN.hostConn,{t:kind,ok,fast:!!fast,rnd:R.myRnd,act:ex&&ex.act,to:ex&&ex.to,sk:ex&&ex.sk});}
 function rdResolve(e,ok){const R=G.rd;G.done=true;G.pick=ok?'ok':'no';sfx(ok?'slash':'wrong');
- const q=$('qc');if(q){q.innerHTML=rdBody();fill(q);rdBind();}rdSubmit('a',ok,false,R.hc);}
+ const q=$('qc');if(q){q.innerHTML=rdBody();fill(q);rdBind();}rdSubmit('a',ok,false,Object.assign({},R.hc||{},{sk:R.sk}));}
 function rdDodge(i){const R=G.rd,q=R.dq;if(!q||G.done)return;q.pick=i;q.ok=i===q.ans;G.done=true;const fast=q.ok&&Date.now()-R.t0<6000;sfx(q.ok?'select':'wrong');
  const c=$('qc');if(c){c.innerHTML=rdBody();fill(c);rdBind();}rdSubmit('d',q.ok,fast);}
 

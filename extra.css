@@ -702,3 +702,4 @@ canvas.px[data-src="SPR"][data-k="shaman"],canvas.px[data-src="SPR"][data-k^="cs
 @keyframes eshk{0%,100%{transform:translateX(0)}20%{transform:translateX(-8px)}40%{transform:translateX(8px)}60%{transform:translateX(-5px)}80%{transform:translateX(5px)}}
 
 .skgrid.sk3{grid-template-columns:repeat(auto-fill,minmax(230px,1fr))}.skbtn.skill{justify-content:space-between}.skbtn.skill span{display:block;margin-top:2px;line-height:1.35}.skbtn:disabled{opacity:.4;cursor:not-allowed;box-shadow:none}.skcost{font-style:normal;color:#ffd85a;font-weight:900;white-space:nowrap}.debc.bufc{background:#1f4d2e;border-color:#4fd18a}.debc.edbc{background:#4d2a1f;border-color:#e0894f}
+.rdt.warn{background:#7a1f1f;color:#fff;animation:rdwarn .6s infinite alternate}@keyframes rdwarn{to{transform:scale(1.12)}}.special.rsk{margin-bottom:8px}

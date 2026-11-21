@@ -890,6 +890,10 @@ canvas.px[data-src="SPR"][data-k="shaman"],canvas.px[data-src="SPR"][data-k^="cs
 
 .rdsyn{margin:8px 0;padding:8px;border-radius:10px;background:#0006;font-size:13px;line-height:1.8}.rdsyn span{display:inline-block;margin:2px 6px 2px 0;padding:1px 8px;border-radius:9px;background:#ffe9a8;color:#4a3410;font-weight:800}
 
+.rdtier{display:flex;gap:6px;margin:8px 0}.rdtb{flex:1;font:inherit;font-weight:900;font-size:14px;padding:8px 4px;border-radius:12px;border:2px solid #8a6d3b;background:#fff3d6;color:#4a3410;cursor:pointer;line-height:1.3}
+.rdtb small{display:block;font-size:10px;font-weight:700;opacity:.8}.rdtb.on{background:#ffd27a;border-color:#e0922a;box-shadow:0 0 0 3px rgba(255,190,80,.5)}.rdtb.lock{opacity:.5;cursor:default}
+.rdtag{font-size:12px;padding:1px 8px;border-radius:9px;background:#d9f2c8;color:#2a4a1a;font-weight:900}.rdtag.t1{background:#e4d2ff;color:#3b1a6a}.rdtag.t2{background:#ffd9a0;color:#6a3a00}
+
 </style>
 </head>
 <body>
@@ -1478,7 +1482,7 @@ function level(){
  <div class="story">어느 난이도의 의뢰를 받을까요? 난이도가 높을수록 문장이 길고 복잡해지고, <b>보상 수정(💎)</b>도 커져요.</div>
  <div class="lvgrid">${Object.entries(LEVELS).map(([k,v])=>`<button class="lvcard ${cur===k?'on':''}" data-lv="${k}">
   <div class="lvic">${v.ic}</div><h3>${v.n}</h3><div class="lvsub">${v.sub}</div><p>${v.desc}</p>
-  <div class="lvex">예) <i>${esc(v.ex)}</i></div><div class="lvg">💎 몬스터당 ${v.g}개 (보스 ×2) · 클리어 ${v.b}개<br><small>이미 깬 던전을 다시 하면 💎 절반 · 장비·직업 효과 별도</small></div></button>`).join('')}</div>
+  <div class="lvex">예) <i>${esc(v.ex)}</i></div><div class="lvg">💎 몬스터당 ${v.g}개 (보스 ×2) · 클리어 ${v.b}개<br><small>다시 깨도 똑같이 받아요 · 장비·직업 효과 별도</small></div></button>`).join('')}</div>
  <p class="hint" style="text-align:center;margin:10px 0 0">난이도는 던전 선택 화면에서 언제든 바꿀 수 있어요.</p></div>`;
  document.querySelectorAll('.lvcard').forEach(b=>b.onclick=()=>{sfx('select');SV.level=b.dataset.lv;saveNow();G.scr=G.introDone||SV.cleared.length?'dsel':'intro';render();});
 }
@@ -1736,7 +1740,7 @@ function bindQ(e){flav();bubbleSync();
 }
 function resolve(e,ok,mine){if(G.rvm){rvResolve(e,ok);return;}if(rdOn()){rdResolve(e,ok);return;}if(G.rpg){rpgResolve(e,ok);return;}if(pvOn()){pvResolve(e,ok);return;}
  G.gotGold=0;
- if(G.first){const wt=e.wt||1;G.tot++;G.totw=(G.totw||0)+wt;if(ok){G.ok++;G.okw=(G.okw||0)+wt;G.cmb=(G.cmb||0)+1;if(G.cmb>(G.maxCmb||0))G.maxCmb=G.cmb;G.gotGold=Math.max(1,bonusC(Math.round(LEVELS[LV()].g*(e.boss?2:1)*(SV.cleared.includes(G.dg.id)?.5:1))));SV.cry+=G.gotGold;G.goldRun+=G.gotGold;saveNow();}else{G.cmb=0;G.wrongs.push({e,mine:mine||'',q:e.sentence||e.c.map(c=>c[0]).join(' ')+'.',t:qlabel(e.type)});}G.first=false;}
+ if(G.first){const wt=e.wt||1;G.tot++;G.totw=(G.totw||0)+wt;if(ok){G.ok++;G.okw=(G.okw||0)+wt;G.cmb=(G.cmb||0)+1;if(G.cmb>(G.maxCmb||0))G.maxCmb=G.cmb;G.gotGold=Math.max(1,bonusC(Math.round(LEVELS[LV()].g*(e.boss?2:1))));SV.cry+=G.gotGold;G.goldRun+=G.gotGold;saveNow();}else{G.cmb=0;G.wrongs.push({e,mine:mine||'',q:e.sentence||e.c.map(c=>c[0]).join(' ')+'.',t:qlabel(e.type)});}G.first=false;}
  G.done=true;G.pick=ok?'ok':'no';G.healed=false;
  if(!ok){G.hp--;G.streak=0;}else if(G.hp<3){G.streak=(G.streak||0)+1;if(G.streak>=3){G.hp++;G.healed=true;G.streak=0;}}else G.streak=0;
  const pty=$('pty'),mon=$('mon'),ar=$('arena');
@@ -1781,7 +1785,7 @@ function noteHTML(){
 function clear(){
  if(G.wrongs.length&&G.rvFor!==G.wrongs&&!G.rvm&&!G.dev){startReview(G.wrongs.map(w=>w.e),skip=>{G.rvFor=G.wrongs;if(skip)G.rvSkipFor=G.wrongs;G.scr='clear';render();});return;}
  const d=G.dg,rate=G.tot?Math.round(G.ok/G.tot*100):0;
- const first=!SV.cleared.includes(d.id);const bonus=Math.max(1,bonusC(Math.round(LEVELS[LV()].b*(first?1:.5))));
+ const first=!SV.cleared.includes(d.id);const bonus=Math.max(1,bonusC(Math.round(LEVELS[LV()].b)));
  const rvSk=G.rvSkipFor===G.wrongs;if(!G.clearPaid){if(!rvSk){SV.cry+=bonus;G.goldRun+=bonus;}if(first)SV.cleared.push(d.id);G.stoneMsg=[];stoneOnClear(d);saveNow();G.clearPaid=true;if(!rvSk)rankDgLearn();}
  let title,em;if(rate>=90){title='전설의 파티 리더';em='👑';}else if(rate>=70){title='믿음직한 탱커';em='🛡️';}else{title='성장 중인 견습 탱커';em='🌱';}
  $('app').innerHTML=hud()+`<div class="card">
@@ -2139,7 +2143,7 @@ function rpgDsel(){
  ${G.toastSave?'<div class="feedback ok" style="margin:0 0 10px">💾 저장했어요! 같은 이름으로 들어오면 골드·장비·진행 상황이 이어져요.</div>':''}${rpgResumeHTML()}
  <div class="dgrid">${L.map(d=>{const i=RT[d.id],u=rpgUnlocked(d),e=estats(i),b=estats(i,true),cl=SV.rcleared.includes(d.id),rec=GEAR[RREC[i]];
   return `<button class="dcard rcard" ${u?'':'disabled'} data-rd="${d.id}"><span class="size">RPG Lv.${i+1}</span>${cl?'<span class="lock" style="color:var(--green)">✅ 클리어</span>':u?'':'<span class="lock">🔒 이전 던전 클리어</span>'}
-  <h3>${d.name}</h3><div class="mon">${sp(d.mon,'','MON')}<div class="hint">적 HP ${e.hp} · 공격 ${e.atk}<br>보스 HP ${b.hp} · 공격 ${b.atk}<br>권장 장비: ${rec.nm} 이상<br>보상: 💰 일반 ${rgoldOf(i)} · 보스 ${rgoldOf(i,true)} · 클리어 보너스 +${rgoldOf(i,true)}<br>💎 한 판 약 ${learnKillTotal(d)+LEVELS[LV()].b}개 (클리어 포함) · 다시 깨면 💎 절반<br><span style="opacity:.75">※ 장비·직업 효과에 따라 조금 더 받아요</span></div></div></button>`;}).join('')}</div></div>`;
+  <h3>${d.name}</h3><div class="mon">${sp(d.mon,'','MON')}<div class="hint">적 HP ${e.hp} · 공격 ${e.atk}<br>보스 HP ${b.hp} · 공격 ${b.atk}<br>권장 장비: ${rec.nm} 이상<br>보상: 💰 일반 ${rgoldOf(i)} · 보스 ${rgoldOf(i,true)} · 클리어 보너스 +${rgoldOf(i,true)}<br>💎 한 판 약 ${learnKillTotal(d)+LEVELS[LV()].b}개 (클리어 포함)<br><span style="opacity:.75">※ 장비·직업 효과에 따라 조금 더 받아요</span></div></div></button>`;}).join('')}</div></div>`;
  bindModeTabs();if(G.dev)bindRpgDev();
  $('todaily').onclick=()=>{G.dg=DAILY;G.mates=DAILY.need.slice();G.pets=1;genRunDaily();sfx('select');G.scr='news';render();};
  $('toforge').onclick=()=>{G.scr='forge';G.toast=null;render();};
@@ -2434,7 +2438,7 @@ const _rcT={};
 function learnKillTotal(d){const k=d.id+LV();if(_rcT[k]!=null)return _rcT[k];let T=0;
  try{const run=genRun(d);T=run.reduce((a,e)=>a+(e.boss?2:1),0)*LEVELS[LV()].g;}catch(err){T=LEVELS[LV()].g*14;}
  return _rcT[k]=T;}
-const rpgRep=()=>(G.dg&&SV.rcleared.includes(G.dg.id))?.5:1;
+const rpgRep=()=>1;
 function rpgKillC(en){const R=G.rp,W=R.en.reduce((a,e)=>a+(e.boss?2:1),0)||1;
  return Math.max(1,bonusC(Math.round(learnKillTotal(G.dg)*rpgRep()*(en.boss?2:1)/W)));}
 function rpgClearC(){return Math.max(1,bonusC(Math.round(LEVELS[LV()].b*rpgRep())));}
@@ -2600,8 +2604,8 @@ function newsPaper(){if(SV.vocabDone!==vocabKey()&&NV(todayNews()).length){vocab
  $('dback').onclick=()=>{G.scr='dsel';render();};}
 const RCOL={S:'#5b8def',V:'#f0c04f',C:'#f0a24f',O:'#e05a6a',IO:'#c27428',DO:'#4fd1c5',OC:'#a483e0',M:'#8a8a9a'};
 function dailyReview(){const N=todayNews();let bonus='';
- if(SV.dailyDone!==dayKey()){const b=bonusC(12);SV.cry+=b;SV.dailyDone=dayKey();saveNow();G.dailyBonus=b;}
- if(G.dailyBonus)bonus=`<div class="feedback ok"><b>📰 오늘의 던전 보상: 💎 +${G.dailyBonus}</b></div>`;
+ if(SV.dailyDone!==dayKey()){const b=bonusC(12);SV.cry+=b;SV.dailyDone=dayKey();G.dailyStone=0;if(!G.dev&&SV.dailyStone!==dayKey()){SV.dailyStone=dayKey();SV.stone=(SV.stone||0)+1;G.dailyStone=1;}saveNow();G.dailyBonus=b;}
+ if(G.dailyBonus)bonus=`<div class="feedback ok"><b>📰 오늘의 던전 보상: 💎 +${G.dailyBonus}${G.dailyStone?' · ⚒️ 강화석 +1':''}</b></div>`;
  return bonus+`<div class="card" style="background:var(--bg2);margin-top:12px"><h3 style="margin-top:0">🔍 오늘의 기사 문장 구조 분석</h3>
  <div class="hint" style="margin-bottom:8px">${Object.entries(RCOL).map(([r,c])=>`<span class="rleg" style="--c:${c}">${RK[r]}</span>`).join(' ')}</div>
  ${NS(N).map((s,i)=>`<div class="anl"><div class="anls"><span class="anlno">${i+1}</span>${s.c.map(x=>`<span class="anlc" style="--c:${RCOL[x[1]]}"><b>${esc(x[0])}</b><small>${RK[x[1]]}</small></span>`).join('')}<span class="anlf">${FORM_OF(s.c)}형식</span></div><div class="hint">${esc(s.tr)}</div></div>`).join('')}</div>`;}
@@ -2853,6 +2857,9 @@ try{new MutationObserver(ms=>{ms.forEach(m=>{if(m.type==='characterData')josaTex
 
 /* ================= 레이드 (2~6인 협동 보스전) ================= */
 const RD_ARENA={id:'raid',all8:true,name:'🐉 레이드',bg:'d6',need:[],mon:'demonking'};
+const RD_TIER=[{nm:'노멀',ic:'🟢',hp:1,atk:1,rw:1,st:1,pre:'',sp:[62,80]},{nm:'에픽',ic:'🟣',hp:1.8,atk:1.3,rw:2,st:2,pre:'[에픽] ',sp:[52,72]},{nm:'레전더리',ic:'🟠',hp:3,atk:1.6,rw:3,st:3,pre:'[전설] ',sp:[42,66]}];
+const rdTierOk=(b,t)=>t<=0||(((SV.rdt||{})[b]??-1)>=t-1);
+const rdTn=t=>RD_TIER[Math.max(0,Math.min(2,+t||0))];
 const RD_MAX=6,RD_DAYMAX=3,RD_TATK=45,RD_TDEF=20,RD_PFX='syntaxsaga-raid-';
 const RD_BOSS=[
  {id:'demon',mon:'demonking',mname:'마왕',ic:'👿',desc:'침묵·혼란·약화로 괴롭히는 어둠의 군주',
@@ -2887,18 +2894,20 @@ function rdLobby(){G.rpg=false;const me=profOf(SV,G.name),L=G.rd&&G.rd.lobby,inR
  ${pvCard(me,'<span class="hint">(나)</span>')}
  ${inRoom?rdRoomView(L):`<div class="pvbox netbox"><h3>🏠 방 만들기</h3>
   <div class="rdboss">${RD_BOSS.map(b=>`<button class="rdbtn ${bsel===b.id?'on':''}" data-bs="${b.id}">${sp(b.mon,'','MON')}<b>${b.mname}</b><span>${b.desc}</span></button>`).join('')}</div>
+  <div class="rdtier">${RD_TIER.map((t,i)=>{const ok=rdTierOk(bsel,i);return `<button class="rdtb ${(G.rdTierSel||0)===i&&ok?'on':''} ${ok?'':'lock'}" data-tr="${i}" ${ok?'':'disabled'}>${t.ic} ${t.nm}${ok?'':' 🔒'}<small>${ok?`보상 ×${t.rw} · 강화석 ${t.st}`:(i===1?'노멀 클리어 후':'에픽 클리어 후')}</small></button>`;}).join('')}</div>
   ${netAvail()?`<div class="netrow"><button class="next" id="rhost">🏠 방 만들기</button><span class="netor">또는</span><input id="rcode" maxlength="4" placeholder="방 코드" autocomplete="off" autocapitalize="characters"><button class="next" id="rjoin">🚪 참가</button></div>`:'<p class="feedback no">이 브라우저에서는 실시간 접속을 쓸 수 없어요.</p>'}
   <p class="hint">실시간 접속은 선생님이 알려 준 게임 주소에서만 돼요. 방 코드는 4글자예요.</p></div>`}
  <div id="rdmsg" class="netmsg">${RDN.msg||''}</div>
  <button class="ghost" id="rdback">🗺️ 던전 목록</button></div>`;
- document.querySelectorAll('[data-bs]').forEach(b=>b.onclick=()=>{G.rdBossSel=b.dataset.bs;sfx('select');rdLobby();fill($('app'));});
+ document.querySelectorAll('[data-bs]').forEach(b=>b.onclick=()=>{G.rdBossSel=b.dataset.bs;if(!rdTierOk(G.rdBossSel,G.rdTierSel||0))G.rdTierSel=0;sfx('select');rdLobby();fill($('app'));});
+ document.querySelectorAll('[data-tr]').forEach(b=>b.onclick=()=>{G.rdTierSel=+b.dataset.tr;sfx('select');rdLobby();fill($('app'));});
  if($('rhost')){$('rhost').onclick=()=>{sfx('select');rdHost();};$('rjoin').onclick=()=>{sfx('select');rdJoin($('rcode').value);};$('rcode').onkeydown=e=>{if(e.key==='Enter')rdJoin($('rcode').value);};}
  if($('rstart'))$('rstart').onclick=rdStart;
  if($('rleave'))$('rleave').onclick=()=>{rdClose();RDN.msg='';rdLobby();fill($('app'));};
  $('rdback').onclick=()=>{rdClose();RDN.msg='';G.scr='dsel';render();};}
 function rdRoomView(L){L=L||{players:[],boss:G.rdBossSel||'demon'};const b=rdBoss(L.boss);
  const hasAtk=true;
- return `<div class="pvbox netbox"><h3>🏠 방 코드 <b class="netcode">${RDN.code||'····'}</b> · ${b.ic} ${b.mname}</h3>
+ return `<div class="pvbox netbox"><h3>🏠 방 코드 <b class="netcode">${RDN.code||'····'}</b> · ${b.ic} ${b.mname} <span class="rdtag t${L.tier||0}">${rdTn(L.tier).ic} ${rdTn(L.tier).nm}</span></h3>
  ${RDN.host&&RDN.code?qrBox('rd',RDN.code,150,'M','📷 QR로 바로 입장'):''}<div class="pvlist rdroom">${L.players.map((p,i)=>`<div class="pvpick">${sp(heroSpr(p.c,p.sk))}<div><b>${esc(p.n)}${i===0?' 👑':''}</b><span>${LEVELS[p.lv]?LEVELS[p.lv].sub:''} · ⚔️${pstatsOf(p.g,p.c).atk} ❤️${pstatsOf(p.g,p.c).hp}${p.c==='healer'?' · 치유':''}</span></div></div>`).join('')}</div>
 ${(()=>{const y=rdSynOf(L.players.map(p=>p.c));return y.txt.length?`<div class="rdsyn"><b>🤝 파티 효과</b> ${y.txt.map(t=>`<span>${t}</span>`).join('')}</div>`:`<div class="rdsyn"><b>🤝 파티 효과</b> <span class="hint">전사·공수·성기사·주술사·상인이 있으면 파티가 강해져요!</span></div>`;})()}
  <p class="hint">${L.players.length} / ${RD_MAX}명${RDN.host?(L.players.length<2?' · 친구가 코드를 입력하면 여기에 나타나요 (2명부터 시작)':hasAtk?'':' · 공격 담당이 한 명도 없어요(사제만 있음)'):' · 방장이 시작할 때까지 기다려요'}</p>
@@ -2908,10 +2917,10 @@ function rdErr(e){const t=e&&e.type;clearTimeout(RDN.to);
  if(t==='unavailable-id'&&RDN.host){const keep=G.rdBossSel;rdClose();G.rdBossSel=keep;rdHost();return;}
  rdMsg(t==='peer-unavailable'?'❌ 그 방을 찾을 수 없어요. 코드를 다시 확인하세요.':(t==='network'||t==='server-error'||t==='socket-error'||t==='browser-incompatible')?'❌ 실시간 서버에 연결할 수 없어요. 선생님이 알려 준 게임 주소에서 다시 해 보세요.':'❌ 연결 오류 ('+esc(t||'unknown')+')');}
 function rdCode(){const A='ABCDEFGHJKMNPQRSTUVWXYZ23456789';let s='';for(let i=0;i<4;i++)s+=A[Math.floor(Math.random()*A.length)];return s;}
-function rdLobbyList(){const R=G.rd;return {players:R.P.map(x=>x.pr),boss:R.bossId};}
-function rdPushLobby(){const R=G.rd;R.lobby=rdLobbyList();rdBcast({t:'lobby',pl:R.lobby.players,boss:R.bossId,code:RDN.code});if(G.scr==='rdlobby'){rdLobby();fill($('app'));}}
+function rdLobbyList(){const R=G.rd;return {players:R.P.map(x=>x.pr),boss:R.bossId,tier:R.tier||0};}
+function rdPushLobby(){const R=G.rd;R.lobby=rdLobbyList();rdBcast({t:'lobby',pl:R.lobby.players,boss:R.bossId,tier:R.tier||0,code:RDN.code});if(G.scr==='rdlobby'){rdLobby();fill($('app'));}}
 function rdHost(){if(!netAvail())return;const keep=G.rdBossSel||'demon';rdClose();RDN.host=true;RDN.code=rdCode();G.rdBossSel=keep;rdMsg('⏳ 방을 만드는 중…');
- const me=profOf(SV,G.name);G.rd={bossId:keep,P:[rdMk(me,0)],phase:'lobby',timers:[],lobby:null,started:false};
+ const me=profOf(SV,G.name);const kt=rdTierOk(keep,G.rdTierSel||0)?(G.rdTierSel||0):0;G.rd={bossId:keep,tier:kt,P:[rdMk(me,0)],phase:'lobby',timers:[],lobby:null,started:false};
  const pr=new Peer(RD_PFX+RDN.code.toLowerCase(),PEEROPT());RDN.peer=pr;
  RDN.to=setTimeout(()=>{if(!pr.open)rdMsg('❌ 실시간 서버에 연결할 수 없어요.');},12000);
  pr.on('open',()=>{rdMsg('');rdPushLobby();});
@@ -2942,9 +2951,9 @@ function rdHostLost(){clearInterval(RDN.hb);if(!RDN.hostConn&&!G.rd)return;RDN.h
 function rdClientData(d){if(!d||typeof d!=='object')return;RDN.last=Date.now();
  if(d.t==='ping')return;if(d.t==='bye'){rdHostLost();return;}
  if(d.t==='full'){rdMsg('❌ 방이 가득 찼거나 이미 시작됐어요.');return;}if(d.t==='busy'){rdMsg('❌ 그 방은 이미 전투 중이에요.');return;}
- if(d.t==='lobby'){const pl=(d.pl||[]).slice(0,RD_MAX).map(netSanPr).filter(Boolean);G.rd=G.rd||{P:[],timers:[]};G.rd.lobby={players:pl,boss:d.boss};G.rd.bossId=d.boss;RDN.code=String(d.code||RDN.code);if(G.scr==='rdlobby'){rdLobby();fill($('app'));}return;}
- if(d.t==='start'){const pl=(d.pl||[]).slice(0,RD_MAX).map(netSanPr).filter(Boolean);const R={isClient:true,bossId:String(d.boss),P:pl.map((p,i)=>rdMk(p,i)),me:+d.me,phase:'start',timers:[],rnd:0,snap:null};
-  const b=rdBoss(R.bossId);R.boss={hp:+d.bmax,max:+d.bmax,mon:b.mon,mname:b.mname,stage:0,stun:false};G.rd=R;G.dg=RD_ARENA;G.mates=[];G.pets=0;G.rpg=false;G.scr='rdbattle';sfx('formed');render();return;}
+ if(d.t==='lobby'){const pl=(d.pl||[]).slice(0,RD_MAX).map(netSanPr).filter(Boolean);G.rd=G.rd||{P:[],timers:[]};G.rd.lobby={players:pl,boss:d.boss,tier:Math.max(0,Math.min(2,+d.tier||0))};G.rd.bossId=d.boss;G.rd.tier=G.rd.lobby.tier;RDN.code=String(d.code||RDN.code);if(G.scr==='rdlobby'){rdLobby();fill($('app'));}return;}
+ if(d.t==='start'){const pl=(d.pl||[]).slice(0,RD_MAX).map(netSanPr).filter(Boolean);const R={isClient:true,bossId:String(d.boss),tier:Math.max(0,Math.min(2,+d.tier||0)),P:pl.map((p,i)=>rdMk(p,i)),me:+d.me,phase:'start',timers:[],rnd:0,snap:null};
+  const b=rdBoss(R.bossId);R.boss={hp:+d.bmax,max:+d.bmax,mon:b.mon,mname:rdTn(R.tier).pre+b.mname,stage:0,stun:false};G.rd=R;G.dg=RD_ARENA;G.mates=[];G.pets=0;G.rpg=false;G.scr='rdbattle';sfx('formed');render();return;}
  if(d.t==='snap')rdApply(d.s);}
 /* ---------- 전투 상태(방장) ---------- */
 /* 직업별 파티 효과: 해당 직업이 파티에 한 명이라도 있으면 파티 전체에 적용 (중복 없음) */
@@ -2954,11 +2963,11 @@ function rdMk(pr,seat){const st=pstatsOf(pr.g,pr.c);return {seat,pr,st,hp:st.hp,
 function rdStart(){const R=G.rd;if(!RDN.host||R.started||R.P.length<2)return;
  R.started=true;const b=rdBoss(R.bossId);
  const teamAtk=R.P.reduce((s,p)=>s+p.st.atk*(p.role==='heal'?0.6:1),0),avgHp=R.P.reduce((s,p)=>s+p.max,0)/R.P.length;
- const bmax=Math.max(200,Math.round(teamAtk*0.72*11));
- R.boss={hp:bmax,max:bmax,mon:b.mon,mname:b.mname,stage:0,stun:false,atk:Math.max(14,Math.round(avgHp*0.3)),force:false};
+ const TT=rdTn(R.tier),bmax=Math.max(200,Math.round(teamAtk*0.72*11*TT.hp));
+ R.boss={hp:bmax,max:bmax,mon:b.mon,mname:TT.pre+b.mname,stage:0,stun:false,atk:Math.max(14,Math.round(avgHp*0.3*TT.atk)),force:false};
  R.syn=rdSynOf(R.P.map(p=>p.pr.c));R.P.forEach(p=>{const y=R.syn;p.st=Object.assign({},p.st,{hp:Math.round(p.st.hp*(1+y.hp)),atk:Math.round(p.st.atk*(1+y.atk)),def:Math.round(p.st.def*(1+y.def))});p.max=p.hp=p.st.hp;});
  R.rnd=0;R.me=0;R.phase='start';R.log='';R.timers=[];R.stats={};R.buf={};R.bdb={};
- R.P.forEach((p,i)=>{if(i>0)rdSend(RDN.conns[i],{t:'start',pl:R.P.map(x=>x.pr),boss:R.bossId,bmax,me:i});});
+ R.P.forEach((p,i)=>{if(i>0)rdSend(RDN.conns[i],{t:'start',pl:R.P.map(x=>x.pr),boss:R.bossId,tier:R.tier||0,bmax,me:i});});
  G.dg=RD_ARENA;G.mates=[];G.pets=0;G.rpg=false;G.scr='rdbattle';sfx('formed');R.me=0;render();
  R.timers.push(setTimeout(()=>rdBegin(),1500));}
 function rdAlive(){return G.rd.P.filter(p=>p.alive&&!p.left);}
@@ -3021,7 +3030,7 @@ function rdResolveAtk(){const R=G.rd;if(R.phase!=='atk')return;clearTimeout(R.tm
  if(B.stun){B.stun=false;R.log+=`<br>😵 ${esc(B.mname)}은(는) 기절해서 움직이지 못한다!`;rdAfter(W+1000,()=>rdBegin());return;}
  rdAfter(W,()=>rdStartDef());}
 function rdStartDef(){const R=G.rd,B=R.boss,b=rdBoss(R.bossId);if(R.phase==='end')return;const alive=rdAlive();if(!alive.length){rdFinish(false);return;}
- let type;if(B.force){type='special';B.force=false;}else{const r=Math.random()*100;type=r<62?'aoe':r<80?'debuff':'special';}
+ let type;if(B.force){type='special';B.force=false;}else{const r=Math.random()*100,sp=rdTn(R.tier).sp;type=r<sp[0]?'aoe':r<sp[1]?'debuff':'special';}
  const targets=type==='special'?[alive[Math.floor(Math.random()*alive.length)].seat]:alive.map(p=>p.seat);
  const nm=type==='special'?b.atk[3]:type==='debuff'?b.atk[1]:(Math.random()<.5?b.atk[0]:b.atk[2]);
  R.act={type,nm,targets,say:type==='special'?b.talk[Math.max(1,Math.min(3,B.stage))]||b.talk[2]:b.say[Math.floor(Math.random()*b.say.length)]};
@@ -3084,9 +3093,9 @@ function rdUpdProgress(){const R=G.rd;R.P.forEach((p,i)=>{const e=document.query
 function rdWaitTxt(){const R=G.rd;let n=0,m=0;R.P.forEach(p=>{if(!p.alive||p.left)return;if(R.phase==='def'&&R.act&&!R.act.targets.includes(p.seat))return;m++;if(p.done)n++;});return `⏳ 다른 모험가를 기다리는 중 (${n}/${m})`;}
 function rdOnEnd(){const R=G.rd;if(R.rewarded)return;R.rewarded=true;const e=R.endInfo;if(!e)return;const me=R.me,win=!!e.win;let rw={cry:0,gold:0,capped:false};
  const d=SV.raidDay&&SV.raidDay.k===dayKey()?SV.raidDay:{k:dayKey(),n:0};
- if(win&&d.n<RD_DAYMAX){d.n++;SV.raidDay=d;const rm=1+rdSynOf(R.P.map(p=>p.pr.c)).rew;rw.cry=Math.round(bonusC(20+(e.mvp===me?10:0))*rm);rw.gold=Math.round(bonusG(60+(e.mvp===me?40:0))*rm);rw.rm=rm>1;SV.cry=(SV.cry||0)+rw.cry;SV.rg=(SV.rg||0)+rw.gold;saveNow();}
+ if(win&&d.n<RD_DAYMAX){d.n++;SV.raidDay=d;const rm=1+rdSynOf(R.P.map(p=>p.pr.c)).rew,TT=rdTn(R.tier);rw.cry=Math.round(bonusC(20+(e.mvp===me?10:0))*rm*TT.rw);rw.gold=Math.round(bonusG(60+(e.mvp===me?40:0))*rm*TT.rw);rw.rm=rm>1;rw.tier=R.tier||0;SV.cry=(SV.cry||0)+rw.cry;SV.rg=(SV.rg||0)+rw.gold;saveNow();}
  else if(win){rw.capped=true;SV.raidDay=d;}
- {const Bz=R.boss;rw.stone=0;if(Bz&&Bz.hp<=Bz.max*0.5)rw.stone+=grantStone('rd:'+R.bossId+':half',1);if(win)rw.stone+=grantStone('rd:'+R.bossId+':win',1);if(rw.stone)saveNow();}
+ {const Bz=R.boss;rw.stone=0;const sx=['','E','L'][R.tier||0],sk=sx?':'+sx:'',TT=rdTn(R.tier);if(Bz&&Bz.hp<=Bz.max*0.5)rw.stone+=grantStone('rd:'+R.bossId+':half'+sk,1);if(win)rw.stone+=grantStone('rd:'+R.bossId+':win'+sk,TT.st);if(win){SV.rdt=SV.rdt||{};SV.rdt[R.bossId]=Math.max(SV.rdt[R.bossId]??-1,R.tier||0);rw.unlock=(R.tier||0)<2&&SV.rdt[R.bossId]===(R.tier||0)?RD_TIER[(R.tier||0)+1].nm:'';}if(rw.stone||win)saveNow();}
  try{rankRaid(R,e);}catch(x){}
  R.rw=rw;}
 /* ---------- 전투 화면 ---------- */
@@ -3146,7 +3155,7 @@ function rdAfter_(e){return '';}
 function rdEndBody(){const R=G.rd,e=R.endInfo,rw=R.rw||{};
  return `<div class="feedback ${e.win?'ok':'no'}"><div style="font-weight:900;font-size:22px">${e.win?'🏆 레이드 승리!':'💀 레이드 실패…'}</div>
  <div class="rdstat">${e.stats.map((s,i)=>`<div class="${i===R.me?'me':''}">${i===e.mvp?'🌟 ':''}${esc(s.n)}${s.left?' (퇴장)':''} — ⚔️ ${s.dmg} · 💚 ${s.heal}</div>`).join('')}</div>
- ${rw.stone?`<p class="stonegain">⚒️ 강화석 +${rw.stone}개 획득!</p>`:''}${e.win?(rw.capped?`<p class="hint">오늘 레이드 보상(${RD_DAYMAX}회)을 모두 받았어요. 연습은 계속할 수 있어요!</p>`:`<p>보상: 💎 +${rw.cry} · 💰 +${rw.gold}${e.mvp===R.me?' (MVP 보너스 포함!)':''}${rw.rm?' · 💰 상인 효과 +10%':''}</p>`):'<p class="hint">다음엔 더 잘 막아 봐요. 문장 형식을 정확히 분석하면 회피율이 크게 올라가요!</p>'}</div>
+ ${rw.stone?`<p class="stonegain">⚒️ 강화석 +${rw.stone}개 획득!</p>`:''}${e.win?(rw.capped?`<p class="hint">오늘 레이드 보상(${RD_DAYMAX}회)을 모두 받았어요. 연습은 계속할 수 있어요!</p>`:`<p>보상: 💎 +${rw.cry} · 💰 +${rw.gold}${e.mvp===R.me?' (MVP 보너스 포함!)':''}${rw.rm?' · 💰 상인 효과 +10%':''}${rw.tier?' · '+rdTn(rw.tier).ic+rdTn(rw.tier).nm+' ×'+rdTn(rw.tier).rw:''}</p>${rw.unlock?`<p class="stonegain">🔓 <b>${rw.unlock}</b> 난이도가 열렸어요!</p>`:''}`):'<p class="hint">다음엔 더 잘 막아 봐요. 문장 형식을 정확히 분석하면 회피율이 크게 올라가요!</p>'}</div>
  <button class="next" id="rdlb">🐉 레이드 로비로</button>`;}
 function rdBind(){const R=G.rd,me=R.P[R.me];bubbleSync();
  if(R.phase==='atk'&&me&&me.alive&&R.q&&!G.done&&!R.skp)bindQ(R.q);
@@ -4533,7 +4542,7 @@ function grantStone(key,n,why){if(G.dev)return 0;if(!SV.sgot)stoneInit(SV);if(SV
 function stoneOnClear(d){if(!d||d.daily)return;grantStone('dg:'+d.id,1,esc(d.name)+' 첫 클리어');
  const lv=SV.level;if(LEVELS[lv]&&ENH_MAIN.includes(d.id)){SV.lvc=SV.lvc||{};const a=SV.lvc[lv]=SV.lvc[lv]||[];if(!a.includes(d.id))a.push(d.id);
   if(ENH_MAIN.every(x=>a.includes(x)))grantStone('lv:'+lv,1,LEVELS[lv].ic+' '+LEVELS[lv].n+' 난이도 전부 클리어!');}}
-function stoneHTML(){const m=G.stoneMsg;if(!m||!m.length)return '';return `<div class="stonegain">${m.map(x=>'<div>'+x+'</div>').join('')}<div class="hint">강화석은 ⚒️ 대장간에서 무기 강화에 써요. 구하기 어려우니 아껴 쓰세요!</div></div>`;}
+function stoneHTML(){const m=G.stoneMsg;if(Array.isArray(m)&&!m.length&&G.dg&&!G.dg.daily&&!G.dev)return '<div class="hint" style="margin:8px 0">⚒️ 강화석은 던전을 <b>처음 깼을 때</b> 한 번만 받아요. (이 던전은 이미 받았어요 — 학습·RPG 모드가 같이 쓰는 기록이에요)</div>';if(!m||!m.length)return '';return `<div class="stonegain">${m.map(x=>'<div>'+x+'</div>').join('')}<div class="hint">강화석은 ⚒️ 대장간에서 무기 강화에 써요. 구하기 어려우니 아껴 쓰세요!</div></div>`;}
 function enhHTML(){const k=SV.gear.sword,w=GEAR[k],L=(SV.enh||{})[k]||0,st=SV.stone||0,maxed=L>=ENH_MAX,h=rhero()||'tank';
  const a0=pstatsOf(Object.assign({},SV.gear,{sl:L}),h).atk,a1=pstatsOf(Object.assign({},SV.gear,{sl:Math.min(ENH_MAX,L+1)}),h).atk;
  const ladder=Array.from({length:ENH_MAX},(_,i)=>`<span class="el ${i+1<=L?'on':''} ${i+1===L+1?'nx':''}">+${i+1}<small>${Math.round(enhRate(i+1)*100)}%</small></span>`).join('');
@@ -4637,11 +4646,11 @@ function rankArena(V,wi,quit){if(!rankOn()||V.mode!=='net'||(V.turn||0)<3)return
 function rankRaid(R,e){if(!rankOn()||!e)return;const me=e.stats&&e.stats[R.me];if(!me||me.left)return;const bm=Math.max(1,R.boss.max),team=Math.max(1,R.P.reduce((s,p)=>s+p.max,0));
  const win=!!e.win,rounds=Math.max(1,Math.ceil((R.rnd||1)/2));
  const sc=(win?300:0)+Math.round(400*Math.min(1,me.dmg/(bm*0.5)))+Math.round(200*Math.min(1,me.heal/(team*0.5)))+(me.alive?50:0)+(e.mvp===R.me?100:0)+(win?Math.max(0,150-10*rounds):0);
- rankSubmit('rd',[{k:R.bossId,v:Math.min(1200,sc),ex:{w:win?1:0,d:me.dmg,h:me.heal,r:rounds}}]);
+ rankSubmit('rd',[{k:R.bossId+['','_E','_L'][R.tier||0],v:Math.min(1200,sc),ex:{w:win?1:0,d:me.dmg,h:me.heal,r:rounds}}]);
  if(R.qa)rankSubmit('acc',rkAcc(R.qo||0,R.qa));}
 /* ---------- 화면 ---------- */
 const rkMedal=r=>r===1?'🥇':r===2?'🥈':r===3?'🥉':r+'위';
-function rkKeyName(b,k){if(b==='dg'){const d=DUNGEONS.find(x=>x.id===k.slice(0,-1));return (d?d.name:k)+(k.slice(-1)==='R'?' (RPG)':' (학습)');}if(b==='rd'){const x=RD_BOSS.find(y=>y.id===k);return x?x.mname:k;}return k;}
+function rkKeyName(b,k){if(b==='dg'){const d=DUNGEONS.find(x=>x.id===k.slice(0,-1));return (d?d.name:k)+(k.slice(-1)==='R'?' (RPG)':' (학습)');}if(b==='rd'){const m=/^(.*?)(_E|_L)?$/.exec(k),x=RD_BOSS.find(y=>y.id===m[1]);return x?x.mname+(m[2]==='_E'?' 🟣에픽':m[2]==='_L'?' 🟠레전더리':''):k;}return k;}
 function rkX(b,x){if(!x)return '';if(x.cnt!=null)return x.cnt+'개 종목 기록';if(b==='ar')return `${x.w||0}승 / ${x.m||0}판`;if(b==='acc')return `정답 ${x.ok}개 (난이도 보정)`;if(b==='dg')return x.t!=null?`${sec2(x.t)} · 정확도 ${x.a}%`:'';if(b==='rd')return x.d!=null?`딜 ${x.d} · 치유 ${x.h}${x.w?' · 승리':''}`:'';return '';}
 function rkRows(b,rows,me,unit){if(!rows||!rows.length)return '<p class="hint">아직 기록이 없어요. 첫 번째 주인공이 되어 보세요!</p>';
  return `<div class="rklist">${rows.map(o=>`<div class="rkrow ${me&&o.n===me?'me':''} r${o.r<=3?o.r:''}"><span class="rkr">${rkMedal(o.r)}</span><span class="rkn">${esc(o.n)}</span><span class="rks">${o.s}${unit||'점'}</span>${rkX(b,o.x)?`<span class="rkx">${esc(rkX(b,o.x))}</span>`:''}</div>`).join('')}</div>`;}
@@ -4667,7 +4676,7 @@ async function rankBody(){const K=G.rk,me=CLOUD?CLOUD.n:'',box=$('rkbody');if(!b
  const b=K.tab,key=K.key||'';const d=await rankFetch('w:'+b+':'+key+':'+me,{a:'board',board:b,period:'week',key,n:me});if(K.tok!==tok||!$('rkbody'))return;
  if(!d){$('rkbody').innerHTML='<p class="hint">불러오지 못했어요. 잠시 뒤 다시 열어 주세요.</p>';return;}
  const wkStart=d.week.slice(1);let filt='';
- if(b==='dg'||b==='rd'){const opts=b==='dg'?DUNGEONS.filter(x=>!x.daily).flatMap(x=>[[x.id+'L',x.name+' (학습)'],[x.id+'R',x.name+' (RPG)']]):RD_BOSS.map(x=>[x.id,x.mname]);
+ if(b==='dg'||b==='rd'){const opts=b==='dg'?DUNGEONS.filter(x=>!x.daily).flatMap(x=>[[x.id+'L',x.name+' (학습)'],[x.id+'R',x.name+' (RPG)']]):RD_BOSS.flatMap(x=>[[x.id,x.mname],[x.id+'_E',x.mname+' 🟣에픽'],[x.id+'_L',x.mname+' 🟠레전더리']]);
   filt=`<select id="rkkey" class="input"><option value="">전체 합산</option>${opts.map(([v,t])=>`<option value="${v}" ${key===v?'selected':''}>${esc(t)}</option>`).join('')}</select>`;}
  const unit=b==='acc'?'%':'점';
  let rows=d.rows;if(b==='acc')rows=rows.map(o=>Object.assign({},o,{s:o.s/10}));else if((b==='dg'||b==='rd')&&!key)rows=rows.map(o=>Object.assign({},o,{x:{cnt:o.c||1}}));

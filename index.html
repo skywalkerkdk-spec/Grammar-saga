@@ -4287,7 +4287,8 @@ intro=function(){const s=INTRO[G.intro];
  $('app').innerHTML=hud()+`<div class="card"><div class="gbanner" style="background-image:url(nb_guild.jpg)"></div><div style="display:flex;gap:14px;align-items:center">${por(s.w)}
  <div><div class="speaker">${whoNm(s.w)}</div><div class="story">${SN(s.t)}</div></div></div>
  <button class="next" id="nx">${G.intro<INTRO.length-1?'계속 ▶':'🗺️ 던전 고르기'}</button></div>`;
- $('nx').onclick=()=>{const after=()=>{G.intro++;if(G.intro>=INTRO.length){G.scr='dsel';G.introDone=true;}render();};if(G.intro===2)cutin('tank',after);else after();};};
+ $('nx').onclick=()=>{const after=()=>{G.intro++;if(G.intro>=INTRO.length){G.scr='dsel';G.introDone=true;}render();};const nx=INTRO[G.intro+1],k=(nx&&nx.w!=='sage'&&nx.w!=='tank'&&CUT[nx.w])?nx.w:null;
+  if(G.intro===2)cutin('tank',()=>k?cutin(k,after):after());else if(k)cutin(k,after);else after();};};
 
 const STORY={
  pre:{

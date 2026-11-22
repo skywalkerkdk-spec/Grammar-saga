@@ -5818,7 +5818,7 @@ function detailHTML(e,reveal){try{if(e&&e.type==='gq')return gqDetailHTML(e,reve
  }
  const hint=(e.hint||(typeof HINT!=='undefined'&&HINT[e.type])||'');
  if(hint)h+=`<div class="dt-r"><b>🧠 다음에 헷갈리지 않으려면</b><br>${esc(hint)}</div>`;
- return (top||h)?`<div class="dt-box"><div class="dt-h">📖 풀이 <small>(몰라서 틀렸다면 천천히 읽어 보세요)</small></div>${top}${h?`<details class="dt-more"><summary>🔽 더 자세히 보기</summary>${h}</details>`:''}</div>`:'';}catch(err){return '';}}
+ return (top||h)?`<div class="dt-box"><div class="dt-h">📖 풀이 <small>(몰라서 틀렸다면 천천히 읽어 보세요)</small></div>${top}${h?`<details class="dt-more" ${(G.rvm||G.rvWk)?'open':''}><summary>🔽 더 자세히 보기</summary>${h}</details>`:''}</div>`:'';}catch(err){return '';}}
 
 /* ===== 🔒 표현 감옥: 모르는 표현을 문장에서 눌러 가두고 → 공부해서 풀어주는 단어장 (주간 보상 + 누적 기록) ===== */
 const PR_MAX=500;
@@ -5989,7 +5989,7 @@ function gqDetailHTML(e,reveal){try{if(!e||e.type!=='gq')return '';const pool=gq
   h+=`<div class="dt-r"><b>⚠️ 자주 하는 실수</b><ul>${R.trap.map(s=>`<li>${esc(s)}</li>`).join('')}</ul></div>`;
  }
  if(reveal&&pool){const ex=gqSame(e,pool);if(ex.length)h+=`<div class="dt-r"><b>✍️ 같은 규칙 예문</b><ul>${ex.map(x=>`<li>${esc(x.f)}<br><span class="hint">${esc(x.ko)}</span></li>`).join('')}</ul></div>`;}
- return (top||h)?`<div class="dt-box"><div class="dt-h">📖 풀이 <small>(${reveal?'몰라서 틀렸다면 천천히 읽어 보세요':'정답은 직접 찾아보세요! 규칙을 보고 다시 도전'})</small></div>${top}${h?`<details class="dt-more"><summary>🔽 더 자세히 보기</summary>${h}</details>`:''}</div>`:'';}catch(err){return '';}}
+ return (top||h)?`<div class="dt-box"><div class="dt-h">📖 풀이 <small>(${reveal?'몰라서 틀렸다면 천천히 읽어 보세요':'정답은 직접 찾아보세요! 규칙을 보고 다시 도전'})</small></div>${top}${h?`<details class="dt-more" ${(G.rvm||G.rvWk)?'open':''}><summary>🔽 더 자세히 보기</summary>${h}</details>`:''}</div>`:'';}catch(err){return '';}}
 
 render();tryAuto();setTimeout(tryAuto,300);
 setInterval(()=>{document.body.classList.toggle('muted-wait',!(AU.ctx&&AU.ctx.state==='running')&&G.scr==='splash');},500);

@@ -1137,7 +1137,7 @@ const DUNGEONS=[
   desc:'어둠의 마력에 잠식된 드루이드의 숲. 문장 속 <b>-ing 덩어리</b>가 동명사인지 분사인지, 어느 자리를 맡았는지 보고 알맞은 드루이드를 보내라!',
   formed:'동사원형 + <b>-ing</b>는 두 얼굴을 가졌어요. <b>동명사</b>(~하는 것)는 🐻 곰(주어) · 🐯 호랑이(목적어) · ✨ 버프(보어)! <b>현재분사</b>(~하는, ~하고 있는)는 🐾 소환(명사를 꾸밈)이나 ✨ 버프(목적격보어)! 표시된 -ing 덩어리를 보고 알맞은 드루이드를 보내세요.',sample:'I enjoy <b>dancing</b>. → 목적어 자리 → 🐆 호랑이 드루이드!',
   next:'전직의 신전을 모두 돌파했어요! 다른 난이도로 다시 도전하거나 DK성에 재도전해 보세요.'},
- {id:'d6',size:8,form:'1~5',name:'DK성',mon:'demonking',open:true,full:true,need:['healer','paladin','dealer','shaman','trader','item'],enc:true,
+ {id:'d6',size:8,form:'1~5',name:'DK(다크나이트)성',mon:'demonking',open:true,full:true,need:['healer','paladin','dealer','shaman','trader','item'],enc:true,
   desc:'모든 동료를 이끌고 가는 마지막 결전! 적이 외치는 문장을 보고 <b>필요한 동료만 골라 출전</b>시켜라. 1~5형식이 무작위로 나온다. 마지막은 <b>사천왕</b>과 <b>DK</b>!',
   formed:'DK성에서는 <b>모든 동료</b>가 함께 갑니다. 탱커(주어)와 사제(동사)는 항상 출전! 나머지 동료는 적이 외치는 문장에 필요한 성분만 골라 출전시키세요.<br>· 주격보어 → 성기사 · 목적어 → 딜러 · 목적격보어 → 주술사 · 간접목적어 → 트레이더 · 직접목적어 → 아이템 · 수식어 → 펫 (인원 외)<br>필요 없는 동료를 내보내도, 필요한 동료를 빠뜨려도 공격 실패! 수식어가 있는 문장이면 펫도 함께 내보내세요.',
   sample:'The news made <b>me</b> <b>happy</b>. → 딜러 + 주술사 출전!',
@@ -1231,7 +1231,7 @@ const SCW=[
   talk:['셋을 쓰러뜨리다니… 하지만 놀라지 마라. 사천왕은 사실 다섯 명이다!','…농담이다. 대지의 문장을 받아라!'],
   kill:'훌륭하다… 이제 DK님을 막을 자는… 없다…'}];
 const MINION_TALK=['DK님께 가려면 나를 넘어야 한다!','여기서부터는 못 지나간다!','크크… 이 문장을 막을 수 있을까?','DK님의 성에 침입자다!'];
-const KING={mon:'demonking',mname:'👿 다크나이트 DK',talk:[['사천왕을 모두 쓰러뜨리다니… 좋다. 모든 문장 형식을 다루는 자만이 나를 쓰러뜨릴 수 있다!','DK가 승부를 걸어왔다! 이번엔 도망칠 수 없다!','너흰 아직 준비가 되지 않았다!'],['아직이다! 이번 문장은 어떠냐!','Power overwhelming! DK의 진짜 힘을 보여 주마!'],['이럴 수가… 마지막 문장이다!','호옹이?! 용사가… DK에게 말대꾸?!','YOU DIED를 보게 해 주마!','내가 지금까지 무릎을 꿇었던 것은… 추진력을 얻기 위함이었다!']],kill:['크아아… 문장의 힘이… 이토록 강하다니…!','크윽… 대마왕님… 이제 누군가 왕위를 계승하겠군요…','크윽… 미안하다, 용사들… 진짜 보스는 다른 성에 있다…']};
+const KING={mon:'demonking',mname:'👿 다크나이트(DK)',talk:[['사천왕을 모두 쓰러뜨리다니… 좋다. 모든 문장 형식을 다루는 자만이 나를 쓰러뜨릴 수 있다!','DK가 승부를 걸어왔다! 이번엔 도망칠 수 없다!','너흰 아직 준비가 되지 않았다!'],['아직이다! 이번 문장은 어떠냐!','Power overwhelming! DK의 진짜 힘을 보여 주마!'],['이럴 수가… 마지막 문장이다!','호옹이?! 용사가… DK에게 말대꾸?!','YOU DIED를 보게 해 주마!','내가 지금까지 무릎을 꿇었던 것은… 추진력을 얻기 위함이었다!']],kill:['크아아… 문장의 힘이… 이토록 강하다니…!','크윽… 대마왕님… 이제 누군가 왕위를 계승하겠군요…','크윽… 미안하다, 용사들… 진짜 보스는 다른 성에 있다…']};
 /* 1~5형식 랜덤 던전용 문장 풀: d1~d5의 모든 문제 문장(약 1,000개/난이도)을 형식별로 모음 */
 const MIXP={};
 function mixPool(L){if(MIXP[L])return MIXP[L];const by={1:[],2:[],3:[],4:[],5:[]},seen=new Set();
@@ -2712,7 +2712,7 @@ const DTHEME=[
  {bg:'d15',nm:'해적 항구 타임스',mons:['goblin','orc','ewater','kobold'],boss:{mon:'ogre',mname:'해적 타임스 발행인',filter:'hue-rotate(190deg) saturate(1.2)',big:true}},
  {bg:'d16',nm:'도서관 학술 저널',mons:['homunculus','flask','gargoyle','banshee'],boss:{mon:'alchemist',mname:'학술 저널 편집위원장',filter:'hue-rotate(200deg) saturate(1.3)',big:true}},
  {bg:'d7',nm:'타락한 신전 회보',mons:['trainee','dummy','elight','lich'],boss:{mon:'paladin',src:'SPR',mname:'신전 회보 기록관',filter:'hue-rotate(230deg) saturate(1.6) brightness(.7) contrast(1.2)',big:true}},
- {bg:'d6',nm:'DK성 지하 방송',mons:['imp','succubus','skeleton','hellhound'],boss:{mon:'demonking',mname:'DK 방송국 사장',filter:''}},
+ {bg:'d6',nm:'DK성 지하 방송',mons:['imp','succubus','skeleton','hellhound'],boss:{mon:'demonking',mname:'다크나이트(DK) 방송국 사장',filter:''}},
  {bg:'d18',nm:'시간의 탑 연대기',mons:['elight','eearth','cyclops','vampire'],boss:{mon:'demonking',mname:'시간 연대기 편찬자',filter:'hue-rotate(160deg) saturate(1.4) brightness(1.1)'}}
 ];
 const NEWSCAT={space:'🚀 우주',climate:'🌏 기후',school:'🏫 학교',tech:'💻 기술',sports:'🏅 스포츠',culture:'🎵 문화',health:'💚 건강',science:'🔬 과학',history:'📜 역사',life:'🏠 생활',nature:'🌿 자연',people:'👤 인물'};
@@ -3059,7 +3059,7 @@ function rdWkLeft(){return Math.max(0,RD_WKMAX-rdWkN());}
 function rdWkUse(){SV.raidWk={k:weekKey(),n:rdWkN()+1};saveNow();}
 const RD_MAX=6,RD_DAYMAX=3,RD_TATK=45,RD_TDEF=20,RD_PFX='syntaxsaga-raid-';
 const RD_BOSS=[
- {id:'demon',mon:'demonking',mname:'DK',ic:'👿',desc:'침묵·혼란·약화로 괴롭히는 어둠의 군주',
+ {id:'demon',mon:'demonking',mname:'DK(다크나이트)',ic:'👿',desc:'침묵·혼란·약화로 괴롭히는 어둠의 군주',
   atk:['암흑 참격','저주의 손길','지옥불 파도','종말의 심판'],
   talk:['크하하! 너희 따위가 나를 쓰러뜨릴 수 있을 것 같으냐!','제법이구나… 하지만 이제부터가 진짜다!','내 힘을 보여 주마! 모두 무릎 꿇어라!','이럴 수가… 내가 밀리다니!'],
   say:['으하하! 문장을 모두 막아 보아라!','이 정도로 DK가 쓰러질까!','어둠이여, 모두 삼켜라!']},
@@ -4206,7 +4206,7 @@ motionFx=function(ar,c,k,tp,hits,crit,delay){
 
 /* ================= 📖 스토리 모드: 문장 왕국과 깨진 피리어드 수정 ================= */
 const CAST={
- sage:{nm:'그래머(Grammar) 할아버지',em:'📖'},
+ sage:{nm:'그래머(Grammar) 할아버지',em:'📖',img:'face_sage.jpg'},
  tank:{nm:'',k:'tank'},
  healer:{nm:'버벨라(Verb)',k:'healer',ttl:'사제'},
  paladin:{nm:'컴플리(Complement)',k:'paladin',ttl:'성기사'},
@@ -4214,14 +4214,14 @@ const CAST={
  shaman:{nm:'옥시(Object Complement)',k:'shaman',ttl:'주술사'},
  trader:{nm:'인디(Indirect Object)',k:'trader',ttl:'상인'},
  item:{nm:'디렉(Direct Object)',k:'item',ttl:'보물상자'},
- pet:{nm:'모디(Modifier)',em:'🐱',ttl:'고양이'},
+ pet:{nm:'모디(Modifier)',em:'🐱',ttl:'고양이',img:'face_modi.jpg'},
  king:{nm:'다크나이트(DK) 프래그먼트(Fragment)',em:'👿'}
 };
 const L=(w,t)=>({w,t});
 INTRO.length=0;
 INTRO.push(
  L('sage','…드디어 왔구나, {N}. 이 신택스 왕국은 <b>문장(Sentence)</b>으로 이루어져 있다네. 그 문장을 끝맺어 주는 보물이 바로 <b>피리어드(Period, 마침표) 수정</b>이었지.'),
- L('sage','그런데 DK <b>프래그먼트(Fragment, 문장 파편)</b>가 피리어드 수정을 산산조각 내 버렸네. 끝을 잃은 문장들은 던전의 몬스터로 변해 버렸어.'),
+ L('sage','그런데 DK(다크나이트) <b>프래그먼트(Fragment, 문장 파편)</b>가 피리어드 수정을 산산조각 내 버렸네. 끝을 잃은 문장들은 던전의 몬스터로 변해 버렸어.'),
  L('sage','자네는 문장의 맨 앞에 서는 자, <b>주어(Subject)</b>의 계승자일세. 하지만 주어 혼자서는 문장이 완성되지 않지. 길드에 모인 동료들을 소개하겠네.'),
  L('healer','처음 뵙겠어요, {N}! 저는 사제 <b>버벨라</b>, 문장을 움직이는 <b>동사(Verb)</b>예요. 제가 없으면 문장 속에서는 아무 일도 일어나지 않아요!'),
  L('paladin','<b>컴플리</b>다. 성기사이자 <b>보어(Complement)</b>지. 주어가 누구인지, 어떤 상태인지 보충해 주는 게 내 일이다. 든든하게 받쳐 주마.'),
@@ -4231,11 +4231,12 @@ INTRO.push(
  L('item','(상자가 덜컥덜컥 흔들린다) …저는 <b>디렉</b>이에요. <b>직접목적어(Direct Object)</b>, 건네지는 물건 그 자체죠. 열어 보시면 놀라실걸요?'),
  L('pet','냐앙~ (고양이 <b>모디</b>가 발치에서 꼬리를 흔든다. <b>수식어(Modifier)</b>라서 없어도 문장은 되지만, 있으면 훨씬 귀엽다.)'),
  L('sage','던전마다 문장의 형식이 다르고, 필요한 동료도 다르다네. 문 앞의 문장을 읽고 <b>알맞은 동료만 골라</b> 파티를 꾸리게. 몬스터를 첫 시도에 잡으면 <b>💎 수정</b>을 얻고, <b>길드 상점</b>에서 펫·꾸미기·스킨을 살 수 있지.'),
- L('sage','던전을 정복할 때마다 <b>피리어드 수정 조각</b>을 되찾을 걸세. 다섯 조각이 모이면 DK성으로 가는 길이 밝혀질 걸세. 부탁하네, {N}!')
+ L('sage','던전을 정복할 때마다 <b>피리어드 수정 조각</b>을 되찾을 걸세. 다섯 조각이 모이면 DK(다크나이트)성으로 가는 길이 밝혀질 걸세. 부탁하네, {N}!')
 );
 const SN=t=>t.replace(/\{N\}/g,esc(G.name||'모험가'));
 function por(w){const c=CAST[w]||CAST.sage;
  if(c.k)return sp(c.k).replace('class="px ','style="width:104px;height:104px;flex:none" class="px ');
+ if(c.img)return `<img src="${c.img}" alt="${c.nm}" style="width:104px;height:104px;flex:none;object-fit:cover;border-radius:16px;border:2px solid #ffd866;box-shadow:0 2px 8px #0006" onerror="this.outerHTML='<div style=&quot;font-size:64px;flex:none;width:104px;text-align:center&quot;>${c.em}</div>'">`;
  return `<div style="font-size:64px;flex:none;width:104px;text-align:center">${c.em}</div>`;}
 function whoNm(w){return w==='tank'?esc(G.name||'모험가'):CAST[w].nm+(CAST[w].ttl?` <small class="hint">· ${CAST[w].ttl}</small>`:'');}
 function storyScene(lines,btn,done,bg){let i=0;
@@ -4948,7 +4949,7 @@ const WM=[ // [id, 번호, 한글, 영어, x, y, 붉은글씨]
 ['pv',0,'프로버브 섬','Isle of Proverbs',290,302],['id',0,'이디엄 섬','Isle of Idioms',1425,925],
 ['d9',0,'클로즈 늪지','Clause Swamp',160,590],['d10',0,'프레이즈 동굴','Phrase Cave',255,590],['d11',0,'프레디킷 협곡','Predicate Canyon',210,500],['d12',0,'센텐스 저택','Sentence Manor',320,562],
 ['d1',0,'고요한 숲','The Quiet Wood',135,790],['d2',0,'슬라임 동굴','Slime Cave',395,860],['d3',0,'골렘 협곡','Golem Canyon',250,770],['d4',0,'상점가',"Merchants' Row",352,790],['d5',0,'공방',"Alchemist's Workshop",330,742],
-['d6',0,'DK성',"Dark Knight's Castle",458,700,1],['d7',0,'타락한 신전','Corrupted Infinitive Temple',410,905,1],['d8',0,'타락한 제룬드 숲','Corrupted Gerund Wood',245,905,1]];
+['d6',0,'DK(다크나이트)성',"Dark Knight's Castle",458,700,1],['d7',0,'타락한 신전','Corrupted Infinitive Temple',410,905,1],['d8',0,'타락한 제룬드 숲','Corrupted Gerund Wood',245,905,1]];
 function wmDg(id){return DUNGEONS.find(d=>d.id===id);}
 function wmUnlocked(id){if(id==='TEMPLE'||id==='d7'||id==='d8')return templeUnlocked();const d=wmDg(id);if(!d)return false;
  if(['d1','d2','d3','d4','d5','d6'].includes(id))return dOpen(d);return d.open!==false&&(d.exp?expOpen(d):true);}

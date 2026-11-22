@@ -1425,14 +1425,14 @@ function tickBattle(B){const c=AU.ctx,ST=60/B.bpm/4,G_=AU.bgmG;
   AU.step++;AU.next+=ST;}}
 function bgmTick(){if(!AU.ctx||!AU.track)return;const t=AU.track==='menu'?((AU.cur&&AU.cur.name)||'intro'):AU.track;if(t==='intro'||!BT[t])tickIntro();else tickBattle(BT[t]);}
 /* 배경음악: 실제 악기 샘플로 녹음한 오케스트라 음원(bgm_*.mp3)을 반복 재생. 불러오지 못하면 기존 합성음으로 대체 */
-AU.buf={};AU.lru=[];AU.cur=null;AU.STREAM=['main','battle','boss'];
+AU.buf={};AU.lru=[];AU.cur=null;AU.STREAM=['main','battle','battle1','battle2','village','boss'];
 function bgmLoad(n){if(AU.buf[n]){AU.lru=AU.lru.filter(x=>x!==n);AU.lru.push(n);return AU.buf[n];}
- const p=fetch('bgm_'+n+'.mp3?v=14').then(r=>{if(!r.ok)throw new Error('http');return r.arrayBuffer();}).then(b=>new Promise((res,rej)=>AU.ctx.decodeAudioData(b,res,rej)));
+ const p=fetch('bgm_'+n+'.mp3?v=15').then(r=>{if(!r.ok)throw new Error('http');return r.arrayBuffer();}).then(b=>new Promise((res,rej)=>AU.ctx.decodeAudioData(b,res,rej)));
  AU.buf[n]=p;AU.lru.push(n);p.catch(()=>{delete AU.buf[n];});
  while(AU.lru.length>4){const old=AU.lru.shift();if(!AU.cur||AU.cur.name!==old)delete AU.buf[old];}
  return p;}
 function synthBgm(name,me){if(AU.cur!==me)return;me.synth=true;AU.bgmG.gain.setValueAtTime(0.32,AU.ctx.currentTime);me.g.gain.setValueAtTime(1,AU.ctx.currentTime);AU.step=0;AU.next=AU.ctx.currentTime+0.1;AU.timer=setInterval(bgmTick,25);}
-const MENU_POOL=['main','open','setup'];AU.menuLast=null;
+const MENU_POOL=['main','open','setup','village'];AU.menuLast=null;
 function menuPick(){if(!AU.menuLast){AU.menuLast='main';return 'main';}const L=MENU_POOL.filter(x=>x!==AU.menuLast);AU.menuLast=L[Math.floor(Math.random()*L.length)];return AU.menuLast;}
 function bgm(name){
  if(!AU.ctx)return;if(name===AU.track)return;if(name==='menu'&&AU.cur&&AU.cur.name==='main'){AU.track='menu';AU.menuLast='main';return;}AU.track=name;const menu=name==='menu';if(menu)name=menuPick();
@@ -1445,7 +1445,7 @@ function bgm(name){
  /* 스트리밍 재생이 안 되는 기기(일부 iOS 등)를 위해: 3초 안에 진행이 없으면 통째로 불러와 재생 → 그래도 안 되면 합성음 */
  const viaBuf=()=>{if(AU.cur!==me)return;if(me.el){try{me.el.pause();}catch(e){}}bgmLoad(name).then(playBuf).catch(()=>{if(AU.cur===me)synthBgm(name,me);});};
  const viaEl=()=>{
-   try{const el=new Audio('bgm_'+name+'.mp3?v=14');el.loop=!menu;if(menu)el.onended=()=>{if(AU.cur===me&&AU.track==='menu'){AU.track=null;bgm('menu');}};el.crossOrigin='anonymous';const ms=c.createMediaElementSource(el);ms.connect(g);me.el=el;
+   try{const el=new Audio('bgm_'+name+'.mp3?v=15');el.loop=!menu;if(menu)el.onended=()=>{if(AU.cur===me&&AU.track==='menu'){AU.track=null;bgm('menu');}};el.crossOrigin='anonymous';const ms=c.createMediaElementSource(el);ms.connect(g);me.el=el;
     el.play().then(()=>{if(AU.cur===me)g.gain.setTargetAtTime(1,c.currentTime+0.4,0.3);else el.pause();}).catch(()=>{el.pause();viaBuf();});
     el.onerror=()=>{el.pause();viaBuf();};
     setTimeout(()=>{if(AU.cur===me&&me.el===el&&!me.src&&!me.synth&&el.currentTime<0.3&&AU.ctx.state==='running')viaBuf();},3500);}
@@ -1456,10 +1456,13 @@ function bgm(name){
 const BGM_SCR=['level','intro','dsel','party','formed','shop','forge','rresult'];
 const BTRK={d1:'forest',d2:'cave',d9:'cave',d3:'golem',d4:'market',d5:'market',d16:'market',d7:'temple',d8:'temple',d12:'temple',d10:'ice',d14:'ice',d11:'fire',d17:'fire',d13:'desert',d15:'pirate',d6:'castle',d18:'castle'};
 const BTRK_ALL=['forest','cave','golem','market','temple','ice','fire','desert','pirate','castle'];
-function dgTrack(){return 'battle';const id=G.dg&&G.dg.id;if(BTRK[id])return BTRK[id];if(id==='d19'){const d=new Date();return BTRK_ALL[(d.getFullYear()*372+d.getMonth()*31+d.getDate())%BTRK_ALL.length];}return BTRK_ALL[(G.ei||0)%BTRK_ALL.length];}
+const BATTLE_POOL=['battle','battle1','battle2'];let _btLast=null;
+function dgTrack(){const k=G.scr==='rbattle'?G.rp:G.run;if(k&&G._bt&&G._bt.k===k)return G._bt.t;const L=BATTLE_POOL.filter(x=>x!==_btLast),t=L[Math.floor(Math.random()*L.length)];_btLast=t;G._bt={k,t};return t;}
+function dgTrackOld(){return 'battle';const id=G.dg&&G.dg.id;if(BTRK[id])return BTRK[id];if(id==='d19'){const d=new Date();return BTRK_ALL[(d.getFullYear()*372+d.getMonth()*31+d.getDate())%BTRK_ALL.length];}return BTRK_ALL[(G.ei||0)%BTRK_ALL.length];}
 function syncBgm(){
  let n=null;
  if(G.scr==='splash'||G.scr==='title')n='main';
+ else if(G.scr==='shop'||G.scr==='forge')n='village';
  else if(BGM_SCR.includes(G.scr))n='menu';
  else if(G.scr==='ending')n=G.endPhase==='roll'?'ending':G.endPhase==='dark'?'dark':'ending';
  else if(G.scr==='pvbattle'||G.scr==='rdbattle')n='boss';

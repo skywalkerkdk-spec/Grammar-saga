@@ -946,6 +946,18 @@ canvas.px[data-src="SPR"][data-k="shaman"],canvas.px[data-src="SPR"][data-k^="cs
  .endstage .end-talk{bottom:8%}
 }
 
+/* 꿀팁 복습 팝업 */
+.bpop{position:fixed;inset:0;z-index:9000;background:rgba(10,6,24,.72);display:flex;align-items:center;justify-content:center;padding:14px}
+.bpbox{width:min(440px,100%);max-height:92vh;overflow:auto;background:linear-gradient(#2a2058,#1b1440);border:3px solid #ffd35a;border-radius:16px;padding:16px 16px 14px;color:#fff;box-shadow:0 8px 40px #000a;text-align:center}
+.bpbox h3{margin:0 0 8px;font-size:21px;color:#ffe27a}.bpbox p{margin:6px 0;line-height:1.5}
+.bpr{display:flex;gap:8px;margin:10px 0}.bpr span{flex:1;border-radius:10px;padding:8px 6px;font-size:14px;line-height:1.4}.bpok{background:#1d5a38}.bpno{background:#5a2433}
+.bpbtn{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:10px}
+.bpq{font-size:18px;font-weight:800;line-height:1.5;margin:8px 0 12px;background:#0003;border-radius:10px;padding:10px}
+.bpch{display:grid;gap:8px}.bpch .choice{text-align:left}
+.bpsub{display:flex;gap:8px}.bpsub input{flex:1;min-width:0;font-size:18px;padding:10px;border-radius:10px;border:2px solid #8a7bd8;background:#fff;color:#222}
+.bpa{border-radius:10px;padding:10px;margin:8px 0;font-size:17px}.bpa.ok{background:#1d5a38}.bpa.no{background:#5a2433}
+.bpt{background:#0003;border-radius:10px;padding:10px;font-size:14px;line-height:1.5;text-align:left}.bpd{font-size:18px;font-weight:900;color:#ffe27a}
+
 </style>
 </head>
 <body>
@@ -1765,7 +1777,7 @@ function pvOn(){return !!(G.pv&&G.scr==='pvbattle');}
 function bubbleSync(){const qc=$('qc'),ar=$('arena');if(!qc||!ar)return;const ts=[...qc.querySelectorAll('.talk')],t=ts[ts.length-1];ts.slice(0,-1).forEach(x=>x.remove());
  let b=$('bubble');if(!b){b=document.createElement('div');b.id='bubble';b.className='bubble';ar.appendChild(b);}
  if(!t)return;
- const h=t.innerHTML.replace(/^💬\s*<b>[\s\S]*?<\/b>:\s*/,'').replace(/^"|"$/g,'');t.remove();
+ const h=t.innerHTML.replace(/^💬\s*<b>[\s\S]*?<\/b>:\s*/,'').replace(/^"|"$/g,'');t.remove();bqSeen(h);
  if(!h.trim()||h==='""'){b.classList.remove('on');return;}
  b.innerHTML=h;b.classList.remove('on');void b.offsetWidth;b.classList.add('on');}
 function bindQ(e){flav();bubbleSync();
@@ -1864,7 +1876,8 @@ function clear(){
  <div class="feedback ok"><b>다음 모험 예고</b><br>${d.next}</div>
  <p class="hint">📋 <b>오답 노트 복사</b>를 누른 뒤 선생님이 알려 준 패들릿에 붙여 넣어 제출하세요.</p>
  ${d.full&&!d.mix?'<button class="next" id="replayEnd">🎬 엔딩 다시 보기</button>':''}<button class="next" id="shopb">🐾 펫 가게 가기</button><button class="ghost" id="dsel">🗺️ 던전 목록</button><button class="ghost" id="again">🔁 처음 화면</button></div>`;
- sfx('fanfare');
+ if(!(G.run&&G.run.bq&&G.run.bq.quiet))sfx('fanfare');
+ setTimeout(()=>{if(G.scr==='clear')bqShow('learn');},700);
  $('copyn').onclick=()=>{const txt=noteText(d,rate);const done=()=>{$('copymsg').textContent='✅ 복사했어요! 패들릿에 붙여 넣으세요.';sfx('select');};
   const fb=()=>{const ta=$('notetxt');ta.value=txt;ta.classList.remove('hide');ta.focus();ta.select();try{document.execCommand('copy');done();}catch(e){$('copymsg').textContent='아래 글을 전체 선택(Ctrl+A)해서 복사하세요.';}};
   try{navigator.clipboard.writeText(txt).then(done,fb);}catch(e){fb();}};
@@ -2180,8 +2193,15 @@ const RT={d1:0,d2:1,d3:2,d4:3,d5:4,d6:5,d7:6,d8:7};
 const RREC=['s0','s2','s3','s5','s6','s7','s8','s9'];
 function rpgDungeons(){return DUNGEONS.filter(d=>d.open&&RT[d.id]!=null&&(!d.verbal||templeUnlocked()||G.dev)).sort((a,b)=>RT[a.id]-RT[b.id]);}
 function rpgUnlocked(d){if(G.dev)return true;const L=rpgDungeons(),i=L.indexOf(d);return i<=0||SV.rcleared.includes(L[i-1].id);}
-/* 적 공격력 보정: RPG 레벨 2부터 방어력이 부족하면 쉽게 쓰러지도록 상향 (Lv2 ×1.4 → Lv10 ×1.15, 높은 단계는 이미 강해서 완만하게) */
-function eatkMul(i){return i<1.5?1:Math.max(1.15,Math.min(1.4,1.4-0.0556*(i-2.5)));}
+/* 방어력은 받는 피해를 비율로 줄여 준다: 피해 = 적 공격력 × 36 ÷ (36 + 방어력)  (방어력 38 → −51%) */
+const DEF_C=36;function defMul(d){return DEF_C/(DEF_C+Math.max(0,d||0));}
+function defCut(d){return Math.round((1-defMul(d))*100);}
+/* 적 공격력 보정(RPG 레벨별): 권장 방어구에서 맞는 횟수는 이전과 비슷하게 맞추고, 방어구가 부족하면 훨씬 아프게 */
+const EATK_MUL={0:1,1:1,2:1,3:1,4:1};
+function eatkMul(i){if(i<1.5)return 1;const base=Math.pow(1.42,i)*10;const tgt=[[2.5,32],[3.5,44],[4.5,66],[5.2,88],[5.8,115],[6.2,138],[6.6,163],[6.8,176],[7.0,197]];
+ let a=tgt[0],b=tgt[tgt.length-1];if(i<=a[0])return a[1]/(Math.pow(1.42,a[0])*10);if(i>=b[0])return b[1]/(Math.pow(1.42,b[0])*10)*Math.pow(1.42,i-b[0]);
+ for(let k=0;k<tgt.length-1;k++)if(i>=tgt[k][0]&&i<=tgt[k+1][0]){a=tgt[k];b=tgt[k+1];break;}
+ const t=(i-a[0])/(b[0]-a[0]),va=a[1],vb=b[1];return (va+(vb-va)*t)/base;}
 function estats(i,boss){const hp=Math.round(24*Math.pow(1.45,i)),atk=Math.round(10*Math.pow(1.42,i)*eatkMul(i));return boss?{hp:Math.round(hp*2.6),atk:Math.round(atk*1.3)}:{hp,atk};}
 const rgoldOf=(i,boss)=>Math.max(1,Math.round(3*Math.pow(1.5,i)))*(boss?4:1);
 
@@ -2193,7 +2213,7 @@ function bindModeTabs(){document.querySelectorAll('[data-mode]').forEach(b=>b.on
 
 function statPanel(){const s=pstats();
  return `<div class="rstat"><div class="rgear">${['sword','armor','shield'].map(t=>`<div class="rgi">${gearc(SV.gear[t])}<small>${GEAR[SV.gear[t]].nm}${t==='sword'&&swL(SV.gear)?' +'+swL(SV.gear):''}</small></div>`).join('')}</div>
- <div class="rnums"><span>⚔️ 공격력 <b>${s.atk}</b></span><span>🛡️ 방어력 <b>${s.def}</b></span><span>❤️ HP <b>${s.hp}</b></span><span>💨 회피율 <b>${s.eva}%</b></span><span>🦸 스킨 효과 <b>${fxText(eqSkin(rhero()))}</b></span></div></div>`;}
+ <div class="rnums"><span>⚔️ 공격력 <b>${s.atk}</b></span><span>🛡️ 방어력 <b>${s.def}</b> <small>(피해 −${defCut(s.def)}%)</small></span><span>❤️ HP <b>${s.hp}</b></span><span>💨 회피율 <b>${s.eva}%</b></span><span>🦸 스킨 효과 <b>${fxText(eqSkin(rhero()))}</b></span></div></div>`;}
 function heroBar(){const h=rhero();return `<div class="herobar">${sp(heroSpr(h,eqSkin(h)),'hbig')}<div><b>🦸 내 주인공: ${HWORD[h]}</b> <span class="hint">(${skName(h,eqSkin(h))})</span><br><span class="hperk">직업 특성: ${HPERK[h].d}</span></div><button class="btn-s" id="tohsel">🔄 주인공 바꾸기</button></div>`;}
 function heroSel(){const h=rhero(),first=!SV.rhero;
  $('app').innerHTML=hud()+`<div class="card"><div class="speaker">🦸 주인공 선택</div><div class="story">${first?'RPG 모드에서 키울 <b>나만의 주인공</b>을 골라 주세요! ':''}직업마다 <b>특성</b>이 달라요. 장비(무기·갑옷·방패)는 그대로 이어지고, 주인공은 언제든 다시 바꿀 수 있어요. 스킨은 🐾 길드 상점에서 직업별로 꾸밀 수 있어요.</div>
@@ -2479,7 +2499,7 @@ function rpgDefBind(){const R=G.rp;bubbleSync();
  const n=$('rdn');if(n)n.onclick=()=>{if(R.php<=0){rpgLose(false);return;}const pm=tickDeb(R);R.phase='atk';rpgNextQ();render();if(pm)setTimeout(()=>{const a=$('arena');if(a){const d=document.createElement('div');d.className='rtoast';d.innerHTML=pm;a.appendChild(d);}},50);};}
 function rpgDodge(i){const R=G.rp,q=R.dq,en=R.en[R.ei],st=pstats(),D=R.deb||{};q.pick=i;q.ok=i===q.ans;rpgCnt(q.ok);const fast=q.ok&&!D.slow&&Date.now()-R.t0<6000;
  const ch=Math.min(90,(D.slow?st.eva/2:st.eva)+(q.ok?(D.slow?25:45):0)+(fast?10:0)+((R.buf&&R.buf.eva)?20:0));if(D.armorbreak)st.def=0;const roll=Math.random()*100;
- let dmg=Math.max(1,Math.round(en.atk*(0.9+Math.random()*0.2))-st.def);if(R.buf&&R.buf.def)dmg=Math.max(1,Math.round(dmg*.65));if(R.edb&&R.edb.weak)dmg=Math.max(1,Math.round(dmg*.65));let msg;const pty=$('pty'),mon=$('mon');let gnote='';
+ let dmg=Math.max(1,Math.round(en.atk*(0.9+Math.random()*0.2)*defMul(st.def)));if(R.buf&&R.buf.def)dmg=Math.max(1,Math.round(dmg*.65));if(R.edb&&R.edb.weak)dmg=Math.max(1,Math.round(dmg*.65));let msg;const pty=$('pty'),mon=$('mon');let gnote='';
  mon.classList.add('matk');
  if(roll<ch){dmg=0;msg=q.ok?(fast?'⚡ 번개 같은 회피! 공격을 완벽히 피했다!':'💨 회피 성공! 공격을 피했다!'):'🍀 운 좋게 피했다!';sfx('retreat');}
  else if(q.ok){const d0=dmg;dmg=Math.max(1,Math.round(dmg/2));msg=`😖 회피에 실패했다.<br>🔰 방어에 성공해서 피해 <b>${d0}</b>${njosa(d0,'을')} <b>${dmg}</b>${njosa(dmg,'로')} 줄였다.`;sfx('hit');pty.classList.add('shake');}
@@ -2501,7 +2521,8 @@ function rresult(){const R=G.rp,d=G.dg;rpgClearRun();
  <p class="story">이번 탐험: 💰 <b>${R.gold-(R.lost||0)}</b> · 💎 <b>${R.cry}</b><br>보유: 💰 <b>${SV.rg}</b> · 💎 <b>${SV.cry}</b></p>
  <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap"><button class="next" id="again">🔁 다시 도전</button><button class="next" id="forge2">⚒️ 대장간</button><button class="next" id="out">🗺️ 던전 목록</button></div></div>`;
  $('again').onclick=()=>rpgStart(d);$('forge2').onclick=()=>{G.rpg=false;G.scr='forge';render();};$('out').onclick=()=>{G.rpg=false;G.scr='dsel';render();};
- sfx(R.win?'fanfare':'wipe');}
+ if(!(R.bq&&R.bq.quiet))sfx(R.win?'fanfare':'wipe');
+ if(R.win)setTimeout(()=>{if(G.scr==='rresult')bqShow('rpg');},700);}
 
 /* ===== RPG 수정 획득량을 학습 모드와 같은 기준으로 맞춤 (던전 총량 동일, 재클리어는 절반) ===== */
 const _rcT={};
@@ -5187,14 +5208,14 @@ function rankBtnLabel(){return '🏆 랭킹'+(G.rkClaim?' 🎁':'');}
 (function(){const _r=render;render=function(){const x=_r.apply(this,arguments);try{if(G.scr==='dsel'&&CLOUD)rankCheck();}catch(e){}return x;};})();
 
 /* ===== 💡 몬스터 대사 확장 2: 유사어·접사·자주 틀리는 표현·혼동어·숙어·속담 ===== */
-const GT_SYN=[],GT_AFX=[],GT_ERR=[],GT_CNF=[],GT_IDM=[],GT_PRV=[];
+const GT_REC=[],GT_SYN=[],GT_AFX=[],GT_ERR=[],GT_CNF=[],GT_IDM=[],GT_PRV=[];
 (function(){
-const S=(a,k,b)=>GT_SYN.push('📖 유사어 한마디! '+a+'('+k+') ≈ '+b+'. 비슷하지만 느낌이 다르니 문맥으로 골라라!');
-const A=(a,m,e)=>GT_AFX.push('🧩 접사 한마디! '+a+' = '+m+'. 예) '+e);
-const E=(t)=>GT_ERR.push('⚠️ 자주 틀리는 표현! '+t);
-const C=(t)=>GT_CNF.push('🔀 헷갈리는 단어! '+t);
-const I=(a,k,e)=>GT_IDM.push('💬 숙어 한마디! '+a+' = '+k+'. 예) '+e);
-const P=(a,k)=>GT_PRV.push('📜 속담 한마디! "'+a+'" → '+k);
+const S=(a,k,b)=>{const t='📖 유사어 한마디! '+a+'('+k+') ≈ '+b+'. 비슷하지만 느낌이 다르니 문맥으로 골라라!';GT_SYN.push(t);GT_REC.push({t,kind:'syn',a,k,b:b.split(', ')});};
+const A=(a,m,e)=>{const t='🧩 접사 한마디! '+a+' = '+m+'. 예) '+e;GT_AFX.push(t);GT_REC.push({t,kind:'afx',a,m,e});};
+const E=(x)=>{const t='⚠️ 자주 틀리는 표현! '+x;GT_ERR.push(t);GT_REC.push({t,kind:'err',x});};
+const C=(x)=>{const t='🔀 헷갈리는 단어! '+x;GT_CNF.push(t);GT_REC.push({t,kind:'cnf',x});};
+const I=(a,k,e)=>{const t='💬 숙어 한마디! '+a+' = '+k+'. 예) '+e;GT_IDM.push(t);GT_REC.push({t,kind:'idm',a,k,e});};
+const P=(a,k)=>{const t='📜 속담 한마디! "'+a+'" → '+k;GT_PRV.push(t);GT_REC.push({t,kind:'prv',a,k});};
 /* 유사어 */
 S('big','큰','large, huge, enormous');S('small','작은','little, tiny, minor');S('begin','시작하다','start, commence');
 S('end','끝내다','finish, complete, conclude');S('help','돕다','assist, aid, support');S('buy','사다','purchase, acquire');
@@ -5493,6 +5514,142 @@ function tauntNext(en){if(!en)return '받아라!';let base=[];try{if(en.boss&&G.
  let c=pool.filter(s=>!en._tl.includes(s));if(!c.length){en._tl=[];c=pool.slice();}
  const s=en._tl.length===0&&en.taunt?en.taunt:c[Math.floor(Math.random()*c.length)];
  en._tl.push(s);if(en._tl.length>Math.min(8,pool.length-1))en._tl.shift();return s;}
+
+/* ===== 🎓 꿀팁 복습 퀴즈: 몬스터가 알려 준 영어 꿀팁(밈·장난 대사 제외)으로 객관식/주관식 문제를 만든다 ===== */
+const TIPQ={};   /* 대사 → 문제 후보(rec) */
+(function(){
+const shuf=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;};
+const uniq=a=>[...new Set(a)];
+const hasKo=s=>/[가-힣]/.test(s);
+/* 모은 보기 풀 */
+const POOL={syn:[],afx:[],cnf:[],idm:[],prv:[],term:[],word:[],errx:[]};
+const recs=[];
+
+/* 1) tips2.js에서 만든 구조 데이터 */
+GT_REC.forEach(r=>{
+ if(r.kind==='syn'){POOL.syn.push(...r.b);recs.push(r);}
+ else if(r.kind==='afx'){POOL.afx.push(r.m);
+  r.pairs=[];const re=/([A-Za-z][A-Za-z' -]*?) → ([A-Za-z-]+)\(([^)]+)\)/g;let m;while((m=re.exec(r.e)))r.pairs.push({b:m[1].trim(),d:m[2],k:m[3]});recs.push(r);}
+ else if(r.kind==='err'){const m=/^❌ (.+?) → ⭕ ([\s\S]+)$/.exec(r.x);if(!m)return;const x=m[1].trim();
+  const hg=m[2].search(/[가-힣]/);let y,note='';
+  if(hg<0){y=m[2].trim();}else{const pre=m[2].slice(0,hg);let e=Math.max(pre.lastIndexOf('. '),pre.lastIndexOf('? '),pre.lastIndexOf('! '));if(e<0&&/[.?!]$/.test(pre.trim()))e=pre.trim().length-1;if(e<0)return;y=m[2].slice(0,e+1).trim();note=m[2].slice(e+1).trim();}
+  if(hasKo(x)||hasKo(y)||x.length>70||y.length>70||!y)return;r.wrong=x;r.right=y;r.note=note;POOL.errx.push(x);recs.push(r);}
+ else if(r.kind==='cnf'){r.pairs=[];const re=/([A-Za-z][A-Za-z'’\-]*)(?:는|은) 「([^」]+)」/g;let m;while((m=re.exec(r.x)))r.pairs.push({w:m[1].replace('’',"'"),k:m[2]});if(r.pairs.length<1)return;r.pairs.forEach(p=>POOL.cnf.push(p.k));recs.push(r);}
+ else if(r.kind==='idm'){POOL.idm.push(r.k);recs.push(r);}
+ else if(r.kind==='prv'){r.main=r.k.split(' (')[0].replace(/\s*$/,'');POOL.prv.push(r.main);recs.push(r);}
+});
+
+/* 2) 기존 문법 팁(GTIP): 용어·단어 뜻은 자동, 문법 규칙은 직접 만든 문제 */
+const RULES=[
+ ['1형식은 주어 + 동사','1형식 문장의 구조는?','주어 + 동사',['주어 + 동사 + 목적어','주어 + 동사 + 보어']],
+ ['2형식의 동사는','2형식 문장에서 동사 뒤의 보어가 하는 일은?','주어를 설명한다',['동작의 대상이 된다','목적어의 상태를 설명한다']],
+ ['3형식은 주어','3형식 문장의 구조는?','주어 + 동사 + 목적어',['주어 + 동사','주어 + 동사 + 간접목적어 + 직접목적어']],
+ ['4형식은 「','4형식에서 먼저 오는 목적어는?','간접목적어(~에게)',['직접목적어(~을)','목적격보어']],
+ ['5형식은 목적어 뒤에','5형식에서 목적어의 상태를 설명하는 말은?','목적격보어',['간접목적어','주격보어']],
+ ['주어는 문장의','주어 자리에 쓸 수 있는 것은?','명사나 대명사',['동사나 부사','전치사나 접속사']],
+ ['동사는 문장의 심장','동사가 없으면 어떻게 될까요?','문장이 되지 않는다',['주어가 대신한다','그래도 완전한 문장이다']],
+ ['3인칭 단수 현재형','3인칭 단수 현재형 동사에 붙이는 것은?','-s',['-ed','-ing'],{q:'She ____ music. (like를 알맞은 형태로)',acc:['likes']}],
+ ['과거형은 -ed','go의 과거형은?','went',['goed','gone'],{q:'go의 과거형을 쓰세요.',acc:['went']}],
+ ['현재완료는 have','현재완료의 형태는?','have + p.p.',['be + p.p.','have + -ing']],
+ ['수동태는 be + p.p.','수동태의 형태는?','be + p.p.',['have + p.p.','be + -ing']],
+ ['동명사는 동사 + -ing','동명사가 문장에서 할 수 있는 역할은?','주어·목적어',['동사를 꾸미는 것','문장을 연결하는 것']],
+ ['to부정사는 명사','to부정사의 역할이 아닌 것은?','전치사 역할',['명사 역할','부사 역할']],
+ ['현재분사 -ing는','과거분사(p.p.)가 명사를 꾸밀 때의 뜻은?','~된',['~하는','~할 수 있는']],
+ ['형용사는 명사를 꾸미고','동사를 꾸미는 품사는?','부사',['형용사','명사'],{q:'동사를 꾸미는 품사의 영어 이름을 쓰세요.',acc:['adverb']}],
+ ['because 뒤에는','although 뒤에 오는 내용은?','양보(~이지만)',['이유','결과']],
+ ['관계대명사 who는','사람을 받는 관계대명사는?','who',['which','what'],{q:'사람을 받는 관계대명사를 쓰세요.',acc:['who']}],
+ ['비교급은 -er','긴 단어의 최상급을 만들 때 쓰는 말은?','most',['more','-est'],{q:'긴 단어의 최상급을 만드는 말을 쓰세요. (예: ____ beautiful)',acc:['most']}],
+ ['조건문에서 if절','if절(조건 부사절)에서 미래 대신 쓰는 시제는?','현재형',['과거형','미래형']],
+ ['전치사 뒤에는','전치사 뒤에 오는 말은?','명사(구)',['동사원형','부사절']],
+ ['명사는 셀 수 있는','셀 수 없는 명사는?','water',['book','apple'],{q:'셀 수 없는 명사를 영어로 하나 쓰세요. (물, 음악, 정보 등)',acc:['water','music','information','advice','homework','news','money','air','time','milk','bread','rice','sugar','salt','weather','knowledge','furniture','luggage','coffee','tea','oil','paper','snow','rain','love','happiness','traffic','equipment','jewelry','butter','cheese','meat','fruit','electricity','research','progress']}],
+ ['be동사는 am','주어 I와 함께 쓰는 be동사 현재형은?','am',['is','are'],{q:'주어 I 뒤에 쓰는 be동사 현재형을 쓰세요.',acc:['am']}]
+];
+GTIP.forEach(t=>{
+ const body=t.replace(/^[^\s]+ [^!]*!?\s*/,'');
+ const pairs=[];const re=/([A-Za-z][A-Za-z-]*)(?:는|은) 「([^」]+)」/g;let m;while((m=re.exec(t)))pairs.push({w:m[1],k:m[2]});
+ if(pairs.length){const isW=t.startsWith('📖');pairs.forEach(p=>POOL[isW?'word':'term'].push(p.k));recs.push({t,kind:'term',pool:isW?'word':'term',pairs});return;}
+ const rl=RULES.find(r=>t.includes(r[0]));if(rl){recs.push({t,kind:'rule',q:rl[1],ans:rl[2],wr:rl[3],sub:rl[4]||null});}
+});
+
+/* 3) 문제 만들기 */
+const norm=s=>String(s).toLowerCase().replace(/[’‘`]/g,"'").replace(/[.,!?;:"“”()]/g,'').replace(/\s+/g,' ').trim();
+const others=(pool,ex,n)=>shuf(uniq(pool).filter(x=>!ex.includes(x))).slice(0,n);
+const mcq=(q,ans,wrong,t,extra)=>{const w=uniq(wrong).filter(x=>x!==ans).slice(0,2);if(w.length<2)return null;const opts=shuf([ans,...w]);return {type:'mcq',q,opts,ans:opts.indexOf(ans),t,extra:extra||''};};
+const sub=(q,acc,t,hint,extra)=>({type:'sub',q,acc:uniq(acc.map(norm)).filter(Boolean),show:acc[0],t,hint:hint||'',extra:extra||''});
+const oneVariants=a=>/one's/.test(a)?[a,...['my','his','her','your','their','our'].map(w=>a.replace(/one's/g,w))]:[a];
+function build(r){
+ const forms=[];
+ if(r.kind==='syn'){const ex=[r.a,...r.b];
+  forms.push(()=>mcq(`「${r.a}(${r.k})」와 뜻이 비슷한 단어는?`,shuf(r.b)[0],others(POOL.syn,ex,2),r.t));
+  forms.push(()=>sub(`「${r.a}(${r.k})」와 뜻이 비슷한 영어 단어를 하나 쓰세요.`,r.b,r.t,`첫 글자: ${r.b[0][0]}…`));}
+ if(r.kind==='afx'){
+  forms.push(()=>mcq(`접사 「${r.a}」는 단어에 어떤 뜻을 더해 줄까요?`,r.m,others(POOL.afx,[r.m],2),r.t));
+  if(r.pairs.length)forms.push(()=>{const p=shuf(r.pairs)[0];return sub(`「${p.b}」에 접사 ${r.a.split('/')[0]}를 알맞게 붙여, 뜻이 「${p.k}」인 단어를 만드세요.`,[p.d],r.t,`첫 글자: ${p.d[0]}…`);});}
+ if(r.kind==='err'){const dp=s=>s.replace(/\.$/,'');forms.push(()=>mcq('다음 중 올바른 표현(문장)은?',dp(r.right),[dp(r.wrong),...others(POOL.errx,[r.wrong,r.right],1).map(dp)],r.t,r.note));}
+ if(r.kind==='cnf'){
+  forms.push(()=>{const p=shuf(r.pairs)[0];const w=r.pairs.filter(x=>x!==p).map(x=>x.k);return mcq(`「${p.w}」의 뜻은?`,p.k,[...w,...others(POOL.cnf,[p.k,...w],2)],r.t);});
+  forms.push(()=>{const p=shuf(r.pairs)[0];return sub(`뜻이 「${p.k}」인 영어 단어를 쓰세요.`,[p.w],r.t,`첫 글자: ${p.w[0]}…`);});}
+ if(r.kind==='idm'){
+  forms.push(()=>mcq(`숙어 「${r.a}」의 뜻은?`,r.k,others(POOL.idm,[r.k],2),r.t));
+  forms.push(()=>sub(`뜻이 「${r.k}」인 숙어를 영어로 쓰세요.`,oneVariants(r.a),r.t,`첫 글자: ${r.a[0]}… (${r.a.split(' ').length}단어)`));}
+ if(r.kind==='prv'){
+  forms.push(()=>mcq(`속담 "${r.a}"의 뜻에 가까운 것은?`,r.main,others(POOL.prv,[r.main],2),r.t));
+  const ws=r.a.split(' '),last=ws[ws.length-1].replace(/[.!?]+$/,'');
+  if(last.length>2)forms.push(()=>sub(`속담을 완성하세요. (뜻: ${r.main})\n${ws.slice(0,-1).join(' ')} ____.`,[last],r.t,`첫 글자: ${last[0]}…`));}
+ if(r.kind==='term'){
+  forms.push(()=>{const p=shuf(r.pairs)[0];const w=r.pairs.filter(x=>x!==p).map(x=>x.k);return mcq(`「${p.w}」의 뜻은?`,p.k,[...w,...others(POOL[r.pool],[p.k,...w],2)],r.t);});
+  forms.push(()=>{const p=shuf(r.pairs)[0];return sub(`뜻이 「${p.k}」인 영어 단어(용어)를 쓰세요.`,[p.w],r.t,`첫 글자: ${p.w[0]}…`);});}
+ if(r.kind==='rule'){
+  forms.push(()=>mcq(r.q,r.ans,r.wr,r.t));
+  if(r.sub)forms.push(()=>sub(r.sub.q,r.sub.acc,r.t,''));}
+ for(let k=0;k<8;k++){const f=shuf(forms)[0],q=f&&f();if(q)return q;}
+ return null;}
+recs.forEach(r=>{TIPQ[r.t]=r;});
+window.tipQuestion=function(t){const r=TIPQ[t];return r?build(r):null;};
+window.tipCheck=function(q,val){return q.acc.includes(norm(val));};
+window.TIPQ_STAT=()=>{const o={};recs.forEach(r=>o[r.kind]=(o[r.kind]||0)+1);return o;};
+})();
+
+/* ===== 던전 클리어 후 선택 보너스 팝업 (50% 확률로 등장, 객관식/주관식 랜덤, 정답 ×1.3 / 오답 ×0.7) ===== */
+function bqSeen(h){try{const H=G.scr==='rbattle'?G.rp:G.scr==='battle'?G.run:null;if(!H||!h)return;
+ const d=document.createElement('div');d.innerHTML=h;const t=d.textContent.trim().replace(/^틀렸다!\s*/,'');
+ if(TIPQ[t]){H.tips=H.tips||[];if(!H.tips.includes(t))H.tips.push(t);}}catch(e){}}
+const BQ_P=0.5;
+function bqHold(mode){return mode==='rpg'?G.rp:G.run;}
+function bqRoll(H){if(H.bq)return H.bq;const tips=(H.tips||[]).filter(t=>TIPQ[t]);
+ H.bq={offer:tips.length>0&&Math.random()<BQ_P,st:'ask',q:null,ok:null,dg:0,dc:0,quiet:false};return H.bq;}
+function bqBase(mode){return mode==='rpg'?{g:G.rp.gold||0,c:G.rp.cry||0}:{g:0,c:G.goldRun||0};}
+function bqApply(mode,m){const B=bqHold(mode).bq;if(B.applied)return;B.applied=true;const b=bqBase(mode);
+ const dg=Math.round(b.g*(m-1)),dc=Math.round(b.c*(m-1));
+ if(mode==='rpg'){const R=G.rp;const g2=Math.max(-SV.rg,dg),c2=Math.max(-SV.cry,dc);SV.rg+=g2;SV.cry+=c2;R.gold+=g2;R.cry+=c2;B.dg=g2;B.dc=c2;}
+ else{const c2=Math.max(-SV.cry,dc);SV.cry+=c2;G.goldRun+=c2;B.dc=c2;B.dg=0;}
+ saveNow();}
+function bqClose(mode){const H=bqHold(mode);if(H&&H.bq){H.bq.st='done';H.bq.quiet=true;}const o=document.getElementById('bpop');if(o)o.remove();render();}
+function bqShow(mode){const H=bqHold(mode);if(!H)return;const old=document.getElementById('bpop');if(old)old.remove();
+ const B=bqRoll(H);if(!B.offer||B.st==='done')return;
+ const b=bqBase(mode),fmt=(g,c)=>(mode==='rpg'?`💰 ${g} · `:'')+`💎 ${c}`;
+ let h='';
+ if(B.st==='ask'){h=`<h3>🎓 꿀팁 복습 도전!</h3><p>던전에서 몬스터들이 알려 준 <b>영어 꿀팁</b>으로 문제를 낼게요.</p>
+  <div class="bpr"><span class="bpok">✅ 정답이면 보상 <b>×1.3</b><br><small>${fmt(Math.round(b.g*1.3),Math.round(b.c*1.3))}</small></span><span class="bpno">❌ 틀리면 보상 <b>×0.7</b><br><small>${fmt(Math.round(b.g*0.7),Math.round(b.c*0.7))}</small></span></div>
+  <p class="hint">현재 보상: ${fmt(b.g,b.c)} · 도전은 선택이에요!</p>
+  <div class="bpbtn"><button class="next" id="bqgo">🎯 도전하기</button><button class="ghost" id="bqskip">건너뛰기</button></div>`;}
+ else if(B.st==='q'){const q=B.q;h=`<h3>🎓 꿀팁 복습 문제</h3><div class="bpq">${esc(q.q).replace(/\n/g,'<br>')}</div>`+
+  (q.type==='mcq'?`<div class="choices bpch">${q.opts.map((o,i)=>`<button class="choice" data-bq="${i}">${esc(o)}</button>`).join('')}</div>`:
+   `<div class="bpsub"><input id="bqin" type="text" autocomplete="off" autocapitalize="none" spellcheck="false" placeholder="영어로 답을 쓰세요"><button class="next" id="bqok">확인</button></div><p class="hint">${esc(q.hint||'')}</p>`);}
+ else if(B.st==='res'){const q=B.q;const ans=q.type==='mcq'?q.opts[q.ans]:q.show;
+  h=`<h3>${B.ok?'🎉 정답! 보상 ×1.3':'😢 아쉬워요! 보상 ×0.7'}</h3>
+  <div class="bpa ${B.ok?'ok':'no'}">정답: <b>${esc(ans)}</b>${q.type==='sub'&&q.acc.length>1?`<br><small>(인정: ${esc(q.acc.slice(0,4).join(' / '))})</small>`:''}</div>
+  <div class="bpt">📘 ${esc(q.t)}${q.extra?`<br>👉 ${esc(q.extra)}`:''}</div>
+  <p class="bpd">${mode==='rpg'?`💰 ${B.dg>=0?'+':''}${B.dg} · `:''}💎 ${B.dc>=0?'+':''}${B.dc}</p>
+  <div class="bpbtn"><button class="next" id="bqx">확인</button></div>`;}
+ const o=document.createElement('div');o.id='bpop';o.className='bpop';o.innerHTML=`<div class="bpbox">${h}</div>`;document.body.appendChild(o);
+ const $q=id=>document.getElementById(id);
+ if($q('bqgo'))$q('bqgo').onclick=()=>{let q=null;const tips=(bqHold(mode).tips||[]).filter(t=>TIPQ[t]).sort(()=>Math.random()-.5);for(const t of tips){q=tipQuestion(t);if(q)break;}if(!q){bqClose(mode);return;}B.q=q;B.st='q';sfx('select');bqShow(mode);};
+ if($q('bqskip'))$q('bqskip').onclick=()=>{sfx('select');bqClose(mode);};
+ const fin=ok=>{B.ok=ok;B.st='res';bqApply(mode,ok?1.3:0.7);sfx(ok?'correct':'wrong');bqShow(mode);};
+ o.querySelectorAll('[data-bq]').forEach(btn=>btn.onclick=()=>fin(+btn.dataset.bq===B.q.ans));
+ if($q('bqok')){const go=()=>{const v=$q('bqin').value;if(!v.trim())return;fin(tipCheck(B.q,v));};$q('bqok').onclick=go;$q('bqin').onkeydown=e=>{if(e.key==='Enter')go();};setTimeout(()=>{try{$q('bqin').focus();}catch(e){}},50);}
+ if($q('bqx'))$q('bqx').onclick=()=>{sfx('select');bqClose(mode);};}
 
 render();tryAuto();setTimeout(tryAuto,300);
 setInterval(()=>{document.body.classList.toggle('muted-wait',!(AU.ctx&&AU.ctx.state==='running')&&G.scr==='splash');},500);

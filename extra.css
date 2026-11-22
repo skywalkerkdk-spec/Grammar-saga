@@ -788,3 +788,15 @@ canvas.px[data-src="SPR"][data-k="shaman"],canvas.px[data-src="SPR"][data-k^="cs
  .endstage .cr-win{top:38%;height:62%}
  .endstage .end-talk{bottom:8%}
 }
+
+/* 꿀팁 복습 팝업 */
+.bpop{position:fixed;inset:0;z-index:9000;background:rgba(10,6,24,.72);display:flex;align-items:center;justify-content:center;padding:14px}
+.bpbox{width:min(440px,100%);max-height:92vh;overflow:auto;background:linear-gradient(#2a2058,#1b1440);border:3px solid #ffd35a;border-radius:16px;padding:16px 16px 14px;color:#fff;box-shadow:0 8px 40px #000a;text-align:center}
+.bpbox h3{margin:0 0 8px;font-size:21px;color:#ffe27a}.bpbox p{margin:6px 0;line-height:1.5}
+.bpr{display:flex;gap:8px;margin:10px 0}.bpr span{flex:1;border-radius:10px;padding:8px 6px;font-size:14px;line-height:1.4}.bpok{background:#1d5a38}.bpno{background:#5a2433}
+.bpbtn{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:10px}
+.bpq{font-size:18px;font-weight:800;line-height:1.5;margin:8px 0 12px;background:#0003;border-radius:10px;padding:10px}
+.bpch{display:grid;gap:8px}.bpch .choice{text-align:left}
+.bpsub{display:flex;gap:8px}.bpsub input{flex:1;min-width:0;font-size:18px;padding:10px;border-radius:10px;border:2px solid #8a7bd8;background:#fff;color:#222}
+.bpa{border-radius:10px;padding:10px;margin:8px 0;font-size:17px}.bpa.ok{background:#1d5a38}.bpa.no{background:#5a2433}
+.bpt{background:#0003;border-radius:10px;padding:10px;font-size:14px;line-height:1.5;text-align:left}.bpd{font-size:18px;font-weight:900;color:#ffe27a}

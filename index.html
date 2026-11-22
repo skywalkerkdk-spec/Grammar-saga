@@ -1433,10 +1433,10 @@ function bgmLoad(n){if(AU.buf[n]){AU.lru=AU.lru.filter(x=>x!==n);AU.lru.push(n);
  while(AU.lru.length>4){const old=AU.lru.shift();if(!AU.cur||AU.cur.name!==old)delete AU.buf[old];}
  return p;}
 function synthBgm(name,me){if(AU.cur!==me)return;me.synth=true;AU.bgmG.gain.setValueAtTime(0.32,AU.ctx.currentTime);me.g.gain.setValueAtTime(1,AU.ctx.currentTime);AU.step=0;AU.next=AU.ctx.currentTime+0.1;AU.timer=setInterval(bgmTick,25);}
-const MENU_POOL=['main','open','setup'];AU.menuLast=null;
+const MENU_POOL=['main','setup'];AU.menuLast=null;
 function menuPick(){if(!AU.menuLast){AU.menuLast='main';return 'main';}const L=MENU_POOL.filter(x=>x!==AU.menuLast);AU.menuLast=L[Math.floor(Math.random()*L.length)];return AU.menuLast;}
 function bgm(name){
- if(!AU.ctx)return;if(name===AU.track)return;if(name==='menu'&&AU.cur&&AU.cur.name==='main'){AU.track='menu';AU.menuLast='main';return;}const orig=name;AU.track=name;const menu=name==='menu'||name==='map';if(name==='menu')name=menuPick();else if(name==='map'){name=(AU.mapLast==='village')?'open':(AU.mapLast==='open'?'village':(Math.random()<.5?'village':'open'));AU.mapLast=name;}
+ if(!AU.ctx)return;if(name===AU.track)return;if(name==='menu'&&AU.cur&&AU.cur.name==='main'){AU.track='menu';AU.menuLast='main';return;}const orig=name;AU.track=name;const menu=name==='menu'||name==='map';if(name==='menu')name=menuPick();else if(name==='map'){name=(AU.mapLast==='village')?'main':(AU.mapLast==='main'?'village':(Math.random()<.5?'village':'main'));AU.mapLast=name;}
  const c=AU.ctx,now=c.currentTime;clearInterval(AU.timer);AU.timer=null;
  if(AU.cur){const o=AU.cur;o.g.gain.cancelScheduledValues(now);o.g.gain.setValueAtTime(o.g.gain.value,now);o.g.gain.setTargetAtTime(0.0001,now,0.1);setTimeout(()=>{try{if(o.src)o.src.stop();}catch(e){}if(o.el)o.el.pause();try{o.g.disconnect();}catch(e){}},700);AU.cur=null;}
  if(!name)return;
@@ -2296,9 +2296,9 @@ function rpgDsel(){
  <button class="shopbtn" id="toshop">${petc('mini')}<div><b>🐾 길드 상점</b><span>💎 수정으로 펫·스킨 · 보유 💎 ${SV.cry}</span></div></button><button class="shopbtn pvbtn" id="topvp"><span style="font-size:32px">⚔️</span><div><b>배틀 아레나</b><span>친구 캐릭터와 1:1 대결 · 전적 🏆 ${(SV.pvp||{}).w||0}승</span></div></button><button class="shopbtn pvbtn raidbtn" id="toraid"><span style="font-size:32px">🐉</span><div><b>레이드</b><span>친구들과 2~6명이 힘을 합쳐 보스 토벌</span></div></button></div>
  <div class="dtools"><button class="btn-s" id="tolv">${LEVELS[LV()].ic} 문제 난이도: <b>${LEVELS[LV()].n}</b> · 바꾸기</button><button class="btn-s savebtn" id="rsave">💾 저장하기</button><button class="btn-s rankbtn" id="torank">${rankBtnLabel()}</button><button class="btn-s" id="togift">🎁 보상 코드</button><button class="btn-s" id="tologin">👤 다른 계정으로 로그인</button></div>
  ${G.toastSave?'<div class="feedback ok" style="margin:0 0 10px">💾 저장했어요! 같은 이름으로 들어오면 골드·장비·진행 상황이 이어져요.</div>':''}${rpgResumeHTML()}
- <div class="dgrid">${L.map(d=>{const i=RT[d.id],u=rpgUnlocked(d),e=estats(i),b=estats(i,true),cl=SV.rcleared.includes(d.id),rec=GEAR[RREC[Math.min(7,Math.floor(i))]];
+ ${G.rpgMap!==false?rpgMapHTML():'<div class="dtools"><button class="btn-s" id="rmmap">🗺️ 지도로 보기</button></div>'+`<div class="dgrid">${L.map(d=>{const i=RT[d.id],u=rpgUnlocked(d),e=estats(i),b=estats(i,true),cl=SV.rcleared.includes(d.id),rec=GEAR[RREC[Math.min(7,Math.floor(i))]];
   return `<button class="dcard rcard" ${u?'':'disabled'} data-rd="${d.id}"><span class="size">RPG Lv.${RLV[d.id]}</span>${cl?'<span class="lock" style="color:var(--green)">✅ 클리어</span>':u?'':'<span class="lock">🔒 이전 던전 클리어</span>'}
-  <h3>${d.name}</h3><div class="mon">${bossSp(d)||sp(d.mon,'','MON')}<div class="hint">권장 장비: ${rec.nm} 이상<br><span class="rdesc">${rdescHTML(d.id)}</span></div></div></button>`;}).join('')}</div></div>`;
+  <h3>${d.name}</h3><div class="mon">${bossSp(d)||sp(d.mon,'','MON')}<div class="hint">권장 장비: ${rec.nm} 이상<br><span class="rdesc">${rdescHTML(d.id)}</span></div></div></button>`;}).join('')}</div>`}</div>`;
  bindModeTabs();if(G.dev)bindRpgDev();
  $('todaily').onclick=()=>{G.dg=DAILY;G.mates=DAILY.need.slice();G.pets=1;genRunDaily();sfx('select');G.scr='news';render();};
  wkBind();
@@ -2313,6 +2313,7 @@ function rpgDsel(){
  {const rb=$('torank');if(rb)rb.onclick=()=>{G.scr='rank';sfx('select');render();};const gb=$('togift');if(gb)gb.onclick=giftAsk;}
  const rg=$('rrGo');if(rg){rg.onclick=()=>{if(rpgLoadRun()){sfx('formed');render();}};$('rrDel').onclick=()=>{rpgClearRun();sfx('click');render();};}
  document.querySelectorAll('[data-rd]').forEach(b=>b.onclick=()=>{rpgStart(DUNGEONS.find(d=>d.id===b.dataset.rd));});
+ if(G.rpgMap!==false)rpgMapBind();else{const rm=$('rmmap');if(rm)rm.onclick=()=>{G.rpgMap=true;sfx('select');render();};}
 }
 
 /* ---------- RPG 개발자 모드 ---------- */
@@ -4979,17 +4980,20 @@ const WM=[ // [id, 번호, 한글, 영어, x, y, 붉은글씨]
 ['d1',0,'고요한 숲','The Quiet Wood',135,790],['d2',0,'슬라임 동굴','Slime Cave',395,860],['d3',0,'골렘 협곡','Golem Canyon',250,770],['d4',0,'상점가',"Merchants' Row",352,790],['d5',0,'공방',"Alchemist's Workshop",330,742],
 ['d6',0,'다크나이트(DK)성',"Dark Knight's Castle",458,700,1],['d7',0,'타락한 신전','Corrupted Infinitive Temple',410,905,1],['d8',0,'타락한 제룬드 숲','Corrupted Gerund Wood',245,905,1]];
 function wmDg(id){return DUNGEONS.find(d=>d.id===id);}
-function wmUnlocked(id){if(id==='TEMPLE'||id==='d7'||id==='d8')return templeUnlocked();const d=wmDg(id);if(!d)return false;
+const isRpgM=()=>SV.mode==='rpg'&&typeof rpgOpen==='function'&&rpgOpen();
+function wmUnlocked(id){if(isRpgM()){const d=wmDg(id);if(!d)return false;const L=rpgDungeons();return L.includes(d)&&rpgUnlocked(d);}
+ if(id==='TEMPLE'||id==='d7'||id==='d8')return templeUnlocked();const d=wmDg(id);if(!d)return false;
  if(['d1','d2','d3','d4','d5','d6'].includes(id))return dOpen(d);return d.open!==false&&(d.exp?expOpen(d):true);}
 function wmClosePop(){const o=document.getElementById('wmpop');if(o)o.remove();}
 function wmEnter(id){wmClosePop();G.reg=null;G.wlist=false;sfx('formed');
+ if(isRpgM()&&id!=='TEMPLE'){const dd=wmDg(id);if(dd){rpgStart(dd);return;}}
  if(id==='TEMPLE'){sfx('bell');G.scr='temple';render();return;}
  const d=wmDg(id);G.dg=d;
  if(['d1','d2','d3','d4','d5'].includes(id)){G.mates=[];G.pets=0;G.scr='party';}else{G.mates=d.need.slice();G.pets=1;G.scr='formed';}
  render();}
 function wmOpen(id){wmClosePop();const n=WM.find(x=>x[0]===id),ok=wmUnlocked(id);let body='';
  if(id==='TEMPLE'){const u=ok;body=`<h3>⛪ 전직의 신전</h3><div class="wmtag">✨ 전직 · 준동사 던전</div><div class="wmmon">${u?sp('bearform')+sp('paladin')+sp('pantherform'):'<span style="font-size:54px">❔</span>'}</div><div class="wmdesc">${u?'to부정사·동명사의 힘으로 전직하고, 새 던전 <b>타락한 인피니티브(Infinitive·부정사) 신전</b>과 <b>타락한 제룬드(Gerund·동명사) 숲</b>에 도전하세요!':'다크나이트(DK)성을 클리어하면 무언가가 열린다…'}</div>`;}
- else{const d=wmDg(id),cl=SV.cleared.includes(id);
+ else{const d=wmDg(id),cl=(isRpgM()?SV.rcleared:SV.cleared).includes(id);
   body=`<h3>${ok?d.name:'🔒 '+d.name}</h3><div class="wmtag">${d.full?'풀파티 던전':d.size?d.size+'인 던전':'던전'}${cl?' · <span style="color:#7fe3a0">✅ 클리어</span>':''}</div>
   <div class="wmmon">${ok?sp(d.mon,'','MON'):'<span style="font-size:54px">❔</span>'}</div>
   <div class="wmdesc">${ok?(d.desc||''):(id==='d6'?`🔒 수정 조각 ${shardN()}/5 을 모으면 열려요.`:id==='d7'||id==='d8'?'🔒 다크나이트(DK)성을 클리어하면 열려요.':'🔒 이전 지역을 클리어하면 열려요.')}</div>`;}
@@ -5065,6 +5069,16 @@ function regionScreen(k){
    return;}
   regionScreen(G.reg);};
 })();
+
+/* ---------- RPG 모드: 신택스 왕국 지도로 보기 ---------- */
+function rpgMapHTML(){const nodes=KM.map(n=>{const id=n[0],ok=wmUnlocked(id),cl=SV.rcleared.includes(id);
+  return `<button class="wmn gh ${ok?'':'lk'} ${cl?'dn':''}" data-wm="${id}" style="left:${(n[1]/1536*100).toFixed(2)}%;top:${(n[2]/1024*100).toFixed(2)}%"><u>${cl?'✅':ok?'▶':'🔒'}</u></button>`;}).join('');
+ return `<div class="dtools"><button class="btn-s" id="rmlist">📋 목록으로 보기</button><button class="btn-s" id="wmzoom">🔍 ${G.wmz?'작게':'크게'} 보기</button></div>
+ <div class="wmw"><div class="wmi ${G.wmz?'big':''}" id="wmi" style="aspect-ratio:1536/1024"><img src="kingdom.jpg?v=2" alt="신택스 왕국 지도" draggable="false">${nodes}</div></div>`;}
+function rpgMapBind(){wmSize();setTimeout(wmSize,60);
+ document.querySelectorAll('[data-wm]').forEach(b=>b.onclick=()=>{sfx('select');wmOpen(b.dataset.wm);});
+ $('rmlist').onclick=()=>{G.rpgMap=false;sfx('select');render();};
+ $('wmzoom').onclick=()=>{G.wmz=!G.wmz;sfx('select');render();};}
 
 /* RPG 레벨 묶음: 비슷한 난이도의 던전 2~5개를 한 레벨로 */
 const RLVG=[['d1','d2','d3','d4','d5'],['d6','g1','g2'],['tn','md','pv','id'],['d7','d8','rp','ps'],['pf','rv','pc','cp'],['cj','pn','ot','iv'],['pe','ng','d9','d10'],['sj','rs','d11','d12'],['sx','d13','d14'],['d15','d16','d17','d18']];

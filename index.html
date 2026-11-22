@@ -985,6 +985,9 @@ canvas.px[data-src="SPR"][data-k="shaman"],canvas.px[data-src="SPR"][data-k^="cs
 .prq{font-size:19px;font-weight:800;background:#00000050;border-radius:10px;padding:12px;margin:8px 0;text-align:center;line-height:1.5}.prin{width:100%;box-sizing:border-box;font-size:18px;padding:10px;border-radius:10px;border:2px solid #ffd35a;margin:8px 0;background:#fff;color:#111}
 .prbtn small{opacity:.7;font-weight:500}.sentence{cursor:pointer}
 
+.dt-box{margin:10px 0;background:#241a4c;border:2px solid #ffd35a;border-radius:12px;padding:10px;text-align:left;color:#fff}.dt-h{font-weight:900;color:#ffe27a;margin-bottom:6px}.dt-h small{font-weight:500;opacity:.7;font-size:12px}
+.dt-r{background:#00000035;border-radius:8px;padding:8px;margin:6px 0;line-height:1.55;font-size:14px}.dt-r ul{margin:4px 0 0;padding-left:18px}.dt-ch{display:inline-block;background:#40387a;border-radius:8px;padding:3px 7px;margin:2px;font-weight:800}.dt-ch small{display:block;font-size:10px;color:#ffd35a;font-weight:600}.dt-t{color:#9fe3b4}
+
 </style>
 </head>
 <body>
@@ -1801,7 +1804,7 @@ function qbody(e){
   const head=ok?(e.type==='judge'&&e.answer==='retreat'?'🏃 현명한 후퇴! 이 몬스터는 다른 파티의 몫.':(HP1(e)>0?'⚔️ 명중! '+(e.mname||'보스')+'의 체력이 '+HP1(e)+'%로!':'⚔️ 명중! '+(G.dg.full?'적':'몬스터')+' 격파!')):'💥 공격 실패! '+(G.dg.full?'적이':'몬스터가')+' 버텼다.';
   const heal=ok&&G.healed?' <span class="healpop">🔥3연속 정답! +❤️</span>':(ok&&G.hp<3?` <span class="hint">🔥 ${G.streak}/3</span>`:'');const hurt=!ok&&!G.rvm?` <span class="hurtpop">-❤️ (남은 하트 ${Math.max(0,G.hp)})</span>`:'';
   const gold=ok&&G.gotGold?` <span class="goldpop">+💎${G.gotGold}</span>`:'';
-  h+=`<div class="feedback ${ok?'ok':'no'}"><div style="font-weight:900;font-size:19px">${head}${gold}${heal}${hurt}</div>${(()=>{let q='';if(ok&&e.type==='judge'&&e.answer==='retreat')q=e.retreatT;else if(ok&&HP1(e)===0)q=e.kill;else if(!ok)q=e.taunt;return q?`<div class="talk">💬 <b>${esc(e.mname)}</b>: "${esc(q)}"</div>`:'';})()}${ok?glossHTML(e)+'<div class="exp">'+explainHTML(e)+'</div>':(G.rvm?'<div class="rvans">✅ 정답: <b>'+esc(rightAns(e))+'</b></div>'+glossHTML(e)+'<div class="exp">'+explainHTML(e)+'</div><div class="hint">👀 해설을 읽고 다시 도전해 보세요!</div>':wrongNote(e)+'<span class="hint">💡 '+(e.hint||HINT[e.type]||'')+'</span>')}</div>`;
+  h+=`<div class="feedback ${ok?'ok':'no'}"><div style="font-weight:900;font-size:19px">${head}${gold}${heal}${hurt}</div>${(()=>{let q='';if(ok&&e.type==='judge'&&e.answer==='retreat')q=e.retreatT;else if(ok&&HP1(e)===0)q=e.kill;else if(!ok)q=e.taunt;return q?`<div class="talk">💬 <b>${esc(e.mname)}</b>: "${esc(q)}"</div>`:'';})()}${ok?glossHTML(e)+'<div class="exp">'+explainHTML(e)+'</div>':(G.rvm?'<div class="rvans">✅ 정답: <b>'+esc(rightAns(e))+'</b></div>'+glossHTML(e)+'<div class="exp">'+explainHTML(e)+'</div>'+(typeof detailHTML==='function'?detailHTML(e):'')+'<div class="hint">👀 해설을 읽고 다시 도전해 보세요!</div>':wrongNote(e)+'<span class="hint">💡 '+(e.hint||HINT[e.type]||'')+'</span>')}</div>`;
   h+= ok?`<button class="next" id="nx">${G.ei<G.run.length-1?(HP1(e)>0?'⚔️ 계속 공격 ▶':(G.dg.full?'다음 적 ▶':'다음 몬스터 ▶')):'🏆 결과 보기'}</button>`:(G.hp<=0?`<button class="next grave-btn" id="tograve">🪦 파티가 쓰러졌다… 묘지로</button>`:`<button class="next" id="rt">🔁 다시 도전</button>`);
  }
  return h;
@@ -5791,6 +5794,27 @@ function wkFinish(R){const W=wkGet(),okIds=new Set(),seen=new Set();
  const o=wkPop(`<h3>${good===total?'🎉 완벽한 복습!':'📚 복습 완료!'}</h3><p>다시 푼 문제 <b>${total}개</b> 중 <b>${good}개</b> 정답</p>${msg}<p class="hint">${W.items.length?`아직 ${W.items.length}개가 목록에 남아 있어요. 다음에 또 도전해 보세요!`:'이번 주 오답을 모두 정복했어요!'}</p>`,'<button class="next" id="wkx">확인</button>');
  document.getElementById('wkx').onclick=()=>{sfx('select');o.remove();};sfx('fanfare');}
 function wkBind(){prBind();wkGet();wkNotice();const b=document.getElementById('towk');if(b)b.onclick=()=>{sfx('select');wkStart();};}
+
+/* ===== 틀린 문제 자세한 풀이 (복습 모드에서 오답일 때) ===== */
+const DT_ROLE={S:'문장의 주인공. “누가/무엇이”에 해당해요.',V:'동작이나 상태를 나타내는 말. “~하다/~이다”예요.',C:'주어(나 자신)가 “어떤 상태·무엇”인지 설명해 줘요. 주어 = 보어!',O:'동사의 대상. “~을/를”에 해당해요.',IO:'“~에게”에 해당하는 받는 사람이에요.',DO:'“~을/를”에 해당하는 주고받는 물건이에요.',OC:'목적어가 “어떤 상태·무엇”인지 설명해 줘요. 목적어 = 목적격보어!',M:'빼도 문장이 성립하는 꾸밈말이에요. 형식을 정할 때 세지 않아요.'};
+const DT_FORM={1:['S + V','동사 뒤에 꼭 필요한 말이 없어요. (장소·시간 같은 수식어는 형식에 안 셉니다.)','“~가 …하다”처럼 동사만으로 뜻이 완성되면 1형식!'],
+2:['S + V + C','동사 뒤에 주어를 설명하는 말(보어)이 필요해요.','be·become·look·feel 같은 동사 뒤에 형용사/명사가 오면 2형식. 보어는 “목적어(~을)”가 아니라 주어와 같은 말!'],
+3:['S + V + O','동사 뒤에 “~을/를”에 해당하는 목적어가 와요.','“누가 + 무엇을 + 어찌한다”로 해석되고, 목적어는 주어와 다른 대상이에요.'],
+4:['S + V + IO + DO','동사 뒤에 “~에게”(간접목적어)와 “~을”(직접목적어)이 연달아 와요.','give·send·show·buy 같은 “주다” 계열 동사! 명사가 두 개 연달아 오면 4형식을 의심해요.'],
+5:['S + V + O + OC','동사 뒤에 목적어, 그리고 그 목적어를 설명하는 말(목적격보어)이 와요.','make·call·keep·find 등 “O를 OC로 만들다/부르다”. O = OC 관계(O is OC)가 성립하면 5형식!']};
+function detailHTML(e){try{
+ let h='';if(e.tr)h+=`<div class="dt-r"><b>💬 해석</b> ${esc(e.tr)}</div>`;
+ if(e.c&&e.c.length&&e.c[0]&&e.c[0].length>=2&&RK[e.c[0][1]]){
+  const f=FORM_OF(e.c),F=DT_FORM[f],core=e.c.filter(x=>x[1]!=='M'),mod=e.c.filter(x=>x[1]==='M');
+  const seen=[];e.c.forEach(x=>{if(!seen.includes(x[1]))seen.push(x[1]);});
+  h+=`<div class="dt-r"><b>🔎 ① 문장을 조각으로 나눠요</b><br>${e.c.map(x=>`<span class="dt-ch">${esc(x[0])}<small>${RK[x[1]]}</small></span>`).join(' ')}</div>`;
+  h+=`<div class="dt-r"><b>🧭 ② 각 성분이 하는 일</b><ul>${seen.map(k=>`<li><b>${RK[k]}</b> (${e.c.filter(x=>x[1]===k).map(x=>esc(x[0])).join(', ')}) — ${DT_ROLE[k]}</li>`).join('')}</ul></div>`;
+  h+=`<div class="dt-r"><b>✂️ ③ 수식어를 빼고 뼈대만 봐요</b><br>${mod.length?`수식어 <b>${mod.map(x=>esc(x[0])).join(', ')}</b>을(를) 빼도 뜻이 통해요 → 뼈대: `:'수식어가 없어요 → 뼈대: '}<b>${core.map(x=>esc(x[0])).join(' ')}</b></div>`;
+  h+=`<div class="dt-r"><b>🎯 ④ 형식 결론: ${f}형식 (${F[0]})</b><br>${F[1]}<br><span class="dt-t">💡 ${F[2]}</span></div>`;
+ }
+ const hint=(e.hint||(typeof HINT!=='undefined'&&HINT[e.type])||'');
+ if(hint)h+=`<div class="dt-r"><b>🧠 다음에 헷갈리지 않으려면</b><br>${esc(hint)}</div>`;
+ return h?`<div class="dt-box"><div class="dt-h">📖 자세한 풀이 <small>(몰라서 틀렸다면 천천히 읽어 보세요)</small></div>${h}</div>`:'';}catch(err){return '';}}
 
 /* ===== 🔒 표현 감옥: 모르는 표현을 문장에서 눌러 가두고 → 공부해서 풀어주는 단어장 (주간 보상 + 누적 기록) ===== */
 const PR_MAX=500;

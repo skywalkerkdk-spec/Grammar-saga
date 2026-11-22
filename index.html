@@ -1515,6 +1515,7 @@ function render(){window.scrollTo({top:0});applySkin();const f={splash,title,lev
 
 const CREDIT=`<div class="credit">본 게임의 제작자는 DK KANG입니다.<br>이미지, 음악 및 폰트는 AI 도구를 활용하여 제작되었습니다.<br>학생들의 영어학습을 위해서는 얼마든지 쓰셔도 좋습니다.<br>다만 무단 복제 및 변형은 금지합니다.</div>`;
 const DEVH=()=>{const h=(location.hash||'').replace('#','').toLowerCase();return ({zx:1,qw:1,as:1})[h]?h:'';};
+window.addEventListener('hashchange',()=>{if(DEVH())location.reload();});
 function splash(){
  if(DEVH()&&!window._hdSplash){window._hdSplash=1;G.scr='title';return render();}
  $('app').innerHTML=`<div class="splash" id="spl">

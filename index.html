@@ -988,6 +988,8 @@ canvas.px[data-src="SPR"][data-k="shaman"],canvas.px[data-src="SPR"][data-k^="cs
 .dt-box{margin:10px 0;background:#241a4c;border:2px solid #ffd35a;border-radius:12px;padding:10px;text-align:left;color:#fff}.dt-h{font-weight:900;color:#ffe27a;margin-bottom:6px}.dt-h small{font-weight:500;opacity:.7;font-size:12px}
 .dt-r{background:#00000035;border-radius:8px;padding:8px;margin:6px 0;line-height:1.55;font-size:14px}.dt-r ul{margin:4px 0 0;padding-left:18px}.dt-ch{display:inline-block;background:#40387a;border-radius:8px;padding:3px 7px;margin:2px;font-weight:800}.dt-ch small{display:block;font-size:10px;color:#ffd35a;font-weight:600}.dt-t{color:#9fe3b4}
 
+.dt-r ol{margin:4px 0 0;padding-left:20px}.dt-ans{color:#ffe27a;background:#4a3a00;border-radius:4px;padding:0 4px}
+
 </style>
 </head>
 <body>
@@ -4841,7 +4843,7 @@ function genRunG(d){
  let P=L==='expert'?by(3).concat(part(by(2),.25)):L==='beginner'?by(1).concat(part(by(2),.15)):by(2).concat(part(by(1),.4),part(by(3),.3));if(P.length<11)P=all;
  const bag=freshShuf(P);const draw=()=>{if(!bag.length)bag.push(...freshShuf(P));return takeFresh(bag);};
  const mk=o=>{const it=draw();const opts=shuffle(it.o);
-  return Object.assign({type:'gq',c:it.c,tr:it.ko,n:'',sentence:it.s,options:opts,answer:opts.indexOf(it.ans),ansText:it.ans,ko:it.ko,why:it.why,filled:it.filled},o);};
+  return Object.assign({type:'gq',pool:X.pool,c:it.c,tr:it.ko,n:'',sentence:it.s,options:opts,answer:opts.indexOf(it.ans),ansText:it.ans,ko:it.ko,why:it.why,filled:it.filled},o);};
  const run=[];
  for(let i=0;i<8;i++){const m=pick(X.mons),v=pick(VAR[m]),T=MT[m];run.push(mk({mon:m,filter:v[1],mname:v[0]+MNAME[m],talk:pick(T.t),kill:pick(T.k),taunt:pick(T.x)}));}
  const b=X.boss;[[100,66],[66,33],[33,0]].forEach((h,i)=>run.push(mk({mon:b.mon,mname:b.mname,filter:b.filter,boss:true,hp0:h[0],hp1:h[1],talk:b.t[i],kill:h[1]===0?b.k:'',taunt:pick(b.x)})));
@@ -5802,7 +5804,7 @@ const DT_FORM={1:['S + V','동사 뒤에 꼭 필요한 말이 없어요. (장소
 3:['S + V + O','동사 뒤에 “~을/를”에 해당하는 목적어가 와요.','“누가 + 무엇을 + 어찌한다”로 해석되고, 목적어는 주어와 다른 대상이에요.'],
 4:['S + V + IO + DO','동사 뒤에 “~에게”(간접목적어)와 “~을”(직접목적어)이 연달아 와요.','give·send·show·buy 같은 “주다” 계열 동사! 명사가 두 개 연달아 오면 4형식을 의심해요.'],
 5:['S + V + O + OC','동사 뒤에 목적어, 그리고 그 목적어를 설명하는 말(목적격보어)이 와요.','make·call·keep·find 등 “O를 OC로 만들다/부르다”. O = OC 관계(O is OC)가 성립하면 5형식!']};
-function detailHTML(e){try{
+function detailHTML(e,reveal){try{if(e&&e.type==='gq')return gqDetailHTML(e,reveal!==false);
  let h='';if(e.tr)h+=`<div class="dt-r"><b>💬 해석</b> ${esc(e.tr)}</div>`;
  if(e.c&&e.c.length&&e.c[0]&&e.c[0].length>=2&&RK[e.c[0][1]]){
   const f=FORM_OF(e.c),F=DT_FORM[f],core=e.c.filter(x=>x[1]!=='M'),mod=e.c.filter(x=>x[1]==='M');
@@ -5899,6 +5901,93 @@ function prCheckReward(){const W=prWeekItems(),w=prW();if(w.claimed||!W.length)r
  prToast('🎉 이번 주 표현을 모두 풀어 줬어요! 보상은 월요일 아침 8시에 지급돼요');}}
 function prNotice(){const N=SV.prNote;if(!N)return;SV.prNote=null;saveNow();const o=prPop(`<h3>🎁 표현 감옥 주간 보상 도착!</h3><p class="bpd">💎 +${N.c}${N.s?' · ⚒️ +'+N.s:''}</p><p class="hint">월요일 아침 8시에 지난주 보상이 지급돼요.</p><div class="bpbtn"><button class="next" id="prx2">확인</button></div>`);o.querySelector('#prx2').onclick=()=>{sfx('select');o.remove();};sfx('fanfare');}
 function prBind(){prW();prNotice();const b=document.getElementById('topr');if(b)b.onclick=()=>{sfx('select');prShow('wk');};}
+
+/* ===== 그래머 대륙 단원별 핵심 규칙 카드 (틀린 문제 자세한 풀이용) ===== */
+const GRULE={
+g1:{t:'be동사',steps:['주어가 누구인지 찾아요 (I / you / he·she·it·단수 / we·they·복수).','시간 표현을 봐요. 지금이면 am·is·are, 과거(yesterday, last~)면 was·were.','주어에 맞는 be동사를 골라요.'],
+ rule:['I → am / was','you, we, they, 복수 명사 → are / were','he, she, it, 단수 명사 → is / was','부정은 be동사 뒤에 not (is not = isn’t)','의문문은 be동사를 주어 앞으로 (Is she…?)'],
+ trap:['You는 한 명이어도 항상 are!','There is 뒤에 오는 명사가 복수면 There are.','과거 I was / he was, 하지만 you·we·they는 were.']},
+g2:{t:'의문문·부정문',steps:['문장에 be동사가 있는지, 일반동사인지 확인해요.','일반동사면 시제(현재/과거)에 맞춰 do / does / did를 골라요.','do·does·did 뒤에는 항상 동사원형!'],
+ rule:['일반동사 의문문: Do/Does/Did + 주어 + 동사원형?','일반동사 부정문: 주어 + don’t/doesn’t/didn’t + 동사원형','주어가 3인칭 단수(현재)면 does / doesn’t','과거는 주어와 관계없이 did / didn’t','be동사 문장은 do를 쓰지 않아요'],
+ trap:['does 뒤에 동사에 -s를 또 붙이지 마세요 (Does she likes ✕ → Does she like ✓).','did 뒤에도 동사원형 (Did he went ✕ → Did he go ✓).','be동사 문장에 do를 섞지 마세요 (Do you are ✕).']},
+tn:{t:'시제',steps:['시간 표현을 찾아요 (yesterday, now, every day, tomorrow, last~, next~).','시간 표현이 알려 주는 시제를 정해요 (과거 / 현재 / 미래 / 진행).','주어와 시제에 맞게 동사 모양을 만들어요.'],
+ rule:['현재(습관·사실): 동사원형, 3인칭 단수는 -s/-es (every day, always, usually)','과거: 동사의 과거형 (yesterday, last~, ~ago)','미래: will + 동사원형 (tomorrow, next~, soon)','현재진행: am/is/are + -ing (now, right now, at the moment)','과거진행: was/were + -ing'],
+ trap:['will 뒤에는 동사원형! (will goes ✕)','every day가 있는데 -ing를 쓰면 틀려요 (습관은 단순 현재).','불규칙 과거형은 외워야 해요 (go-went, buy-bought, eat-ate).','주어가 3인칭 단수인데 -s를 빠뜨리지 마세요.']},
+md:{t:'조동사',steps:['문장의 의미를 먼저 파악해요 (능력? 허락? 의무? 추측? 충고?).','의미에 맞는 조동사를 골라요.','조동사 뒤에는 무조건 동사원형!'],
+ rule:['can: 능력·허락 / could: can의 과거, 정중한 부탁','may: 허락·약한 추측 / might: 더 약한 추측','must: 의무(~해야 한다), 강한 추측(~임이 틀림없다) / must not: 금지','should: 충고·권유 (~하는 게 좋다)','have to = must (의무), don’t have to = ~할 필요 없다 (금지 아님!)','Would you…? / Could you…? = 정중한 요청'],
+ trap:['must not(금지) ≠ don’t have to(불필요)!','조동사 뒤에 to나 -s를 붙이지 마세요 (can to go ✕, can goes ✕).','조동사는 두 개를 연달아 쓰지 않아요 (will can ✕ → will be able to).']},
+rp:{t:'관계대명사',steps:['빈칸 앞의 명사(선행사)가 사람인지 사물인지 확인해요.','빈칸 뒤 절에서 빠진 성분이 주어인지 목적어인지 보세요.','소유(~의)를 나타내면 whose, 아니면 who/which/that 중에서 골라요.'],
+ rule:['사람 선행사: who(주격) / whom(목적격, 생략 가능) / whose(소유격)','사물·동물: which(주격·목적격) / whose','that: 사람·사물 모두 가능 (콤마 뒤, 전치사 뒤에는 불가)','what = the thing which (선행사를 포함, “~하는 것”)','목적격 관계대명사는 생략할 수 있어요'],
+ trap:['what 앞에는 선행사가 없어요 (the book what ✕).','소유 관계는 whose + 명사 (the girl whose hair is long).','콤마(,) 뒤에는 that을 쓸 수 없어요.','관계대명사 뒤 절이 이미 주어를 가지고 있으면 목적격이에요.']},
+ps:{t:'수동태',steps:['주어가 행동을 “하는” 쪽인지 “당하는” 쪽인지 판단해요.','당하는 쪽이면 be + 과거분사(p.p.) 형태로 써요.','be동사는 시제와 주어에 맞춰 골라요 (is/are/was/were/will be).'],
+ rule:['수동태 = be동사 + 과거분사 (+ by 행위자)','현재: is/are + p.p. / 과거: was/were + p.p.','미래: will be + p.p. / 조동사: can be + p.p.','능동태 목적어가 수동태의 주어가 돼요','자동사(go, happen 등)는 수동태가 될 수 없어요'],
+ trap:['be동사를 빼먹지 마세요 (The window broken ✕).','과거분사와 과거형이 다른 동사 주의 (write-wrote-written).','행위자가 중요하지 않으면 by ~는 생략해요.']},
+pf:{t:'현재완료',steps:['since / for / already / yet / ever / never / just 같은 단서를 찾아요.','과거에 시작해서 지금과 연결되는 내용인지 확인해요.','have/has + 과거분사로 써요. 주어가 3인칭 단수면 has.'],
+ rule:['형태: have/has + p.p.','경험(~해 본 적 있다): ever, never, before, … times','계속(~해 오고 있다): since + 시점, for + 기간','완료(막 ~했다): just, already, yet','결과(~해 버렸다, 지금은 …)'],
+ trap:['yesterday, last year, ~ago 처럼 분명한 과거 시점과는 쓸 수 없어요 (완료 ✕ → 과거).','since 뒤는 시점(2010, last week), for 뒤는 기간(three years).','has gone(가 버렸다) ≠ has been(다녀왔다/가 본 적 있다).']},
+rv:{t:'관계부사',steps:['빈칸 앞의 선행사가 장소·시간·이유·방법 중 무엇인지 확인해요.','알맞은 관계부사를 골라요 (where / when / why / how).','how는 the way와 함께 쓰지 않아요 (둘 중 하나만).'],
+ rule:['장소(the place, the house…) → where','시간(the day, the year, the time…) → when','이유(the reason) → why','방법(the way) → how (the way how ✕)','관계부사 = 전치사 + 관계대명사 (in which = where)'],
+ trap:['관계부사 뒤에는 완전한 문장(주어+동사)이 와요.','the way how는 틀려요. the way 또는 how 중 하나!','선행사가 장소여도 뒤 절에 목적어가 없으면 관계대명사일 수 있어요.']},
+pc:{t:'분사구문',steps:['접속사 + 주어 + 동사가 줄어든 모양인지 확인해요.','분사구문의 의미상 주어가 주절의 주어와 같은지 봐요.','능동이면 -ing, 수동이면 p.p.(Being 생략)를 골라요.'],
+ rule:['능동 분사구문: V-ing (~하면서, ~해서, ~할 때)','수동 분사구문: (Being) + p.p. (~당해서, ~되어서)','부정은 분사 앞에 not (Not knowing…)','주어가 다르면 주어를 남겨요 (독립분사구문)','시간·이유·조건·양보·동시동작 등으로 해석해요'],
+ trap:['주어가 사람이면 대개 -ing, 사물이 “~당하는” 입장이면 p.p.','not은 분사 앞에 와요 (knowing not ✕).','접속사가 같이 남은 형태(When walking…)도 가능해요.']},
+sj:{t:'가정법',steps:['현재 사실과 반대인지(가정법 과거), 과거 사실과 반대인지(가정법 과거완료) 판단해요.','if절 동사 형태를 정해요.','주절의 조동사 형태를 짝에 맞게 고르세요.'],
+ rule:['가정법 과거: If + 주어 + 과거형(be는 were), 주어 + would/could + 동사원형 — 현재 사실 반대','가정법 과거완료: If + 주어 + had + p.p., 주어 + would have + p.p. — 과거 사실 반대','I wish + 과거형 = 현재 이루지 못한 소망','as if + 과거형 = 마치 ~인 것처럼','Without ~ = If it were not for ~'],
+ trap:['가정법 과거에서 be동사는 주어에 상관없이 were를 써요.','if절에는 would를 쓰지 않아요.','과거 사실 반대는 had p.p. + would have p.p. 짝!']},
+cp:{t:'비교급·최상급',steps:['than이 있는지, the ~est / of / in 같은 범위 표현이 있는지 확인해요.','두 대상 비교인지 셋 이상 중 최고인지 판단해요.','형용사·부사의 짧고 긴 정도에 따라 -er/-est 또는 more/most를 선택해요.'],
+ rule:['비교급: 형용사-er + than / more + 긴 형용사 + than','최상급: the + 형용사-est / the most + 긴 형용사 (+ in/of 범위)','원급 비교: as + 원급 + as (~만큼 …한)','비교급 강조: much, even, still, far, a lot (very는 ✕)','불규칙: good-better-best, bad-worse-worst, many/much-more-most'],
+ trap:['비교급 앞에 very는 쓰지 않아요 (much, even을 써요).','more와 -er을 동시에 쓰지 마세요 (more taller ✕).','최상급에는 the를 잊지 마세요.','the 비교급 + 주어 + 동사, the 비교급 + … (~할수록 더 …)']},
+cj:{t:'접속사·명사절',steps:['빈칸 앞뒤 두 절의 관계를 파악해요 (이유 / 결과 / 반대 / 시간 / 조건).','문장 안에서 절이 명사 역할인지(that/if/whether) 확인해요.','관계에 맞는 접속사를 골라요.'],
+ rule:['이유: because, since, as / 결과: so','반대: but, although(though), while','시간: when, while, before, after, until','조건: if, unless (= if ~ not)','명사절: that(~라는 것), if/whether(~인지 아닌지)'],
+ trap:['because와 so를 겹쳐 쓰지 마세요 (Because ~, so ✕).','although 뒤에는 but을 쓰지 않아요.','시간·조건 부사절에서는 미래 의미도 현재형을 써요 (If it rains tomorrow).','unless 자체가 부정이라 not을 또 쓰지 않아요.']},
+pn:{t:'대명사·관사',steps:['빈칸이 가리키는 대상이 누구/무엇인지 앞 문장에서 찾아요.','문장 속 역할(주어/목적어/소유/재귀)을 정해요.','명사 앞이면 a/an/the 여부를 셀 수 있는지, 처음 나온 말인지로 결정해요.'],
+ rule:['주격 I/you/he… / 목적격 me/you/him… / 소유격 my/your/his… / 소유대명사 mine/yours…','재귀대명사: myself, himself… (주어 = 목적어일 때)','one … the other: 둘 중 하나/나머지 하나 / some … others','처음 나온 셀 수 있는 단수 명사: a/an, 이미 언급되었거나 유일한 것: the','a는 자음 소리 앞, an은 모음 소리 앞 (an hour, a university)'],
+ trap:['소유격(my)과 소유대명사(mine)를 구별해요: my book / It is mine.','주어와 목적어가 같은 사람이면 재귀대명사 (He hurt himself).','셀 수 없는 명사에는 a/an을 못 써요.']},
+ot:{t:'전치사·기타',steps:['빈칸 뒤 명사가 시간인지, 장소인지, 수단인지 확인해요.','시간·장소의 범위(작은 점 / 날짜 / 넓은 범위)를 판단해요.','자주 같이 쓰는 표현(숙어)이면 통째로 기억해 둔 것을 골라요.'],
+ rule:['시간: at(시각) / on(요일·날짜) / in(월·계절·연도)','장소: at(지점) / in(안) / on(표면 위)','for(~동안), during(~하는 동안), since(~이래로), by(~까지 완료) / until(~까지 계속)','수단: by bus / with a pen / in English','전치사 뒤에는 명사·대명사·동명사(-ing)가 와요'],
+ trap:['by(완료 시점)와 until(지속 기간)을 구별해요.','전치사 뒤에 동사원형이 올 수 없어요 (-ing 사용).','for + 기간 / during + 특정 기간의 이름.']},
+iv:{t:'to부정사·동명사',steps:['빈칸 앞의 동사가 무엇인지 확인해요.','그 동사가 to부정사를 쓰는지, 동명사를 쓰는지, 둘 다 가능한지 떠올려요.','전치사 뒤라면 동명사(-ing)를 써요.'],
+ rule:['to부정사만 쓰는 동사: want, hope, plan, decide, need, promise, refuse, expect…','동명사만 쓰는 동사: enjoy, finish, mind, avoid, give up, keep, practice…','둘 다 가능, 뜻 동일: like, love, start, begin','둘 다 가능, 뜻 달라짐: remember/forget/stop + to V(앞으로·목적) vs V-ing(과거·행동 자체)','전치사 뒤, 주어 자리에는 동명사'],
+ trap:['enjoy to V ✕ → enjoy V-ing ✓, want V-ing ✕ → want to V ✓','stop to V = ~하려고 멈추다, stop V-ing = ~하는 것을 멈추다.','look forward to 뒤의 to는 전치사라서 -ing가 와요.']},
+pe:{t:'지각·사역·감각동사',steps:['동사의 종류를 구분해요 (지각 see/hear/feel, 사역 make/let/have, 감각 look/sound/smell/taste/feel).','목적어 뒤 동사 모양이 원형인지, -ing인지, to V인지 정해요.','감각동사라면 뒤에 형용사가 와요 (부사 ✕).'],
+ rule:['지각동사 + 목적어 + 동사원형 (행동 전체) / V-ing (진행 중인 모습)','사역동사 make/let/have + 목적어 + 동사원형','help + 목적어 + 동사원형 / to V (둘 다 가능)','get + 목적어 + to V','감각동사(look, sound, smell, taste, feel) + 형용사'],
+ trap:['make me to laugh ✕ → make me laugh ✓','사역동사 중 get만 to V를 써요.','looks happily ✕ → looks happy ✓ (감각동사 뒤는 형용사).','수동으로 바뀌면 to가 살아나요 (He was made to wait).']},
+ng:{t:'명사·명령문·감탄문',steps:['문장 형태를 파악해요 (명사 문제? 명령문? 감탄문?).','감탄문이면 뒤에 명사가 있는지(what) 형용사만 있는지(how) 확인해요.','명사는 셀 수 있는지, 복수형이 규칙인지 확인해요.'],
+ rule:['What + (a/an) + 형용사 + 명사 + (주어 + 동사)!','How + 형용사/부사 + (주어 + 동사)!','명령문: 동사원형으로 시작 / 부정 Don’t + 동사원형 / 권유 Let’s + 동사원형','명령문 + and ~ (그러면 ~) / 명령문 + or ~ (그렇지 않으면 ~)','셀 수 없는 명사(water, money, advice)는 복수형이 없어요'],
+ trap:['What a beautiful flower! / How beautiful the flower is! 구별해요.','information, advice 앞에는 a/an이나 복수 -s를 쓰지 않아요.','불규칙 복수 (child-children, man-men, foot-feet).']},
+rs:{t:'화법·간접의문문',steps:['직접 화법을 간접 화법으로 바꾸는지, 간접의문문인지 확인해요.','전달 동사의 시제에 맞춰 시제를 한 단계 과거로 조정해요.','어순이 “의문사 + 주어 + 동사”인지 확인해요.'],
+ rule:['간접의문문 어순: 의문사 + 주어 + 동사 (do/does/did 없음)','Yes/No 의문문 전달: if/whether + 주어 + 동사','시제 일치: said that + 과거(am→was, will→would, can→could)','인칭·시간 표현도 바꿔요 (I→he/she, now→then, today→that day)','명령문 전달: told + 목적어 + to V'],
+ trap:['Do you know where does he live? ✕ → where he lives ✓','if절이 아니라 “전달된 질문”이면 평서문 어순이에요.','said to → told 로 바꿔 전달해요.']},
+sx:{t:'도치·강조·병렬·동격',steps:['문장 앞에 부정어(never, hardly 등)나 only, so 같은 말이 있는지 확인해요.','both/either/neither 같은 상관접속사 짝을 찾아요.','짝이 맞는 말(and/or/nor)을 골라 병렬 구조를 맞춰요.'],
+ rule:['both A and B / either A or B / neither A nor B / not only A but also B','병렬: 같은 품사·같은 형태끼리 연결 (running and swimming)','부정어 문두 도치: Never have I seen… (조동사 + 주어 + 동사)','강조: It is/was ~ that … / do/does/did + 동사원형','동격: 명사 + that절 / 명사, 명사 (the fact that…)'],
+ trap:['neither A nor B에는 이미 부정이 들어 있어요 (not을 또 쓰지 않아요).','동사 수는 B에 맞춰요 (either/neither/not only A but B).','병렬은 모양을 같게: to V and to V / V-ing and V-ing.']},
+pv:{t:'영어 속담',steps:['속담의 우리말 뜻(해석)을 먼저 읽어요.','빈칸 앞뒤의 흐름과 속담의 교훈을 연결해요.','운율이 같거나 대구가 되는 단어가 정답일 때가 많아요.'],
+ rule:['속담은 통째로 외워야 해요. 단어 하나만 바뀌어도 뜻이 달라져요.','대구(대조) 구조가 많아요: A is B, C is D.','한국 속담과 비교하며 외우면 쉬워요.'],
+ trap:['비슷한 모양의 단어(deed/need/indeed)를 헷갈리지 마세요.','직역하지 말고 속담의 교훈으로 이해해요.']},
+id:{t:'숙어·구동사',steps:['동사 부분과 뒤의 전치사·부사를 한 덩어리로 봐요.','해석을 보고 어떤 뜻의 숙어가 필요한지 정해요.','자주 쓰는 구동사(take off, look for…)는 통째로 떠올려요.'],
+ rule:['구동사 = 동사 + 전치사/부사 (뜻이 완전히 달라져요)','같은 동사도 전치사에 따라 뜻이 달라요 (look for 찾다 / look after 돌보다 / look up 찾아보다)','목적어가 대명사이면 구동사 사이에 넣어요 (turn it off)'],
+ trap:['take off(벗다) ↔ put on(입다)처럼 반대 짝을 함께 외워요.','look at / look for / look after 의 전치사를 정확히!']}
+};
+const GRULE_ALIAS={d7:'ps',d8:'iv'};
+let _gqIdx=null;
+function gqPool(e){if(e.pool)return e.pool;try{if(!_gqIdx){_gqIdx={};Object.keys(GQD).forEach(k=>GQD[k].forEach(r=>{if(!_gqIdx[r[1]])_gqIdx[r[1]]=k;}));}return _gqIdx[e.sentence]||'';}catch(x){return '';}}
+function gqSame(e,pool){try{const L=(GQD[pool]||[]).filter(r=>r[1]!==e.sentence);const key=(e.why||'').slice(0,5);let m=L.filter(r=>key&&String(r[4]).slice(0,5)===key);if(m.length<2)m=L;
+ const a=m.slice().sort(()=>Math.random()-.5).slice(0,2);return a.map(r=>({f:r[1].replace('____',r[2][0]),ko:r[3]}));}catch(x){return [];}}
+/* reveal=true: 정답까지 공개(복습·오답노트), false: 정답은 숨기고 규칙만 (바로 다시 도전하는 일반 던전) */
+function gqDetailHTML(e,reveal){try{if(!e||e.type!=='gq')return '';const pool=gqPool(e),R=GRULE[pool]||GRULE[GRULE_ALIAS[pool]];let h='';
+ if(reveal){
+  h+=`<div class="dt-r"><b>① 문장 해석</b><br>${esc(e.ko||e.tr||'')}<br><span class="dt-t">완성 문장: ${esc(e.filled).replace(esc(e.ansText),'<b class="dt-ans">'+esc(e.ansText)+'</b>')}</span></div>`;
+  h+=`<div class="dt-r"><b>② 정답이 ‘${esc(e.ansText)}’인 이유</b><br>${esc(e.why||'')}</div>`;
+  const wr=(e.options||[]).filter(o=>o!==e.ansText);
+  if(wr.length)h+=`<div class="dt-r"><b>③ 다른 보기는 왜 안 될까요?</b><ul>${wr.map(o=>`<li><b>${esc(o)}</b> → ${esc(e.sentence.replace('____',o))}<br><span class="hint">이 단원의 규칙과 단서(②)에 맞지 않아서 어색해요.</span></li>`).join('')}</ul></div>`;
+ }
+ if(R){
+  h+=`<div class="dt-r"><b>${reveal?'④':'🧭'} 이 단원(${R.t}) 푸는 순서</b><ol>${R.steps.map(s=>`<li>${esc(s)}</li>`).join('')}</ol></div>`;
+  h+=`<div class="dt-r"><b>📚 핵심 규칙</b><ul>${R.rule.map(s=>`<li>${esc(s)}</li>`).join('')}</ul></div>`;
+  h+=`<div class="dt-r"><b>⚠️ 자주 하는 실수</b><ul>${R.trap.map(s=>`<li>${esc(s)}</li>`).join('')}</ul></div>`;
+ }
+ if(reveal&&pool){const ex=gqSame(e,pool);if(ex.length)h+=`<div class="dt-r"><b>✍️ 같은 규칙 예문</b><ul>${ex.map(x=>`<li>${esc(x.f)}<br><span class="hint">${esc(x.ko)}</span></li>`).join('')}</ul></div>`;}
+ return h?`<div class="dt-box"><div class="dt-h">📖 자세한 풀이 <small>(${reveal?'몰라서 틀렸다면 천천히 읽어 보세요':'정답은 직접 찾아보세요! 규칙을 보고 다시 도전'})</small></div>${h}</div>`:'';}catch(err){return '';}}
 
 render();tryAuto();setTimeout(tryAuto,300);
 setInterval(()=>{document.body.classList.toggle('muted-wait',!(AU.ctx&&AU.ctx.state==='running')&&G.scr==='splash');},500);

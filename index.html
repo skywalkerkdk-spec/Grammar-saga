@@ -992,6 +992,11 @@ canvas.px[data-src="SPR"][data-k="shaman"],canvas.px[data-src="SPR"][data-k^="cs
 
 .dt-more{margin-top:6px}.dt-more summary{cursor:pointer;background:#40387a;border-radius:10px;padding:9px;text-align:center;font-weight:800;color:#ffe27a;list-style:none}.dt-more summary::-webkit-details-marker{display:none}.dt-more[open] summary{margin-bottom:6px}
 
+.opn{max-width:960px;margin:10px auto;text-align:center}
+.opn video{width:100%;max-height:78vh;background:#000;border-radius:14px;box-shadow:0 8px 30px #000a}
+.opbar{display:flex;justify-content:space-between;align-items:center;margin-top:10px;gap:10px}
+.ophint{color:#cbb8ff;font-size:14px;cursor:pointer}
+
 </style>
 </head>
 <body>
@@ -1527,7 +1532,7 @@ function openGuide(){
 function hud(extra){return `<div class="hud"><span class="nm">${SV.hero==='druid'?'🐻':'🛡️'} ${esc(G.name)}${SV.hero?` <small>(${HERO[SV.hero].slice(2)})</small>`:''}</span><span class="gold">💎 ${SV.cry}</span>${G.started?`<span class="stonechip" title="강화석">⚒️ ${SV.stone||0}</span>`:''}${SV.mode==='rpg'&&rpgOpen()?`<span class="rgold">💰 ${SV.rg}</span>`:''}${G.started&&SV.level?`<span class="lvb">${LEVELS[LV()].ic} ${LEVELS[LV()].n}</span>`:''}${extra||''}<span class="sp"></span><button class="btn-s mute" onclick="toggleMute()">${AU.muted?'🔇 소리 꺼짐':'🔊 소리 켜짐'}</button><button class="btn-s" onclick="openGuide()">📖 도감</button></div>`;}
 
 /* ---------- 화면 ---------- */
-function render(){window.scrollTo({top:0});applySkin();const f={splash,title,level,grave,ending,temple,intro,dsel,party,defeat,formed,battle,clear,shop,forge,rbattle,rresult,hsel:heroSel,news:newsPaper,rank:rankScreen,pvp:pvLobby,pvbattle:pvBattle,pvres:pvRes,rdlobby:rdLobby,rdbattle:rdBattle}[G.scr];document.body.dataset.bg=G.scr==='splash'?'':(G.scr==='battle'||G.scr==='rbattle'||G.scr==='pvbattle'||G.scr==='rdbattle')?(G.dg.bg||G.dg.id):'guild';f();fill($('app'));syncBgm();}
+function render(){window.scrollTo({top:0});applySkin();const f={splash,title,opening,level,grave,ending,temple,intro,dsel,party,defeat,formed,battle,clear,shop,forge,rbattle,rresult,hsel:heroSel,news:newsPaper,rank:rankScreen,pvp:pvLobby,pvbattle:pvBattle,pvres:pvRes,rdlobby:rdLobby,rdbattle:rdBattle}[G.scr];document.body.dataset.bg=G.scr==='splash'?'':(G.scr==='battle'||G.scr==='rbattle'||G.scr==='pvbattle'||G.scr==='rdbattle')?(G.dg.bg||G.dg.id):'guild';f();fill($('app'));syncBgm();}
 
 const CREDIT=`<div class="credit">본 게임의 제작자는 DK KANG입니다.<br>이미지, 음악 및 폰트는 AI 도구를 활용하여 제작되었습니다.<br>학생들의 영어학습을 위해서는 얼마든지 쓰셔도 좋습니다.<br>다만 무단 복제 및 변형은 금지합니다.</div>`;
 const DEVH=()=>{const h=(location.hash||'').replace('#','').toLowerCase();return ({zx:1,qw:1,as:1})[h]?h:'';};
@@ -1545,6 +1550,13 @@ function splash(){
  $('spl').querySelector('.spimg').onclick=start;
  $('newgame').onclick=()=>{start();sfx('select');G.scr='title';render();};
 }
+function opening(){
+ $('app').innerHTML=`<div class="opn"><video id="opv" src="opening.mp4" playsinline preload="auto"></video>
+  <div class="opbar"><label class="ophint"><input type="checkbox" id="opno"> 다음부터 건너뛰기</label><button class="btn-s" id="opskip">⏭ 건너뛰기</button></div></div>`;
+ const v=$('opv');let fin=false;const nx=G.opNext||'level';
+ const done=()=>{if(fin)return;fin=true;try{v.pause();}catch(e){}try{if($('opno').checked)localStorage.setItem('sg_noopen','1');}catch(e){}G.scr=nx;render();};
+ v.muted=!!AU.muted;v.onended=done;v.onerror=done;$('opskip').onclick=done;
+ const p=v.play();if(p&&p.catch)p.catch(()=>{v.muted=true;const q=v.play();if(q&&q.catch)q.catch(done);});}
 function title(){
  $('app').innerHTML=`<div style="text-align:right"><button class="btn-s mute" onclick="toggleMute()">${AU.muted?'🔇 소리 꺼짐':'🔊 소리 켜짐'}</button></div><div class="hero">
  <div class="lineup heroimg"><img alt="Grammar Saga 파티" src="titlehero.webp"></div>
@@ -1565,7 +1577,7 @@ function title(){
   <div class="xrow"><button class="btn-s" id="xcp">📋 복사</button><button class="btn-s" id="xin">📥 가져오기</button></div><div class="hint" id="xmsg"></div></details>
  </div>${CREDIT}</div>`;
  const lm=t=>{$('lmsg').innerHTML=t;};let _sure='';
- const begin=(n,dev)=>{G=fresh(n);G.started=true;G.dev=dev;SV=loadSave(G.name);if(dev){sfx('fanfare');if(!SV.level)SV.level='expert';G.introDone=true;G.scr='dsel';}else G.scr='level';render();};
+ const begin=(n,dev)=>{G=fresh(n);G.started=true;G.dev=dev;SV=loadSave(G.name);if(dev){sfx('fanfare');if(!SV.level)SV.level='expert';G.introDone=true;G.opNext='dsel';}else G.opNext='level';let no=false;try{no=localStorage.getItem('sg_noopen')==='1';}catch(e){}G.scr=no?G.opNext:'opening';render();};
  const go=async()=>{let n=($('nmi').value||'').trim(),p=($('pwi').value||'');const DEVID={zx:'Mr.KANG',qw:'Mr.KANG-Qw',as:'Mr.KANG-As'};const dev=Object.prototype.hasOwnProperty.call(DEVID,n.toLowerCase());
   if(dev){begin(DEVID[n.toLowerCase()],true);return;}
   if(!n){lm('이름을 입력하세요.');return;}

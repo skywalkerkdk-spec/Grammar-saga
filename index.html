@@ -1137,7 +1137,7 @@ const DUNGEONS=[
   desc:'어둠의 마력에 잠식된 드루이드의 숲. 문장 속 <b>-ing 덩어리</b>가 동명사인지 분사인지, 어느 자리를 맡았는지 보고 알맞은 드루이드를 보내라!',
   formed:'동사원형 + <b>-ing</b>는 두 얼굴을 가졌어요. <b>동명사</b>(~하는 것)는 🐻 곰(주어) · 🐯 호랑이(목적어) · ✨ 버프(보어)! <b>현재분사</b>(~하는, ~하고 있는)는 🐾 소환(명사를 꾸밈)이나 ✨ 버프(목적격보어)! 표시된 -ing 덩어리를 보고 알맞은 드루이드를 보내세요.',sample:'I enjoy <b>dancing</b>. → 목적어 자리 → 🐆 호랑이 드루이드!',
   next:'전직의 신전을 모두 돌파했어요! 다른 난이도로 다시 도전하거나 다크나이트(DK)성에 재도전해 보세요.'},
- {id:'d6',size:8,form:'1~5',name:'다크나이트(DK)성',mon:'darkknight',open:true,full:true,need:['healer','paladin','dealer','shaman','trader','item'],enc:true,
+ {id:'d6',size:8,form:'1~5',name:'다크나이트(DK)성',mon:'dkboss',open:true,full:true,need:['healer','paladin','dealer','shaman','trader','item'],enc:true,
   desc:'모든 동료를 이끌고 가는 마지막 결전! 적이 외치는 문장을 보고 <b>필요한 동료만 골라 출전</b>시켜라. 1~5형식이 무작위로 나온다. 마지막은 <b>사천왕</b>과 <b>다크나이트(DK)</b>!',
   formed:'다크나이트(DK)성에서는 <b>모든 동료</b>가 함께 갑니다. 탱커(주어)와 사제(동사)는 항상 출전! 나머지 동료는 적이 외치는 문장에 필요한 성분만 골라 출전시키세요.<br>· 주격보어 → 성기사 · 목적어 → 딜러 · 목적격보어 → 주술사 · 간접목적어 → 트레이더 · 직접목적어 → 아이템 · 수식어 → 펫 (인원 외)<br>필요 없는 동료를 내보내도, 필요한 동료를 빠뜨려도 공격 실패! 수식어가 있는 문장이면 펫도 함께 내보내세요.',
   sample:'The news made <b>me</b> <b>happy</b>. → 딜러 + 주술사 출전!',
@@ -1168,7 +1168,7 @@ const LV=()=>LEVELS[SV.level]?SV.level:'beginner';
 const PLAN={d4:['B','J','C','B','J','P','C','B','J','J','BB','BC'],d5:['B','J','C','B','J','P','C','B','J','J','BB','BC'],d1:['B','J','P','B','J','B','J','P','J','BB','BJ'],d2:['B','J','C','B','J','P','C','B','J','J','BB','BC'],d3:['B','J','C','B','J','C','P','J','C','J','BB','BJ']};
 const MONS={d1:['slime','bat','mushroom','goblin','kobold','werewolf','harpy'],d2:['slimes','slimes','kobold','mimic','zombie','goblin'],d3:['golem','golem','ogre','troll','cyclops','wyvern','gargoyle'],d4:['shopkeep','smith','witch','mimic'],d5:['homunculus','flask','qslime','zombie','mummy','gargoyle'],d6:['imp','skeleton','darkknight','vampire','succubus','lich','hellhound','minotaur','medusa','banshee','orc'],d7:['trainee','dummy','efire','elight','eearth','gargoyle','lich','banshee'],d8:['sprout','spirit','ewater','ewind','eearth','werewolf','harpy','medusa','troll']};
 const BOSS={d1:{mon:'treant',mname:'숲의 수호목'},d2:{mon:'slimeking',mname:'슬라임 킹'},d3:{mon:'golemboss',mname:'골렘 대장'},d4:{mon:'tycoon',mname:'황금 거상'},d5:{mon:'alchemist',mname:'광기의 연금술사'},d6:{mon:'demonking',mname:'다크나이트(DK)'}};
-const MNAME={slime:'슬라임',bat:'박쥐',mushroom:'버섯',slimes:'슬라임 떼',golem:'골렘',shopkeep:'잡화 상인',smith:'대장장이',witch:'물약 상인',imp:'임프',homunculus:'호문쿨루스',flask:'살아 있는 플라스크',qslime:'수은 슬라임',trainee:'타락한 견습 기사',dummy:'저주받은 훈련 해골',sprout:'타락한 새싹',spirit:'어둠의 정령',skeleton:'해골 병사',darkknight:'흑기사',goblin:'고블린',kobold:'코볼트',orc:'오크 전사',ogre:'오우거',troll:'트롤',werewolf:'늑대인간',vampire:'뱀파이어',succubus:'서큐버스',zombie:'좀비',mummy:'미라',lich:'리치',gargoyle:'가고일',harpy:'하피',minotaur:'미노타우로스',mimic:'미믹',cyclops:'사이클롭스',medusa:'메두사',hellhound:'지옥견',banshee:'밴시',wyvern:'와이번',efire:'타락한 불의 정령',ewater:'타락한 물의 정령',ewind:'타락한 바람의 정령',eearth:'타락한 대지의 정령',elight:'타락한 빛의 정령'};
+const MNAME={slime:'슬라임',bat:'박쥐',mushroom:'버섯',slimes:'슬라임 떼',golem:'골렘',shopkeep:'잡화 상인',smith:'대장장이',witch:'물약 상인',imp:'임프',homunculus:'호문쿨루스',flask:'살아 있는 플라스크',qslime:'수은 슬라임',trainee:'타락한 견습 기사',dummy:'저주받은 훈련 해골',sprout:'타락한 새싹',spirit:'어둠의 정령',skeleton:'해골 병사',darkknight:'기사',goblin:'고블린',kobold:'코볼트',orc:'오크 전사',ogre:'오우거',troll:'트롤',werewolf:'늑대인간',vampire:'뱀파이어',succubus:'서큐버스',zombie:'좀비',mummy:'미라',lich:'리치',gargoyle:'가고일',harpy:'하피',minotaur:'미노타우로스',mimic:'미믹',cyclops:'사이클롭스',medusa:'메두사',hellhound:'지옥견',banshee:'밴시',wyvern:'와이번',efire:'타락한 불의 정령',ewater:'타락한 물의 정령',ewind:'타락한 바람의 정령',eearth:'타락한 대지의 정령',elight:'타락한 빛의 정령'};
 const VAR={
  slime:[['',''],['불꽃 ','hue-rotate(-100deg)'],['얼음 ','hue-rotate(90deg)'],['독 ','hue-rotate(170deg)'],['황금 ','hue-rotate(-50deg) saturate(1.4)']],
  bat:[['',''],['핏빛 ','hue-rotate(80deg)'],['숲 ','hue-rotate(-140deg)'],['푸른 ','hue-rotate(-50deg)'],['황금 ','hue-rotate(160deg) saturate(1.5)']],
@@ -1184,7 +1184,7 @@ VAR.dummy=[['',''],['낡은 ','sepia(.8)']];
 VAR.sprout=[['',''],['푸른 ','hue-rotate(90deg)'],['꽃 ','hue-rotate(-90deg) saturate(1.5)']];
 VAR.spirit=[['','hue-rotate(40deg)'],['반딧불 ','hue-rotate(-120deg) brightness(1.2)']];
 VAR.imp=[['',''],['불꽃 ','hue-rotate(20deg) saturate(1.4)'],['얼음 ','hue-rotate(190deg)'],['독 ','hue-rotate(100deg)'],['그림자 ','brightness(.7)']];
-VAR.skeleton=VAR.darkknight=[['',''],['저주받은 ','hue-rotate(90deg)'],['피의 ','sepia(1) saturate(3) hue-rotate(-40deg)'],['얼음 ','sepia(1) saturate(2) hue-rotate(170deg)'],['고대 ','sepia(.8)']];
+VAR.skeleton=[['',''],['저주받은 ','hue-rotate(90deg)'],['피의 ','sepia(1) saturate(3) hue-rotate(-40deg)'],['얼음 ','sepia(1) saturate(2) hue-rotate(170deg)'],['고대 ','sepia(.8)']];
 VAR.goblin=VAR.kobold=VAR.orc=[['',''],['우두머리 ','saturate(1.5)'],['동굴 ','hue-rotate(40deg)'],['피의 ','hue-rotate(-60deg)']];
 VAR.ogre=VAR.troll=VAR.cyclops=[['',''],['산 ','hue-rotate(30deg)'],['얼음 ','hue-rotate(160deg)'],['늪 ','hue-rotate(-50deg) saturate(1.3)']];
 VAR.werewolf=VAR.hellhound=[['',''],['은빛 ','grayscale(.6) brightness(1.2)'],['핏빛 ','sepia(.6) saturate(2) hue-rotate(-30deg)']];
@@ -1231,7 +1231,7 @@ const SCW=[
   talk:['셋을 쓰러뜨리다니… 하지만 놀라지 마라. 사천왕은 사실 다섯 명이다!','…농담이다. 대지의 문장을 받아라!'],
   kill:'훌륭하다… 이제 다크나이트(DK)님을 막을 자는… 없다…'}];
 const MINION_TALK=['다크나이트(DK)님께 가려면 나를 넘어야 한다!','여기서부터는 못 지나간다!','크크… 이 문장을 막을 수 있을까?','다크나이트(DK)님의 성에 침입자다!'];
-const KING={mon:'darkknight',mname:'👿 다크나이트(DK)',talk:[['사천왕을 모두 쓰러뜨리다니… 좋다. 모든 문장 형식을 다루는 자만이 나를 쓰러뜨릴 수 있다!','다크나이트(DK)가 승부를 걸어왔다! 이번엔 도망칠 수 없다!','너흰 아직 준비가 되지 않았다!'],['아직이다! 이번 문장은 어떠냐!','Power overwhelming! 다크나이트(DK)의 진짜 힘을 보여 주마!'],['이럴 수가… 마지막 문장이다!','호옹이?! 용사가… 다크나이트(DK)에게 말대꾸?!','YOU DIED를 보게 해 주마!','내가 지금까지 무릎을 꿇었던 것은… 추진력을 얻기 위함이었다!']],kill:['크아아… 문장의 힘이… 이토록 강하다니…!','크윽… 대마왕님… 이제 누군가 왕위를 계승하겠군요…','크윽… 미안하다, 용사들… 진짜 보스는 다른 성에 있다…']};
+const KING={mon:'dkboss',mname:'👿 다크나이트(DK)',talk:[['사천왕을 모두 쓰러뜨리다니… 좋다. 모든 문장 형식을 다루는 자만이 나를 쓰러뜨릴 수 있다!','다크나이트(DK)가 승부를 걸어왔다! 이번엔 도망칠 수 없다!','너흰 아직 준비가 되지 않았다!'],['아직이다! 이번 문장은 어떠냐!','Power overwhelming! 다크나이트(DK)의 진짜 힘을 보여 주마!'],['이럴 수가… 마지막 문장이다!','호옹이?! 용사가… 다크나이트(DK)에게 말대꾸?!','YOU DIED를 보게 해 주마!','내가 지금까지 무릎을 꿇었던 것은… 추진력을 얻기 위함이었다!']],kill:['크아아… 문장의 힘이… 이토록 강하다니…!','크윽… 대마왕님… 이제 누군가 왕위를 계승하겠군요…','크윽… 미안하다, 용사들… 진짜 보스는 다른 성에 있다…']};
 /* 1~5형식 랜덤 던전용 문장 풀: d1~d5의 모든 문제 문장(약 1,000개/난이도)을 형식별로 모음 */
 const MIXP={};
 function mixPool(L){if(MIXP[L])return MIXP[L];const by={1:[],2:[],3:[],4:[],5:[]},seen=new Set();
@@ -1268,7 +1268,7 @@ const MT={
  qslime:{t:['나는 은빛 슬라임! 고급진 슬라임이다!','동굴 슬라임이랑 비교하지 마라. 난 수은이다!','왼손은 거들 뿐… 은빛 슬라임은 거들지 않는다!','야생의 수은 슬라임이(가) 나타났다!','수은 슬라임은 녹기를 사용했다! 방어가 크게 올랐다!'],k:['말랑… 은빛 최약체…','녹는다… 녹아… 좋~다…','은빛 슬라임의… 영광의 시대는… 끝났다…','YOU DIED… 은빛으로…','수은 슬라임은 쓰러졌다!','호옹이… 은빛이… 사라진다…'],x:['반짝반짝~ 틀린 것도 반짝!','반짝! 그건 니 생각이고~','효과가 없는 것 같다…','근성이 최고다? 너는 근성이 없다?'],r:['반짝? 그냥 가? 아쉽자베스~','무사히 도망쳤다!']},
  imp:{t:['킥킥! 다크나이트(DK)님께 가려면 내 문장부터!','난 임프. 장난이 갓생이다!','킥킥! 넌 내 동료가 돼라! …싫어? 그럼 싸우자!','너흰 아직 준비가 되지 않았다! …라고 말하라고 다크나이트(DK)님이 시켰다.','누구나 그럴듯한 계획을 가지고 있다. 처맞기 전까지는!','임프는 장난을 치고 싶어 한다! 근성이 최고다?','난 상대가 초보 모험가라도 최선을 다한다!'],k:['킥… 나는 임프 중 최약체…','킥… 나만 아니면 된다고 했는데…','킥… 퍼스트 블러드…','임프는 쓰러졌다! 오늘도 날아가는구나~'],x:['킥킥! 그거 아니지롱!','킥킥! 어림없지!','킥킥! 적이 당신을 처치했습니다~','임프는 혼란에 빠진 너를 비웃었다!','용사가… 말대꾸?! 킥킥, 틀렸으면서!'],r:['킥? 도망가?','무사히 도망쳤다!']},
  skeleton:{t:['딸깍딸깍… 이건 뼈 소리다.','뼈밖에 없어서 공부할 때 등뼈가 꼿꼿하다!','뼈의 호흡 제1형! 딸깍딸깍!','Stay awhile and listen… 딸깍.','내가 무릎을 꿇었던 것은 뼈를 펼칠 추진력을 얻기 위함이었다! 딸깍!','해골 병사는 뼈다귀부메랑을 꺼냈다!','해골 원위치! 다시 조립 완료! 딸깍!'],k:['와르르… 뼈 맞았다…','와르르… I\'ll be back… 뼈만 챙기면…','와르르… 나도 예전엔 모험가였지… 무릎에 화살을 맞기 전까진…','해골 병사는 쓰러졌다! 뼈다귀를 떨어뜨렸다!','와르르… 해골… 원위치… 실패…'],x:['딸깍! 뼈 때리는 오답!','딸깍! 뭣이 중헌디!','딸깍! 추가 공부가 필요합니다!','뼈다귀부메랑! 급소에 맞았다!','받아라, 드래곤주먹! …뼈로 된 주먹이지만!'],r:['딸깍? 가는 거야?','무사히 도망쳤다!']},
- darkknight:{t:['흑기사 등장. 오늘 내 폼 미쳤다.','나는 다크나이트(DK)님의 근위대… 중 최약체다. 하지만 너희보단 강하다!','다크나이트(DK)님의 영광의 시대는 언제냐고? 바로 지금이다!','Power overwhelming! 흑기사 출격!','누구나 그럴듯한 계획을 가지고 있다. 처맞기 전까지는!','왕위를 계승하고 있습니다, 아버지. …농담이다. 다크나이트(DK)님은 아직 건재하시다!','흑기사가 승부를 걸어왔다! 도망칠 수 없다!','난 상대가 초등학생이라도 최선을 다한다! 덤벼라!'],k:['크윽… 흑기사도… 결국 기사였다…','포기하는 순간… 시합은 끝나는 거였는데…','크윽… GG…','흑기사는 쓰러졌다! 근성 있는 녀석이었다?','육체는 단명이고… 근성은 영원한 것…'],x:['그 정도 문장으로 내 갑옷을 뚫을쏘냐!','넌 나에게 모욕감을 줬다.','적이 당신을 처치했습니다.','그럴듯한 계획이었지. 내 검에 맞기 전까지는.','근성 없는 문장이다?'],r:['흥, 겁먹었나?','무사히 도망쳤다!']}};
+ darkknight:{t:['기사 등장. 오늘 내 폼 미쳤다.','나는 다크나이트(DK)님의 근위대… 중 최약체다. 하지만 너희보단 강하다!','다크나이트(DK)님의 영광의 시대는 언제냐고? 바로 지금이다!','Power overwhelming! 흑기사 출격!','누구나 그럴듯한 계획을 가지고 있다. 처맞기 전까지는!','왕위를 계승하고 있습니다, 아버지. …농담이다. 다크나이트(DK)님은 아직 건재하시다!','흑기사가 승부를 걸어왔다! 도망칠 수 없다!','난 상대가 초등학생이라도 최선을 다한다! 덤벼라!'],k:['크윽… 흑기사도… 결국 기사였다…','포기하는 순간… 시합은 끝나는 거였는데…','크윽… GG…','흑기사는 쓰러졌다! 근성 있는 녀석이었다?','육체는 단명이고… 근성은 영원한 것…'],x:['그 정도 문장으로 내 갑옷을 뚫을쏘냐!','넌 나에게 모욕감을 줬다.','적이 당신을 처치했습니다.','그럴듯한 계획이었지. 내 검에 맞기 전까지는.','근성 없는 문장이다?'],r:['흥, 겁먹었나?','무사히 도망쳤다!']}};
 const BTALK={
  d1:{t:[['천 년 동안 잠들어 있었는데 너희가 깨웠구나… 나 아침잠 많은 편이다.','Winter is coming… 아니, 지금은 가을이다. 낙엽 문장을 받아라!','내가 천 년 동안 무릎을 꿇었던 것은… 추진력을 얻기 위함이었다!','숲의 수호목이 승부를 걸어왔다! 이 승부에서는 도망칠 수 없다!'],['아직이다! 나무는 뿌리가 깊다!','나무의 호흡 제1형! 뿌리 감기!','난 상대가 초보 모험가라도 최선을 다한다!']],k:['좋~다… 다시 천 년 자러 간다…','I\'ll be back… 천 년 후에…','우와아아앙… 다시 자러 간다…'],x:['흐음… 나뭇잎 하나 안 떨어졌다.','그건 니 생각이고~']},
  d2:{t:[['내 부하들은 슬라임 중 최약체였을 뿐! 나는 킹이다, 킹!','넌 내 부하가 돼라! 슬라임 킹의 명령이다!','로크타르 오가르! 슬라임 대군이여, 돌격하라!','선대 슬라임 킹이시여… 왕위를 계승하고 있습니다, 아버지! 이제 내가 킹이다!'],['킹받게 하지 마라!','포기하면 편해… 하지만 킹은 포기하지 않는다!','누구나 그럴듯한 계획을 가지고 있다. 처맞기 전까지는!','호옹이?! 용사가… 말대꾸?!']],k:['킹… 받는다…','슬라임 킹의 영광의 시대는… 바로 아까였다…','슬라임 킹은 쓰러졌다! 오늘도 날아가는구나~'],x:['킹~ 아직 멀었다!','어림없지! 킹은 거들 뿐!']},
@@ -2073,7 +2073,7 @@ function creditsHTML(){
  ${sec('🏆 다크나이트(DK)를 물리친 영웅',[`<b class="cr-hero">${esc(G.name)}</b>`])}
  ${sec('⚔️ 파티',cls.map(k=>`${sp(k)} <b>${full(k)}</b> — ${RK[CL[k].r]}`).concat([`${petc()} <b>펫</b> — 수식어 (인원 외)`]))}
  ${sec('🗺️ 모험의 길',['신택스(Syntax·문장구조) 왕국 — 1~5형식, 그리고 다크나이트(DK)성','그래머(Grammar·문법) 대륙 — be동사부터 가정법까지','프로버브(Proverb·속담) 섬 · 이디엄(Idiom·숙어) 섬','신택스 왕국의 리뷰(Review·복습) 섬 — 대륙 원정','오늘의 던전 — 매일 새로 읽는 영어 기사'])}
- ${sec('👾 출연 몬스터',['슬라임 · 박쥐 · 버섯 · 숲의 수호목','슬라임 떼 · 슬라임 킹','골렘 · 골렘 대장 (3형제 중 첫째, 사실 외동)','잡화 상인 · 대장장이 · 물약 상인 · 황금 거상','호문쿨루스 · 살아 있는 플라스크 · 수은 슬라임 · 광기의 연금술사','임프 · 해골 병사 · 흑기사','그리고 275종의 몬스터들 — 수고했다, 다들!'])}
+ ${sec('👾 출연 몬스터',['슬라임 · 박쥐 · 버섯 · 숲의 수호목','슬라임 떼 · 슬라임 킹','골렘 · 골렘 대장 (3형제 중 첫째, 사실 외동)','잡화 상인 · 대장장이 · 물약 상인 · 황금 거상','호문쿨루스 · 살아 있는 플라스크 · 수은 슬라임 · 광기의 연금술사','임프 · 해골 병사 · 청기사 · 적기사','그리고 275종의 몬스터들 — 수고했다, 다들!'])}
  ${sec('👑 사천왕',['화염의 군주 이그니스 (자칭 최약체)','빙결의 여제 프로스트 (사실 최약체)','폭풍의 기사 템페스트','대지의 거인 가이아 (다섯 번째는 없음)','그리고… 다크나이트(DK)'])}
  ${sec('🎮 기획 · 스토리 · 제작',['DK KANG'])}
  ${sec('🤖 AI 도구의 도움',['이미지 · 음악 · 폰트는','AI 도구를 활용하여 제작되었습니다.'])}
@@ -2086,7 +2086,7 @@ function ending(){
  $('app').innerHTML=`<div class="endstage ${ph!=='roll'?'dusk':''}" id="endst">
   <div class="end-sky"></div><div class="end-shade"></div>
   <div class="ec ec1"></div><div class="ec ec2"></div><div class="ec ec3"></div><div class="ec-shade"></div><div class="ec-cap" id="eccap">🎉 다크나이트(DK)를 쓰러뜨렸다!</div>
-  <div class="end-boss" id="endboss">${sp('darkknight','','MON')}<i class="eye l"></i><i class="eye r"></i></div>
+  <div class="end-boss" id="endboss">${sp('dkboss','','MON')}<i class="eye l"></i><i class="eye r"></i></div>
   <div class="cr-win"><div class="cr-roll" id="croll">${creditsHTML()}</div></div>
   <div class="end-party ${ph==='roll'?'walk':'gone'}">${party}</div>
   <div class="end-talk" id="etalk"></div>
@@ -3048,7 +3048,7 @@ function josaFix(root){if(!root)return;if(root.nodeType===3){josaText(root);retu
 try{new MutationObserver(ms=>{ms.forEach(m=>{if(m.type==='characterData')josaText(m.target);else m.addedNodes.forEach(josaFix);});}).observe(document.documentElement,{childList:true,subtree:true,characterData:true});}catch(e){}
 
 /* ================= 레이드 (2~6인 협동 보스전) ================= */
-const RD_ARENA={id:'raid',all8:true,name:'🐉 레이드',bg:'d6',need:[],mon:'darkknight'};
+const RD_ARENA={id:'raid',all8:true,name:'🐉 레이드',bg:'d6',need:[],mon:'dkboss'};
 const RD_TIER=[{nm:'노멀',ic:'🟢',hp:1,atk:1,rw:1,st:1,pre:'',sp:[62,80]},{nm:'에픽',ic:'🟣',hp:1.8,atk:1.3,rw:2,st:2,pre:'[에픽] ',sp:[52,72]},{nm:'레전더리',ic:'🟠',hp:3,atk:1.6,rw:3,st:3,pre:'[레전더리] ',sp:[42,66]}];
 const rdTierOk=(b,t)=>t<=0||(((SV.rdt||{})[b]??-1)>=t-1);
 const rdTn=t=>RD_TIER[Math.max(0,Math.min(2,+t||0))];
@@ -3059,7 +3059,7 @@ function rdWkLeft(){return Math.max(0,RD_WKMAX-rdWkN());}
 function rdWkUse(){SV.raidWk={k:weekKey(),n:rdWkN()+1};saveNow();}
 const RD_MAX=6,RD_DAYMAX=3,RD_TATK=45,RD_TDEF=20,RD_PFX='syntaxsaga-raid-';
 const RD_BOSS=[
- {id:'demon',mon:'darkknight',mname:'다크나이트(DK)',ic:'👿',desc:'침묵·혼란·약화로 괴롭히는 어둠의 군주',
+ {id:'demon',mon:'dkboss',mname:'다크나이트(DK)',ic:'👿',desc:'침묵·혼란·약화로 괴롭히는 어둠의 군주',
   atk:['암흑 참격','저주의 손길','지옥불 파도','종말의 심판'],
   talk:['크하하! 너희 따위가 나를 쓰러뜨릴 수 있을 것 같으냐!','제법이구나… 하지만 이제부터가 진짜다!','내 힘을 보여 주마! 모두 무릎 꿇어라!','이럴 수가… 내가 밀리다니!'],
   say:['으하하! 문장을 모두 막아 보아라!','이 정도로 다크나이트(DK)가 쓰러질까!','어둠이여, 모두 삼켜라!']},
@@ -6059,6 +6059,9 @@ function gqDetailHTML(e,reveal){try{if(!e||e.type!=='gq')return '';const pool=gq
  if(reveal&&pool){const ex=gqSame(e,pool);if(ex.length)h+=`<div class="dt-r"><b>✍️ 같은 규칙 예문</b><ul>${ex.map(x=>`<li>${esc(x.f)}<br><span class="hint">${esc(x.ko)}</span></li>`).join('')}</ul></div>`;}
  return (top||h)?`<div class="dt-box"><div class="dt-h">📖 풀이 <small>(${reveal?'몰라서 틀렸다면 천천히 읽어 보세요':'정답은 직접 찾아보세요! 규칙을 보고 다시 도전'})</small></div>${top}${h?`<details class="dt-more" ${(G.rvm||G.rvWk)?'open':''}><summary>🔽 더 자세히 보기</summary>${h}</details>`:''}</div>`:'';}catch(err){return '';}}
 
+/* DK 전용 검은 기사 스프라이트(dkboss) 분리 · 일반 '기사' 몬스터는 청기사/적기사/황기사로 */
+MON.dkboss=MON.darkknight;MON.darkknight=MON.hauntedarmor;VAR.darkknight=[['청',''],['적','hue-rotate(125deg) saturate(1.7)'],['녹','hue-rotate(-130deg) saturate(1.3)']];
+try{MDEB.dkboss=['silence','confuse','weak','fog'];}catch(e){}
 /* ===== 📘 문법 용어 퀴즈: 그래머 대륙 던전에서 '그 던전 + 앞선 던전'의 영어 문법 용어를 묻는다 (뒤쪽 던전 용어는 안 나옴) ===== */
 const GTERMS={
  g1:[['Be verb','be동사','am, is, are, was, were처럼 주어의 상태나 정체를 나타내는 동사','She is my sister.']],

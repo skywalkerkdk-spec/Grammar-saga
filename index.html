@@ -1137,7 +1137,7 @@ const DUNGEONS=[
   desc:'어둠의 마력에 잠식된 드루이드의 숲. 문장 속 <b>-ing 덩어리</b>가 동명사인지 분사인지, 어느 자리를 맡았는지 보고 알맞은 드루이드를 보내라!',
   formed:'동사원형 + <b>-ing</b>는 두 얼굴을 가졌어요. <b>동명사</b>(~하는 것)는 🐻 곰(주어) · 🐯 호랑이(목적어) · ✨ 버프(보어)! <b>현재분사</b>(~하는, ~하고 있는)는 🐾 소환(명사를 꾸밈)이나 ✨ 버프(목적격보어)! 표시된 -ing 덩어리를 보고 알맞은 드루이드를 보내세요.',sample:'I enjoy <b>dancing</b>. → 목적어 자리 → 🐆 호랑이 드루이드!',
   next:'전직의 신전을 모두 돌파했어요! 다른 난이도로 다시 도전하거나 다크나이트(DK)성에 재도전해 보세요.'},
- {id:'d6',size:8,form:'1~5',name:'다크나이트(DK)성',mon:'demonking',open:true,full:true,need:['healer','paladin','dealer','shaman','trader','item'],enc:true,
+ {id:'d6',size:8,form:'1~5',name:'다크나이트(DK)성',mon:'darkknight',open:true,full:true,need:['healer','paladin','dealer','shaman','trader','item'],enc:true,
   desc:'모든 동료를 이끌고 가는 마지막 결전! 적이 외치는 문장을 보고 <b>필요한 동료만 골라 출전</b>시켜라. 1~5형식이 무작위로 나온다. 마지막은 <b>사천왕</b>과 <b>다크나이트(DK)</b>!',
   formed:'다크나이트(DK)성에서는 <b>모든 동료</b>가 함께 갑니다. 탱커(주어)와 사제(동사)는 항상 출전! 나머지 동료는 적이 외치는 문장에 필요한 성분만 골라 출전시키세요.<br>· 주격보어 → 성기사 · 목적어 → 딜러 · 목적격보어 → 주술사 · 간접목적어 → 트레이더 · 직접목적어 → 아이템 · 수식어 → 펫 (인원 외)<br>필요 없는 동료를 내보내도, 필요한 동료를 빠뜨려도 공격 실패! 수식어가 있는 문장이면 펫도 함께 내보내세요.',
   sample:'The news made <b>me</b> <b>happy</b>. → 딜러 + 주술사 출전!',
@@ -1231,7 +1231,7 @@ const SCW=[
   talk:['셋을 쓰러뜨리다니… 하지만 놀라지 마라. 사천왕은 사실 다섯 명이다!','…농담이다. 대지의 문장을 받아라!'],
   kill:'훌륭하다… 이제 다크나이트(DK)님을 막을 자는… 없다…'}];
 const MINION_TALK=['다크나이트(DK)님께 가려면 나를 넘어야 한다!','여기서부터는 못 지나간다!','크크… 이 문장을 막을 수 있을까?','다크나이트(DK)님의 성에 침입자다!'];
-const KING={mon:'demonking',mname:'👿 다크나이트(DK)',talk:[['사천왕을 모두 쓰러뜨리다니… 좋다. 모든 문장 형식을 다루는 자만이 나를 쓰러뜨릴 수 있다!','다크나이트(DK)가 승부를 걸어왔다! 이번엔 도망칠 수 없다!','너흰 아직 준비가 되지 않았다!'],['아직이다! 이번 문장은 어떠냐!','Power overwhelming! 다크나이트(DK)의 진짜 힘을 보여 주마!'],['이럴 수가… 마지막 문장이다!','호옹이?! 용사가… 다크나이트(DK)에게 말대꾸?!','YOU DIED를 보게 해 주마!','내가 지금까지 무릎을 꿇었던 것은… 추진력을 얻기 위함이었다!']],kill:['크아아… 문장의 힘이… 이토록 강하다니…!','크윽… 대마왕님… 이제 누군가 왕위를 계승하겠군요…','크윽… 미안하다, 용사들… 진짜 보스는 다른 성에 있다…']};
+const KING={mon:'darkknight',mname:'👿 다크나이트(DK)',talk:[['사천왕을 모두 쓰러뜨리다니… 좋다. 모든 문장 형식을 다루는 자만이 나를 쓰러뜨릴 수 있다!','다크나이트(DK)가 승부를 걸어왔다! 이번엔 도망칠 수 없다!','너흰 아직 준비가 되지 않았다!'],['아직이다! 이번 문장은 어떠냐!','Power overwhelming! 다크나이트(DK)의 진짜 힘을 보여 주마!'],['이럴 수가… 마지막 문장이다!','호옹이?! 용사가… 다크나이트(DK)에게 말대꾸?!','YOU DIED를 보게 해 주마!','내가 지금까지 무릎을 꿇었던 것은… 추진력을 얻기 위함이었다!']],kill:['크아아… 문장의 힘이… 이토록 강하다니…!','크윽… 대마왕님… 이제 누군가 왕위를 계승하겠군요…','크윽… 미안하다, 용사들… 진짜 보스는 다른 성에 있다…']};
 /* 1~5형식 랜덤 던전용 문장 풀: d1~d5의 모든 문제 문장(약 1,000개/난이도)을 형식별로 모음 */
 const MIXP={};
 function mixPool(L){if(MIXP[L])return MIXP[L];const by={1:[],2:[],3:[],4:[],5:[]},seen=new Set();
@@ -2086,7 +2086,7 @@ function ending(){
  $('app').innerHTML=`<div class="endstage ${ph!=='roll'?'dusk':''}" id="endst">
   <div class="end-sky"></div><div class="end-shade"></div>
   <div class="ec ec1"></div><div class="ec ec2"></div><div class="ec ec3"></div><div class="ec-shade"></div><div class="ec-cap" id="eccap">🎉 다크나이트(DK)를 쓰러뜨렸다!</div>
-  <div class="end-boss" id="endboss">${sp('demonking','','MON')}<i class="eye l"></i><i class="eye r"></i></div>
+  <div class="end-boss" id="endboss">${sp('darkknight','','MON')}<i class="eye l"></i><i class="eye r"></i></div>
   <div class="cr-win"><div class="cr-roll" id="croll">${creditsHTML()}</div></div>
   <div class="end-party ${ph==='roll'?'walk':'gone'}">${party}</div>
   <div class="end-talk" id="etalk"></div>
@@ -3048,7 +3048,7 @@ function josaFix(root){if(!root)return;if(root.nodeType===3){josaText(root);retu
 try{new MutationObserver(ms=>{ms.forEach(m=>{if(m.type==='characterData')josaText(m.target);else m.addedNodes.forEach(josaFix);});}).observe(document.documentElement,{childList:true,subtree:true,characterData:true});}catch(e){}
 
 /* ================= 레이드 (2~6인 협동 보스전) ================= */
-const RD_ARENA={id:'raid',all8:true,name:'🐉 레이드',bg:'d6',need:[],mon:'demonking'};
+const RD_ARENA={id:'raid',all8:true,name:'🐉 레이드',bg:'d6',need:[],mon:'darkknight'};
 const RD_TIER=[{nm:'노멀',ic:'🟢',hp:1,atk:1,rw:1,st:1,pre:'',sp:[62,80]},{nm:'에픽',ic:'🟣',hp:1.8,atk:1.3,rw:2,st:2,pre:'[에픽] ',sp:[52,72]},{nm:'레전더리',ic:'🟠',hp:3,atk:1.6,rw:3,st:3,pre:'[레전더리] ',sp:[42,66]}];
 const rdTierOk=(b,t)=>t<=0||(((SV.rdt||{})[b]??-1)>=t-1);
 const rdTn=t=>RD_TIER[Math.max(0,Math.min(2,+t||0))];
@@ -3059,7 +3059,7 @@ function rdWkLeft(){return Math.max(0,RD_WKMAX-rdWkN());}
 function rdWkUse(){SV.raidWk={k:weekKey(),n:rdWkN()+1};saveNow();}
 const RD_MAX=6,RD_DAYMAX=3,RD_TATK=45,RD_TDEF=20,RD_PFX='syntaxsaga-raid-';
 const RD_BOSS=[
- {id:'demon',mon:'demonking',mname:'다크나이트(DK)',ic:'👿',desc:'침묵·혼란·약화로 괴롭히는 어둠의 군주',
+ {id:'demon',mon:'darkknight',mname:'다크나이트(DK)',ic:'👿',desc:'침묵·혼란·약화로 괴롭히는 어둠의 군주',
   atk:['암흑 참격','저주의 손길','지옥불 파도','종말의 심판'],
   talk:['크하하! 너희 따위가 나를 쓰러뜨릴 수 있을 것 같으냐!','제법이구나… 하지만 이제부터가 진짜다!','내 힘을 보여 주마! 모두 무릎 꿇어라!','이럴 수가… 내가 밀리다니!'],
   say:['으하하! 문장을 모두 막아 보아라!','이 정도로 다크나이트(DK)가 쓰러질까!','어둠이여, 모두 삼켜라!']},

@@ -781,3 +781,10 @@ canvas.px[data-src="SPR"][data-k="shaman"],canvas.px[data-src="SPR"][data-k^="cs
 .ec::before,.ec::after{content:'';position:absolute;inset:0;background:var(--i) center/cover no-repeat}
 .ec::before{display:none;filter:blur(18px) brightness(.55);transform:scale(1.2)}
 @media (max-aspect-ratio:1/1){.ec::before{display:block}.ec::after{background-size:contain}}
+
+/* 세로 화면: 그림은 위쪽 띠(양옆 조금만 잘림), 크레딧은 아래쪽에서 올라감 */
+@media (max-aspect-ratio:1/1){
+ .ec::after{bottom:auto;height:38%;background-size:cover}
+ .endstage .cr-win{top:38%;height:62%}
+ .endstage .end-talk{bottom:8%}
+}

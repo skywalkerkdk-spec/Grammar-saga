@@ -1143,7 +1143,7 @@ const DEFEAT1={
  trader:['Birds '+BL+' me.','트레이더(간접목적어)는 거래 상대일 뿐이에요. 동사 없이는 무엇을 주고받는지도 정할 수 없죠.'],
  item:['Birds '+BL+' a present.','아이템(직접목적어)은 동료가 아니라 물건이에요! 물건만 들고는 던전을 버틸 수 없어요.']
 };
-const BROLES=()=>{const id=G.dg&&G.dg.id;if(G.dg&&(G.dg.daily||G.dg.all8))return ['S','V','C','O','IO','DO','OC','M'];if(G.dg&&G.dg.verbal)return ['S','V','C','O','OC','M'];return ['S','V','C','O'].concat(id==='d4'?['IO','DO']:[],id==='d5'?['OC']:[],['M']);};
+const BROLES=()=>{const id=G.dg&&G.dg.id;if(G.dg&&(G.dg.daily||G.dg.all8))return ['S','V','C','O','IO','DO','OC','M'];if(G.dg&&(G.dg.verbal||G.dg.mix))return ['S','V','C','O','IO','DO','OC','M'];return ['S','V','C','O'].concat(id==='d4'?['IO','DO']:[],id==='d5'?['OC']:[],['M']);};
 const RK={S:'주어',V:'동사',C:'주격보어',O:'목적어',IO:'간접목적어',DO:'직접목적어',OC:'목적격보어',M:'수식어'};
 const rtag=r=>`${RK[r]}(${CL[R2K[r]].nm})`;
 const FORMPLACE={1:'2인 던전 고요한 숲',2:'3인 던전 슬라임 떼의 동굴',3:'3인 던전 골렘의 협곡',4:'4인 필드 상인의 상점가',5:'4인 던전 연금술사의 공방'};

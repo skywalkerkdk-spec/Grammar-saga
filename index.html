@@ -4933,7 +4933,7 @@ function mapScreen(){
  if(G.wlist)return mapListScreen();
  mapImg({title:'세계 지도',img:'worldmap.jpg?v=1',W:1536,H:1024,list:WM,story:'마침표 수정이 되살아나자, 신택스 왕국의 문장들은 더 넓은 세계로 퍼져 나갔다. 가고 싶은 곳을 눌러 보자! <span class="hint">(좌우로 밀어서 지도를 볼 수 있어요)</span>'});}
 function kingdomMapScreen(){
- mapImg({title:'신택스 왕국 지도',img:'kingdom.jpg?v=1',W:1536,H:1024,list:KM,ghost:true,story:'마왕이 문장의 세계를 어지럽히고 있다. 가고 싶은 곳을 눌러 보자! <span class="hint">(마왕성을 쓰러뜨리고 타락한 신전·숲까지 돌파하면 세계 지도가 열려요)</span>'});}
+ mapImg({title:'신택스 왕국 지도',img:'kingdom.jpg?v=2',W:1536,H:1024,list:KM,ghost:true,story:'마왕이 문장의 세계를 어지럽히고 있다. 가고 싶은 곳을 눌러 보자! <span class="hint">(마왕성을 쓰러뜨리고 타락한 신전·숲까지 돌파하면 세계 지도가 열려요)</span>'});}
 window.addEventListener('resize',wmSize);
 function mapBtns(){const h=document.querySelector('#app .hud');if(!h)return;
  const mk=(id,t,f)=>{if(document.getElementById(id))return;const b=document.createElement('button');b.className='btn-s';b.id=id;b.innerHTML=t;b.onclick=f;h.appendChild(b);};

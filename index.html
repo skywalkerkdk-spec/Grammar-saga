@@ -1041,15 +1041,15 @@ const BL='<span class="blank">&nbsp;?&nbsp;</span>';
 /* ---------- 펫과 꾸미기 ---------- */
 const PETS={
  cat:{nm:'고양이',en:'a kitten',price:0},
- dog:{nm:'강아지',en:'a puppy',price:60},
- owl:{nm:'부엉이',en:'an owl',price:80},
- slimepet:{nm:'꼬마 슬라임',en:'a baby slime',price:100},
- dragon:{nm:'아기 드래곤',en:'a baby dragon',price:150},
- hamster:{nm:'햄스터',en:'a hamster',price:50},chick:{nm:'병아리',en:'a chick',price:50},rabbit:{nm:'토끼',en:'a bunny',price:60},
- frog:{nm:'개구리',en:'a frog',price:70},pig:{nm:'아기 돼지',en:'a piglet',price:70},turtle:{nm:'거북이',en:'a turtle',price:80},
- penguin:{nm:'펭귄',en:'a penguin',price:90},hedgehog:{nm:'고슴도치',en:'a hedgehog',price:90},fox:{nm:'여우',en:'a fox',price:100},
- axolotl:{nm:'우파루파',en:'an axolotl',price:110},panda:{nm:'판다',en:'a panda',price:120},ghost:{nm:'꼬마 유령',en:'a little ghost',price:130},
- golempet:{nm:'미니 골렘',en:'a mini golem',price:160},unicorn:{nm:'유니콘',en:'a unicorn',price:200},phoenix:{nm:'아기 불사조',en:'a baby phoenix',price:250}
+ dog:{nm:'강아지',en:'a puppy',price:250},
+ owl:{nm:'부엉이',en:'an owl',price:350},
+ slimepet:{nm:'꼬마 슬라임',en:'a baby slime',price:450},
+ dragon:{nm:'아기 드래곤',en:'a baby dragon',price:0,egg:4},
+ hamster:{nm:'햄스터',en:'a hamster',price:200},chick:{nm:'병아리',en:'a chick',price:200},rabbit:{nm:'토끼',en:'a bunny',price:250},
+ frog:{nm:'개구리',en:'a frog',price:300},pig:{nm:'아기 돼지',en:'a piglet',price:300},turtle:{nm:'거북이',en:'a turtle',price:350},
+ penguin:{nm:'펭귄',en:'a penguin',price:400},hedgehog:{nm:'고슴도치',en:'a hedgehog',price:400},fox:{nm:'여우',en:'a fox',price:450},
+ axolotl:{nm:'우파루파',en:'an axolotl',price:500},panda:{nm:'판다',en:'a panda',price:550},ghost:{nm:'꼬마 유령',en:'a little ghost',price:0,egg:3},
+ golempet:{nm:'미니 골렘',en:'a mini golem',price:0,egg:5},unicorn:{nm:'유니콘',en:'a unicorn',price:0,egg:7},phoenix:{nm:'아기 불사조',en:'a baby phoenix',price:0,egg:10}
 };
 /* 펫마다 자세(머리 방향·위치)가 달라서 머리꼭대기 t · 눈 e · 목 n 위치를 그림에서 직접 재서 맞춤 */
 const ANCH={cat:{t:[32,21],e:[33,31],n:[30,37]},dog:{t:[28,17],e:[33,29],n:[29,36]},owl:{t:[27,14],e:[28,25],n:[28,33]},slimepet:{t:[22,23],e:[22,32],n:[22,40]},dragon:{t:[36,26],e:[38,31],n:[33,36]},
@@ -1546,7 +1546,7 @@ function openGuide(){
  <button class="next" onclick="$('layer').innerHTML=''">닫기</button></div></div>`;
  fill($('layer'));$('mbg').onclick=e=>{if(e.target.id==='mbg')$('layer').innerHTML='';};
 }
-function hud(extra){return `<div class="hud"><span class="nm">${SV.hero==='druid'?'🐻':'🛡️'} ${esc(G.name)}${SV.hero?` <small>(${HERO[SV.hero].slice(2)})</small>`:''}</span><span class="gold">💎 ${SV.cry}</span>${G.started?`<span class="stonechip" title="강화석">⚒️ ${SV.stone||0}</span>`:''}${SV.mode==='rpg'&&rpgOpen()?`<span class="rgold">💰 ${SV.rg}</span>`:''}${G.started&&SV.level?`<span class="lvb">${LEVELS[LV()].ic} ${LEVELS[LV()].n}</span>`:''}${extra||''}<span class="sp"></span><button class="btn-s mute" onclick="toggleMute()">${AU.muted?'🔇 소리 꺼짐':'🔊 소리 켜짐'}</button><button class="btn-s" onclick="openGuide()">📖 도감</button></div>`;}
+function hud(extra){return `<div class="hud"><span class="nm">${SV.hero==='druid'?'🐻':'🛡️'} ${esc(G.name)}${SV.hero?` <small>(${HERO[SV.hero].slice(2)})</small>`:''}</span><span class="gold">💎 ${SV.cry}</span>${G.started?`<span class="stonechip" title="강화석">⚒️ ${SV.stone||0}</span>`:''}${(SV.egg||0)>0?`<span class="stonechip" title="신비한 알 (레이드 드롭 · 후반 펫 교환)">🥚 ${SV.egg}</span>`:''}${SV.mode==='rpg'&&rpgOpen()?`<span class="rgold">💰 ${SV.rg}</span>`:''}${G.started&&SV.level?`<span class="lvb">${LEVELS[LV()].ic} ${LEVELS[LV()].n}</span>`:''}${extra||''}<span class="sp"></span><button class="btn-s mute" onclick="toggleMute()">${AU.muted?'🔇 소리 꺼짐':'🔊 소리 켜짐'}</button><button class="btn-s" onclick="openGuide()">📖 도감</button></div>`;}
 
 /* ---------- 화면 ---------- */
 function render(){window.scrollTo({top:0});applySkin();const f={splash,title,opening,level,grave,ending,temple,intro,dsel,party,defeat,formed,battle,clear,shop,forge,rbattle,rresult,hsel:heroSel,news:newsPaper,rank:rankScreen,pvp:pvLobby,pvbattle:pvBattle,pvres:pvRes,rdlobby:rdLobby,rdbattle:rdBattle}[G.scr];document.body.dataset.bg=G.scr==='splash'?'':(G.scr==='battle'||G.scr==='rbattle'||G.scr==='pvbattle'||G.scr==='rdbattle')?(G.dg.bg||G.dg.id):'guild';f();fill($('app'));syncBgm();}
@@ -2185,11 +2185,11 @@ function grave(){
 /* ---------- 펫 가게 ---------- */
 function shop(){
  const t=G.toast,tab=G.shopTab||'adopt';
- const PK=Object.keys(PETS).sort((a,b)=>PETS[a].price-PETS[b].price);
+ const pkey=k=>PETS[k].egg?1000+PETS[k].egg:PETS[k].price,PK=Object.keys(PETS).sort((a,b)=>pkey(a)-pkey(b));
  const mine=PK.filter(k=>SV.pets.includes(k)),notMine=PK.filter(k=>!SV.pets.includes(k));
  const tabs=[['adopt',`🐾 입양 (${notMine.length})`],['cage',`🏠 펫 우리 (${mine.length})`],['deco',`🎀 꾸미기 (${SV.owned.length}/${Object.keys(ACC).length})`],['skin',`🦸 캐릭터 스킨`]];
  let body='';
- if(tab==='adopt')body=notMine.length?`<div class="sgrid">${notMine.map(k=>{const P=PETS[k];return `<div class="sitem">${petc('','pet:'+k)}<b>${P.nm}</b><button class="buy" data-pet="${k}" ${SV.cry<P.price?'disabled':''}>💎 ${P.price}</button></div>`;}).join('')}</div>`:'<div class="hint" style="padding:20px;text-align:center">🎉 모든 펫을 입양했어요! 펫 우리에서 데려갈 펫을 골라 보세요.</div>';
+ if(tab==='adopt')body=notMine.length?`<p class="hint" style="margin:0 0 8px">🥚 <b>신비한 알</b> ${SV.egg||0}개 보유 · 후반부 펫은 수정 대신 <b>레이드 보스</b>가 떨어뜨리는 알로 교환해요.</p><div class="sgrid">${notMine.map(k=>{const P=PETS[k];return `<div class="sitem">${petc('','pet:'+k)}<b>${P.nm}</b><button class="buy" data-pet="${k}" ${(P.egg?(SV.egg||0)<P.egg:SV.cry<P.price)?'disabled':''}>${P.egg?'🥚 '+P.egg:'💎 '+P.price}</button></div>`;}).join('')}</div>`:'<div class="hint" style="padding:20px;text-align:center">🎉 모든 펫을 입양했어요! 펫 우리에서 데려갈 펫을 골라 보세요.</div>';
  else if(tab==='cage')body=`<p class="hint" style="margin:0 0 8px">모험에는 펫 <b>한 마리</b>만 데려갈 수 있어요. 나머지는 우리에서 쉬고 있어요. 꾸미기는 데려간 펫에게 그대로 적용돼요.</p>
   <div class="cage">${mine.map(k=>{const P=PETS[k],cur=SV.pet===k;return `<div class="sitem ${cur?'on':''}">${cur?petc():petc('','pet:'+k)}<b>${P.nm}</b>${cur?'<span class="tagok">⭐ 함께 모험 중</span>':`<button class="btn-s" data-use="${k}">데려가기</button>`}</div>`;}).join('')}</div>`;
  else if(tab==='skin'){const sc=G.skc||(SV.mode==='rpg'&&SV.rhero?rhero():'tank'),totalOwn=SV.skins.filter(k=>k!=='base').length;
@@ -2212,7 +2212,7 @@ function shop(){
  <p class="hint">학습 모드에서 몬스터를 <b>첫 시도</b>에 잡으면 💎 수정을 얻어요. RPG 모드에서는 💎 수정과 💰 골드를 함께 얻어요. 💎 수정은 펫·꾸미기·스킨, 💰 골드는 대장간 장비에 써요. 기록은 이 기기의 브라우저에만 저장돼요.</p>
  <button class="next" id="out">🗺️ 던전 목록으로</button></div>`;
  document.querySelectorAll('[data-tab]').forEach(b=>b.onclick=()=>{G.shopTab=b.dataset.tab;G.toast=null;sfx('click');render();});
- document.querySelectorAll('button[data-pet]').forEach(b=>b.onclick=()=>{const k=b.dataset.pet,P=PETS[k];if(SV.cry<P.price)return;SV.cry-=P.price;SV.pets.push(k);SV.pet=k;saveNow();sfx('coins');G.toast={msg:`${P.nm} 입양 완료! 함께 모험을 떠나요. (이전 펫은 펫 우리로)`,en:P.en,nm:P.nm};render();});
+ document.querySelectorAll('button[data-pet]').forEach(b=>b.onclick=()=>{const k=b.dataset.pet,P=PETS[k];if(P.egg){if((SV.egg||0)<P.egg)return;SV.egg-=P.egg;}else{if(SV.cry<P.price)return;SV.cry-=P.price;}SV.pets.push(k);SV.pet=k;saveNow();sfx('coins');G.toast={msg:`${P.nm} 입양 완료! 함께 모험을 떠나요. (이전 펫은 펫 우리로)`,en:P.en,nm:P.nm};render();});
  document.querySelectorAll('[data-acc]').forEach(b=>b.onclick=()=>{const a=b.dataset.acc,A=ACC[a];if(SV.cry<A.price)return;SV.cry-=A.price;SV.owned.push(a);SV.eq[A.slot]=a;saveNow();sfx('coins');G.toast={msg:`${A.nm} 구매 완료!`,en:A.en,nm:A.nm};render();});
  const skc=()=>G.skc||(SV.mode==='rpg'&&SV.rhero?rhero():'tank');const wear=(c,k)=>{if(c==='tank')SV.skin=k;else{SV.cskin=SV.cskin||{};SV.cskin[c]=k;}};
  document.querySelectorAll('[data-skc]').forEach(b=>b.onclick=()=>{G.skc=b.dataset.skc;sfx('click');render();});
@@ -3339,7 +3339,8 @@ function rdUpdProgress(){const R=G.rd;R.P.forEach((p,i)=>{const e=document.query
 function rdWaitTxt(){const R=G.rd;let n=0,m=0;R.P.forEach(p=>{if(!p.alive||p.left)return;if(R.phase==='def'&&R.act&&!R.act.targets.includes(p.seat))return;m++;if(p.done)n++;});return `⏳ 다른 모험가를 기다리는 중 (${n}/${m})`;}
 function rdOnEnd(){const R=G.rd;if(R.rewarded)return;R.rewarded=true;const e=R.endInfo;if(!e)return;const me=R.me,win=!!e.win;let rw={cry:0,gold:0,capped:false};
  const d=SV.raidDay&&SV.raidDay.k===dayKey()?SV.raidDay:{k:dayKey(),n:0};
- if(win){d.n++;SV.raidDay=d;const rm=1+rdSynOf(R.P.map(p=>p.pr.c)).rew,TT=rdTn(R.tier);rw.cry=Math.round(bonusC(20+(e.mvp===me?10:0))*rm*TT.rw);rw.gold=Math.round(bonusG(60+(e.mvp===me?40:0))*rm*TT.rw);rw.rm=rm>1;rw.tier=R.tier||0;SV.cry=(SV.cry||0)+rw.cry;SV.rg=(SV.rg||0)+rw.gold;saveNow();}
+ if(win){d.n++;SV.raidDay=d;const rm=1+rdSynOf(R.P.map(p=>p.pr.c)).rew,TT=rdTn(R.tier);rw.cry=Math.round(bonusC(20+(e.mvp===me?10:0))*rm*TT.rw);rw.gold=Math.round(bonusG(60+(e.mvp===me?40:0))*rm*TT.rw);rw.rm=rm>1;rw.tier=R.tier||0;SV.cry=(SV.cry||0)+rw.cry;SV.rg=(SV.rg||0)+rw.gold;
+  {const tr=R.tier||0,pr=[0.4,0.6,0.8][tr]||0.4;SV.eggMiss=SV.eggMiss||0;let n=0;if(SV.eggMiss>=2||Math.random()<pr){n=1;if(tr>=2&&Math.random()<0.3)n=2;SV.eggMiss=0;}else SV.eggMiss++;if(n){SV.egg=(SV.egg||0)+n;}rw.egg=n;}saveNow();}
  else if(win){rw.capped=true;SV.raidDay=d;}
  {const Bz=R.boss;rw.stone=0;const sx=['','E','L'][R.tier||0],sk=sx?':'+sx:'',TT=rdTn(R.tier);if(Bz&&Bz.hp<=Bz.max*0.5)rw.stone+=grantStone('rd:'+R.bossId+':half'+sk,1);if(win)rw.stone+=grantStone('rd:'+R.bossId+':win'+sk,TT.st);if(win){SV.rdt=SV.rdt||{};SV.rdt[R.bossId]=Math.max(SV.rdt[R.bossId]??-1,R.tier||0);rw.unlock=(R.tier||0)<2&&SV.rdt[R.bossId]===(R.tier||0)?RD_TIER[(R.tier||0)+1].nm:'';}if(rw.stone||win)saveNow();}
  try{rankRaid(R,e);}catch(x){}
@@ -3401,7 +3402,7 @@ function rdAfter_(e){return '';}
 function rdEndBody(){const R=G.rd,e=R.endInfo,rw=R.rw||{};
  return `<div class="feedback ${e.win?'ok':'no'}"><div style="font-weight:900;font-size:22px">${e.win?'🏆 레이드 승리!':'💀 레이드 실패…'}</div>
  <div class="rdstat">${e.stats.map((s,i)=>`<div class="${i===R.me?'me':''}">${i===e.mvp?'🌟 ':''}${esc(s.n)}${s.left?' (퇴장)':''} — ⚔️ ${s.dmg} · 💚 ${s.heal}</div>`).join('')}</div>
- ${rw.stone?`<p class="stonegain">⚒️ 강화석 +${rw.stone}개 획득!</p>`:''}${e.win?(rw.capped?`<p class="hint">오늘 레이드 보상(${RD_DAYMAX}회)을 모두 받았어요. 연습은 계속할 수 있어요!</p>`:`<p>보상: 💎 +${rw.cry} · 💰 +${rw.gold}${e.mvp===R.me?' (MVP 보너스 포함!)':''}${rw.rm?' · 💰 상인 효과 +10%':''}${rw.tier?' · '+rdTn(rw.tier).ic+rdTn(rw.tier).nm+' ×'+rdTn(rw.tier).rw:''}</p>${rw.unlock?`<p class="stonegain">🔓 <b>${rw.unlock}</b> 난이도가 열렸어요!</p>`:''}`):'<p class="hint">다음엔 더 잘 막아 봐요. 문장 형식을 정확히 분석하면 회피율이 크게 올라가요!</p>'}</div>
+ ${rw.stone?`<p class="stonegain">⚒️ 강화석 +${rw.stone}개 획득!</p>`:''}${rw.egg?`<p class="stonegain">🥚 신비한 알 +${rw.egg}개 획득! (길드 상점 · 후반 펫 교환)</p>`:''}${e.win?(rw.capped?`<p class="hint">오늘 레이드 보상(${RD_DAYMAX}회)을 모두 받았어요. 연습은 계속할 수 있어요!</p>`:`<p>보상: 💎 +${rw.cry} · 💰 +${rw.gold}${e.mvp===R.me?' (MVP 보너스 포함!)':''}${rw.rm?' · 💰 상인 효과 +10%':''}${rw.tier?' · '+rdTn(rw.tier).ic+rdTn(rw.tier).nm+' ×'+rdTn(rw.tier).rw:''}</p>${rw.unlock?`<p class="stonegain">🔓 <b>${rw.unlock}</b> 난이도가 열렸어요!</p>`:''}`):'<p class="hint">다음엔 더 잘 막아 봐요. 문장 형식을 정확히 분석하면 회피율이 크게 올라가요!</p>'}</div>
  <button class="next" id="rdlb">🐉 레이드 로비로</button>`;}
 function rdBind(){const R=G.rd,me=R.P[R.me];bubbleSync();
  if(R.phase==='atk'&&me&&me.alive&&R.q&&!G.done&&!R.skp)bindQ(R.q);

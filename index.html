@@ -1011,6 +1011,25 @@ canvas.px[data-src="SPR"][data-k="shaman"],canvas.px[data-src="SPR"][data-k^="cs
 .potopt:disabled{opacity:.45;cursor:default}
 .potopt small{opacity:.85}
 .potbtn{border-color:#7a5fc0;background:linear-gradient(180deg,#3a2c63,#26194a)}
+.pop h2{margin:0 0 6px}.pop .plab{display:block;margin:10px 0 4px;font-weight:800;font-size:14px}
+.pop .input{width:100%;box-sizing:border-box}
+.popsong{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:10px 12px;border:2px solid #4a3f6a;border-radius:12px;margin:8px 0;background:#241d3a}
+.popsong .pbtns{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+.popyt{width:100%;aspect-ratio:16/9;border:0;border-radius:12px;margin:8px 0;background:#000}
+.popyt2 summary{cursor:pointer;font-weight:800;margin:4px 0}
+.popline{font-size:22px;font-weight:800;line-height:1.55;margin:10px 0}
+.popctx{opacity:.6;font-size:15px;margin-top:6px}
+.popprog{display:flex;justify-content:space-between;font-weight:900;margin-bottom:4px}
+.pbar{height:8px;border-radius:6px;background:#2a2340;overflow:hidden;margin-bottom:8px}.pbar i{display:block;height:100%;background:linear-gradient(90deg,#ffd36b,#ff9a5a)}
+.popmode{display:flex;gap:10px;align-items:center;padding:8px 10px;border:2px solid #4a3f6a;border-radius:12px;margin:6px 0;cursor:pointer}
+.popmode small{display:block;opacity:.75}.popmode.dis{opacity:.45}
+.popmode input{width:22px;height:22px}
+.poplines{display:flex;flex-direction:column;gap:8px;margin:8px 0}
+.popchip,.popslot{font:inherit;text-align:left;padding:10px 12px;border-radius:12px;border:2px solid #7a5fc0;background:#2a2144;color:#fff}
+.popchip:disabled{opacity:.35}
+.popans{display:flex;flex-direction:column;gap:6px;margin:8px 0}
+.popslot{border-style:dashed;border-color:#4a3f6a;background:#1d1631;min-height:44px}.popslot.on{border-style:solid;border-color:#3fa660}
+.popreview{padding:8px 10px;border-left:4px solid #ffd36b;background:#241d3a;border-radius:8px;margin:6px 0;line-height:1.5}
 
 </style>
 </head>
@@ -2309,7 +2328,7 @@ function rpgDsel(){
  <div class="story">장비를 갖추고 더 강한 적에게 도전하세요! <b>내 턴</b>에는 공격 문제, <b>적의 턴</b>에는 회피 문제가 나와요. 공격을 맞히면 <b>💥 필살기</b> 게이지가 차요.</div>
  ${modeTabs()}${dailyCard()}${wkCard()}${G.dev?rpgDevPanel():''}${heroBar()}${statPanel()}
  <div class="dtools"><button class="shopbtn forgebtn" id="toforge"><span style="font-size:32px">⚒️</span><div><b>대장간 (장비)</b><span>💰 골드로 칼·갑옷·방패를 사요 · 보유 💰 ${SV.rg}</span></div></button>
- <button class="shopbtn" id="toshop">${petc('mini')}<div><b>🐾 길드 상점</b><span>💎 수정으로 펫·스킨 · 보유 💎 ${SV.cry}</span></div></button><button class="shopbtn pvbtn" id="topvp"><span style="font-size:32px">⚔️</span><div><b>배틀 아레나</b><span>친구 캐릭터와 1:1 대결 · 전적 🏆 ${(SV.pvp||{}).w||0}승</span></div></button><button class="shopbtn pvbtn raidbtn" id="toraid"><span style="font-size:32px">🐉</span><div><b>레이드</b><span>친구들과 2~6명이 힘을 합쳐 보스 토벌</span></div></button></div>
+ <button class="shopbtn" id="toshop">${petc('mini')}<div><b>🐾 길드 상점</b><span>💎 수정으로 펫·스킨·물약 · 보유 💎 ${SV.cry}</span></div></button><button class="shopbtn pvbtn" id="topvp"><span style="font-size:32px">⚔️</span><div><b>배틀 아레나</b><span>친구 캐릭터와 1:1 대결 · 전적 🏆 ${(SV.pvp||{}).w||0}승</span></div></button><button class="shopbtn pvbtn raidbtn" id="toraid"><span style="font-size:32px">🐉</span><div><b>레이드</b><span>친구들과 2~6명이 힘을 합쳐 보스 토벌</span></div></button></div>
  <div class="dtools"><button class="btn-s" id="tolv">${LEVELS[LV()].ic} 문제 난이도: <b>${LEVELS[LV()].n}</b> · 바꾸기</button><button class="btn-s savebtn" id="rsave">💾 저장하기</button><button class="btn-s rankbtn" id="torank">${rankBtnLabel()}</button><button class="btn-s" id="togift">🎁 보상 코드</button><button class="btn-s" id="tologin">👤 다른 계정으로 로그인</button></div>
  ${G.toastSave?'<div class="feedback ok" style="margin:0 0 10px">💾 저장했어요! 같은 이름으로 들어오면 골드·장비·진행 상황이 이어져요.</div>':''}${rpgResumeHTML()}
  ${G.rpgMap!==false?rpgMapHTML():'<div class="dtools"><button class="btn-s" id="rmmap">🗺️ 지도로 보기</button></div>'+`<div class="dgrid">${L.map(d=>{const i=RT[d.id],u=rpgUnlocked(d),e=estats(i),b=estats(i,true),cl=SV.rcleared.includes(d.id),rec=GEAR[RREC[Math.min(7,Math.floor(i))]];
@@ -5025,7 +5044,7 @@ const KM=[ // 신택스 왕국 지도(그림에 글씨가 이미 들어 있어 �
 ['d1',265,540],['d2',500,500],['d3',715,400],['d4',865,520],['d5',985,390],['d6',1180,250],['d7',1230,500],['d8',1040,770]];
 function forgeCard(){return `<button class="shopbtn" id="toforgeC"><span style="font-size:34px;flex:none">⚒️</span><div><b>대장간 · 무기 강화</b><span>강화석으로 무기를 강화해요 · 보유 ⚒️ ${SV.stone||0}개${G.stoneBoot?` · 이전 기록에서 강화석 ${G.stoneBoot}개 지급!`:''}</span></div></button>`;}
 function forgeBind(){const f=document.getElementById('toforgeC');if(f)f.onclick=()=>{G.stoneBoot=0;G.scr='forge';G.toast=null;G.enhRes=null;sfx('select');render();};}
-function mapExtras(){return `${dailyCard()}<button class="shopbtn" id="toshop">${petc('mini')}<div><b>🐾 길드 상점 (펫·스킨)</b><span>수정으로 펫·꾸미기·주인공 스킨을 사 보세요 · 보유 💎 ${SV.cry}</span></div></button>${forgeCard()}${wkCard()}${resumeHTML()}${shardBar()}`;}
+function mapExtras(){return `${dailyCard()}<button class="shopbtn" id="toshop">${petc('mini')}<div><b>🐾 길드 상점 (펫·스킨·물약)</b><span>수정으로 펫·꾸미기·주인공 스킨을 사 보세요 · 보유 💎 ${SV.cry}</span></div></button>${forgeCard()}${wkCard()}${resumeHTML()}${shardBar()}`;}
 function mapBindExtras(){wkBind();forgeBind();const t=document.getElementById('todaily');if(t)t.onclick=()=>{G.dg=DAILY;G.mates=DAILY.need.slice();G.pets=1;genRunDaily();sfx('select');G.scr='news';render();};
  const s=document.getElementById('toshop');if(s)s.onclick=()=>{G.scr='shop';G.toast=null;render();};
  const rg=document.getElementById('rsGo');if(rg){rg.onclick=()=>{if(loadRun()){sfx('formed');render();}};document.getElementById('rsDel').onclick=()=>{clearRun();sfx('click');render();};}}
@@ -6324,6 +6343,151 @@ const _prl=rpgLose;rpgLose=function(quit){const R=G.rp;
   $('revyes').onclick=()=>{potUse('rev');sfx('fanfare');R.php=Math.max(1,Math.ceil(R.pmax*.5));R.phase='atk';rpgNextQ();render();};
   $('revno').onclick=()=>_prl(false);return;}}
  return _prl(quit);};
+
+/* ---------- 🎵 팝송 가사 퀘스트 ---------- 가사는 선생님·학생이 직접 붙여 넣으며, 이 기기(또는 공유 링크)에만 저장돼요. 게임 파일에는 가사가 들어 있지 않아요. */
+const POPKEY='sg_pop_v1';
+function popLoad(){try{const a=JSON.parse(localStorage.getItem(POPKEY)||'[]');return Array.isArray(a)?a:[];}catch(e){return [];}}
+function popSave(a){try{localStorage.setItem(POPKEY,JSON.stringify(a));}catch(e){}}
+const POP_STOP=new Set("the and you your you're are was were for but not with that this have has had from they them his her she him our out all can will just its it's i'm don't me my we be to of in on at is as it if so do no oh yeah now when then what who how why been into more some than too very only over again there here would could should about".split(' '));
+const POP_COMMON=['love','heart','night','dream','time','light','feel','fire','free','mind','sky','road','hold','tonight','forever','together','alone','maybe','never','always'];
+const popNorm=s=>String(s||'').toLowerCase().replace(/[’‘]/g,"'").replace(/[^a-z0-9' ]/g,'').replace(/'/g,'').trim();
+function popClean(o){if(!o||typeof o!=='object')return null;const s=(v,n)=>String(v==null?'':v).replace(/[\u0000-\u001f]/g,' ').trim().slice(0,n);
+ const l=(Array.isArray(o.l)?o.l:[]).map(x=>s(x,160)).filter(x=>x).slice(0,120),k=(Array.isArray(o.k)?o.k:[]).map(x=>s(x,160)).slice(0,120);
+ if(l.length<2)return null;let y=s(o.y,20);if(!/^[\w-]{11}$/.test(y))y='';
+ return {id:'s'+Date.now().toString(36)+Math.random().toString(36).slice(2,5),t:s(o.t,60)||'제목 없음',a:s(o.a,40),y,l,k:k.length===l.length?k:[],best:0};}
+function popParse(txt){return String(txt||'').split(/\r?\n/).map(x=>x.trim()).filter(x=>x&&!/^\[.*\]$/.test(x)&&!/^\(.*\)$/.test(x));}
+function popYtId(u){u=String(u||'').trim();if(/^[\w-]{11}$/.test(u))return u;const m=u.match(/(?:youtu\.be\/|v=|embed\/|shorts\/)([\w-]{11})/);return m?m[1]:'';}
+function popTok(line){return String(line).split(/\s+/).filter(Boolean).map(raw=>{const m=/^([^A-Za-z']*)(.*?)([^A-Za-z']*)$/.exec(raw);return {raw,pre:m[1],w:m[2],suf:m[3]};});}
+function popCands(line){const t=popTok(line),ok=(min)=>t.map((x,i)=>i).filter(i=>/^[A-Za-z']+$/.test(t[i].w)&&t[i].w.length>=min&&!POP_STOP.has(t[i].w.toLowerCase()));let c=ok(4);if(!c.length)c=ok(3);return c;}
+/* 공유 링크 인코딩 */
+function popB64(bytes){let s='';for(let i=0;i<bytes.length;i+=8192)s+=String.fromCharCode.apply(null,bytes.subarray(i,i+8192));return btoa(s).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');}
+function popUnB64(t){t=t.replace(/-/g,'+').replace(/_/g,'/');while(t.length%4)t+='=';const s=atob(t),b=new Uint8Array(s.length);for(let i=0;i<s.length;i++)b[i]=s.charCodeAt(i);return b;}
+async function popEnc(o){const s=JSON.stringify({t:o.t,a:o.a,y:o.y,l:o.l,k:o.k}),raw=new TextEncoder().encode(s);
+ try{if(window.CompressionStream){const cs=new CompressionStream('deflate-raw'),w=cs.writable.getWriter();w.write(raw);w.close();return 'z'+popB64(new Uint8Array(await new Response(cs.readable).arrayBuffer()));}}catch(e){}
+ return 'p'+popB64(raw);}
+async function popDec(code){try{code=String(code||'').trim();const i=code.indexOf('pop=');if(i>=0)code=code.slice(i+4);code=code.split(/[\s&]/)[0];if(!code)return null;const k=code[0],b=popUnB64(code.slice(1));let txt;
+ if(k==='z'){const ds=new DecompressionStream('deflate-raw'),w=ds.writable.getWriter();w.write(b);w.close();txt=new TextDecoder().decode(await new Response(ds.readable).arrayBuffer());}else txt=new TextDecoder().decode(b);
+ return popClean(JSON.parse(txt));}catch(e){return null;}}
+(function(){try{const m=/^#pop=(.+)$/.exec(location.hash||'');if(m)popDec(m[1]).then(o=>{if(!o)return;G.popIn=o;try{history.replaceState(null,'',location.pathname+location.search);}catch(e){}if(G.scr==='dsel')render();});}catch(e){}})();
+/* 메뉴 연결 */
+(function(){const _r=render;render=function(){
+ if(/^pop/.test(G.scr||'')){window.scrollTo({top:0});applySkin();document.body.dataset.bg='guild';try{tourEnd();}catch(e){}({pophome:popHome,popedit:popEdit,popsong:popSong,popplay:popPlay,popres:popRes})[G.scr]();fill($('app'));syncBgm();return;}
+ _r.apply(this,arguments);
+ try{if(G.scr==='dsel'&&!document.getElementById('topop')){const b=document.createElement('button');b.className='shopbtn';b.id='topop';b.innerHTML=`<div style="font-size:34px">🎵</div><div><b>팝송 가사 퀘스트</b><span>${G.popIn?'📬 새 곡이 도착했어요!':'노래 가사 빈칸 채우기 · 해석 · 순서 맞추기'}</span></div>`;
+  b.onclick=()=>{sfx('select');G.scr='pophome';render();};const s=document.getElementById('toshop');if(s)s.insertAdjacentElement('afterend',b);else{const h=document.querySelector('#app .hud');if(h){b.className='btn-s';b.textContent='🎵 팝송';h.appendChild(b);}}}}catch(e){}
+ };})();
+/* 곡 목록 */
+function popHome(){const A=popLoad(),inn=G.popIn,lk=G.popLink;
+ $('app').innerHTML=hud('<button class="btn-s" id="popback">← 돌아가기</button>')+`<div class="card pop"><h2>🎵 팝송 가사 퀘스트</h2>
+ <div class="story">노래를 들으면서 가사의 <b>빈칸</b>을 채우고, <b>해석</b>을 맞히고, <b>줄 순서</b>를 맞혀 보세요!</div>
+ ${inn?`<div class="feedback ok"><b>📬 곡이 도착했어요!</b><div style="margin:4px 0">${esc(inn.t)}${inn.a?' — '+esc(inn.a):''} <span class="hint">(${inn.l.length}줄)</span></div><button class="next" id="popget">📥 내 곡 목록에 담기</button></div>`:''}
+ ${lk?`<div class="feedback ok"><b>🔗 학생용 링크</b><div class="hint">학생들에게 이 링크를 보내 주세요. 가사는 링크 안에 들어 있어요.</div><textarea class="input" id="poplk" rows="3" readonly>${esc(lk.url)}</textarea><button class="btn-s" id="popcp">📋 복사</button> <span class="hint" id="popcpm"></span></div>`:''}
+ <div class="poplist">${A.length?A.map(s=>`<div class="popsong"><div><b>${esc(s.t)}</b><span class="hint" style="display:block">${esc(s.a||'')} · ${s.l.length}줄${s.k&&s.k.length?' · 해석 있음':''}${s.best?' · 최고 '+s.best+'점':''}</span></div><div class="pbtns"><button class="btn-s" data-pp="${s.id}">▶ 시작</button><button class="btn-s" data-pe="${s.id}">✏️</button><button class="btn-s" data-ps="${s.id}">🔗</button><button class="btn-s" data-pd="${s.id}">🗑️</button></div></div>`).join(''):'<div class="hint" style="padding:14px 0">아직 곡이 없어요. 아래에서 새 곡을 만들거나, 선생님이 보낸 링크로 곡을 받아요.</div>'}</div>
+ <button class="next" id="popnew">＋ 새 곡 만들기 (가사 붙여넣기)</button>
+ <details class="popimp"><summary>📥 링크·코드로 곡 받기</summary><textarea class="input" id="popcode" rows="3" placeholder="선생님이 보낸 링크나 코드를 붙여 넣으세요"></textarea><button class="btn-s" id="popimp">가져오기</button><div id="popimsg" class="hint"></div></details></div>`;
+ $('popback').onclick=()=>{G.popLink=null;G.scr='dsel';render();};
+ $('popnew').onclick=()=>{G.popEd=null;G.scr='popedit';render();};
+ const g=$('popget');if(g)g.onclick=()=>{const a=popLoad();a.push(G.popIn);popSave(a);G.popIn=null;sfx('coins');render();};
+ const cp=$('popcp');if(cp)cp.onclick=()=>{const t=$('poplk');t.select();let ok=false;try{ok=document.execCommand('copy');}catch(e){}try{navigator.clipboard.writeText(lk.url);ok=true;}catch(e){}$('popcpm').textContent=ok?'복사했어요!':'길게 눌러 복사해 주세요.';};
+ $('popimp').onclick=async()=>{const o=await popDec($('popcode').value);if(!o){$('popimsg').textContent='❌ 코드를 읽을 수 없어요. 링크 전체를 붙여 넣었는지 확인해 주세요.';return;}const a=popLoad();a.push(o);popSave(a);sfx('coins');render();};
+ document.querySelectorAll('[data-pp]').forEach(b=>b.onclick=()=>{G.popId=b.dataset.pp;G.popLink=null;sfx('select');G.scr='popsong';render();});
+ document.querySelectorAll('[data-pe]').forEach(b=>b.onclick=()=>{G.popEd=b.dataset.pe;G.popLink=null;sfx('click');G.scr='popedit';render();});
+ document.querySelectorAll('[data-ps]').forEach(b=>b.onclick=async()=>{const s=popLoad().find(x=>x.id===b.dataset.ps);if(!s)return;const c=await popEnc(s);G.popLink={id:s.id,url:location.origin+location.pathname+'#pop='+c};sfx('click');render();});
+ document.querySelectorAll('[data-pd]').forEach(b=>b.onclick=()=>{if(!b.dataset.sure){b.dataset.sure=1;b.textContent='정말?';return;}popSave(popLoad().filter(x=>x.id!==b.dataset.pd));render();});}
+/* 곡 만들기·수정 */
+function popEdit(){const s=G.popEd?popLoad().find(x=>x.id===G.popEd):null;
+ $('app').innerHTML=hud('<button class="btn-s" id="popback">← 목록</button>')+`<div class="card pop"><h2>${s?'✏️ 곡 수정':'＋ 새 곡 만들기'}</h2>
+ <div class="hint">가사는 직접 붙여 넣어 주세요. 이 기기와 공유 링크에만 저장되고, 게임 파일에는 들어가지 않아요.</div>
+ <label class="plab">제목</label><input class="input" id="ptt" maxlength="60" value="${s?esc(s.t):''}" placeholder="예: 곡 제목">
+ <label class="plab">가수</label><input class="input" id="pta" maxlength="40" value="${s?esc(s.a):''}" placeholder="예: 가수 이름">
+ <label class="plab">유튜브 링크 (선택 · 듣기용)</label><input class="input" id="pty" value="${s&&s.y?'https://youtu.be/'+s.y:''}" placeholder="https://youtu.be/...">
+ <label class="plab">영어 가사 (한 줄에 한 문장 · [Chorus] 같은 표시는 자동 제외)</label><textarea class="input" id="ptl" rows="10" placeholder="가사를 붙여 넣으세요">${s?esc(s.l.join('\n')):''}</textarea>
+ <label class="plab">우리말 해석 (선택 · 가사와 같은 줄 수로 · 해석 퀴즈에 사용)</label><textarea class="input" id="ptk" rows="8" placeholder="한 줄씩 대응되게 붙여 넣으세요">${s&&s.k?esc(s.k.join('\n')):''}</textarea>
+ <div id="ptinfo" class="hint" style="margin:6px 0"></div><button class="next" id="ptsave">💾 저장</button></div>`;
+ const info=()=>{const l=popParse($('ptl').value),k=popParse($('ptk').value),n=l.filter(x=>popCands(x).length).length;
+  $('ptinfo').innerHTML=`가사 <b>${l.length}</b>줄 · 빈칸 만들 수 있는 줄 <b>${n}</b>개 · 해석 <b>${k.length}</b>줄`+(k.length&&k.length!==l.length?` <span style="color:#ff9a8a">⚠️ 해석 줄 수가 가사와 달라서 해석 퀴즈는 쓸 수 없어요.</span>`:'');};
+ $('ptl').oninput=info;$('ptk').oninput=info;info();
+ $('popback').onclick=()=>{G.scr='pophome';render();};
+ $('ptsave').onclick=()=>{const l=popParse($('ptl').value);if(l.length<4){$('ptinfo').innerHTML='<span style="color:#ff9a8a">⚠️ 가사가 너무 짧아요. 4줄 이상 붙여 넣어 주세요.</span>';return;}
+  const o=popClean({t:$('ptt').value,a:$('pta').value,y:popYtId($('pty').value),l,k:popParse($('ptk').value)});if(!o)return;const A=popLoad();
+  if(s){const i=A.findIndex(x=>x.id===s.id);o.id=s.id;o.best=s.best||0;if(i>=0)A[i]=o;else A.push(o);}else A.push(o);popSave(A);sfx('coins');G.scr='pophome';render();};}
+/* 곡 시작 화면 */
+function popSong(){const s=popLoad().find(x=>x.id===G.popId);if(!s){G.scr='pophome';return popHome();}
+ const hasKo=s.k&&s.k.length===s.l.length&&s.k.some(x=>x);const M=G.popM||{type:true,choice:true,order:true,trans:hasKo},N=G.popN||10;
+ const row=(k,ic,nm,d,dis)=>`<label class="popmode ${dis?'dis':''}"><input type="checkbox" data-pm="${k}" ${M[k]&&!dis?'checked':''} ${dis?'disabled':''}><span>${ic} <b>${nm}</b><small>${d}</small></span></label>`;
+ $('app').innerHTML=hud('<button class="btn-s" id="popback">← 목록</button>')+`<div class="card pop"><h2>🎵 ${esc(s.t)}</h2><div class="hint">${esc(s.a||'')} · ${s.l.length}줄</div>
+ ${s.y?`<iframe class="popyt" src="https://www.youtube-nocookie.com/embed/${s.y}" allow="encrypted-media" allowfullscreen></iframe><div class="hint">먼저 노래를 들어 보세요. 게임 중에도 위쪽에서 들을 수 있어요.</div>`:''}
+ <h3 style="margin:12px 0 4px">활동 고르기</h3>
+ ${row('type','✏️','빈칸 채우기','들리는 단어를 직접 써요')}${row('choice','🔘','보기에서 고르기','네 개 중에서 골라요')}${row('order','🔀','줄 순서 맞추기','섞인 가사 4줄을 순서대로')}${row('trans','💬','가사 해석 맞히기',hasKo?'알맞은 우리말 뜻 고르기':'이 곡엔 해석이 없어요',!hasKo)}
+ <h3 style="margin:12px 0 4px">문제 수</h3><div class="stabs sub">${[5,10,15].map(n=>`<button class="stab ${N===n?'on':''}" data-pn="${n}">${n}문제</button>`).join('')}</div>
+ <button class="next" id="popgo">🎤 시작!</button></div>`;
+ $('popback').onclick=()=>{G.scr='pophome';render();};
+ document.querySelectorAll('[data-pm]').forEach(c=>c.onchange=()=>{M[c.dataset.pm]=c.checked;G.popM=M;});
+ document.querySelectorAll('[data-pn]').forEach(b=>b.onclick=()=>{G.popN=+b.dataset.pn;G.popM=M;sfx('click');render();});
+ $('popgo').onclick=()=>{const modes=['type','choice','order','trans'].filter(k=>M[k]&&!(k==='trans'&&!hasKo));if(!modes.length){return;}const qs=popGen(s,modes,N);if(!qs.length)return;sfx('select');
+  G.pop={s,qs,qi:0,score:0,combo:0,maxc:0,ok:0,wr:[],res:null,hint:false};G.scr='popplay';render();};}
+/* 문제 만들기 */
+function popGen(s,modes,n){const L=s.l,K=s.k||[],hasKo=K.length===L.length&&K.some(x=>x);
+ const seen=new Set(),uniq=[];L.forEach((t,i)=>{const k=t.toLowerCase();if(!seen.has(k)){seen.add(k);uniq.push(i);}});
+ const sh=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;};
+ const bl=uniq.filter(i=>popCands(L[i]).length),words=[...new Set([].concat(...bl.map(i=>popCands(L[i]).map(c=>popTok(L[i])[c].w.toLowerCase()))))];
+ const ok={type:bl.length>0,choice:bl.length>0,order:uniq.length>=4,trans:hasKo&&uniq.filter(i=>K[i]).length>=4};
+ modes=modes.filter(m=>ok[m]);if(!modes.length)return [];
+ const pool={type:sh(bl),choice:sh(bl),trans:sh(uniq.filter(i=>K[i])),order:sh(uniq)};const pos={type:0,choice:0,trans:0,order:0};const nxt=m=>pool[m][(pos[m]++)%pool[m].length];
+ const qs=[];for(let q=0;q<n;q++){const m=modes[q%modes.length];
+  if(m==='type'||m==='choice'){const i=nxt(m),t=popTok(L[i]),cs=popCands(L[i]),ti=cs[Math.floor(Math.random()*cs.length)],ans=t[ti].w;
+   const o={k:m,i,ti,ans,tries:0};
+   if(m==='choice'){let d=sh(words.filter(w=>w!==ans.toLowerCase()&&Math.abs(w.length-ans.length)<=3));if(d.length<3)d=d.concat(sh(POP_COMMON.filter(w=>w!==ans.toLowerCase()&&!d.includes(w))));o.opts=sh([ans.toLowerCase()].concat(d.slice(0,3)));}
+   qs.push(o);}
+  else if(m==='trans'){const i=nxt('trans'),d=sh([...new Set(uniq.filter(j=>j!==i&&K[j]&&K[j]!==K[i]).map(j=>K[j]))]).slice(0,3);qs.push({k:'trans',i,opts:sh([K[i]].concat(d)),ca:K[i]});}
+  else{const st=Math.min(nxt('order'),L.length-4),idx=[0,1,2,3].map(x=>st+x);qs.push({k:'order',st,idx,pool:sh(idx).map(i=>({i,t:L[i]})),sel:[]});}}
+ return qs;}
+/* 플레이 */
+function popYtHTML(s){return s.y?`<details class="popyt2"><summary>🎧 노래 듣기</summary><iframe class="popyt" src="https://www.youtube-nocookie.com/embed/${s.y}" allow="encrypted-media" allowfullscreen></iframe></details>`:'';}
+function popPlay(){const P=G.pop;if(!P){G.scr='pophome';return popHome();}
+ $('app').innerHTML=hud(`<span class="mut">🎵 ${esc(P.s.t)}</span><button class="btn-s" id="popquit">나가기</button>`)+`<div class="card pop">${popYtHTML(P.s)}<div id="pqc"></div></div>`;
+ $('popquit').onclick=ev=>{const b=ev.currentTarget;if(!b.dataset.sure){b.dataset.sure=1;b.textContent='정말 나갈까요?';return;}G.pop=null;G.scr='popsong';render();};
+ popQ();}
+function popLineHTML(q,reveal){const t=popTok(popL(q.i)),parts=t.map((x,i)=>{if(i!==q.ti)return esc(x.raw);const w=reveal?`<span class="gblank" style="color:${reveal==='ok'?'#8be3a0':'#ff9a8a'}">${esc(q.ans)}</span>`:`<span class="gblank">${esc(q.tries>=1?q.ans[0]+'…':'\u00a0\u00a0\u00a0\u00a0\u00a0')}</span>`;return esc(x.pre)+w+esc(x.suf);});return parts.join(' ');}
+function popL(i){return G.pop.s.l[i];}
+function popQ(){const P=G.pop,q=P.qs[P.qi],s=P.s,K=s.k||[],hasKo=K.length===s.l.length&&K.some(x=>x),R=P.res;if(!q)return popFinish();
+ const head=`<div class="popprog"><span>${P.qi+1} / ${P.qs.length}</span><span>⭐ ${P.score}${P.combo>=2?` · 🔥 ${P.combo}연속`:''}</span></div><div class="pbar"><i style="width:${Math.round(P.qi/P.qs.length*100)}%"></i></div>`;
+ let h=head;
+ if(q.k==='type'||q.k==='choice'){
+  h+=`<span class="qtype">${q.k==='type'?'✏️ 빈칸 채우기':'🔘 보기에서 고르기'}</span>${q.i>0?`<div class="popctx">… ${esc(popL(q.i-1))}</div>`:''}<div class="popline">${popLineHTML(q,R?(R.ok?'ok':'no'):null)}</div>`;
+  if(hasKo&&K[q.i]&&!R)h+=P.hint?`<div class="hint">💡 해석: ${esc(K[q.i])}</div>`:`<button class="btn-s" id="pophint">💡 해석 힌트 보기</button>`;
+  if(!R){if(q.k==='type'){h+=`<input class="input" id="popin" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="들리는 단어를 영어로 쓰세요">${q.tries?`<div class="hint" style="margin-top:6px">❌ 아쉬워요! 첫 글자 힌트가 나왔어요. 한 번 더!</div>`:''}<button class="next" id="popsub">✔ 확인</button>`;}
+   else h+=`<div class="choices">${q.opts.map((o,i)=>`<button class="choice" data-o="${i}">${esc(o)}</button>`).join('')}</div>`;}}
+ else if(q.k==='trans'){h+=`<span class="qtype">💬 가사 해석 맞히기</span><div class="popline">${esc(popL(q.i))}</div>${R?'':`<div class="choices">${q.opts.map((o,i)=>`<button class="choice" data-o="${i}">${esc(o)}</button>`).join('')}</div>`}`;}
+ else{h+=`<span class="qtype">🔀 줄 순서 맞추기</span><div class="story">섞인 가사를 <b>노래에 나오는 순서</b>대로 눌러 보세요. 잘못 누른 줄은 다시 누르면 빠져요.</div><div class="popans">${q.idx.map((x,n)=>{const it=q.sel[n]!=null?q.pool[q.sel[n]]:null;return `<button class="popslot ${it?'on':''}" data-sl="${n}" ${R?'disabled':''}><b>${n+1}</b> ${it?esc(it.t):'…'}</button>`;}).join('')}</div>${R?'':`<div class="poplines">${q.pool.map((it,n)=>`<button class="popchip" data-ch="${n}" ${q.sel.includes(n)?'disabled':''}>${esc(it.t)}</button>`).join('')}</div><button class="next" id="popsub" ${q.sel.length<4?'disabled':''}>✔ 확인</button>`}`;}
+ if(R){h+=`<div class="feedback ${R.ok?'ok':'no'}"><div style="font-weight:900;font-size:19px">${R.ok?'🎉 정답!':'💥 아쉬워요!'} ${R.pts?`<span class="goldpop">+${R.pts}점</span>`:''}</div>${R.more||''}</div><button class="next" id="popnx">${P.qi<P.qs.length-1?'다음 ▶':'🏁 결과 보기'}</button>`;}
+ $('pqc').innerHTML=h;fill($('pqc'));popBindQ(q);}
+function popDone(ok,more,base){const P=G.pop,q=P.qs[P.qi];let pts=0;if(ok){pts=base+Math.min(P.combo,5);P.score+=pts;P.combo++;P.maxc=Math.max(P.maxc,P.combo);P.ok++;sfx('formed');}else{P.combo=0;sfx('wrong');P.wr.push(q);}
+ P.res={ok,pts,more};P.hint=false;popQ();}
+function popBindQ(q){const P=G.pop,s=P.s,K=s.k||[];
+ const nx=$('popnx');if(nx){nx.onclick=()=>{P.qi++;P.res=null;P.hint=false;sfx('click');popQ();};return;}
+ const hb=$('pophint');if(hb)hb.onclick=()=>{P.hint=true;sfx('click');popQ();};
+ const koTxt=i=>K[i]?`<div class="hint" style="margin-top:4px">💬 ${esc(K[i])}</div>`:'';
+ if(q.k==='type'){const inp=$('popin'),go=()=>{const v=inp.value;if(!v.trim())return;const hit=popNorm(v)===popNorm(q.ans);
+   if(hit)popDone(true,`<div class="popline" style="font-size:18px">${popLineHTML(q,'ok')}</div>${koTxt(q.i)}`,q.tries?5:10);
+   else{q.tries++;if(q.tries>=3)popDone(false,`<div class="popline" style="font-size:18px">${popLineHTML(q,'no')}</div>${koTxt(q.i)}`,0);else{sfx('wrong');popQ();}}};
+  $('popsub').onclick=go;inp.onkeydown=ev=>{if(ev.key==='Enter')go();};setTimeout(()=>inp.focus(),50);return;}
+ if(q.k==='choice'){document.querySelectorAll('#pqc [data-o]').forEach(b=>b.onclick=()=>{const hit=popNorm(q.opts[+b.dataset.o])===popNorm(q.ans);popDone(hit,`<div class="popline" style="font-size:18px">${popLineHTML(q,hit?'ok':'no')}</div>${koTxt(q.i)}`,10);});return;}
+ if(q.k==='trans'){document.querySelectorAll('#pqc [data-o]').forEach(b=>b.onclick=()=>{const hit=q.opts[+b.dataset.o]===q.ca;popDone(hit,`<div class="hint">${esc(popL(q.i))}</div><div style="margin-top:4px">💬 <b>${esc(q.ca)}</b></div>`,10);});return;}
+ document.querySelectorAll('#pqc [data-ch]').forEach(b=>b.onclick=()=>{if(q.sel.length>=4)return;q.sel.push(+b.dataset.ch);sfx('click');popQ();});
+ document.querySelectorAll('#pqc [data-sl]').forEach(b=>b.onclick=()=>{const n=+b.dataset.sl;if(q.sel[n]==null)return;q.sel.splice(n,1);sfx('click');popQ();});
+ const sb=$('popsub');if(sb)sb.onclick=()=>{if(q.sel.length<4)return;const hit=q.sel.every((c,n)=>popNorm(q.pool[c].t)===popNorm(popL(q.idx[n])));
+  popDone(hit,`<div class="popans">${q.idx.map((x,n)=>`<div class="popslot on"><b>${n+1}</b> ${esc(popL(x))}${K[x]?`<br><small class="hint">${esc(K[x])}</small>`:''}</div>`).join('')}</div>`,15);};}
+function popFinish(){G.scr='popres';render();}
+function popRes(){const P=G.pop;if(!P){G.scr='pophome';return popHome();}const n=P.qs.length,acc=P.ok/n,st=acc>=.9?3:acc>=.7?2:acc>=.4?1:0;
+ const A=popLoad(),i=A.findIndex(x=>x.id===P.s.id);if(i>=0&&P.score>(A[i].best||0)){A[i].best=P.score;popSave(A);}
+ const K=P.s.k||[];
+ $('app').innerHTML=hud('')+`<div class="card pop"><h2>🏁 ${esc(P.s.t)}</h2>
+ <div style="text-align:center;font-size:44px;margin:6px 0">${'⭐'.repeat(st)}${'☆'.repeat(3-st)}</div>
+ <div class="feedback ${st>=2?'ok':'no'}"><div style="font-weight:900;font-size:20px">${P.ok} / ${n} 정답 · ⭐ ${P.score}점</div><div class="hint">최고 연속 정답 🔥 ${P.maxc}</div></div>
+ ${P.wr.length?`<h3 style="margin:12px 0 4px">📝 다시 볼 가사</h3>${P.wr.map(q=>{const L=q.k==='order'?q.idx.map(x=>P.s.l[x]).join('<br>'):esc(P.s.l[q.i]);return `<div class="popreview">${q.k==='order'?q.idx.map(x=>esc(P.s.l[x])).join('<br>'):L}${q.k!=='order'&&K[q.i]?`<div class="hint">💬 ${esc(K[q.i])}</div>`:''}</div>`;}).join('')}`:'<div class="story">모두 맞혔어요! 완벽한 무대였어요 🎤</div>'}
+ <button class="next" id="popagain">🔁 다시 도전</button><button class="btn-s" id="popls" style="margin-top:8px">곡 목록으로</button></div>`;
+ $('popagain').onclick=()=>{G.scr='popsong';render();};$('popls').onclick=()=>{G.pop=null;G.scr='pophome';render();};if(st>=2)sfx('fanfare');}
 
 render();tryAuto();setTimeout(tryAuto,300);
 setInterval(()=>{document.body.classList.toggle('muted-wait',!(AU.ctx&&AU.ctx.state==='running')&&G.scr==='splash');},500);

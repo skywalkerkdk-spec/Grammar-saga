@@ -2172,7 +2172,7 @@ const GPRICE=[0,100,250,500,900,1400,2000,2800,3800,5200];Object.values(GEAR).fo
 const GSLOT={sword:['⚔️ 칼','공격력'],armor:['🛡️ 갑옷','방어력·HP'],shield:['🔰 방패','회피율']};
 function gstat(g){return g.type==='sword'?`공격력 +${g.atk}`:g.type==='armor'?`방어력 +${g.def} · HP +${g.hp}`:`회피율 +${g.eva}%`;}
 function swL(g){return g.sl!=null?Math.max(0,Math.min(10,+g.sl||0)):(typeof SV!=='undefined'&&SV&&g===SV.gear?((SV.enh||{})[g.sword]||0):0);}
-function pstatsOf(g,c){const s=GEAR[g.sword]||GEAR.s0,a=GEAR[g.armor]||GEAR.a0,h=GEAR[g.shield]||GEAR.h0,P=HPERK[c]||{};return {atk:Math.round((8+s.atk)*(P.atk||1)*(1+0.10*swL(g))),def:a.def+(P.def||0),hp:Math.round((100+a.hp)*(P.hp||1)),eva:h.eva};}
+function pstatsOf(g,c){const s=GEAR[g.sword]||GEAR.s0,a=GEAR[g.armor]||GEAR.a0,h=GEAR[g.shield]||GEAR.h0,P=HPERK[c]||{};return {atk:Math.round((8+s.atk)*(P.atk||1)*(1+0.07*swL(g))),def:a.def+(P.def||0),hp:Math.round((100+a.hp)*(P.hp||1)),eva:h.eva};}
 function pstats(){return pstatsOf(SV.gear,rhero());}
 function gearc(k,cls){return `<canvas class="px gearc ${cls||''}" width="24" height="24" data-gear="${k}"></canvas>`;}
 const rpgOpen=()=>SV.cleared.includes('d6')||!!G.dev;
@@ -2180,7 +2180,9 @@ const RT={d1:0,d2:1,d3:2,d4:3,d5:4,d6:5,d7:6,d8:7};
 const RREC=['s0','s2','s3','s5','s6','s7','s8','s9'];
 function rpgDungeons(){return DUNGEONS.filter(d=>d.open&&RT[d.id]!=null&&(!d.verbal||templeUnlocked()||G.dev)).sort((a,b)=>RT[a.id]-RT[b.id]);}
 function rpgUnlocked(d){if(G.dev)return true;const L=rpgDungeons(),i=L.indexOf(d);return i<=0||SV.rcleared.includes(L[i-1].id);}
-function estats(i,boss){const hp=Math.round(24*Math.pow(1.45,i)),atk=Math.round(10*Math.pow(1.42,i));return boss?{hp:Math.round(hp*2.6),atk:Math.round(atk*1.3)}:{hp,atk};}
+/* 적 공격력 보정: RPG 레벨 2부터 방어력이 부족하면 쉽게 쓰러지도록 상향 (Lv2 ×1.4 → Lv10 ×1.15, 높은 단계는 이미 강해서 완만하게) */
+function eatkMul(i){return i<1.5?1:Math.max(1.15,Math.min(1.4,1.4-0.0556*(i-2.5)));}
+function estats(i,boss){const hp=Math.round(24*Math.pow(1.45,i)),atk=Math.round(10*Math.pow(1.42,i)*eatkMul(i));return boss?{hp:Math.round(hp*2.6),atk:Math.round(atk*1.3)}:{hp,atk};}
 const rgoldOf=(i,boss)=>Math.max(1,Math.round(3*Math.pow(1.5,i)))*(boss?4:1);
 
 /* ---------- 모드 탭 (던전 목록 위) ---------- */

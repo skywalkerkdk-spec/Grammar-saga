@@ -1382,12 +1382,16 @@ function bgm(name){
  if(!name)return;
  const g=c.createGain();g.gain.value=0.0001;g.connect(AU.bgmG);const me={g,name};AU.cur=me;
  AU.bgmG.gain.cancelScheduledValues(now);AU.bgmG.gain.setValueAtTime(0.62,now);
- (AU.STREAM.includes(name)?Promise.reject(new Error('stream')):bgmLoad(name)).then(buf=>{if(AU.cur!==me)return;const s=c.createBufferSource();s.buffer=buf;s.loop=!menu;s.connect(g);if(menu)s.onended=()=>{if(AU.cur===me&&AU.track==='menu'){AU.track=null;bgm('menu');}};s.start();me.src=s;g.gain.setTargetAtTime(1,c.currentTime+0.4,0.3);})
- .catch(()=>{if(AU.cur!==me)return;
+ const playBuf=buf=>{if(AU.cur!==me)return;const s=c.createBufferSource();s.buffer=buf;s.loop=!menu;s.connect(g);if(menu)s.onended=()=>{if(AU.cur===me&&AU.track==='menu'){AU.track=null;bgm('menu');}};s.start();me.src=s;g.gain.setTargetAtTime(1,c.currentTime+0.4,0.3);};
+ /* 스트리밍 재생이 안 되는 기기(일부 iOS 등)를 위해: 3초 안에 진행이 없으면 통째로 불러와 재생 → 그래도 안 되면 합성음 */
+ const viaBuf=()=>{if(AU.cur!==me)return;if(me.el){try{me.el.pause();}catch(e){}}bgmLoad(name).then(playBuf).catch(()=>{if(AU.cur===me)synthBgm(name,me);});};
+ const viaEl=()=>{
    try{const el=new Audio('bgm_'+name+'.mp3?v=14');el.loop=!menu;if(menu)el.onended=()=>{if(AU.cur===me&&AU.track==='menu'){AU.track=null;bgm('menu');}};el.crossOrigin='anonymous';const ms=c.createMediaElementSource(el);ms.connect(g);me.el=el;
-    el.play().then(()=>{if(AU.cur===me)g.gain.setTargetAtTime(1,c.currentTime+0.4,0.3);else el.pause();}).catch(()=>{el.pause();synthBgm(name,me);});
-    el.onerror=()=>{el.pause();synthBgm(name,me);};}
-   catch(e){synthBgm(name,me);}});
+    el.play().then(()=>{if(AU.cur===me)g.gain.setTargetAtTime(1,c.currentTime+0.4,0.3);else el.pause();}).catch(()=>{el.pause();viaBuf();});
+    el.onerror=()=>{el.pause();viaBuf();};
+    setTimeout(()=>{if(AU.cur===me&&me.el===el&&!me.src&&!me.synth&&el.currentTime<0.3&&AU.ctx.state==='running')viaBuf();},3500);}
+   catch(e){viaBuf();}};
+ if(AU.STREAM.includes(name))viaEl();else bgmLoad(name).then(playBuf).catch(viaEl);
 }
 
 const BGM_SCR=['level','intro','dsel','party','formed','shop','forge','rresult'];

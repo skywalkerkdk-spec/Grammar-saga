@@ -5783,7 +5783,8 @@ function wkReward(n){return {c:Math.min(120,20+4*n),s:1,perfect:20};}
 function wkRun(){const W=wkGet();if(!W.items.length)return;
  const dg={id:'wk',name:'주간 복습 던전',size:8,form:'복습',full:true,mix:true,open:true,bg:'d16',need:['healer','paladin','dealer','shaman','trader','item'],mon:'mimic'};
  G.dg=dg;G.mates=dg.need.slice();G.pets=1;G.rpg=false;
- const list=W.items.slice().sort(()=>Math.random()-.5).map(x=>x.e);
+ const base=W.items.slice().sort(()=>Math.random()-.5).map(x=>x.e),list=[];
+ base.forEach((e,i)=>{list.push(e);if(i<20){const sm=wkSimilar(e);if(sm)list.push(sm);}});
  G.rvWk={res:[]};
  startReview(list,skip=>{const R=G.rvWk;G.rvWk=null;if(skip){G.scr='dsel';render();return;}wkFinish(R);});}
 function wkFinish(R){const W=wkGet(),okIds=new Set(),seen=new Set();
@@ -5819,6 +5820,23 @@ function detailHTML(e,reveal){try{if(e&&e.type==='gq')return gqDetailHTML(e,reve
  const hint=(e.hint||(typeof HINT!=='undefined'&&HINT[e.type])||'');
  if(hint)h+=`<div class="dt-r"><b>🧠 다음에 헷갈리지 않으려면</b><br>${esc(hint)}</div>`;
  return (top||h)?`<div class="dt-box"><div class="dt-h">📖 풀이 <small>(몰라서 틀렸다면 천천히 읽어 보세요)</small></div>${top}${h?`<details class="dt-more" ${(G.rvm||G.rvWk)?'open':''}><summary>🔽 더 자세히 보기</summary>${h}</details>`:''}</div>`:'';}catch(err){return '';}}
+
+/* ===== 주간 복습: 틀린 문제와 비슷한 유형의 연습 문제 만들기 ===== */
+const WK_COPY=['mon','mname','filter','talk','kill','taunt','retreatT'];
+function wkSimilar(e){try{
+ const base={};WK_COPY.forEach(k=>{if(e[k]!==undefined)base[k]=e[k];});base._sim=true;
+ if(e.type==='gq'){const pool=gqPool(e);const L=(GQD[pool]||[]).filter(r=>r[1]!==e.sentence);if(!L.length)return null;
+  const key=(e.why||'').slice(0,5);let m=L.filter(r=>key&&String(r[4]).slice(0,5)===key&&r[0]===(e.lv||r[0]));if(!m.length)m=L.filter(r=>key&&String(r[4]).slice(0,5)===key);if(!m.length)m=L;
+  const it=gqItem(m[Math.floor(Math.random()*m.length)]),opts=shuffle(it.o);
+  return Object.assign({type:'gq',pool,c:it.c,tr:it.ko,n:'',sentence:it.s,options:opts,answer:opts.indexOf(it.ans),ansText:it.ans,ko:it.ko,why:it.why,filled:it.filled},base);}
+ if(['build','pet','choose'].includes(e.type)&&e.c){
+  const f=FORM_OF(e.c),k={build:'B',pet:'P',choose:'C'}[e.type];const LVK=POOL[LV()]?LV():'beginner';
+  const arr=(POOL[LVK]['d'+f]||{})[k];if(!arr||!arr.length)return null;const sig=e.c.map(x=>x[0]).join(' ');
+  const cand=arr.filter(it=>it.c.map(x=>x[0]).join(' ')!==sig);if(!cand.length)return null;const it=cand[Math.floor(Math.random()*cand.length)];
+  const o=Object.assign({type:e.type,c:it.c,tr:it.tr,n:it.n||'',prompt:e.prompt},base);
+  if(e.type==='choose'){const ans=it.a!==undefined?it.o[it.a]:it.o.find(x=>it.c.some(y=>y[0]===x));const opts=shuffle(it.o);o.options=opts;o.answer=opts.indexOf(ans);o.sentence=it.s;}
+  return o;}
+}catch(err){}return null;}
 
 /* ===== 🔒 표현 감옥: 모르는 표현을 문장에서 눌러 가두고 → 공부해서 풀어주는 단어장 (주간 보상 + 누적 기록) ===== */
 const PR_MAX=500;
@@ -5999,14 +6017,14 @@ function startReview(list,cb){
  G.rvm=true;G.rvCb=cb;G.rvRunBak=G.run;G.rvRpgBak=G.rpg;G.rpg=false;
  G.run=list.map(e=>Object.assign({},e,{hp0:100,hp1:0,boss:false,phase:0,talk:''}));
  G.ei=0;G.done=false;G.b=null;G.pick=null;G.sel=null;G.first=false;G.hp=3;G.gotGold=0;G.scr='battle';sfx('formed');render();}
-function rvResolve(e,ok){if(G.rvWk)G.rvWk.res.push({id:e._wid,ok});G.done=true;G.pick=ok?'ok':'no';G.healed=false;G.gotGold=0;
+function rvResolve(e,ok){if(G.rvWk&&!e._sim)G.rvWk.res.push({id:e._wid,ok});G.done=true;G.pick=ok?'ok':'no';G.healed=false;G.gotGold=0;
  const pty=$('pty'),mon=$('mon'),ar=$('arena');
  if(ok){sfx('slash');atkFx(pty,mon,ar,{});setTimeout(()=>{sfx('hit');if(mon)mon.classList.add('hit');},220);setTimeout(()=>{if(mon)mon.classList.add('dead2');sfx('kill');},800);}
  else{sfx('wrong');atkMiss();if(mon)mon.classList.add('matk');if(pty)pty.classList.add('shake');}
  rerQ(e);if(!ok&&$('qc'))$('qc').classList.add('shake');}
 function rvNext(){G.ei++;G.done=false;G.b=null;G.pick=null;G.sel=null;if(G.ei>=G.run.length){rvEnd(false);return;}render();}
 function rvEnd(skip){const cb=G.rvCb;G.rvm=false;G.run=G.rvRunBak;G.rpg=G.rvRpgBak;G.rvCb=null;G.done=false;G.b=null;G.pick=null;G.sel=null;if(!skip)sfx('fanfare');cb&&cb(!!skip);}
-function rvDecorate(){const R=G.run,hud=document.querySelector('#app .hud .mut');if(hud)hud.textContent='📝 복습 관문 '+(G.ei+1)+'/'+R.length;
+function rvDecorate(){const R=G.run,hud=document.querySelector('#app .hud .mut');if(hud)hud.textContent=(R[G.ei]&&R[G.ei]._sim?'✨ 비슷한 유형 연습 ':'📝 복습 관문 ')+(G.ei+1)+'/'+R.length;
  const h=$('hearts');if(h)h.remove();const so=$('saveout');if(so){so.textContent='⏭ 건너뛰기 (보상 포기)';so.onclick=()=>{if(confirm('복습을 건너뛰면 클리어 보너스를 받지 못해요. 건너뛸까요?'))rvEnd(true);};}
  const ar=$('arena');if(ar&&!$('rvban'))ar.insertAdjacentHTML('beforebegin',(G.rvWk?'<div class="rvban" id="rvban">📚 <b>주간 복습 던전!</b> 문제를 풀고 해설까지 읽으면 이번 주 보상이 지급돼요.</div>':'<div class="rvban" id="rvban">📝 <b>복습 관문!</b> 틀렸던 문제를 모두 맞히면 클리어 보상이 지급돼요.</div>'));}
 

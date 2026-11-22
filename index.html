@@ -4343,7 +4343,7 @@ function preStory(then){const d=G.dg;if(!d||d.daily||d.exp||G.dev||G.rvm)return 
 
 /* ===== 던전 선택 화면: 난이도·저장·로그인 버튼을 맨 위 상단 박스로 이동 ===== */
 function hudTools(){try{const h=document.querySelector('#app .hud');if(!h)return;
- ['tolv','dsave','rsave','torank','togift','tologin'].forEach(id=>{const b=document.getElementById(id);if(b)h.appendChild(b);});
+ ['toopen','tolv','dsave','rsave','torank','togift','tologin'].forEach(id=>{const b=document.getElementById(id);if(b)h.appendChild(b);});
  document.querySelectorAll('#app .dtools').forEach(d=>{if(!d.children.length)d.remove();});}catch(e){}}
 (function(){if(typeof rpgDsel!=='function')return;const _r=rpgDsel;rpgDsel=function(){_r();hudTools();};})();
 
@@ -5027,6 +5027,7 @@ function kingdomMapScreen(){
 window.addEventListener('resize',wmSize);
 function mapBtns(){const h=document.querySelector('#app .hud');if(!h)return;
  const mk=(id,t,f)=>{if(document.getElementById(id))return;const b=document.createElement('button');b.className='btn-s';b.id=id;b.innerHTML=t;b.onclick=f;h.appendChild(b);};
+ mk('toopen','🎬 오프닝 보기',()=>{sfx('select');G.opNext='dsel';G.opFirst=false;G.scr='opening';render();});
  mk('tolv',`${LEVELS[LV()].ic} ${LEVELS[LV()].n}`,()=>{G.scr='level';render();});
  if(G.dev)mk('devstone','🛠️ 강화석+5',()=>{SV.stone=(SV.stone||0)+5;saveNow();sfx('coins');render();});
  mk('dsave','💾 저장하기',()=>{saveNow();sfx('select');G.toastSave=true;render();saveToast();});

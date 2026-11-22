@@ -3340,7 +3340,7 @@ function rdWaitTxt(){const R=G.rd;let n=0,m=0;R.P.forEach(p=>{if(!p.alive||p.lef
 function rdOnEnd(){const R=G.rd;if(R.rewarded)return;R.rewarded=true;const e=R.endInfo;if(!e)return;const me=R.me,win=!!e.win;let rw={cry:0,gold:0,capped:false};
  const d=SV.raidDay&&SV.raidDay.k===dayKey()?SV.raidDay:{k:dayKey(),n:0};
  if(win){d.n++;SV.raidDay=d;const rm=1+rdSynOf(R.P.map(p=>p.pr.c)).rew,TT=rdTn(R.tier);rw.cry=Math.round(bonusC(20+(e.mvp===me?10:0))*rm*TT.rw);rw.gold=Math.round(bonusG(60+(e.mvp===me?40:0))*rm*TT.rw);rw.rm=rm>1;rw.tier=R.tier||0;SV.cry=(SV.cry||0)+rw.cry;SV.rg=(SV.rg||0)+rw.gold;
-  {const tr=R.tier||0,pr=[0.4,0.6,0.8][tr]||0.4;SV.eggMiss=SV.eggMiss||0;let n=0;if(SV.eggMiss>=2||Math.random()<pr){n=1;if(tr>=2&&Math.random()<0.3)n=2;SV.eggMiss=0;}else SV.eggMiss++;if(n){SV.egg=(SV.egg||0)+n;}rw.egg=n;}saveNow();}
+  {const tr=R.tier||0,pr=[0.2,0.3,0.4][tr]||0.2;let n=0;if(Math.random()<pr){n=1;SV.egg=(SV.egg||0)+1;}rw.egg=n;}saveNow();}
  else if(win){rw.capped=true;SV.raidDay=d;}
  {const Bz=R.boss;rw.stone=0;const sx=['','E','L'][R.tier||0],sk=sx?':'+sx:'',TT=rdTn(R.tier);if(Bz&&Bz.hp<=Bz.max*0.5)rw.stone+=grantStone('rd:'+R.bossId+':half'+sk,1);if(win)rw.stone+=grantStone('rd:'+R.bossId+':win'+sk,TT.st);if(win){SV.rdt=SV.rdt||{};SV.rdt[R.bossId]=Math.max(SV.rdt[R.bossId]??-1,R.tier||0);rw.unlock=(R.tier||0)<2&&SV.rdt[R.bossId]===(R.tier||0)?RD_TIER[(R.tier||0)+1].nm:'';}if(rw.stone||win)saveNow();}
  try{rankRaid(R,e);}catch(x){}

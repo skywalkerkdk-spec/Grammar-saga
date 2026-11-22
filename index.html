@@ -1151,6 +1151,9 @@ const DEFEAT1={
 const BROLES0=()=>{const id=G.dg&&G.dg.id;if(G.dg&&(G.dg.daily||G.dg.all8))return ['S','V','C','O','IO','DO','OC','M'];if(G.dg&&(G.dg.verbal||G.dg.mix))return ['S','V','C','O','IO','DO','OC','M'];return ['S','V','C','O'].concat(id==='d4'?['IO','DO']:[],id==='d5'?['OC']:[],['M']);};
 const BROLES=()=>{let L=BROLES0();if(G.rvm)L=['S','V','C','O','IO','DO','OC','M'];const e=G.run&&G.run[G.ei];if(e&&Array.isArray(e.c)){const need=new Set(e.c.map(x=>x&&x[1]));const ALL=['S','V','C','O','IO','DO','OC','M'];if(ALL.some(r=>need.has(r)&&!L.includes(r)))L=ALL.filter(r=>L.includes(r)||need.has(r));}return L;};
 const RK={S:'주어',V:'동사',C:'주격보어',O:'목적어',IO:'간접목적어',DO:'직접목적어',OC:'목적격보어',M:'수식어'};
+const EN_RK={S:'Subject',V:'Verb',C:'Complement',O:'Object',IO:'Indirect Object',DO:'Direct Object',OC:'Object Complement',M:'Modifier'};
+const ENQ=e=>{if(!e)return false;if(e._en===undefined)e._en=Math.random()<0.35;return !!e._en;};
+const rkE=(r,e)=>(e&&e._en)?EN_RK[r]+'('+RK[r]+')':RK[r];
 const rtag=r=>`${RK[r]}(${CL[R2K[r]].nm})`;
 const FORMPLACE={1:'2인 던전 고요한 숲',2:'3인 던전 슬라임 떼의 동굴',3:'3인 던전 골렘의 협곡',4:'4인 필드 상인의 상점가',5:'4인 던전 연금술사의 공방'};
 /* ---------- 문제 은행 (플레이할 때마다 무작위 출제) ----------
@@ -1785,10 +1788,10 @@ function qbody(e){
  if(e.talk&&e.type!=='deploy'&&!G.done)h+=`<div class="talk">💬 <b>${esc(e.mname)}</b>: "${esc(e.talk)}"</div>`;
  if(e.type==='build'){
   if(!G.b)G.b={a:e.c.map(()=>null),sel:0};const B=G.b;
-  h+=`<div class="story">${e.prompt}</div><p class="hint" style="margin:4px 0">① 문장 조각을 누르고 ② 아래에서 성분을 고르세요.</p>
+  h+=`<div class="story">${e.prompt}</div><p class="hint" style="margin:4px 0">① 문장 조각을 누르고 ② 아래에서 성분을 고르세요.${ENQ(e)?' <b style="color:#ffd36b">🔤 영어 용어 문제! (Subject = 주어)</b>':''}</p>
   <div class="chunks">${e.c.map((c,i)=>{let cls='chunk';if(!G.done&&i===B.sel)cls+=' sel';if(G.done&&G.pick==='ok')cls+=' good';const a=B.a[i];const icl=isClauseChunk(c[0]);if(icl)cls+=' clause';
-   return `<button class="${cls}" data-i="${i}" ${G.done?'disabled':''}>${icl?'<span class="cltag">한 덩어리</span>':''}${esc(c[0])}<span class="tag">${a?sp(R2K[a])+(curFx().fog&&!G.done?'':rtag(a)):'<span style="color:#a08f70">?</span>'}</span></button>`;}).join('')}</div>${e.c.some(c=>isClauseChunk(c[0]))?CLNOTE:''}`;
-  if(!G.done){const FX=curFx(),RL=FX.confuse?(e._ord=e._ord||shuffle(BROLES().slice())):BROLES();h+=`${FX.fog||FX.confuse?`<div class="debnote">${FX.fog?'🌫️ 안개: 성분 이름이 가려졌어요! 캐릭터 모습으로 골라요.':''} ${FX.confuse?'🌀 혼란: 성분 버튼 순서가 뒤섞였어요!':''}</div>`:''}<div class="rolebar">${RL.map(r=>`<button class="rolebtn" data-r="${r}">${sp(R2K[r])}<span class="rk">${FX.fog?'???':RK[r]}</span><small>${FX.fog?'':'('+CL[R2K[r]].nm+')'}</small></button>`).join('')}</div>`;}
+   return `<button class="${cls}" data-i="${i}" ${G.done?'disabled':''}>${icl?'<span class="cltag">한 덩어리</span>':''}${esc(c[0])}<span class="tag">${a?sp(R2K[a])+(curFx().fog&&!G.done?'':(ENQ(e)?EN_RK[a]+'('+CL[R2K[a]].nm+')':rtag(a))):'<span style="color:#a08f70">?</span>'}</span></button>`;}).join('')}</div>${e.c.some(c=>isClauseChunk(c[0]))?CLNOTE:''}`;
+  if(!G.done){const FX=curFx(),RL=FX.confuse?(e._ord=e._ord||shuffle(BROLES().slice())):BROLES();h+=`${FX.fog||FX.confuse?`<div class="debnote">${FX.fog?'🌫️ 안개: 성분 이름이 가려졌어요! 캐릭터 모습으로 골라요.':''} ${FX.confuse?'🌀 혼란: 성분 버튼 순서가 뒤섞였어요!':''}</div>`:''}<div class="rolebar">${RL.map(r=>`<button class="rolebtn" data-r="${r}">${sp(R2K[r])}<span class="rk">${FX.fog?'???':(ENQ(e)?EN_RK[r]:RK[r])}</span><small>${FX.fog?'':'('+CL[R2K[r]].nm+')'}</small></button>`).join('')}</div>`;}
   if(!G.done) h+=`
    <button class="next" id="sub" ${B.a.includes(null)?'disabled':''}>⚔️ 공격!</button>`;
  } else if(e.type==='pet'){
@@ -1848,7 +1851,7 @@ function bindQ(e){flav();bubbleSync();
  if(e.type==='build'){
   document.querySelectorAll('#qc .chunk').forEach(c=>c.onclick=()=>{G.b.sel=+c.dataset.i;sfx('click');rerQ(e);});
   document.querySelectorAll('#qc .rolebtn').forEach(b=>b.onclick=()=>{const B=G.b;sfx('select');B.a[B.sel]=b.dataset.r;const n=B.a.findIndex((v,i)=>v===null&&i>B.sel),any=B.a.indexOf(null);B.sel=n>=0?n:(any>=0?any:B.sel);rerQ(e);});
-  $('sub').onclick=()=>{if(G.b.a.includes(null))return;resolve(e,e.c.every((c,i)=>G.b.a[i]===c[1]),e.c.map((c,i)=>c[0]+'='+RK[G.b.a[i]]).join(', '));};
+  $('sub').onclick=()=>{if(G.b.a.includes(null))return;resolve(e,e.c.every((c,i)=>G.b.a[i]===c[1]),e.c.map((c,i)=>c[0]+'='+rkE(G.b.a[i],e)).join(', '));};
  } else if(e.type==='pet'){
   document.querySelectorAll('#qc .chunk').forEach(c=>c.onclick=()=>{const i=+c.dataset.i;G.b.off[i]=!G.b.off[i];sfx(G.b.off[i]?'pop':'click');rerQ(e);});
   $('sub').onclick=()=>{const off=e.c.filter((c,i)=>G.b.off[i]).map(c=>c[0]);resolve(e,e.c.every((c,i)=>!!G.b.off[i]===(c[1]==='M')),off.length?'떼어 낸 것: '+off.join(', '):'아무것도 안 떼어 냄');};
@@ -1890,14 +1893,14 @@ function resolve(e,ok,mine){if(G.rvm){rvResolve(e,ok);return;}if(rdOn()){rdResol
 }
 function rightAns(e){
  if(QX[e.type]&&QX[e.type].right)return QX[e.type].right(e);
- if(e.type==='build')return e.c.map(c=>c[0]+'='+RK[c[1]]).join(', ');
+ if(e.type==='build')return e.c.map(c=>c[0]+'='+rkE(c[1],e)).join(', ');
  if(e.type==='pet'){const p=e.c.filter(c=>c[1]==='M').map(c=>c[0]);return '떼어 낼 것: '+p.join(', ');}
  if(e.type==='choose')return e.options[e.answer];
  if(e.type==='trait'){const J=JOB[e.job||(G.dg&&G.dg.verbal)||'knight'],t=J.tr[TKEY(e.c[e.v][1])];return t.ic+' '+t.nm+' ('+t.role+')';}
  if(e.type==='deploy'){const n=needMates(e).map(k=>CL[k].nm).concat(needPet(e)?['펫']:[]);return '탱커·사제'+(n.length?' + '+n.join(' + '):' (추가 출전 없음)');}
  return e.answer==='attack'?(G.dg&&G.dg.flav==='shop'?'거래':'공격'):(G.dg&&G.dg.flav==='shop'?'지나가기':'후퇴');}
 const strip=s=>String(s).replace(/<[^>]+>/g,'').replace(/&amp;/g,'&');
-function analysisTxt(e){return e.c.map(c=>`${c[0]}(${RK[c[1]]})`).join(' ')+' → '+FORM_OF(e.c)+'형식';}
+function analysisTxt(e){return e.c.map(c=>`${c[0]}(${rkE(c[1],e)})`).join(' ')+' → '+FORM_OF(e.c)+'형식';}
 function noteText(d,rate){
  let t=`[Grammar Saga 오답 노트]\n이름: ${G.name}\n난이도: ${LEVELS[LV()].n}(${LEVELS[LV()].sub})\n던전: ${d.name}(${FLAB(d)}) | 첫 시도 정답 ${G.ok}/${G.tot} (${rate}%) | 파티 전멸 ${G.fails}회 | 쓰러짐(부활) ${G.deaths}회\n`;
  if(!G.wrongs.length)return t+'오답 없음! 모든 몬스터를 첫 시도에 격파했어요.';
@@ -2545,7 +2548,7 @@ function makeDodge(){const R=G.rp;let src=null;for(let k=0;k<20&&!src;k++){const
  if(Math.random()<0.45){const f=FORM_OF(c);return {kind:'form',c,opts:[1,2,3,4,5].map(n=>n+'형식'),ans:f-1};}
  const idx=c.map((x,i)=>i);const cand=idx.filter(i=>c[i][1]!=='M');const k=Math.random()<0.75&&cand.length?pick(cand):pick(idx);const r=c[k][1];
  const others=shuffle(DROLES.filter(x=>x!==r)).slice(0,3);const opts=shuffle([r].concat(others));
- return {kind:'role',c,hi:k,opts:opts.map(x=>RK[x]),ans:opts.indexOf(r)};}
+ return {kind:'role',c,hi:k,opts:(Math.random()<0.35?opts.map(x=>EN_RK[x]):opts.map(x=>RK[x])),ans:opts.indexOf(r)};}
 function dodgeSentence(q){const s=q.c.map((x,i)=>i===q.hi?`<u class="dhi">${esc(x[0])}</u>`:esc(x[0])).join(' ');return s.charAt(0).toUpperCase()+s.slice(1)+'.';}
 function rpgDefBody(){const R=G.rp,q=R.dq,en=R.en[R.ei],st=pstats();
  let h=`<span class="qtype">🛡️ 적의 턴 · 회피</span><div class="talk">💬 <b>${esc(en.mname)}</b>: "${esc(tauntNext(en))}"</div>
@@ -2824,7 +2827,7 @@ function pvSkCur(A){const L=pvSkList(A);return L[A.ski||0]||L[0];}
 function pvMakeDodge(c){if(!Array.isArray(c)||c.length<2)c=[['The knight','S'],['smiles','V']];
  if(Math.random()<0.45){const f=FORM_OF(c);return {kind:'form',c,opts:[1,2,3,4,5].map(n=>n+'형식'),ans:f-1};}
  const idx=c.map((x,i)=>i),cand=idx.filter(i=>c[i][1]!=='M'),k=Math.random()<0.75&&cand.length?pick(cand):pick(idx),r=c[k][1];
- const others=shuffle(DROLES.filter(x=>x!==r)).slice(0,3),opts=shuffle([r].concat(others));return {kind:'role',c,hi:k,opts:opts.map(x=>RK[x]),ans:opts.indexOf(r)};}
+ const others=shuffle(DROLES.filter(x=>x!==r)).slice(0,3),opts=shuffle([r].concat(others));return {kind:'role',c,hi:k,opts:(Math.random()<0.35?opts.map(x=>EN_RK[x]):opts.map(x=>RK[x])),ans:opts.indexOf(r)};}
 function pvDefRemote(){const V=G.pv,D=V.P[1-V.cur];return !!D.ai||(V.mode==='net'&&(1-V.cur)!==V.me);}
 function pvSrcC(){const V=G.pv,s=(V.mode==='net'&&V.cur!==V.me)?V.oq:V.q;return s&&s.c;}
 function pvAtkDone(ok){const V=G.pv,A=V.P[V.cur],D=V.P[1-V.cur],S=A.special?pvSkCur(A):null;V.atkTok=0;V.deadline=0;
@@ -3259,7 +3262,7 @@ function rdLevelOf(p){return (p&&p.pr&&p.pr.lv)||'beginner';}
 function rdMakeDodge(){const lv=rdLevelOf(G.rd.P[G.rd.me]);let c=null;for(let k=0;k<20&&!c;k++){const q=pvQ(lv,false);if(q&&q.c&&q.c.length>=2)c=q.c;}
  if(Math.random()<0.45){const f=FORM_OF(c);return {kind:'form',c,opts:[1,2,3,4,5].map(n=>n+'형식'),ans:f-1};}
  const idx=c.map((x,i)=>i),cand=idx.filter(i=>c[i][1]!=='M'),k=Math.random()<0.75&&cand.length?pick(cand):pick(idx),r=c[k][1];
- const others=shuffle(DROLES.filter(x=>x!==r)).slice(0,3),opts=shuffle([r].concat(others));return {kind:'role',c,hi:k,opts:opts.map(x=>RK[x]),ans:opts.indexOf(r)};}
+ const others=shuffle(DROLES.filter(x=>x!==r)).slice(0,3),opts=shuffle([r].concat(others));return {kind:'role',c,hi:k,opts:(Math.random()<0.35?opts.map(x=>EN_RK[x]):opts.map(x=>RK[x])),ans:opts.indexOf(r)};}
 function rdSanSt(o,T){const q={};if(o&&typeof o==='object')Object.keys(T).forEach(k=>{const v=+o[k];if(v>0)q[k]=Math.min(9,Math.round(v));});return q;}
 function rdApply(s){const R=G.rd;if(!R||!s)return;
  if(R.isClient){R.boss.hp=Math.max(0,Math.min(R.boss.max,+s.boss.hp||0));R.boss.stage=+s.boss.stage||0;R.boss.stun=!!s.boss.stun;

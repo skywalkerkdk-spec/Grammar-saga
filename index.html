@@ -6043,6 +6043,55 @@ function gqDetailHTML(e,reveal){try{if(!e||e.type!=='gq')return '';const pool=gq
  if(reveal&&pool){const ex=gqSame(e,pool);if(ex.length)h+=`<div class="dt-r"><b>✍️ 같은 규칙 예문</b><ul>${ex.map(x=>`<li>${esc(x.f)}<br><span class="hint">${esc(x.ko)}</span></li>`).join('')}</ul></div>`;}
  return (top||h)?`<div class="dt-box"><div class="dt-h">📖 풀이 <small>(${reveal?'몰라서 틀렸다면 천천히 읽어 보세요':'정답은 직접 찾아보세요! 규칙을 보고 다시 도전'})</small></div>${top}${h?`<details class="dt-more" ${(G.rvm||G.rvWk)?'open':''}><summary>🔽 더 자세히 보기</summary>${h}</details>`:''}</div>`:'';}catch(err){return '';}}
 
+/* ===== 📘 문법 용어 퀴즈: 그래머 대륙 던전에서 '그 던전 + 앞선 던전'의 영어 문법 용어를 묻는다 (뒤쪽 던전 용어는 안 나옴) ===== */
+const GTERMS={
+ g1:[['Be verb','be동사','am, is, are, was, were처럼 주어의 상태나 정체를 나타내는 동사','She is my sister.']],
+ g2:[['Question','의문문','궁금한 것을 묻는 문장','Do you like pizza?'],['Negative sentence','부정문','not을 써서 아니라고 말하는 문장','I did not go there.']],
+ pv:[['Proverb','속담','오랜 지혜를 담은 짧은 격언','Practice makes perfect.']],
+ id:[['Idiom','숙어','단어를 합쳐서 전혀 다른 뜻이 되는 표현','break the ice']],
+ tn:[['Tense','시제','동작이나 상태가 일어나는 때를 나타내는 동사의 형태','He played / plays / will play.']],
+ md:[['Modal verb','조동사','can, will, must처럼 동사에 능력·의무·추측 같은 뜻을 더해 주는 말','You must wear a helmet.']],
+ rp:[['Relative pronoun','관계대명사','who, which, that처럼 앞의 명사를 꾸미는 절을 이끌면서 대명사 역할을 하는 말','The man who called you is my uncle.']],
+ ps:[['Passive voice','수동태','주어가 동작을 받는 입장일 때 쓰는 「be + 과거분사」 문장','The window was broken by Tom.']],
+ pf:[['Present perfect','현재완료','「have + 과거분사」로 과거부터 현재까지 이어지는 일을 나타내는 시제','I have lived here for ten years.']],
+ rv:[['Relative adverb','관계부사','when, where, why, how처럼 장소·때·이유·방법의 명사를 꾸미는 절을 이끄는 말','This is the town where I was born.']],
+ pc:[['Participle','분사','동사가 형용사처럼 쓰이는 현재분사(-ing)와 과거분사(-ed)','the crying baby / a broken window']],
+ sj:[['Subjunctive mood','가정법','사실이 아니거나 일어나기 어려운 일을 가정하는 말투','If I were a bird, I could fly.']],
+ cp:[['Comparative','비교급','둘을 비교하여 더 ~하다고 말하는 형태','He is taller than me.'],['Superlative','최상급','셋 이상 중에서 가장 ~하다고 말하는 형태','She is the tallest in my class.']],
+ cj:[['Conjunction','접속사','and, but, because처럼 단어·구·절을 이어 주는 말','I was tired, but I kept running.'],['Noun clause','명사절','문장 속에서 주어·목적어·보어 자리에 쓰이는 절','I know that he is honest.']],
+ pn:[['Pronoun','대명사','명사 대신 쓰는 말 (he, she, it, they 등)','Tom lost his bag, so he was sad.'],['Article','관사','명사 앞에서 쓰는 a, an, the','I bought a book. The book is great.']],
+ ot:[['Preposition','전치사','명사 앞에서 장소·시간·방향 등을 나타내는 말 (in, on, at 등)','The cat is under the table.']],
+ iv:[['Infinitive','to부정사','「to + 동사원형」으로 명사·형용사·부사 역할을 하는 형태','I want to learn English.'],['Gerund','동명사','동사에 -ing를 붙여 명사 역할을 하는 형태','Swimming is fun.'],['Verbal','준동사','동사에서 나왔지만 동사 역할을 하지 않는 to부정사·동명사·분사의 총칭','(to부정사, 동명사, 분사)']],
+ pe:[['Causative verb','사역동사','make, have, let처럼 누군가에게 ~하게 시키는 동사','She made me clean the room.'],['Perception verb','지각동사','see, hear, feel처럼 보고 듣고 느끼는 동사','I heard him sing.']],
+ ng:[['Noun','명사','사람·사물·장소·개념의 이름을 나타내는 말','teacher, city, happiness'],['Imperative','명령문','상대에게 ~하라고 말하는 문장 (주어 You 생략)','Open the door.'],['Exclamation','감탄문','놀람이나 느낌을 강하게 나타내는 문장 (What, How로 시작)','What a beautiful day!']],
+ rs:[['Reported speech','화법','남이 한 말을 전달하는 방법 (직접화법과 간접화법)','He said that he was tired.'],['Indirect question','간접의문문','의문문이 다른 문장 속에 들어가 「의문사 + 주어 + 동사」 어순이 된 것','I wonder where he lives.']],
+ sx:[['Inversion','도치','강조 등을 위해 주어와 동사(조동사)의 순서를 바꾸는 것','Never have I seen such a view.'],['Emphasis','강조','It is ~ that 등으로 특정 부분을 강조하는 표현','It was Tom that broke the window.'],['Parallelism','병렬','and, or로 이어진 부분의 형태를 똑같이 맞추는 것','I like reading, swimming, and cooking.'],['Apposition','동격','명사 뒤에 다른 명사(구/절)를 붙여 그 내용을 설명하는 것','My friend Tom is a doctor.']]
+};
+const GT_BASIC=[['Subject','주어'],['Verb','동사'],['Object','목적어'],['Complement','보어'],['Modifier','수식어'],['Sentence','문장'],['Adjective','형용사'],['Adverb','부사'],['Phrase','구'],['Clause','절']];
+function gtAllowed(id){const i=ORDI.indexOf(id);const out=[];ORDI.slice(0,i+1).forEach(k=>{(GTERMS[k]||[]).forEach(t=>out.push({en:t[0],ko:t[1],def:t[2],ex:t[3],own:k===id}));});return out;}
+function gtMake(id){
+ const A=gtAllowed(id);if(!A.length)return null;
+ const own=A.filter(t=>t.own),pool=(own.length&&Math.random()<0.6)?own:A,t=pool[Math.floor(Math.random()*pool.length)];
+ const kind=Math.floor(Math.random()*3);
+ const dis=shuffle(A.filter(x=>x.en!==t.en).map(x=>({en:x.en,ko:x.ko})).concat(GT_BASIC.map(x=>({en:x[0],ko:x[1]})))).filter((x,i,a)=>a.findIndex(y=>y.en===x.en)===i&&x.en!==t.en).slice(0,3);
+ let q,opts,ans;
+ if(kind===0){q=`📘 ‘${t.en}’ 은(는) 우리말로 무엇일까요?`;opts=shuffle([t.ko].concat(dis.map(x=>x.ko)));ans=t.ko;}
+ else if(kind===1){q=`📘 ‘${t.ko}’ 을(를) 영어 문법 용어로 하면?`;opts=shuffle([t.en].concat(dis.map(x=>x.en)));ans=t.en;}
+ else{q=`📘 다음 설명에 알맞은 문법 용어는?\n“${t.def}”`;opts=shuffle([t.en].concat(dis.map(x=>x.en)));ans=t.en;}
+ return {type:'term',q,options:opts,answer:opts.indexOf(ans),ansText:ans,sentence:q,c:[[q,'M','']],tr:'',n:'',ko:'',tEn:t.en,tKo:t.ko,tDef:t.def,tEx:t.ex};}
+QX.term={label:'📘 문법 용어',
+ render(e){return `<div class="story">📘 <b>문법 용어 퀴즈</b> — 영어 문법 용어를 익혀 두면 시험·독해에서 큰 도움이 돼요.${e.boss&&e.hp1===0?' (마지막 한 방!)':''}</div>
+  <div class="sentence" style="white-space:pre-line">${esc(e.q)}</div>
+  <div class="choices">${e.options.map((o,i)=>{let cls='choice';if(G.done){if(i===e.answer&&G.pick==='ok')cls+=' correct';else if(i===G.sel)cls+=' wrong';}return `<button class="${cls}" data-i="${i}" ${G.done?'disabled':''}>${String.fromCharCode(65+i)}. ${esc(o)}</button>`;}).join('')}</div>`;},
+ bind(e){document.querySelectorAll('#qc .choice').forEach(b=>b.onclick=()=>{G.sel=+b.dataset.i;resolve(e,G.sel===e.answer,e.options[G.sel]);});},
+ right(e){return e.ansText;},
+ gloss(e){return `<div class="sentence"><b>${esc(e.tEn)}</b> = ${esc(e.tKo)}</div><div class="tr">📖 ${esc(e.tDef)}</div>`;},
+ exp(e){return `정답: <b>${esc(e.ansText)}</b><br><b>${esc(e.tEn)}</b> (${esc(e.tKo)}) — ${esc(e.tDef)}<br><span class="hint">예) ${esc(e.tEx)}</span>`;}};
+(function(){const _g=genRunG;genRunG=function(d){const run=_g(d);try{const idx=shuffle([0,1,2,3,4,5,6,7]).slice(0,3);idx.forEach(i=>{const t=gtMake(d.id);if(t&&run[i])run[i]=Object.assign({},run[i],t);});}catch(e){}return run;};})();
+(function(){const _r=reviveTarget;reviveTarget=function(e){
+ if(e&&e.type==='term')return {e,mode:'chunk',sent:'문법 용어: ____ ('+e.tKo+')',ans:e.tEn,ko:e.tKo+' — '+e.tDef,role:null,tries:0};
+ return _r(e);};})();
+
 render();tryAuto();setTimeout(tryAuto,300);
 setInterval(()=>{document.body.classList.toggle('muted-wait',!(AU.ctx&&AU.ctx.state==='running')&&G.scr==='splash');},500);
 

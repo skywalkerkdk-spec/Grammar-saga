@@ -990,6 +990,8 @@ canvas.px[data-src="SPR"][data-k="shaman"],canvas.px[data-src="SPR"][data-k^="cs
 
 .dt-r ol{margin:4px 0 0;padding-left:20px}.dt-ans{color:#ffe27a;background:#4a3a00;border-radius:4px;padding:0 4px}
 
+.dt-more{margin-top:6px}.dt-more summary{cursor:pointer;background:#40387a;border-radius:10px;padding:9px;text-align:center;font-weight:800;color:#ffe27a;list-style:none}.dt-more summary::-webkit-details-marker{display:none}.dt-more[open] summary{margin-bottom:6px}
+
 </style>
 </head>
 <body>
@@ -5805,18 +5807,18 @@ const DT_FORM={1:['S + V','동사 뒤에 꼭 필요한 말이 없어요. (장소
 4:['S + V + IO + DO','동사 뒤에 “~에게”(간접목적어)와 “~을”(직접목적어)이 연달아 와요.','give·send·show·buy 같은 “주다” 계열 동사! 명사가 두 개 연달아 오면 4형식을 의심해요.'],
 5:['S + V + O + OC','동사 뒤에 목적어, 그리고 그 목적어를 설명하는 말(목적격보어)이 와요.','make·call·keep·find 등 “O를 OC로 만들다/부르다”. O = OC 관계(O is OC)가 성립하면 5형식!']};
 function detailHTML(e,reveal){try{if(e&&e.type==='gq')return gqDetailHTML(e,reveal!==false);
- let h='';if(e.tr)h+=`<div class="dt-r"><b>💬 해석</b> ${esc(e.tr)}</div>`;
+ let h='',top='';if(e.tr)top+=`<div class="dt-r"><b>💬 해석</b> ${esc(e.tr)}</div>`;
  if(e.c&&e.c.length&&e.c[0]&&e.c[0].length>=2&&RK[e.c[0][1]]){
   const f=FORM_OF(e.c),F=DT_FORM[f],core=e.c.filter(x=>x[1]!=='M'),mod=e.c.filter(x=>x[1]==='M');
   const seen=[];e.c.forEach(x=>{if(!seen.includes(x[1]))seen.push(x[1]);});
   h+=`<div class="dt-r"><b>🔎 ① 문장을 조각으로 나눠요</b><br>${e.c.map(x=>`<span class="dt-ch">${esc(x[0])}<small>${RK[x[1]]}</small></span>`).join(' ')}</div>`;
   h+=`<div class="dt-r"><b>🧭 ② 각 성분이 하는 일</b><ul>${seen.map(k=>`<li><b>${RK[k]}</b> (${e.c.filter(x=>x[1]===k).map(x=>esc(x[0])).join(', ')}) — ${DT_ROLE[k]}</li>`).join('')}</ul></div>`;
   h+=`<div class="dt-r"><b>✂️ ③ 수식어를 빼고 뼈대만 봐요</b><br>${mod.length?`수식어 <b>${mod.map(x=>esc(x[0])).join(', ')}</b>을(를) 빼도 뜻이 통해요 → 뼈대: `:'수식어가 없어요 → 뼈대: '}<b>${core.map(x=>esc(x[0])).join(' ')}</b></div>`;
-  h+=`<div class="dt-r"><b>🎯 ④ 형식 결론: ${f}형식 (${F[0]})</b><br>${F[1]}<br><span class="dt-t">💡 ${F[2]}</span></div>`;
+  top+=`<div class="dt-r"><b>🎯 형식 결론: ${f}형식 (${F[0]})</b><br>${F[1]}<br><span class="dt-t">💡 ${F[2]}</span></div>`;
  }
  const hint=(e.hint||(typeof HINT!=='undefined'&&HINT[e.type])||'');
  if(hint)h+=`<div class="dt-r"><b>🧠 다음에 헷갈리지 않으려면</b><br>${esc(hint)}</div>`;
- return h?`<div class="dt-box"><div class="dt-h">📖 자세한 풀이 <small>(몰라서 틀렸다면 천천히 읽어 보세요)</small></div>${h}</div>`:'';}catch(err){return '';}}
+ return (top||h)?`<div class="dt-box"><div class="dt-h">📖 풀이 <small>(몰라서 틀렸다면 천천히 읽어 보세요)</small></div>${top}${h?`<details class="dt-more"><summary>🔽 더 자세히 보기</summary>${h}</details>`:''}</div>`:'';}catch(err){return '';}}
 
 /* ===== 🔒 표현 감옥: 모르는 표현을 문장에서 눌러 가두고 → 공부해서 풀어주는 단어장 (주간 보상 + 누적 기록) ===== */
 const PR_MAX=500;
@@ -5974,10 +5976,10 @@ function gqPool(e){if(e.pool)return e.pool;try{if(!_gqIdx){_gqIdx={};Object.keys
 function gqSame(e,pool){try{const L=(GQD[pool]||[]).filter(r=>r[1]!==e.sentence);const key=(e.why||'').slice(0,5);let m=L.filter(r=>key&&String(r[4]).slice(0,5)===key);if(m.length<2)m=L;
  const a=m.slice().sort(()=>Math.random()-.5).slice(0,2);return a.map(r=>({f:r[1].replace('____',r[2][0]),ko:r[3]}));}catch(x){return [];}}
 /* reveal=true: 정답까지 공개(복습·오답노트), false: 정답은 숨기고 규칙만 (바로 다시 도전하는 일반 던전) */
-function gqDetailHTML(e,reveal){try{if(!e||e.type!=='gq')return '';const pool=gqPool(e),R=GRULE[pool]||GRULE[GRULE_ALIAS[pool]];let h='';
+function gqDetailHTML(e,reveal){try{if(!e||e.type!=='gq')return '';const pool=gqPool(e),R=GRULE[pool]||GRULE[GRULE_ALIAS[pool]];let h='',top='';
  if(reveal){
-  h+=`<div class="dt-r"><b>① 문장 해석</b><br>${esc(e.ko||e.tr||'')}<br><span class="dt-t">완성 문장: ${esc(e.filled).replace(esc(e.ansText),'<b class="dt-ans">'+esc(e.ansText)+'</b>')}</span></div>`;
-  h+=`<div class="dt-r"><b>② 정답이 ‘${esc(e.ansText)}’인 이유</b><br>${esc(e.why||'')}</div>`;
+  top+=`<div class="dt-r"><b>① 문장 해석</b><br>${esc(e.ko||e.tr||'')}<br><span class="dt-t">완성 문장: ${esc(e.filled).replace(esc(e.ansText),'<b class="dt-ans">'+esc(e.ansText)+'</b>')}</span></div>`;
+  top+=`<div class="dt-r"><b>② 정답이 ‘${esc(e.ansText)}’인 이유</b><br>${esc(e.why||'')}</div>`;
   const wr=(e.options||[]).filter(o=>o!==e.ansText);
   if(wr.length)h+=`<div class="dt-r"><b>③ 다른 보기는 왜 안 될까요?</b><ul>${wr.map(o=>`<li><b>${esc(o)}</b> → ${esc(e.sentence.replace('____',o))}<br><span class="hint">이 단원의 규칙과 단서(②)에 맞지 않아서 어색해요.</span></li>`).join('')}</ul></div>`;
  }
@@ -5987,7 +5989,7 @@ function gqDetailHTML(e,reveal){try{if(!e||e.type!=='gq')return '';const pool=gq
   h+=`<div class="dt-r"><b>⚠️ 자주 하는 실수</b><ul>${R.trap.map(s=>`<li>${esc(s)}</li>`).join('')}</ul></div>`;
  }
  if(reveal&&pool){const ex=gqSame(e,pool);if(ex.length)h+=`<div class="dt-r"><b>✍️ 같은 규칙 예문</b><ul>${ex.map(x=>`<li>${esc(x.f)}<br><span class="hint">${esc(x.ko)}</span></li>`).join('')}</ul></div>`;}
- return h?`<div class="dt-box"><div class="dt-h">📖 자세한 풀이 <small>(${reveal?'몰라서 틀렸다면 천천히 읽어 보세요':'정답은 직접 찾아보세요! 규칙을 보고 다시 도전'})</small></div>${h}</div>`:'';}catch(err){return '';}}
+ return (top||h)?`<div class="dt-box"><div class="dt-h">📖 풀이 <small>(${reveal?'몰라서 틀렸다면 천천히 읽어 보세요':'정답은 직접 찾아보세요! 규칙을 보고 다시 도전'})</small></div>${top}${h?`<details class="dt-more"><summary>🔽 더 자세히 보기</summary>${h}</details>`:''}</div>`:'';}catch(err){return '';}}
 
 render();tryAuto();setTimeout(tryAuto,300);
 setInterval(()=>{document.body.classList.toggle('muted-wait',!(AU.ctx&&AU.ctx.state==='running')&&G.scr==='splash');},500);

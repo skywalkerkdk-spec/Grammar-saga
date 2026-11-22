@@ -763,3 +763,17 @@ canvas.px[data-src="SPR"][data-k="shaman"],canvas.px[data-src="SPR"][data-k^="cs
 /* 일일 던전·출석판 보상 안내 줄 */
 .dailyrow .rwl{display:block!important;font-size:9px;line-height:1.3;margin-top:2px;color:#6a5a40;font-weight:700}.dailyrow .attb .rwl{color:#e8c070}.dailyrow .attb .rwl b{color:#fff}
 .dailyrow .attb .hint{display:block!important;font-size:9px}
+
+/* ===== 엔딩 컷 3장: 환호 → 옆으로 밀기 → 집으로 가는 길(크레딧) → 흑막 ===== */
+.endstage .end-sky,.endstage .end-shade,.endstage .end-boss,.endstage .end-party{display:none!important}
+.ec{position:absolute;inset:0;background-size:cover;background-position:center;background-repeat:no-repeat;transition:transform 1.4s cubic-bezier(.7,0,.2,1),opacity 3s}
+.ec1{background-image:url(end1.jpg)}.ec2{background-image:url(end2.jpg);transform:translateX(100%)}.ec3{background-image:url(end3.jpg);opacity:0}
+.endstage.s2 .ec1{transform:translateX(-100%)}.endstage.s2 .ec2{transform:none}.endstage.s3 .ec3{opacity:1}
+.ec-shade{position:absolute;inset:0;background:linear-gradient(rgba(10,6,20,.55),rgba(10,6,20,.15) 45%,rgba(10,6,20,.35));opacity:0;transition:opacity 1.4s;pointer-events:none}
+.endstage.s2 .ec-shade{opacity:1}.endstage.s3 .ec-shade{opacity:0}
+.ec-cap{position:absolute;left:0;right:0;bottom:7%;text-align:center;font-family:'Black Han Sans',sans-serif;font-size:clamp(26px,7vw,52px);color:#ffe27a;text-shadow:-2px -2px 0 #2a1450,2px -2px 0 #2a1450,-2px 2px 0 #2a1450,2px 2px 0 #2a1450,0 0 18px #fff;opacity:0;pointer-events:none}
+.endstage.s1 .ec-cap{animation:eccap 6s ease forwards}.endstage.s2 .ec-cap,.endstage.s3 .ec-cap{display:none}
+@keyframes eccap{0%{opacity:0;transform:scale(.8)}12%{opacity:1;transform:scale(1.08)}20%{transform:none}85%{opacity:1}100%{opacity:0}}
+.endstage .cr-win{opacity:0}.endstage.s2 .cr-win{opacity:1}.endstage.dusk .cr-win{opacity:0}
+.endstage .cr-roll{animation-play-state:paused}.endstage.s2 .cr-roll{animation-play-state:running}
+.endstage .end-talk{top:auto;bottom:5%}

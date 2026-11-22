@@ -921,6 +921,20 @@ canvas.px[data-src="SPR"][data-k="shaman"],canvas.px[data-src="SPR"][data-k^="cs
 .dailyrow .rwl{display:block!important;font-size:9px;line-height:1.3;margin-top:2px;color:#6a5a40;font-weight:700}.dailyrow .attb .rwl{color:#e8c070}.dailyrow .attb .rwl b{color:#fff}
 .dailyrow .attb .hint{display:block!important;font-size:9px}
 
+/* ===== 엔딩 컷 3장: 환호 → 옆으로 밀기 → 집으로 가는 길(크레딧) → 흑막 ===== */
+.endstage .end-sky,.endstage .end-shade,.endstage .end-boss,.endstage .end-party{display:none!important}
+.ec{position:absolute;inset:0;background-size:cover;background-position:center;background-repeat:no-repeat;transition:transform 1.4s cubic-bezier(.7,0,.2,1),opacity 3s}
+.ec1{background-image:url(end1.jpg)}.ec2{background-image:url(end2.jpg);transform:translateX(100%)}.ec3{background-image:url(end3.jpg);opacity:0}
+.endstage.s2 .ec1{transform:translateX(-100%)}.endstage.s2 .ec2{transform:none}.endstage.s3 .ec3{opacity:1}
+.ec-shade{position:absolute;inset:0;background:linear-gradient(rgba(10,6,20,.55),rgba(10,6,20,.15) 45%,rgba(10,6,20,.35));opacity:0;transition:opacity 1.4s;pointer-events:none}
+.endstage.s2 .ec-shade{opacity:1}.endstage.s3 .ec-shade{opacity:0}
+.ec-cap{position:absolute;left:0;right:0;bottom:7%;text-align:center;font-family:'Black Han Sans',sans-serif;font-size:clamp(26px,7vw,52px);color:#ffe27a;text-shadow:-2px -2px 0 #2a1450,2px -2px 0 #2a1450,-2px 2px 0 #2a1450,2px 2px 0 #2a1450,0 0 18px #fff;opacity:0;pointer-events:none}
+.endstage.s1 .ec-cap{animation:eccap 6s ease forwards}.endstage.s2 .ec-cap,.endstage.s3 .ec-cap{display:none}
+@keyframes eccap{0%{opacity:0;transform:scale(.8)}12%{opacity:1;transform:scale(1.08)}20%{transform:none}85%{opacity:1}100%{opacity:0}}
+.endstage .cr-win{opacity:0}.endstage.s2 .cr-win{opacity:1}.endstage.dusk .cr-win{opacity:0}
+.endstage .cr-roll{animation-play-state:paused}.endstage.s2 .cr-roll{animation-play-state:running}
+.endstage .end-talk{top:auto;bottom:5%}
+
 </style>
 </head>
 <body>
@@ -1977,6 +1991,7 @@ function ending(){
  const party=['tank','healer','paladin','dealer','shaman','trader','item'].map(k=>sp(k)).join('')+petc('pet');
  $('app').innerHTML=`<div class="endstage ${ph!=='roll'?'dusk':''}" id="endst">
   <div class="end-sky"></div><div class="end-shade"></div>
+  <div class="ec ec1"></div><div class="ec ec2"></div><div class="ec ec3"></div><div class="ec-shade"></div><div class="ec-cap" id="eccap">🎉 마왕을 쓰러뜨렸다!</div>
   <div class="end-boss" id="endboss">${sp('demonking','','MON')}<i class="eye l"></i><i class="eye r"></i></div>
   <div class="cr-win"><div class="cr-roll" id="croll">${creditsHTML()}</div></div>
   <div class="end-party ${ph==='roll'?'walk':'gone'}">${party}</div>
@@ -1987,15 +2002,21 @@ function ending(){
    <div class="ef-free">🎮 게임은 무료로 얼마든지 즐기세요!<br><span>단, 게임의 아이디어를 활용한 다른 창작물을 만들 때는 반드시 원작자의 허락을 받아야 합니다.<br>(skywalkerkdk@gmail.com)</span></div>
    <div class="ef-btns"><button class="next" id="toRec">📜 모험 기록 보기</button><button class="ghost" id="reEnd">🎬 엔딩 다시 보기</button></div></div>
   <div class="end-skipw" id="eskipw"><button class="ghost end-skip" id="eskip">건너뛰기 ▶</button><div class="cookie">🍪 쿠키가 남아 있으니 끝까지 보세요!</div></div></div>`;
- fill($('endst'));
+ fill($('endst'));['end1.jpg','end2.jpg','end3.jpg'].forEach(u=>{const i=new Image();i.src=u;});
+ const est=$('endst');let stg=1;
  const lines=['…마왕이 쓰러졌다고?','크크크… 그 녀석은 우리 대마왕군 중 최약체일 뿐.','문장의 세계는 생각보다 넓다. 준동사의 힘을 얻은 자들이 너희를 기다리고 있지…','앞으로 너희의 모험에… 애로사항이 꽃필 것이다.','To be continued…?'];
- const dark=()=>{endClear();G.endPhase='dark';syncBgm();const st=$('endst');st.classList.add('dusk');st.querySelector('.end-party').className='end-party gone';
+ const dark=()=>{endClear();G.endPhase='dark';syncBgm();const st=$('endst');st.classList.add('dusk','s2','s3');st.querySelector('.end-party').className='end-party gone';
   sfx('wipe');lines.forEach((l,i)=>endAt(2600+i*3200,()=>{const t=$('etalk');t.innerHTML=`<span>${i===lines.length-1?'':'<b>???</b>: '}${esc(l)}</span>`;t.classList.remove('show');void t.offsetWidth;t.classList.add('show');if(i===1)sfx('crit');}));
   endAt(2600+lines.length*3200+1200,fin);};
- const fin=()=>{endClear();G.endPhase='final';syncBgm();const st=$('endst');st.classList.add('dusk','final');$('eskipw').style.display='none';sfx('bell');};
+ const fin=()=>{endClear();G.endPhase='final';syncBgm();const st=$('endst');st.classList.add('dusk','final','s2','s3');$('eskipw').style.display='none';sfx('bell');};
  $('toRec').onclick=()=>{endClear();G.scr='clear';render();};
  $('reEnd').onclick=()=>{G.endPhase='roll';render();};
- if(ph==='roll'){const D=62000;$('croll').style.animationDuration=D+'ms';endAt(D,dark);$('eskip').onclick=()=>{if(G.endPhase==='roll')dark();else fin();};}
+ if(ph==='roll'){const D=62000;$('croll').style.animationDuration=D+'ms';
+  /* 1컷: 마왕을 쓰러뜨리고 환호 → 옆으로 밀리며 2컷(집으로 가는 길, 크레딧) → 3컷(흑막) */
+  est.classList.add('s1');sfx('bell');
+  const slide=()=>{if(stg!==1)return;endClear();stg=2;est.classList.remove('s1');est.classList.add('s2');sfx('wipe');endAt(1500+D,dark);};
+  endAt(6500,slide);
+  $('eskip').onclick=()=>{if(stg===1)slide();else if(G.endPhase==='roll')dark();else fin();};}
  else if(ph==='dark'){dark();$('eskip').onclick=fin;}
  else fin();
 }

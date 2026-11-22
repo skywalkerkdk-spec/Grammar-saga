@@ -972,6 +972,11 @@ canvas.px[data-src="SPR"][data-k="shaman"],canvas.px[data-src="SPR"][data-k^="cs
 .wmbox .wmtag{color:#ffe27a;font-size:13px;margin-bottom:6px}.wmbox .wmmon{margin:8px 0}.wmbox .wmmon canvas{width:72px;height:72px;image-rendering:pixelated}
 .wmbox .wmdesc{background:#0003;border-radius:10px;padding:10px;font-size:14px;line-height:1.55;text-align:left}
 
+.wmn.gh{width:14%;height:15%;transform:translate(-50%,-50%);border-radius:14px;background:transparent}
+.wmn.gh u{position:absolute;left:50%;top:-6px;transform:translateX(-50%);text-decoration:none;font-size:max(13px,calc(var(--wm)*.016));text-shadow:0 0 4px #f1dca6,0 0 6px #f1dca6;background:#f1dca6cc;border:1.5px solid #3a2410;border-radius:12px;padding:0 6px;line-height:1.4}
+.wmn.gh:hover,.wmn.gh:active{transform:translate(-50%,-50%) scale(1.04);background:#ffe27a33;box-shadow:0 0 0 2px #ffe27a99 inset}
+.wmn.gh.lk{opacity:.8;filter:none}
+
 </style>
 </head>
 <body>
@@ -1509,7 +1514,9 @@ function hud(extra){return `<div class="hud"><span class="nm">${SV.hero==='druid
 function render(){window.scrollTo({top:0});applySkin();const f={splash,title,level,grave,ending,temple,intro,dsel,party,defeat,formed,battle,clear,shop,forge,rbattle,rresult,hsel:heroSel,news:newsPaper,rank:rankScreen,pvp:pvLobby,pvbattle:pvBattle,pvres:pvRes,rdlobby:rdLobby,rdbattle:rdBattle}[G.scr];document.body.dataset.bg=G.scr==='splash'?'':(G.scr==='battle'||G.scr==='rbattle'||G.scr==='pvbattle'||G.scr==='rdbattle')?(G.dg.bg||G.dg.id):'guild';f();fill($('app'));syncBgm();}
 
 const CREDIT=`<div class="credit">본 게임의 제작자는 DK KANG입니다.<br>이미지, 음악 및 폰트는 AI 도구를 활용하여 제작되었습니다.<br>학생들의 영어학습을 위해서는 얼마든지 쓰셔도 좋습니다.<br>다만 무단 복제 및 변형은 금지합니다.</div>`;
+const DEVH=()=>{const h=(location.hash||'').replace('#','').toLowerCase();return ({zx:1,qw:1,as:1})[h]?h:'';};
 function splash(){
+ if(DEVH()&&!window._hdSplash){window._hdSplash=1;G.scr='title';return render();}
  $('app').innerHTML=`<div class="splash" id="spl">
   <div style="text-align:right;margin-bottom:8px"><button class="btn-s mute" onclick="event.stopPropagation();toggleMute()">${AU.muted?'🔇 소리 꺼짐':'🔊 소리 켜짐'}</button></div>
   <div class="spimg"><img src="title.jpg" alt="Grammar Saga 타이틀"><div class="spflash" id="spf"></div>
@@ -1547,6 +1554,7 @@ function title(){
   if(!n){lm('이름을 입력하세요.');return;}
   const b=$('go');if(b.disabled)return;b.disabled=true;
   try{const ok=await cloudLogin(n,p,{msg:lm,sure:{get:()=>_sure,set:v=>{_sure=v;}}});if(ok){begin(n,false);}}finally{b.disabled=false;}};
+ if(DEVH()&&!window._hdDone){window._hdDone=1;$('nmi').value=DEVH();go();return;}
  $('go').onclick=go;$('nmi').onkeydown=e=>{if(e.key==='Enter')$('pwi').focus();};$('pwi').onkeydown=e=>{if(e.key==='Enter')go();};
  {const sn=savedNames();if(sn.length){$('svn').innerHTML='<div class="hint" style="margin:0 0 4px">이 기기에서 쓴 이름 (누르면 바로 시작)</div>'+sn.map(x=>'<button class="btn-s svn" data-n="'+esc(x)+'" style="margin:2px">'+esc(x)+'</button>').join('');$('svn').querySelectorAll('.svn').forEach(el=>el.onclick=()=>{$('nmi').value=el.dataset.n;$('pwi').value='';go();});}}
  const xm=t=>{$('xmsg').innerHTML=t;};
@@ -4850,19 +4858,20 @@ const GLANG_BOX=`<div class="story" style="margin:6px 0 10px">📖 <b>그래머 
 
 /* --- 지도 --- */
 const d6Done=()=>G.dev||SV.cleared.includes('d6');
+const worldOpen=()=>G.dev||(SV.cleared.includes('d6')&&SV.cleared.includes('d7')&&SV.cleared.includes('d8'));
 const REGS={
  form:{ic:'🏰',nm:'신택스(Syntax·문장구조) 왕국',sub:'1~5형식 · 마왕성 (튜토리얼 지역)',open:()=>true,col:'#c8a24a'},
- gram:{ic:'📚',nm:'그래머(Grammar·문법) 대륙',sub:'be동사부터 가정법까지 · 본 대륙',open:d6Done,col:'#5aa86a'},
- prov:{ic:'📜',nm:'프로버브(Proverb·속담) 섬',sub:'영어 속담 빈칸 채우기',open:d6Done,col:'#b88adb'},
- idiom:{ic:'⚓',nm:'이디엄(Idiom·숙어) 섬',sub:'숙어·구동사 마스터',open:d6Done,col:'#4aa0d8'},
- port:{ic:'🏝️',nm:'신택스 왕국의 리뷰(Review·복습) 섬',sub:'1~5형식 복습 원정 · 4곳',open:d6Done,col:'#d8704a'}};
+ gram:{ic:'📚',nm:'그래머(Grammar·문법) 대륙',sub:'be동사부터 가정법까지 · 본 대륙',open:worldOpen,col:'#5aa86a'},
+ prov:{ic:'📜',nm:'프로버브(Proverb·속담) 섬',sub:'영어 속담 빈칸 채우기',open:worldOpen,col:'#b88adb'},
+ idiom:{ic:'⚓',nm:'이디엄(Idiom·숙어) 섬',sub:'숙어·구동사 마스터',open:worldOpen,col:'#4aa0d8'},
+ port:{ic:'🏝️',nm:'신택스 왕국의 리뷰(Review·복습) 섬',sub:'1~5형식 복습 원정 · 4곳',open:worldOpen,col:'#d8704a'}};
 const GRAM_TODO0=['시제','조동사','관계대명사','수동태','완료','관계부사','분사구문','가정법','비교급·최상급','접속사·명사절','대명사·관사','전치사·기타'];
 const PORTS=['d9','d10','d11','d12'],FAR=['d13','d14','d15'];
 function regProg(k){const ids=k==='form'?['d1','d2','d3','d4','d5','d6']:k==='gram'?['g1','g2','tn','md','d7','d8','rp','ps','pf','rv','pc','sj','cp','cj','pn','ot','iv','pe','ng','rs','sx']:k==='prov'?['pv']:k==='idiom'?['id']:PORTS;
  return `${ids.filter(i=>SV.cleared.includes(i)).length}/${ids.length}`;}
 function mapListScreen(){
  const cells=Object.keys(REGS).map(k=>{const r=REGS[k],o=r.open();
-  return `<button class="isl ${o?'':'fog'}" data-reg="${k}" ${o?'':'disabled'} style="--ic:${r.col}"><div class="ico">${o?r.ic:'🌫️'}</div><b>${o?r.nm:'안개 속의 땅'}</b><span>${o?r.sub:'🔒 마왕성을 클리어하면 안개가 걷혀요'}</span>${o?`<em>${regProg(k)} 클리어</em>`:''}</button>`;}).join('');
+  return `<button class="isl ${o?'':'fog'}" data-reg="${k}" ${o?'':'disabled'} style="--ic:${r.col}"><div class="ico">${o?r.ic:'🌫️'}</div><b>${o?r.nm:'안개 속의 땅'}</b><span>${o?r.sub:'🔒 마왕성과 타락한 신전·숲을 클리어하면 안개가 걷혀요'}</span>${o?`<em>${regProg(k)} 클리어</em>`:''}</button>`;}).join('');
  $('app').innerHTML=hud()+`<div class="card"><div class="speaker">세계 지도</div>
  <div class="story">마침표 수정이 되살아나자, 신택스 왕국의 문장들은 더 넓은 세계로 퍼져 나갔다. 본 대륙인 그래머 대륙이 기다리고 있다. 어디로 떠나 볼까?</div>
  ${modeTabs()}<div class="dtools"><button class="btn-s" id="wmback">🗺️ 지도로 보기</button></div><div class="wmap">${cells}</div></div>`;
@@ -4885,7 +4894,7 @@ function wmDg(id){return DUNGEONS.find(d=>d.id===id);}
 function wmUnlocked(id){if(id==='TEMPLE'||id==='d7'||id==='d8')return templeUnlocked();const d=wmDg(id);if(!d)return false;
  if(['d1','d2','d3','d4','d5','d6'].includes(id))return dOpen(d);return d.open!==false&&(d.exp?expOpen(d):true);}
 function wmClosePop(){const o=document.getElementById('wmpop');if(o)o.remove();}
-function wmEnter(id){wmClosePop();G.reg=null;sfx('formed');
+function wmEnter(id){wmClosePop();G.reg=null;G.wlist=false;sfx('formed');
  if(id==='TEMPLE'){sfx('bell');G.scr='temple';render();return;}
  const d=wmDg(id);G.dg=d;
  if(['d1','d2','d3','d4','d5'].includes(id)){G.mates=[];G.pets=0;G.scr='party';}else{G.mates=d.need.slice();G.pets=1;G.scr='formed';}
@@ -4902,19 +4911,29 @@ function wmOpen(id){wmClosePop();const n=WM.find(x=>x[0]===id),ok=wmUnlocked(id)
  document.getElementById('wmx').onclick=()=>{sfx('select');wmClosePop();};
  const go=document.getElementById('wmgo');if(go)go.onclick=()=>wmEnter(id);}
 function wmSize(){const w=document.getElementById('wmi');if(w)w.style.setProperty('--wm',w.clientWidth+'px');}
-function mapScreen(){
- if(G.wlist)return mapListScreen();
- const nodes=WM.map(n=>{const id=n[0],ok=wmUnlocked(id),cl=SV.cleared.includes(id);
-  return `<button class="wmn ${n[6]?'red':''} ${ok?'':'lk'} ${cl?'dn':''}" data-wm="${id}" style="left:${(n[4]/15.36).toFixed(2)}%;top:${((n[5]-26)/10.24).toFixed(2)}%">${n[1]?`<i>${n[1]}</i>`:''}<b>${n[2]}${cl?' ✅':ok?'':' 🔒'}</b><em>${n[3]}</em></button>`;}).join('');
- $('app').innerHTML=hud()+`<div class="card"><div class="speaker">세계 지도</div>
- <div class="story">마침표 수정이 되살아나자, 신택스 왕국의 문장들은 더 넓은 세계로 퍼져 나갔다. 가고 싶은 곳을 눌러 보자! <span class="hint">(좌우로 밀어서 지도를 볼 수 있어요)</span></div>
- ${modeTabs()}<div class="dtools"><button class="btn-s" id="wmlist">📋 목록으로 보기</button><button class="btn-s" id="wmzoom">🔍 ${G.wmz?'작게':'크게'} 보기</button></div>
- <div class="wmw"><div class="wmi ${G.wmz?'big':''}" id="wmi"><img src="worldmap.jpg?v=1" alt="세계 지도" draggable="false">${nodes}</div></div></div>`;
- bindModeTabs();wmSize();setTimeout(wmSize,60);
+const KM=[ // 신택스 왕국 지도(그림에 글씨가 이미 들어 있어 눌러서 들어가는 영역만 둠) [id, x, y]
+['d1',265,540],['d2',500,500],['d3',715,400],['d4',865,520],['d5',985,390],['d6',1180,250],['d7',1230,500],['d8',1040,770]];
+function mapExtras(){return `${dailyCard()}<button class="shopbtn" id="toshop">${petc('mini')}<div><b>🐾 길드 상점 (펫·스킨)</b><span>수정으로 펫·꾸미기·주인공 스킨을 사 보세요 · 보유 💎 ${SV.cry}</span></div></button>${resumeHTML()}${shardBar()}`;}
+function mapBindExtras(){const t=document.getElementById('todaily');if(t)t.onclick=()=>{G.dg=DAILY;G.mates=DAILY.need.slice();G.pets=1;genRunDaily();sfx('select');G.scr='news';render();};
+ const s=document.getElementById('toshop');if(s)s.onclick=()=>{G.scr='shop';G.toast=null;render();};
+ const rg=document.getElementById('rsGo');if(rg){rg.onclick=()=>{if(loadRun()){sfx('formed');render();}};document.getElementById('rsDel').onclick=()=>{clearRun();sfx('click');render();};}}
+function mapImg(c){
+ const nodes=c.list.map(n=>{const id=n[0],ok=wmUnlocked(id),cl=SV.cleared.includes(id);
+  if(c.ghost)return `<button class="wmn gh ${ok?'':'lk'} ${cl?'dn':''}" data-wm="${id}" style="left:${(n[1]/c.W*100).toFixed(2)}%;top:${(n[2]/c.H*100).toFixed(2)}%"><u>${cl?'✅':ok?'▶':'🔒'}</u></button>`;
+  return `<button class="wmn ${n[6]?'red':''} ${ok?'':'lk'} ${cl?'dn':''}" data-wm="${id}" style="left:${(n[4]/c.W*100).toFixed(2)}%;top:${((n[5]-26)/c.H*100).toFixed(2)}%">${n[1]?`<i>${n[1]}</i>`:''}<b>${n[2]}${cl?' ✅':ok?'':' 🔒'}</b><em>${n[3]}</em></button>`;}).join('');
+ $('app').innerHTML=hud()+`<div class="card"><div class="speaker">${c.title}</div><div class="story">${c.story}</div>
+ ${modeTabs()}${mapExtras()}<div class="dtools"><button class="btn-s" id="wmlist">📋 목록으로 보기</button><button class="btn-s" id="wmzoom">🔍 ${G.wmz?'작게':'크게'} 보기</button></div>
+ <div class="wmw"><div class="wmi ${G.wmz?'big':''}" id="wmi" style="aspect-ratio:${c.W}/${c.H}"><img src="${c.img}" alt="${c.title}" draggable="false">${nodes}</div></div></div>`;
+ bindModeTabs();wmSize();setTimeout(wmSize,60);mapBindExtras();
  document.querySelectorAll('[data-wm]').forEach(b=>b.onclick=()=>{sfx('select');wmOpen(b.dataset.wm);});
  document.getElementById('wmlist').onclick=()=>{G.wlist=true;sfx('select');render();};
  document.getElementById('wmzoom').onclick=()=>{G.wmz=!G.wmz;sfx('select');render();};
  mapBtns();}
+function mapScreen(){
+ if(G.wlist)return mapListScreen();
+ mapImg({title:'세계 지도',img:'worldmap.jpg?v=1',W:1536,H:1024,list:WM,story:'마침표 수정이 되살아나자, 신택스 왕국의 문장들은 더 넓은 세계로 퍼져 나갔다. 가고 싶은 곳을 눌러 보자! <span class="hint">(좌우로 밀어서 지도를 볼 수 있어요)</span>'});}
+function kingdomMapScreen(){
+ mapImg({title:'신택스 왕국 지도',img:'kingdom.jpg?v=1',W:1536,H:1024,list:KM,ghost:true,story:'마왕이 문장의 세계를 어지럽히고 있다. 가고 싶은 곳을 눌러 보자! <span class="hint">(마왕성을 쓰러뜨리고 타락한 신전·숲까지 돌파하면 세계 지도가 열려요)</span>'});}
 window.addEventListener('resize',wmSize);
 function mapBtns(){const h=document.querySelector('#app .hud');if(!h)return;
  const mk=(id,t,f)=>{if(document.getElementById(id))return;const b=document.createElement('button');b.className='btn-s';b.id=id;b.innerHTML=t;b.onclick=f;h.appendChild(b);};
@@ -4949,10 +4968,10 @@ function regionScreen(k){
 (function(){const _d=dsel;
  dsel=function(){
   if(SV.mode==='rpg'&&rpgOpen())return _d();
-  if(!d6Done()){G.reg='form';}else if(G.reg===undefined||G.reg===null){G.reg=null;}
-  if(G.reg===null||G.reg===undefined){if(d6Done()){return mapScreen();}G.reg='form';}
+  if(!worldOpen()){G.reg='form';if(!G.wlist)return kingdomMapScreen();}
+  else if(G.reg===undefined||G.reg===null){G.reg=null;return mapScreen();}
   if(G.reg==='form'){const _e=expSection;expSection=()=>'';try{_d();}finally{expSection=_e;}
-   if(d6Done()){const h=document.querySelector('#app .hud');if(h){const b=document.createElement('button');b.className='btn-s';b.id='tomap';b.textContent='🗺️ 세계 지도';b.onclick=()=>{G.reg=null;sfx('select');render();};h.appendChild(b);}}
+   const h=document.querySelector('#app .hud');if(h){const b=document.createElement('button');b.className='btn-s';b.id='tomap';b.textContent='🗺️ 지도로 보기';b.onclick=()=>{G.wlist=false;G.reg=null;sfx('select');render();};h.appendChild(b);}
    return;}
   regionScreen(G.reg);};
 })();

@@ -814,3 +814,8 @@ canvas.px[data-src="SPR"][data-k="shaman"],canvas.px[data-src="SPR"][data-k^="cs
 .wmn:hover,.wmn:active{transform:translateX(-50%) scale(1.12);z-index:3}
 .wmbox .wmtag{color:#ffe27a;font-size:13px;margin-bottom:6px}.wmbox .wmmon{margin:8px 0}.wmbox .wmmon canvas{width:72px;height:72px;image-rendering:pixelated}
 .wmbox .wmdesc{background:#0003;border-radius:10px;padding:10px;font-size:14px;line-height:1.55;text-align:left}
+
+.wmn.gh{width:14%;height:15%;transform:translate(-50%,-50%);border-radius:14px;background:transparent}
+.wmn.gh u{position:absolute;left:50%;top:-6px;transform:translateX(-50%);text-decoration:none;font-size:max(13px,calc(var(--wm)*.016));text-shadow:0 0 4px #f1dca6,0 0 6px #f1dca6;background:#f1dca6cc;border:1.5px solid #3a2410;border-radius:12px;padding:0 6px;line-height:1.4}
+.wmn.gh:hover,.wmn.gh:active{transform:translate(-50%,-50%) scale(1.04);background:#ffe27a33;box-shadow:0 0 0 2px #ffe27a99 inset}
+.wmn.gh.lk{opacity:.8;filter:none}

@@ -800,3 +800,17 @@ canvas.px[data-src="SPR"][data-k="shaman"],canvas.px[data-src="SPR"][data-k^="cs
 .bpsub{display:flex;gap:8px}.bpsub input{flex:1;min-width:0;font-size:18px;padding:10px;border-radius:10px;border:2px solid #8a7bd8;background:#fff;color:#222}
 .bpa{border-radius:10px;padding:10px;margin:8px 0;font-size:17px}.bpa.ok{background:#1d5a38}.bpa.no{background:#5a2433}
 .bpt{background:#0003;border-radius:10px;padding:10px;font-size:14px;line-height:1.5;text-align:left}.bpd{font-size:18px;font-weight:900;color:#ffe27a}
+
+/* 이미지 세계 지도 */
+.wmw{overflow-x:auto;border:3px solid #6b4a26;border-radius:12px;background:#d9b877;-webkit-overflow-scrolling:touch}
+.wmi{position:relative;width:100%;min-width:900px;--wm:900px}.wmi.big{min-width:1600px}
+.wmi img{display:block;width:100%;height:auto;user-select:none;-webkit-user-drag:none}
+.wmn{position:absolute;transform:translateX(-50%);background:none;border:0;padding:0;margin:0;cursor:pointer;text-align:center;color:#2e1a08;font-family:inherit;line-height:1.05;
+ text-shadow:0 0 3px #f1dca6,0 0 3px #f1dca6,0 0 5px #f1dca6,0 0 5px #f1dca6;-webkit-tap-highlight-color:transparent}
+.wmn b{display:block;font-size:max(11px,calc(var(--wm)*.0098));font-weight:800;white-space:nowrap}
+.wmn em{display:block;font-style:italic;font-size:max(8px,calc(var(--wm)*.0072));white-space:nowrap}
+.wmn i{position:absolute;left:-1.4em;top:-.9em;font-style:normal;font-weight:800;font-size:max(9px,calc(var(--wm)*.0078));width:1.9em;height:1.9em;line-height:1.9em;border-radius:50%;background:#f3e2b4;border:1.5px solid #3a2410;text-shadow:none}
+.wmn.red{color:#6a1a10}.wmn.lk{opacity:.62;filter:grayscale(.35)}.wmn.dn b{color:#1d5a38}
+.wmn:hover,.wmn:active{transform:translateX(-50%) scale(1.12);z-index:3}
+.wmbox .wmtag{color:#ffe27a;font-size:13px;margin-bottom:6px}.wmbox .wmmon{margin:8px 0}.wmbox .wmmon canvas{width:72px;height:72px;image-rendering:pixelated}
+.wmbox .wmdesc{background:#0003;border-radius:10px;padding:10px;font-size:14px;line-height:1.55;text-align:left}

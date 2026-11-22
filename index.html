@@ -1366,9 +1366,9 @@ function tickBattle(B){const c=AU.ctx,ST=60/B.bpm/4,G_=AU.bgmG;
   AU.step++;AU.next+=ST;}}
 function bgmTick(){if(!AU.ctx||!AU.track)return;const t=AU.track==='menu'?((AU.cur&&AU.cur.name)||'intro'):AU.track;if(t==='intro'||!BT[t])tickIntro();else tickBattle(BT[t]);}
 /* 배경음악: 실제 악기 샘플로 녹음한 오케스트라 음원(bgm_*.mp3)을 반복 재생. 불러오지 못하면 기존 합성음으로 대체 */
-AU.buf={};AU.lru=[];AU.cur=null;
+AU.buf={};AU.lru=[];AU.cur=null;AU.STREAM=['main','battle','boss'];
 function bgmLoad(n){if(AU.buf[n]){AU.lru=AU.lru.filter(x=>x!==n);AU.lru.push(n);return AU.buf[n];}
- const p=fetch('bgm_'+n+'.mp3?v=13').then(r=>{if(!r.ok)throw new Error('http');return r.arrayBuffer();}).then(b=>new Promise((res,rej)=>AU.ctx.decodeAudioData(b,res,rej)));
+ const p=fetch('bgm_'+n+'.mp3?v=14').then(r=>{if(!r.ok)throw new Error('http');return r.arrayBuffer();}).then(b=>new Promise((res,rej)=>AU.ctx.decodeAudioData(b,res,rej)));
  AU.buf[n]=p;AU.lru.push(n);p.catch(()=>{delete AU.buf[n];});
  while(AU.lru.length>4){const old=AU.lru.shift();if(!AU.cur||AU.cur.name!==old)delete AU.buf[old];}
  return p;}
@@ -1382,9 +1382,9 @@ function bgm(name){
  if(!name)return;
  const g=c.createGain();g.gain.value=0.0001;g.connect(AU.bgmG);const me={g,name};AU.cur=me;
  AU.bgmG.gain.cancelScheduledValues(now);AU.bgmG.gain.setValueAtTime(0.62,now);
- bgmLoad(name).then(buf=>{if(AU.cur!==me)return;const s=c.createBufferSource();s.buffer=buf;s.loop=!menu;s.connect(g);if(menu)s.onended=()=>{if(AU.cur===me&&AU.track==='menu'){AU.track=null;bgm('menu');}};s.start();me.src=s;g.gain.setTargetAtTime(1,c.currentTime+0.4,0.3);})
+ (AU.STREAM.includes(name)?Promise.reject(new Error('stream')):bgmLoad(name)).then(buf=>{if(AU.cur!==me)return;const s=c.createBufferSource();s.buffer=buf;s.loop=!menu;s.connect(g);if(menu)s.onended=()=>{if(AU.cur===me&&AU.track==='menu'){AU.track=null;bgm('menu');}};s.start();me.src=s;g.gain.setTargetAtTime(1,c.currentTime+0.4,0.3);})
  .catch(()=>{if(AU.cur!==me)return;
-   try{const el=new Audio('bgm_'+name+'.mp3?v=13');el.loop=!menu;if(menu)el.onended=()=>{if(AU.cur===me&&AU.track==='menu'){AU.track=null;bgm('menu');}};el.crossOrigin='anonymous';const ms=c.createMediaElementSource(el);ms.connect(g);me.el=el;
+   try{const el=new Audio('bgm_'+name+'.mp3?v=14');el.loop=!menu;if(menu)el.onended=()=>{if(AU.cur===me&&AU.track==='menu'){AU.track=null;bgm('menu');}};el.crossOrigin='anonymous';const ms=c.createMediaElementSource(el);ms.connect(g);me.el=el;
     el.play().then(()=>{if(AU.cur===me)g.gain.setTargetAtTime(1,c.currentTime+0.4,0.3);else el.pause();}).catch(()=>{el.pause();synthBgm(name,me);});
     el.onerror=()=>{el.pause();synthBgm(name,me);};}
    catch(e){synthBgm(name,me);}});
@@ -1393,10 +1393,11 @@ function bgm(name){
 const BGM_SCR=['level','intro','dsel','party','formed','shop','forge','rresult'];
 const BTRK={d1:'forest',d2:'cave',d9:'cave',d3:'golem',d4:'market',d5:'market',d16:'market',d7:'temple',d8:'temple',d12:'temple',d10:'ice',d14:'ice',d11:'fire',d17:'fire',d13:'desert',d15:'pirate',d6:'castle',d18:'castle'};
 const BTRK_ALL=['forest','cave','golem','market','temple','ice','fire','desert','pirate','castle'];
-function dgTrack(){const id=G.dg&&G.dg.id;if(BTRK[id])return BTRK[id];if(id==='d19'){const d=new Date();return BTRK_ALL[(d.getFullYear()*372+d.getMonth()*31+d.getDate())%BTRK_ALL.length];}return BTRK_ALL[(G.ei||0)%BTRK_ALL.length];}
+function dgTrack(){return 'battle';const id=G.dg&&G.dg.id;if(BTRK[id])return BTRK[id];if(id==='d19'){const d=new Date();return BTRK_ALL[(d.getFullYear()*372+d.getMonth()*31+d.getDate())%BTRK_ALL.length];}return BTRK_ALL[(G.ei||0)%BTRK_ALL.length];}
 function syncBgm(){
  let n=null;
- if(G.scr==='splash'||G.scr==='title'||BGM_SCR.includes(G.scr))n='menu';
+ if(G.scr==='splash'||G.scr==='title')n='main';
+ else if(BGM_SCR.includes(G.scr))n='menu';
  else if(G.scr==='ending')n=G.endPhase==='roll'?'ending':G.endPhase==='dark'?'dark':'ending';
  else if(G.scr==='pvbattle'||G.scr==='rdbattle')n='boss';
  else if(G.scr==='rdlobby')n='menu';

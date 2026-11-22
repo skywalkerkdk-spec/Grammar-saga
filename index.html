@@ -5801,10 +5801,16 @@ function prReward(n){return {c:Math.min(100,10+6*n),s:n>=5?1:0};}
 function prCurEntry(){try{if(G.scr==='rbattle'&&G.rp&&G.rp.q)return G.rp.q;if(G.run&&G.run[G.ei])return G.run[G.ei];}catch(e){}return null;}
 function prMeaning(x){try{const l=x.toLowerCase().trim();const r=GT_REC.find(o=>o.a&&String(o.a).toLowerCase()===l&&(o.kind==='idm'||o.kind==='syn'||o.kind==='prv'));if(!r)return '';
  if(r.kind==='syn')return r.k+' (비슷한 말: '+r.b.join(', ')+')';return r.k||'';}catch(e){return '';}}
+function prMean(x){return prMeaning(x.x)||x.m||'';}
+async function prAuto(x){if(!x||x.m||prMeaning(x.x)||x._ld)return;x._ld=1;try{const ac=new AbortController(),t=setTimeout(()=>ac.abort(),8000);
+ const r=await fetch('https://api.mymemory.translated.net/get?langpair=en|ko&q='+encodeURIComponent(x.x),{signal:ac.signal});clearTimeout(t);const d=await r.json();
+ let m=(d&&d.responseData&&d.responseData.translatedText)||'';m=String(m).replace(/<[^>]*>/g,'').trim();
+ if(m&&m.toLowerCase()!==x.x.toLowerCase()&&!/MYMEMORY|QUERY LENGTH|INVALID/i.test(m)&&/[가-힣]/.test(m)){x.m=m;x.ma=1;saveNow();}}catch(e){}x._ld=0;}
+function prAutoAll(){prGet().items.forEach(x=>{if(!x.rel)prAuto(x);});}
 function prLock(x,s,tr){const P=prGet(),key=x.toLowerCase(),ex=P.items.find(o=>o.x.toLowerCase()===key&&o.s===s)||P.items.find(o=>o.x.toLowerCase()===key&&!o.rel);
  if(ex&&!ex.rel){prToast('이미 감옥에 갇혀 있어요 🔒');return;}
  if(ex&&ex.rel){ex.rel=false;ex.wk=wkKey();ex.t=Date.now();saveNow();prToast('🔒 다시 가뒀어요: '+x);return;}
- P.items.push({id:Date.now().toString(36)+Math.random().toString(36).slice(2,5),x,s,tr:tr||'',wk:wkKey(),t:Date.now(),rel:false});
+ const it={id:Date.now().toString(36)+Math.random().toString(36).slice(2,5),x,s,tr:tr||'',wk:wkKey(),t:Date.now(),rel:false};P.items.push(it);prAuto(it);
  if(P.items.length>PR_MAX)P.items.shift();saveNow();sfx('select');prToast('🔒 "'+x+'" 를 표현 감옥에 가뒀어요!');}
 function prToast(m){let t=document.getElementById('prtoast');if(!t){t=document.createElement('div');t.id='prtoast';t.className='prtoast';document.body.appendChild(t);}t.textContent=m;t.classList.add('on');clearTimeout(prToast._t);prToast._t=setTimeout(()=>t.classList.remove('on'),2200);}
 /* ---- 문장에서 단어 고르기 ---- */
@@ -5837,9 +5843,9 @@ document.addEventListener('click',ev=>{try{
 function prCard(){const W=prWeekItems(),P=prGet().items,locked=W.filter(x=>!x.rel).length;
  return `<button class="shopbtn prbtn" id="topr"><span style="font-size:34px">🔒</span><div><b>표현 감옥 <small>(Expression Prison)</small></b><span>이번 주 갇힌 표현 ${locked}개 · 누적 ${P.length}개 · 문제 속 모르는 표현을 눌러 가두고, 공부해서 풀어 주세요</span></div></button>`;}
 function prPop(html){const old=document.getElementById('prpop');if(old)old.remove();const o=document.createElement('div');o.id='prpop';o.className='bpop';o.innerHTML=`<div class="bpbox prbox">${html}</div>`;document.body.appendChild(o);return o;}
-function prShow(tab){tab=tab||'wk';prW();const W=prWeekItems(),A=prGet().items.slice().reverse(),W2=W.slice().reverse();
+function prShow(tab){tab=tab||'wk';prW();prAutoAll();const W=prWeekItems(),A=prGet().items.slice().reverse(),W2=W.slice().reverse();
  const list=(tab==='wk'?W2:A);const lockedW=W.filter(x=>!x.rel).length,rw=prReward(W.length);
- const row=x=>`<div class="prrow ${x.rel?'rel':''}"><span class="pri">${x.rel?'🔓':'🔒'}</span><div class="prt"><b>${esc(x.x)}</b>${prMeaning(x.x)?` <small>${esc(prMeaning(x.x))}</small>`:''}<div class="prs">${esc(x.s)}</div>${x.tr&&x.rel?`<div class="prs">${esc(x.tr)}</div>`:''}</div>${x.rel?'':`<button class="prst" data-id="${x.id}">공부</button>`}</div>`;
+ const row=x=>`<div class="prrow ${x.rel?'rel':''}"><span class="pri">${x.rel?'🔓':'🔒'}</span><div class="prt"><b>${esc(x.x)}</b>${prMean(x)?` <small>${esc(prMean(x))}${x.ma&&!prMeaning(x.x)?' (자동 번역)':''}</small>`:''}<div class="prs">${esc(x.s)}</div>${x.tr&&x.rel?`<div class="prs">${esc(x.tr)}</div>`:''}</div>${x.rel?'':`<button class="prst" data-id="${x.id}">공부</button>`}</div>`;
  const o=prPop(`<h3>🔒 표현 감옥</h3><div class="prtabs"><button class="${tab==='wk'?'on':''}" data-t="wk">이번 주 (${W.length})</button><button class="${tab==='all'?'on':''}" data-t="all">📖 누적 단어장 (${prGet().items.length})</button></div>
  ${tab==='wk'?`<p class="hint">${wkRange()} · ${W.length?(lockedW?`아직 <b>${lockedW}개</b>가 갇혀 있어요. 모두 풀어 주면 보상!`:'🎉 이번 주 표현을 모두 풀어 줬어요!'):'문제 풀이 중 모르는 영어 단어·표현을 눌러 보세요.'}</p><p class="hint">🎁 ${prW().claimed?'이번 주 보상 예약 완료 (월요일 아침 8시 지급)':'모두 풀어 주면 💎 '+rw.c+(rw.s?' · ⚒️ '+rw.s:'')+' (월요일 아침 8시 지급)'}</p>`:'<p class="hint">지금까지 가둔 모든 표현이에요. 🔓 = 풀어 준 표현</p>'}
  <div class="prlist">${list.length?list.map(row).join(''):'<p class="hint">아직 아무도 없어요.</p>'}</div>
@@ -5851,9 +5857,9 @@ function prShow(tab){tab=tab||'wk';prW();const W=prWeekItems(),A=prGet().items.s
 /* ---- 공부 → 풀어 주기 ---- */
 function prBlank(x){const re=new RegExp(x.s.indexOf(x.x)>=0?x.x.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'):'$^');return x.s.replace(re,'_____');}
 function prStudy(ids,tab){const P=prGet();const q=ids.map(i=>P.items.find(o=>o.id===i)).filter(Boolean);let n=0,got=0;
- const step=()=>{if(n>=q.length){prW();prCheckReward();prShow(tab);return;}const x=q[n],mean=prMeaning(x.x);
+ const step=()=>{if(n>=q.length){prW();prCheckReward();prShow(tab);return;}const x=q[n],mean=prMean(x);
   const o=prPop(`<h3>🔓 풀어 주기 <small>(${n+1}/${q.length})</small></h3><p class="hint">문장 속 빈칸에 갇힌 표현을 써 넣으면 풀려나요!</p>
-   <div class="prq">${esc(prBlank(x))}</div>${x.tr?`<div class="prs">💬 ${esc(x.tr)}</div>`:''}${mean?`<div class="prs">💡 뜻: ${esc(mean)}</div>`:''}
+   <div class="prq">${esc(prBlank(x))}</div>${x.tr?`<div class="prs">💬 ${esc(x.tr)}</div>`:''}${mean?`<div class="prs">💡 뜻: ${esc(mean)}${x.ma&&!prMeaning(x.x)?' (자동 번역·참고용)':''}</div>`:''}
    <input id="pri" class="prin" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="표현을 입력하세요"><div id="prf"></div>
    <div class="bpbtn"><button class="next" id="prgo">확인</button><button class="ghost" id="prhint">힌트</button><button class="ghost" id="prq">그만하기</button></div>`);
   const inp=o.querySelector('#pri');inp.focus();let tries=0,hint=0;

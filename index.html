@@ -3005,7 +3005,7 @@ const RD_TIER=[{nm:'노멀',ic:'🟢',hp:1,atk:1,rw:1,st:1,pre:'',sp:[62,80]},{n
 const rdTierOk=(b,t)=>t<=0||(((SV.rdt||{})[b]??-1)>=t-1);
 const rdTn=t=>RD_TIER[Math.max(0,Math.min(2,+t||0))];
 const RD_WKMAX=10;
-function weekKey(){const d=new Date();d.setHours(0,0,0,0);d.setDate(d.getDate()-((d.getDay()+6)%7));return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');}
+function weekKey(){const d=new Date(Date.now()-8*3600*1000);d.setHours(0,0,0,0);d.setDate(d.getDate()-((d.getDay()+6)%7));return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');}
 function rdWkN(){const w=SV.raidWk;return w&&w.k===weekKey()?w.n:0;}
 function rdWkLeft(){return Math.max(0,RD_WKMAX-rdWkN());}
 function rdWkUse(){SV.raidWk={k:weekKey(),n:rdWkN()+1};saveNow();}
@@ -3043,7 +3043,7 @@ function rdLobby(){G.rpg=false;const me=profOf(SV,G.name),L=G.rd&&G.rd.lobby,inR
  ${pvCard(me,'<span class="hint">(나)</span>')}
  ${inRoom?rdRoomView(L):`<div class="pvbox netbox"><h3>🏠 방 만들기</h3>
   <div class="rdboss">${RD_BOSS.map(b=>`<button class="rdbtn ${bsel===b.id?'on':''}" data-bs="${b.id}">${sp(b.mon,'','MON')}<b>${b.mname}</b><span>${b.desc}</span></button>`).join('')}</div>
-  <div class="rdwk ${rdWkLeft()<=3?'low':''}">📅 이번 주 도전 <b>${rdWkN()}/${RD_WKMAX}</b>회 사용 · 남은 횟수 <b>${rdWkLeft()}</b>회 <small>(모든 보스·단계 합산, 매주 월요일 초기화)</small></div>
+  <div class="rdwk ${rdWkLeft()<=3?'low':''}">📅 이번 주 도전 <b>${rdWkN()}/${RD_WKMAX}</b>회 사용 · 남은 횟수 <b>${rdWkLeft()}</b>회 <small>(모든 보스·단계 합산, 매주 월요일 아침 8시 초기화)</small></div>
   <div class="rdtier">${RD_TIER.map((t,i)=>{const ok=rdTierOk(bsel,i);return `<button class="rdtb ${(G.rdTierSel||0)===i&&ok?'on':''} ${ok?'':'lock'}" data-tr="${i}" ${ok?'':'disabled'}>${t.ic} ${t.nm}${ok?'':' 🔒'}<small>${ok?`보상 ×${t.rw} · 강화석 ${t.st}`:(i===1?'노멀 클리어 후':'에픽 클리어 후')}</small></button>`;}).join('')}</div>
   ${netAvail()?`<div class="netrow"><button class="next" id="rhost">🏠 방 만들기</button><span class="netor">또는</span><input id="rcode" maxlength="4" placeholder="방 코드" autocomplete="off" autocapitalize="characters"><button class="next" id="rjoin">🚪 참가</button></div>`:'<p class="feedback no">이 브라우저에서는 실시간 접속을 쓸 수 없어요.</p>'}
   <p class="hint">실시간 접속은 선생님이 알려 준 게임 주소에서만 돼요. 방 코드는 4글자예요.</p></div>`}
@@ -3071,7 +3071,7 @@ function rdErr(e){const t=e&&e.type;clearTimeout(RDN.to);
 function rdCode(){const A='ABCDEFGHJKMNPQRSTUVWXYZ23456789';let s='';for(let i=0;i<4;i++)s+=A[Math.floor(Math.random()*A.length)];return s;}
 function rdLobbyList(){const R=G.rd;return {players:R.P.map(x=>x.pr),rd:R.P.map((x,i)=>i===0||!!x.ready),boss:R.bossId,tier:R.tier||0};}
 function rdPushLobby(){const R=G.rd;R.lobby=rdLobbyList();rdBcast({t:'lobby',pl:R.lobby.players,rd:R.lobby.rd,boss:R.bossId,tier:R.tier||0,code:RDN.code});if(G.scr==='rdlobby'){rdLobby();fill($('app'));}}
-function rdHost(){if(!netAvail())return;if(rdWkLeft()<=0){rdMsg('❌ 이번 주 레이드 도전 횟수(10회)를 모두 썼어요. 월요일에 초기화돼요.');return;}const keep=G.rdBossSel||'demon';rdClose();RDN.host=true;RDN.code=rdCode();G.rdBossSel=keep;rdMsg('⏳ 방을 만드는 중…');
+function rdHost(){if(!netAvail())return;if(rdWkLeft()<=0){rdMsg('❌ 이번 주 레이드 도전 횟수(10회)를 모두 썼어요. 월요일 아침 8시에 초기화돼요.');return;}const keep=G.rdBossSel||'demon';rdClose();RDN.host=true;RDN.code=rdCode();G.rdBossSel=keep;rdMsg('⏳ 방을 만드는 중…');
  const me=profOf(SV,G.name);const kt=rdTierOk(keep,G.rdTierSel||0)?(G.rdTierSel||0):0;G.rd={bossId:keep,tier:kt,P:[rdMk(me,0)],phase:'lobby',timers:[],lobby:null,started:false};
  const pr=new Peer(RD_PFX+RDN.code.toLowerCase(),PEEROPT());RDN.peer=pr;
  RDN.to=setTimeout(()=>{if(!pr.open)rdMsg('❌ 실시간 서버에 연결할 수 없어요.');},12000);
@@ -3089,7 +3089,7 @@ function rdHost(){if(!netAvail())return;if(rdWkLeft()<=0){rdMsg('❌ 이번 주 
    else if(d.t==='bye')rdDrop(seat);});
   c.on('close',()=>{const seat=S();if(seat>=0)rdDrop(seat);});c.on('error',()=>{});});
  pr.on('error',rdErr);}
-function rdJoin(code){if(!netAvail())return;if(rdWkLeft()<=0){rdMsg('❌ 이번 주 레이드 도전 횟수(10회)를 모두 썼어요. 월요일에 초기화돼요.');return;}code=(code||'').toUpperCase().replace(/[^A-Z0-9]/g,'');if(code.length!==4){rdMsg('❌ 방 코드는 4글자예요.');return;}
+function rdJoin(code){if(!netAvail())return;if(rdWkLeft()<=0){rdMsg('❌ 이번 주 레이드 도전 횟수(10회)를 모두 썼어요. 월요일 아침 8시에 초기화돼요.');return;}code=(code||'').toUpperCase().replace(/[^A-Z0-9]/g,'');if(code.length!==4){rdMsg('❌ 방 코드는 4글자예요.');return;}
  rdClose();RDN.code=code;rdMsg('⏳ 방에 들어가는 중…');const pr=new Peer(PEEROPT());RDN.peer=pr;
  RDN.to=setTimeout(()=>{if(!RDN.hostConn||!RDN.hostConn.open)rdMsg('❌ 방에 연결하지 못했어요.');},12000);
  pr.on('open',()=>{const c=pr.connect(RD_PFX+code.toLowerCase(),{reliable:true});RDN.hostConn=c;
@@ -5277,7 +5277,7 @@ async function rankBody(){const K=G.rk,me=CLOUD?CLOUD.n:'',box=$('rkbody');if(!b
   filt=`<select id="rkkey" class="input"><option value="">전체 합산</option>${opts.map(([v,t])=>`<option value="${v}" ${key===v?'selected':''}>${esc(t)}</option>`).join('')}</select>`;}
  const unit=b==='acc'?'%':'점';
  let rows=d.rows;if(b==='acc')rows=rows.map(o=>Object.assign({},o,{s:o.s/10}));else if((b==='dg'||b==='rd')&&!key)rows=rows.map(o=>Object.assign({},o,{x:{cnt:o.c||1}}));
- let h=`<p class="hint">📅 이번 주 (${esc(wkStart)} 월요일 시작 · 일요일 밤 마감) · 참가 ${d.total}명</p>${filt}
+ let h=`<p class="hint">📅 이번 주 (${esc(wkStart)} 월요일 아침 8시 시작 · 다음 월요일 아침 8시 마감) · 참가 ${d.total}명</p>${filt}
  ${b==='dg'?'<p class="hint">점수 = 정확도 600 + 속도 200 + 연속 정답 100 + 생존 100 (난이도 ×1.0/1.3/1.6). 던전마다 <b>최고 점수</b>가 합산돼요.</p>':b==='ar'?'<p class="hint">실시간 대전 1판: 승리 30 / 패배 8 + 정확도 최대 10 + 여유 승리 5. 하루 15판까지 인정돼요.</p>':b==='rd'?'<p class="hint">레이드 점수 = 승리 300 + 딜 400 + 치유 200 + 생존 50 + MVP 100 + 속공 최대 150. 보스마다 <b>최고 점수</b>가 합산돼요.</p>':'<p class="hint">모든 활동의 첫 시도 정답률이에요. 최소 50문제 이상 풀어야 순위에 올라요.</p>'}
  ${rkRows(b,rows,me,unit)}`;
  if(d.me&&!rows.some(o=>o.n===me))h+=`<div class="rklist"><div class="rkrow me"><span class="rkr">${d.me.r}위</span><span class="rkn">${esc(d.me.n)} (나)</span><span class="rks">${b==='acc'?d.me.s/10:d.me.s}${unit}</span></div></div>`;

@@ -923,8 +923,8 @@ canvas.px[data-src="SPR"][data-k="shaman"],canvas.px[data-src="SPR"][data-k^="cs
 
 /* ===== 엔딩 컷 3장: 환호 → 옆으로 밀기 → 집으로 가는 길(크레딧) → 흑막 ===== */
 .endstage .end-sky,.endstage .end-shade,.endstage .end-boss,.endstage .end-party{display:none!important}
-.ec{position:absolute;inset:0;background-size:cover;background-position:center;background-repeat:no-repeat;transition:transform 1.4s cubic-bezier(.7,0,.2,1),opacity 3s}
-.ec1{background-image:url(end1.jpg)}.ec2{background-image:url(end2.jpg);transform:translateX(100%)}.ec3{background-image:url(end3.jpg);opacity:0}
+.ec{position:absolute;inset:0;background:#140c1c;transition:transform 1.4s cubic-bezier(.7,0,.2,1),opacity 3s}
+.ec1{--i:url(end1.jpg)}.ec2{--i:url(end2.jpg);transform:translateX(100%)}.ec3{--i:url(end3.jpg);opacity:0}
 .endstage.s2 .ec1{transform:translateX(-100%)}.endstage.s2 .ec2{transform:none}.endstage.s3 .ec3{opacity:1}
 .ec-shade{position:absolute;inset:0;background:linear-gradient(rgba(10,6,20,.55),rgba(10,6,20,.15) 45%,rgba(10,6,20,.35));opacity:0;transition:opacity 1.4s;pointer-events:none}
 .endstage.s2 .ec-shade{opacity:1}.endstage.s3 .ec-shade{opacity:0}
@@ -934,6 +934,10 @@ canvas.px[data-src="SPR"][data-k="shaman"],canvas.px[data-src="SPR"][data-k^="cs
 .endstage .cr-win{opacity:0}.endstage.s2 .cr-win{opacity:1}.endstage.dusk .cr-win{opacity:0}
 .endstage .cr-roll{animation-play-state:paused}.endstage.s2 .cr-roll{animation-play-state:running}
 .endstage .end-talk{top:auto;bottom:5%}
+
+.ec::before,.ec::after{content:'';position:absolute;inset:0;background:var(--i) center/cover no-repeat}
+.ec::before{display:none;filter:blur(18px) brightness(.55);transform:scale(1.2)}
+@media (max-aspect-ratio:1/1){.ec::before{display:block}.ec::after{background-size:contain}}
 
 </style>
 </head>

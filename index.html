@@ -2011,7 +2011,7 @@ function creditsHTML(){
  return `<div class="cr-title">Grammar Saga</div><div class="cr-sub">Sentence Patterns</div>
  ${sec('🏆 마왕을 물리친 영웅',[`<b class="cr-hero">${esc(G.name)}</b>`])}
  ${sec('⚔️ 파티',cls.map(k=>`${sp(k)} <b>${full(k)}</b> — ${RK[CL[k].r]}`).concat([`${petc()} <b>펫</b> — 수식어 (인원 외)`]))}
- ${sec('🗺️ 모험의 길',['신택스(Syntax·문장구조) 왕국 — 1~5형식, 그리고 마왕성','그래머(Grammar·문법) 대륙 — be동사부터 가정법까지','프로버브(Proverb·속담) 섬 · 이디엄(Idiom·숙어) 섬','리뷰(Review·복습) 섬 — 대륙 원정','오늘의 던전 — 매일 새로 읽는 영어 기사'])}
+ ${sec('🗺️ 모험의 길',['신택스(Syntax·문장구조) 왕국 — 1~5형식, 그리고 마왕성','그래머(Grammar·문법) 대륙 — be동사부터 가정법까지','프로버브(Proverb·속담) 섬 · 이디엄(Idiom·숙어) 섬','신택스 왕국의 리뷰(Review·복습) 섬 — 대륙 원정','오늘의 던전 — 매일 새로 읽는 영어 기사'])}
  ${sec('👾 출연 몬스터',['슬라임 · 박쥐 · 버섯 · 숲의 수호목','슬라임 떼 · 슬라임 킹','골렘 · 골렘 대장 (3형제 중 첫째, 사실 외동)','잡화 상인 · 대장장이 · 물약 상인 · 황금 거상','호문쿨루스 · 살아 있는 플라스크 · 수은 슬라임 · 광기의 연금술사','임프 · 해골 병사 · 흑기사','그리고 275종의 몬스터들 — 수고했다, 다들!'])}
  ${sec('👑 사천왕',['화염의 군주 이그니스 (자칭 최약체)','빙결의 여제 프로스트 (사실 최약체)','폭풍의 기사 템페스트','대지의 거인 가이아 (다섯 번째는 없음)','그리고… 마왕'])}
  ${sec('🎮 기획 · 스토리 · 제작',['DK KANG'])}
@@ -4841,7 +4841,7 @@ const REGS={
  gram:{ic:'📚',nm:'그래머(Grammar·문법) 대륙',sub:'be동사부터 가정법까지 · 본 대륙',open:d6Done,col:'#5aa86a'},
  prov:{ic:'📜',nm:'프로버브(Proverb·속담) 섬',sub:'영어 속담 빈칸 채우기',open:d6Done,col:'#b88adb'},
  idiom:{ic:'⚓',nm:'이디엄(Idiom·숙어) 섬',sub:'숙어·구동사 마스터',open:d6Done,col:'#4aa0d8'},
- port:{ic:'🏝️',nm:'리뷰(Review·복습) 섬',sub:'1~5형식 복습 원정 · 4곳',open:d6Done,col:'#d8704a'}};
+ port:{ic:'🏝️',nm:'신택스 왕국의 리뷰(Review·복습) 섬',sub:'1~5형식 복습 원정 · 4곳',open:d6Done,col:'#d8704a'}};
 const GRAM_TODO0=['시제','조동사','관계대명사','수동태','완료','관계부사','분사구문','가정법','비교급·최상급','접속사·명사절','대명사·관사','전치사·기타'];
 const PORTS=['d9','d10','d11','d12'],FAR=['d13','d14','d15'];
 function regProg(k){const ids=k==='form'?['d1','d2','d3','d4','d5','d6']:k==='gram'?['g1','g2','tn','md','d7','d8','rp','ps','pf','rv','pc','sj','cp','cj','pn','ot','iv','pe','ng','rs','sx']:k==='prov'?['pv']:k==='idiom'?['id']:PORTS;

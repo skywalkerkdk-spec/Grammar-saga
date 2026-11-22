@@ -5740,9 +5740,11 @@ function bqShow(mode){const H=bqHold(mode);if(!H)return;const old=document.getEl
  if($q('bqx'))$q('bqx').onclick=()=>{sfx('select');bqClose(mode);};}
 
 /* ===== 주간 복습 던전: 이번 주에 틀린 문제를 자동 수집 → 다시 풀고 해설까지 읽으면 주간 보상 ===== */
-function wkKey(){const d=new Date(),day=(d.getDay()+6)%7;d.setDate(d.getDate()-day);return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');}
-function wkRange(){const d=new Date(),day=(d.getDay()+6)%7;const a=new Date(d);a.setDate(d.getDate()-day);const b=new Date(a);b.setDate(a.getDate()+6);return (a.getMonth()+1)+'/'+a.getDate()+' ~ '+(b.getMonth()+1)+'/'+b.getDate();}
-function wkGet(){const k=wkKey();if(!SV.wk||SV.wk.k!==k)SV.wk={k,items:[],claimed:false,rounds:0};return SV.wk;}
+function wkNow(){return new Date(Date.now()-8*3600*1000);}
+function wkKey(){const d=wkNow(),day=(d.getDay()+6)%7;d.setDate(d.getDate()-day);return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');}
+function wkRange(){const d=wkNow(),day=(d.getDay()+6)%7;const a=new Date(d);a.setDate(d.getDate()-day);const b=new Date(a);b.setDate(a.getDate()+6);return (a.getMonth()+1)+'/'+a.getDate()+' ~ '+(b.getMonth()+1)+'/'+b.getDate();}
+function wkGet(){const k=wkKey();if(!SV.wk||SV.wk.k!==k){const o=SV.wk;if(o&&o.pend){SV.cry+=o.pend.c;SV.stone=(SV.stone||0)+o.pend.s;SV.wkNote={c:o.pend.c,s:o.pend.s};}SV.wk={k,items:[],claimed:false,rounds:0};saveNow();}return SV.wk;}
+function wkNotice(){const N=SV.wkNote;if(!N)return;SV.wkNote=null;saveNow();const o=wkPop(`<h3>🎁 주간 복습 보상 도착!</h3><p class="bpd">💎 +${N.c} · ⚒️ +${N.s}</p><p class="hint">월요일 아침 8시에 지난주 보상이 지급돼요.</p>`,'<button class="next" id="wkx">확인</button>');document.getElementById('wkx').onclick=()=>{sfx('select');o.remove();};sfx('fanfare');}
 const WK_DROP=['talk','kill','taunt','retreatT','hp0','hp1','phase','boss','big','_sig'];
 const WK_MAX=60;
 function wkAdd(e,en){try{if(!e||!e.type||e.type==='trait'||(!e.c&&!e.sentence))return;const W=wkGet();
@@ -5752,13 +5754,13 @@ function wkAdd(e,en){try{if(!e||!e.type||e.type==='trait'||(!e.c&&!e.sentence))r
  if(en){o.mon=en.mon||o.mon;o.mname=en.mname||o.mname;o.filter=en.filter||o.filter||'';if(en.src)o.src=en.src;}
  W.items.push({e:o,n:1,d:(G.dg&&G.dg.name)||''});if(W.items.length>WK_MAX)W.items.shift();saveNow();}catch(err){}}
 function wkCard(){const W=wkGet(),n=W.items.length;
- return `<button class="shopbtn wkbtn" id="towk"><span style="font-size:34px">📚</span><div><b>주간 복습 던전 <small>(${wkRange()})</small></b><span>이번 주 틀린 문제 ${n}개 · ${W.claimed?'✅ 이번 주 보상 수령 완료 (복습은 계속할 수 있어요)':'🎁 모두 복습하고 해설을 읽으면 💎수정 + ⚒️강화석!'}</span></div></button>`;}
+ return `<button class="shopbtn wkbtn" id="towk"><span style="font-size:34px">📚</span><div><b>주간 복습 던전 <small>(${wkRange()})</small></b><span>이번 주 틀린 문제 ${n}개 · ${W.claimed?'✅ 보상 예약 완료 · 월요일 아침 8시에 지급 (복습은 계속할 수 있어요)':'🎁 모두 복습하고 해설을 읽으면 월요일 아침 8시에 💎수정 + ⚒️강화석!'}</span></div></button>`;}
 function wkPop(html,btns){const old=document.getElementById('wkpop');if(old)old.remove();const o=document.createElement('div');o.id='wkpop';o.className='bpop';o.innerHTML=`<div class="bpbox">${html}<div class="bpbtn">${btns}</div></div>`;document.body.appendChild(o);return o;}
 function wkStart(){const W=wkGet();
  if(!W.items.length){const o=wkPop(`<h3>📚 주간 복습 던전</h3><p>이번 주(${wkRange()})에는 아직 틀린 문제가 없어요! 🎉</p><p class="hint">던전을 플레이하다 틀린 문제는 자동으로 이곳에 모여요.</p>`,'<button class="next" id="wkx">확인</button>');document.getElementById('wkx').onclick=()=>{sfx('select');o.remove();};return;}
  const reward=wkReward(W.items.length);
  const o=wkPop(`<h3>📚 주간 복습 던전</h3><p>이번 주(${wkRange()}) 틀린 문제 <b>${W.items.length}개</b>를 다시 풀고 해설을 읽어 보세요.</p>
-  <div class="bpr"><span class="bpok">🎁 보상<br><small>${W.claimed?'이번 주는 이미 받았어요':'💎 '+reward.c+' · ⚒️ '+reward.s+' (전부 맞히면 💎 +'+reward.perfect+')'}</small></span></div>
+  <div class="bpr"><span class="bpok">🎁 보상<br><small>${W.claimed?'이번 주 보상은 이미 예약됐어요 (월요일 아침 8시 지급)':'💎 '+reward.c+' · ⚒️ '+reward.s+' (전부 맞히면 💎 +'+reward.perfect+') · 월요일 아침 8시 지급'}</small></span></div>
   <p class="hint">맞힌 문제는 목록에서 빠지고, 틀린 문제는 다음에 또 나와요.</p>`,'<button class="next" id="wkgo">📖 복습 시작</button><button class="ghost" id="wkx">닫기</button>');
  document.getElementById('wkx').onclick=()=>{sfx('select');o.remove();};
  document.getElementById('wkgo').onclick=()=>{o.remove();wkRun();};}
@@ -5774,13 +5776,13 @@ function wkFinish(R){const W=wkGet(),okIds=new Set(),seen=new Set();
  const total=seen.size,good=okIds.size;
  W.items=W.items.filter(x=>!okIds.has(x.e._wid));
  let msg='',rc=0,rs=0;
- if(!W.claimed&&total>0){const rw=wkReward(total);rc=rw.c+(good===total?rw.perfect:0);rs=rw.s;SV.cry+=rc;SV.stone=(SV.stone||0)+rs;W.claimed=true;msg=`<p class="bpd">🎁 💎 +${rc} · ⚒️ +${rs}</p>`;}
- else msg='<p class="hint">이번 주 보상은 이미 받았어요. 복습은 언제든 다시 할 수 있어요!</p>';
+ if(!W.claimed&&total>0){const rw=wkReward(total);rc=rw.c+(good===total?rw.perfect:0);rs=rw.s;W.pend={c:rc,s:rs};W.claimed=true;msg=`<p class="bpd">🎁 💎 +${rc} · ⚒️ +${rs}</p><p class="hint">보상은 월요일 아침 8시에 지급돼요!</p>`;}
+ else msg='<p class="hint">이번 주 보상은 이미 예약됐어요. 복습은 언제든 다시 할 수 있어요!</p>';
  W.rounds=(W.rounds||0)+1;saveNow();
  G.scr='dsel';render();
  const o=wkPop(`<h3>${good===total?'🎉 완벽한 복습!':'📚 복습 완료!'}</h3><p>다시 푼 문제 <b>${total}개</b> 중 <b>${good}개</b> 정답</p>${msg}<p class="hint">${W.items.length?`아직 ${W.items.length}개가 목록에 남아 있어요. 다음에 또 도전해 보세요!`:'이번 주 오답을 모두 정복했어요!'}</p>`,'<button class="next" id="wkx">확인</button>');
  document.getElementById('wkx').onclick=()=>{sfx('select');o.remove();};sfx('fanfare');}
-function wkBind(){const b=document.getElementById('towk');if(b)b.onclick=()=>{sfx('select');wkStart();};}
+function wkBind(){wkGet();wkNotice();const b=document.getElementById('towk');if(b)b.onclick=()=>{sfx('select');wkStart();};}
 
 render();tryAuto();setTimeout(tryAuto,300);
 setInterval(()=>{document.body.classList.toggle('muted-wait',!(AU.ctx&&AU.ctx.state==='running')&&G.scr==='splash');},500);

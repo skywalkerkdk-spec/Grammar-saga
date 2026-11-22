@@ -977,6 +977,14 @@ canvas.px[data-src="SPR"][data-k="shaman"],canvas.px[data-src="SPR"][data-k^="cs
 .wmn.gh:hover,.wmn.gh:active{transform:translate(-50%,-50%) scale(1.04);background:#ffe27a33;box-shadow:0 0 0 2px #ffe27a99 inset}
 .wmn.gh.lk{opacity:.8;filter:none}
 
+.prtoast{position:fixed;left:50%;bottom:90px;transform:translateX(-50%) translateY(20px);background:#2a2058;color:#ffe27a;border:2px solid #ffd35a;border-radius:20px;padding:10px 16px;z-index:9500;opacity:0;pointer-events:none;transition:.25s;font-weight:700;max-width:90vw;text-align:center}.prtoast.on{opacity:1;transform:translateX(-50%)}
+.prchip{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);z-index:9400;background:#1b1440;border:2px solid #ffd35a;border-radius:14px;padding:8px 10px;display:none;align-items:center;gap:6px;flex-wrap:wrap;justify-content:center;max-width:94vw;color:#fff;box-shadow:0 4px 20px #000a}.prchip.on{display:flex}
+.prchip b{color:#ffe27a;font-size:17px;padding:0 4px}.prchip button{border:0;border-radius:8px;padding:7px 10px;background:#40387a;color:#fff;font-weight:800}.prchip button.go{background:#c0392b}.prchip button:disabled{opacity:.3}
+.prbox{width:min(520px,100%);text-align:left}.prbox h3{text-align:center}.prtabs{display:flex;gap:6px;margin:6px 0}.prtabs button{flex:1;border:0;border-radius:10px;padding:8px;background:#40387a;color:#ccc;font-weight:800}.prtabs button.on{background:#ffd35a;color:#222}
+.prlist{max-height:44vh;overflow:auto;margin:8px 0}.prrow{display:flex;gap:8px;align-items:flex-start;background:#00000040;border-radius:10px;padding:8px;margin:5px 0}.prrow.rel{opacity:.65}.pri{font-size:20px}.prt{flex:1;min-width:0}.prt b{color:#ffe27a}.prs{font-size:13px;color:#cfd;opacity:.85;line-height:1.4;word-break:break-word}.prst{border:0;border-radius:8px;background:#1d5a38;color:#fff;padding:7px 10px;font-weight:800}
+.prq{font-size:19px;font-weight:800;background:#00000050;border-radius:10px;padding:12px;margin:8px 0;text-align:center;line-height:1.5}.prin{width:100%;box-sizing:border-box;font-size:18px;padding:10px;border-radius:10px;border:2px solid #ffd35a;margin:8px 0;background:#fff;color:#111}
+.prbtn small{opacity:.7;font-weight:500}.sentence{cursor:pointer}
+
 </style>
 </head>
 <body>
@@ -5754,7 +5762,7 @@ function wkAdd(e,en){try{if(!e||!e.type||e.type==='trait'||(!e.c&&!e.sentence))r
  if(en){o.mon=en.mon||o.mon;o.mname=en.mname||o.mname;o.filter=en.filter||o.filter||'';if(en.src)o.src=en.src;}
  W.items.push({e:o,n:1,d:(G.dg&&G.dg.name)||''});if(W.items.length>WK_MAX)W.items.shift();saveNow();}catch(err){}}
 function wkCard(){const W=wkGet(),n=W.items.length;
- return `<button class="shopbtn wkbtn" id="towk"><span style="font-size:34px">📚</span><div><b>주간 복습 던전 <small>(${wkRange()})</small></b><span>이번 주 틀린 문제 ${n}개 · ${W.claimed?'✅ 보상 예약 완료 · 월요일 아침 8시에 지급 (복습은 계속할 수 있어요)':'🎁 모두 복습하고 해설을 읽으면 월요일 아침 8시에 💎수정 + ⚒️강화석!'}</span></div></button>`;}
+ return `<button class="shopbtn wkbtn" id="towk"><span style="font-size:34px">📚</span><div><b>주간 복습 던전 <small>(${wkRange()})</small></b><span>이번 주 틀린 문제 ${n}개 · ${W.claimed?'✅ 보상 예약 완료 · 월요일 아침 8시에 지급 (복습은 계속할 수 있어요)':'🎁 모두 복습하고 해설을 읽으면 월요일 아침 8시에 💎수정 + ⚒️강화석!'}</span></div></button>${prCard()}`;}
 function wkPop(html,btns){const old=document.getElementById('wkpop');if(old)old.remove();const o=document.createElement('div');o.id='wkpop';o.className='bpop';o.innerHTML=`<div class="bpbox">${html}<div class="bpbtn">${btns}</div></div>`;document.body.appendChild(o);return o;}
 function wkStart(){const W=wkGet();
  if(!W.items.length){const o=wkPop(`<h3>📚 주간 복습 던전</h3><p>이번 주(${wkRange()})에는 아직 틀린 문제가 없어요! 🎉</p><p class="hint">던전을 플레이하다 틀린 문제는 자동으로 이곳에 모여요.</p>`,'<button class="next" id="wkx">확인</button>');document.getElementById('wkx').onclick=()=>{sfx('select');o.remove();};return;}
@@ -5782,7 +5790,85 @@ function wkFinish(R){const W=wkGet(),okIds=new Set(),seen=new Set();
  G.scr='dsel';render();
  const o=wkPop(`<h3>${good===total?'🎉 완벽한 복습!':'📚 복습 완료!'}</h3><p>다시 푼 문제 <b>${total}개</b> 중 <b>${good}개</b> 정답</p>${msg}<p class="hint">${W.items.length?`아직 ${W.items.length}개가 목록에 남아 있어요. 다음에 또 도전해 보세요!`:'이번 주 오답을 모두 정복했어요!'}</p>`,'<button class="next" id="wkx">확인</button>');
  document.getElementById('wkx').onclick=()=>{sfx('select');o.remove();};sfx('fanfare');}
-function wkBind(){wkGet();wkNotice();const b=document.getElementById('towk');if(b)b.onclick=()=>{sfx('select');wkStart();};}
+function wkBind(){prBind();wkGet();wkNotice();const b=document.getElementById('towk');if(b)b.onclick=()=>{sfx('select');wkStart();};}
+
+/* ===== 🔒 표현 감옥: 모르는 표현을 문장에서 눌러 가두고 → 공부해서 풀어주는 단어장 (주간 보상 + 누적 기록) ===== */
+const PR_MAX=500;
+function prGet(){SV.pr=SV.pr||{items:[]};return SV.pr;}
+function prW(){const k=wkKey();if(!SV.prw||SV.prw.k!==k){const o=SV.prw;if(o&&o.pend){SV.cry+=o.pend.c;SV.stone=(SV.stone||0)+(o.pend.s||0);SV.prNote={c:o.pend.c,s:o.pend.s||0};}SV.prw={k,claimed:false};saveNow();}return SV.prw;}
+function prWeekItems(){const k=wkKey();return prGet().items.filter(x=>x.wk===k);}
+function prReward(n){return {c:Math.min(100,10+6*n),s:n>=5?1:0};}
+function prCurEntry(){try{if(G.scr==='rbattle'&&G.rp&&G.rp.q)return G.rp.q;if(G.run&&G.run[G.ei])return G.run[G.ei];}catch(e){}return null;}
+function prMeaning(x){try{const l=x.toLowerCase().trim();const r=GT_REC.find(o=>o.a&&String(o.a).toLowerCase()===l&&(o.kind==='idm'||o.kind==='syn'||o.kind==='prv'));if(!r)return '';
+ if(r.kind==='syn')return r.k+' (비슷한 말: '+r.b.join(', ')+')';return r.k||'';}catch(e){return '';}}
+function prLock(x,s,tr){const P=prGet(),key=x.toLowerCase(),ex=P.items.find(o=>o.x.toLowerCase()===key&&o.s===s)||P.items.find(o=>o.x.toLowerCase()===key&&!o.rel);
+ if(ex&&!ex.rel){prToast('이미 감옥에 갇혀 있어요 🔒');return;}
+ if(ex&&ex.rel){ex.rel=false;ex.wk=wkKey();ex.t=Date.now();saveNow();prToast('🔒 다시 가뒀어요: '+x);return;}
+ P.items.push({id:Date.now().toString(36)+Math.random().toString(36).slice(2,5),x,s,tr:tr||'',wk:wkKey(),t:Date.now(),rel:false});
+ if(P.items.length>PR_MAX)P.items.shift();saveNow();sfx('select');prToast('🔒 "'+x+'" 를 표현 감옥에 가뒀어요!');}
+function prToast(m){let t=document.getElementById('prtoast');if(!t){t=document.createElement('div');t.id='prtoast';t.className='prtoast';document.body.appendChild(t);}t.textContent=m;t.classList.add('on');clearTimeout(prToast._t);prToast._t=setTimeout(()=>t.classList.remove('on'),2200);}
+/* ---- 문장에서 단어 고르기 ---- */
+let PRS=null;
+function prTokens(s){const a=[],re=/[A-Za-z][A-Za-z'’-]*/g;let m;while((m=re.exec(s)))a.push([m.index,m.index+m[0].length]);return a;}
+function prAt(el,cx,cy){let n,off;if(document.caretRangeFromPoint){const r=document.caretRangeFromPoint(cx,cy);if(!r)return null;n=r.startContainer;off=r.startOffset;}
+ else if(document.caretPositionFromPoint){const p=document.caretPositionFromPoint(cx,cy);if(!p)return null;n=p.offsetNode;off=p.offset;}else return null;
+ if(!el.contains(n)||n.nodeType!==3)return null;const w=document.createTreeWalker(el,NodeFilter.SHOW_TEXT);let pos=0,t;while((t=w.nextNode())){if(t===n)return pos+off;pos+=t.nodeValue.length;}return null;}
+function prChip(){const c=document.getElementById('prchip');if(!c)return;if(!PRS){c.classList.remove('on');return;}
+ const ex=PRS.s.slice(PRS.tk[PRS.a][0],PRS.tk[PRS.b][1]);c.innerHTML=`<button id="prl" ${PRS.a<=0?'disabled':''}>◀</button><b>${esc(ex)}</b><button id="prr" ${PRS.b>=PRS.tk.length-1?'disabled':''}>▶</button><button id="prok" class="go">🔒 가두기</button><button id="prx">✕</button>`;c.classList.add('on');
+ c.querySelector('#prl').onclick=e=>{e.stopPropagation();if(PRS.a>0)PRS.a--;prChip();};c.querySelector('#prr').onclick=e=>{e.stopPropagation();if(PRS.b<PRS.tk.length-1)PRS.b++;prChip();};
+ c.querySelector('#prx').onclick=e=>{e.stopPropagation();PRS=null;prChip();};
+ c.querySelector('#prok').onclick=e=>{e.stopPropagation();const x=PRS.s.slice(PRS.tk[PRS.a][0],PRS.tk[PRS.b][1]);prLock(x,PRS.s,PRS.tr);PRS=null;prChip();};}
+document.addEventListener('click',ev=>{try{
+ if(ev.target.closest&&ev.target.closest('#prchip,#prpop,#wkpop'))return;
+ const el=ev.target.closest&&ev.target.closest('.sentence');
+ if(!el||!document.getElementById('qc')||!document.getElementById('qc').contains(el)){if(PRS){PRS=null;prChip();}return;}
+ const s=el.textContent.replace(/\s+/g,' ').trim();if(s.length<3)return;
+ const full=el.textContent;const pos=prAt(el,ev.clientX,ev.clientY);if(pos==null)return;
+ const tk0=prTokens(full);const i=tk0.findIndex(t=>pos>=t[0]&&pos<=t[1]);if(i<0)return;
+ const norm=full.replace(/\s+/g,' ');/* 공백 정리본 기준으로 다시 토큰화 */
+ const w0=full.slice(tk0[i][0],tk0[i][1]);const tk=prTokens(norm);let idx=-1,cnt=0;for(let j=0;j<=i;j++)if(full.slice(tk0[j][0],tk0[j][1])===w0)cnt++;
+ for(let j=0;j<tk.length;j++){if(norm.slice(tk[j][0],tk[j][1])===w0){cnt--;if(cnt===0){idx=j;break;}}}
+ if(idx<0)return;const e=prCurEntry();
+ let chip=document.getElementById('prchip');if(!chip){chip=document.createElement('div');chip.id='prchip';chip.className='prchip';document.body.appendChild(chip);}
+ PRS={s:norm.trim(),tk:prTokens(norm.trim()),a:0,b:0,tr:(e&&e.tr)||''};
+ const off=norm.length-norm.trimStart().length;const idx2=prTokens(norm.trim()).findIndex(t=>t[0]===tk[idx][0]-off);PRS.a=PRS.b=Math.max(0,idx2);prChip();
+ }catch(err){}},true);
+/* ---- 입구 카드 / 감옥 화면 ---- */
+function prCard(){const W=prWeekItems(),P=prGet().items,locked=W.filter(x=>!x.rel).length;
+ return `<button class="shopbtn prbtn" id="topr"><span style="font-size:34px">🔒</span><div><b>표현 감옥 <small>(Expression Prison)</small></b><span>이번 주 갇힌 표현 ${locked}개 · 누적 ${P.length}개 · 문제 속 모르는 표현을 눌러 가두고, 공부해서 풀어 주세요</span></div></button>`;}
+function prPop(html){const old=document.getElementById('prpop');if(old)old.remove();const o=document.createElement('div');o.id='prpop';o.className='bpop';o.innerHTML=`<div class="bpbox prbox">${html}</div>`;document.body.appendChild(o);return o;}
+function prShow(tab){tab=tab||'wk';prW();const W=prWeekItems(),A=prGet().items.slice().reverse(),W2=W.slice().reverse();
+ const list=(tab==='wk'?W2:A);const lockedW=W.filter(x=>!x.rel).length,rw=prReward(W.length);
+ const row=x=>`<div class="prrow ${x.rel?'rel':''}"><span class="pri">${x.rel?'🔓':'🔒'}</span><div class="prt"><b>${esc(x.x)}</b>${prMeaning(x.x)?` <small>${esc(prMeaning(x.x))}</small>`:''}<div class="prs">${esc(x.s)}</div>${x.tr&&x.rel?`<div class="prs">${esc(x.tr)}</div>`:''}</div>${x.rel?'':`<button class="prst" data-id="${x.id}">공부</button>`}</div>`;
+ const o=prPop(`<h3>🔒 표현 감옥</h3><div class="prtabs"><button class="${tab==='wk'?'on':''}" data-t="wk">이번 주 (${W.length})</button><button class="${tab==='all'?'on':''}" data-t="all">📖 누적 단어장 (${prGet().items.length})</button></div>
+ ${tab==='wk'?`<p class="hint">${wkRange()} · ${W.length?(lockedW?`아직 <b>${lockedW}개</b>가 갇혀 있어요. 모두 풀어 주면 보상!`:'🎉 이번 주 표현을 모두 풀어 줬어요!'):'문제 풀이 중 모르는 영어 단어·표현을 눌러 보세요.'}</p><p class="hint">🎁 ${prW().claimed?'이번 주 보상 예약 완료 (월요일 아침 8시 지급)':'모두 풀어 주면 💎 '+rw.c+(rw.s?' · ⚒️ '+rw.s:'')+' (월요일 아침 8시 지급)'}</p>`:'<p class="hint">지금까지 가둔 모든 표현이에요. 🔓 = 풀어 준 표현</p>'}
+ <div class="prlist">${list.length?list.map(row).join(''):'<p class="hint">아직 아무도 없어요.</p>'}</div>
+ <div class="bpbtn">${tab==='wk'&&lockedW?'<button class="next" id="prall">📖 이번 주 전부 공부하기</button>':''}<button class="ghost" id="prx2">닫기</button></div>`);
+ o.querySelectorAll('.prtabs button').forEach(b=>b.onclick=()=>{sfx('select');prShow(b.dataset.t);});
+ o.querySelectorAll('.prst').forEach(b=>b.onclick=()=>prStudy([b.dataset.id],tab));
+ const a=o.querySelector('#prall');if(a)a.onclick=()=>prStudy(W.filter(x=>!x.rel).map(x=>x.id),tab);
+ o.querySelector('#prx2').onclick=()=>{sfx('select');o.remove();};}
+/* ---- 공부 → 풀어 주기 ---- */
+function prBlank(x){const re=new RegExp(x.s.indexOf(x.x)>=0?x.x.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'):'$^');return x.s.replace(re,'_____');}
+function prStudy(ids,tab){const P=prGet();const q=ids.map(i=>P.items.find(o=>o.id===i)).filter(Boolean);let n=0,got=0;
+ const step=()=>{if(n>=q.length){prW();prCheckReward();prShow(tab);return;}const x=q[n],mean=prMeaning(x.x);
+  const o=prPop(`<h3>🔓 풀어 주기 <small>(${n+1}/${q.length})</small></h3><p class="hint">문장 속 빈칸에 갇힌 표현을 써 넣으면 풀려나요!</p>
+   <div class="prq">${esc(prBlank(x))}</div>${x.tr?`<div class="prs">💬 ${esc(x.tr)}</div>`:''}${mean?`<div class="prs">💡 뜻: ${esc(mean)}</div>`:''}
+   <input id="pri" class="prin" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="표현을 입력하세요"><div id="prf"></div>
+   <div class="bpbtn"><button class="next" id="prgo">확인</button><button class="ghost" id="prhint">힌트</button><button class="ghost" id="prq">그만하기</button></div>`);
+  const inp=o.querySelector('#pri');inp.focus();let tries=0,hint=0;
+  const norm=s=>s.toLowerCase().replace(/[’']/g,"'").replace(/\s+/g,' ').trim();
+  const check=()=>{const v=norm(inp.value);if(!v)return;if(v===norm(x.x)){x.rel=true;x.rt=Date.now();got++;saveNow();sfx('fanfare');
+    o.querySelector('#prf').innerHTML=`<div class="feedback ok"><b>🔓 풀려났어요!</b><div class="hint">${esc(x.x)}${mean?' = '+esc(mean):''}</div></div>`;const g=o.querySelector('#prgo');g.textContent=n+1<q.length?'다음 ▶':'완료';g.onclick=()=>{n++;step();};inp.disabled=true;}
+   else{tries++;sfx('wrong');o.querySelector('#prf').innerHTML=`<div class="feedback no">아직 아니에요${tries>=2?`. 정답: <b>${esc(x.x)}</b> (다시 입력하면 풀려나요)`:'. 다시 한번!'}</div>`;inp.select();}};
+  o.querySelector('#prgo').onclick=check;inp.onkeydown=e=>{if(e.key==='Enter')check();};
+  o.querySelector('#prhint').onclick=()=>{hint++;const w=x.x;o.querySelector('#prf').innerHTML=`<div class="hint">힌트: ${esc(w.slice(0,hint))}${'·'.repeat(Math.max(0,w.length-hint))}</div>`;};
+  o.querySelector('#prq').onclick=()=>{o.remove();prShow(tab);};};
+ step();}
+function prCheckReward(){const W=prWeekItems(),w=prW();if(w.claimed||!W.length)return;if(W.every(x=>x.rel)){w.pend=prReward(W.length);w.claimed=true;saveNow();
+ prToast('🎉 이번 주 표현을 모두 풀어 줬어요! 보상은 월요일 아침 8시에 지급돼요');}}
+function prNotice(){const N=SV.prNote;if(!N)return;SV.prNote=null;saveNow();const o=prPop(`<h3>🎁 표현 감옥 주간 보상 도착!</h3><p class="bpd">💎 +${N.c}${N.s?' · ⚒️ +'+N.s:''}</p><p class="hint">월요일 아침 8시에 지난주 보상이 지급돼요.</p><div class="bpbtn"><button class="next" id="prx2">확인</button></div>`);o.querySelector('#prx2').onclick=()=>{sfx('select');o.remove();};sfx('fanfare');}
+function prBind(){prW();prNotice();const b=document.getElementById('topr');if(b)b.onclick=()=>{sfx('select');prShow('wk');};}
 
 render();tryAuto();setTimeout(tryAuto,300);
 setInterval(()=>{document.body.classList.toggle('muted-wait',!(AU.ctx&&AU.ctx.state==='running')&&G.scr==='splash');},500);

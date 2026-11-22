@@ -1238,13 +1238,17 @@ function genRun0(d){
  if(d.verbal)return genRunV(d);
  const P=(POOL[LV()]&&POOL[LV()][d.id])||POOL.beginner[d.id],plan=PLAN[d.id],bag={};const partyR=['S','V'].concat(d.need.filter(k=>k!=='healer').map(k=>CL[k].r));
  const draw=k=>{if(!bag[k]||!bag[k].length)bag[k]=freshShuf(P[k]);return takeFresh(bag[k]);};
+ /* 계단식 복습: 2~5형식 던전은 이전 던전(1~4형식) 문장을 섞어서 출제 (해당 던전 문제가 주력) */
+ const di=['d1','d2','d3','d4','d5'].indexOf(d.id),REVP=[0,.35,.4,.45,.45][di]||0,LVK=POOL[LV()]?LV():'beginner',rbag={};
+ const drawRev=k=>{if(di<1||Math.random()>REVP)return null;const prev=['d1','d2','d3','d4','d5'].slice(0,di).filter(x=>POOL[LVK][x]&&POOL[LVK][x][k]&&POOL[LVK][x][k].length);if(!prev.length)return null;
+  const src=prev[Math.floor(Math.random()*prev.length)],key=src+k;if(!rbag[key]||!rbag[key].length)rbag[key]=freshShuf(POOL[LVK][src][k]);return takeFresh(rbag[key]);};
  /* 판별 문제는 공격·후퇴가 섞이도록 */
  const jFit=it=>it.c.every(x=>x[1]==='M'||partyR.includes(x[1]));
  const jAll=freshShuf(P.J),jA=jAll.filter(jFit),jR=jAll.filter(x=>!jFit(x));let jn=0;
  return plan.map(k=>{
   const boss=k==='BB'||k==='BJ'||k==='BC';let it,type;
   if(k==='J'){it=(jn++%2===0?(jA.pop()||jR.pop()):(jR.pop()||jA.pop()));type='judge';}
-  else{it=draw(k);type={B:'build',BB:'build',P:'pet',C:'choose',BC:'choose',BJ:'judge'}[k];}
+  else{it=(!boss&&drawRev(k))||draw(k);type={B:'build',BB:'build',P:'pet',C:'choose',BC:'choose',BJ:'judge'}[k];}
   const e={type,c:it.c,tr:it.tr,n:it.n||''};
   if(boss){e.boss=true;e.phase=(k==='BB')?1:2;e.mon=BOSS[d.id].mon;e.mname=BOSS[d.id].mname;e.filter='';const b=BTALK[d.id];if(b){e.talk=pick(b.t[e.phase-1]);e.kill=e.phase===2?pick(b.k):'';e.taunt=pick(b.x);}}
   else{e.mon=pick(MONS[d.id]);const v=pick(VAR[e.mon]);e.filter=v[1];e.mname=v[0]+MNAME[e.mon];const m=MT[e.mon];if(m){e.talk=pick(m.t);e.kill=pick(m.k);e.taunt=pick(m.x);e.retreatT=pick(m.r);}}

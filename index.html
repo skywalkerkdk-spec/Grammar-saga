@@ -1635,8 +1635,8 @@ function templeCard(){const u=templeUnlocked();
 function dsel(){G.rpg=false;if(SV.mode==='rpg'&&rpgOpen())return rpgDsel();
  $('app').innerHTML=hud()+`<div class="card"><div class="speaker">탱커의 결심</div>
  <div class="story">어느 던전에 도전할까? <b>파티 인원</b>은 던전마다 다르다. (펫은 인원에 포함되지 않음)</div>${modeTabs()}${dailyCard()}
- <button class="shopbtn" id="toshop">${petc('mini')}<div><b>🐾 길드 상점 (펫·스킨)</b><span>수정으로 펫·꾸미기·주인공 스킨을 사 보세요 · 보유 💎 ${SV.cry}</span></div></button>
- <div class="dtools"><button class="btn-s" id="toopen">🎬 오프닝 보기</button><button class="btn-s" id="tolv">${LEVELS[LV()].ic} 난이도: <b>${LEVELS[LV()].n}</b> (${LEVELS[LV()].sub}) · 바꾸기</button><button class="btn-s" id="toforgeL">⚒️ 대장간 · 무기 강화 <b>(강화석 ${SV.stone||0}개)</b>${G.stoneBoot?` <small>(이전 기록에서 강화석 ${G.stoneBoot}개 지급!)</small>`:''}</button><button class="btn-s savebtn" id="dsave">💾 저장하기</button><button class="btn-s rankbtn" id="torank">${rankBtnLabel()}</button><button class="btn-s" id="togift">🎁 보상 코드</button><button class="btn-s" id="tologin">👤 다른 계정으로 로그인</button></div>
+ <button class="shopbtn" id="toshop">${petc('mini')}<div><b>🐾 길드 상점 (펫·스킨)</b><span>수정으로 펫·꾸미기·주인공 스킨을 사 보세요 · 보유 💎 ${SV.cry}</span></div></button>${forgeCard()}
+ <div class="dtools"><button class="btn-s" id="toopen">🎬 오프닝 보기</button><button class="btn-s" id="tolv">${LEVELS[LV()].ic} 난이도: <b>${LEVELS[LV()].n}</b> (${LEVELS[LV()].sub}) · 바꾸기</button><button class="btn-s savebtn" id="dsave">💾 저장하기</button><button class="btn-s rankbtn" id="torank">${rankBtnLabel()}</button><button class="btn-s" id="togift">🎁 보상 코드</button><button class="btn-s" id="tologin">👤 다른 계정으로 로그인</button></div>
  ${G.dev?devPanel():''}${G.toastSave?'<div class="feedback ok" style="margin:0 0 10px">💾 저장했어요! 다음에 같은 이름으로 들어오면 이어서 할 수 있어요.</div>':''}${resumeHTML()}
  ${shardBar()}<div class="dgrid">${DUNGEONS.filter(d=>!d.verbal&&!d.mix).map(d=>`<button class="dcard ${d.id==='d6'&&!dOpen(d)?'dlock':''}" ${dOpen(d)?'':'disabled'} data-id="${d.id}">
  <span class="size">${d.full?'풀파티 최종 던전':d.size+'인 '+(d.id==='d4'?'필드':'던전')}</span>${d.open?(d.id==='d6'&&!dOpen(d)?`<span class="lock">🔒 수정 조각 ${shardN()}/5</span>`:SV.cleared.includes(d.id)?'<span class="lock" style="color:var(--green)">✅ 클리어</span>':''):'<span class="lock">🔒 준비 중</span>'}
@@ -1644,7 +1644,7 @@ function dsel(){G.rpg=false;if(SV.mode==='rpg'&&rpgOpen())return rpgDsel();
  bindModeTabs();$('todaily').onclick=()=>{G.dg=DAILY;G.mates=DAILY.need.slice();G.pets=1;genRunDaily();sfx('select');G.scr='news';render();};
  $('toshop').onclick=()=>{G.scr='shop';G.toast=null;render();};
  $('tolv').onclick=()=>{G.scr='level';render();};$('toopen').onclick=()=>{sfx('select');G.opNext='dsel';G.opFirst=false;G.scr='opening';render();};
- {const fb=$('toforgeL');if(fb)fb.onclick=()=>{G.stoneBoot=0;G.scr='forge';G.toast=null;G.enhRes=null;sfx('select');render();};}
+ forgeBind();
  $('dsave').onclick=()=>{saveNow();sfx('select');G.toastSave=true;render();saveToast();};
  {const gb=$('togift');if(gb)gb.onclick=giftAsk;const rb=$('torank');if(rb)rb.onclick=()=>{G.scr='rank';sfx('select');render();};}
  $('tologin').onclick=()=>{saveNow();sfx('select');G.scr='title';render();};
@@ -5001,8 +5001,10 @@ function wmOpen(id){wmClosePop();const n=WM.find(x=>x[0]===id),ok=wmUnlocked(id)
 function wmSize(){const w=document.getElementById('wmi');if(w)w.style.setProperty('--wm',w.clientWidth+'px');}
 const KM=[ // 신택스 왕국 지도(그림에 글씨가 이미 들어 있어 눌러서 들어가는 영역만 둠) [id, x, y]
 ['d1',265,540],['d2',500,500],['d3',715,400],['d4',865,520],['d5',985,390],['d6',1180,250],['d7',1230,500],['d8',1040,770]];
-function mapExtras(){return `${dailyCard()}<button class="shopbtn" id="toshop">${petc('mini')}<div><b>🐾 길드 상점 (펫·스킨)</b><span>수정으로 펫·꾸미기·주인공 스킨을 사 보세요 · 보유 💎 ${SV.cry}</span></div></button>${wkCard()}${resumeHTML()}${shardBar()}`;}
-function mapBindExtras(){wkBind();const t=document.getElementById('todaily');if(t)t.onclick=()=>{G.dg=DAILY;G.mates=DAILY.need.slice();G.pets=1;genRunDaily();sfx('select');G.scr='news';render();};
+function forgeCard(){return `<button class="shopbtn" id="toforgeC"><span style="font-size:34px;flex:none">⚒️</span><div><b>대장간 · 무기 강화</b><span>강화석으로 무기를 강화해요 · 보유 ⚒️ ${SV.stone||0}개${G.stoneBoot?` · 이전 기록에서 강화석 ${G.stoneBoot}개 지급!`:''}</span></div></button>`;}
+function forgeBind(){const f=document.getElementById('toforgeC');if(f)f.onclick=()=>{G.stoneBoot=0;G.scr='forge';G.toast=null;G.enhRes=null;sfx('select');render();};}
+function mapExtras(){return `${dailyCard()}<button class="shopbtn" id="toshop">${petc('mini')}<div><b>🐾 길드 상점 (펫·스킨)</b><span>수정으로 펫·꾸미기·주인공 스킨을 사 보세요 · 보유 💎 ${SV.cry}</span></div></button>${forgeCard()}${wkCard()}${resumeHTML()}${shardBar()}`;}
+function mapBindExtras(){wkBind();forgeBind();const t=document.getElementById('todaily');if(t)t.onclick=()=>{G.dg=DAILY;G.mates=DAILY.need.slice();G.pets=1;genRunDaily();sfx('select');G.scr='news';render();};
  const s=document.getElementById('toshop');if(s)s.onclick=()=>{G.scr='shop';G.toast=null;render();};
  const rg=document.getElementById('rsGo');if(rg){rg.onclick=()=>{if(loadRun()){sfx('formed');render();}};document.getElementById('rsDel').onclick=()=>{clearRun();sfx('click');render();};}}
 function mapImg(c){
@@ -5026,7 +5028,6 @@ window.addEventListener('resize',wmSize);
 function mapBtns(){const h=document.querySelector('#app .hud');if(!h)return;
  const mk=(id,t,f)=>{if(document.getElementById(id))return;const b=document.createElement('button');b.className='btn-s';b.id=id;b.innerHTML=t;b.onclick=f;h.appendChild(b);};
  mk('tolv',`${LEVELS[LV()].ic} ${LEVELS[LV()].n}`,()=>{G.scr='level';render();});
- mk('toforgeM','⚒️ 대장간',()=>{G.scr='forge';G.toast=null;G.enhRes=null;sfx('select');render();});
  if(G.dev)mk('devstone','🛠️ 강화석+5',()=>{SV.stone=(SV.stone||0)+5;saveNow();sfx('coins');render();});
  mk('dsave','💾 저장하기',()=>{saveNow();sfx('select');G.toastSave=true;render();saveToast();});
  mk('torank','🏆 랭킹'+(G.rkClaim?' 🎁':''),()=>{G.scr='rank';sfx('select');render();});

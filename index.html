@@ -3060,6 +3060,7 @@ function rdLobby(){G.rpg=false;const me=profOf(SV,G.name),L=G.rd&&G.rd.lobby,inR
   <div class="rdboss">${RD_BOSS.map(b=>`<button class="rdbtn ${bsel===b.id?'on':''}" data-bs="${b.id}">${sp(b.mon,'','MON')}<b>${b.mname}</b><span>${b.desc}</span></button>`).join('')}</div>
   <div class="rdwk ${rdWkLeft()<=3?'low':''}">📅 이번 주 도전 <b>${rdWkN()}/${RD_WKMAX}</b>회 사용 · 남은 횟수 <b>${rdWkLeft()}</b>회 <small>(모든 보스·단계 합산, 매주 월요일 아침 8시 초기화)</small></div>
   <div class="rdtier">${RD_TIER.map((t,i)=>{const ok=rdTierOk(bsel,i);return `<button class="rdtb ${(G.rdTierSel||0)===i&&ok?'on':''} ${ok?'':'lock'}" data-tr="${i}" ${ok?'':'disabled'}>${t.ic} ${t.nm}${ok?'':' 🔒'}<small>${ok?`보상 ×${t.rw} · 강화석 ${t.st}`:(i===1?'노멀 클리어 후':'에픽 클리어 후')}</small></button>`;}).join('')}</div>
+  <div class="netrow"><button class="next" id="rsolo">🧑 혼자 도전</button><span class="hint">친구 없이 바로 시작해요 (보스 체력이 혼자에 맞게 조절돼요)</span></div>
   ${netAvail()?`<div class="netrow"><button class="next" id="rhost">🏠 방 만들기</button><span class="netor">또는</span><input id="rcode" maxlength="4" placeholder="방 코드" autocomplete="off" autocapitalize="characters"><button class="next" id="rjoin">🚪 참가</button></div>`:'<p class="feedback no">이 브라우저에서는 실시간 접속을 쓸 수 없어요.</p>'}
   <p class="hint">실시간 접속은 선생님이 알려 준 게임 주소에서만 돼요. 방 코드는 4글자예요.</p></div>`}
  <div id="rdmsg" class="netmsg">${RDN.msg||''}</div>
@@ -3067,6 +3068,7 @@ function rdLobby(){G.rpg=false;const me=profOf(SV,G.name),L=G.rd&&G.rd.lobby,inR
  document.querySelectorAll('[data-bs]').forEach(b=>b.onclick=()=>{G.rdBossSel=b.dataset.bs;if(!rdTierOk(G.rdBossSel,G.rdTierSel||0))G.rdTierSel=0;sfx('select');rdLobby();fill($('app'));});
  document.querySelectorAll('[data-tr]').forEach(b=>b.onclick=()=>{G.rdTierSel=+b.dataset.tr;sfx('select');rdLobby();fill($('app'));});
  if($('rhost')){$('rhost').onclick=()=>{sfx('select');rdHost();};$('rjoin').onclick=()=>{sfx('select');rdJoin($('rcode').value);};$('rcode').onkeydown=e=>{if(e.key==='Enter')rdJoin($('rcode').value);};}
+ if($('rsolo'))$('rsolo').onclick=rdSolo;
  if($('rstart'))$('rstart').onclick=rdStart;
  if($('rready'))$('rready').onclick=()=>{if(!G.rd.myReady&&rdWkLeft()<=0){rdMsg('❌ 이번 주 도전 횟수를 모두 썼어요.');return;}G.rd.myReady=!G.rd.myReady;rdSend(RDN.hostConn,{t:'ready',on:G.rd.myReady});sfx('select');rdLobby();fill($('app'));};
  document.querySelectorAll('[data-kick]').forEach(b=>b.onclick=()=>rdKick(+b.dataset.kick));
@@ -3077,8 +3079,8 @@ function rdRoomView(L){L=L||{players:[],boss:G.rdBossSel||'demon'};const b=rdBos
  return `<div class="pvbox netbox"><h3>🏠 방 코드 <b class="netcode">${RDN.code||'····'}</b> · ${b.ic} ${b.mname} <span class="rdtag t${L.tier||0}">${rdTn(L.tier).ic} ${rdTn(L.tier).nm}</span></h3>
  ${RDN.host&&RDN.code?qrBox('rd',RDN.code,150,'M','📷 QR로 바로 입장'):''}<div class="pvlist rdroom">${L.players.map((p,i)=>`<div class="pvpick">${sp(heroSpr(p.c,p.sk))}<div><b>${esc(p.n)}${i===0?' 👑':''}</b>${i>0?((L.rd||[])[i]?' <span class="rok">✅ 준비</span>':' <span class="hint">⏳ 대기</span>'):''}<span>${LEVELS[p.lv]?LEVELS[p.lv].sub:''} · ⚔️${pstatsOf(p.g,p.c).atk} ❤️${pstatsOf(p.g,p.c).hp}${p.c==='healer'?' · 치유':''}</span></div>${RDN.host&&i>0?`<button class="btn-s rdkick" data-kick="${i}">🚫 내보내기</button>`:''}</div>`).join('')}</div>
 ${(()=>{const y=rdSynOf(L.players.map(p=>p.c));return y.txt.length?`<div class="rdsyn"><b>🤝 파티 효과</b> ${y.txt.map(t=>`<span>${t}</span>`).join('')}</div>`:`<div class="rdsyn"><b>🤝 파티 효과</b> <span class="hint">전사·공수·성기사·주술사·상인이 있으면 파티가 강해져요!</span></div>`;})()}
- <p class="hint">${L.players.length} / ${RD_MAX}명${RDN.host?(L.players.length<2?' · 친구가 코드를 입력하면 여기에 나타나요 (2명부터 시작)':hasAtk?'':' · 공격 담당이 한 명도 없어요(사제만 있음)'):' · 방장이 시작할 때까지 기다려요'}</p>
- ${(()=>{const allr=L.players.length>=2&&L.players.every((p,i)=>i===0||(L.rd||[])[i]);const wk=rdWkLeft();if(RDN.host)return `<button class="next" id="rstart" ${!allr||!hasAtk||wk<=0?'disabled':''}>⚔️ 레이드 시작</button>${L.players.length>=2&&!allr?'<p class="hint">모든 팀원이 ✅ 준비를 눌러야 시작할 수 있어요.</p>':''}`;const me=(G.rd&&G.rd.myReady);return `<button class="next" id="rready">${me?'↩️ 준비 취소':'✅ 준비'}</button>`;})()}<button class="btn-s" id="rleave">나가기</button></div>`;}
+ <p class="hint">${L.players.length} / ${RD_MAX}명${RDN.host?(L.players.length<2?' · 친구가 코드를 입력하면 여기에 나타나요 (혼자서도 시작할 수 있어요)':hasAtk?'':' · 공격 담당이 한 명도 없어요(사제만 있음)'):' · 방장이 시작할 때까지 기다려요'}</p>
+ ${(()=>{const allr=L.players.length>=1&&L.players.every((p,i)=>i===0||(L.rd||[])[i]);const wk=rdWkLeft();if(RDN.host)return `<button class="next" id="rstart" ${!allr||!hasAtk||wk<=0?'disabled':''}>⚔️ 레이드 시작</button>${L.players.length>=2&&!allr?'<p class="hint">모든 팀원이 ✅ 준비를 눌러야 시작할 수 있어요.</p>':''}`;const me=(G.rd&&G.rd.myReady);return `<button class="next" id="rready">${me?'↩️ 준비 취소':'✅ 준비'}</button>`;})()}<button class="btn-s" id="rleave">나가기</button></div>`;}
 /* ---------- 접속 ---------- */
 function rdErr(e){const t=e&&e.type;clearTimeout(RDN.to);
  if(t==='unavailable-id'&&RDN.host){const keep=G.rdBossSel;rdClose();G.rdBossSel=keep;rdHost();return;}
@@ -3131,7 +3133,9 @@ const RD_SYN={tank:{k:'hp',v:.15,t:'🛡️ 전사: 파티 HP +15%'},dealer:{k:'
 function rdSynOf(cs){const o={hp:0,atk:0,def:0,deb:0,rew:0,txt:[]};const seen={};(cs||[]).forEach(c=>{const s=RD_SYN[c];if(!s||seen[c])return;seen[c]=1;o[s.k]=s.v;o.txt.push(s.t);});return o;}
 function rdMk(pr,seat){const st=pstatsOf(pr.g,pr.c);return {seat,pr,st,hp:st.hp,max:st.hp,alive:true,left:false,deb:{},ans:null,role:pr.c==='healer'?'heal':'atk',dmg:0,heal:0,charge:0,cdt:0};}
 function rdKick(seat){const R=G.rd;if(!RDN.host||!R||R.started||seat<1||!R.P[seat])return;const c=RDN.conns[seat];rdSend(c,{t:'kick'});rdDrop(seat);setTimeout(()=>{try{c&&c.close();}catch(e){}},300);}
-function rdStart(){const R=G.rd;if(!RDN.host||R.started||R.P.length<2)return;if(!R.P.every((p,i)=>i===0||p.ready))return;if(rdWkLeft()<=0){rdMsg('❌ 이번 주 레이드 도전 횟수를 모두 썼어요.');return;}
+function rdSolo(){if(rdWkLeft()<=0){rdMsg('❌ 이번 주 레이드 도전 횟수(10회)를 모두 썼어요. 월요일 아침 8시에 초기화돼요.');return;}const keep=G.rdBossSel||'demon';rdClose();RDN.host=true;RDN.code='';G.rdBossSel=keep;
+ const me=profOf(SV,G.name);const kt=rdTierOk(keep,G.rdTierSel||0)?(G.rdTierSel||0):0;G.rd={bossId:keep,tier:kt,P:[rdMk(me,0)],phase:'lobby',timers:[],lobby:null,started:false,solo:true};rdStart();}
+function rdStart(){const R=G.rd;if(!RDN.host||R.started||R.P.length<1)return;if(!R.P.every((p,i)=>i===0||p.ready))return;if(rdWkLeft()<=0){rdMsg('❌ 이번 주 레이드 도전 횟수를 모두 썼어요.');return;}
  R.started=true;rdWkUse();const b=rdBoss(R.bossId);
  const teamAtk=R.P.reduce((s,p)=>s+p.st.atk*(p.role==='heal'?0.6:1),0),avgHp=R.P.reduce((s,p)=>s+p.max,0)/R.P.length;
  const TT=rdTn(R.tier),bmax=Math.max(200,Math.round(teamAtk*0.72*11*TT.hp));

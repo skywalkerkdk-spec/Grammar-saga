@@ -1551,12 +1551,13 @@ function splash(){
  $('newgame').onclick=()=>{start();sfx('select');G.scr='title';render();};
 }
 function opening(){
+ const first=!!G.opFirst;
  $('app').innerHTML=`<div class="opn"><video id="opv" src="opening.mp4" playsinline preload="auto"></video>
-  <div class="opbar"><label class="ophint"><input type="checkbox" id="opno"> 다음부터 건너뛰기</label><button class="btn-s" id="opskip">⏭ 건너뛰기</button></div></div>`;
+  <div class="opbar">${first?'<span class="ophint">🎬 모험의 시작 · 끝까지 봐 주세요</span>':'<span></span><button class="btn-s" id="opskip">⏭ 건너뛰기</button>'}</div></div>`;
  const v=$('opv');let fin=false;const nx=G.opNext||'level';
- const done=()=>{if(fin)return;fin=true;try{v.pause();}catch(e){}try{if($('opno').checked)localStorage.setItem('sg_noopen','1');}catch(e){}G.scr=nx;render();};
- v.muted=!!AU.muted;v.onended=done;v.onerror=done;$('opskip').onclick=done;
- const p=v.play();if(p&&p.catch)p.catch(()=>{v.muted=true;const q=v.play();if(q&&q.catch)q.catch(done);});}
+ const done=(seen)=>{if(fin)return;fin=true;try{v.pause();}catch(e){}if(first&&seen){try{SV.openSeen=1;saveNow();}catch(e){}}G.opFirst=false;G.scr=nx;render();};
+ v.muted=!!AU.muted;v.onended=()=>done(true);v.onerror=()=>done(false);if($('opskip'))$('opskip').onclick=()=>done(false);
+ const p=v.play();if(p&&p.catch)p.catch(()=>{v.muted=true;const q=v.play();if(q&&q.catch)q.catch(()=>done(false));});}
 function title(){
  $('app').innerHTML=`<div style="text-align:right"><button class="btn-s mute" onclick="toggleMute()">${AU.muted?'🔇 소리 꺼짐':'🔊 소리 켜짐'}</button></div><div class="hero">
  <div class="lineup heroimg"><img alt="Grammar Saga 파티" src="titlehero.webp"></div>
@@ -1577,7 +1578,7 @@ function title(){
   <div class="xrow"><button class="btn-s" id="xcp">📋 복사</button><button class="btn-s" id="xin">📥 가져오기</button></div><div class="hint" id="xmsg"></div></details>
  </div>${CREDIT}</div>`;
  const lm=t=>{$('lmsg').innerHTML=t;};let _sure='';
- const begin=(n,dev)=>{G=fresh(n);G.started=true;G.dev=dev;SV=loadSave(G.name);if(dev){sfx('fanfare');if(!SV.level)SV.level='expert';G.introDone=true;G.opNext='dsel';}else G.opNext='level';let no=false;try{no=localStorage.getItem('sg_noopen')==='1';}catch(e){}G.scr=no?G.opNext:'opening';render();};
+ const begin=(n,dev)=>{G=fresh(n);G.started=true;G.dev=dev;SV=loadSave(G.name);if(dev){sfx('fanfare');if(!SV.level)SV.level='expert';G.introDone=true;G.opNext='dsel';}else G.opNext='level';G.opFirst=!SV.openSeen;G.scr=G.opFirst?'opening':G.opNext;render();};
  const go=async()=>{let n=($('nmi').value||'').trim(),p=($('pwi').value||'');const DEVID={zx:'Mr.KANG',qw:'Mr.KANG-Qw',as:'Mr.KANG-As'};const dev=Object.prototype.hasOwnProperty.call(DEVID,n.toLowerCase());
   if(dev){begin(DEVID[n.toLowerCase()],true);return;}
   if(!n){lm('이름을 입력하세요.');return;}
@@ -1609,7 +1610,8 @@ function level(){
  <div class="lvgrid">${Object.entries(LEVELS).map(([k,v])=>`<button class="lvcard ${cur===k?'on':''}" data-lv="${k}">
   <div class="lvic">${v.ic}</div><h3>${v.n}</h3><div class="lvsub">${v.sub}</div><p>${v.desc}</p>
   <div class="lvex">예) <i>${esc(v.ex)}</i></div><div class="lvg">💎 몬스터당 ${v.g}개 (보스 ×2) · 클리어 ${v.b}개<br><small>다시 깨도 똑같이 받아요 · 장비·직업 효과 별도</small></div></button>`).join('')}</div>
- <p class="hint" style="text-align:center;margin:10px 0 0">난이도는 던전 선택 화면에서 언제든 바꿀 수 있어요.</p></div>`;
+ <p class="hint" style="text-align:center;margin:10px 0 0">난이도는 던전 선택 화면에서 언제든 바꿀 수 있어요.</p><div style="text-align:center;margin-top:8px"><button class="btn-s" id="lvopen">🎬 오프닝 보기</button></div></div>`;
+ $('lvopen').onclick=()=>{sfx('select');G.opNext='level';G.opFirst=false;G.scr='opening';render();};
  document.querySelectorAll('.lvcard').forEach(b=>b.onclick=()=>{sfx('select');SV.level=b.dataset.lv;saveNow();G.scr=G.introDone||SV.cleared.length?'dsel':'intro';render();});
 }
 function intro(){
@@ -1626,14 +1628,14 @@ function dsel(){G.rpg=false;if(SV.mode==='rpg'&&rpgOpen())return rpgDsel();
  $('app').innerHTML=hud()+`<div class="card"><div class="speaker">탱커의 결심</div>
  <div class="story">어느 던전에 도전할까? <b>파티 인원</b>은 던전마다 다르다. (펫은 인원에 포함되지 않음)</div>${modeTabs()}${dailyCard()}
  <button class="shopbtn" id="toshop">${petc('mini')}<div><b>🐾 길드 상점 (펫·스킨)</b><span>수정으로 펫·꾸미기·주인공 스킨을 사 보세요 · 보유 💎 ${SV.cry}</span></div></button>
- <div class="dtools"><button class="btn-s" id="tolv">${LEVELS[LV()].ic} 난이도: <b>${LEVELS[LV()].n}</b> (${LEVELS[LV()].sub}) · 바꾸기</button><button class="btn-s" id="toforgeL">⚒️ 대장간 · 무기 강화 <b>(강화석 ${SV.stone||0}개)</b>${G.stoneBoot?` <small>(이전 기록에서 강화석 ${G.stoneBoot}개 지급!)</small>`:''}</button><button class="btn-s savebtn" id="dsave">💾 저장하기</button><button class="btn-s rankbtn" id="torank">${rankBtnLabel()}</button><button class="btn-s" id="togift">🎁 보상 코드</button><button class="btn-s" id="tologin">👤 다른 계정으로 로그인</button></div>
+ <div class="dtools"><button class="btn-s" id="toopen">🎬 오프닝 보기</button><button class="btn-s" id="tolv">${LEVELS[LV()].ic} 난이도: <b>${LEVELS[LV()].n}</b> (${LEVELS[LV()].sub}) · 바꾸기</button><button class="btn-s" id="toforgeL">⚒️ 대장간 · 무기 강화 <b>(강화석 ${SV.stone||0}개)</b>${G.stoneBoot?` <small>(이전 기록에서 강화석 ${G.stoneBoot}개 지급!)</small>`:''}</button><button class="btn-s savebtn" id="dsave">💾 저장하기</button><button class="btn-s rankbtn" id="torank">${rankBtnLabel()}</button><button class="btn-s" id="togift">🎁 보상 코드</button><button class="btn-s" id="tologin">👤 다른 계정으로 로그인</button></div>
  ${G.dev?devPanel():''}${G.toastSave?'<div class="feedback ok" style="margin:0 0 10px">💾 저장했어요! 다음에 같은 이름으로 들어오면 이어서 할 수 있어요.</div>':''}${resumeHTML()}
  ${shardBar()}<div class="dgrid">${DUNGEONS.filter(d=>!d.verbal&&!d.mix).map(d=>`<button class="dcard ${d.id==='d6'&&!dOpen(d)?'dlock':''}" ${dOpen(d)?'':'disabled'} data-id="${d.id}">
  <span class="size">${d.full?'풀파티 최종 던전':d.size+'인 '+(d.id==='d4'?'필드':'던전')}</span>${d.open?(d.id==='d6'&&!dOpen(d)?`<span class="lock">🔒 수정 조각 ${shardN()}/5</span>`:SV.cleared.includes(d.id)?'<span class="lock" style="color:var(--green)">✅ 클리어</span>':''):'<span class="lock">🔒 준비 중</span>'}
  <h3>${d.name}</h3><div class="mon">${sp(d.mon,'','MON')}<div class="hint">${d.desc}</div></div></button>`).join('')}${templeCard()}</div>${expSection()}</div>`;
  bindModeTabs();$('todaily').onclick=()=>{G.dg=DAILY;G.mates=DAILY.need.slice();G.pets=1;genRunDaily();sfx('select');G.scr='news';render();};
  $('toshop').onclick=()=>{G.scr='shop';G.toast=null;render();};
- $('tolv').onclick=()=>{G.scr='level';render();};
+ $('tolv').onclick=()=>{G.scr='level';render();};$('toopen').onclick=()=>{sfx('select');G.opNext='dsel';G.opFirst=false;G.scr='opening';render();};
  {const fb=$('toforgeL');if(fb)fb.onclick=()=>{G.stoneBoot=0;G.scr='forge';G.toast=null;G.enhRes=null;sfx('select');render();};}
  $('dsave').onclick=()=>{saveNow();sfx('select');G.toastSave=true;render();saveToast();};
  {const gb=$('togift');if(gb)gb.onclick=giftAsk;const rb=$('torank');if(rb)rb.onclick=()=>{G.scr='rank';sfx('select');render();};}

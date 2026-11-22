@@ -5073,10 +5073,13 @@ function regionScreen(k){
 })();
 
 /* ---------- RPG 모드: 신택스 왕국 지도로 보기 ---------- */
-function rpgMapHTML(){const nodes=KM.map(n=>{const id=n[0],ok=wmUnlocked(id),cl=SV.rcleared.includes(id);
+function rpgMapHTML(){const W=worldOpen(),src=W?'worldmap.jpg?v=1':'kingdom.jpg?v=2',alt=W?'세계 지도':'신택스 왕국 지도';
+ const nodes=W?WM.filter(n=>RT[n[0]]!=null).map(n=>{const id=n[0],ok=wmUnlocked(id),cl=SV.rcleared.includes(id);
+  return `<button class="wmn ${n[6]?'red':''} ${ok?'':'lk'} ${cl?'dn':''}" data-wm="${id}" style="left:${(n[4]/1536*100).toFixed(2)}%;top:${((n[5]-26)/1024*100).toFixed(2)}%"><b>${n[2]}${cl?' ✅':ok?'':' 🔒'}</b><em>${n[3]}</em></button>`;}).join('')
+ :KM.map(n=>{const id=n[0],ok=wmUnlocked(id),cl=SV.rcleared.includes(id);
   return `<button class="wmn gh ${ok?'':'lk'} ${cl?'dn':''}" data-wm="${id}" style="left:${(n[1]/1536*100).toFixed(2)}%;top:${(n[2]/1024*100).toFixed(2)}%"><u>${cl?'✅':ok?'▶':'🔒'}</u></button>`;}).join('');
  return `<div class="dtools"><button class="btn-s" id="rmlist">📋 목록으로 보기</button><button class="btn-s" id="wmzoom">🔍 ${G.wmz?'작게':'크게'} 보기</button></div>
- <div class="wmw"><div class="wmi ${G.wmz?'big':''}" id="wmi" style="aspect-ratio:1536/1024"><img src="kingdom.jpg?v=2" alt="신택스 왕국 지도" draggable="false">${nodes}</div></div>`;}
+ <div class="wmw"><div class="wmi ${G.wmz?'big':''}" id="wmi" style="aspect-ratio:1536/1024"><img src="${src}" alt="${alt}" draggable="false">${nodes}</div></div>`;}
 function rpgMapBind(){wmSize();setTimeout(wmSize,60);
  document.querySelectorAll('[data-wm]').forEach(b=>b.onclick=()=>{sfx('select');wmOpen(b.dataset.wm);});
  $('rmlist').onclick=()=>{G.rpgMap=false;sfx('select');render();};

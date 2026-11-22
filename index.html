@@ -3048,7 +3048,7 @@ function josaFix(root){if(!root)return;if(root.nodeType===3){josaText(root);retu
 try{new MutationObserver(ms=>{ms.forEach(m=>{if(m.type==='characterData')josaText(m.target);else m.addedNodes.forEach(josaFix);});}).observe(document.documentElement,{childList:true,subtree:true,characterData:true});}catch(e){}
 
 /* ================= 레이드 (2~6인 협동 보스전) ================= */
-const RD_ARENA={id:'raid',all8:true,name:'🐉 레이드',bg:'d6',need:[],mon:'dkboss'};
+const RD_ARENA={id:'raid',all8:true,name:'🏚️ 버려진 투기장',bg:'d3',need:[],mon:'dkboss'};
 const RD_TIER=[{nm:'노멀',ic:'🟢',hp:1,atk:1,rw:1,st:1,pre:'',sp:[62,80]},{nm:'에픽',ic:'🟣',hp:1.8,atk:1.3,rw:2,st:2,pre:'[에픽] ',sp:[52,72]},{nm:'레전더리',ic:'🟠',hp:3,atk:1.6,rw:3,st:3,pre:'[레전더리] ',sp:[42,66]}];
 const rdTierOk=(b,t)=>t<=0||(((SV.rdt||{})[b]??-1)>=t-1);
 const rdTn=t=>RD_TIER[Math.max(0,Math.min(2,+t||0))];
@@ -3059,19 +3059,42 @@ function rdWkLeft(){return Math.max(0,RD_WKMAX-rdWkN());}
 function rdWkUse(){SV.raidWk={k:weekKey(),n:rdWkN()+1};saveNow();}
 const RD_MAX=6,RD_DAYMAX=3,RD_TATK=45,RD_TDEF=20,RD_PFX='syntaxsaga-raid-';
 const RD_BOSS=[
- {id:'demon',mon:'dkboss',mname:'다크나이트(DK)',ic:'👿',desc:'침묵·혼란·약화로 괴롭히는 어둠의 군주',
+ {id:'dragon',mon:'grammardragon',mname:'그래머 드래곤',ic:'🐉',desc:'침묵·혼란·약화·안개를 모두 쓰는 문장의 용',
+  atk:['용의 발톱','문법 파괴 브레스','폭풍 날갯짓','멸망의 화염'],
+  talk:['감히 내 보물 문장을 노리느냐!','비늘 하나 벗겨냈다고 기뻐하지 마라!','진짜 불꽃을 보여 주마!','내… 비늘이… 이럴 수가…'],
+  say:['크아아앙! 모두 태워 주마!','내 문장을 읽을 수 있겠느냐!','불꽃이 온다!']},
+ {id:'lich',mon:'lichqueen',mname:'리치 여왕',ic:'👑',desc:'침묵과 안개로 문장을 지워 버리는 죽음의 여왕',
+  atk:['죽음의 속삭임','영혼 흡수','저주의 서','영원한 침묵'],
+  talk:['산 자들이여, 내 왕국에 온 것을 후회하게 해 주마.','뼈가 부서져도 나는 되살아난다…','죽음의 여왕의 힘을 보아라!','영원이… 끝나는가…'],
+  say:['침묵하라…','문장이 사라진다…','죽음은 문법을 가리지 않는다.']},
+ {id:'kraken',mon:'krakenking',mname:'크라켄 왕',ic:'🐙',desc:'둔화와 혼란으로 바다에 가라앉히는 심해의 왕',
+  atk:['촉수 휘감기','먹물 폭풍','소용돌이','심해의 압박'],
+  talk:['푸하하! 바다에 들어온 자는 돌아갈 수 없다!','촉수 하나쯤이야… 아직 일곱 개가 남았다!','심해의 진짜 힘이다!','바다가… 갈라진다…'],
+  say:['촉수가 간다!','가라앉아라!','먹물을 뒤집어써라!']},
+ {id:'frost',mon:'frostgiantking',mname:'서리 거인왕',ic:'🧊',desc:'둔화와 방어 파괴로 짓누르는 얼음의 거인',
+  atk:['얼음 도끼','서리 포효','빙하 낙하','절대영도'],
+  talk:['우오오! 작은 것들이 감히 내 설원에!','얼음이 금 갔다고? 아직 멀었다!','영원한 겨울을 맛봐라!','얼음 왕관이… 깨진다…'],
+  say:['얼어붙어라!','도끼를 받아라!','겨울이 온다!']},
+ {id:'pharaoh',mon:'pharaohcolossus',mname:'파라오 거상',ic:'🏺',desc:'약화와 안개로 모래 속에 묻어 버리는 고대의 왕',
+  atk:['모래 폭풍','황금 지팡이','저주받은 붕대','심판의 피라미드'],
+  talk:['잠든 왕의 안식을 깨운 자들이여!','모래가 흩어져도 왕은 죽지 않는다!','태양신의 분노를 받으라!','모래로… 돌아가리라…'],
+  say:['모래에 묻혀라!','왕의 저주다!','황금이 너희를 심판한다!']},
+ {id:'lava',mon:'lavatitan',mname:'용암 타이탄',ic:'🌋',desc:'독과 방어 파괴로 녹여 버리는 화산의 거인',
+  atk:['용암 주먹','불덩이 투척','화산 폭발','대지의 불꽃'],
+  talk:['쿠오오오! 뜨겁지 않으냐!','굳은 껍질이 깨져도 속은 더 뜨겁다!','화산이여, 폭발하라!','불이… 꺼진다…'],
+  say:['녹아라!','용암이 흐른다!','불꽃이 터진다!']},
+ {id:'clock',mon:'clockemperor',mname:'시계 황제',ic:'⏰',desc:'둔화와 혼란으로 시간을 비틀어 버리는 황제',
+  atk:['시침 베기','시간 정지','초침 연타','종말의 정각'],
+  talk:['시간은 내 것이다. 너희의 순서는 오지 않는다.','톱니 하나가 빠졌군… 아직 괜찮다.','시간을 되돌려 주마!','시계가… 멈춘다…'],
+  say:['째깍, 째깍…','시간이 느려진다!','정각이다!']},
+ {id:'demon',mon:'dkboss',mname:'다크나이트(DK)',ic:'🌑',desc:'침묵·혼란·약화로 괴롭히는 검은 기사',
   atk:['암흑 참격','저주의 손길','지옥불 파도','종말의 심판'],
   talk:['크하하! 너희 따위가 나를 쓰러뜨릴 수 있을 것 같으냐!','제법이구나… 하지만 이제부터가 진짜다!','내 힘을 보여 주마! 모두 무릎 꿇어라!','이럴 수가… 내가 밀리다니!'],
-  say:['으하하! 문장을 모두 막아 보아라!','이 정도로 다크나이트(DK)가 쓰러질까!','어둠이여, 모두 삼켜라!']},
- {id:'golem',mon:'golemboss',mname:'골렘 대장',ic:'🗿',desc:'방어를 부수고 느리게 만드는 거대 석상',
-  atk:['바위 주먹','균열의 진동','산사태','대지 분쇄'],
-  talk:['…침입자… 배제…','…손상률… 25%… 반격…','…핵 출력 상승… 전원 분쇄…','…기능… 정지…?'],
-  say:['…문장… 분석… 불가…','…진동… 개시…','…분쇄… 시작…']},
- {id:'wyvern',mon:'wyvern',mname:'폭풍 와이번',ic:'🐲',desc:'독과 안개를 뿌리는 하늘의 폭군',
-  atk:['꼬리 후려치기','독 안개','폭풍 날개','용의 숨결'],
-  talk:['크아앙! 내 하늘에 들어오다니!','날개가 찢어져도 너희는 못 도망친다!','폭풍이여, 모두 휩쓸어라!','크…윽… 하늘이… 무너진다…'],
-  say:['캬오오! 덤벼라!','독을 마셔 봐라!','폭풍이 온다!']}
+  say:['으하하! 문장을 모두 막아 보아라!','이 정도로 다크나이트(DK)가 쓰러질까!','어둠이여, 모두 삼켜라!']}
 ];
+/* 이번 주 레이드 보스: 매주 월요일 아침 8시에 다음 보스로 바뀜 */
+function rdWeekBoss(){const k=weekKey().split('-').map(Number);const n=Math.floor(Date.UTC(k[0],k[1]-1,k[2])/604800000);return RD_BOSS[n%RD_BOSS.length];}
+try{Object.assign(MDEB,{grammardragon:['silence','confuse','weak','fog'],lichqueen:['silence','fog'],krakenking:['slow','confuse'],frostgiantking:['slow','armorbreak'],pharaohcolossus:['weak','fog'],lavatitan:['poison','armorbreak'],clockemperor:['slow','confuse']});}catch(e){}
 const RDN={peer:null,conns:{},host:false,code:'',msg:'',hostConn:null,hb:null};
 function rdOn(){return !!(G.rd&&G.scr==='rdbattle');}
 function rdMsg(m){RDN.msg=m;const el=$('rdmsg');if(el)el.innerHTML=m;}
@@ -3085,12 +3108,12 @@ function rdClose(){clearInterval(RDN.hb);clearTimeout(RDN.to);if(G.rd&&G.rd.time
 window.addEventListener('pagehide',()=>{if(RDN.peer){if(RDN.host)rdBcast({t:'bye'});else rdSend(RDN.hostConn,{t:'bye'});}});
 /* ---------- 로비 ---------- */
 function rdLobby(){G.rpg=false;const me=profOf(SV,G.name),L=G.rd&&G.rd.lobby,inRoom=!!RDN.peer&&(RDN.host||RDN.hostConn);
- const bsel=(G.rdBossSel||'demon');
+ const WB=rdWeekBoss();G.rdBossSel=WB.id;const bsel=WB.id;
  $('app').innerHTML=hud()+`<div class="card"><div class="speaker">🐉 레이드</div>
  <div class="story">친구들과 <b>최대 6명</b>이 한 팀이 되어 보스를 쓰러뜨려요. 각자 키운 캐릭터로 입장! 내 턴에는 <b>문제를 풀어 공격</b>(사제는 <b>공격·치유 중 선택</b>), 보스 턴에는 <b>문제를 풀어 회피·방어</b>해요. 차례를 기다리는 동안엔 <b>⚡ 힘 모으기</b>로 다음 공격을 강화!. 보스 체력이 단계마다 줄어들면 보스가 <b>특수기술</b>을 써요. 모두 막아 내면 보스가 기절해요!</div>
  ${pvCard(me,'<span class="hint">(나)</span>')}
  ${inRoom?rdRoomView(L):`<div class="pvbox netbox"><h3>🏠 방 만들기</h3>
-  <div class="rdboss">${RD_BOSS.map(b=>`<button class="rdbtn ${bsel===b.id?'on':''}" data-bs="${b.id}">${sp(b.mon,'','MON')}<b>${b.mname}</b><span>${b.desc}</span></button>`).join('')}</div>
+  <div class="rdboss"><div class="rdbtn on">${sp(WB.mon,'','MON')}<b>${WB.mname}</b><span>${WB.desc}</span></div></div><p class="hint" style="margin:4px 0 8px">📆 <b>이번 주 보스</b> · 보스는 매주 월요일 아침 8시에 바뀌어요.</p>
   <div class="rdwk ${rdWkLeft()<=3?'low':''}">📅 이번 주 도전 <b>${rdWkN()}/${RD_WKMAX}</b>회 사용 · 남은 횟수 <b>${rdWkLeft()}</b>회 <small>(모든 보스·단계 합산, 매주 월요일 아침 8시 초기화)</small></div>
   <div class="rdtier">${RD_TIER.map((t,i)=>{const ok=rdTierOk(bsel,i);return `<button class="rdtb ${(G.rdTierSel||0)===i&&ok?'on':''} ${ok?'':'lock'}" data-tr="${i}" ${ok?'':'disabled'}>${t.ic} ${t.nm}${ok?'':' 🔒'}<small>${ok?`보상 ×${t.rw} · 강화석 ${t.st}`:(i===1?'노멀 클리어 후':'에픽 클리어 후')}</small></button>`;}).join('')}</div>
   <div class="netrow"><button class="next" id="rsolo">🧑 혼자 도전</button><span class="hint">친구 없이 바로 시작해요 (보스 체력이 혼자에 맞게 조절돼요)</span></div>
@@ -3098,7 +3121,7 @@ function rdLobby(){G.rpg=false;const me=profOf(SV,G.name),L=G.rd&&G.rd.lobby,inR
   <p class="hint">실시간 접속은 선생님이 알려 준 게임 주소에서만 돼요. 방 코드는 4글자예요.</p></div>`}
  <div id="rdmsg" class="netmsg">${RDN.msg||''}</div>
  <button class="ghost" id="rdback">🗺️ 던전 목록</button></div>`;
- document.querySelectorAll('[data-bs]').forEach(b=>b.onclick=()=>{G.rdBossSel=b.dataset.bs;if(!rdTierOk(G.rdBossSel,G.rdTierSel||0))G.rdTierSel=0;sfx('select');rdLobby();fill($('app'));});
+ if(!rdTierOk(G.rdBossSel,G.rdTierSel||0))G.rdTierSel=0;
  document.querySelectorAll('[data-tr]').forEach(b=>b.onclick=()=>{G.rdTierSel=+b.dataset.tr;sfx('select');rdLobby();fill($('app'));});
  if($('rhost')){$('rhost').onclick=()=>{sfx('select');rdHost();};$('rjoin').onclick=()=>{sfx('select');rdJoin($('rcode').value);};$('rcode').onkeydown=e=>{if(e.key==='Enter')rdJoin($('rcode').value);};}
  if($('rsolo'))$('rsolo').onclick=rdSolo;
@@ -3107,7 +3130,7 @@ function rdLobby(){G.rpg=false;const me=profOf(SV,G.name),L=G.rd&&G.rd.lobby,inR
  document.querySelectorAll('[data-kick]').forEach(b=>b.onclick=()=>rdKick(+b.dataset.kick));
  if($('rleave'))$('rleave').onclick=()=>{rdClose();RDN.msg='';rdLobby();fill($('app'));};
  $('rdback').onclick=()=>{rdClose();RDN.msg='';G.scr='dsel';render();};}
-function rdRoomView(L){L=L||{players:[],boss:G.rdBossSel||'demon'};const b=rdBoss(L.boss);
+function rdRoomView(L){L=L||{players:[],boss:G.rdBossSel||rdWeekBoss().id};const b=rdBoss(L.boss);
  const hasAtk=true;
  return `<div class="pvbox netbox"><h3>🏠 방 코드 <b class="netcode">${RDN.code||'····'}</b> · ${b.ic} ${b.mname} <span class="rdtag t${L.tier||0}">${rdTn(L.tier).ic} ${rdTn(L.tier).nm}</span></h3>
  ${RDN.host&&RDN.code?qrBox('rd',RDN.code,150,'M','📷 QR로 바로 입장'):''}<div class="pvlist rdroom">${L.players.map((p,i)=>`<div class="pvpick">${sp(heroSpr(p.c,p.sk))}<div><b>${esc(p.n)}${i===0?' 👑':''}</b>${i>0?((L.rd||[])[i]?' <span class="rok">✅ 준비</span>':' <span class="hint">⏳ 대기</span>'):''}<span>${LEVELS[p.lv]?LEVELS[p.lv].sub:''} · ⚔️${pstatsOf(p.g,p.c).atk} ❤️${pstatsOf(p.g,p.c).hp}${p.c==='healer'?' · 치유':''}</span></div>${RDN.host&&i>0?`<button class="btn-s rdkick" data-kick="${i}">🚫 내보내기</button>`:''}</div>`).join('')}</div>
@@ -3121,7 +3144,7 @@ function rdErr(e){const t=e&&e.type;clearTimeout(RDN.to);
 function rdCode(){const A='ABCDEFGHJKMNPQRSTUVWXYZ23456789';let s='';for(let i=0;i<4;i++)s+=A[Math.floor(Math.random()*A.length)];return s;}
 function rdLobbyList(){const R=G.rd;return {players:R.P.map(x=>x.pr),rd:R.P.map((x,i)=>i===0||!!x.ready),boss:R.bossId,tier:R.tier||0};}
 function rdPushLobby(){const R=G.rd;R.lobby=rdLobbyList();rdBcast({t:'lobby',pl:R.lobby.players,rd:R.lobby.rd,boss:R.bossId,tier:R.tier||0,code:RDN.code});if(G.scr==='rdlobby'){rdLobby();fill($('app'));}}
-function rdHost(){if(!netAvail())return;if(rdWkLeft()<=0){rdMsg('❌ 이번 주 레이드 도전 횟수(10회)를 모두 썼어요. 월요일 아침 8시에 초기화돼요.');return;}const keep=G.rdBossSel||'demon';rdClose();RDN.host=true;RDN.code=rdCode();G.rdBossSel=keep;rdMsg('⏳ 방을 만드는 중…');
+function rdHost(){if(!netAvail())return;if(rdWkLeft()<=0){rdMsg('❌ 이번 주 레이드 도전 횟수(10회)를 모두 썼어요. 월요일 아침 8시에 초기화돼요.');return;}const keep=G.rdBossSel||rdWeekBoss().id;rdClose();RDN.host=true;RDN.code=rdCode();G.rdBossSel=keep;rdMsg('⏳ 방을 만드는 중…');
  const me=profOf(SV,G.name);const kt=rdTierOk(keep,G.rdTierSel||0)?(G.rdTierSel||0):0;G.rd={bossId:keep,tier:kt,P:[rdMk(me,0)],phase:'lobby',timers:[],lobby:null,started:false};
  const pr=new Peer(RD_PFX+RDN.code.toLowerCase(),PEEROPT());RDN.peer=pr;
  RDN.to=setTimeout(()=>{if(!pr.open)rdMsg('❌ 실시간 서버에 연결할 수 없어요.');},12000);
@@ -3166,13 +3189,13 @@ const RD_SYN={tank:{k:'hp',v:.15,t:'🛡️ 전사: 파티 HP +15%'},dealer:{k:'
 function rdSynOf(cs){const o={hp:0,atk:0,def:0,deb:0,rew:0,txt:[]};const seen={};(cs||[]).forEach(c=>{const s=RD_SYN[c];if(!s||seen[c])return;seen[c]=1;o[s.k]=s.v;o.txt.push(s.t);});return o;}
 function rdMk(pr,seat){const st=pstatsOf(pr.g,pr.c);return {seat,pr,st,hp:st.hp,max:st.hp,alive:true,left:false,deb:{},ans:null,role:pr.c==='healer'?'heal':'atk',dmg:0,heal:0,charge:0,cdt:0};}
 function rdKick(seat){const R=G.rd;if(!RDN.host||!R||R.started||seat<1||!R.P[seat])return;const c=RDN.conns[seat];rdSend(c,{t:'kick'});rdDrop(seat);setTimeout(()=>{try{c&&c.close();}catch(e){}},300);}
-function rdSolo(){if(rdWkLeft()<=0){rdMsg('❌ 이번 주 레이드 도전 횟수(10회)를 모두 썼어요. 월요일 아침 8시에 초기화돼요.');return;}const keep=G.rdBossSel||'demon';rdClose();RDN.host=true;RDN.code='';G.rdBossSel=keep;
+function rdSolo(){if(rdWkLeft()<=0){rdMsg('❌ 이번 주 레이드 도전 횟수(10회)를 모두 썼어요. 월요일 아침 8시에 초기화돼요.');return;}const keep=G.rdBossSel||rdWeekBoss().id;rdClose();RDN.host=true;RDN.code='';G.rdBossSel=keep;
  const me=profOf(SV,G.name);const kt=rdTierOk(keep,G.rdTierSel||0)?(G.rdTierSel||0):0;G.rd={bossId:keep,tier:kt,P:[rdMk(me,0)],phase:'lobby',timers:[],lobby:null,started:false,solo:true};rdStart();}
 function rdStart(){const R=G.rd;if(!RDN.host||R.started||R.P.length<1)return;if(!R.P.every((p,i)=>i===0||p.ready))return;if(rdWkLeft()<=0){rdMsg('❌ 이번 주 레이드 도전 횟수를 모두 썼어요.');return;}
  R.started=true;rdWkUse();const b=rdBoss(R.bossId);
  const teamAtk=R.P.reduce((s,p)=>s+p.st.atk*(p.role==='heal'?0.6:1),0),avgHp=R.P.reduce((s,p)=>s+p.max,0)/R.P.length;
- const TT=rdTn(R.tier),bmax=Math.max(200,Math.round(teamAtk*0.72*11*TT.hp));
- R.boss={hp:bmax,max:bmax,mon:b.mon,mname:TT.pre+b.mname,stage:0,stun:false,atk:Math.max(14,Math.round(avgHp*0.3*TT.atk)),force:false};
+ const TT=rdTn(R.tier),bmax=Math.max(260,Math.round(teamAtk*0.72*11*TT.hp*1.3));
+ R.boss={hp:bmax,max:bmax,mon:b.mon,mname:TT.pre+b.mname,stage:0,stun:false,atk:Math.max(16,Math.round(avgHp*0.3*TT.atk*1.15)),force:false};
  R.syn=rdSynOf(R.P.map(p=>p.pr.c));R.P.forEach(p=>{const y=R.syn;p.st=Object.assign({},p.st,{hp:Math.round(p.st.hp*(1+y.hp)),atk:Math.round(p.st.atk*(1+y.atk)),def:Math.round(p.st.def*(1+y.def))});p.max=p.hp=p.st.hp;});
  R.rnd=0;R.me=0;R.phase='start';R.log='';R.timers=[];R.stats={};R.buf={};R.bdb={};
  R.P.forEach((p,i)=>{if(i>0)rdSend(RDN.conns[i],{t:'start',pl:R.P.map(x=>x.pr),boss:R.bossId,tier:R.tier||0,bmax,me:i});});
@@ -3311,7 +3334,7 @@ function rdCell(p,i){const me=G.rd.me===i,ratio=Math.max(0,Math.round(p.hp/p.max
  return `<div class="rdp ${p.alive?'':'dead'} ${me?'me':''} ${p.left?'gone':''}" data-s="${i}"><div class="rdn">${me?'▶ ':''}${esc(p.pr.n)}</div><div class="rdhp"><i style="width:${ratio}%"></i></div><div class="rdd">${dk}<span class="rdok" style="visibility:${p.done?'visible':'hidden'}">✔</span><span class="rdch">${p.charge?'⚡'+p.charge:''}</span></div>${ttag(p.pr.ti,1)}${sp(heroSpr(p.pr.c,p.pr.sk))}</div>`;}
 function rdBattle(){const R=G.rd,B=R.boss,b=rdBoss(R.bossId),stg=['','⚠️ 2단계','🔥 3단계','💢 최종 단계'][B.stage]||'';
  const st=B.stage;
- $('app').innerHTML=hud(`<span class="mut">🐉 레이드 · ${esc(B.mname)}${stg?' · '+stg:''}</span><button class="btn-s" id="rdquit">🏳️ 나가기</button>`)+`
+ $('app').innerHTML=hud(`<span class="mut">${RD_ARENA.name} · ${esc(B.mname)}${stg?' · '+stg:''}</span><button class="btn-s" id="rdquit">🏳️ 나가기</button>`)+`
  <div class="arena raidarena ${RD_ARENA.bg}" id="arena"><div class="ground"></div>
  <div class="mname">${b.ic} ${esc(B.mname)}${B.stun?' 😵':''}${hpbar(B.hp,B.max,'en')}${stChips(R.buf,BUF,'bufc')}${stChips(R.bdb,EDB,'edbc')}</div>
  <div class="monster boss raidboss ${B.stun?'stun':''}" id="mon">${sp(b.mon,'','MON')}</div>

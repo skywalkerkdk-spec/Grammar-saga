@@ -1005,6 +1005,12 @@ canvas.px[data-src="SPR"][data-k="shaman"],canvas.px[data-src="SPR"][data-k^="cs
 .tourbox h4{margin:2px 0 4px;font-size:19px;color:#ffd866}.tourbox p{margin:0 0 10px;font-size:15.5px;line-height:1.55}.tourn{float:right;font-size:12px;opacity:.7}
 .tourbtn{display:flex;gap:8px}.tourbtn .next{flex:1;margin:0}.tourbtn button{font-size:15px;padding:9px 12px}
 .tourbtn0{border-color:#ffd866!important}
+.potmenu{display:flex;flex-direction:column;gap:8px;margin:8px 0}
+.potopt{display:flex;gap:10px;align-items:center;text-align:left;font:inherit;padding:10px 12px;border-radius:12px;border:2px solid #7a5fc0;background:linear-gradient(180deg,#2a2144,#1d1631);color:#fff;cursor:pointer}
+.potopt .pi{font-size:30px}
+.potopt:disabled{opacity:.45;cursor:default}
+.potopt small{opacity:.85}
+.potbtn{border-color:#7a5fc0;background:linear-gradient(180deg,#3a2c63,#26194a)}
 
 </style>
 </head>
@@ -1644,7 +1650,7 @@ function templeCard(){const u=templeUnlocked();
 function dsel(){G.rpg=false;if(SV.mode==='rpg'&&rpgOpen())return rpgDsel();
  $('app').innerHTML=hud()+`<div class="card"><div class="speaker">탱커의 결심</div>
  <div class="story">어느 던전에 도전할까? <b>파티 인원</b>은 던전마다 다르다. (펫은 인원에 포함되지 않음)</div>${modeTabs()}${dailyCard()}
- <button class="shopbtn" id="toshop">${petc('mini')}<div><b>🐾 길드 상점 (펫·스킨)</b><span>수정으로 펫·꾸미기·주인공 스킨을 사 보세요 · 보유 💎 ${SV.cry}</span></div></button>${forgeCard()}
+ <button class="shopbtn" id="toshop">${petc('mini')}<div><b>🐾 길드 상점 (펫·스킨·물약)</b><span>수정으로 펫·꾸미기·스킨·물약을 사 보세요 · 보유 💎 ${SV.cry}</span></div></button>${forgeCard()}
  <div class="dtools"><button class="btn-s" id="toopen">🎬 오프닝 보기</button><button class="btn-s" id="tolv">${LEVELS[LV()].ic} 난이도: <b>${LEVELS[LV()].n}</b> (${LEVELS[LV()].sub}) · 바꾸기</button><button class="btn-s savebtn" id="dsave">💾 저장하기</button><button class="btn-s rankbtn" id="torank">${rankBtnLabel()}</button><button class="btn-s" id="togift">🎁 보상 코드</button><button class="btn-s" id="tologin">👤 다른 계정으로 로그인</button></div>
  ${G.dev?devPanel():''}${G.toastSave?'<div class="feedback ok" style="margin:0 0 10px">💾 저장했어요! 다음에 같은 이름으로 들어오면 이어서 할 수 있어요.</div>':''}${resumeHTML()}
  ${shardBar()}<div class="dgrid">${DUNGEONS.filter(d=>!d.verbal&&!d.mix).map(d=>`<button class="dcard ${d.id==='d6'&&!dOpen(d)?'dlock':''}" ${dOpen(d)?'':'disabled'} data-id="${d.id}">
@@ -1747,8 +1753,8 @@ function battle(){
  ${(()=>{const F=fmtParty(['tank'].concat(G.mates),k=>sp(k),petRow('pet'),!!G.dg.full);return `<div class="party ${G.dg.full?'fullp':''}${G.dg.id==='d4'&&e.boss?' bigp':''}" id="pty" style="--nc:${F.nc}">${F.html}</div>`;})()}
  <div class="mname">${e.boss?'👑 ':''}${e.mname}<div class="hp"><div id="hpb" style="width:${bossHp}%"></div></div></div>
  <div class="monster ${e.boss?'boss':''}" id="mon">${monHTML(e)}</div></div>
- <div class="card" id="qc">${qbody(e)}</div>`;
- bindQ(e);saveRun();if(!G.dev)markSeen(e);if(G.rvm)rvDecorate();
+ <div class="card" id="qc">${qbody(G.pq||e)}</div>`;
+ bindQ(G.pq||e);saveRun();if(!G.dev)markSeen(e);if(G.rvm)rvDecorate();
  $('saveout').onclick=()=>{saveRun();sfx('select');G.toastSave=true;G.scr='dsel';render();saveToast();};
  if(G.dev){$('devskip').onclick=()=>{G.ei++;G.done=false;G.b=null;G.pick=null;G.sel=null;G.first=true;if(G.ei>=G.run.length){clearRun();G.scr=(G.dg.full&&!G.dg.mix)?'ending':'clear';G.endPhase='roll';}render();};$('devout').onclick=()=>{G.scr='dsel';render();};}
 }
@@ -2187,11 +2193,12 @@ function shop(){
  const t=G.toast,tab=G.shopTab||'adopt';
  const pkey=k=>PETS[k].egg?1000+PETS[k].egg:PETS[k].price,PK=Object.keys(PETS).sort((a,b)=>pkey(a)-pkey(b));
  const mine=PK.filter(k=>SV.pets.includes(k)),notMine=PK.filter(k=>!SV.pets.includes(k));
- const tabs=[['adopt',`🐾 입양 (${notMine.length})`],['cage',`🏠 펫 우리 (${mine.length})`],['deco',`🎀 꾸미기 (${SV.owned.length}/${Object.keys(ACC).length})`],['skin',`🦸 캐릭터 스킨`]];
+ const tabs=[['adopt',`🐾 입양 (${notMine.length})`],['cage',`🏠 펫 우리 (${mine.length})`],['deco',`🎀 꾸미기 (${SV.owned.length}/${Object.keys(ACC).length})`],['skin',`🦸 캐릭터 스킨`],['potion','🧪 물약상점']];
  let body='';
  if(tab==='adopt')body=notMine.length?`<p class="hint" style="margin:0 0 8px">🥚 <b>신비한 알</b> ${SV.egg||0}개 보유 · 후반부 펫은 수정 대신 <b>레이드 보스</b>가 떨어뜨리는 알로 교환해요.</p><div class="sgrid">${notMine.map(k=>{const P=PETS[k];return `<div class="sitem">${petc('','pet:'+k)}<b>${P.nm}</b><button class="buy" data-pet="${k}" ${(P.egg?(SV.egg||0)<P.egg:SV.cry<P.price)?'disabled':''}>${P.egg?'🥚 '+P.egg:'💎 '+P.price}</button></div>`;}).join('')}</div>`:'<div class="hint" style="padding:20px;text-align:center">🎉 모든 펫을 입양했어요! 펫 우리에서 데려갈 펫을 골라 보세요.</div>';
  else if(tab==='cage')body=`<p class="hint" style="margin:0 0 8px">모험에는 펫 <b>한 마리</b>만 데려갈 수 있어요. 나머지는 우리에서 쉬고 있어요. 꾸미기는 데려간 펫에게 그대로 적용돼요.</p>
   <div class="cage">${mine.map(k=>{const P=PETS[k],cur=SV.pet===k;return `<div class="sitem ${cur?'on':''}">${cur?petc():petc('','pet:'+k)}<b>${P.nm}</b>${cur?'<span class="tagok">⭐ 함께 모험 중</span>':`<button class="btn-s" data-use="${k}">데려가기</button>`}</div>`;}).join('')}</div>`;
+ else if(tab==='potion')body=potShopHTML();
  else if(tab==='skin'){const sc=G.skc||(SV.mode==='rpg'&&SV.rhero?rhero():'tank'),totalOwn=SV.skins.filter(k=>k!=='base').length;
   body=`<p class="hint" style="margin:0 0 8px">직업마다 스킨을 따로 꾸밀 수 있어요. 스킨마다 <b>💰 골드</b> 또는 <b>💎 수정</b>을 더 받는 효과가 있어요. 학습 모드에서는 <b>전사</b> 스킨, RPG 모드에서는 <b>내 주인공</b>(지금: ${HWORD[rhero()]})의 스킨 효과가 적용돼요.</p>
   <div class="stabs sub">${HCLS.map(c=>`<button class="stab ${sc===c?'on':''}" data-skc="${c}">${sp(heroSpr(c,eqSkin(c)),'tiny')}${HWORD[c]}${c==='tank'?' (학습 모드)':''}${c===rhero()&&SV.rhero?' ⭐':''}</button>`).join('')}</div>
@@ -2211,7 +2218,7 @@ function shop(){
  ${body}
  <p class="hint">학습 모드에서 몬스터를 <b>첫 시도</b>에 잡으면 💎 수정을 얻어요. RPG 모드에서는 💎 수정과 💰 골드를 함께 얻어요. 💎 수정은 펫·꾸미기·스킨, 💰 골드는 대장간 장비에 써요. 기록은 이 기기의 브라우저에만 저장돼요.</p>
  <button class="next" id="out">🗺️ 던전 목록으로</button></div>`;
- document.querySelectorAll('[data-tab]').forEach(b=>b.onclick=()=>{G.shopTab=b.dataset.tab;G.toast=null;sfx('click');render();});
+ document.querySelectorAll('[data-tab]').forEach(b=>b.onclick=()=>{G.shopTab=b.dataset.tab;G.toast=null;sfx('click');render();});potShopBind();
  document.querySelectorAll('button[data-pet]').forEach(b=>b.onclick=()=>{const k=b.dataset.pet,P=PETS[k];if(P.egg){if((SV.egg||0)<P.egg)return;SV.egg-=P.egg;}else{if(SV.cry<P.price)return;SV.cry-=P.price;}SV.pets.push(k);SV.pet=k;saveNow();sfx('coins');G.toast={msg:`${P.nm} 입양 완료! 함께 모험을 떠나요. (이전 펫은 펫 우리로)`,en:P.en,nm:P.nm};render();});
  document.querySelectorAll('[data-acc]').forEach(b=>b.onclick=()=>{const a=b.dataset.acc,A=ACC[a];if(SV.cry<A.price)return;SV.cry-=A.price;SV.owned.push(a);SV.eq[A.slot]=a;saveNow();sfx('coins');G.toast={msg:`${A.nm} 구매 완료!`,en:A.en,nm:A.nm};render();});
  const skc=()=>G.skc||(SV.mode==='rpg'&&SV.rhero?rhero():'tank');const wear=(c,k)=>{if(c==='tank')SV.skin=k;else{SV.cskin=SV.cskin||{};SV.cskin[c]=k;}};
@@ -6217,6 +6224,106 @@ function tourStart(){tourEnd();const s=tourSteps();if(!s.length)return;TOUR={s,i
 window.addEventListener('resize',()=>{if(TOUR)tourShow();});
 /* 던전 선택 화면 상단바에 버튼 추가 */
 (function(){const _r=render;render=function(){tourEnd();_r.apply(this,arguments);try{if(G&&G.scr==='dsel'){const h=document.querySelector('#app .hud');if(h&&!document.getElementById('totour')){const b=document.createElement('button');b.className='btn-s tourbtn0';b.id='totour';b.textContent='❓ 메뉴 설명';b.onclick=tourStart;const sp=h.querySelector('.sp');h.insertBefore(b,sp?sp.nextSibling:null);}}}catch(e){}};})();
+
+/* ---------- 물약 상점 · 전투 중 물약 사용 (학습 모드·RPG 모드) ---------- */
+const POT={
+ hs:{ic:'🧪',nm:'작은 회복 물약',price:150,pct:.3,h:1,d:'하트 +1 · RPG HP 30%'},
+ hm:{ic:'⚗️',nm:'중간 회복 물약',price:300,pct:.6,h:2,d:'하트 +2 · RPG HP 60%'},
+ hl:{ic:'🍶',nm:'큰 회복 물약',price:500,pct:1,h:3,d:'하트 가득 · RPG HP 전부'},
+ cure:{ic:'🍵',nm:'상태 이상 회복 물약',price:250,d:'독·약화·침묵·안개·혼란 등 모든 상태 이상 해제 (RPG)'},
+ rev:{ic:'🧴',nm:'부활 물약',price:700,d:'쓰러졌을 때 부활 · 학습 모드는 하트 2개, RPG는 HP 50%'}};
+const POTK=['hs','hm','hl','cure','rev'];
+function potN(k){return ((SV.pot||(SV.pot={}))[k])||0;}
+function potUse(k){SV.pot=SV.pot||{};SV.pot[k]=Math.max(0,(SV.pot[k]||0)-1);saveNow();}
+function potLearn(){return G.scr==='battle'&&!G.rpg&&!G.rvm&&!rdOn()&&!pvOn()&&!!G.run;}
+function potRpg(){return !!(G.rpg&&G.rp);}
+/* 상점 */
+function potShopHTML(){
+ return `<p class="hint" style="margin:0 0 8px">전투 중 <b>🧪 물약 사용</b>을 누르면 <b>이번 턴의 공격 기회를 쓰고</b> 문제를 풀어요. 맞히면 효과가 나타나고, 틀리면 물약은 그대로지만 턴만 넘어가요. 값이 꽤 비싸니 아껴 쓰세요!</p>
+ <div class="sgrid">${POTK.map(k=>{const P=POT[k],n=potN(k);return `<div class="sitem"><div style="font-size:44px;line-height:1.1">${P.ic}</div><b>${P.nm}</b><span class="gst">${P.d}</span><span class="hint">보유 ${n}개</span><button class="buy" data-potb="${k}" ${SV.cry<P.price?'disabled':''}>💎 ${P.price}</button></div>`;}).join('')}</div>`;}
+function potShopBind(){document.querySelectorAll('[data-potb]').forEach(b=>b.onclick=()=>{const k=b.dataset.potb,P=POT[k];if(!P||SV.cry<P.price)return;SV.cry-=P.price;SV.pot=SV.pot||{};SV.pot[k]=(SV.pot[k]||0)+1;saveNow();sfx('coins');G.shopTab='potion';render();});}
+/* 전투 UI */
+function potBtn(){return `<button class="healbtn potbtn" id="potbtn">🧪 물약 사용 <small>(이번 턴 공격 대신 · 문제를 맞혀야 효과)</small></button>`;}
+function potMenuHTML(mode){
+ const R=G.rp,L=mode==='learn';
+ const can=k=>{if(potN(k)<1)return '보유 없음';
+  if(k==='hs'||k==='hm'||k==='hl')return (L?G.hp>=3:R.php>=R.pmax)?'이미 가득 찼어요':'';
+  if(k==='cure')return L?'학습 모드엔 상태 이상이 없어요':(Object.keys(R.deb||{}).length?'':'걸린 상태 이상이 없어요');
+  if(k==='rev')return '쓰러졌을 때 자동으로 물어봐요';return '';};
+ return `<span class="qtype">🧪 물약 고르기</span><div class="story">물약을 쓰면 <b>이번 턴의 공격 기회</b>를 써요. 고른 뒤 나오는 문제를 맞혀야 효과가 나타나요.</div>
+ <div class="potmenu">${POTK.map(k=>{const P=POT[k],why=can(k);return `<button class="potopt" data-pk="${k}" ${why?'disabled':''}><span class="pi">${P.ic}</span><span><b>${P.nm}</b> <small>×${potN(k)}</small><br><small>${why||P.d}</small></span></button>`;}).join('')}</div>
+ <button class="btn-s" id="potcancel">취소</button>`;}
+function potBanner(mode){const k=mode==='learn'?G.pot:G.rp.pot,P=POT[k];
+ return `<div class="sptag healtag">${P.ic} <b>${P.nm}</b> 사용 시도! 이 문제를 맞히면 ${k==='cure'?'상태 이상이 풀리고':'회복하고'}, 틀리면 물약은 그대로지만 ${mode==='learn'?'하트가 1개 줄어요':'적의 턴이 와요'}. <button class="btn-s" id="potback">취소</button></div>`;}
+function potBind(mode){
+ const R=G.rp,L=mode==='learn',rr=()=>{if(L)render();else{$('qc').innerHTML=rpgBody();fill($('qc'));rpgBind();}};
+ const pb=$('potbtn');if(pb)pb.onclick=()=>{if(L)G.potMenu=true;else R.potMenu=true;sfx('select');rr();};
+ const pc=$('potcancel');if(pc)pc.onclick=()=>{if(L)G.potMenu=false;else R.potMenu=false;sfx('click');rr();};
+ const bk=$('potback');if(bk)bk.onclick=()=>{if(L){G.pot=null;G.pq=null;}else R.pot=null;G.b=null;G.sel=null;sfx('click');rr();};
+ document.querySelectorAll('[data-pk]').forEach(b=>b.onclick=()=>{const k=b.dataset.pk;if(potN(k)<1)return;sfx('select');G.b=null;G.sel=null;
+  if(L){G.potMenu=false;G.pot=k;G.pq=pvQ(LV(),false);G.pq.prompt='🧪 물약을 쓰기 위한 문제! 성분을 모두 맞혀요.';}else{R.potMenu=false;R.pot=k;}
+  rr();});}
+/* 학습 모드 연결 */
+const _pbq=qbody;qbody=function(e){
+ if(!potLearn())return _pbq(e);
+ if(G.done&&G.potRes){const r=G.potRes,P=POT[r.k];
+  return `<div class="feedback ${r.fail?'no':'ok'}"><div style="font-weight:900;font-size:19px">${r.fail?`💔 문제를 틀려서 ${P.nm}을(를) 쓰지 못했다! <span class="hurtpop">-❤️ (남은 하트 ${Math.max(0,G.hp)})</span>`:`${P.ic} ${P.nm} 사용! 하트 <b>+${r.n}</b> 회복`}</div>${r.fail?wrongNote(e).replace('(하트는 3문제 연속으로 맞히면 1개 회복돼요)',''):glossHTML(e)+'<div class="exp">'+explainHTML(e)+'</div>'}</div>`+
+   (G.hp<=0?`<button class="next grave-btn" id="potgrave">🪦 파티가 쓰러졌다… 묘지로</button>`:`<button class="next" id="potnx">⚔️ 원래 전투로 ▶</button>`);}
+ if(G.potMenu&&!G.done)return potMenuHTML('learn');
+ if(G.pot&&G.pq&&!G.done)return potBanner('learn')+_pbq(e);
+ if(!G.done&&!G.pot){return potBtn()+_pbq(e);}
+ return _pbq(e);};
+const _pbb=bindQ;bindQ=function(e){
+ if(!potLearn())return _pbb(e);
+ if(G.done&&G.potRes){bubbleSync();const nx=$('potnx'),gv=$('potgrave');
+  const clr=()=>{G.done=false;G.b=null;G.pick=null;G.sel=null;G.potRes=null;G.pot=null;G.pq=null;};
+  if(nx)nx.onclick=()=>{clr();render();};
+  if(gv)gv.onclick=()=>{clr();G.rv=reviveTarget(G.run[G.ei]);G.scr='grave';render();sfx('wipe');};return;}
+ if(G.potMenu&&!G.done){potBind('learn');return;}
+ potBind('learn');return _pbb(e);};
+const _pbr=resolve;resolve=function(e,ok,mine){
+ if(potLearn()&&G.pot&&G.pq&&!G.done){const k=G.pot,P=POT[k];G.done=true;G.pick=ok?'ok':'no';G.healed=false;
+  if(ok){potUse(k);const n=Math.min(P.h||0,3-G.hp);G.hp+=n;G.potRes={k,n};sfx('formed');}
+  else{G.hp--;G.streak=0;G.potRes={k,fail:1};sfx('wrong');wkAdd(e);}
+  G.pot=null;saveRun();render();return;}
+ return _pbr(e,ok,mine);};
+/* 학습 모드 묘지: 부활 물약 */
+const _pgr=grave;grave=function(){_pgr();
+ if(potN('rev')<1)return;const go=$('rvgo');if(!go)return;
+ const b=document.createElement('button');b.className='next';b.id='potrev';b.style.marginTop='8px';b.innerHTML='🧴 부활 물약 사용 <small>(보유 '+potN('rev')+'개 · 문제 없이 하트 2개로 부활)</small>';
+ go.insertAdjacentElement('afterend',b);
+ b.onclick=()=>{potUse('rev');sfx('fanfare');G.deaths++;G.hp=2;G.streak=0;G.scr='battle';G.done=false;G.b=null;G.pick=null;G.sel=null;G.rv=null;render();};};
+/* RPG 모드 연결 */
+const _prb=rpgBody;rpgBody=function(){
+ if(!potRpg())return _prb();const R=G.rp;
+ if(R.phase==='atkres'&&R.pres){const r=R.pres,P=POT[r.k],q=R.q;
+  return `<div class="feedback ${r.fail?'no':'ok'}"><div style="font-weight:900;font-size:19px">${r.fail?`💔 문제를 틀려서 ${P.nm}을(를) 쓰지 못했다!`:(r.k==='cure'?`${P.ic} ${P.nm} 사용! 상태 이상이 모두 풀렸다`:`${P.ic} ${P.nm} 사용! 파티 HP <b>+${r.n}</b> 회복 <small>(${R.php}/${R.pmax})</small>`)}</div>${r.fail?wrongNote(q).replace('(하트는 3문제 연속으로 맞히면 1개 회복돼요)','')+'<span class="hint">💡 '+(q.hint||HINT[q.type]||'')+'</span>':glossHTML(q)+'<div class="exp">'+explainHTML(q)+'</div>'}</div><button class="next" id="rnx">🛡️ 적의 턴 ▶</button>`;}
+ if(R.phase==='atk'&&R.potMenu&&!G.done)return potMenuHTML('rpg');
+ if(R.phase==='atk'&&R.pot&&!G.done)return potBanner('rpg')+qbody(R.q);
+ let h=_prb();
+ if(R.phase==='atk'&&!G.done&&!R.special&&!R.healing&&!R.choosing)h=potBtn()+h;
+ return h;};
+const _prbd=rpgBind;rpgBind=function(){
+ if(!potRpg())return _prbd();const R=G.rp;
+ if(R.phase==='atkres'&&R.pres){bubbleSync();const n=$('rnx');if(n)n.onclick=()=>{R.pres=null;rpgToDef();};return;}
+ if(R.phase==='atk'&&R.potMenu&&!G.done){bubbleSync();potBind('rpg');return;}
+ if(R.phase==='atk')potBind('rpg');
+ return _prbd();};
+const _prr=rpgResolve;rpgResolve=function(e,ok){
+ const R=G.rp;
+ if(R&&R.pot&&R.phase==='atk'&&!G.done){const en=R.en[R.ei],k=R.pot,P=POT[k];rpgCnt(ok,e.wt);if(!ok)wkAdd(e,en);
+  R.pot=null;R.healing=false;G.done=true;G.pick=ok?'ok':'no';R.phase='atkres';R.choosing=false;
+  if(ok){potUse(k);let n=0;if(k==='cure')R.deb={};else{n=Math.min(Math.round(R.pmax*P.pct),R.pmax-R.php);R.php+=n;}R.pres={k,n};sfx('formed');}
+  else{R.pres={k,fail:1};sfx('wrong');const qc=$('qc');if(qc)qc.classList.add('shake');}
+  setTimeout(()=>{render();if(ok&&k!=='cure')try{healFx($('arena'),$('pty'),R.pres.n);}catch(x){}},ok?250:350);setTimeout(rpgSaveRun,700);return;}
+ return _prr(e,ok);};
+/* RPG 모드 쓰러짐: 부활 물약 */
+const _prl=rpgLose;rpgLose=function(quit){const R=G.rp;
+ if(!quit&&R&&R.php<=0&&potN('rev')>0){const qc=$('qc');if(qc){
+  qc.innerHTML=`<div class="feedback no"><div style="font-weight:900;font-size:19px">🪦 파티가 쓰러졌다…</div><div class="story">🧴 <b>부활 물약</b>이 ${potN('rev')}개 있어요. 지금 쓰면 HP 50%로 되살아나 전투를 계속해요.</div></div><button class="next" id="revyes">🧴 부활 물약 사용</button><button class="btn-s" id="revno" style="margin-top:8px">그냥 포기하기</button>`;
+  $('revyes').onclick=()=>{potUse('rev');sfx('fanfare');R.php=Math.max(1,Math.ceil(R.pmax*.5));R.phase='atk';rpgNextQ();render();};
+  $('revno').onclick=()=>_prl(false);return;}}
+ return _prl(quit);};
 
 render();tryAuto();setTimeout(tryAuto,300);
 setInterval(()=>{document.body.classList.toggle('muted-wait',!(AU.ctx&&AU.ctx.state==='running')&&G.scr==='splash');},500);

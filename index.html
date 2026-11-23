@@ -6461,6 +6461,7 @@ function popHome(){const A=popLoad(),P=G.popPub||[],T=!!G.popT,inn=G.popIn,lk=G.
  ${W?`<div class="popweek"><div>📅 <b>이번 주 팝송 던전</b></div><div class="popline" style="font-size:19px;margin:4px 0">${esc(W.t)} <span class="hint">${esc(W.a||'')}</span></div><div class="hint">모든 활동을 하고 정답률 ${Math.round(POP_WK.need*100)}% 이상이면 클리어! 보상 💎 ${POP_WK.cry} · ⚒️ ${POP_WK.stone} (주 1회)</div>${popWeekDone()?'<div class="feedback ok" style="margin-top:8px">✅ 이번 주 클리어 완료!</div>':'<button class="next" id="popwk">⚔️ 도전하기</button>'}</div>`:''}
  ${P.length>10?`<input class="input" id="popq" placeholder="🔍 곡 제목·가수 검색 (${P.length}곡)" value="${esc(G.popQ||'')}" style="margin:8px 0">`:''}
  <div class="poplist" id="poppub">${P.length?popFilt(P).map(s=>card(s,true)).join(''):'<div class="hint" style="padding:14px 0">아직 준비된 곡이 없어요. 선생님이 곡을 준비하면 여기에 나타나요.</div>'}</div>
+ ${!T&&A.length?`<h3 style="margin:16px 0 4px">📩 받은 곡 <span class="hint">(선생님이 보내 준 링크로 들어온 곡)</span></h3><div class="poplist">${A.map(s=>card(s,false)).join('')}</div>`:''}
  ${T?`<h3 style="margin:16px 0 4px">🧑‍🏫 선생님 메뉴</h3>
  <div class="hint">여기서 만든 곡은 이 기기에만 저장돼요. 아래 <b>학생 공개용 파일 만들기</b>로 songs.json을 만들어 게임 저장소에 올리면 모든 학생에게 곡 목록으로 나타나요.</div>
  ${lk?`<div class="feedback ok"><b>🔗 확인용 링크</b><textarea class="input" id="poplk" rows="3" readonly>${esc(lk.url)}</textarea><button class="btn-s" id="popcp">📋 복사</button> <span class="hint" id="popcpm"></span></div>`:''}

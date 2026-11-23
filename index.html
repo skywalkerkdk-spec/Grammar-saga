@@ -6613,6 +6613,28 @@ function popClip(){const s=popFind(G.popId);if(!s||!s.y||!s.tm||s.tm.length!==s.
   const acc=tot?ok/tot:0,st=acc>=.9?3:acc>=.7?2:acc>=.4?1:0;$('pcres').innerHTML=`<div class="feedback ${st>=2?'ok':'no'}"><div style="text-align:center;font-size:36px">${'⭐'.repeat(st)}${'☆'.repeat(3-st)}</div><div style="font-weight:900;font-size:20px;text-align:center">${ok} / ${tot} 정답</div></div><button class="next" id="pcagain">🔁 다시 도전</button>`;
   $('pcagain').onclick=()=>render();if(st>=2)sfx('fanfare');$('pcres').scrollIntoView({behavior:'smooth'});};}
 
+/* ---------- 모든 메뉴 상단바(HUD) 맨 앞에 돌아가기 버튼 ---------- 기존 아래쪽 버튼은 그대로 두고 위에 하나 더 추가해요. */
+(function(){
+ const BACK={party:'dsel',shop:'dsel',forge:'dsel',news:'dsel',rank:'dsel',pvp:'dsel',rdlobby:'dsel',hsel:'dsel',temple:'dsel',level:()=>G.introDone?'dsel':'title'};
+ const _r=render;
+ render=function(){
+  _r.apply(this,arguments);
+  try{
+   const scr=G.scr,h=document.querySelector('#app .hud');
+   /* 이미 상단바에 있는 돌아가기류 버튼은 맨 앞으로 */
+   const lead=h&&(h.querySelector('#tologin')||h.querySelector('#popback')||h.querySelector('#popquit'));
+   if(h&&lead&&h.firstChild!==lead){h.insertBefore(lead,h.firstChild);return;}
+   if(h&&lead)return;
+   if(!(scr in BACK)||document.getElementById('topback'))return;
+   const t=typeof BACK[scr]==='function'?BACK[scr]():BACK[scr];
+   const b=document.createElement('button');b.className='btn-s';b.id='topback';b.textContent='← 돌아가기';
+   b.onclick=()=>{try{saveNow();}catch(e){}sfx('click');G.scr=t;G.toast=null;render();};
+   if(h)h.insertBefore(b,h.firstChild);
+   else{const d=document.createElement('div');d.className='hud';d.appendChild(b);const app=$('app');app.insertBefore(d,app.firstChild);}
+  }catch(e){}
+ };
+})();
+
 render();tryAuto();setTimeout(tryAuto,300);
 setInterval(()=>{document.body.classList.toggle('muted-wait',!(AU.ctx&&AU.ctx.state==='running')&&G.scr==='splash');},500);
 

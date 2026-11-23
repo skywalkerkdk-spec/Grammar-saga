@@ -6385,7 +6385,7 @@ function popClean(o){if(!o||typeof o!=='object')return null;const s=(v,n)=>Strin
  const l=(Array.isArray(o.l)?o.l:[]).map(x=>s(x,160)).filter(x=>x).slice(0,120),k=(Array.isArray(o.k)?o.k:[]).map(x=>s(x,160)).slice(0,120);
  if(l.length<2)return null;let y=s(o.y,20);if(!/^[\w-]{11}$/.test(y))y='';
  let tm=(Array.isArray(o.tm)?o.tm:[]).map(Number);if(tm.length!==l.length||!tm.every(x=>isFinite(x)&&x>=0))tm=[];
- return {id:'s'+Date.now().toString(36)+Math.random().toString(36).slice(2,5),t:s(o.t,60)||'제목 없음',a:s(o.a,40),y,l,k:k.length===l.length?k:[],tm,best:0};}
+ return {id:'s'+Date.now().toString(36)+Math.random().toString(36).slice(2,5),t:s(o.t,60)||'제목 없음',a:s(o.a,40),y,l,k:k.length===l.length?k:[],tm,best:0,d:s(o.d,200)};}
 function popParse(txt){return String(txt||'').split(/\r?\n/).map(x=>x.trim()).filter(x=>x&&!/^\[.*\]$/.test(x)&&!/^\(.*\)$/.test(x));}
 function popYtId(u){u=String(u||'').trim();if(/^[\w-]{11}$/.test(u))return u;const m=u.match(/(?:youtu\.be\/|v=|embed\/|shorts\/)([\w-]{11})/);return m?m[1]:'';}
 function popTok(line){return String(line).split(/\s+/).filter(Boolean).map(raw=>{const m=/^([^A-Za-z']*)(.*?)([^A-Za-z']*)$/.exec(raw);return {raw,pre:m[1],w:m[2],suf:m[3]};});}
@@ -6413,12 +6413,20 @@ async function popZipRead(buf){const u=new Uint8Array(buf),dv=new DataView(buf);
 function popXml(t){return String(t).replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/&quot;/g,'"').replace(/&apos;/g,"'").replace(/&#(\d+);/g,(m,d)=>String.fromCharCode(+d)).replace(/&amp;/g,'&');}
 function popXlsxRows(z){const ss=[];const sx=z['xl/sharedStrings.xml']||'';(sx.match(/<si[\s>][\s\S]*?<\/si>/g)||[]).forEach(si=>{ss.push(popXml((si.match(/<t[^>]*>([\s\S]*?)<\/t>/g)||[]).map(t=>t.replace(/<[^>]+>/g,'')).join('')));});
  const rows=[];const sh=z['xl/worksheets/sheet1.xml']||'';
- (sh.match(/<row[\s>][\s\S]*?<\/row>/g)||[]).forEach(r=>{const row=[];(r.match(/<c\s[^>]*?(?:\/>|>[\s\S]*?<\/c>)/g)||[]).forEach(c=>{const ref=/\sr="([A-Z]+)\d+"/.exec(c);if(!ref)return;const col=ref[1].charCodeAt(0)-65;if(col<0||col>5)return;const ty=(/\st="(\w+)"/.exec(c)||[])[1];let v='';
+ (sh.match(/<row[\s>][\s\S]*?<\/row>/g)||[]).forEach(r=>{const row=[];(r.match(/<c\s[^>]*?(?:\/>|>[\s\S]*?<\/c>)/g)||[]).forEach(c=>{const ref=/\sr="([A-Z]+)\d+"/.exec(c);if(!ref)return;const col=ref[1].charCodeAt(0)-65;if(col<0||col>8)return;const ty=(/\st="(\w+)"/.exec(c)||[])[1];let v='';
    if(ty==='inlineStr')v=popXml((c.match(/<t[^>]*>([\s\S]*?)<\/t>/g)||[]).map(t=>t.replace(/<[^>]+>/g,'')).join(''));
    else{const m=/<v>([\s\S]*?)<\/v>/.exec(c);if(m)v=ty==='s'?(ss[+m[1]]||''):popXml(m[1]);}
    row[col]=String(v).trim();});rows.push(row);});
  return rows;}
-function popRowsToSongs(rows){const out=[];let cur=null;rows.forEach((r,i)=>{const t=r[0]||'',d=r[3]||'';if(i===0&&/제목|title/i.test(t)&&/가사|lyric/i.test((r[3]||'')+''))return;
+function popLyrics(cell){let raw=String(cell||'').replace(/\r/g,'').split('\n'),m=[];
+ raw.forEach(x=>{const t=x.trim();if(!t||/^\[.*\]$/.test(t))return;if(m.length&&m.cwrap){m[m.length-1]+=' '+t;m.cwrap=/\s$/.test(x);return;}m.push(t);m.cwrap=/\s$/.test(x);});
+ let L=m.map(x=>x.replace(/[`´’‘]/g,"'").replace(/\s+/g,' ').trim());
+ const hy=(L.join(' ').match(/[A-Za-z]-[a-z]/g)||[]).length;if(hy>=6)L=L.map(x=>x.replace(/([A-Za-z])-(?=[a-z])/g,'$1'));
+ const cut=x=>{if(x.length<=80)return [x];const w=x.split(' ');if(w.length<2)return [x];let best=1,bd=1e9,acc=0;for(let i=0;i<w.length-1;i++){acc+=w[i].length+1;const d=Math.abs(acc-x.length/2);if(d<bd){bd=d;best=i+1;}}return cut(w.slice(0,best).join(' ')).concat(cut(w.slice(best).join(' ')));};
+ return [].concat(...L.map(cut));}
+function popRowsToSongs(rows){if(rows.length&&/아티스트/.test(rows[0][1]||'')&&/제목/.test(rows[0][2]||'')&&/가사/.test(rows[0][4]||'')){
+  return rows.slice(1).filter(r=>r[2]&&r[4]).map(r=>{const l=popLyrics(r[4]);return {t:r[2],a:r[1]||'',d:r[3]||'',y:popYtId(r[5]||''),l,k:[],tm:[]};});}
+ const out=[];let cur=null;rows.forEach((r,i)=>{const t=r[0]||'',d=r[3]||'';if(i===0&&/제목|title/i.test(t)&&/가사|lyric/i.test((r[3]||'')+''))return;
   if(t){cur={t,a:r[1]||'',y:popYtId(r[2]||''),l:[],k:[],tm:[]};out.push(cur);}
   if(!cur||!d||/^\[.*\]$/.test(d))return;cur.l.push(d);cur.k.push(r[4]||'');cur.tm.push(r[5]!==undefined&&r[5]!==''?parseFloat(r[5]):NaN);});
  return out.filter(o=>!/^\(예시\)/.test(o.t)).map(o=>{if(!o.k.every(x=>x))o.k=[];if(!o.tm.every(x=>isFinite(x)))o.tm=[];return o;});}
@@ -6445,12 +6453,14 @@ async function popDec(code){try{code=String(code||'').trim();const i=code.indexO
   b.onclick=()=>{sfx('select');G.scr='pophome';render();};const s=document.getElementById('toshop');if(s)s.insertAdjacentElement('afterend',b);else{const h=document.querySelector('#app .hud');if(h){b.className='btn-s';b.textContent='🎵 팝송';h.appendChild(b);}}}}catch(e){}
  };})();
 /* 곡 목록 */
+function popFilt(P){const q=(G.popQ||'').trim().toLowerCase();return q?P.filter(s=>(s.t+' '+(s.a||'')).toLowerCase().includes(q)):P;}
 function popHome(){const A=popLoad(),P=G.popPub||[],T=!!G.popT,inn=G.popIn,lk=G.popLink,W=popWeekSong();
  const card=(s,pub)=>`<div class="popsong"><div><b>${esc(s.t)}</b><span class="hint" style="display:block">${esc(s.a||'')} · ${s.l.length}줄${s.k&&s.k.length?' · 해석 있음':''}${s.best?' · 최고 '+s.best+'점':''}</span></div><div class="pbtns"><button class="btn-s" data-pp="${s.id}">▶ 시작</button>${T&&s.y?`<button class="btn-s" data-py="${s.id}">⏱</button>`:''}${pub?'':`<button class="btn-s" data-pe="${s.id}">✏️</button><button class="btn-s" data-ps="${s.id}">🔗</button><button class="btn-s" data-pd="${s.id}">🗑️</button>`}</div></div>`;
  $('app').innerHTML=hud('<button class="btn-s" id="popback">← 돌아가기</button>')+`<div class="card pop"><h2>🎵 팝송 가사 퀘스트</h2>
  <div class="story">노래를 들으면서 가사의 <b>빈칸</b>을 채우고, <b>해석</b>을 맞히고, <b>줄 순서</b>를 맞혀 보세요! 곡을 골라 시작하세요.</div>
  ${W?`<div class="popweek"><div>📅 <b>이번 주 팝송 던전</b></div><div class="popline" style="font-size:19px;margin:4px 0">${esc(W.t)} <span class="hint">${esc(W.a||'')}</span></div><div class="hint">모든 활동을 하고 정답률 ${Math.round(POP_WK.need*100)}% 이상이면 클리어! 보상 💎 ${POP_WK.cry} · ⚒️ ${POP_WK.stone} (주 1회)</div>${popWeekDone()?'<div class="feedback ok" style="margin-top:8px">✅ 이번 주 클리어 완료!</div>':'<button class="next" id="popwk">⚔️ 도전하기</button>'}</div>`:''}
- <div class="poplist">${P.length?P.map(s=>card(s,true)).join(''):'<div class="hint" style="padding:14px 0">아직 준비된 곡이 없어요. 선생님이 곡을 준비하면 여기에 나타나요.</div>'}</div>
+ ${P.length>10?`<input class="input" id="popq" placeholder="🔍 곡 제목·가수 검색 (${P.length}곡)" value="${esc(G.popQ||'')}" style="margin:8px 0">`:''}
+ <div class="poplist" id="poppub">${P.length?popFilt(P).map(s=>card(s,true)).join(''):'<div class="hint" style="padding:14px 0">아직 준비된 곡이 없어요. 선생님이 곡을 준비하면 여기에 나타나요.</div>'}</div>
  ${T?`<h3 style="margin:16px 0 4px">🧑‍🏫 선생님 메뉴</h3>
  <div class="hint">여기서 만든 곡은 이 기기에만 저장돼요. 아래 <b>학생 공개용 파일 만들기</b>로 songs.json을 만들어 게임 저장소에 올리면 모든 학생에게 곡 목록으로 나타나요.</div>
  ${lk?`<div class="feedback ok"><b>🔗 확인용 링크</b><textarea class="input" id="poplk" rows="3" readonly>${esc(lk.url)}</textarea><button class="btn-s" id="popcp">📋 복사</button> <span class="hint" id="popcpm"></span></div>`:''}
@@ -6467,7 +6477,8 @@ function popHome(){const A=popLoad(),P=G.popPub||[],T=!!G.popT,inn=G.popIn,lk=G.
   $('popexbox').innerHTML=`<div class="feedback ok"><b>📤 songs.json</b><div class="hint">① 아래 버튼으로 파일을 저장하고 ② 게임 저장소(Grammar-saga)에 <b>songs.json</b> 이름으로 올려 주세요(같은 이름이면 덮어쓰기). 1~2분 뒤 학생 화면에 곡이 나타나요.</div><textarea class="input" id="popjs" rows="5" readonly>${esc(js)}</textarea><button class="btn-s" id="popdl">💾 songs.json 저장</button> <button class="btn-s" id="popjcp">📋 내용 복사</button></div>`;
   $('popdl').onclick=()=>{const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([js],{type:'application/json'}));a.download='songs.json';a.click();};
   $('popjcp').onclick=()=>{$('popjs').select();try{document.execCommand('copy');}catch(e){}try{navigator.clipboard.writeText(js);}catch(e){}};};
- document.querySelectorAll('[data-pp]').forEach(b=>b.onclick=()=>{G.popId=b.dataset.pp;G.popWk=false;G.popLink=null;sfx('select');G.scr='popsong';render();});
+ const ppb=()=>document.querySelectorAll('[data-pp]').forEach(b=>b.onclick=()=>{G.popId=b.dataset.pp;G.popWk=false;G.popLink=null;sfx('select');G.scr='popsong';render();});ppb();
+ const pq=$('popq');if(pq)pq.oninput=()=>{G.popQ=pq.value;$('poppub').innerHTML=popFilt(P).map(s=>card(s,true)).join('')||'<div class="hint" style="padding:14px 0">찾는 곡이 없어요.</div>';ppb();};
  document.querySelectorAll('[data-py]').forEach(b=>b.onclick=()=>{G.popId=b.dataset.py;sfx('select');G.scr='popsync';render();});
  document.querySelectorAll('[data-pe]').forEach(b=>b.onclick=()=>{G.popEd=b.dataset.pe;G.popLink=null;sfx('click');G.scr='popedit';render();});
  document.querySelectorAll('[data-ps]').forEach(b=>b.onclick=async()=>{const s=popLoad().find(x=>x.id===b.dataset.ps);if(!s)return;const c=await popEnc(s);G.popLink={id:s.id,url:location.origin+location.pathname+'#pop='+c};sfx('click');render();});
@@ -6494,7 +6505,7 @@ function popSong(){const s=popFind(G.popId);if(!s){G.scr='pophome';return popHom
  const hasKo=s.k&&s.k.length===s.l.length&&s.k.some(x=>x);const M=G.popM||{type:true,choice:true,order:true,trans:hasKo},N=G.popN||10;
  const wkOn=!!G.popWk&&!popWeekDone()&&popWeekSong()&&popWeekSong().id===s.id,forced=wkOn||(!G.popT&&!popIsDone(s));
  const row=(k,ic,nm,d,dis)=>`<label class="popmode ${dis?'dis':''}"><input type="checkbox" data-pm="${k}" ${M[k]&&!dis?'checked':''} ${dis?'disabled':''}><span>${ic} <b>${nm}</b><small>${d}</small></span></label>`;
- $('app').innerHTML=hud('<button class="btn-s" id="popback">← 목록</button>')+`<div class="card pop"><h2>🎵 ${esc(s.t)}</h2><div class="hint">${esc(s.a||'')} · ${s.l.length}줄</div>
+ $('app').innerHTML=hud('<button class="btn-s" id="popback">← 목록</button>')+`<div class="card pop"><h2>🎵 ${esc(s.t)}</h2><div class="hint">${esc(s.a||'')} · ${s.l.length}줄</div>${s.d?`<div class="hint" style="margin-top:4px">${esc(s.d)}</div>`:''}
  ${s.y?`<iframe class="popyt" src="https://www.youtube-nocookie.com/embed/${s.y}" allow="encrypted-media" allowfullscreen></iframe><div class="hint">먼저 노래를 들어 보세요. 게임 중에도 위쪽에서 들을 수 있어요.</div>`:''}
  ${wkOn?`<div class="popweek">📅 <b>주간 팝송 던전!</b> 정답률 ${Math.round(POP_WK.need*100)}% 이상이면 클리어 · 보상 💎 ${POP_WK.cry} · ⚒️ ${POP_WK.stone}</div>`:''}
  <div class="story">${forced?'처음 도전이에요! 준비된 활동을 <b>모두</b> 해 봐요: 빈칸 · 보기 · 순서 · 해석 퀴즈 12문제'+(popHasTm(s)?' + 🎬 영상 따라 쓰기':'')+'. 한 번 끝내면 다음부터 활동을 골라서 할 수 있어요.':'모든 활동을 한 번에 도전하거나, 아래에서 원하는 활동만 골라서 할 수 있어요.'}</div>

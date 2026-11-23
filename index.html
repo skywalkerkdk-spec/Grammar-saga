@@ -6359,6 +6359,11 @@ function popParse(txt){return String(txt||'').split(/\r?\n/).map(x=>x.trim()).fi
 function popYtId(u){u=String(u||'').trim();if(/^[\w-]{11}$/.test(u))return u;const m=u.match(/(?:youtu\.be\/|v=|embed\/|shorts\/)([\w-]{11})/);return m?m[1]:'';}
 function popTok(line){return String(line).split(/\s+/).filter(Boolean).map(raw=>{const m=/^([^A-Za-z']*)(.*?)([^A-Za-z']*)$/.exec(raw);return {raw,pre:m[1],w:m[2],suf:m[3]};});}
 function popCands(line){const t=popTok(line),ok=(min)=>t.map((x,i)=>i).filter(i=>/^[A-Za-z']+$/.test(t[i].w)&&t[i].w.length>=min&&!POP_STOP.has(t[i].w.toLowerCase()));let c=ok(4);if(!c.length)c=ok(3);return c;}
+const POP_TPW='dkkang';/* 선생님 메뉴 암호 (바꾸려면 이 값을 수정) */
+function popFind(id){return popLoad().find(x=>x.id===id)||(G.popPub||[]).find(x=>x.id===id);}
+function popBestMap(){try{return JSON.parse(localStorage.getItem('sg_pop_best')||'{}')||{};}catch(e){return {};}}
+function popPubLoad(){try{fetch('songs.json?'+Date.now()).then(r=>r.ok?r.json():null).then(a=>{if(!Array.isArray(a))return;G.popPub=a.map((o,i)=>{const c=popClean(o);if(c){c.id='pub'+i;c.pub=1;c.best=popBestMap()[c.id]||0;}return c;}).filter(Boolean);if(G.scr==='pophome')render();}).catch(()=>{});}catch(e){}}
+popPubLoad();
 /* 공유 링크 인코딩 */
 function popB64(bytes){let s='';for(let i=0;i<bytes.length;i+=8192)s+=String.fromCharCode.apply(null,bytes.subarray(i,i+8192));return btoa(s).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');}
 function popUnB64(t){t=t.replace(/-/g,'+').replace(/_/g,'/');while(t.length%4)t+='=';const s=atob(t),b=new Uint8Array(s.length);for(let i=0;i<s.length;i++)b[i]=s.charCodeAt(i);return b;}
@@ -6368,7 +6373,7 @@ async function popEnc(o){const s=JSON.stringify({t:o.t,a:o.a,y:o.y,l:o.l,k:o.k})
 async function popDec(code){try{code=String(code||'').trim();const i=code.indexOf('pop=');if(i>=0)code=code.slice(i+4);code=code.split(/[\s&]/)[0];if(!code)return null;const k=code[0],b=popUnB64(code.slice(1));let txt;
  if(k==='z'){const ds=new DecompressionStream('deflate-raw'),w=ds.writable.getWriter();w.write(b);w.close();txt=new TextDecoder().decode(await new Response(ds.readable).arrayBuffer());}else txt=new TextDecoder().decode(b);
  return popClean(JSON.parse(txt));}catch(e){return null;}}
-(function(){try{const m=/^#pop=(.+)$/.exec(location.hash||'');if(m)popDec(m[1]).then(o=>{if(!o)return;G.popIn=o;try{history.replaceState(null,'',location.pathname+location.search);}catch(e){}if(G.scr==='dsel')render();});}catch(e){}})();
+(function(){try{const m=/^#pop=(.+)$/.exec(location.hash||'');if(m)popDec(m[1]).then(o=>{if(!o)return;const A=popLoad();A.push(o);popSave(A);G.popIn=null;try{history.replaceState(null,'',location.pathname+location.search);}catch(e){}if(G.scr==='dsel')render();});}catch(e){}})();
 /* 메뉴 연결 */
 (function(){const _r=render;render=function(){
  if(/^pop/.test(G.scr||'')){window.scrollTo({top:0});applySkin();document.body.dataset.bg='guild';try{tourEnd();}catch(e){}({pophome:popHome,popedit:popEdit,popsong:popSong,popplay:popPlay,popres:popRes})[G.scr]();fill($('app'));syncBgm();return;}
@@ -6377,19 +6382,26 @@ async function popDec(code){try{code=String(code||'').trim();const i=code.indexO
   b.onclick=()=>{sfx('select');G.scr='pophome';render();};const s=document.getElementById('toshop');if(s)s.insertAdjacentElement('afterend',b);else{const h=document.querySelector('#app .hud');if(h){b.className='btn-s';b.textContent='🎵 팝송';h.appendChild(b);}}}}catch(e){}
  };})();
 /* 곡 목록 */
-function popHome(){const A=popLoad(),inn=G.popIn,lk=G.popLink;
+function popHome(){const A=popLoad(),P=G.popPub||[],T=!!G.popT,inn=G.popIn,lk=G.popLink;
+ const card=(s,pub)=>`<div class="popsong"><div><b>${esc(s.t)}</b><span class="hint" style="display:block">${esc(s.a||'')} · ${s.l.length}줄${s.k&&s.k.length?' · 해석 있음':''}${s.best?' · 최고 '+s.best+'점':''}</span></div><div class="pbtns"><button class="btn-s" data-pp="${s.id}">▶ 시작</button>${pub?'':`<button class="btn-s" data-pe="${s.id}">✏️</button><button class="btn-s" data-ps="${s.id}">🔗</button><button class="btn-s" data-pd="${s.id}">🗑️</button>`}</div></div>`;
  $('app').innerHTML=hud('<button class="btn-s" id="popback">← 돌아가기</button>')+`<div class="card pop"><h2>🎵 팝송 가사 퀘스트</h2>
- <div class="story">노래를 들으면서 가사의 <b>빈칸</b>을 채우고, <b>해석</b>을 맞히고, <b>줄 순서</b>를 맞혀 보세요!</div>
- ${inn?`<div class="feedback ok"><b>📬 곡이 도착했어요!</b><div style="margin:4px 0">${esc(inn.t)}${inn.a?' — '+esc(inn.a):''} <span class="hint">(${inn.l.length}줄)</span></div><button class="next" id="popget">📥 내 곡 목록에 담기</button></div>`:''}
- ${lk?`<div class="feedback ok"><b>🔗 학생용 링크</b><div class="hint">학생들에게 이 링크를 보내 주세요. 가사는 링크 안에 들어 있어요.</div><textarea class="input" id="poplk" rows="3" readonly>${esc(lk.url)}</textarea><button class="btn-s" id="popcp">📋 복사</button> <span class="hint" id="popcpm"></span></div>`:''}
- <div class="poplist">${A.length?A.map(s=>`<div class="popsong"><div><b>${esc(s.t)}</b><span class="hint" style="display:block">${esc(s.a||'')} · ${s.l.length}줄${s.k&&s.k.length?' · 해석 있음':''}${s.best?' · 최고 '+s.best+'점':''}</span></div><div class="pbtns"><button class="btn-s" data-pp="${s.id}">▶ 시작</button><button class="btn-s" data-pe="${s.id}">✏️</button><button class="btn-s" data-ps="${s.id}">🔗</button><button class="btn-s" data-pd="${s.id}">🗑️</button></div></div>`).join(''):'<div class="hint" style="padding:14px 0">아직 곡이 없어요. 아래에서 새 곡을 만들거나, 선생님이 보낸 링크로 곡을 받아요.</div>'}</div>
+ <div class="story">노래를 들으면서 가사의 <b>빈칸</b>을 채우고, <b>해석</b>을 맞히고, <b>줄 순서</b>를 맞혀 보세요! 곡을 골라 시작하세요.</div>
+ <div class="poplist">${P.length?P.map(s=>card(s,true)).join(''):'<div class="hint" style="padding:14px 0">아직 준비된 곡이 없어요. 선생님이 곡을 준비하면 여기에 나타나요.</div>'}</div>
+ ${T?`<h3 style="margin:16px 0 4px">🧑‍🏫 선생님 메뉴</h3>
+ <div class="hint">여기서 만든 곡은 이 기기에만 저장돼요. 아래 <b>학생 공개용 파일 만들기</b>로 songs.json을 만들어 게임 저장소에 올리면 모든 학생에게 곡 목록으로 나타나요.</div>
+ ${lk?`<div class="feedback ok"><b>🔗 확인용 링크</b><textarea class="input" id="poplk" rows="3" readonly>${esc(lk.url)}</textarea><button class="btn-s" id="popcp">📋 복사</button> <span class="hint" id="popcpm"></span></div>`:''}
+ <div class="poplist">${A.map(s=>card(s,false)).join('')}</div>
  <button class="next" id="popnew">＋ 새 곡 만들기 (가사 붙여넣기)</button>
- <details class="popimp"><summary>📥 링크·코드로 곡 받기</summary><textarea class="input" id="popcode" rows="3" placeholder="선생님이 보낸 링크나 코드를 붙여 넣으세요"></textarea><button class="btn-s" id="popimp">가져오기</button><div id="popimsg" class="hint"></div></details></div>`;
+ <button class="btn-s" id="popexp" style="margin-top:8px" ${A.length?'':'disabled'}>📤 학생 공개용 파일(songs.json) 만들기</button>
+ <div id="popexbox"></div>`:`<button class="btn-s" id="poptch" style="margin-top:14px">🔒 선생님</button>`}</div>`;
  $('popback').onclick=()=>{G.popLink=null;G.scr='dsel';render();};
- $('popnew').onclick=()=>{G.popEd=null;G.scr='popedit';render();};
- const g=$('popget');if(g)g.onclick=()=>{const a=popLoad();a.push(G.popIn);popSave(a);G.popIn=null;sfx('coins');render();};
+ const th=$('poptch');if(th)th.onclick=()=>{const v=prompt('선생님 암호를 입력하세요');if(v===POP_TPW){G.popT=true;sfx('coins');render();}else if(v!==null)alert('암호가 달라요.');};
+ const nw=$('popnew');if(nw)nw.onclick=()=>{G.popEd=null;G.scr='popedit';render();};
  const cp=$('popcp');if(cp)cp.onclick=()=>{const t=$('poplk');t.select();let ok=false;try{ok=document.execCommand('copy');}catch(e){}try{navigator.clipboard.writeText(lk.url);ok=true;}catch(e){}$('popcpm').textContent=ok?'복사했어요!':'길게 눌러 복사해 주세요.';};
- $('popimp').onclick=async()=>{const o=await popDec($('popcode').value);if(!o){$('popimsg').textContent='❌ 코드를 읽을 수 없어요. 링크 전체를 붙여 넣었는지 확인해 주세요.';return;}const a=popLoad();a.push(o);popSave(a);sfx('coins');render();};
+ const ex=$('popexp');if(ex)ex.onclick=()=>{const arr=popLoad().map(x=>({t:x.t,a:x.a,y:x.y,l:x.l,k:x.k&&x.k.length?x.k:[]})),js=JSON.stringify(arr,null,1);
+  $('popexbox').innerHTML=`<div class="feedback ok"><b>📤 songs.json</b><div class="hint">① 아래 버튼으로 파일을 저장하고 ② 게임 저장소(Grammar-saga)에 <b>songs.json</b> 이름으로 올려 주세요(같은 이름이면 덮어쓰기). 1~2분 뒤 학생 화면에 곡이 나타나요.</div><textarea class="input" id="popjs" rows="5" readonly>${esc(js)}</textarea><button class="btn-s" id="popdl">💾 songs.json 저장</button> <button class="btn-s" id="popjcp">📋 내용 복사</button></div>`;
+  $('popdl').onclick=()=>{const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([js],{type:'application/json'}));a.download='songs.json';a.click();};
+  $('popjcp').onclick=()=>{$('popjs').select();try{document.execCommand('copy');}catch(e){}try{navigator.clipboard.writeText(js);}catch(e){}};};
  document.querySelectorAll('[data-pp]').forEach(b=>b.onclick=()=>{G.popId=b.dataset.pp;G.popLink=null;sfx('select');G.scr='popsong';render();});
  document.querySelectorAll('[data-pe]').forEach(b=>b.onclick=()=>{G.popEd=b.dataset.pe;G.popLink=null;sfx('click');G.scr='popedit';render();});
  document.querySelectorAll('[data-ps]').forEach(b=>b.onclick=async()=>{const s=popLoad().find(x=>x.id===b.dataset.ps);if(!s)return;const c=await popEnc(s);G.popLink={id:s.id,url:location.origin+location.pathname+'#pop='+c};sfx('click');render();});
@@ -6412,7 +6424,7 @@ function popEdit(){const s=G.popEd?popLoad().find(x=>x.id===G.popEd):null;
   const o=popClean({t:$('ptt').value,a:$('pta').value,y:popYtId($('pty').value),l,k:popParse($('ptk').value)});if(!o)return;const A=popLoad();
   if(s){const i=A.findIndex(x=>x.id===s.id);o.id=s.id;o.best=s.best||0;if(i>=0)A[i]=o;else A.push(o);}else A.push(o);popSave(A);sfx('coins');G.scr='pophome';render();};}
 /* 곡 시작 화면 */
-function popSong(){const s=popLoad().find(x=>x.id===G.popId);if(!s){G.scr='pophome';return popHome();}
+function popSong(){const s=popFind(G.popId);if(!s){G.scr='pophome';return popHome();}
  const hasKo=s.k&&s.k.length===s.l.length&&s.k.some(x=>x);const M=G.popM||{type:true,choice:true,order:true,trans:hasKo},N=G.popN||10;
  const row=(k,ic,nm,d,dis)=>`<label class="popmode ${dis?'dis':''}"><input type="checkbox" data-pm="${k}" ${M[k]&&!dis?'checked':''} ${dis?'disabled':''}><span>${ic} <b>${nm}</b><small>${d}</small></span></label>`;
  $('app').innerHTML=hud('<button class="btn-s" id="popback">← 목록</button>')+`<div class="card pop"><h2>🎵 ${esc(s.t)}</h2><div class="hint">${esc(s.a||'')} · ${s.l.length}줄</div>
@@ -6480,7 +6492,7 @@ function popBindQ(q){const P=G.pop,s=P.s,K=s.k||[];
   popDone(hit,`<div class="popans">${q.idx.map((x,n)=>`<div class="popslot on"><b>${n+1}</b> ${esc(popL(x))}${K[x]?`<br><small class="hint">${esc(K[x])}</small>`:''}</div>`).join('')}</div>`,15);};}
 function popFinish(){G.scr='popres';render();}
 function popRes(){const P=G.pop;if(!P){G.scr='pophome';return popHome();}const n=P.qs.length,acc=P.ok/n,st=acc>=.9?3:acc>=.7?2:acc>=.4?1:0;
- const A=popLoad(),i=A.findIndex(x=>x.id===P.s.id);if(i>=0&&P.score>(A[i].best||0)){A[i].best=P.score;popSave(A);}
+ const A=popLoad(),i=A.findIndex(x=>x.id===P.s.id);if(i>=0&&P.score>(A[i].best||0)){A[i].best=P.score;popSave(A);}if(P.s.pub&&P.score>(P.s.best||0)){P.s.best=P.score;try{const m=popBestMap();m[P.s.id]=P.score;localStorage.setItem('sg_pop_best',JSON.stringify(m));}catch(e){}}
  const K=P.s.k||[];
  $('app').innerHTML=hud('')+`<div class="card pop"><h2>🏁 ${esc(P.s.t)}</h2>
  <div style="text-align:center;font-size:44px;margin:6px 0">${'⭐'.repeat(st)}${'☆'.repeat(3-st)}</div>

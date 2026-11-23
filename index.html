@@ -6430,10 +6430,22 @@ function popRowsToSongs(rows){if(rows.length&&/아티스트/.test(rows[0][1]||''
   if(t){cur={t,a:r[1]||'',y:popYtId(r[2]||''),l:[],k:[],tm:[]};out.push(cur);}
   if(!cur||!d||/^\[.*\]$/.test(d))return;cur.l.push(d);cur.k.push(r[4]||'');cur.tm.push(r[5]!==undefined&&r[5]!==''?parseFloat(r[5]):NaN);});
  return out.filter(o=>!/^\(예시\)/.test(o.t)).map(o=>{if(!o.k.every(x=>x))o.k=[];if(!o.tm.every(x=>isFinite(x)))o.tm=[];return o;});}
-function popPubSet(a){G.popPub=a.map((o,i)=>{const c=popClean(o);if(c){c.id='pub'+i;c.pub=1;c.best=popBestMap()[c.id]||0;}return c;}).filter(Boolean);if(G.scr==='pophome')render();}
+function popPubSet(a){const L=a.map((o,i)=>{const c=popClean(o);if(c){c.id='pub'+i;c.pub=1;c.best=popBestMap()[c.id]||0;}return c;}).filter(Boolean);window.POPPUB=L;G.popPub=L;if(G.scr==='pophome')render();}
+(function(){const _fr=fresh;fresh=function(){const g=_fr.apply(this,arguments);if(window.POPPUB)g.popPub=window.POPPUB;g.popLock=!!window.POPLOCK;return g;};})();
+/* ---- 곡 파일 암호화 (AES-GCM + PBKDF2) : songs.enc ---- */
+async function popKeyOf(pw,salt){const km=await crypto.subtle.importKey('raw',new TextEncoder().encode(pw),'PBKDF2',false,['deriveKey']);return crypto.subtle.deriveKey({name:'PBKDF2',salt,iterations:250000,hash:'SHA-256'},km,{name:'AES-GCM',length:256},false,['encrypt','decrypt']);}
+async function popEncBytes(bytes,pw){const salt=crypto.getRandomValues(new Uint8Array(16)),iv=crypto.getRandomValues(new Uint8Array(12)),k=await popKeyOf(pw,salt),ct=new Uint8Array(await crypto.subtle.encrypt({name:'AES-GCM',iv},k,bytes)),o=new Uint8Array(32+ct.length);o.set([83,71,80,49]);o.set(salt,4);o.set(iv,20);o.set(ct,32);return o;}
+async function popDecBytes(buf,pw){const b=new Uint8Array(buf);if(b[0]!==83||b[1]!==71||b[2]!==80||b[3]!==49)throw new Error('fmt');const k=await popKeyOf(pw,b.slice(4,20));return new Uint8Array(await crypto.subtle.decrypt({name:'AES-GCM',iv:b.slice(20,32)},k,b.slice(32)));}
+async function popUnlock(pw){const d=await popDecBytes(window.POPENC,pw);const rows=popXlsxRows(await popZipRead(d.buffer.slice(d.byteOffset,d.byteOffset+d.byteLength)));popPubSet(popRowsToSongs(rows));window.POPLOCK=false;G.popLock=false;lss('sg_pop_pw',pw);}
 function popPubLoad(){
  const js=()=>fetch('songs.json?'+Date.now()).then(r=>r.ok?r.json():null).then(a=>{if(Array.isArray(a))popPubSet(a);}).catch(()=>{});
- try{fetch('songs.xlsx?'+Date.now()).then(r=>r.ok?r.arrayBuffer():null).then(async buf=>{if(!buf)return js();try{const rows=popXlsxRows(await popZipRead(buf));const so=popRowsToSongs(rows);popPubSet(so);}catch(e){js();}}).catch(js);}catch(e){}}
+ const xl=()=>{try{fetch('songs.xlsx?'+Date.now()).then(r=>r.ok?r.arrayBuffer():null).then(async buf=>{if(!buf)return js();try{const rows=popXlsxRows(await popZipRead(buf));popPubSet(popRowsToSongs(rows));}catch(e){js();}}).catch(js);}catch(e){}};
+ try{fetch('songs.enc?'+Date.now()).then(r=>r.ok?r.arrayBuffer():null).then(async buf=>{
+  if(!buf||buf.byteLength<48)return xl();
+  const u=new Uint8Array(buf);if(u[0]!==83||u[1]!==71||u[2]!==80||u[3]!==49)return xl();
+  window.POPENC=buf;window.POPLOCK=true;G.popLock=true;const pw=lsg('sg_pop_pw');
+  if(pw){try{await popUnlock(pw);return;}catch(e){lsd('sg_pop_pw');}}
+  if(G.scr==='pophome')render();}).catch(xl);}catch(e){xl();}}
 popPubLoad();
 /* 공유 링크 인코딩 */
 function popB64(bytes){let s='';for(let i=0;i<bytes.length;i+=8192)s+=String.fromCharCode.apply(null,bytes.subarray(i,i+8192));return btoa(s).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');}
@@ -6458,6 +6470,7 @@ function popHome(){const A=popLoad(),P=G.popPub||[],T=!!G.popT,inn=G.popIn,lk=G.
  const card=(s,pub)=>`<div class="popsong"><div><b>${esc(s.t)}</b><span class="hint" style="display:block">${esc(s.a||'')} · ${s.l.length}줄${s.k&&s.k.length?' · 해석 있음':''}${s.best?' · 최고 '+s.best+'점':''}</span></div><div class="pbtns"><button class="btn-s" data-pp="${s.id}">▶ 시작</button>${T&&s.y?`<button class="btn-s" data-py="${s.id}">⏱</button>`:''}${pub?'':`<button class="btn-s" data-pe="${s.id}">✏️</button><button class="btn-s" data-ps="${s.id}">🔗</button><button class="btn-s" data-pd="${s.id}">🗑️</button>`}</div></div>`;
  $('app').innerHTML=hud('<button class="btn-s" id="popback">← 돌아가기</button>')+`<div class="card pop"><h2>🎵 팝송 가사 퀘스트</h2>
  <div class="story">노래를 들으면서 가사의 <b>빈칸</b>을 채우고, <b>해석</b>을 맞히고, <b>줄 순서</b>를 맞혀 보세요! 곡을 골라 시작하세요.</div>
+ ${G.popLock||window.POPLOCK?`<div class="popweek"><div>🔒 <b>팝송 곡 목록은 암호가 필요해요</b></div><div class="hint" style="margin:4px 0 8px">선생님께 받은 암호를 입력하면 곡이 열려요. (한 번 입력하면 이 기기에서는 기억해요)</div><input class="input" id="poppw" type="password" placeholder="암호" autocomplete="off"><button class="next" id="popunlock" style="margin-top:8px">🔓 열기</button><div class="hint" id="poppwm" style="margin-top:6px"></div></div>`:''}
  ${W?`<div class="popweek"><div>📅 <b>이번 주 팝송 던전</b></div><div class="popline" style="font-size:19px;margin:4px 0">${esc(W.t)} <span class="hint">${esc(W.a||'')}</span></div><div class="hint">모든 활동을 하고 정답률 ${Math.round(POP_WK.need*100)}% 이상이면 클리어! 보상 💎 ${POP_WK.cry} · ⚒️ ${POP_WK.stone} (주 1회)</div>${popWeekDone()?'<div class="feedback ok" style="margin-top:8px">✅ 이번 주 클리어 완료!</div>':'<button class="next" id="popwk">⚔️ 도전하기</button>'}</div>`:''}
  ${P.length>10?`<input class="input" id="popq" placeholder="🔍 곡 제목·가수 검색 (${P.length}곡)" value="${esc(G.popQ||'')}" style="margin:8px 0">`:''}
  <div class="poplist" id="poppub">${P.length?popFilt(P).map(s=>card(s,true)).join(''):'<div class="hint" style="padding:14px 0">아직 준비된 곡이 없어요. 선생님이 곡을 준비하면 여기에 나타나요.</div>'}</div>
@@ -6467,11 +6480,16 @@ function popHome(){const A=popLoad(),P=G.popPub||[],T=!!G.popT,inn=G.popIn,lk=G.
  ${lk?`<div class="feedback ok"><b>🔗 확인용 링크</b><textarea class="input" id="poplk" rows="3" readonly>${esc(lk.url)}</textarea><button class="btn-s" id="popcp">📋 복사</button> <span class="hint" id="popcpm"></span></div>`:''}
  <div class="poplist">${A.map(s=>card(s,false)).join('')}</div>
  <button class="next" id="popnew">＋ 새 곡 만들기 (가사 붙여넣기)</button>
+ <h3 style="margin:16px 0 4px">🔐 곡 파일 잠그기</h3><div class="hint">엑셀(songs.xlsx)을 암호로 잠가 <b>songs.enc</b>를 만들어요. 이 파일을 게임 저장소에 올리고 songs.xlsx는 지우면, 암호를 아는 학생만 곡을 볼 수 있어요. 파일은 이 기기 밖으로 나가지 않아요.</div><input type="file" id="popxf" accept=".xlsx" style="margin:6px 0"><input class="input" id="popxp" type="password" placeholder="학생에게 알려 줄 암호 (8자 이상)" autocomplete="off"><button class="btn-s" id="popxgo" style="margin-top:6px">🔐 songs.enc 만들기</button><div class="hint" id="popxm"></div>
  <button class="btn-s" id="popexp" style="margin-top:8px" ${A.length?'':'disabled'}>📤 학생 공개용 파일(songs.json) 만들기</button>
  <div id="popexbox"></div>`:`<button class="btn-s" id="poptch" style="margin-top:14px">🔒 선생님</button>`}</div>`;
  $('popback').onclick=()=>{G.popLink=null;G.scr='dsel';render();};
+ const ub=$('popunlock');if(ub)ub.onclick=async()=>{const pw=($('poppw').value||'').trim(),m=$('poppwm');if(!pw){m.textContent='암호를 입력하세요.';return;}m.textContent='⏳ 여는 중…';try{await popUnlock(pw);sfx('coins');render();}catch(e){m.textContent='❌ 암호가 달라요. 다시 확인하세요.';sfx('wrong');}};
  const wk=$('popwk');if(wk)wk.onclick=()=>{G.popId=W.id;G.popWk=true;G.popLink=null;sfx('select');G.scr='popsong';render();};
  const th=$('poptch');if(th)th.onclick=()=>{const v=prompt('선생님 암호를 입력하세요');if(v===POP_TPW){G.popT=true;sfx('coins');render();}else if(v!==null)alert('암호가 달라요.');};
+ const xg=$('popxgo');if(xg)xg.onclick=async()=>{const f=$('popxf').files[0],pw=($('popxp').value||''),m=$('popxm');if(!f){m.textContent='엑셀 파일을 고르세요.';return;}if(pw.length<8){m.textContent='암호는 8자 이상으로 정하세요.';return;}
+  try{m.textContent='⏳ 잠그는 중…';const buf=await f.arrayBuffer();const so=popRowsToSongs(popXlsxRows(await popZipRead(buf)));if(!so.length){m.textContent='❌ 곡을 읽지 못했어요. 양식을 확인하세요.';return;}
+   const out=await popEncBytes(new Uint8Array(buf),pw);const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([out],{type:'application/octet-stream'}));a.download='songs.enc';document.body.appendChild(a);a.click();a.remove();m.textContent='✅ '+so.length+'곡을 잠갔어요. 내려받은 songs.enc를 저장소에 올려 주세요.';}catch(e){m.textContent='❌ 잠그지 못했어요: '+e;}};
  const nw=$('popnew');if(nw)nw.onclick=()=>{G.popEd=null;G.scr='popedit';render();};
  const cp=$('popcp');if(cp)cp.onclick=()=>{const t=$('poplk');t.select();let ok=false;try{ok=document.execCommand('copy');}catch(e){}try{navigator.clipboard.writeText(lk.url);ok=true;}catch(e){}$('popcpm').textContent=ok?'복사했어요!':'길게 눌러 복사해 주세요.';};
  const ex=$('popexp');if(ex)ex.onclick=()=>{const arr=popLoad().map(x=>({t:x.t,a:x.a,y:x.y,l:x.l,k:x.k&&x.k.length?x.k:[],tm:x.tm&&x.tm.length?x.tm:[]})),js=JSON.stringify(arr,null,1);

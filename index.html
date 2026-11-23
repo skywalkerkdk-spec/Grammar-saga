@@ -1053,10 +1053,11 @@ canvas.px[data-src="SPR"][data-k="shaman"],canvas.px[data-src="SPR"][data-k^="cs
 @keyframes mpidle{0%,100%{transform:translate(-50%,-100%) scaleY(1)}50%{transform:translate(-50%,-100%) scaleY(1.035)}}
 @keyframes mpwalk{0%,100%{transform:translate(-50%,-100%) scaleX(var(--face)) rotate(-3deg)}50%{transform:translate(-50%,-106%) scaleX(var(--face)) rotate(3deg)}}
 .hpick{margin:8px 0;padding:10px;border:2px solid #6b4a26;border-radius:12px;background:rgba(60,40,18,.35)}
-.hph{margin-bottom:6px}.hpr{display:flex;gap:8px}
-.hpb{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 4px;border-radius:10px;border:2px solid rgba(255,255,255,.18);background:rgba(0,0,0,.25);color:inherit;font-family:inherit;cursor:pointer}
+.hph{margin-bottom:6px}.hpg{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.hpb{display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 4px;border-radius:10px;border:2px solid rgba(255,255,255,.18);background:rgba(0,0,0,.25);color:inherit;font-family:inherit;cursor:pointer}
 .hpb img{height:74px;width:auto;max-width:100%;object-fit:contain}.hpb b{font-size:13px}.hpb small{font-size:11px;opacity:.75}
 .hpb.on{border-color:#ffd36b;background:rgba(255,211,107,.18)}
+.hpb small{line-height:1.25;text-align:center}
 
 </style>
 </head>
@@ -1890,7 +1891,7 @@ function qbody(e){
  if(G.done){if(G.rpg)return h+rpgAfterAtk(e);if(pvOn())return h+pvAfter(e);if(rdOn())return h;
   const ok=G.pick==='ok';
   const head=ok?(e.type==='judge'&&e.answer==='retreat'?'🏃 현명한 후퇴! 이 몬스터는 다른 파티의 몫.':(HP1(e)>0?'⚔️ 명중! '+(e.mname||'보스')+'의 체력이 '+HP1(e)+'%로!':'⚔️ 명중! '+(G.dg.full?'적':'몬스터')+' 격파!')):'💥 공격 실패! '+(G.dg.full?'적이':'몬스터가')+' 버텼다.';
-  const heal=ok&&G.healed?' <span class="healpop">🔥3연속 정답! +❤️</span>':(ok&&G.hp<3?` <span class="hint">🔥 ${G.streak}/3</span>`:'');const hurt=!ok&&!G.rvm?` <span class="hurtpop">-❤️ (남은 하트 ${Math.max(0,G.hp)})</span>`:'';
+  const heal=ok&&G.healed?` <span class="healpop">🔥${lhNeed()}연속 정답! +❤️</span>`:(ok&&G.hp<3?` <span class="hint">🔥 ${G.streak}/${lhNeed()}</span>`:'');const hurt=!ok&&G.guarded?` <span class="healpop">🛡️ ${HWORD[lhero()]}의 힘으로 하트를 지켰어요!</span>`:!ok&&!G.rvm?` <span class="hurtpop">-❤️ (남은 하트 ${Math.max(0,G.hp)})</span>`:'';
   const gold=ok&&G.gotGold?` <span class="goldpop">+💎${G.gotGold}</span>`:'';
   h+=`<div class="feedback ${ok?'ok':'no'}"><div style="font-weight:900;font-size:19px">${head}${gold}${heal}${hurt}</div>${(()=>{let q='';if(ok&&e.type==='judge'&&e.answer==='retreat')q=e.retreatT;else if(ok&&HP1(e)===0)q=e.kill;else if(!ok)q=e.taunt;return q?`<div class="talk">💬 <b>${esc(e.mname)}</b>: "${esc(q)}"</div>`:'';})()}${ok?glossHTML(e)+'<div class="exp">'+explainHTML(e)+'</div>':(G.rvm?'<div class="rvans">✅ 정답: <b>'+esc(rightAns(e))+'</b></div>'+glossHTML(e)+'<div class="exp">'+explainHTML(e)+'</div>'+(typeof detailHTML==='function'?detailHTML(e):'')+'<div class="hint">👀 해설을 읽고 다시 도전해 보세요!</div>':wrongNote(e)+'<span class="hint">💡 '+(e.hint||HINT[e.type]||'')+'</span>')}</div>`;
   h+= ok?`<button class="next" id="nx">${G.ei<G.run.length-1?(HP1(e)>0?'⚔️ 계속 공격 ▶':(G.dg.full?'다음 적 ▶':'다음 몬스터 ▶')):'🏆 결과 보기'}</button>`:(G.hp<=0?`<button class="next grave-btn" id="tograve">🪦 파티가 쓰러졌다… 묘지로</button>`:`<button class="next" id="rt">🔁 다시 도전</button>`);
@@ -1939,7 +1940,7 @@ function resolve(e,ok,mine){if(G.rvm){rvResolve(e,ok);return;}if(rdOn()){rdResol
  G.gotGold=0;
  if(G.first){const wt=e.wt||1;G.tot++;G.totw=(G.totw||0)+wt;if(ok){G.ok++;G.okw=(G.okw||0)+wt;G.cmb=(G.cmb||0)+1;if(G.cmb>(G.maxCmb||0))G.maxCmb=G.cmb;G.gotGold=Math.max(1,bonusC(Math.round(LEVELS[LV()].g*(e.boss?2:1))));SV.cry+=G.gotGold;G.goldRun+=G.gotGold;saveNow();}else{G.cmb=0;G.wrongs.push({e,mine:mine||'',q:e.sentence||e.c.map(c=>c[0]).join(' ')+'.',t:qlabel(e.type)});wkAdd(e);}G.first=false;}
  G.done=true;G.pick=ok?'ok':'no';G.healed=false;
- if(!ok){G.hp--;G.streak=0;}else if(G.hp<3){G.streak=(G.streak||0)+1;if(G.streak>=3){G.hp++;G.healed=true;G.streak=0;}}else G.streak=0;
+ G.guarded=0;if(!ok){if(lhGuard())G.guarded=1;else G.hp--;G.streak=0;}else if(G.hp<3){G.streak=(G.streak||0)+1;if(G.streak>=lhNeed()){G.hp++;G.healed=true;G.streak=0;}}else G.streak=0;
  const pty=$('pty'),mon=$('mon'),ar=$('arena');
  if(ok&&!(e.type==='judge'&&e.answer==='retreat')){
   sfx('slash');atkFx(pty,mon,ar,{crit:!!e.boss});setTimeout(()=>{sfx(e.boss?'crit':'hit');mon.classList.add('hit');const d=document.createElement('div');d.className='dmg';d.textContent=G.dg.flav==='shop'?'DEAL!':e.boss?'CRITICAL!':'HIT!';ar.appendChild(d);
@@ -2298,7 +2299,7 @@ const sfx_=()=>SKINFX[SV&&(SV.mode==='rpg'&&typeof rpgOpen==='function'&&rpgOpen
 const SIMPLE_DG=['d1','d2','d3','d4','d5'],REP_LIM=10;
 function repMul(){const d=G.dg;if(!d||!SIMPLE_DG.includes(d.id))return 1;return ((SV.clc||{})[d.id]||0)>=REP_LIM?0.5:1;}
 function bonusG(n){return Math.round(n*(1+(sfx_().g||0)/100)*repMul());}
-function bonusC(n){return Math.round(n*(1+(sfx_().c||0)/100)*repMul());}
+function bonusC(n){return Math.round(n*(1+(sfx_().c||0)/100)*repMul()*(typeof lhMul==='function'?lhMul():1));}
 function fxText(k){const f=SKINFX[k]||{};return f.g?`💰 골드 +${f.g}%`:f.c?`💎 수정 +${f.c}%`:'효과 없음';}
 function applySkin(){const k=(typeof SV!=='undefined'&&SV&&SKINS[SV.skin])?SV.skin:'base';SPR.tank=SPR['skin_'+k];}
 const GEAR={};
@@ -6697,12 +6698,20 @@ function mpInject(pts,W,H,hero){const wi=document.getElementById('wmi');if(!wi||
  const _rb=rpgMapBind;rpgMapBind=function(){const r=_rb.apply(this,arguments);try{const W=worldOpen();mpInject(W?mpPts(WM.filter(n=>RT[n[0]]!=null),false,1536,1024):mpPts(KM,true,1536,1024),1536,1024,rhero());}catch(e){}return r;};
 })();
 
-const mpLearnHero=()=>SV.hero==='knight'?'paladin':SV.hero==='druid'?'shaman':'tank';
-function heroPickHTML(){if(!templeUnlocked()||(SV.mode==='rpg'&&rpgOpen()))return '';
- const o=[['','tank','🛡️ 전사','명사 주어'],['knight','paladin','🛡️ 방패 성기사','to부정사'],['druid','shaman','🐻 곰 드루이드','동명사']];
- return `<div class="hpick"><div class="hph">🦸 <b>내 주인공</b> <span class="hint">던전마다 바꿔서 도전할 수 있어요 · 지금: ${HERO[SV.hero||null]}</span></div><div class="hpr">${o.map(x=>`<button class="hpb ${(SV.hero||'')===x[0]?'on':''}" data-hpk="${x[0]}"><img src="mp_${x[1]}.webp?v=1" alt=""><b>${x[2]}</b><small>${x[3]}</small></button>`).join('')}</div></div>`;}
+const lhero=()=>HCLS.includes(SV.lhero)?SV.lhero:'tank';
+const mpLearnHero=()=>lhero();
+const LHPERK={tank:'🛡️ 던전마다 첫 오답은 하트를 지켜요',healer:'💚 2연속 정답마다 하트 회복 (원래 3연속)',paladin:'✨ 하트가 1개일 때 첫 오답을 버텨요 (던전당 1회)',dealer:'💎 클리어·정답 수정 +15%',shaman:'🔮 오답일 때 30% 확률로 하트를 지켜요',trader:'💰 클리어·정답 수정 +25%'};
+const lhOn=()=>typeof templeUnlocked==='function'&&templeUnlocked()&&!(SV.mode==='rpg'&&rpgOpen())&&!G.rpg;
+function lhGuard(){if(!lhOn())return false;const c=lhero(),run=G.run||{};
+ if(c==='tank'&&!run._sh){run._sh=1;return true;}
+ if(c==='paladin'&&G.hp===1&&!run._sp){run._sp=1;return true;}
+ if(c==='shaman'&&Math.random()<.3)return true;return false;}
+const lhNeed=()=>lhOn()&&lhero()==='healer'?2:3;
+const lhMul=()=>lhOn()?({dealer:1.15,trader:1.25}[lhero()]||1):1;
+function heroPickHTML(){if(!templeUnlocked()||(SV.mode==='rpg'&&rpgOpen()))return '';const h=lhero();
+ return `<div class="hpick"><div class="hph">🦸 <b>내 주인공</b> <span class="hint">전직의 신전을 지났어요! 던전마다 캐릭터를 바꿔서 도전할 수 있어요 · 지금: ${HWORD[h]}</span></div><div class="hpg">${HCLS.map(c=>`<button class="hpb ${c===h?'on':''}" data-hpk="${c}"><img src="mp_${c}.webp?v=1" alt=""><b>${HWORD[c]}</b><small>${LHPERK[c]}</small></button>`).join('')}</div></div>`;}
 (function(){const _me=mapExtras;mapExtras=function(){return heroPickHTML()+_me.apply(this,arguments);};
- const _mb=mapBindExtras;mapBindExtras=function(){const r=_mb.apply(this,arguments);document.querySelectorAll('[data-hpk]').forEach(b=>b.onclick=()=>{SV.hero=b.dataset.hpk||null;saveNow();sfx(SV.hero?'spell':'click');render();});return r;};})();
+ const _mb=mapBindExtras;mapBindExtras=function(){const r=_mb.apply(this,arguments);document.querySelectorAll('[data-hpk]').forEach(b=>b.onclick=()=>{SV.lhero=b.dataset.hpk;saveNow();sfx('spell');render();});return r;};})();
 
 render();tryAuto();setTimeout(tryAuto,300);
 setInterval(()=>{document.body.classList.toggle('muted-wait',!(AU.ctx&&AU.ctx.state==='running')&&G.scr==='splash');},500);

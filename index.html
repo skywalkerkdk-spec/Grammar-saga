@@ -1636,7 +1636,7 @@ function title(){
   <div class="xrow"><button class="btn-s" id="xcp">📋 복사</button><button class="btn-s" id="xin">📥 가져오기</button></div><div class="hint" id="xmsg"></div></details>
  </div>${CREDIT}</div>`;
  const lm=t=>{$('lmsg').innerHTML=t;};let _sure='';
- const begin=(n,dev)=>{G=fresh(n);G.started=true;G.dev=dev;SV=loadSave(G.name);if(dev){sfx('fanfare');if(!SV.level)SV.level='expert';G.introDone=true;G.opNext='dsel';}else G.opNext='level';G.opFirst=!SV.openSeen;G.scr=G.opFirst?'opening':G.opNext;render();};
+ const begin=(n,dev)=>{G=fresh(n);G.started=true;G.dev=dev;SV=loadSave(G.name);if(dev){sfx('fanfare');if(!SV.level)SV.level='expert';G.introDone=true;G.opNext='dsel';}else G.opNext='level';G.opFirst=!dev&&!SV.openSeen;G.scr=G.opFirst?'opening':G.opNext;render();};
  const go=async()=>{let n=($('nmi').value||'').trim(),p=($('pwi').value||'');const DEVID={zx:'Mr.KANG',qw:'Mr.KANG-Qw',as:'Mr.KANG-As'};const dev=Object.prototype.hasOwnProperty.call(DEVID,n.toLowerCase());
   if(dev){begin(DEVID[n.toLowerCase()],true);return;}
   if(!n){lm('이름을 입력하세요.');return;}

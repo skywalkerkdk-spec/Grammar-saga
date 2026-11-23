@@ -1061,6 +1061,31 @@ canvas.px[data-src="SPR"][data-k="shaman"],canvas.px[data-src="SPR"][data-k^="cs
 @keyframes mpidle{0%,100%{transform:scaleY(1)}50%{transform:scaleY(1.035)}}
 @keyframes mpwalk{0%,100%{transform:scaleX(var(--face)) rotate(-3deg)}50%{transform:translateY(-6%) scaleX(var(--face)) rotate(3deg)}}
 
+/* ===== 🛒 상점·강화: 문제 보너스 · 구매/강화 결과 팝업 ===== */
+.sqo{position:fixed;inset:0;background:rgba(0,0,0,.72);z-index:9000;display:flex;align-items:center;justify-content:center;padding:14px;animation:sqfade .18s ease}
+@keyframes sqfade{from{opacity:0}to{opacity:1}}
+.sqb{background:var(--panel);border:2px solid var(--gold);border-radius:18px;padding:20px 18px;width:100%;max-width:440px;max-height:92vh;overflow:auto;text-align:center;box-shadow:0 10px 40px rgba(0,0,0,.6)}
+.sqb.ok{border-color:var(--green)}.sqb.no{border-color:var(--red)}
+.sqi{font-size:54px;line-height:1.1}
+.sqt{font-size:21px;font-weight:900;margin:6px 0}
+.sqm{font-size:16px;color:var(--muted);margin:6px 0 10px;line-height:1.55}
+.sqm b{color:var(--gold)}
+.sqen{font-size:25px;font-weight:900;line-height:1.4;margin:10px 0 4px;color:var(--ink)}
+.sqko{font-size:15px;color:var(--muted);margin-bottom:8px}
+.sqb .next{display:block;width:100%}
+.sqb .btn-s{margin:8px 4px 0}
+.sqq{font-size:19px;font-weight:800;line-height:1.5;margin:8px 0 12px;white-space:pre-line}
+.sqopts{display:grid;gap:8px}
+.sqopt{background:var(--panel2);color:var(--ink);border:2px solid var(--line);border-radius:12px;padding:12px;font-size:17px;font-weight:700}
+.sqopt.good{border-color:var(--green);background:#23412b}.sqopt.bad{border-color:var(--red);background:#4a2420}
+.sqin{width:100%;box-sizing:border-box;padding:11px;border-radius:10px;border:2px solid var(--line);background:var(--bg2);color:var(--ink);font-size:18px;text-align:center}
+.sqres{margin-top:12px;border-radius:12px;padding:10px 12px;font-weight:800;font-size:17px}
+.sqres.ok{background:#23412b;color:#bff0c8}.sqres.no{background:#4a2420;color:#ffc9c0}
+.sqres small{display:block;font-weight:600;font-size:13px;margin-top:4px;opacity:.9}
+.qbn{color:var(--green);font-size:.92em}
+@keyframes sqpop{0%{transform:scale(.6);opacity:0}70%{transform:scale(1.08)}100%{transform:scale(1);opacity:1}}
+.sqb.pop{animation:sqpop .35s ease}
+
 </style>
 </head>
 <body>
@@ -5297,7 +5322,8 @@ function deepGo(){const d=window.__deep;if(!d)return;window.__deep=null;
 
 /* ---------- ⚒️ 강화석 · 무기 강화 ---------- */
 const ENH_MAX=10,ENH_MAIN=['d1','d2','d3','d4','d5','d6'];
-const enhRate=t=>t<=3?0.5:t<=6?0.3:0.1; /* t = 올리려는 목표 단계 */
+const ENH_BONUS=0.1; /* 문제를 맞히면 +10%p */
+const enhRate=(t,bo)=>Math.min(1,Math.max(0.05,(t<=3?0.5:t<=6?0.3:0.1)-ENH_BONUS)+(bo?ENH_BONUS:0)); /* t = 올리려는 목표 단계 · 기본 확률은 문제 보너스(+10%p)만큼 낮춤 */
 function stoneInit(o){if(!o)return 0;o.stone=o.stone||0;o.enh=o.enh||{};o.sgot=o.sgot||[];o.lvc=o.lvc||{};let n=0;
  if(!o.sgInit){o.sgInit=1;new Set([...(o.cleared||[]),...(o.rcleared||[])]).forEach(id=>{const k='dg:'+id;if(!o.sgot.includes(k)){o.sgot.push(k);o.stone++;n++;}});}
  return n;}
@@ -5319,7 +5345,7 @@ function enhHTML(){const k=SV.gear.sword,w=GEAR[k],L=(SV.enh||{})[k]||0,st=SV.st
  else if(R)res=R.ok?`<div class="eres ok">✨ 강화 성공! <b>+${R.from} → +${R.to}</b><small>무기가 더 날카로워졌다!</small></div>`:`<div class="eres no">💥 강화 실패…${R.note==='down'?` <b>+${R.from} → +${R.to}</b><small>단계가 내려갔어요 (+5 이상은 실패 시 −1)</small>`:'<small>강화석만 사라졌어요. 단계는 그대로예요.</small>'}</div>`;
  return `<div class="enhbox"><div class="eh">⚒️ 무기 강화 <span class="est">보유 강화석 ⚒️ <b>${st}</b></span></div>
  <div class="ew">${gearc(k,'big')}<div class="ewi"><b>${w.nm} <span class="plus">+${L}</span></b>
- <div class="hint">${maxed?'최대 강화예요!':`⚔️ 공격력 <b>${a0}</b> → <b>${a1}</b> · 성공 확률 <b>${Math.round(enhRate(L+1)*100)}%</b> · 필요 ⚒️ 1개`}</div>
+ <div class="hint">${maxed?'최대 강화예요!':`⚔️ 공격력 <b>${a0}</b> → <b>${a1}</b> · 성공 확률 <b>${Math.round(enhRate(L+1)*100)}%</b> <span class="qbn">(📝 문제 정답 시 <b>${Math.round(enhRate(L+1,1)*100)}%</b>)</span> · 필요 ⚒️ 1개`}</div>
  <div class="hint">${L>=5&&!maxed?'⚠️ +5 이상에서 실패하면 단계가 1 내려가요!':'+5 이상에서 실패하면 단계가 1 내려가요. (+4 이하는 안전)'}</div></div></div>
  <div class="eladder">${ladder}</div>${res}
  <button class="next" id="enh" ${G.enhBusy||st<1||maxed?'disabled':''}>${maxed?'🏁 최대 강화':st<1?'⚒️ 강화석이 없어요':`⚒️ 강화 시도 (+${L} → +${L+1})`}</button>
@@ -5328,9 +5354,10 @@ ${G.dev?'<button class="btn-s" id="enhdev">🛠️ 강화석 +5 (개발자)</but
  <p class="hint">강화석은 던전을 모드(학습/RPG)·난이도별로 처음 클리어할 때(1개씩), 반복 클리어 시 15% 확률로, 난이도별로 1~6번 던전을 모두 클리어할 때, 레이드 보스를 일정 이상 몰아붙일 때 얻어요. 강화는 무기마다 따로 쌓여요.</p></div>`;}
 function enhTry(){const k=SV.gear.sword;SV.enh=SV.enh||{};const L=SV.enh[k]||0;if(G.enhBusy||(SV.stone||0)<1||L>=ENH_MAX)return;
  G.enhBusy=true;G.enhRes=null;sfx('click');render();[0,380,760].forEach(t=>setTimeout(()=>sfx('hit'),t));
- setTimeout(()=>{if(!G.enhBusy)return;SV.stone=Math.max(0,(SV.stone||0)-1);const ok=Math.random()<enhRate(L+1);let nl=L,note='';
+ const bo=!!G.enhQ;G.enhQ=false;
+ setTimeout(()=>{if(!G.enhBusy)return;SV.stone=Math.max(0,(SV.stone||0)-1);const ok=Math.random()<enhRate(L+1,bo);let nl=L,note='';
   if(ok)nl=L+1;else if(L>=5){nl=L-1;note='down';}
-  SV.enh[k]=nl;saveNow();G.enhBusy=false;G.enhRes={ok,from:L,to:nl,note};sfx(ok?'fanfare':'wrong');if(G.scr==='forge')render();},1150);}
+  SV.enh[k]=nl;saveNow();G.enhBusy=false;G.enhRes={ok,from:L,to:nl,note,bo};sfx(ok?'fanfare':'wrong');if(G.scr==='forge')render();if(window.sqEnhPop)window.sqEnhPop(G.enhRes,k);},1150);}
 
 /* ---------- 화면 꺼짐 방지 (레이드·아레나 중) ---------- */
 (function(){let wl=null;const want=()=>['rdbattle','rdlobby','pvbattle'].includes(G.scr);
@@ -6753,6 +6780,110 @@ const _mpb={};
 function mpBox(k){if(_mpb[k])return _mpb[k];const d=SPR[k],n=d.r.length,cv=document.createElement('canvas');cv.width=cv.height=n;paint(cv,d);const a=cv.getContext('2d').getImageData(0,0,n,n).data;let x0=n,x1=0,y0=n,y1=0;
  for(let y=0;y<n;y++)for(let x=0;x<n;x++)if(a[(y*n+x)*4+3]>10){if(x<x0)x0=x;if(x>x1)x1=x;if(y<y0)y0=y;if(y>y1)y1=y;}
  return _mpb[k]={n,x0,x1,y0,y1};}
+
+/* ===== 🛒 상점·대장간: 문제를 풀면 할인(-10%)/강화 확률(+10%p) · 구매·강화 결과를 영어 문장으로 읽기 ===== */
+(function(){
+ const $q=id=>document.getElementById(id);
+ /* ---- 1) 기본 가격 ≈ +10% (문제를 맞히면 10% 할인 → 예전 가격과 비슷해지도록, 티 안 나게 5/10 단위로 반올림) ---- */
+ const bp=p=>{const x=p/0.9,s=x>=500?10:5;return Math.round(x/s)*s;};
+ const dp=p=>Math.max(1,Math.round(p*0.9/5)*5);
+ if(!window.__SQBP){window.__SQBP=1;[PETS,ACC,SKINS,POT,GEAR].forEach(M=>Object.values(M).forEach(o=>{if(o&&o.price>0&&!o.egg)o.price=bp(o.price);}));}
+ /* ---- 2) 영어 이름 ---- */
+ const art=n=>(/^[aeiou]/i.test(n)?'an ':'a ')+n,cap=s=>s.charAt(0).toUpperCase()+s.slice(1);
+ const GEN={sword:['Wooden Sword','Rusty Sword','Iron Sword','Steel Sword',"Knight's Sword",'Silver Sword','Flame Sword','Frost Sword','Dragon Slayer','Legendary Holy Sword'],
+  armor:['Cloth Clothes','Leather Armor','Chainmail','Iron Armor','Steel Plate Armor',"Knight's Armor",'Silver Armor','Mithril Armor','Dragon Scale Armor','Legendary Holy Armor'],
+  shield:['Wooden Shield','Leather Shield','Iron Shield','Steel Shield',"Knight's Shield",'Silver Shield','Mirror Shield','Mithril Shield','Dragon Scale Shield','Legendary Holy Shield']};
+ const gearEn=k=>{const g=GEAR[k];return g&&GEN[g.type]&&GEN[g.type][g.t]||'weapon';};
+ const CLEN={tank:'Warrior',healer:'Priest',paladin:'Paladin',dealer:'Archer',shaman:'Shaman',trader:'Merchant'};
+ const SKPEN={black:'Black',forest:'Forest',crimson:'Crimson',frost:'Frost',sakura:'Cherry Blossom',royal:'Royal',shadow:'Shadow',gold:'Golden',legend:'Legendary'};
+ const SKEN={black:'Black Knight',forest:'Forest Knight',crimson:'Crimson Knight',frost:'Frost Knight',sakura:'Cherry Blossom Knight',royal:'Royal Guard',shadow:'Shadow Knight',gold:'Golden Knight',legend:'Legendary Hero'};
+ const POTEN={hs:'a small healing potion',hm:'a medium healing potion',hl:'a large healing potion',cure:'a cure-all potion',rev:'a revival potion'};
+ const skc=()=>G.skc||(SV.mode==='rpg'&&SV.rhero?rhero():'tank');
+ /* 클릭한 버튼 → 구매 항목 정보 */
+ function itemOf(b){const d=b.dataset;
+  if(d.pet!=null){const P=PETS[d.pet];return P&&{obj:P,en:P.en,ko:P.nm,cur:'cry',ic:'🐾',egg:!!P.egg,has:()=>SV.pets.includes(d.pet)};}
+  if(d.acc!=null){const A=ACC[d.acc];return A&&{obj:A,en:A.en,ko:A.nm,cur:'cry',ic:'🎀'};}
+  if(d.skb!=null){const S=SKINS[d.skb],c=skc();return S&&{obj:S,en:'the '+(c==='tank'?SKEN[d.skb]:(SKPEN[d.skb]||'')+' '+CLEN[c])+' skin',ko:(typeof skName==='function'?skName(c,d.skb):S.nm),cur:'cry',ic:'🦸'};}
+  if(d.potb!=null){const P=POT[d.potb];return P&&{obj:P,en:POTEN[d.potb]||'a potion',ko:P.nm,cur:'cry',ic:P.ic};}
+  if(d.gb!=null){const g=GEAR[d.gb];return g&&{obj:g,en:art(gearEn(d.gb)),ko:g.nm,cur:'rg',ic:g.type==='sword'?'⚔️':g.type==='armor'?'🛡️':'🔰'};}
+  return null;}
+ /* ---- 3) 팝업 ---- */
+ function close(){const o=$q('sqo');if(o)o.remove();}
+ function modal(html,cls){close();const o=document.createElement('div');o.id='sqo';o.className='sqo';o.innerHTML=`<div class="sqb ${cls||''}">${html}</div>`;document.body.appendChild(o);return o;}
+ function say(en){try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(en);u.lang='en-US';u.rate=.88;speechSynthesis.speak(u);}catch(e){}}
+ function getQ(){if(typeof TIPQ==='undefined'||!window.tipQuestion)return null;const ks=Object.keys(TIPQ);for(let i=0;i<60;i++){const q=window.tipQuestion(ks[Math.floor(Math.random()*ks.length)]);if(q&&q.q)return q;}return null;}
+ /* 문제 화면: done(true=정답 / false=오답) */
+ function quiz(done){const q=getQ();if(!q){done(false);return;}
+  const head=`<div class="sqi">📝</div><div class="sqt">보너스 문제!</div><div class="sqq">${esc(q.q)}</div>`;
+  const finish=(ok,ans)=>{sfx(ok?'fanfare':'wrong');
+   modal(`${head}<div class="sqres ${ok?'ok':'no'}">${ok?'⭕ 정답! 혜택이 적용돼요!':'❌ 아쉬워요! 정답: '+esc(ans)}${q.extra?`<small>${esc(q.extra)}</small>`:''}</div><button class="next" id="sqc">${ok?'🎁 혜택 받고 계속':'계속 (혜택 없이)'}</button>`,ok?'ok':'no');
+   $q('sqc').onclick=()=>{close();done(ok);};};
+  if(q.type==='mcq'){modal(`${head}<div class="sqopts">${q.opts.map((o,i)=>`<button class="sqopt" data-i="${i}">${esc(o)}</button>`).join('')}</div>`);
+   document.querySelectorAll('.sqopt').forEach(b=>b.onclick=()=>{const i=+b.dataset.i;finish(i===q.ans,q.opts[q.ans]);});}
+  else{modal(`${head}<input class="sqin" id="sqin" autocomplete="off" autocapitalize="off" placeholder="정답을 입력하세요">${q.hint?`<div class="sqm">💡 ${esc(q.hint)}</div>`:''}<button class="next" id="sqgo">확인</button>`);
+   const go=()=>{const v=$q('sqin').value;if(!v.trim())return;finish(window.tipCheck(q,v),q.show);};
+   $q('sqgo').onclick=go;$q('sqin').onkeydown=ev=>{if(ev.key==='Enter')go();};setTimeout(()=>{const i=$q('sqin');if(i)i.focus();},60);}}
+ /* 시작 화면: 문제 풀고 혜택 / 그냥 진행 / 취소 → cb(true|false|null) */
+ function ask(o,cb){sfx('select');
+  modal(`<div class="sqi">${o.ic}</div><div class="sqt">${o.title}</div><div class="sqm">${o.msg}</div>
+  <button class="next" id="sqy">📝 문제 풀고 혜택 받기</button><button class="btn-s" id="sqn">${o.plain}</button><button class="btn-s" id="sqx">취소</button>`);
+  $q('sqy').onclick=()=>{close();quiz(cb);};$q('sqn').onclick=()=>{close();cb(false);};$q('sqx').onclick=()=>{close();cb(null);};}
+ /* 결과 문장 팝업 */
+ function sentence(ic,en,ko,extra,cls){sfx(cls==='no'?'wrong':'fanfare');
+  modal(`<div class="sqi">${ic}</div><div class="sqen">${esc(en)}</div><div class="sqko">${esc(ko)}</div>${extra?`<div class="sqm">${extra}</div>`:''}
+  <button class="btn-s" id="sqsp">🔊 듣기</button><button class="next" id="sqok">✔ 읽었어요!</button>`,(cls||'ok')+' pop');
+  $q('sqsp').onclick=()=>say(en);$q('sqok').onclick=()=>{try{speechSynthesis.cancel();}catch(e){}close();};}
+ let lastB=-1,lastE=-1,lastF=-1;const rp=(n,l)=>{let i;do{i=Math.floor(Math.random()*n);}while(n>1&&i===l);return i;};
+ /* 구매 문장 */
+ const BUY=[(n,k)=>[`You bought ${n}!`,`「${k}」을(를) 샀어요!`],
+  (n,k)=>[`Congratulations! You have purchased ${n}.`,`축하해요! 「${k}」을(를) 구매했어요.`],
+  (n,k)=>[`${cap(n)} is yours now. Enjoy it!`,`이제 「${k}」은(는) 당신 거예요. 즐기세요!`],
+  (n,k)=>[`Nice choice! You just got ${n}.`,`좋은 선택! 방금 「${k}」을(를) 얻었어요.`],
+  (n,k)=>[`Deal! You have bought ${n}.`,`거래 성사! 「${k}」을(를) 샀어요.`],
+  (n,k)=>[`The shopkeeper sold you ${n}.`,`주인이 당신에게 「${k}」을(를) 팔았어요.`],
+  (n,k)=>[`What a great buy! You bought ${n}.`,`정말 잘 샀어요! 「${k}」을(를) 샀어요.`],
+  (n,k)=>[`Thank you for shopping! You now own ${n}.`,`이용해 주셔서 감사해요! 이제 「${k}」을(를) 가졌어요.`]];
+ function buyPop(it,spent,disc){const i=rp(BUY.length,lastB);lastB=i;const [en,ko]=BUY[i](it.en,it.ko);
+  sentence(it.ic,en,ko,(typeof spent==='string'?'🥚 '+spent:`${it.cur==='cry'?'💎':'💰'} −${spent}`)+`${disc?` <b>(📝 정답 보너스 −10% 할인!)</b>`:''}`,'ok');}
+ /* 강화 문장 */
+ const ENH=[(n,k,f,t)=>[`Your ${n} has been upgraded to +${t}!`,`「${k}」이(가) +${t}(으)로 강화되었어요!`],
+  (n,k,f,t)=>[`Success! The ${n} is now +${t}.`,`성공! 「${k}」은(는) 이제 +${t}예요.`],
+  (n,k,f,t)=>[`The hammer rang out, and your ${n} became +${t}!`,`망치 소리가 울려 퍼지고 「${k}」이(가) +${t}이(가) 되었어요!`],
+  (n,k,f,t)=>[`Well done! Your ${n} was enhanced to +${t}.`,`잘했어요! 「${k}」이(가) +${t}(으)로 강화되었어요.`],
+  (n,k,f,t)=>[`Your ${n} glows brightly. It is now +${t}!`,`「${k}」이(가) 환하게 빛나요. 이제 +${t}예요!`],
+  (n,k,f,t)=>[`Amazing! You enhanced the ${n} from +${f} to +${t}.`,`놀라워요! 「${k}」을(를) +${f}에서 +${t}(으)로 강화했어요.`]];
+ const FAIL=[()=>['Unfortunately, the enhancement failed.','유감스럽게도 강화에 실패했어요.'],
+  ()=>['What a pity! The upgrade did not work.','안타깝네요! 강화가 되지 않았어요.'],
+  ()=>["I'm sorry to say the enhancement failed.",'말씀드리기 죄송하지만 강화에 실패했어요.'],
+  (n)=>[`Oh no! Your ${n} could not take the heat. I'm afraid it failed.`,'이런! 무기가 열기를 견디지 못했어요. 유감이지만 실패예요.'],
+  ()=>['Regrettably, the upgrade was unsuccessful.','유감스럽게도 강화는 성공하지 못했어요.'],
+  ()=>['Too bad! Better luck next time.','아쉬워요! 다음엔 행운이 따르길 바라요.'],
+  ()=>["I'm afraid the hammer missed its mark. The enhancement failed.",'망치가 빗나간 것 같아요. 유감이지만 강화는 실패했어요.']];
+ window.sqEnhPop=function(R,k){if(!R)return;const n=gearEn(k),ko=(GEAR[k]||{}).nm||'무기';
+  if(R.ok){let i=rp(ENH.length,lastE);lastE=i;let [en,kk]=ENH[i](n,ko,R.from,R.to);
+   if(R.to>=ENH_MAX){en=`Incredible! Your ${n} has reached the maximum level, +${ENH_MAX}!`;kk=`대단해요! 「${ko}」이(가) 최대 단계 +${ENH_MAX}에 도달했어요!`;}
+   sentence('✨',en,kk,R.bo?'📝 정답 보너스 적용 (+10%p)':'','ok');}
+  else{let i=rp(FAIL.length,lastF);lastF=i;let [en,kk]=FAIL[i](n);
+   const en2=R.note==='down'?` Your ${n} dropped from +${R.from} to +${R.to}.`:` Your ${n} is still +${R.from}.`;
+   const ko2=R.note==='down'?` 「${ko}」이(가) +${R.from}에서 +${R.to}(으)로 내려갔어요.`:` 「${ko}」은(는) 그대로 +${R.from}예요.`;
+   sentence('💥',en+en2,kk+ko2,R.bo?'📝 정답 보너스를 받았지만 아쉽게 실패했어요':'','no');}};
+ /* ---- 4) 클릭 가로채기 (캡처 단계) ---- */
+ document.addEventListener('click',ev=>{const t=ev.target;if(!t||!t.closest)return;
+  const eb=t.closest('#enh');
+  if(eb){if(eb.disabled||eb._sqp)return;ev.stopImmediatePropagation();ev.preventDefault();
+   const k=SV.gear.sword,L=(SV.enh||{})[k]||0,r0=Math.round(enhRate(L+1)*100),r1=Math.round(enhRate(L+1,1)*100);
+   ask({ic:'⚒️',title:'강화 전에 문제 풀기!',msg:`문제를 맞히면 성공 확률이 <b>+10%p</b> 올라가요!<br>${r0}% → <b>${r1}%</b>`,plain:`그냥 강화 (${r0}%)`},ok=>{if(ok===null)return;G.enhQ=!!ok;enhTry();});return;}
+  const b=t.closest('button[data-pet],button[data-acc],button[data-skb],button[data-potb],button[data-gb]');
+  if(!b||b.disabled||b._sqp)return;const it=itemOf(b);if(!it)return;
+  if(it.egg||!(it.obj.price>0)){const had=SV[it.cur];setTimeout(()=>{if(it.has&&it.has())buyPop(it,'알 교환',false);},60);return;}
+  ev.stopImmediatePropagation();ev.preventDefault();
+  const o=it.obj,base=o.price,dis=dp(base);if(SV[it.cur]<base)return;const sym=it.cur==='cry'?'💎':'💰';
+  ask({ic:it.ic,title:`「${esc(it.ko)}」 구매`,msg:`문제를 맞히면 <b>10% 할인</b>!<br>${sym} ${base} → <b>${sym} ${dis}</b>`,plain:`그냥 구매 (${sym} ${base})`},ok=>{if(ok===null)return;
+   const before=SV[it.cur];o.price=ok?dis:base;b._sqp=1;try{if(b.onclick)b.onclick.call(b);}finally{o.price=base;}
+   const spent=before-SV[it.cur];if(G.scr==='shop'||G.scr==='forge')render();
+   if(spent>0)setTimeout(()=>buyPop(it,spent,!!ok),80);});
+ },true);
+})();
 
 render();tryAuto();setTimeout(tryAuto,300);
 setInterval(()=>{document.body.classList.toggle('muted-wait',!(AU.ctx&&AU.ctx.state==='running')&&G.scr==='splash');},500);

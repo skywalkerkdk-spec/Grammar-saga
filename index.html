@@ -6502,26 +6502,31 @@ function popGen(s,modes,n){const L=s.l,K=s.k||[],hasKo=K.length===L.length&&K.so
 /* 플레이 */
 function popYtHTML(s){return s.y?`<details class="popyt2"><summary>🎧 노래 듣기</summary><iframe class="popyt" src="https://www.youtube-nocookie.com/embed/${s.y}" allow="encrypted-media" allowfullscreen></iframe></details>`:'';}
 function popPlay(){const P=G.pop;if(!P){G.scr='pophome';return popHome();}
- $('app').innerHTML=hud(`<span class="mut">🎵 ${esc(P.s.t)}</span><button class="btn-s" id="popquit">나가기</button>`)+`<div class="card pop">${popYtHTML(P.s)}<div id="pqc"></div></div>`;
+ $('app').innerHTML=hud(`<span class="mut">🎵 ${esc(P.s.t)}</span><button class="btn-s" id="popquit">나가기</button>`)+`<div class="card pop">${P.s.y?'<div class="popvid"><div id="popytp"></div></div>':''}<div id="pqc"></div></div>`;
+ if(P.s.y){popMk('popytp',P.s.y);G._pend=null;G._pt=setInterval(()=>{if(G.scr!=='popplay'){popStop();return;}if(G._pend!=null&&popT()>=G._pend){G._pend=null;try{G._py.pauseVideo();}catch(e){}}},150);}
  $('popquit').onclick=ev=>{const b=ev.currentTarget;if(!b.dataset.sure){b.dataset.sure=1;b.textContent='정말 나갈까요?';return;}G.pop=null;G.scr='popsong';render();};
  popQ();}
 function popLineHTML(q,reveal){const t=popTok(popL(q.i)),parts=t.map((x,i)=>{if(i!==q.ti)return esc(x.raw);const w=reveal?`<span class="gblank" style="color:${reveal==='ok'?'#8be3a0':'#ff9a8a'}">${esc(q.ans)}</span>`:`<span class="gblank">${esc(q.tries>=1?q.ans[0]+'…':'\u00a0\u00a0\u00a0\u00a0\u00a0')}</span>`;return esc(x.pre)+w+esc(x.suf);});return parts.join(' ');}
 function popL(i){return G.pop.s.l[i];}
+function popHasTm(s){return !!(s.y&&s.tm&&s.tm.length===s.l.length);}
+function popListenBtn(q,s){if(!popHasTm(s))return '';return `<button class="btn-s" id="poplisten">${q.k==='order'?'🔊 첫 줄부터 듣기':'🔊 이 줄 듣기'}</button> <span class="hint">영상이 이 줄로 가서 들려줘요</span>`;}
+function popListen(q,s){const i=q.k==='order'?q.st:q.i,n=q.k==='order'?4:1,st=Math.max(0,s.tm[i]-0.3),en=s.tm[i+n]!=null?s.tm[i+n]:st+8;try{G._py.seekTo(st,true);G._py.playVideo();G._pend=en;}catch(e){}}
 function popQ(){const P=G.pop,q=P.qs[P.qi],s=P.s,K=s.k||[],hasKo=K.length===s.l.length&&K.some(x=>x),R=P.res;if(!q)return popFinish();
  const head=`<div class="popprog"><span>${P.qi+1} / ${P.qs.length}</span><span>⭐ ${P.score}${P.combo>=2?` · 🔥 ${P.combo}연속`:''}</span></div><div class="pbar"><i style="width:${Math.round(P.qi/P.qs.length*100)}%"></i></div>`;
  let h=head;
  if(q.k==='type'||q.k==='choice'){
-  h+=`<span class="qtype">${q.k==='type'?'✏️ 빈칸 채우기':'🔘 보기에서 고르기'}</span>${q.i>0?`<div class="popctx">… ${esc(popL(q.i-1))}</div>`:''}<div class="popline">${popLineHTML(q,R?(R.ok?'ok':'no'):null)}</div>`;
+  h+=`<span class="qtype">${q.k==='type'?'✏️ 빈칸 채우기':'🔘 보기에서 고르기'}</span> ${popListenBtn(q,s)}${q.i>0?`<div class="popctx">… ${esc(popL(q.i-1))}</div>`:''}<div class="popline">${popLineHTML(q,R?(R.ok?'ok':'no'):null)}</div>`;
   if(hasKo&&K[q.i]&&!R)h+=P.hint?`<div class="hint">💡 해석: ${esc(K[q.i])}</div>`:`<button class="btn-s" id="pophint">💡 해석 힌트 보기</button>`;
-  if(!R){if(q.k==='type'){h+=`<input class="input" id="popin" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="들리는 단어를 영어로 쓰세요">${q.tries?`<div class="hint" style="margin-top:6px">❌ 아쉬워요! 첫 글자 힌트가 나왔어요. 한 번 더!</div>`:''}<button class="next" id="popsub">✔ 확인</button>`;}
+  if(!R){if(q.k==='type'){h+=`<input class="input" id="popin" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="${popHasTm(s)?'들리는 단어를 영어로 쓰세요':'빈칸에 알맞은 단어를 영어로 쓰세요'}">${q.tries?`<div class="hint" style="margin-top:6px">❌ 아쉬워요! 첫 글자 힌트가 나왔어요. 한 번 더!</div>`:''}<button class="next" id="popsub">✔ 확인</button>`;}
    else h+=`<div class="choices">${q.opts.map((o,i)=>`<button class="choice" data-o="${i}">${esc(o)}</button>`).join('')}</div>`;}}
- else if(q.k==='trans'){h+=`<span class="qtype">💬 가사 해석 맞히기</span><div class="popline">${esc(popL(q.i))}</div>${R?'':`<div class="choices">${q.opts.map((o,i)=>`<button class="choice" data-o="${i}">${esc(o)}</button>`).join('')}</div>`}`;}
- else{h+=`<span class="qtype">🔀 줄 순서 맞추기</span><div class="story">섞인 가사를 <b>노래에 나오는 순서</b>대로 눌러 보세요. 잘못 누른 줄은 다시 누르면 빠져요.</div><div class="popans">${q.idx.map((x,n)=>{const it=q.sel[n]!=null?q.pool[q.sel[n]]:null;return `<button class="popslot ${it?'on':''}" data-sl="${n}" ${R?'disabled':''}><b>${n+1}</b> ${it?esc(it.t):'…'}</button>`;}).join('')}</div>${R?'':`<div class="poplines">${q.pool.map((it,n)=>`<button class="popchip" data-ch="${n}" ${q.sel.includes(n)?'disabled':''}>${esc(it.t)}</button>`).join('')}</div><button class="next" id="popsub" ${q.sel.length<4?'disabled':''}>✔ 확인</button>`}`;}
+ else if(q.k==='trans'){h+=`<span class="qtype">💬 가사 해석 맞히기</span> ${popListenBtn(q,s)}<div class="popline">${esc(popL(q.i))}</div>${R?'':`<div class="choices">${q.opts.map((o,i)=>`<button class="choice" data-o="${i}">${esc(o)}</button>`).join('')}</div>`}`;}
+ else{h+=`<span class="qtype">🔀 줄 순서 맞추기</span> ${popListenBtn(q,s)}<div class="story">섞인 가사를 <b>노래에 나오는 순서</b>대로 눌러 보세요. 잘못 누른 줄은 다시 누르면 빠져요.</div><div class="popans">${q.idx.map((x,n)=>{const it=q.sel[n]!=null?q.pool[q.sel[n]]:null;return `<button class="popslot ${it?'on':''}" data-sl="${n}" ${R?'disabled':''}><b>${n+1}</b> ${it?esc(it.t):'…'}</button>`;}).join('')}</div>${R?'':`<div class="poplines">${q.pool.map((it,n)=>`<button class="popchip" data-ch="${n}" ${q.sel.includes(n)?'disabled':''}>${esc(it.t)}</button>`).join('')}</div><button class="next" id="popsub" ${q.sel.length<4?'disabled':''}>✔ 확인</button>`}`;}
  if(R){h+=`<div class="feedback ${R.ok?'ok':'no'}"><div style="font-weight:900;font-size:19px">${R.ok?'🎉 정답!':'💥 아쉬워요!'} ${R.pts?`<span class="goldpop">+${R.pts}점</span>`:''}</div>${R.more||''}</div><button class="next" id="popnx">${P.qi<P.qs.length-1?'다음 ▶':'🏁 결과 보기'}</button>`;}
  $('pqc').innerHTML=h;fill($('pqc'));popBindQ(q);}
 function popDone(ok,more,base){const P=G.pop,q=P.qs[P.qi];let pts=0;if(ok){pts=base+Math.min(P.combo,5);P.score+=pts;P.combo++;P.maxc=Math.max(P.maxc,P.combo);P.ok++;sfx('formed');}else{P.combo=0;sfx('wrong');P.wr.push(q);}
  P.res={ok,pts,more};P.hint=false;popQ();}
 function popBindQ(q){const P=G.pop,s=P.s,K=s.k||[];
+ const lb=$('poplisten');if(lb)lb.onclick=()=>{sfx('click');popListen(q,s);};
  const nx=$('popnx');if(nx){nx.onclick=()=>{P.qi++;P.res=null;P.hint=false;sfx('click');popQ();};return;}
  const hb=$('pophint');if(hb)hb.onclick=()=>{P.hint=true;sfx('click');popQ();};
  const koTxt=i=>K[i]?`<div class="hint" style="margin-top:4px">💬 ${esc(K[i])}</div>`:'';

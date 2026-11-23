@@ -6379,9 +6379,9 @@ function popCands(line){const t=popTok(line),ok=(min)=>t.map((x,i)=>i).filter(i=
 const POP_TPW='dkkang';/* 선생님 메뉴 암호 (바꾸려면 이 값을 수정) */
 function popTmoMap(){try{return JSON.parse(localStorage.getItem('sg_pop_tmo')||'{}')||{};}catch(e){return {};}}
 function popKey(s){return (s.t||'')+'|'+s.l.length;}
-function popDoneMap(){try{return JSON.parse(localStorage.getItem('sg_pop_done')||'{}')||{};}catch(e){return {};}}
+function popDoneMap(){if(!SV.popDone){let o={};try{o=JSON.parse(localStorage.getItem('sg_pop_done')||'{}')||{};}catch(e){}SV.popDone=o;}return SV.popDone;}
 function popIsDone(s){return !!popDoneMap()[popKey(s)];}
-function popMarkDone(s,acc){const m=popDoneMap(),o=m[popKey(s)]||{};o.n=(o.n||0)+1;o.acc=Math.max(o.acc||0,Math.round(acc*100));m[popKey(s)]=o;try{localStorage.setItem('sg_pop_done',JSON.stringify(m));}catch(e){}}
+function popMarkDone(s,acc){const m=popDoneMap(),o=m[popKey(s)]||{};o.n=(o.n||0)+1;o.acc=Math.max(o.acc||0,Math.round(acc*100));m[popKey(s)]=o;try{saveNow();}catch(e){}}
 const POP_WK={cry:80,stone:2,need:.7};
 function popWeekSong(){const P=G.popPub||[];if(!P.length)return null;const k=weekKey().split('-').map(Number),n=Math.floor(Date.UTC(k[0],k[1]-1,k[2])/604800000);return P[n%P.length];}
 function popWeekDone(){return SV.popWk===weekKey();}

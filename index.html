@@ -6362,7 +6362,31 @@ function popCands(line){const t=popTok(line),ok=(min)=>t.map((x,i)=>i).filter(i=
 const POP_TPW='dkkang';/* 선생님 메뉴 암호 (바꾸려면 이 값을 수정) */
 function popFind(id){return popLoad().find(x=>x.id===id)||(G.popPub||[]).find(x=>x.id===id);}
 function popBestMap(){try{return JSON.parse(localStorage.getItem('sg_pop_best')||'{}')||{};}catch(e){return {};}}
-function popPubLoad(){try{fetch('songs.json?'+Date.now()).then(r=>r.ok?r.json():null).then(a=>{if(!Array.isArray(a))return;G.popPub=a.map((o,i)=>{const c=popClean(o);if(c){c.id='pub'+i;c.pub=1;c.best=popBestMap()[c.id]||0;}return c;}).filter(Boolean);if(G.scr==='pophome')render();}).catch(()=>{});}catch(e){}}
+/* songs.xlsx 읽기 (외부 라이브러리 없이 zip·xml을 직접 해석) */
+async function popZipRead(buf){const u=new Uint8Array(buf),dv=new DataView(buf);let e=u.length-22;while(e>=0&&dv.getUint32(e,true)!==0x06054b50)e--;if(e<0)throw 0;
+ const n=dv.getUint16(e+10,true);let p=dv.getUint32(e+16,true);const out={};
+ for(let i=0;i<n;i++){const m=dv.getUint16(p+10,true),cs=dv.getUint32(p+20,true),nl=dv.getUint16(p+28,true),xl=dv.getUint16(p+30,true),cl=dv.getUint16(p+32,true),lo=dv.getUint32(p+42,true),name=new TextDecoder().decode(u.subarray(p+46,p+46+nl));p+=46+nl+xl+cl;
+  if(!/^xl\/(worksheets\/sheet1\.xml|sharedStrings\.xml)$/.test(name))continue;
+  const ds=lo+30+dv.getUint16(lo+26,true)+dv.getUint16(lo+28,true),raw=u.subarray(ds,ds+cs);let by=raw;
+  if(m===8){const d=new DecompressionStream('deflate-raw'),w=d.writable.getWriter();w.write(raw);w.close();by=new Uint8Array(await new Response(d.readable).arrayBuffer());}
+  out[name]=new TextDecoder().decode(by);}
+ return out;}
+function popXml(t){return String(t).replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/&quot;/g,'"').replace(/&apos;/g,"'").replace(/&#(\d+);/g,(m,d)=>String.fromCharCode(+d)).replace(/&amp;/g,'&');}
+function popXlsxRows(z){const ss=[];const sx=z['xl/sharedStrings.xml']||'';(sx.match(/<si[\s>][\s\S]*?<\/si>/g)||[]).forEach(si=>{ss.push(popXml((si.match(/<t[^>]*>([\s\S]*?)<\/t>/g)||[]).map(t=>t.replace(/<[^>]+>/g,'')).join('')));});
+ const rows=[];const sh=z['xl/worksheets/sheet1.xml']||'';
+ (sh.match(/<row[\s>][\s\S]*?<\/row>/g)||[]).forEach(r=>{const row=[];(r.match(/<c\s[^>]*?(?:\/>|>[\s\S]*?<\/c>)/g)||[]).forEach(c=>{const ref=/\sr="([A-Z]+)\d+"/.exec(c);if(!ref)return;const col=ref[1].charCodeAt(0)-65;if(col<0||col>4)return;const ty=(/\st="(\w+)"/.exec(c)||[])[1];let v='';
+   if(ty==='inlineStr')v=popXml((c.match(/<t[^>]*>([\s\S]*?)<\/t>/g)||[]).map(t=>t.replace(/<[^>]+>/g,'')).join(''));
+   else{const m=/<v>([\s\S]*?)<\/v>/.exec(c);if(m)v=ty==='s'?(ss[+m[1]]||''):popXml(m[1]);}
+   row[col]=String(v).trim();});rows.push(row);});
+ return rows;}
+function popRowsToSongs(rows){const out=[];let cur=null;rows.forEach((r,i)=>{const t=r[0]||'',d=r[3]||'';if(i===0&&/제목|title/i.test(t)&&/가사|lyric/i.test((r[3]||'')+''))return;
+  if(t){cur={t,a:r[1]||'',y:popYtId(r[2]||''),l:[],k:[]};out.push(cur);}
+  if(!cur||!d||/^\[.*\]$/.test(d))return;cur.l.push(d);cur.k.push(r[4]||'');});
+ return out.filter(o=>!/^\(예시\)/.test(o.t)).map(o=>{if(!o.k.every(x=>x))o.k=[];return o;});}
+function popPubSet(a){G.popPub=a.map((o,i)=>{const c=popClean(o);if(c){c.id='pub'+i;c.pub=1;c.best=popBestMap()[c.id]||0;}return c;}).filter(Boolean);if(G.scr==='pophome')render();}
+function popPubLoad(){
+ const js=()=>fetch('songs.json?'+Date.now()).then(r=>r.ok?r.json():null).then(a=>{if(Array.isArray(a))popPubSet(a);}).catch(()=>{});
+ try{fetch('songs.xlsx?'+Date.now()).then(r=>r.ok?r.arrayBuffer():null).then(async buf=>{if(!buf)return js();try{const rows=popXlsxRows(await popZipRead(buf));const so=popRowsToSongs(rows);popPubSet(so);}catch(e){js();}}).catch(js);}catch(e){}}
 popPubLoad();
 /* 공유 링크 인코딩 */
 function popB64(bytes){let s='';for(let i=0;i<bytes.length;i+=8192)s+=String.fromCharCode.apply(null,bytes.subarray(i,i+8192));return btoa(s).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');}

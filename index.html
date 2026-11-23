@@ -1046,6 +1046,12 @@ canvas.px[data-src="SPR"][data-k="shaman"],canvas.px[data-src="SPR"][data-k^="cs
 .cans{color:#8be3a0;font-weight:800}
 .popnext{margin:8px 0}
 .popweek{padding:12px;border:2px solid #ffd36b;border-radius:14px;background:linear-gradient(180deg,#3b3220,#2a2340);margin:10px 0}
+.mpg{position:absolute;width:0;height:0;z-index:2;pointer-events:none;transition:left .95s linear,top .95s linear;--face:1}
+.wmi .mpf{position:absolute;display:block;height:calc(var(--wm)*.058);width:auto;transform:translate(-50%,-100%);transform-origin:50% 100%;animation:mpidle 1.9s ease-in-out infinite;filter:drop-shadow(0 2px 2px rgba(40,24,6,.55));user-select:none;-webkit-user-drag:none}
+.mpg.walk .mpf{animation:mpwalk .32s ease-in-out infinite}
+.mpg.walk{--sx:var(--face)}
+@keyframes mpidle{0%,100%{transform:translate(-50%,-100%) scaleY(1)}50%{transform:translate(-50%,-100%) scaleY(1.035)}}
+@keyframes mpwalk{0%,100%{transform:translate(-50%,-100%) scaleX(var(--face)) rotate(-3deg)}50%{transform:translate(-50%,-106%) scaleX(var(--face)) rotate(3deg)}}
 
 </style>
 </head>
@@ -6665,6 +6671,25 @@ function popRunFinal(){const R=G.popRun;if(!R)return '';const ok=R.qok+R.cok,tot
    else{const d=document.createElement('div');d.className='hud';d.appendChild(b);const app=$('app');app.insertBefore(d,app.firstChild);}
   }catch(e){}
  };
+})();
+
+/* ---------- 지도 위를 걸어 다니는 파티 캐릭터 ---------- */
+const MPF=[['healer',-.07,-.026,1],['dealer',-.006,-.03,2],['shaman',.064,-.026,3],['paladin',-.05,.006,4],['tank',.008,.012,5],['trader',.066,.008,6],['pet',.118,.016,7]];
+function mpPts(list,ghost,W,H){return list.map(n=>ghost?{id:n[0],x:n[1]/W,y:n[2]/H+.045}:{id:n[0],x:n[4]/W,y:(n[5]+34)/H});}
+function mpInject(pts,W,H){const wi=document.getElementById('wmi');if(!wi||!pts.length)return;
+ let cur=pts.find(p=>p.id===G.mpAt);if(!cur){cur=pts.find(p=>{try{return wmUnlocked(p.id)&&!(isRpgM()?SV.rcleared:SV.cleared).includes(p.id);}catch(e){return false;}})||pts[0];G.mpAt=cur.id;}
+ const d=document.createElement('div');d.id='mpg';d.className='mpg';d.style.left=(cur.x*100)+'%';d.style.top=(cur.y*100)+'%';
+ d.innerHTML=MPF.map(f=>`<img class="mpf" src="mp_${f[0]}.webp?v=1" alt="" draggable="false" style="left:calc(var(--wm)*${f[1]});top:calc(var(--wm)*${f[2]});z-index:${f[3]};animation-delay:${(f[3]*0.17).toFixed(2)}s">`).join('');
+ wi.appendChild(d);
+ wi.addEventListener('click',e=>{const b=e.target.closest&&e.target.closest('[data-wm]');if(!b||G.mpPass)return;const id=b.dataset.wm,p=pts.find(q=>q.id===id);if(!p)return;
+  if(G.mpAt===id)return;
+  e.stopPropagation();e.preventDefault();if(G.mpWalking)return;G.mpWalking=true;
+  const fx=parseFloat(d.style.left)/100,face=p.x<fx?-1:1;d.classList.add('walk');d.style.setProperty('--face',face);
+  d.style.left=(p.x*100)+'%';d.style.top=(p.y*100)+'%';G.mpAt=id;
+  setTimeout(()=>{d.classList.remove('walk');G.mpWalking=false;G.mpPass=true;try{b.click();}finally{G.mpPass=false;}},950);},true);}
+(function(){
+ const _mi=mapImg;mapImg=function(c){const r=_mi.apply(this,arguments);try{mpInject(mpPts(c.list,c.ghost,c.W,c.H),c.W,c.H);}catch(e){}return r;};
+ const _rb=rpgMapBind;rpgMapBind=function(){const r=_rb.apply(this,arguments);try{const W=worldOpen();mpInject(W?mpPts(WM.filter(n=>RT[n[0]]!=null),false,1536,1024):mpPts(KM,true,1536,1024),1536,1024);}catch(e){}return r;};
 })();
 
 render();tryAuto();setTimeout(tryAuto,300);

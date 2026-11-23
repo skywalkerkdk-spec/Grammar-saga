@@ -1030,6 +1030,21 @@ canvas.px[data-src="SPR"][data-k="shaman"],canvas.px[data-src="SPR"][data-k^="cs
 .popans{display:flex;flex-direction:column;gap:6px;margin:8px 0}
 .popslot{border-style:dashed;border-color:#4a3f6a;background:#1d1631;min-height:44px}.popslot.on{border-style:solid;border-color:#3fa660}
 .popreview{padding:8px 10px;border-left:4px solid #ffd36b;background:#241d3a;border-radius:8px;margin:6px 0;line-height:1.5}
+.popvid{position:sticky;top:0;z-index:5;background:#000;border-radius:12px;overflow:hidden;margin:8px 0}
+.popvid iframe,.popvid #popytp{width:100%;aspect-ratio:16/9;display:block;border:0}
+.popctl{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:8px 0}
+.popck{display:flex;gap:4px;align-items:center;font-size:14px}
+.clines{max-height:46vh;overflow-y:auto;position:relative;margin:8px 0;border:2px solid #3a3058;border-radius:12px;padding:6px}
+.cline{display:flex;gap:8px;align-items:flex-start;padding:8px;border-radius:10px;line-height:1.9;font-size:17px;border-left:4px solid transparent}
+.cline.cur{background:#3b3220;border-left-color:#ffd36b}
+.cline.done{opacity:.7}
+.cplay{flex:none;font:inherit;border:0;border-radius:8px;background:#2a2144;color:#fff;padding:2px 8px;margin-top:3px}
+.ctm{flex:none;font-size:13px;opacity:.7;min-width:48px;margin-top:3px}
+.ctext{flex:1}
+.cin{font:inherit;text-align:center;background:#1d1631;color:#fff;border:0;border-bottom:3px solid #ffd36b;border-radius:6px 6px 0 0;padding:0 2px;margin:0 2px}
+.cin.ok{border-bottom-color:#3fd07a;color:#8be3a0}.cin.no{border-bottom-color:#ff6a5a;color:#ff9a8a}
+.cans{color:#8be3a0;font-weight:800}
+.popnext{margin:8px 0}
 
 </style>
 </head>
@@ -6354,13 +6369,15 @@ const popNorm=s=>String(s||'').toLowerCase().replace(/[’‘]/g,"'").replace(/[
 function popClean(o){if(!o||typeof o!=='object')return null;const s=(v,n)=>String(v==null?'':v).replace(/[\u0000-\u001f]/g,' ').trim().slice(0,n);
  const l=(Array.isArray(o.l)?o.l:[]).map(x=>s(x,160)).filter(x=>x).slice(0,120),k=(Array.isArray(o.k)?o.k:[]).map(x=>s(x,160)).slice(0,120);
  if(l.length<2)return null;let y=s(o.y,20);if(!/^[\w-]{11}$/.test(y))y='';
- return {id:'s'+Date.now().toString(36)+Math.random().toString(36).slice(2,5),t:s(o.t,60)||'제목 없음',a:s(o.a,40),y,l,k:k.length===l.length?k:[],best:0};}
+ let tm=(Array.isArray(o.tm)?o.tm:[]).map(Number);if(tm.length!==l.length||!tm.every(x=>isFinite(x)&&x>=0))tm=[];
+ return {id:'s'+Date.now().toString(36)+Math.random().toString(36).slice(2,5),t:s(o.t,60)||'제목 없음',a:s(o.a,40),y,l,k:k.length===l.length?k:[],tm,best:0};}
 function popParse(txt){return String(txt||'').split(/\r?\n/).map(x=>x.trim()).filter(x=>x&&!/^\[.*\]$/.test(x)&&!/^\(.*\)$/.test(x));}
 function popYtId(u){u=String(u||'').trim();if(/^[\w-]{11}$/.test(u))return u;const m=u.match(/(?:youtu\.be\/|v=|embed\/|shorts\/)([\w-]{11})/);return m?m[1]:'';}
 function popTok(line){return String(line).split(/\s+/).filter(Boolean).map(raw=>{const m=/^([^A-Za-z']*)(.*?)([^A-Za-z']*)$/.exec(raw);return {raw,pre:m[1],w:m[2],suf:m[3]};});}
 function popCands(line){const t=popTok(line),ok=(min)=>t.map((x,i)=>i).filter(i=>/^[A-Za-z']+$/.test(t[i].w)&&t[i].w.length>=min&&!POP_STOP.has(t[i].w.toLowerCase()));let c=ok(4);if(!c.length)c=ok(3);return c;}
 const POP_TPW='dkkang';/* 선생님 메뉴 암호 (바꾸려면 이 값을 수정) */
-function popFind(id){return popLoad().find(x=>x.id===id)||(G.popPub||[]).find(x=>x.id===id);}
+function popTmoMap(){try{return JSON.parse(localStorage.getItem('sg_pop_tmo')||'{}')||{};}catch(e){return {};}}
+function popFind(id){const x=popLoad().find(x=>x.id===id);if(x)return x;const p=(G.popPub||[]).find(x=>x.id===id);if(p&&(!p.tm||!p.tm.length)){const o=popTmoMap()[(p.t||'')+'|'+p.l.length];if(o&&o.length===p.l.length)p.tm=o;}return p;}
 function popBestMap(){try{return JSON.parse(localStorage.getItem('sg_pop_best')||'{}')||{};}catch(e){return {};}}
 /* songs.xlsx 읽기 (외부 라이브러리 없이 zip·xml을 직접 해석) */
 async function popZipRead(buf){const u=new Uint8Array(buf),dv=new DataView(buf);let e=u.length-22;while(e>=0&&dv.getUint32(e,true)!==0x06054b50)e--;if(e<0)throw 0;
@@ -6374,15 +6391,15 @@ async function popZipRead(buf){const u=new Uint8Array(buf),dv=new DataView(buf);
 function popXml(t){return String(t).replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/&quot;/g,'"').replace(/&apos;/g,"'").replace(/&#(\d+);/g,(m,d)=>String.fromCharCode(+d)).replace(/&amp;/g,'&');}
 function popXlsxRows(z){const ss=[];const sx=z['xl/sharedStrings.xml']||'';(sx.match(/<si[\s>][\s\S]*?<\/si>/g)||[]).forEach(si=>{ss.push(popXml((si.match(/<t[^>]*>([\s\S]*?)<\/t>/g)||[]).map(t=>t.replace(/<[^>]+>/g,'')).join('')));});
  const rows=[];const sh=z['xl/worksheets/sheet1.xml']||'';
- (sh.match(/<row[\s>][\s\S]*?<\/row>/g)||[]).forEach(r=>{const row=[];(r.match(/<c\s[^>]*?(?:\/>|>[\s\S]*?<\/c>)/g)||[]).forEach(c=>{const ref=/\sr="([A-Z]+)\d+"/.exec(c);if(!ref)return;const col=ref[1].charCodeAt(0)-65;if(col<0||col>4)return;const ty=(/\st="(\w+)"/.exec(c)||[])[1];let v='';
+ (sh.match(/<row[\s>][\s\S]*?<\/row>/g)||[]).forEach(r=>{const row=[];(r.match(/<c\s[^>]*?(?:\/>|>[\s\S]*?<\/c>)/g)||[]).forEach(c=>{const ref=/\sr="([A-Z]+)\d+"/.exec(c);if(!ref)return;const col=ref[1].charCodeAt(0)-65;if(col<0||col>5)return;const ty=(/\st="(\w+)"/.exec(c)||[])[1];let v='';
    if(ty==='inlineStr')v=popXml((c.match(/<t[^>]*>([\s\S]*?)<\/t>/g)||[]).map(t=>t.replace(/<[^>]+>/g,'')).join(''));
    else{const m=/<v>([\s\S]*?)<\/v>/.exec(c);if(m)v=ty==='s'?(ss[+m[1]]||''):popXml(m[1]);}
    row[col]=String(v).trim();});rows.push(row);});
  return rows;}
 function popRowsToSongs(rows){const out=[];let cur=null;rows.forEach((r,i)=>{const t=r[0]||'',d=r[3]||'';if(i===0&&/제목|title/i.test(t)&&/가사|lyric/i.test((r[3]||'')+''))return;
-  if(t){cur={t,a:r[1]||'',y:popYtId(r[2]||''),l:[],k:[]};out.push(cur);}
-  if(!cur||!d||/^\[.*\]$/.test(d))return;cur.l.push(d);cur.k.push(r[4]||'');});
- return out.filter(o=>!/^\(예시\)/.test(o.t)).map(o=>{if(!o.k.every(x=>x))o.k=[];return o;});}
+  if(t){cur={t,a:r[1]||'',y:popYtId(r[2]||''),l:[],k:[],tm:[]};out.push(cur);}
+  if(!cur||!d||/^\[.*\]$/.test(d))return;cur.l.push(d);cur.k.push(r[4]||'');cur.tm.push(r[5]!==undefined&&r[5]!==''?parseFloat(r[5]):NaN);});
+ return out.filter(o=>!/^\(예시\)/.test(o.t)).map(o=>{if(!o.k.every(x=>x))o.k=[];if(!o.tm.every(x=>isFinite(x)))o.tm=[];return o;});}
 function popPubSet(a){G.popPub=a.map((o,i)=>{const c=popClean(o);if(c){c.id='pub'+i;c.pub=1;c.best=popBestMap()[c.id]||0;}return c;}).filter(Boolean);if(G.scr==='pophome')render();}
 function popPubLoad(){
  const js=()=>fetch('songs.json?'+Date.now()).then(r=>r.ok?r.json():null).then(a=>{if(Array.isArray(a))popPubSet(a);}).catch(()=>{});
@@ -6400,14 +6417,14 @@ async function popDec(code){try{code=String(code||'').trim();const i=code.indexO
 (function(){try{const m=/^#pop=(.+)$/.exec(location.hash||'');if(m)popDec(m[1]).then(o=>{if(!o)return;const A=popLoad();A.push(o);popSave(A);G.popIn=null;try{history.replaceState(null,'',location.pathname+location.search);}catch(e){}if(G.scr==='dsel')render();});}catch(e){}})();
 /* 메뉴 연결 */
 (function(){const _r=render;render=function(){
- if(/^pop/.test(G.scr||'')){window.scrollTo({top:0});applySkin();document.body.dataset.bg='guild';try{tourEnd();}catch(e){}({pophome:popHome,popedit:popEdit,popsong:popSong,popplay:popPlay,popres:popRes})[G.scr]();fill($('app'));syncBgm();return;}
- _r.apply(this,arguments);
+ if(/^pop/.test(G.scr||'')){window.scrollTo({top:0});applySkin();document.body.dataset.bg='guild';try{tourEnd();}catch(e){}popStop();({pophome:popHome,popedit:popEdit,popsong:popSong,popplay:popPlay,popres:popRes,popsync:popSync,popclip:popClip})[G.scr]();fill($('app'));syncBgm();return;}
+ popStop();_r.apply(this,arguments);
  try{if(G.scr==='dsel'&&!document.getElementById('topop')){const b=document.createElement('button');b.className='shopbtn';b.id='topop';b.innerHTML=`<div style="font-size:34px">🎵</div><div><b>팝송 가사 퀘스트</b><span>${G.popIn?'📬 새 곡이 도착했어요!':'노래 가사 빈칸 채우기 · 해석 · 순서 맞추기'}</span></div>`;
   b.onclick=()=>{sfx('select');G.scr='pophome';render();};const s=document.getElementById('toshop');if(s)s.insertAdjacentElement('afterend',b);else{const h=document.querySelector('#app .hud');if(h){b.className='btn-s';b.textContent='🎵 팝송';h.appendChild(b);}}}}catch(e){}
  };})();
 /* 곡 목록 */
 function popHome(){const A=popLoad(),P=G.popPub||[],T=!!G.popT,inn=G.popIn,lk=G.popLink;
- const card=(s,pub)=>`<div class="popsong"><div><b>${esc(s.t)}</b><span class="hint" style="display:block">${esc(s.a||'')} · ${s.l.length}줄${s.k&&s.k.length?' · 해석 있음':''}${s.best?' · 최고 '+s.best+'점':''}</span></div><div class="pbtns"><button class="btn-s" data-pp="${s.id}">▶ 시작</button>${pub?'':`<button class="btn-s" data-pe="${s.id}">✏️</button><button class="btn-s" data-ps="${s.id}">🔗</button><button class="btn-s" data-pd="${s.id}">🗑️</button>`}</div></div>`;
+ const card=(s,pub)=>`<div class="popsong"><div><b>${esc(s.t)}</b><span class="hint" style="display:block">${esc(s.a||'')} · ${s.l.length}줄${s.k&&s.k.length?' · 해석 있음':''}${s.best?' · 최고 '+s.best+'점':''}</span></div><div class="pbtns"><button class="btn-s" data-pp="${s.id}">▶ 시작</button>${T&&s.y?`<button class="btn-s" data-py="${s.id}">⏱</button>`:''}${pub?'':`<button class="btn-s" data-pe="${s.id}">✏️</button><button class="btn-s" data-ps="${s.id}">🔗</button><button class="btn-s" data-pd="${s.id}">🗑️</button>`}</div></div>`;
  $('app').innerHTML=hud('<button class="btn-s" id="popback">← 돌아가기</button>')+`<div class="card pop"><h2>🎵 팝송 가사 퀘스트</h2>
  <div class="story">노래를 들으면서 가사의 <b>빈칸</b>을 채우고, <b>해석</b>을 맞히고, <b>줄 순서</b>를 맞혀 보세요! 곡을 골라 시작하세요.</div>
  <div class="poplist">${P.length?P.map(s=>card(s,true)).join(''):'<div class="hint" style="padding:14px 0">아직 준비된 곡이 없어요. 선생님이 곡을 준비하면 여기에 나타나요.</div>'}</div>
@@ -6422,11 +6439,12 @@ function popHome(){const A=popLoad(),P=G.popPub||[],T=!!G.popT,inn=G.popIn,lk=G.
  const th=$('poptch');if(th)th.onclick=()=>{const v=prompt('선생님 암호를 입력하세요');if(v===POP_TPW){G.popT=true;sfx('coins');render();}else if(v!==null)alert('암호가 달라요.');};
  const nw=$('popnew');if(nw)nw.onclick=()=>{G.popEd=null;G.scr='popedit';render();};
  const cp=$('popcp');if(cp)cp.onclick=()=>{const t=$('poplk');t.select();let ok=false;try{ok=document.execCommand('copy');}catch(e){}try{navigator.clipboard.writeText(lk.url);ok=true;}catch(e){}$('popcpm').textContent=ok?'복사했어요!':'길게 눌러 복사해 주세요.';};
- const ex=$('popexp');if(ex)ex.onclick=()=>{const arr=popLoad().map(x=>({t:x.t,a:x.a,y:x.y,l:x.l,k:x.k&&x.k.length?x.k:[]})),js=JSON.stringify(arr,null,1);
+ const ex=$('popexp');if(ex)ex.onclick=()=>{const arr=popLoad().map(x=>({t:x.t,a:x.a,y:x.y,l:x.l,k:x.k&&x.k.length?x.k:[],tm:x.tm&&x.tm.length?x.tm:[]})),js=JSON.stringify(arr,null,1);
   $('popexbox').innerHTML=`<div class="feedback ok"><b>📤 songs.json</b><div class="hint">① 아래 버튼으로 파일을 저장하고 ② 게임 저장소(Grammar-saga)에 <b>songs.json</b> 이름으로 올려 주세요(같은 이름이면 덮어쓰기). 1~2분 뒤 학생 화면에 곡이 나타나요.</div><textarea class="input" id="popjs" rows="5" readonly>${esc(js)}</textarea><button class="btn-s" id="popdl">💾 songs.json 저장</button> <button class="btn-s" id="popjcp">📋 내용 복사</button></div>`;
   $('popdl').onclick=()=>{const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([js],{type:'application/json'}));a.download='songs.json';a.click();};
   $('popjcp').onclick=()=>{$('popjs').select();try{document.execCommand('copy');}catch(e){}try{navigator.clipboard.writeText(js);}catch(e){}};};
  document.querySelectorAll('[data-pp]').forEach(b=>b.onclick=()=>{G.popId=b.dataset.pp;G.popLink=null;sfx('select');G.scr='popsong';render();});
+ document.querySelectorAll('[data-py]').forEach(b=>b.onclick=()=>{G.popId=b.dataset.py;sfx('select');G.scr='popsync';render();});
  document.querySelectorAll('[data-pe]').forEach(b=>b.onclick=()=>{G.popEd=b.dataset.pe;G.popLink=null;sfx('click');G.scr='popedit';render();});
  document.querySelectorAll('[data-ps]').forEach(b=>b.onclick=async()=>{const s=popLoad().find(x=>x.id===b.dataset.ps);if(!s)return;const c=await popEnc(s);G.popLink={id:s.id,url:location.origin+location.pathname+'#pop='+c};sfx('click');render();});
  document.querySelectorAll('[data-pd]').forEach(b=>b.onclick=()=>{if(!b.dataset.sure){b.dataset.sure=1;b.textContent='정말?';return;}popSave(popLoad().filter(x=>x.id!==b.dataset.pd));render();});}
@@ -6445,7 +6463,7 @@ function popEdit(){const s=G.popEd?popLoad().find(x=>x.id===G.popEd):null;
  $('ptl').oninput=info;$('ptk').oninput=info;info();
  $('popback').onclick=()=>{G.scr='pophome';render();};
  $('ptsave').onclick=()=>{const l=popParse($('ptl').value);if(l.length<4){$('ptinfo').innerHTML='<span style="color:#ff9a8a">⚠️ 가사가 너무 짧아요. 4줄 이상 붙여 넣어 주세요.</span>';return;}
-  const o=popClean({t:$('ptt').value,a:$('pta').value,y:popYtId($('pty').value),l,k:popParse($('ptk').value)});if(!o)return;const A=popLoad();
+  const o=popClean({t:$('ptt').value,a:$('pta').value,y:popYtId($('pty').value),l,k:popParse($('ptk').value),tm:s&&JSON.stringify(s.l)===JSON.stringify(l)?s.tm:[]});if(!o)return;const A=popLoad();
   if(s){const i=A.findIndex(x=>x.id===s.id);o.id=s.id;o.best=s.best||0;if(i>=0)A[i]=o;else A.push(o);}else A.push(o);popSave(A);sfx('coins');G.scr='pophome';render();};}
 /* 곡 시작 화면 */
 function popSong(){const s=popFind(G.popId);if(!s){G.scr='pophome';return popHome();}
@@ -6453,6 +6471,7 @@ function popSong(){const s=popFind(G.popId);if(!s){G.scr='pophome';return popHom
  const row=(k,ic,nm,d,dis)=>`<label class="popmode ${dis?'dis':''}"><input type="checkbox" data-pm="${k}" ${M[k]&&!dis?'checked':''} ${dis?'disabled':''}><span>${ic} <b>${nm}</b><small>${d}</small></span></label>`;
  $('app').innerHTML=hud('<button class="btn-s" id="popback">← 목록</button>')+`<div class="card pop"><h2>🎵 ${esc(s.t)}</h2><div class="hint">${esc(s.a||'')} · ${s.l.length}줄</div>
  ${s.y?`<iframe class="popyt" src="https://www.youtube-nocookie.com/embed/${s.y}" allow="encrypted-media" allowfullscreen></iframe><div class="hint">먼저 노래를 들어 보세요. 게임 중에도 위쪽에서 들을 수 있어요.</div>`:''}
+ ${s.y&&s.tm&&s.tm.length?`<h3 style="margin:12px 0 4px">🎬 영상 따라 쓰기</h3><div class="hint">영상이 나오는 동안 지금 부르는 줄이 강조되고, 빈칸에 들리는 단어를 바로 써요.</div><div class="stabs sub">${['쉬움','보통','어려움'].map((n,i)=>`<button class="stab ${(G.popLv==null?1:G.popLv)===i?'on':''}" data-pl="${i}">${n}</button>`).join('')}</div><button class="next" id="popclipgo">🎬 영상 따라 쓰기 시작</button>`:''}
  <h3 style="margin:12px 0 4px">활동 고르기</h3>
  ${row('type','✏️','빈칸 채우기','들리는 단어를 직접 써요')}${row('choice','🔘','보기에서 고르기','네 개 중에서 골라요')}${row('order','🔀','줄 순서 맞추기','섞인 가사 4줄을 순서대로')}${row('trans','💬','가사 해석 맞히기',hasKo?'알맞은 우리말 뜻 고르기':'이 곡엔 해석이 없어요',!hasKo)}
  <h3 style="margin:12px 0 4px">문제 수</h3><div class="stabs sub">${[5,10,15].map(n=>`<button class="stab ${N===n?'on':''}" data-pn="${n}">${n}문제</button>`).join('')}</div>
@@ -6460,6 +6479,8 @@ function popSong(){const s=popFind(G.popId);if(!s){G.scr='pophome';return popHom
  $('popback').onclick=()=>{G.scr='pophome';render();};
  document.querySelectorAll('[data-pm]').forEach(c=>c.onchange=()=>{M[c.dataset.pm]=c.checked;G.popM=M;});
  document.querySelectorAll('[data-pn]').forEach(b=>b.onclick=()=>{G.popN=+b.dataset.pn;G.popM=M;sfx('click');render();});
+ document.querySelectorAll('[data-pl]').forEach(b=>b.onclick=()=>{G.popLv=+b.dataset.pl;sfx('click');render();});
+ const cg=$('popclipgo');if(cg)cg.onclick=()=>{sfx('select');G.scr='popclip';render();};
  $('popgo').onclick=()=>{const modes=['type','choice','order','trans'].filter(k=>M[k]&&!(k==='trans'&&!hasKo));if(!modes.length){return;}const qs=popGen(s,modes,N);if(!qs.length)return;sfx('select');
   G.pop={s,qs,qi:0,score:0,combo:0,maxc:0,ok:0,wr:[],res:null,hint:false};G.scr='popplay';render();};}
 /* 문제 만들기 */
@@ -6524,6 +6545,73 @@ function popRes(){const P=G.pop;if(!P){G.scr='pophome';return popHome();}const n
  ${P.wr.length?`<h3 style="margin:12px 0 4px">📝 다시 볼 가사</h3>${P.wr.map(q=>{const L=q.k==='order'?q.idx.map(x=>P.s.l[x]).join('<br>'):esc(P.s.l[q.i]);return `<div class="popreview">${q.k==='order'?q.idx.map(x=>esc(P.s.l[x])).join('<br>'):L}${q.k!=='order'&&K[q.i]?`<div class="hint">💬 ${esc(K[q.i])}</div>`:''}</div>`;}).join('')}`:'<div class="story">모두 맞혔어요! 완벽한 무대였어요 🎤</div>'}
  <button class="next" id="popagain">🔁 다시 도전</button><button class="btn-s" id="popls" style="margin-top:8px">곡 목록으로</button></div>`;
  $('popagain').onclick=()=>{G.scr='popsong';render();};$('popls').onclick=()=>{G.pop=null;G.scr='pophome';render();};if(st>=2)sfx('fanfare');}
+
+/* ---------- 영상 연동 (유튜브 플레이어) : 시간 찍기 · 영상 따라 쓰기 ---------- */
+function popStop(){try{clearInterval(G._pt);}catch(e){}G._pt=null;try{if(G._py&&G._py.destroy)G._py.destroy();}catch(e){}G._py=null;}
+function popYT(ok,fail){if(window.YT&&window.YT.Player)return ok();window._ytq=window._ytq||[];window._ytq.push(ok);
+ if(!window._ytl){window._ytl=1;const t=document.createElement('script');t.src='https://www.youtube.com/iframe_api';t.onerror=()=>fail();document.head.appendChild(t);window.onYouTubeIframeAPIReady=()=>{window._ytq.splice(0).forEach(f=>f());};}
+ setTimeout(()=>{if(!(window.YT&&window.YT.Player))fail();},9000);}
+function popMk(elId,vid,onReady){const box=$(elId);popYT(()=>{if(!$(elId))return;try{G._py=new YT.Player(elId,{videoId:vid,playerVars:{playsinline:1,rel:0,modestbranding:1},events:{onReady:()=>onReady&&onReady()}});}catch(e){box.innerHTML='<div class="hint">영상 플레이어를 열 수 없어요.</div>';}},()=>{if(box)box.innerHTML='<div class="hint" style="padding:12px">⚠️ 영상 플레이어를 불러오지 못했어요. 인터넷 연결(유튜브 접속)을 확인해 주세요.</div>';});}
+function popT(){try{return +G._py.getCurrentTime()||0;}catch(e){return 0;}}
+/* 선생님: 가사 시작 시간 찍기 */
+function popSync(){const s=popFind(G.popId);if(!s||!s.y){G.scr='pophome';return popHome();}
+ const N=s.l.length;G.ps={s,tm:[]};
+ $('app').innerHTML=hud('<button class="btn-s" id="popback">← 목록</button>')+`<div class="card pop"><h2>⏱ 시간 찍기 · ${esc(s.t)}</h2>
+ <div class="hint">영상을 틀고, <b>가사 줄이 시작되는 순간마다 큰 버튼</b>을 눌러요. 틀렸으면 ↩ 되돌리기. 영상 바로 아래 막대로 위치를 옮길 수도 있어요.</div>
+ <div class="popvid"><div id="popytp"></div></div>
+ <div class="popnext" id="psnext"></div>
+ <button class="next big" id="pstap">👆 이 줄이 시작!</button>
+ <div class="popctl"><button class="btn-s" id="psundo">↩ 되돌리기</button><button class="btn-s" id="psreset">🔁 처음부터</button><button class="btn-s" id="pspl">⏯ 재생/멈춤</button></div>
+ <div class="clines" id="pslist"></div><div id="psres"></div></div>`;
+ $('popback').onclick=()=>{G.scr='pophome';render();};
+ popMk('popytp',s.y);
+ const draw=()=>{const P=G.ps,n=P.tm.length;
+  $('pslist').innerHTML=s.l.map((t,i)=>`<div class="cline ${i<n?'done':''} ${i===n?'cur':''}"><span class="ctm">${i<n?P.tm[i].toFixed(1)+'초':'—'}</span><div class="ctext">${esc(t)}</div></div>`).join('');
+  $('psnext').innerHTML=n<N?`<div class="hint">다음 줄 (${n+1}/${N})</div><div class="popline">${esc(s.l[n])}</div>`:'<div class="story">모든 줄을 찍었어요! 아래에서 확인하세요.</div>';
+  $('pstap').disabled=n>=N;$('psundo').disabled=!n;
+  const cur=$('pslist').querySelector('.cur');if(cur)$('pslist').scrollTop=cur.offsetTop-60;
+  if(n>=N)fin();else $('psres').innerHTML='';};
+ const fin=()=>{const P=G.ps;$('psres').innerHTML=`<div class="feedback ok"><b>✅ 시간표 완성</b><div class="hint">숫자를 직접 고칠 수도 있어요 (한 줄에 한 개, 초 단위). ${s.pub?'이 곡은 songs.xlsx에서 읽은 곡이라 <b>엑셀 F열(시작 시간)에 아래 숫자를 붙여 넣고</b> 파일을 다시 올려 주세요. 올리기 전까지는 이 기기에서만 미리 볼 수 있어요.':'이 기기에 저장됐어요. 학생용으로 내보낼 때 songs.json 또는 엑셀에 함께 담겨요.'}</div><textarea class="input" id="pstm" rows="6">${P.tm.map(x=>x.toFixed(1)).join('\n')}</textarea><button class="btn-s" id="pstmcp">📋 복사</button> <button class="btn-s" id="pstmok">💾 숫자 적용·저장</button> <button class="btn-s" id="pstest">🎬 미리 해보기</button> <span class="hint" id="pstmm"></span></div>`;
+  const apply=()=>{const v=$('pstm').value.split(/\r?\n/).map(x=>x.trim()).filter(x=>x!=='').map(Number);if(v.length!==N||!v.every(x=>isFinite(x)&&x>=0)){$('pstmm').textContent='❌ 줄 수('+N+'개)와 숫자를 확인해 주세요.';return false;}P.tm=v;saveTm(v);$('pstmm').textContent='저장했어요!';return true;};
+  $('pstmcp').onclick=()=>{$('pstm').select();try{document.execCommand('copy');}catch(e){}try{navigator.clipboard.writeText($('pstm').value);}catch(e){}$('pstmm').textContent='복사했어요!';};
+  $('pstmok').onclick=apply;$('pstest').onclick=()=>{if(apply()){G.scr='popclip';render();}};saveTm(P.tm);};
+ const saveTm=v=>{s.tm=v.slice();if(s.pub){const m=popTmoMap();m[(s.t||'')+'|'+s.l.length]=v;try{localStorage.setItem('sg_pop_tmo',JSON.stringify(m));}catch(e){}}else{const A=popLoad(),i=A.findIndex(x=>x.id===s.id);if(i>=0){A[i].tm=v.slice();popSave(A);}}};
+ $('pstap').onclick=()=>{const P=G.ps;if(P.tm.length>=N)return;let t=Math.max(0,popT()-0.25);const last=P.tm.length?P.tm[P.tm.length-1]:0;t=Math.max(t,last);P.tm.push(Math.round(t*10)/10);sfx('click');draw();};
+ $('psundo').onclick=()=>{G.ps.tm.pop();draw();};
+ $('psreset').onclick=()=>{G.ps.tm=[];try{G._py.seekTo(0,true);}catch(e){}draw();};
+ $('pspl').onclick=()=>{try{G._py.getPlayerState()===1?G._py.pauseVideo():G._py.playVideo();}catch(e){}};
+ draw();}
+/* 학생: 영상 따라 쓰기 */
+function popClip(){const s=popFind(G.popId);if(!s||!s.y||!s.tm||s.tm.length!==s.l.length){G.scr='popsong';return popSong();}
+ const lv=G.popLv==null?1:G.popLv,K=s.k||[],hasKo=K.length===s.l.length&&K.some(x=>x);
+ const plan=s.l.map((t,i)=>{const cs=popCands(t);let n=lv===0?(i%2===0?1:0):lv===1?1:2;n=Math.min(n,cs.length);const pick=cs.slice().sort(()=>Math.random()-.5).slice(0,n).sort((a,b)=>a-b);return pick;});
+ const tot=plan.reduce((a,b)=>a+b.length,0);
+ G.pc={s,plan,tot};
+ const lines=s.l.map((t,i)=>{const tk=popTok(t);return `<div class="cline" data-i="${i}"><button class="cplay" data-p="${i}" title="이 줄부터 듣기">▶</button><div class="ctext">${tk.map((x,j)=>plan[i].includes(j)?esc(x.pre)+`<input class="cin" data-i="${i}" data-j="${j}" autocomplete="off" autocapitalize="off" spellcheck="false" style="width:${Math.max(4,x.w.length+1)}ch">`+esc(x.suf):esc(x.raw)).join(' ')}${hasKo&&K[i]?`<div class="cko hint" hidden>${esc(K[i])}</div>`:''}</div></div>`;}).join('');
+ $('app').innerHTML=hud('<button class="btn-s" id="popback">← 나가기</button>')+`<div class="card pop"><h2>🎬 ${esc(s.t)}</h2>
+ <div class="popvid"><div id="popytp"></div></div>
+ <div class="popctl"><button class="btn-s" id="pcb5">⏪ 5초</button><button class="btn-s" id="pcline">🔁 이 줄 다시</button><label class="popck"><input type="checkbox" id="pcpause"> 쓸 때 멈추기</label>${hasKo?'<label class="popck"><input type="checkbox" id="pcko"> 해석 보기</label>':''}</div>
+ <div class="hint">▶를 눌러 영상을 시작하세요. 지금 부르는 줄이 노랗게 표시돼요. 맞게 쓰면 초록색이 돼요! (빈칸 ${tot}개)</div>
+ <div class="clines" id="clines">${lines}</div>
+ <button class="next" id="pcgrade">✔ 채점하기</button><div id="pcres"></div></div>`;
+ $('popback').onclick=()=>{G.scr='popsong';render();};
+ popMk('popytp',s.y);
+ const box=$('clines'),rows=[...box.querySelectorAll('.cline')];let cur=-1;
+ G._pt=setInterval(()=>{if(G.scr!=='popclip'){popStop();return;}const t=popT();let c=-1;for(let i=0;i<s.tm.length;i++)if(s.tm[i]<=t+0.05)c=i;
+  if(c!==cur){cur=c;rows.forEach((r,i)=>r.classList.toggle('cur',i===c));if(c>=0)box.scrollTop=Math.max(0,rows[c].offsetTop-box.clientHeight/3);}},150);
+ const seek=t=>{try{G._py.seekTo(Math.max(0,t),true);G._py.playVideo();}catch(e){}};
+ $('pcb5').onclick=()=>seek(popT()-5);$('pcline').onclick=()=>seek(s.tm[Math.max(0,cur)]);
+ box.querySelectorAll('.cplay').forEach(b=>b.onclick=()=>seek(s.tm[+b.dataset.p]));
+ const ck=$('pcko');if(ck)ck.onchange=()=>box.querySelectorAll('.cko').forEach(e=>e.hidden=!ck.checked);
+ let paused=false;
+ box.querySelectorAll('.cin').forEach(inp=>{const ans=popTok(s.l[+inp.dataset.i])[+inp.dataset.j].w;
+  inp.addEventListener('focus',()=>{if($('pcpause').checked)try{if(G._py.getPlayerState()===1){G._py.pauseVideo();paused=true;}}catch(e){}});
+  inp.addEventListener('blur',()=>{if(paused){paused=false;try{G._py.playVideo();}catch(e){}}});
+  inp.addEventListener('input',()=>{if(popNorm(inp.value)===popNorm(ans)&&inp.value.trim()){inp.classList.add('ok');inp.readOnly=true;sfx('formed');}});
+  inp.addEventListener('keydown',ev=>{if(ev.key==='Enter'){const all=[...box.querySelectorAll('.cin:not(.ok)')],k=all.indexOf(inp);const nx=all[k+1];if(nx)nx.focus();else inp.blur();}});});
+ $('pcgrade').onclick=()=>{let ok=0;box.querySelectorAll('.cin').forEach(inp=>{const ans=popTok(s.l[+inp.dataset.i])[+inp.dataset.j].w,hit=popNorm(inp.value)===popNorm(ans)&&inp.value.trim();inp.readOnly=true;if(hit){ok++;inp.classList.add('ok');}else{inp.classList.add('no');const a=document.createElement('span');a.className='cans';a.textContent=' → '+ans;inp.insertAdjacentElement('afterend',a);}});
+  const acc=tot?ok/tot:0,st=acc>=.9?3:acc>=.7?2:acc>=.4?1:0;$('pcres').innerHTML=`<div class="feedback ${st>=2?'ok':'no'}"><div style="text-align:center;font-size:36px">${'⭐'.repeat(st)}${'☆'.repeat(3-st)}</div><div style="font-weight:900;font-size:20px;text-align:center">${ok} / ${tot} 정답</div></div><button class="next" id="pcagain">🔁 다시 도전</button>`;
+  $('pcagain').onclick=()=>render();if(st>=2)sfx('fanfare');$('pcres').scrollIntoView({behavior:'smooth'});};}
 
 render();tryAuto();setTimeout(tryAuto,300);
 setInterval(()=>{document.body.classList.toggle('muted-wait',!(AU.ctx&&AU.ctx.state==='running')&&G.scr==='splash');},500);

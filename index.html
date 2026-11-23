@@ -1602,7 +1602,7 @@ function openGuide(){
 function hud(extra){return `<div class="hud"><span class="nm">${SV.hero==='druid'?'🐻':'🛡️'} ${esc(G.name)}${SV.hero?` <small>(${HERO[SV.hero].slice(2)})</small>`:''}</span><span class="gold">💎 ${SV.cry}</span>${G.started?`<span class="stonechip" title="강화석">⚒️ ${SV.stone||0}</span>`:''}${(SV.egg||0)>0?`<span class="stonechip" title="신비한 알 (레이드 드롭 · 후반 펫 교환)">🥚 ${SV.egg}</span>`:''}${SV.mode==='rpg'&&rpgOpen()?`<span class="rgold">💰 ${SV.rg}</span>`:''}${G.started&&SV.level?`<span class="lvb">${LEVELS[LV()].ic} ${LEVELS[LV()].n}</span>`:''}${extra||''}<span class="sp"></span><button class="btn-s mute" onclick="toggleMute()">${AU.muted?'🔇 소리 꺼짐':'🔊 소리 켜짐'}</button><button class="btn-s" onclick="openGuide()">📖 도감</button></div>`;}
 
 /* ---------- 화면 ---------- */
-function render(){window.scrollTo({top:0});applySkin();const f={splash,title,opening,level,grave,ending,temple,intro,dsel,party,defeat,formed,battle,clear,shop,forge,rbattle,rresult,hsel:heroSel,news:newsPaper,rank:rankScreen,pvp:pvLobby,pvbattle:pvBattle,pvres:pvRes,rdlobby:rdLobby,rdbattle:rdBattle}[G.scr];document.body.dataset.bg=G.scr==='splash'?'':(G.scr==='battle'||G.scr==='rbattle'||G.scr==='pvbattle'||G.scr==='rdbattle')?(G.dg.bg||G.dg.id):'guild';f();fill($('app'));syncBgm();}
+function render(){window.scrollTo({top:0});applySkin();const f={splash,title,opening,level,grave,ending,temple,intro,dsel,party,defeat,formed,battle,clear,shop,forge,rbattle,rresult,hsel:heroSel,lhsel:lhSel,news:newsPaper,rank:rankScreen,pvp:pvLobby,pvbattle:pvBattle,pvres:pvRes,rdlobby:rdLobby,rdbattle:rdBattle}[G.scr];document.body.dataset.bg=G.scr==='splash'?'':(G.scr==='battle'||G.scr==='rbattle'||G.scr==='pvbattle'||G.scr==='rdbattle')?(G.dg.bg||G.dg.id):'guild';f();fill($('app'));syncBgm();}
 
 const CREDIT=`<div class="credit">본 게임의 제작자는 DK KANG입니다.<br>이미지, 음악 및 폰트는 AI 도구를 활용하여 제작되었습니다.<br>학생들의 영어학습을 위해서는 얼마든지 쓰셔도 좋습니다.<br>다만 무단 복제 및 변형은 금지합니다.</div>`;
 const DEVH=()=>{const h=(location.hash||'').replace('#','').toLowerCase();return ({zx:1,qw:1,as:1})[h]?h:'';};
@@ -6659,7 +6659,7 @@ function popRunFinal(){const R=G.popRun;if(!R)return '';const ok=R.qok+R.cok,tot
 
 /* ---------- 모든 메뉴 상단바(HUD) 맨 앞에 돌아가기 버튼 ---------- 기존 아래쪽 버튼은 그대로 두고 위에 하나 더 추가해요. */
 (function(){
- const BACK={party:'dsel',shop:'dsel',forge:'dsel',news:'dsel',rank:'dsel',pvp:'dsel',rdlobby:'dsel',hsel:'dsel',temple:'dsel',level:()=>G.introDone?'dsel':'title'};
+ const BACK={party:'dsel',shop:'dsel',forge:'dsel',news:'dsel',rank:'dsel',pvp:'dsel',rdlobby:'dsel',hsel:'dsel',lhsel:'dsel',temple:'dsel',level:()=>G.introDone?'dsel':'title'};
  const _r=render;
  render=function(){
   _r.apply(this,arguments);
@@ -6703,9 +6703,15 @@ const mpLearnHero=()=>lhero();
 /* 학습 모드 주인공은 모양만 바뀜(효과 없음) */
 const lhGuard=()=>false,lhNeed=()=>3,lhMul=()=>1;
 function heroPickHTML(){if(!templeUnlocked()||(SV.mode==='rpg'&&rpgOpen()))return '';const h=lhero();
- return `<div class="hpick"><div class="hph">🦸 <b>내 주인공</b> <span class="hint">전직의 신전을 지났어요! 마음에 드는 캐릭터로 바꿀 수 있어요 · 지금: ${HWORD[h]}</span></div><div class="hpg">${HCLS.map(c=>`<button class="hpb ${c===h?'on':''}" data-hpk="${c}"><img src="mp_${c}.webp?v=1" alt=""><b>${HWORD[c]}</b></button>`).join('')}</div></div>`;}
+ return `<div class="herobar">${sp(heroSpr(h,eqSkin(h)),'hbig')}<div><b>🦸 내 주인공: ${HWORD[h]}</b><br><span class="hint">전직의 신전을 지났어요! 원하는 캐릭터로 바꿀 수 있어요.</span></div><button class="btn-s" id="tolhsel">🔄 주인공 바꾸기</button></div>`;}
+function lhSel(){const h=lhero();
+ $('app').innerHTML=hud()+`<div class="card"><div class="speaker">🦸 주인공 선택</div><div class="story">전직의 신전을 지나온 영웅이여! 학습 모드에서 함께할 <b>나의 주인공</b>을 골라 주세요. 주인공은 언제든 다시 바꿀 수 있어요.</div>
+ <div class="hgrid">${HCLS.map(c=>`<button class="hcard ${c===h?'on':''}" data-lh="${c}">${sp(heroSpr(c,eqSkin(c)),'hbig')}<b>${HWORD[c]}</b>${c===h?'<span class="tagok">⭐ 지금 주인공</span>':''}</button>`).join('')}</div>
+ <button class="ghost" id="lhback">↩ 돌아가기</button></div>`;
+ document.querySelectorAll('[data-lh]').forEach(b=>b.onclick=()=>{SV.lhero=b.dataset.lh;saveNow();sfx('formed');G.scr='dsel';render();});
+ $('lhback').onclick=()=>{G.scr='dsel';render();};}
 (function(){const _me=mapExtras;mapExtras=function(){return heroPickHTML()+_me.apply(this,arguments);};
- const _mb=mapBindExtras;mapBindExtras=function(){const r=_mb.apply(this,arguments);document.querySelectorAll('[data-hpk]').forEach(b=>b.onclick=()=>{SV.lhero=b.dataset.hpk;saveNow();sfx('spell');render();});return r;};})();
+ const _mb=mapBindExtras;mapBindExtras=function(){const r=_mb.apply(this,arguments);const th=document.getElementById('tolhsel');if(th)th.onclick=()=>{G.scr='lhsel';sfx('select');render();};return r;};})();
 
 render();tryAuto();setTimeout(tryAuto,300);
 setInterval(()=>{document.body.classList.toggle('muted-wait',!(AU.ctx&&AU.ctx.state==='running')&&G.scr==='splash');},500);

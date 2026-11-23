@@ -1045,6 +1045,7 @@ canvas.px[data-src="SPR"][data-k="shaman"],canvas.px[data-src="SPR"][data-k^="cs
 .cin.ok{border-bottom-color:#3fd07a;color:#8be3a0}.cin.no{border-bottom-color:#ff6a5a;color:#ff9a8a}
 .cans{color:#8be3a0;font-weight:800}
 .popnext{margin:8px 0}
+.popweek{padding:12px;border:2px solid #ffd36b;border-radius:14px;background:linear-gradient(180deg,#3b3220,#2a2340);margin:10px 0}
 
 </style>
 </head>
@@ -6377,6 +6378,13 @@ function popTok(line){return String(line).split(/\s+/).filter(Boolean).map(raw=>
 function popCands(line){const t=popTok(line),ok=(min)=>t.map((x,i)=>i).filter(i=>/^[A-Za-z']+$/.test(t[i].w)&&t[i].w.length>=min&&!POP_STOP.has(t[i].w.toLowerCase()));let c=ok(4);if(!c.length)c=ok(3);return c;}
 const POP_TPW='dkkang';/* 선생님 메뉴 암호 (바꾸려면 이 값을 수정) */
 function popTmoMap(){try{return JSON.parse(localStorage.getItem('sg_pop_tmo')||'{}')||{};}catch(e){return {};}}
+function popKey(s){return (s.t||'')+'|'+s.l.length;}
+function popDoneMap(){try{return JSON.parse(localStorage.getItem('sg_pop_done')||'{}')||{};}catch(e){return {};}}
+function popIsDone(s){return !!popDoneMap()[popKey(s)];}
+function popMarkDone(s,acc){const m=popDoneMap(),o=m[popKey(s)]||{};o.n=(o.n||0)+1;o.acc=Math.max(o.acc||0,Math.round(acc*100));m[popKey(s)]=o;try{localStorage.setItem('sg_pop_done',JSON.stringify(m));}catch(e){}}
+const POP_WK={cry:80,stone:2,need:.7};
+function popWeekSong(){const P=G.popPub||[];if(!P.length)return null;const k=weekKey().split('-').map(Number),n=Math.floor(Date.UTC(k[0],k[1]-1,k[2])/604800000);return P[n%P.length];}
+function popWeekDone(){return SV.popWk===weekKey();}
 function popFind(id){const x=popLoad().find(x=>x.id===id);if(x)return x;const p=(G.popPub||[]).find(x=>x.id===id);if(p&&(!p.tm||!p.tm.length)){const o=popTmoMap()[(p.t||'')+'|'+p.l.length];if(o&&o.length===p.l.length)p.tm=o;}return p;}
 function popBestMap(){try{return JSON.parse(localStorage.getItem('sg_pop_best')||'{}')||{};}catch(e){return {};}}
 /* songs.xlsx 읽기 (외부 라이브러리 없이 zip·xml을 직접 해석) */
@@ -6423,10 +6431,11 @@ async function popDec(code){try{code=String(code||'').trim();const i=code.indexO
   b.onclick=()=>{sfx('select');G.scr='pophome';render();};const s=document.getElementById('toshop');if(s)s.insertAdjacentElement('afterend',b);else{const h=document.querySelector('#app .hud');if(h){b.className='btn-s';b.textContent='🎵 팝송';h.appendChild(b);}}}}catch(e){}
  };})();
 /* 곡 목록 */
-function popHome(){const A=popLoad(),P=G.popPub||[],T=!!G.popT,inn=G.popIn,lk=G.popLink;
+function popHome(){const A=popLoad(),P=G.popPub||[],T=!!G.popT,inn=G.popIn,lk=G.popLink,W=popWeekSong();
  const card=(s,pub)=>`<div class="popsong"><div><b>${esc(s.t)}</b><span class="hint" style="display:block">${esc(s.a||'')} · ${s.l.length}줄${s.k&&s.k.length?' · 해석 있음':''}${s.best?' · 최고 '+s.best+'점':''}</span></div><div class="pbtns"><button class="btn-s" data-pp="${s.id}">▶ 시작</button>${T&&s.y?`<button class="btn-s" data-py="${s.id}">⏱</button>`:''}${pub?'':`<button class="btn-s" data-pe="${s.id}">✏️</button><button class="btn-s" data-ps="${s.id}">🔗</button><button class="btn-s" data-pd="${s.id}">🗑️</button>`}</div></div>`;
  $('app').innerHTML=hud('<button class="btn-s" id="popback">← 돌아가기</button>')+`<div class="card pop"><h2>🎵 팝송 가사 퀘스트</h2>
  <div class="story">노래를 들으면서 가사의 <b>빈칸</b>을 채우고, <b>해석</b>을 맞히고, <b>줄 순서</b>를 맞혀 보세요! 곡을 골라 시작하세요.</div>
+ ${W?`<div class="popweek"><div>📅 <b>이번 주 팝송 던전</b></div><div class="popline" style="font-size:19px;margin:4px 0">${esc(W.t)} <span class="hint">${esc(W.a||'')}</span></div><div class="hint">모든 활동을 하고 정답률 ${Math.round(POP_WK.need*100)}% 이상이면 클리어! 보상 💎 ${POP_WK.cry} · ⚒️ ${POP_WK.stone} (주 1회)</div>${popWeekDone()?'<div class="feedback ok" style="margin-top:8px">✅ 이번 주 클리어 완료!</div>':'<button class="next" id="popwk">⚔️ 도전하기</button>'}</div>`:''}
  <div class="poplist">${P.length?P.map(s=>card(s,true)).join(''):'<div class="hint" style="padding:14px 0">아직 준비된 곡이 없어요. 선생님이 곡을 준비하면 여기에 나타나요.</div>'}</div>
  ${T?`<h3 style="margin:16px 0 4px">🧑‍🏫 선생님 메뉴</h3>
  <div class="hint">여기서 만든 곡은 이 기기에만 저장돼요. 아래 <b>학생 공개용 파일 만들기</b>로 songs.json을 만들어 게임 저장소에 올리면 모든 학생에게 곡 목록으로 나타나요.</div>
@@ -6436,6 +6445,7 @@ function popHome(){const A=popLoad(),P=G.popPub||[],T=!!G.popT,inn=G.popIn,lk=G.
  <button class="btn-s" id="popexp" style="margin-top:8px" ${A.length?'':'disabled'}>📤 학생 공개용 파일(songs.json) 만들기</button>
  <div id="popexbox"></div>`:`<button class="btn-s" id="poptch" style="margin-top:14px">🔒 선생님</button>`}</div>`;
  $('popback').onclick=()=>{G.popLink=null;G.scr='dsel';render();};
+ const wk=$('popwk');if(wk)wk.onclick=()=>{G.popId=W.id;G.popWk=true;G.popLink=null;sfx('select');G.scr='popsong';render();};
  const th=$('poptch');if(th)th.onclick=()=>{const v=prompt('선생님 암호를 입력하세요');if(v===POP_TPW){G.popT=true;sfx('coins');render();}else if(v!==null)alert('암호가 달라요.');};
  const nw=$('popnew');if(nw)nw.onclick=()=>{G.popEd=null;G.scr='popedit';render();};
  const cp=$('popcp');if(cp)cp.onclick=()=>{const t=$('poplk');t.select();let ok=false;try{ok=document.execCommand('copy');}catch(e){}try{navigator.clipboard.writeText(lk.url);ok=true;}catch(e){}$('popcpm').textContent=ok?'복사했어요!':'길게 눌러 복사해 주세요.';};
@@ -6443,7 +6453,7 @@ function popHome(){const A=popLoad(),P=G.popPub||[],T=!!G.popT,inn=G.popIn,lk=G.
   $('popexbox').innerHTML=`<div class="feedback ok"><b>📤 songs.json</b><div class="hint">① 아래 버튼으로 파일을 저장하고 ② 게임 저장소(Grammar-saga)에 <b>songs.json</b> 이름으로 올려 주세요(같은 이름이면 덮어쓰기). 1~2분 뒤 학생 화면에 곡이 나타나요.</div><textarea class="input" id="popjs" rows="5" readonly>${esc(js)}</textarea><button class="btn-s" id="popdl">💾 songs.json 저장</button> <button class="btn-s" id="popjcp">📋 내용 복사</button></div>`;
   $('popdl').onclick=()=>{const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([js],{type:'application/json'}));a.download='songs.json';a.click();};
   $('popjcp').onclick=()=>{$('popjs').select();try{document.execCommand('copy');}catch(e){}try{navigator.clipboard.writeText(js);}catch(e){}};};
- document.querySelectorAll('[data-pp]').forEach(b=>b.onclick=()=>{G.popId=b.dataset.pp;G.popLink=null;sfx('select');G.scr='popsong';render();});
+ document.querySelectorAll('[data-pp]').forEach(b=>b.onclick=()=>{G.popId=b.dataset.pp;G.popWk=false;G.popLink=null;sfx('select');G.scr='popsong';render();});
  document.querySelectorAll('[data-py]').forEach(b=>b.onclick=()=>{G.popId=b.dataset.py;sfx('select');G.scr='popsync';render();});
  document.querySelectorAll('[data-pe]').forEach(b=>b.onclick=()=>{G.popEd=b.dataset.pe;G.popLink=null;sfx('click');G.scr='popedit';render();});
  document.querySelectorAll('[data-ps]').forEach(b=>b.onclick=async()=>{const s=popLoad().find(x=>x.id===b.dataset.ps);if(!s)return;const c=await popEnc(s);G.popLink={id:s.id,url:location.origin+location.pathname+'#pop='+c};sfx('click');render();});
@@ -6468,20 +6478,26 @@ function popEdit(){const s=G.popEd?popLoad().find(x=>x.id===G.popEd):null;
 /* 곡 시작 화면 */
 function popSong(){const s=popFind(G.popId);if(!s){G.scr='pophome';return popHome();}
  const hasKo=s.k&&s.k.length===s.l.length&&s.k.some(x=>x);const M=G.popM||{type:true,choice:true,order:true,trans:hasKo},N=G.popN||10;
+ const wkOn=!!G.popWk&&!popWeekDone()&&popWeekSong()&&popWeekSong().id===s.id,forced=wkOn||(!G.popT&&!popIsDone(s));
  const row=(k,ic,nm,d,dis)=>`<label class="popmode ${dis?'dis':''}"><input type="checkbox" data-pm="${k}" ${M[k]&&!dis?'checked':''} ${dis?'disabled':''}><span>${ic} <b>${nm}</b><small>${d}</small></span></label>`;
  $('app').innerHTML=hud('<button class="btn-s" id="popback">← 목록</button>')+`<div class="card pop"><h2>🎵 ${esc(s.t)}</h2><div class="hint">${esc(s.a||'')} · ${s.l.length}줄</div>
  ${s.y?`<iframe class="popyt" src="https://www.youtube-nocookie.com/embed/${s.y}" allow="encrypted-media" allowfullscreen></iframe><div class="hint">먼저 노래를 들어 보세요. 게임 중에도 위쪽에서 들을 수 있어요.</div>`:''}
+ ${wkOn?`<div class="popweek">📅 <b>주간 팝송 던전!</b> 정답률 ${Math.round(POP_WK.need*100)}% 이상이면 클리어 · 보상 💎 ${POP_WK.cry} · ⚒️ ${POP_WK.stone}</div>`:''}
+ <div class="story">${forced?'처음 도전이에요! 준비된 활동을 <b>모두</b> 해 봐요: 빈칸 · 보기 · 순서 · 해석 퀴즈 12문제'+(popHasTm(s)?' + 🎬 영상 따라 쓰기':'')+'. 한 번 끝내면 다음부터 활동을 골라서 할 수 있어요.':'모든 활동을 한 번에 도전하거나, 아래에서 원하는 활동만 골라서 할 수 있어요.'}</div>
+ <button class="next" id="popfull">${forced?'🎤 도전 시작!':'🏁 전체 도전 (모든 활동)'}</button>
+ <div id="popsel" ${forced?'hidden':''}>
  ${s.y&&s.tm&&s.tm.length?`<h3 style="margin:12px 0 4px">🎬 영상 따라 쓰기</h3><div class="hint">영상이 나오는 동안 지금 부르는 줄이 강조되고, 빈칸에 들리는 단어를 바로 써요.</div><div class="stabs sub">${['쉬움','보통','어려움'].map((n,i)=>`<button class="stab ${(G.popLv==null?1:G.popLv)===i?'on':''}" data-pl="${i}">${n}</button>`).join('')}</div><button class="next" id="popclipgo">🎬 영상 따라 쓰기 시작</button>`:''}
  <h3 style="margin:12px 0 4px">활동 고르기</h3>
  ${row('type','✏️','빈칸 채우기','들리는 단어를 직접 써요')}${row('choice','🔘','보기에서 고르기','네 개 중에서 골라요')}${row('order','🔀','줄 순서 맞추기','섞인 가사 4줄을 순서대로')}${row('trans','💬','가사 해석 맞히기',hasKo?'알맞은 우리말 뜻 고르기':'이 곡엔 해석이 없어요',!hasKo)}
  <h3 style="margin:12px 0 4px">문제 수</h3><div class="stabs sub">${[5,10,15].map(n=>`<button class="stab ${N===n?'on':''}" data-pn="${n}">${n}문제</button>`).join('')}</div>
- <button class="next" id="popgo">🎤 시작!</button></div>`;
+ <button class="next" id="popgo">🎤 시작!</button></div></div>`;
  $('popback').onclick=()=>{G.scr='pophome';render();};
  document.querySelectorAll('[data-pm]').forEach(c=>c.onchange=()=>{M[c.dataset.pm]=c.checked;G.popM=M;});
  document.querySelectorAll('[data-pn]').forEach(b=>b.onclick=()=>{G.popN=+b.dataset.pn;G.popM=M;sfx('click');render();});
  document.querySelectorAll('[data-pl]').forEach(b=>b.onclick=()=>{G.popLv=+b.dataset.pl;sfx('click');render();});
- const cg=$('popclipgo');if(cg)cg.onclick=()=>{sfx('select');G.scr='popclip';render();};
- $('popgo').onclick=()=>{const modes=['type','choice','order','trans'].filter(k=>M[k]&&!(k==='trans'&&!hasKo));if(!modes.length){return;}const qs=popGen(s,modes,N);if(!qs.length)return;sfx('select');
+ const cg=$('popclipgo');if(cg)cg.onclick=()=>{sfx('select');G.popRun=null;G.scr='popclip';render();};
+ $('popfull').onclick=()=>{const modes=['type','choice','order','trans'].filter(k=>!(k==='trans'&&!hasKo)),qs=popGen(s,modes,12);if(!qs.length)return;sfx('select');G.popRun={s,weekly:wkOn,q:0,c:0,qok:0,qtot:0,cok:0,ctot:0};G.popLv=1;G.pop={s,qs,qi:0,score:0,combo:0,maxc:0,ok:0,wr:[],res:null,hint:false};G.scr='popplay';render();};
+ $('popgo').onclick=()=>{G.popRun=null;const modes=['type','choice','order','trans'].filter(k=>M[k]&&!(k==='trans'&&!hasKo));if(!modes.length){return;}const qs=popGen(s,modes,N);if(!qs.length)return;sfx('select');
   G.pop={s,qs,qi:0,score:0,combo:0,maxc:0,ok:0,wr:[],res:null,hint:false};G.scr='popplay';render();};}
 /* 문제 만들기 */
 function popGen(s,modes,n){const L=s.l,K=s.k||[],hasKo=K.length===L.length&&K.some(x=>x);
@@ -6548,7 +6564,10 @@ function popRes(){const P=G.pop;if(!P){G.scr='pophome';return popHome();}const n
  <div style="text-align:center;font-size:44px;margin:6px 0">${'⭐'.repeat(st)}${'☆'.repeat(3-st)}</div>
  <div class="feedback ${st>=2?'ok':'no'}"><div style="font-weight:900;font-size:20px">${P.ok} / ${n} 정답 · ⭐ ${P.score}점</div><div class="hint">최고 연속 정답 🔥 ${P.maxc}</div></div>
  ${P.wr.length?`<h3 style="margin:12px 0 4px">📝 다시 볼 가사</h3>${P.wr.map(q=>{const L=q.k==='order'?q.idx.map(x=>P.s.l[x]).join('<br>'):esc(P.s.l[q.i]);return `<div class="popreview">${q.k==='order'?q.idx.map(x=>esc(P.s.l[x])).join('<br>'):L}${q.k!=='order'&&K[q.i]?`<div class="hint">💬 ${esc(K[q.i])}</div>`:''}</div>`;}).join('')}`:'<div class="story">모두 맞혔어요! 완벽한 무대였어요 🎤</div>'}
+ <div id="poprun"></div>
  <button class="next" id="popagain">🔁 다시 도전</button><button class="btn-s" id="popls" style="margin-top:8px">곡 목록으로</button></div>`;
+ const R=G.popRun;if(R&&!R.q){R.q=1;R.qok=P.ok;R.qtot=n;}
+ if(R&&R.q&&!R.c){if(popHasTm(P.s)){$('poprun').innerHTML='<div class="feedback ok"><b>1단계 완료!</b> 다음은 영상을 보며 쓰는 마지막 단계예요.</div><button class="next" id="popnext2">🎬 2단계: 영상 따라 쓰기</button>';$('popnext2').onclick=()=>{sfx('select');G.popLv=1;G.scr='popclip';render();};}else{$('poprun').innerHTML=popRunFinal();}}
  $('popagain').onclick=()=>{G.scr='popsong';render();};$('popls').onclick=()=>{G.pop=null;G.scr='pophome';render();};if(st>=2)sfx('fanfare');}
 
 /* ---------- 영상 연동 (유튜브 플레이어) : 시간 찍기 · 영상 따라 쓰기 ---------- */
@@ -6616,7 +6635,15 @@ function popClip(){const s=popFind(G.popId);if(!s||!s.y||!s.tm||s.tm.length!==s.
   inp.addEventListener('keydown',ev=>{if(ev.key==='Enter'){const all=[...box.querySelectorAll('.cin:not(.ok)')],k=all.indexOf(inp);const nx=all[k+1];if(nx)nx.focus();else inp.blur();}});});
  $('pcgrade').onclick=()=>{let ok=0;box.querySelectorAll('.cin').forEach(inp=>{const ans=popTok(s.l[+inp.dataset.i])[+inp.dataset.j].w,hit=popNorm(inp.value)===popNorm(ans)&&inp.value.trim();inp.readOnly=true;if(hit){ok++;inp.classList.add('ok');}else{inp.classList.add('no');const a=document.createElement('span');a.className='cans';a.textContent=' → '+ans;inp.insertAdjacentElement('afterend',a);}});
   const acc=tot?ok/tot:0,st=acc>=.9?3:acc>=.7?2:acc>=.4?1:0;$('pcres').innerHTML=`<div class="feedback ${st>=2?'ok':'no'}"><div style="text-align:center;font-size:36px">${'⭐'.repeat(st)}${'☆'.repeat(3-st)}</div><div style="font-weight:900;font-size:20px;text-align:center">${ok} / ${tot} 정답</div></div><button class="next" id="pcagain">🔁 다시 도전</button>`;
-  $('pcagain').onclick=()=>render();if(st>=2)sfx('fanfare');$('pcres').scrollIntoView({behavior:'smooth'});};}
+  $('pcagain').onclick=()=>render();if(st>=2)sfx('fanfare');
+  const R=G.popRun;if(R&&R.q&&!R.c){R.c=1;R.cok=ok;R.ctot=tot;$('pcres').insertAdjacentHTML('beforeend',popRunFinal());}$('pcres').scrollIntoView({behavior:'smooth'});};}
+
+/* 전체 도전 마무리: 처음 도전 완료 기록 + 주간 팝송 던전 보상 */
+function popRunFinal(){const R=G.popRun;if(!R)return '';const ok=R.qok+R.cok,tot=R.qtot+R.ctot,acc=tot?ok/tot:0,clear=acc>=POP_WK.need;popMarkDone(R.s,acc);
+ let msg='';if(R.weekly){if(clear&&!popWeekDone()){SV.popWk=weekKey();SV.cry=(SV.cry||0)+POP_WK.cry;SV.stone=(SV.stone||0)+POP_WK.stone;try{saveNow();}catch(e){}sfx('coins');msg=`<div class="feedback ok"><div style="font-weight:900;font-size:20px">🏆 주간 팝송 던전 클리어!</div><div class="goldpop">💎 +${POP_WK.cry} · ⚒️ +${POP_WK.stone}</div></div>`;}
+  else if(!clear)msg=`<div class="feedback no">아쉬워요! 정답률 ${Math.round(POP_WK.need*100)}% 이상이면 클리어돼요. 이번 주 안에 다시 도전해 보세요.</div>`;}
+ R.weekly=false;G.popRun=null;
+ return `<div class="feedback ${clear?'ok':'no'}" style="margin-top:8px"><b>🏁 전체 도전 완료</b> · 정답 ${ok} / ${tot} (${Math.round(acc*100)}%)<div class="hint">이제부터 이 곡은 활동을 골라서 할 수 있어요.</div></div>${msg}`;}
 
 /* ---------- 모든 메뉴 상단바(HUD) 맨 앞에 돌아가기 버튼 ---------- 기존 아래쪽 버튼은 그대로 두고 위에 하나 더 추가해요. */
 (function(){

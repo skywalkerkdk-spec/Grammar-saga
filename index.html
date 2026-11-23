@@ -1086,6 +1086,13 @@ canvas.px[data-src="SPR"][data-k="shaman"],canvas.px[data-src="SPR"][data-k^="cs
 @keyframes sqpop{0%{transform:scale(.6);opacity:0}70%{transform:scale(1.08)}100%{transform:scale(1);opacity:1}}
 .sqb.pop{animation:sqpop .35s ease}
 
+/* 🌟 별빛 부활 물약 아이콘 */
+.potic.rev{width:64px;height:64px;margin:0 auto;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:38px!important;background:radial-gradient(circle,#fff3b0 0,#7fb5ff 55%,rgba(110,140,255,0) 72%);box-shadow:0 0 18px #9cc4ff,0 0 34px rgba(130,170,255,.55);animation:revglow 1.8s ease-in-out infinite}
+@keyframes revglow{50%{box-shadow:0 0 26px #ffe58a,0 0 48px rgba(150,190,255,.75);transform:translateY(-2px)}}
+/* 🏪 일반 상점 */
+.mallg{display:grid;gap:10px;margin-top:12px}
+.mallg .shopbtn{width:100%}
+
 </style>
 </head>
 <body>
@@ -1629,7 +1636,7 @@ function openGuide(){
 function hud(extra){return `<div class="hud"><span class="nm">${SV.hero==='druid'?'🐻':'🛡️'} ${esc(G.name)}${SV.hero?` <small>(${HERO[SV.hero].slice(2)})</small>`:''}</span><span class="gold">💎 ${SV.cry}</span>${G.started?`<span class="stonechip" title="강화석">⚒️ ${SV.stone||0}</span>`:''}${(SV.egg||0)>0?`<span class="stonechip" title="신비한 알 (레이드 드롭 · 후반 펫 교환)">🥚 ${SV.egg}</span>`:''}${SV.mode==='rpg'&&rpgOpen()?`<span class="rgold">💰 ${SV.rg}</span>`:''}${G.started&&SV.level?`<span class="lvb">${LEVELS[LV()].ic} ${LEVELS[LV()].n}</span>`:''}${extra||''}<span class="sp"></span><button class="btn-s mute" onclick="toggleMute()">${AU.muted?'🔇 소리 꺼짐':'🔊 소리 켜짐'}</button><button class="btn-s" onclick="openGuide()">📖 도감</button></div>`;}
 
 /* ---------- 화면 ---------- */
-function render(){window.scrollTo({top:0});applySkin();const f={splash,title,opening,level,grave,ending,temple,intro,dsel,party,defeat,formed,battle,clear,shop,forge,rbattle,rresult,hsel:heroSel,lhsel:lhSel,news:newsPaper,rank:rankScreen,pvp:pvLobby,pvbattle:pvBattle,pvres:pvRes,rdlobby:rdLobby,rdbattle:rdBattle}[G.scr];document.body.dataset.bg=G.scr==='splash'?'':(G.scr==='battle'||G.scr==='rbattle'||G.scr==='pvbattle'||G.scr==='rdbattle')?(G.dg.bg||G.dg.id):'guild';f();fill($('app'));syncBgm();}
+function render(){window.scrollTo({top:0});applySkin();const f={splash,title,opening,level,grave,ending,temple,intro,dsel,party,defeat,formed,battle,clear,shop,forge,rbattle,rresult,hsel:heroSel,lhsel:lhSel,mall:mallScr,news:newsPaper,rank:rankScreen,pvp:pvLobby,pvbattle:pvBattle,pvres:pvRes,rdlobby:rdLobby,rdbattle:rdBattle}[G.scr];document.body.dataset.bg=G.scr==='splash'?'':(G.scr==='battle'||G.scr==='rbattle'||G.scr==='pvbattle'||G.scr==='rdbattle')?(G.dg.bg||G.dg.id):'guild';f();fill($('app'));syncBgm();}
 
 const CREDIT=`<div class="credit">본 게임의 제작자는 DK KANG입니다.<br>이미지, 음악 및 폰트는 AI 도구를 활용하여 제작되었습니다.<br>학생들의 영어학습을 위해서는 얼마든지 쓰셔도 좋습니다.<br>다만 무단 복제 및 변형은 금지합니다.</div>`;
 const DEVH=()=>{const h=(location.hash||'').replace('#','').toLowerCase();return ({zx:1,qw:1,as:1})[h]?h:'';};
@@ -1724,7 +1731,7 @@ function templeCard(){const u=templeUnlocked();
 function dsel(){G.rpg=false;if(SV.mode==='rpg'&&rpgOpen())return rpgDsel();
  $('app').innerHTML=hud()+`<div class="card"><div class="speaker">탱커의 결심</div>
  <div class="story">어느 던전에 도전할까? <b>파티 인원</b>은 던전마다 다르다. (펫은 인원에 포함되지 않음)</div>${modeTabs()}${dailyCard()}
- <button class="shopbtn" id="toshop">${petc('mini')}<div><b>🐾 길드 상점 (펫·스킨·물약)</b><span>수정으로 펫·꾸미기·스킨·물약을 사 보세요 · 보유 💎 ${SV.cry}</span></div></button>${forgeCard()}
+ <button class="shopbtn" id="toshop">${petc('mini')}<div><b>🏪 일반 상점</b><span>펫·꾸미기·스킨 · 대장간 · 무기 강화 · 물약 상점 · 보유 💎 ${SV.cry}</span></div></button>
  <div class="dtools"><button class="btn-s" id="toopen">🎬 오프닝 보기</button><button class="btn-s" id="tolv">${LEVELS[LV()].ic} 난이도: <b>${LEVELS[LV()].n}</b> (${LEVELS[LV()].sub}) · 바꾸기</button><button class="btn-s savebtn" id="dsave">💾 저장하기</button><button class="btn-s rankbtn" id="torank">${rankBtnLabel()}</button><button class="btn-s" id="togift">🎁 보상 코드</button><button class="btn-s" id="tologin">👤 다른 계정으로 로그인</button></div>
  ${G.dev?devPanel():''}${G.toastSave?'<div class="feedback ok" style="margin:0 0 10px">💾 저장했어요! 다음에 같은 이름으로 들어오면 이어서 할 수 있어요.</div>':''}${resumeHTML()}
  ${shardBar()}<div class="dgrid">${DUNGEONS.filter(d=>!d.verbal&&!d.mix).map(d=>`<button class="dcard ${d.id==='d6'&&!dOpen(d)?'dlock':''}" ${dOpen(d)?'':'disabled'} data-id="${d.id}">
@@ -2291,7 +2298,7 @@ function shop(){
  <div class="stabs">${tabs.map(([k,l])=>`<button class="stab ${tab===k?'on':''}" data-tab="${k}">${l}</button>`).join('')}</div>
  ${body}
  <p class="hint">학습 모드에서 몬스터를 <b>첫 시도</b>에 잡으면 💎 수정을 얻어요. RPG 모드에서는 💎 수정과 💰 골드를 함께 얻어요. 💎 수정은 펫·꾸미기·스킨, 💰 골드는 대장간 장비에 써요. 기록은 이 기기의 브라우저에만 저장돼요.</p>
- <button class="next" id="out">🗺️ 던전 목록으로</button></div>`;
+ <button class="next" id="out">🏪 일반 상점으로</button></div>`;
  document.querySelectorAll('[data-tab]').forEach(b=>b.onclick=()=>{G.shopTab=b.dataset.tab;G.toast=null;sfx('click');render();});potShopBind();
  document.querySelectorAll('button[data-pet]').forEach(b=>b.onclick=()=>{const k=b.dataset.pet,P=PETS[k];if(P.egg){if((SV.egg||0)<P.egg)return;SV.egg-=P.egg;}else{if(SV.cry<P.price)return;SV.cry-=P.price;}SV.pets.push(k);SV.pet=k;saveNow();sfx('coins');G.toast={msg:`${P.nm} 입양 완료! 함께 모험을 떠나요. (이전 펫은 펫 우리로)`,en:P.en,nm:P.nm};render();});
  document.querySelectorAll('[data-acc]').forEach(b=>b.onclick=()=>{const a=b.dataset.acc,A=ACC[a];if(SV.cry<A.price)return;SV.cry-=A.price;SV.owned.push(a);SV.eq[A.slot]=a;saveNow();sfx('coins');G.toast={msg:`${A.nm} 구매 완료!`,en:A.en,nm:A.nm};render();});
@@ -2302,7 +2309,7 @@ function shop(){
  document.querySelectorAll('[data-use]').forEach(b=>b.onclick=()=>{SV.pet=b.dataset.use;saveNow();sfx('pop');G.toast=null;render();});
  document.querySelectorAll('[data-wear]').forEach(b=>b.onclick=()=>{const a=b.dataset.wear;SV.eq[ACC[a].slot]=a;saveNow();sfx('select');G.toast=null;render();});
  document.querySelectorAll('[data-off]').forEach(b=>b.onclick=()=>{const a=b.dataset.off;SV.eq[ACC[a].slot]=null;saveNow();sfx('click');G.toast=null;render();});
- $('out').onclick=()=>{G.scr='dsel';render();};
+ $('out').onclick=()=>{G.scr='mall';render();};
 }
 const GMAX=6;const gaugeBar=g=>"■".repeat(g)+"□".repeat(Math.max(0,3-g));
 /* ================= RPG 모드 · 스킨 · 장비 ================= */
@@ -2382,8 +2389,7 @@ function rpgDsel(){
  $('app').innerHTML=hud()+`<div class="card"><div class="speaker">⚔️ RPG 모드</div>
  <div class="story">장비를 갖추고 더 강한 적에게 도전하세요! <b>내 턴</b>에는 공격 문제, <b>적의 턴</b>에는 회피 문제가 나와요. 공격을 맞히면 <b>💥 필살기</b> 게이지가 차요.</div>
  ${modeTabs()}${dailyCard()}${wkCard()}${G.dev?rpgDevPanel():''}${heroBar()}${statPanel()}
- <div class="dtools"><button class="shopbtn forgebtn" id="toforge"><span style="font-size:32px">⚒️</span><div><b>대장간 (장비)</b><span>💰 골드로 칼·갑옷·방패를 사요 · 보유 💰 ${SV.rg}</span></div></button>
- <button class="shopbtn" id="toshop">${petc('mini')}<div><b>🐾 길드 상점</b><span>💎 수정으로 펫·스킨·물약 · 보유 💎 ${SV.cry}</span></div></button><button class="shopbtn pvbtn" id="topvp"><span style="font-size:32px">⚔️</span><div><b>배틀 아레나</b><span>친구 캐릭터와 1:1 대결 · 전적 🏆 ${(SV.pvp||{}).w||0}승</span></div></button><button class="shopbtn pvbtn raidbtn" id="toraid"><span style="font-size:32px">🐉</span><div><b>레이드</b><span>친구들과 2~6명이 힘을 합쳐 보스 토벌</span></div></button></div>
+ <div class="dtools"> <button class="shopbtn" id="toshop">${petc('mini')}<div><b>🏪 일반 상점</b><span>펫·스킨 · 대장간 · 무기 강화 · 물약 · 보유 💎 ${SV.cry} · 💰 ${SV.rg}</span></div></button><button class="shopbtn pvbtn" id="topvp"><span style="font-size:32px">⚔️</span><div><b>배틀 아레나</b><span>친구 캐릭터와 1:1 대결 · 전적 🏆 ${(SV.pvp||{}).w||0}승</span></div></button><button class="shopbtn pvbtn raidbtn" id="toraid"><span style="font-size:32px">🐉</span><div><b>레이드</b><span>친구들과 2~6명이 힘을 합쳐 보스 토벌</span></div></button></div>
  <div class="dtools"><button class="btn-s" id="tolv">${LEVELS[LV()].ic} 문제 난이도: <b>${LEVELS[LV()].n}</b> · 바꾸기</button><button class="btn-s savebtn" id="rsave">💾 저장하기</button><button class="btn-s rankbtn" id="torank">${rankBtnLabel()}</button><button class="btn-s" id="togift">🎁 보상 코드</button><button class="btn-s" id="tologin">👤 다른 계정으로 로그인</button></div>
  ${G.toastSave?'<div class="feedback ok" style="margin:0 0 10px">💾 저장했어요! 같은 이름으로 들어오면 골드·장비·진행 상황이 이어져요.</div>':''}${rpgResumeHTML()}
  ${G.rpgMap!==false?rpgMapHTML():'<div class="dtools"><button class="btn-s" id="rmmap">🗺️ 지도로 보기</button></div>'+`<div class="dgrid">${L.map(d=>{const i=RT[d.id],u=rpgUnlocked(d),e=estats(i),b=estats(i,true),cl=SV.rcleared.includes(d.id),rec=GEAR[RREC[Math.min(7,Math.floor(i))]];
@@ -2392,8 +2398,7 @@ function rpgDsel(){
  bindModeTabs();if(G.dev)bindRpgDev();
  $('todaily').onclick=()=>{G.dg=DAILY;G.mates=DAILY.need.slice();G.pets=1;genRunDaily();sfx('select');G.scr='news';render();};
  wkBind();
- $('toforge').onclick=()=>{G.scr='forge';G.toast=null;render();};
- $('toshop').onclick=()=>{G.scr='shop';G.toast=null;render();};
+  $('toshop').onclick=()=>{G.scr='mall';G.toast=null;sfx('select');render();};
  $('tohsel').onclick=()=>{G.scr='hsel';sfx('select');render();};
  $('topvp').onclick=()=>{G.scr='pvp';sfx('select');render();};
  $('toraid').onclick=()=>{G.scr='rdlobby';sfx('select');render();};
@@ -2431,13 +2436,13 @@ function forge(){
  $('app').innerHTML=hud()+`<div class="card">
  <div class="shophead">${sp('tank')}<div><div class="speaker">⚒️ 대장간</div><div class="story">장비는 주인공만 착용해요. 산 장비는 언제든 다시 바꿔 낄 수 있어요. 보유 💰 <b>${SV.rg}</b></div></div></div>
  ${statPanel()}
- ${enhHTML()}
+ ${G.forgeView!=='gear'?enhHTML():''}
  ${t?`<div class="feedback ok"><b>${t}</b></div>`:''}
- <div class="stabs">${Object.entries(GSLOT).map(([k,v])=>`<button class="stab ${tab===k?'on':''}" data-ft="${k}">${v[0]} <small>(${v[1]})</small></button>`).join('')}</div>
+ ${G.forgeView==="enh"?'':`<div class="stabs">${Object.entries(GSLOT).map(([k,v])=>`<button class="stab ${tab===k?'on':''}" data-ft="${k}">${v[0]} <small>(${v[1]})</small></button>`).join('')}</div>
  <div class="sgrid">${ks.map(k=>{const g=GEAR[k],own=SV.gearOwned.includes(k),on=SV.gear[tab]===k;
   return `<div class="sitem gitem ${on?'on':''}">${gearc(k,'big')}<b>${g.nm}${g.type==='sword'&&((SV.enh||{})[k])?` <span class="plus">+${SV.enh[k]}</span>`:''}</b><span class="gst">${gstat(g)}</span>
-  ${on?'<span class="tagok">⭐ 착용 중</span>':own?`<button class="btn-s" data-gw="${k}">착용</button>`:`<button class="buy" data-gb="${k}" ${SV.rg<g.price?'disabled':''}>💰 ${g.price}</button>`}</div>`;}).join('')}</div>
- <button class="next" id="out">🗺️ 던전 목록으로</button></div>`;
+  ${on?'<span class="tagok">⭐ 착용 중</span>':own?`<button class="btn-s" data-gw="${k}">착용</button>`:`<button class="buy" data-gb="${k}" ${SV.rg<g.price?'disabled':''}>💰 ${g.price}</button>`}</div>`;}).join('')}</div>`}
+ <button class="next" id="out">🏪 일반 상점으로</button></div>`;
  document.querySelectorAll('[data-ft]').forEach(b=>b.onclick=()=>{G.forgeTab=b.dataset.ft;G.toast=null;sfx('click');render();});
  document.querySelectorAll('[data-gb]').forEach(b=>b.onclick=()=>{const k=b.dataset.gb,g=GEAR[k];if(SV.rg<g.price)return;SV.rg-=g.price;SV.gearOwned.push(k);SV.gear[g.type]=k;saveNow();sfx('coins');G.toast=`${g.nm} 구매 완료! 바로 착용했어요. (${gstat(g)})`;render();});
  document.querySelectorAll('[data-gw]').forEach(b=>b.onclick=()=>{const k=b.dataset.gw;SV.gear[GEAR[k].type]=k;saveNow();sfx('select');G.toast=null;render();});
@@ -5099,9 +5104,9 @@ const KM=[ // 신택스 왕국 지도(그림에 글씨가 이미 들어 있어 �
 ['d1',265,540],['d2',500,500],['d3',715,400],['d4',865,520],['d5',985,390],['d6',1180,250],['d7',1230,500],['d8',1040,770]];
 function forgeCard(){return `<button class="shopbtn" id="toforgeC"><span style="font-size:34px;flex:none">⚒️</span><div><b>대장간 · 무기 강화</b><span>강화석으로 무기를 강화해요 · 보유 ⚒️ ${SV.stone||0}개${G.stoneBoot?` · 이전 기록에서 강화석 ${G.stoneBoot}개 지급!`:''}</span></div></button>`;}
 function forgeBind(){const f=document.getElementById('toforgeC');if(f)f.onclick=()=>{G.stoneBoot=0;G.scr='forge';G.toast=null;G.enhRes=null;sfx('select');render();};}
-function mapExtras(){return `${dailyCard()}<button class="shopbtn" id="toshop">${petc('mini')}<div><b>🐾 길드 상점 (펫·스킨·물약)</b><span>수정으로 펫·꾸미기·주인공 스킨을 사 보세요 · 보유 💎 ${SV.cry}</span></div></button>${forgeCard()}${wkCard()}${resumeHTML()}${shardBar()}`;}
+function mapExtras(){return `${dailyCard()}<button class="shopbtn" id="toshop">${petc('mini')}<div><b>🏪 일반 상점</b><span>펫·꾸미기·스킨 · 대장간 · 무기 강화 · 물약 상점 · 보유 💎 ${SV.cry}</span></div></button>${wkCard()}${resumeHTML()}${shardBar()}`;}
 function mapBindExtras(){wkBind();forgeBind();const t=document.getElementById('todaily');if(t)t.onclick=()=>{G.dg=DAILY;G.mates=DAILY.need.slice();G.pets=1;genRunDaily();sfx('select');G.scr='news';render();};
- const s=document.getElementById('toshop');if(s)s.onclick=()=>{G.scr='shop';G.toast=null;render();};
+ const s=document.getElementById('toshop');if(s)s.onclick=()=>{G.scr='mall';G.toast=null;sfx('select');render();};
  const rg=document.getElementById('rsGo');if(rg){rg.onclick=()=>{if(loadRun()){sfx('formed');render();}};document.getElementById('rsDel').onclick=()=>{clearRun();sfx('click');render();};}}
 function mapImg(c){
  const nodes=c.list.map(n=>{const id=n[0],ok=wmUnlocked(id),cl=SV.cleared.includes(id);
@@ -6262,14 +6267,12 @@ function tourSteps(){
   S.push(['.herobar','내 주인공','RPG 모드에서 키울 나만의 주인공이에요. 직업마다 특성이 달라서 <b>🔄 주인공 바꾸기</b>로 언제든 바꿀 수 있어요.']);
   S.push(['.rstat','장비와 능력치','입고 있는 무기·갑옷·방패와 공격력·방어력·HP·회피율이에요. 장비가 좋을수록 강한 던전도 깰 수 있어요.']);
   S.push(['.rgold','골드','RPG 모드에서 던전을 깨면 💰골드를 얻어요. 골드는 대장간에서 장비를 사는 데 써요.']);
-  S.push(['#toforge','대장간','💰골드로 칼·갑옷·방패를 사요. 산 장비는 언제든 바꿔 낄 수 있어요.']);
   S.push(['#topvp','배틀 아레나','친구의 캐릭터와 1:1로 대결해요. 이기면 전적(승수)이 올라가요.']);
   S.push(['#toraid','레이드','친구들과 최대 6명이 힘을 합쳐 보스를 쓰러뜨려요. 이번 주 보스는 3종 중에서 고를 수 있고, 매주 바뀌어요. 혼자서도 도전할 수 있어요.']);
  }
  S.push(['#todaily','오늘의 던전','매일 바뀌는 영어 기사 한 편으로 공부해요. 노란 단어를 누르면 뜻이 나오고, 기사 속 문장을 분석해 몬스터를 물리치면 💎수정과 ⚒️강화석 보너스를 받아요!']);
  S.push(['.attb','출석 도장판','오늘의 던전을 클리어하면 도장이 찍혀요. 며칠 연속으로 출석하면 5일·10일·20일·30일마다 보너스 보상을 줘요.']);
- S.push(['#toshop','길드 상점','💎수정으로 펫·꾸미기·주인공 스킨을 사요. 펫은 던전에서 나를 도와줘요.']);
- if(!rpg)S.push(['#toforgeC','대장간','⚒️강화석으로 무기를 강화해요. 강화석은 오늘의 던전이나 주간 복습 같은 곳에서 얻어요.']);
+ S.push(['#toshop','일반 상점','펫·꾸미기·스킨(💎수정), 대장간(💰골드), 무기 강화(⚒️강화석), 물약 상점이 한곳에 모여 있어요.']);
  S.push(['#towk','주간 복습 던전','이번 주에 틀린 문제를 모아 다시 풀어요. 모두 복습하고 해설을 읽으면 월요일 아침 8시에 💎수정과 ⚒️강화석을 받아요.']);
  S.push(['#topr','표현 감옥','문제 속에서 모르는 영어 단어·표현을 눌러 <b>🔒 가둬</b> 두는 나만의 단어장이에요. 공부해서 풀어 주면 보상도 받아요!']);
  S.push(['.shardbar','피리어드 수정 조각','1~5형식 던전을 하나씩 깨면 조각을 얻어요. 다섯 조각이 모이면 마지막 던전인 <b>다크나이트(DK)성</b>이 열려요.']);
@@ -6307,7 +6310,7 @@ const POT={
  hm:{ic:'⚗️',nm:'중간 회복 물약',price:300,pct:.6,h:2,d:'하트 +2 · RPG HP 60%'},
  hl:{ic:'🍶',nm:'큰 회복 물약',price:500,pct:1,h:3,d:'하트 가득 · RPG HP 전부'},
  cure:{ic:'🍵',nm:'상태 이상 회복 물약',price:250,d:'독·약화·침묵·안개·혼란 등 모든 상태 이상 해제 (RPG)'},
- rev:{ic:'🧴',nm:'부활 물약',price:700,d:'쓰러졌을 때 부활 · 학습 모드는 하트 2개, RPG는 HP 50%'}};
+ rev:{ic:'🌟',nm:'별빛 부활 물약',price:700,d:'쓰러졌을 때 부활 · 학습 모드는 하트 2개, RPG는 HP 50%'}};
 const POTK=['hs','hm','hl','cure','rev'];
 function potN(k){return ((SV.pot||(SV.pot={}))[k])||0;}
 function potUse(k){SV.pot=SV.pot||{};SV.pot[k]=Math.max(0,(SV.pot[k]||0)-1);saveNow();}
@@ -6316,7 +6319,7 @@ function potRpg(){return !!(G.rpg&&G.rp);}
 /* 상점 */
 function potShopHTML(){
  return `<p class="hint" style="margin:0 0 8px">전투 중 <b>🧪 물약 사용</b>을 누르면 <b>이번 턴의 공격 기회를 쓰고</b> 문제를 풀어요. 맞히면 효과가 나타나고, 틀리면 물약은 그대로지만 턴만 넘어가요. 값이 꽤 비싸니 아껴 쓰세요!</p>
- <div class="sgrid">${POTK.map(k=>{const P=POT[k],n=potN(k);return `<div class="sitem"><div style="font-size:44px;line-height:1.1">${P.ic}</div><b>${P.nm}</b><span class="gst">${P.d}</span><span class="hint">보유 ${n}개</span><button class="buy" data-potb="${k}" ${SV.cry<P.price?'disabled':''}>💎 ${P.price}</button></div>`;}).join('')}</div>`;}
+ <div class="sgrid">${POTK.map(k=>{const P=POT[k],n=potN(k);return `<div class="sitem"><div class="potic ${k}" style="font-size:44px;line-height:1.1">${P.ic}</div><b>${P.nm}</b><span class="gst">${P.d}</span><span class="hint">보유 ${n}개</span><button class="buy" data-potb="${k}" ${SV.cry<P.price?'disabled':''}>💎 ${P.price}</button></div>`;}).join('')}</div>`;}
 function potShopBind(){document.querySelectorAll('[data-potb]').forEach(b=>b.onclick=()=>{const k=b.dataset.potb,P=POT[k];if(!P||SV.cry<P.price)return;SV.cry-=P.price;SV.pot=SV.pot||{};SV.pot[k]=(SV.pot[k]||0)+1;saveNow();sfx('coins');G.shopTab='potion';render();});}
 /* 전투 UI */
 function potBtn(){return `<button class="healbtn potbtn" id="potbtn">🧪 물약 사용 <small>(이번 턴 공격 대신 · 문제를 맞혀야 효과)</small></button>`;}
@@ -6366,7 +6369,7 @@ const _pbr=resolve;resolve=function(e,ok,mine){
 /* 학습 모드 묘지: 부활 물약 */
 const _pgr=grave;grave=function(){_pgr();
  if(potN('rev')<1)return;const go=$('rvgo');if(!go)return;
- const b=document.createElement('button');b.className='next';b.id='potrev';b.style.marginTop='8px';b.innerHTML='🧴 부활 물약 사용 <small>(보유 '+potN('rev')+'개 · 문제 없이 하트 2개로 부활)</small>';
+ const b=document.createElement('button');b.className='next';b.id='potrev';b.style.marginTop='8px';b.innerHTML='🌟 별빛 부활 물약 사용 <small>(보유 '+potN('rev')+'개 · 문제 없이 하트 2개로 부활)</small>';
  go.insertAdjacentElement('afterend',b);
  b.onclick=()=>{potUse('rev');sfx('fanfare');G.deaths++;G.hp=2;G.streak=0;G.scr='battle';G.done=false;G.b=null;G.pick=null;G.sel=null;G.rv=null;render();};};
 /* RPG 모드 연결 */
@@ -6396,7 +6399,7 @@ const _prr=rpgResolve;rpgResolve=function(e,ok){
 /* RPG 모드 쓰러짐: 부활 물약 */
 const _prl=rpgLose;rpgLose=function(quit){const R=G.rp;
  if(!quit&&R&&R.php<=0&&potN('rev')>0){const qc=$('qc');if(qc){
-  qc.innerHTML=`<div class="feedback no"><div style="font-weight:900;font-size:19px">🪦 파티가 쓰러졌다…</div><div class="story">🧴 <b>부활 물약</b>이 ${potN('rev')}개 있어요. 지금 쓰면 HP 50%로 되살아나 전투를 계속해요.</div></div><button class="next" id="revyes">🧴 부활 물약 사용</button><button class="btn-s" id="revno" style="margin-top:8px">그냥 포기하기</button>`;
+  qc.innerHTML=`<div class="feedback no"><div style="font-weight:900;font-size:19px">🪦 파티가 쓰러졌다…</div><div class="story">🌟 <b>부활 물약</b>이 ${potN('rev')}개 있어요. 지금 쓰면 HP 50%로 되살아나 전투를 계속해요.</div></div><button class="next" id="revyes">🌟 부활 물약 사용</button><button class="btn-s" id="revno" style="margin-top:8px">그냥 포기하기</button>`;
   $('revyes').onclick=()=>{potUse('rev');sfx('fanfare');R.php=Math.max(1,Math.ceil(R.pmax*.5));R.phase='atk';rpgNextQ();render();};
   $('revno').onclick=()=>_prl(false);return;}}
  return _prl(quit);};
@@ -6720,7 +6723,7 @@ function popRunFinal(){const R=G.popRun;if(!R)return '';const ok=R.qok+R.cok,tot
 
 /* ---------- 모든 메뉴 상단바(HUD) 맨 앞에 돌아가기 버튼 ---------- 기존 아래쪽 버튼은 그대로 두고 위에 하나 더 추가해요. */
 (function(){
- const BACK={party:'dsel',shop:'dsel',forge:'dsel',news:'dsel',rank:'dsel',pvp:'dsel',rdlobby:'dsel',hsel:'dsel',lhsel:'dsel',temple:'dsel',level:()=>G.introDone?'dsel':'title'};
+ const BACK={party:'dsel',shop:'mall',forge:'mall',mall:'dsel',news:'dsel',rank:'dsel',pvp:'dsel',rdlobby:'dsel',hsel:'dsel',lhsel:'dsel',temple:'dsel',level:()=>G.introDone?'dsel':'title'};
  const _r=render;
  render=function(){
   _r.apply(this,arguments);
@@ -6884,6 +6887,21 @@ function mpBox(k){if(_mpb[k])return _mpb[k];const d=SPR[k],n=d.r.length,cv=docum
    if(spent>0)setTimeout(()=>buyPop(it,spent,!!ok),80);});
  },true);
 })();
+
+/* ===== 🏪 일반 상점 허브: 펫·꾸미기·스킨 / 대장간 / 무기 강화 / 물약 상점 ===== */
+function mallScr(){
+ const cards=[['pet','🐾','펫 · 꾸미기 · 스킨','💎 수정으로 펫을 입양하고 꾸며요 · 보유 💎 '+SV.cry],
+  ['gear','⚒️','대장간','💰 골드로 칼·갑옷·방패를 사요 · 보유 💰 '+SV.rg],
+  ['enh','🔨','무기 강화','⚒️ 강화석으로 무기를 강화해요 · 보유 ⚒️ '+(SV.stone||0)+'개'],
+  ['pot','🧪','물약 상점','💎 회복·상태이상·🌟 부활 물약 · 보유 💎 '+SV.cry]];
+ $('app').innerHTML=hud()+`<div class="card"><div class="shophead">${sp('trader','','SPR')}<div><div class="speaker">🏪 일반 상점</div><div class="story">어서 오세요! 필요한 가게를 골라 보세요.</div></div></div>
+ <div class="mallg">${cards.map(c=>`<button class="shopbtn" data-mall="${c[0]}"><span style="font-size:34px;flex:none">${c[1]}</span><div><b>${c[2]}</b><span>${c[3]}</span></div></button>`).join('')}</div>
+ <button class="next" id="out">🗺️ 던전 목록으로</button></div>`;
+ document.querySelectorAll('[data-mall]').forEach(b=>b.onclick=()=>{const k=b.dataset.mall;sfx('select');G.toast=null;
+  if(k==='pet'){G.scr='shop';G.shopTab='adopt';}else if(k==='pot'){G.scr='shop';G.shopTab='potion';}
+  else{G.scr='forge';G.forgeView=k==='enh'?'enh':'gear';G.stoneBoot=0;G.enhRes=null;}
+  render();});
+ $('out').onclick=()=>{G.scr='dsel';render();};}
 
 render();tryAuto();setTimeout(tryAuto,300);
 setInterval(()=>{document.body.classList.toggle('muted-wait',!(AU.ctx&&AU.ctx.state==='running')&&G.scr==='splash');},500);

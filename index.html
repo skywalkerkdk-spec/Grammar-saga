@@ -6418,14 +6418,16 @@ function popXlsxRows(z){const ss=[];const sx=z['xl/sharedStrings.xml']||'';(sx.m
    else{const m=/<v>([\s\S]*?)<\/v>/.exec(c);if(m)v=ty==='s'?(ss[+m[1]]||''):popXml(m[1]);}
    row[col]=String(v).trim();});rows.push(row);});
  return rows;}
-function popLyrics(cell){let raw=String(cell||'').replace(/\r/g,'').split('\n'),m=[];
- raw.forEach(x=>{const t=x.trim();if(!t||/^\[.*\]$/.test(t))return;if(m.length&&m.cwrap){m[m.length-1]+=' '+t;m.cwrap=/\s$/.test(x);return;}m.push(t);m.cwrap=/\s$/.test(x);});
+function popLyrics(cell,keep){let raw=String(cell||'').replace(/\r/g,'').split('\n'),m=[];
+ raw.forEach(x=>{const t=x.trim();if(!t||/^\[.*\]$/.test(t))return;if(!keep&&m.length&&m.cwrap){m[m.length-1]+=' '+t;m.cwrap=/\s$/.test(x);return;}m.push(t);m.cwrap=/\s$/.test(x);});
  let L=m.map(x=>x.replace(/[`´’‘]/g,"'").replace(/\s+/g,' ').trim());
  const hy=(L.join(' ').match(/[A-Za-z]-[a-z]/g)||[]).length;if(hy>=6)L=L.map(x=>x.replace(/([A-Za-z])-(?=[a-z])/g,'$1'));
  const cut=x=>{if(x.length<=80)return [x];const w=x.split(' ');if(w.length<2)return [x];let best=1,bd=1e9,acc=0;for(let i=0;i<w.length-1;i++){acc+=w[i].length+1;const d=Math.abs(acc-x.length/2);if(d<bd){bd=d;best=i+1;}}return cut(w.slice(0,best).join(' ')).concat(cut(w.slice(best).join(' ')));};
- return [].concat(...L.map(cut));}
+ return keep?L:[].concat(...L.map(cut));}
 function popRowsToSongs(rows){if(rows.length&&/아티스트/.test(rows[0][1]||'')&&/제목/.test(rows[0][2]||'')&&/가사/.test(rows[0][4]||'')){
-  return rows.slice(1).filter(r=>r[2]&&r[4]).map(r=>{const l=popLyrics(r[4]);return {t:r[2],a:r[1]||'',d:r[3]||'',y:popYtId(r[5]||''),l,k:[],tm:[]};});}
+  return rows.slice(1).filter(r=>r[2]&&r[4]).map(r=>{const tr=String(r[6]||'').replace(/\r/g,'').split('\n').map(x=>x.trim()).filter(x=>x);let l,k=[];
+   if(tr.length){const rawL=popLyrics(r[4],true);if(rawL.length===tr.length){l=rawL;k=tr;}else l=popLyrics(r[4]);}else l=popLyrics(r[4]);
+   return {t:r[2],a:r[1]||'',d:r[3]||'',y:popYtId(r[5]||''),l,k,tm:[]};});}
  const out=[];let cur=null;rows.forEach((r,i)=>{const t=r[0]||'',d=r[3]||'';if(i===0&&/제목|title/i.test(t)&&/가사|lyric/i.test((r[3]||'')+''))return;
   if(t){cur={t,a:r[1]||'',y:popYtId(r[2]||''),l:[],k:[],tm:[]};out.push(cur);}
   if(!cur||!d||/^\[.*\]$/.test(d))return;cur.l.push(d);cur.k.push(r[4]||'');cur.tm.push(r[5]!==undefined&&r[5]!==''?parseFloat(r[5]):NaN);});

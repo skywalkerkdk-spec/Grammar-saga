@@ -1052,6 +1052,11 @@ canvas.px[data-src="SPR"][data-k="shaman"],canvas.px[data-src="SPR"][data-k^="cs
 .mpg.walk{--sx:var(--face)}
 @keyframes mpidle{0%,100%{transform:translate(-50%,-100%) scaleY(1)}50%{transform:translate(-50%,-100%) scaleY(1.035)}}
 @keyframes mpwalk{0%,100%{transform:translate(-50%,-100%) scaleX(var(--face)) rotate(-3deg)}50%{transform:translate(-50%,-106%) scaleX(var(--face)) rotate(3deg)}}
+.hpick{margin:8px 0;padding:10px;border:2px solid #6b4a26;border-radius:12px;background:rgba(60,40,18,.35)}
+.hph{margin-bottom:6px}.hpr{display:flex;gap:8px}
+.hpb{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 4px;border-radius:10px;border:2px solid rgba(255,255,255,.18);background:rgba(0,0,0,.25);color:inherit;font-family:inherit;cursor:pointer}
+.hpb img{height:74px;width:auto;max-width:100%;object-fit:contain}.hpb b{font-size:13px}.hpb small{font-size:11px;opacity:.75}
+.hpb.on{border-color:#ffd36b;background:rgba(255,211,107,.18)}
 
 </style>
 </head>
@@ -6688,9 +6693,16 @@ function mpInject(pts,W,H,hero){const wi=document.getElementById('wmi');if(!wi||
   d.style.left=(p.x*100)+'%';d.style.top=(p.y*100)+'%';G.mpAt=id;
   setTimeout(()=>{d.classList.remove('walk');G.mpWalking=false;G.mpPass=true;try{b.click();}finally{G.mpPass=false;}},950);},true);}
 (function(){
- const _mi=mapImg;mapImg=function(c){const r=_mi.apply(this,arguments);try{mpInject(mpPts(c.list,c.ghost,c.W,c.H),c.W,c.H,'tank');}catch(e){}return r;};
+ const _mi=mapImg;mapImg=function(c){const r=_mi.apply(this,arguments);try{mpInject(mpPts(c.list,c.ghost,c.W,c.H),c.W,c.H,mpLearnHero());}catch(e){}return r;};
  const _rb=rpgMapBind;rpgMapBind=function(){const r=_rb.apply(this,arguments);try{const W=worldOpen();mpInject(W?mpPts(WM.filter(n=>RT[n[0]]!=null),false,1536,1024):mpPts(KM,true,1536,1024),1536,1024,rhero());}catch(e){}return r;};
 })();
+
+const mpLearnHero=()=>SV.hero==='knight'?'paladin':SV.hero==='druid'?'shaman':'tank';
+function heroPickHTML(){if(!templeUnlocked()||(SV.mode==='rpg'&&rpgOpen()))return '';
+ const o=[['','tank','🛡️ 전사','명사 주어'],['knight','paladin','🛡️ 방패 성기사','to부정사'],['druid','shaman','🐻 곰 드루이드','동명사']];
+ return `<div class="hpick"><div class="hph">🦸 <b>내 주인공</b> <span class="hint">던전마다 바꿔서 도전할 수 있어요 · 지금: ${HERO[SV.hero||null]}</span></div><div class="hpr">${o.map(x=>`<button class="hpb ${(SV.hero||'')===x[0]?'on':''}" data-hpk="${x[0]}"><img src="mp_${x[1]}.webp?v=1" alt=""><b>${x[2]}</b><small>${x[3]}</small></button>`).join('')}</div></div>`;}
+(function(){const _me=mapExtras;mapExtras=function(){return heroPickHTML()+_me.apply(this,arguments);};
+ const _mb=mapBindExtras;mapBindExtras=function(){const r=_mb.apply(this,arguments);document.querySelectorAll('[data-hpk]').forEach(b=>b.onclick=()=>{SV.hero=b.dataset.hpk||null;saveNow();sfx(SV.hero?'spell':'click');render();});return r;};})();
 
 render();tryAuto();setTimeout(tryAuto,300);
 setInterval(()=>{document.body.classList.toggle('muted-wait',!(AU.ctx&&AU.ctx.state==='running')&&G.scr==='splash');},500);

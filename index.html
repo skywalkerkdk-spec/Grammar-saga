@@ -1170,6 +1170,11 @@ textarea.input{width:100%;box-sizing:border-box;resize:vertical;font-family:inhe
 .actbar .potbtn{color:#e9deff}
 .actbar .healbtn.off,.actbar .special.off{opacity:.4;filter:grayscale(.8);cursor:default}
 .actbar .special.lit{animation:darkpulse 1.2s infinite;box-shadow:0 0 10px #ffd85a}
+.sdchips{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0}
+.sdchip{padding:6px 12px;border-radius:999px;border:2px solid var(--line);background:var(--panel2);color:var(--ink);font-size:15px;font-weight:700;cursor:pointer}
+.sdchip small{opacity:.7;font-weight:500;margin-left:2px}
+.sdchip.on{border-color:#ffd36b;background:#4a3a1a;color:#ffe9a8}
+#sdgo:disabled{opacity:.45;cursor:default}
 
 </style>
 </head>
@@ -5467,16 +5472,21 @@ const SD_SAMPLES=[
 GQD.sd=[];for(let k=1;k<=3;k++)for(let i=0;i<14;i++)GQD.sd.push([k,'dummy ____',['a','b','c'],'x','x']);
 const sdKey=()=>'sg_sdq_'+(typeof CLOUD!=='undefined'&&CLOUD?CLOUD.n:'');
 function sdCache(){try{return JSON.parse(lsg(sdKey())||'null')||{ts:0,items:[]};}catch(e){return {ts:0,items:[]};}}
-function sdPool(){const c=sdCache().items||[];return c.length>=8?c:c.concat(SD_SAMPLES);}
+const SD_LE=8;
+function sdScope(){return G.sdsc||(G.sdsc=Object.assign({g:0,le:0},SV.sdsc||{}));}
+function sdScopeTxt(s){return !s.g?'전체 (1·2·3학년)':!s.le?`${s.g}학년 전체`:`${s.g}학년 Lesson ${s.le}`;}
+const sdTag=it=>it.g?`${it.g}학년${it.le?' L'+it.le:''}`:'';
+function sdInScope(items,s){return items.filter(i=>(!s.g||i.g===s.g)&&(!s.le||i.le===s.le));}
+function sdPool(){const c=sdInScope(sdCache().items||[],sdScope());return !sdScope().g&&c.length<8?c.concat(SD_SAMPLES):c;}
 async function sdPost(o,ms){if(!rankOn())return {ok:false,err:'off'};try{const r=await rankPost(Object.assign({n:CLOUD.n,t:CLOUD.h},o),ms);return r||{ok:false,err:'net'};}catch(e){return {ok:false,err:'net'};}}
 async function sdFetch(force){if(!rankOn())return false;const c=sdCache();if(!force&&Date.now()-c.ts<5*60000&&c.items.length)return true;
  const r=await sdPost({a:'sd_list'});if(r&&r.ok&&Array.isArray(r.items)){lss(sdKey(),JSON.stringify({ts:Date.now(),items:r.items}));return true;}G.sdErr=r&&r.err;return false;}
 async function sdClaim(){if(!rankOn())return;const r=await sdPost({a:'sd_claim'});if(r&&r.ok&&r.cry>0){SV.cry+=r.cry;saveNow();G.sdToast=`🎉 내 문제 덕분에 💎 ${r.cry}를 받았어요!${r.approved?` (승인 ${r.approved}건)`:''}${r.likes?` (좋아요 ${r.likes}개)`:''}`;if(G.scr==='sdhub')render();}}
-const sdErrTxt=e=>({off:'로그인한 계정으로만 쓸 수 있어요.',net:'서버에 연결하지 못했어요. 잠시 뒤 다시 해 보세요.',a:'서버가 아직 업데이트되지 않았어요. 선생님께 알려 주세요.',tok:'계정 확인에 실패했어요.',blank:'문장에 빈칸(____)이 정확히 한 개 있어야 하고 8자 이상이어야 해요.',opts:'정답과 오답 4개를 모두 써 주세요.',same:'보기 5개가 서로 달라야 해요.',dup:'이미 같은 문장이 있어요.',limit:'오늘은 문제를 3개까지만 낼 수 있어요. 내일 다시 만들어요!',pending:'승인 대기 중인 문제가 너무 많아요. 승인된 뒤에 더 올려요.',key:'교사 키가 맞지 않아요.',own:'내가 만든 문제는 평가할 수 없어요.'}[e]||'잠시 뒤 다시 해 보세요.');
+const sdErrTxt=e=>({off:'로그인한 계정으로만 쓸 수 있어요.',net:'서버에 연결하지 못했어요. 잠시 뒤 다시 해 보세요.',a:'서버가 아직 업데이트되지 않았어요. 선생님께 알려 주세요.',tok:'계정 확인에 실패했어요.',cls:'학년과 Lesson을 골라 주세요.',blank:'문장에 빈칸(____)이 정확히 한 개 있어야 하고 8자 이상이어야 해요.',opts:'정답과 오답 4개를 모두 써 주세요.',same:'보기 5개가 서로 달라야 해요.',dup:'이미 같은 문장이 있어요.',limit:'오늘은 문제를 3개까지만 낼 수 있어요. 내일 다시 만들어요!',pending:'승인 대기 중인 문제가 너무 많아요. 승인된 뒤에 더 올려요.',key:'교사 키가 맞지 않아요.',own:'내가 만든 문제는 평가할 수 없어요.'}[e]||'잠시 뒤 다시 해 보세요.');
 
 /* ---------- 전투 문제 형식 (오지선다) ---------- */
 QX.sdq={label:'🧑‍🎓 친구가 낸 문제',
- render(e){return `<div class="story">✏️ 빈칸에 알맞은 말을 고르세요. <span class="hint">🧑‍🎓 만든 친구: <b>${esc(e.ini)}</b></span>${e.boss&&e.hp1===0?' (마지막 한 방!)':''}</div>
+ render(e){return `<div class="story">✏️ 빈칸에 알맞은 말을 고르세요. <span class="hint">🧑‍🎓 만든 친구: <b>${esc(e.ini)}</b>${e.tag?' · '+esc(e.tag):''}</span>${e.boss&&e.hp1===0?' (마지막 한 방!)':''}</div>
   <div class="sentence">${esc(e.sentence)}</div>${e.ko&&LV()!=='expert'?`<div class="tr">💬 해석: ${esc(e.ko)}</div>`:''}
   <div class="choices">${e.options.map((o,i)=>{let cls='choice';if(G.done){if(i===e.answer&&G.pick==='ok')cls+=' correct';else if(i===G.sel)cls+=' wrong';}return `<button class="${cls}" data-i="${i}" ${G.done?'disabled':''}>${String.fromCharCode(65+i)}. ${esc(o)}</button>`;}).join('')}</div>`;},
  bind(e){document.querySelectorAll('#qc .choice').forEach(b=>b.onclick=()=>{G.sel=+b.dataset.i;resolve(e,G.sel===e.answer,e.options[G.sel]);});},
@@ -5496,33 +5506,44 @@ document.addEventListener('click',async ev=>{const b=ev.target.closest&&ev.targe
 
 /* ---------- 출제 (genRunG 래퍼): 셀프던전은 친구들이 만든 문제로만 채운다 ---------- */
 (function(){const _g=genRunG;genRunG=function(d){const run=_g(d);if(!d||d.id!=='sd')return run;
- const pool=sdPool(),bag=shuffle(pool.slice());let bi=0;const KEEP=['mon','filter','mname','talk','kill','taunt','boss','hp0','hp1','big','src'];
+ const pool0=sdPool(),pool=pool0.length?pool0:SD_SAMPLES.slice(),bag=shuffle(pool.slice());let bi=0;const KEEP=['mon','filter','mname','talk','kill','taunt','boss','hp0','hp1','big','src'];
  return run.map(e=>{if(bi>=bag.length){shuffle(pool.slice()).forEach(x=>bag.push(x));}const it=bag[bi++];const o={type:'sdq',pool:'sd'};KEEP.forEach(k=>{if(e[k]!==undefined)o[k]=e[k];});
   const opts=shuffle([it.a].concat(it.w)),filled=it.q.replace('____',it.a);
-  return Object.assign(o,{c:[[filled,'M',it.ko||'']],tr:it.ko||'',n:'',sentence:it.q,options:opts,answer:opts.indexOf(it.a),ansText:it.a,ko:it.ko||'',why:it.ex||'',filled,sdid:it.id,ini:it.ini||'?',mine:!!it.mine,sample:!!it.sample});});};})();
+  return Object.assign(o,{c:[[filled,'M',it.ko||'']],tr:it.ko||'',n:'',sentence:it.q,options:opts,answer:opts.indexOf(it.a),ansText:it.a,ko:it.ko||'',why:it.ex||'',filled,sdid:it.id,tag:sdTag(it),ini:it.ini||'?',mine:!!it.mine,sample:!!it.sample});});};})();
 (function(){const _r=reviveTarget;reviveTarget=function(e){if(e&&e.type==='sdq')return {e,mode:'blank',sent:e.sentence,ans:e.ansText,ko:e.ko,role:null,tries:0};return _r(e);};})();
 
 /* ---------- 입구: 허브 · 만들기 · 내 문제 · 교사 승인 ---------- */
-function sdEnter(){const dd=DUNGEONS.find(x=>x.id==='sd');if(!dd)return;sfx('formed');
+function sdEnter(){const dd=DUNGEONS.find(x=>x.id==='sd');if(!dd)return;if(!sdPool().length){sfx('wrong');return;}sfx('formed');
  if(SV.mode==='rpg'&&typeof rpgStart==='function'){rpgStart(dd);return;}G.dg=dd;G.mates=dd.need.slice();G.pets=1;G.scr='formed';render();}
-function sdHub(){const n=(sdCache().items||[]).length,on=rankOn();
+function sdChips(on){const all=sdCache().items||[],s=sdScope(),cn=(g,le)=>sdInScope(all,{g,le}).length;
+ const chip=(a,txt,cur,n)=>`<button class="sdchip${cur?' on':''}" ${a}>${txt}${n!==undefined?` <small>${n}</small>`:''}</button>`;
+ return `<div class="hint" style="margin-top:8px">📚 풀 문제 범위</div><div class="sdchips">${chip('data-sg="0"','전체',!s.g,all.length)}${[1,2,3].map(g=>chip(`data-sg="${g}"`,g+'학년',s.g===g,cn(g,0))).join('')}</div>
+ ${s.g?`<div class="sdchips">${chip('data-sl="0"','학년 전체',!s.le,cn(s.g,0))}${Array.from({length:SD_LE},(_,k)=>chip(`data-sl="${k+1}"`,'L'+(k+1),s.le===k+1,cn(s.g,k+1))).join('')}</div>`:''}`;}
+function sdHub(){const on=rankOn(),s=sdScope(),n=sdPool().length,all=(sdCache().items||[]).length;
  $('app').innerHTML=hud()+`<div class="card"><div class="speaker">🧑‍🏫 셀프던전</div>
  <div class="story">친구들이 직접 만든 문제로 싸우는 던전이에요. 문제를 만들어 올리면 선생님이 확인한 뒤 던전에 나와요. 만든 사람은 <b>이니셜</b>만 보이니 부담 없이 만들어 보세요!</div>
  ${G.sdToast?`<div class="feedback ok">${G.sdToast}</div>`:''}
- <div class="hint" style="margin:6px 0">${on?`📚 지금 던전에 올라온 친구 문제: <b>${n}</b>개${n<8?' (부족하면 선생님 예시 문제가 섞여요)':''}`:'⚠️ 로그인한 계정에서만 문제를 만들고 평가할 수 있어요. 지금은 예시 문제로 플레이해요.'}</div>
- <div class="dtools"><button class="shopbtn" id="sdgo"><span style="font-size:32px">⚔️</span><div><b>셀프던전 입장</b><span>친구들이 만든 문제 · 장비·레벨 상관없이 도전</span></div></button>
- <button class="shopbtn" id="sdmk"><span style="font-size:32px">✏️</span><div><b>문제 만들기</b><span>빈칸 문제를 직접 내요 · 승인되면 💎 ${SD_REW_OK_TXT}</span></div></button>
+ <div class="hint" style="margin:6px 0">${on?`📚 올라온 친구 문제: <b>${all}</b>개${all<8&&!s.g?' (부족하면 선생님 예시 문제가 섞여요)':''}`:'⚠️ 로그인한 계정에서만 문제를 만들고 평가할 수 있어요. 지금은 예시 문제로 플레이해요.'}</div>
+ ${on?sdChips(on):''}
+ ${on?`<div class="hint" style="margin:6px 0">🎯 이번 범위: <b>${sdScopeTxt(s)}</b> · 문제 <b>${n}</b>개${n?'':' — 아직 없어요. 직접 만들어 올려 보세요!'}</div>`:''}
+ <div class="dtools"><button class="shopbtn" id="sdgo" ${n?'':'disabled'}><span style="font-size:32px">⚔️</span><div><b>셀프던전 입장</b><span>${on?esc(sdScopeTxt(s)):'친구들이 만든 문제'} · 장비·레벨 상관없이 도전</span></div></button>
+ <button class="shopbtn" id="sdmk"><span style="font-size:32px">✏️</span><div><b>문제 만들기</b><span>학년·Lesson을 골라 올려요 · 승인되면 💎 ${SD_REW_OK_TXT}</span></div></button>
  <button class="shopbtn" id="sdmn"><span style="font-size:32px">📋</span><div><b>내 문제 보기</b><span>승인 여부 · 좋아요를 확인해요</span></div></button></div>
  <div class="dtools"><button class="btn-s" id="sdtc">🔐 교사 승인</button><button class="btn-s" id="sdbk">↩ 돌아가기</button></div></div>`;
  $('sdgo').onclick=sdEnter;$('sdmk').onclick=()=>{G.sdm=null;G.scr='sdmake';sfx('select');render();};
  $('sdmn').onclick=()=>{G.scr='sdmine';sfx('select');render();};$('sdtc').onclick=()=>{G.scr='sdtch';sfx('select');render();};
  $('sdbk').onclick=()=>{G.sdToast=null;G.scr='dsel';render();};
+ document.querySelectorAll('[data-sg]').forEach(b=>b.onclick=()=>{s.g=+b.dataset.sg;s.le=0;SV.sdsc={g:s.g,le:0};saveNow();sfx('select');render();});
+ document.querySelectorAll('[data-sl]').forEach(b=>b.onclick=()=>{s.le=+b.dataset.sl;SV.sdsc={g:s.g,le:s.le};saveNow();sfx('select');render();});
  if(on&&Date.now()-(G.sdLast||0)>30000){G.sdLast=Date.now();sdFetch(true).then(()=>{if(G.scr==='sdhub')render();});sdClaim();}}
 const SD_REW_OK_TXT='30';
-function sdMake(){const M=G.sdm||(G.sdm={q:'',a:'',w:['','','',''],ko:'',ex:'',msg:'',busy:0,done:0});
+function sdMake(){const M=G.sdm||(G.sdm={q:'',a:'',w:['','','',''],ko:'',ex:'',msg:'',busy:0,done:0,g:G.sdlast?G.sdlast.g:0,le:G.sdlast?G.sdlast.le:0});
  $('app').innerHTML=hud()+`<div class="card"><div class="speaker">✏️ 문제 만들기</div>
  <div class="story">영어 문장에서 빈칸(<b>____</b>)에 들어갈 말을 맞히는 <b>오지선다</b> 문제를 만들어요. 정답 1개와 오답 4개가 필요해요. 하루에 3개까지 올릴 수 있어요.</div>
  ${M.done?`<div class="feedback ok">✅ 올렸어요! 선생님이 확인하면 셀프던전에 나와요.</div><div class="dtools"><button class="btn-s" id="sdmore">✏️ 하나 더 만들기</button><button class="btn-s" id="sdmb">↩ 셀프던전으로</button></div>`:`
+ <label class="hint">⓪ 어느 학년·Lesson 문제인가요? (수업 시간에 배운 과에 맞춰 골라요)</label>
+ <div class="sdchips">${[1,2,3].map(g=>`<button class="sdchip${M.g===g?' on':''}" data-mg="${g}">${g}학년</button>`).join('')}</div>
+ <div class="sdchips">${Array.from({length:SD_LE},(_,k)=>`<button class="sdchip${M.le===k+1?' on':''}" data-ml="${k+1}">Lesson ${k+1}</button>`).join('')}</div>
  <label class="hint">① 영어 문장 (빈칸은 ____ 네 개의 밑줄)</label>
  <textarea class="input" id="sdq" rows="2" maxlength="140" placeholder="I ____ to school every day.">${esc(M.q)}</textarea>
  <div class="dtools"><button class="btn-s" id="sdbl">＋ 빈칸 넣기</button></div>
@@ -5537,22 +5558,23 @@ function sdMake(){const M=G.sdm||(G.sdm={q:'',a:'',w:['','','',''],ko:'',ex:'',m
  if(M.done){$('sdmore').onclick=()=>{G.sdm=null;render();};$('sdmb').onclick=()=>{G.scr='sdhub';render();};return;}
  const sync=()=>{M.q=$('sdq').value;M.a=$('sda').value;document.querySelectorAll('.sdw').forEach(i=>M.w[+i.dataset.i]=i.value);M.ko=$('sdk').value;M.ex=$('sde').value;};
  ['sdq','sda','sdk','sde'].forEach(i=>$(i).oninput=sync);document.querySelectorAll('.sdw').forEach(i=>i.oninput=sync);
+ document.querySelectorAll('[data-mg]').forEach(b=>b.onclick=()=>{sync();M.g=+b.dataset.mg;render();});document.querySelectorAll('[data-ml]').forEach(b=>b.onclick=()=>{sync();M.le=+b.dataset.ml;render();});
  $('sdbl').onclick=()=>{const t=$('sdq'),p=t.selectionStart==null?t.value.length:t.selectionStart;t.value=t.value.slice(0,p)+'____'+t.value.slice(t.selectionEnd==null?p:t.selectionEnd);sync();t.focus();};
  $('sdsub').onclick=async()=>{sync();const q=M.q.trim(),a=M.a.trim(),w=M.w.map(x=>x.trim());
-  const bad=q.split('____').length!==2||q.length<8?'문장에 빈칸(____)이 정확히 한 개 있어야 하고 8자 이상이어야 해요.':(!a||w.some(x=>!x))?'정답과 오답 4개를 모두 써 주세요.':new Set([a,...w].map(x=>x.toLowerCase())).size<5?'보기 5개가 서로 달라야 해요.':'';
+  const bad=!M.g||!M.le?'학년과 Lesson을 골라 주세요.':q.split('____').length!==2||q.length<8?'문장에 빈칸(____)이 정확히 한 개 있어야 하고 8자 이상이어야 해요.':(!a||w.some(x=>!x))?'정답과 오답 4개를 모두 써 주세요.':new Set([a,...w].map(x=>x.toLowerCase())).size<5?'보기 5개가 서로 달라야 해요.':'';
   if(bad){M.msg=bad;render();return;}if(!rankOn()){M.msg=sdErrTxt('off');render();return;}
-  M.busy=1;M.msg='';render();const r=await sdPost({a:'sd_submit',q,ans:a,w,ko:M.ko.trim(),ex:M.ex.trim()});M.busy=0;
-  if(r&&r.ok){M.done=1;sfx('fanfare');}else M.msg=sdErrTxt(r&&r.err);render();};}
+  M.busy=1;M.msg='';render();const r=await sdPost({a:'sd_submit',q,ans:a,w,ko:M.ko.trim(),ex:M.ex.trim(),g:M.g,le:M.le});M.busy=0;
+  if(r&&r.ok){M.done=1;G.sdlast={g:M.g,le:M.le};sfx('fanfare');}else M.msg=sdErrTxt(r&&r.err);render();};}
 function sdMine(){const S=G.sdmn||(G.sdmn={items:null,err:''});
  const ST={wait:'⏳ 확인 중',ok:'✅ 승인',no:'❌ 반려',hide:'🙈 숨김(신고 많음)'};
  $('app').innerHTML=hud()+`<div class="card"><div class="speaker">📋 내 문제</div>
  ${S.err?`<div class="feedback bad">${esc(S.err)}</div>`:S.items===null?'<div class="hint">불러오는 중…</div>':!S.items.length?'<div class="hint">아직 올린 문제가 없어요.</div>':
- `<div class="sdlist">${S.items.map(it=>`<div class="sditem"><div class="sdt">${ST[it.st]||it.st}</div><div class="sentence" style="font-size:15px">${esc(it.q)}</div><div class="hint">정답: ${esc(it.a)}${it.st==='ok'||it.st==='hide'?` · 👍 ${it.L} · 🙂 ${it.N} · 🛠️ ${it.I} · 🚩 ${it.R}`:''}${it.note?` · 메모: ${esc(it.note)}`:''}</div></div>`).join('')}</div>`}
+ `<div class="sdlist">${S.items.map(it=>`<div class="sditem"><div class="sdt">${ST[it.st]||it.st}${it.g?` · ${esc(sdTag(it))}`:''}</div><div class="sentence" style="font-size:15px">${esc(it.q)}</div><div class="hint">정답: ${esc(it.a)}${it.st==='ok'||it.st==='hide'?` · 👍 ${it.L} · 🙂 ${it.N} · 🛠️ ${it.I} · 🚩 ${it.R}`:''}${it.note?` · 메모: ${esc(it.note)}`:''}</div></div>`).join('')}</div>`}
  <div class="dtools"><button class="btn-s" id="sdmb">↩ 셀프던전으로</button></div></div>`;
  $('sdmb').onclick=()=>{G.scr='sdhub';render();};
  if(S.items===null&&!S.busy){S.busy=1;sdPost({a:'sd_mine'}).then(r=>{S.busy=0;if(r&&r.ok)S.items=r.items;else S.err=sdErrTxt(r&&r.err);if(G.scr==='sdmine')render();});}}
 function sdTch(){const T=G.sdtc||(G.sdtc={key:'',list:null,err:'',busy:0});
- const card=(it,wait)=>`<div class="sditem"><div class="hint">제출: <b>${esc(it.name)}</b> (${esc(it.ini)})${wait?'':` · 👍${it.L} 🙂${it.N} 🛠️${it.I} 🚩${it.R}`}</div>
+ const card=(it,wait)=>`<div class="sditem"><div class="hint">제출: <b>${esc(it.name)}</b> (${esc(it.ini)}) · 📘 <b>${it.g?esc(sdTag(it)):'미분류'}</b>${wait?'':` · 👍${it.L} 🙂${it.N} 🛠️${it.I} 🚩${it.R}`}</div>
   <div class="sentence" style="font-size:15px">${esc(it.q)}</div><div class="hint">✅ <b>${esc(it.a)}</b> · ❌ ${it.w.map(esc).join(' / ')}</div>${it.ko?`<div class="hint">해석: ${esc(it.ko)}</div>`:''}${it.ex?`<div class="hint">해설: ${esc(it.ex)}</div>`:''}
   <div class="dtools">${wait?`<button class="btn-s" data-rv="ok" data-id="${esc(it.id)}">✅ 승인</button><button class="btn-s" data-rv="no" data-id="${esc(it.id)}">❌ 반려</button>`:`<button class="btn-s" data-rv="ok" data-id="${esc(it.id)}">♻️ 복원</button><button class="btn-s" data-rv="del" data-id="${esc(it.id)}">🗑️ 삭제</button>`}</div></div>`;
  $('app').innerHTML=hud()+`<div class="card"><div class="speaker">🔐 교사 승인</div>

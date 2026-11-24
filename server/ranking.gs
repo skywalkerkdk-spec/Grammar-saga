@@ -257,6 +257,8 @@ function sdSubmit_(d) {
   if (!auth_(ss, n, d.t)) return { ok: false, err: 'tok' };
   var q = sdClean_(d.q, 140), a = sdClean_(d.ans, 30), ko = sdClean_(d.ko, 140), ex = sdClean_(d.ex, 200);
   var w = Array.isArray(d.w) ? d.w.slice(0, 4).map(function (x) { return sdClean_(x, 30); }) : [];
+  var gr = Math.floor(+d.g), le = Math.floor(+d.le);
+  if (!(gr >= 1 && gr <= 3) || !(le >= 1 && le <= 8)) return { ok: false, err: 'cls' };
   if (q.length < 8 || q.split('____').length !== 2) return { ok: false, err: 'blank' };
   if (!a || w.length !== 4 || w.some(function (x) { return !x; })) return { ok: false, err: 'opts' };
   var seen = {}, all = [a].concat(w);
@@ -272,7 +274,7 @@ function sdSubmit_(d) {
   if (cnt >= SD_DAY_MAX) return { ok: false, err: 'limit' };
   if (wait >= SD_WAIT_MAX) return { ok: false, err: 'pending' };
   var id = 'Q' + new Date().getTime().toString(36) + Math.floor(Math.random() * 1296).toString(36);
-  sh.appendRow([id, n, ini_(n), JSON.stringify({ q: q, a: a, w: w, ko: ko, ex: ex }), 'wait', new Date(), 0, 0, 0, 0, 0, 0, '']);
+  sh.appendRow([id, n, ini_(n), JSON.stringify({ q: q, a: a, w: w, ko: ko, ex: ex, g: gr, le: le }), 'wait', new Date(), 0, 0, 0, 0, 0, 0, '']);
   return { ok: true, id: id };
 }
 function sdList_(d) {
@@ -282,10 +284,10 @@ function sdList_(d) {
   for (var r = 1; r < v.length; r++) {
     if (String(v[r][4]) !== 'ok') continue;
     var o = sdParse_(v[r][3]); if (!o) continue;
-    items.push({ id: String(v[r][0]), q: o.q, a: o.a, w: o.w, ko: o.ko, ex: o.ex, ini: String(v[r][2]), mine: String(v[r][1]) === n });
+    items.push({ id: String(v[r][0]), q: o.q, a: o.a, w: o.w, ko: o.ko, ex: o.ex, g: +o.g || 0, le: +o.le || 0, ini: String(v[r][2]), mine: String(v[r][1]) === n });
   }
   for (var i = items.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)), t = items[i]; items[i] = items[j]; items[j] = t; }
-  return { ok: true, items: items.slice(0, 300) };
+  return { ok: true, items: items.slice(0, 1500) };
 }
 function sdMine_(d) {
   var ss = ss_(), n = String(d.n || '').trim();
@@ -294,7 +296,7 @@ function sdMine_(d) {
   for (var r = v.length - 1; r >= 1 && items.length < 50; r--) {
     if (String(v[r][1]) !== n) continue;
     var o = sdParse_(v[r][3]) || {};
-    items.push({ id: String(v[r][0]), q: o.q, a: o.a, st: String(v[r][4]), L: +v[r][6] || 0, N: +v[r][7] || 0, I: +v[r][8] || 0, R: +v[r][9] || 0, note: String(v[r][12] || '') });
+    items.push({ id: String(v[r][0]), q: o.q, a: o.a, g: +o.g || 0, le: +o.le || 0, st: String(v[r][4]), L: +v[r][6] || 0, N: +v[r][7] || 0, I: +v[r][8] || 0, R: +v[r][9] || 0, note: String(v[r][12] || '') });
   }
   return { ok: true, items: items };
 }
@@ -334,7 +336,7 @@ function sdPending_(d) { // 교사용: 승인 대기 + 신고로 숨겨진 문�
   for (var r = 1; r < v.length; r++) {
     var st = String(v[r][4]); if (st !== 'wait' && st !== 'hide') continue;
     var o = sdParse_(v[r][3]); if (!o) continue;
-    var it = { id: String(v[r][0]), name: String(v[r][1]), ini: String(v[r][2]), q: o.q, a: o.a, w: o.w, ko: o.ko, ex: o.ex, L: +v[r][6] || 0, N: +v[r][7] || 0, I: +v[r][8] || 0, R: +v[r][9] || 0 };
+    var it = { id: String(v[r][0]), name: String(v[r][1]), ini: String(v[r][2]), q: o.q, a: o.a, w: o.w, ko: o.ko, ex: o.ex, g: +o.g || 0, le: +o.le || 0, L: +v[r][6] || 0, N: +v[r][7] || 0, I: +v[r][8] || 0, R: +v[r][9] || 0 };
     (st === 'wait' ? wait : hide).push(it);
   }
   return { ok: true, wait: wait.slice(0, 60), hide: hide.slice(0, 40) };

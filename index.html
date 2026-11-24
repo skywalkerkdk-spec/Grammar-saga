@@ -2453,7 +2453,7 @@ function rpgDsel(){
  ${G.toastSave?'<div class="feedback ok" style="margin:0 0 10px">💾 저장했어요! 같은 이름으로 들어오면 골드·장비·진행 상황이 이어져요.</div>':''}${rpgResumeHTML()}
  ${G.rpgMap!==false?rpgMapHTML():'<div class="dtools"><button class="btn-s" id="rmmap">🗺️ 지도로 보기</button></div>'+`<div class="dgrid">${L.filter(d=>!SPDG.includes(d.id)).concat(L.filter(d=>SPDG.includes(d.id))).map(d=>{const i=RT[d.id],u=rpgUnlocked(d),e=estats(i),b=estats(i,true),cl=SV.rcleared.includes(d.id),rec=GEAR[RREC[Math.min(7,Math.floor(i))]],spx=SPDG.includes(d.id);
   return (spx&&d.id===SPDG.find(x=>L.some(y=>y.id===x))?'<h3 class="tf exph" style="grid-column:1/-1;margin:10px 0 0">⭐ 특수던전 <small>잠금 없음 · 수준이 낮아도 언제든 · 반복 도전</small></h3>':'')+`<button class="dcard rcard ${spx?'expcard':''}" ${u?'':'disabled'} data-rd="${d.id}"><span class="size">${spx?'⭐ 특수던전':'RPG Lv.'+RLV[d.id]}</span>${cl?'<span class="lock" style="color:var(--green)">✅ 클리어</span>':u?'':'<span class="lock">🔒 이전 던전 클리어</span>'}
-  <h3>${d.name}</h3><div class="mon">${bossSp(d)||sp(d.mon,'','MON')}<div class="hint">권장 장비: ${rec.nm} 이상<br><span class="rdesc">${rdescHTML(d.id)}</span></div></div></button>`;}).join('')}</div>`}</div>`;
+  <h3>${d.name}</h3><div class="mon">${bossSp(d)||sp(d.mon,'','MON')}<div class="hint">${spx?'내 공격력에 맞춰 적이 강해져요 (장비 무관)':'권장 장비: '+rec.nm+' 이상'}<br><span class="rdesc">${rdescHTML(d.id)}</span></div></div></button>`;}).join('')}</div>`}</div>`;
  bindModeTabs();if(G.dev)bindRpgDev();
  $('todaily').onclick=()=>{G.dg=DAILY;G.mates=DAILY.need.slice();G.pets=1;genRunDaily();sfx('select');G.scr='news';render();};
  wkBind();
@@ -2589,7 +2589,7 @@ function rpgStart(d){
  const seen={},en=[];
  shuffle(mobs).forEach(e=>{if(en.length<4&&!seen[e.mname]){seen[e.mname]=1;en.push(e);}});
  while(en.length<4&&mobs.length)en.push(pick(mobs));
- const mk=(e,b)=>{const s=estats(i,b);return {mon:e.mon,mname:e.mname,filter:e.filter||'',src:e.src,boss:b,big:b&&e.big,talk:e.talk||'',kill:e.kill||'',taunt:e.taunt||'',hp:s.hp,max:s.hp,atk:s.atk};};
+ const mk=(e,b)=>{const s=SPDG.includes(d.id)?spStats(b):estats(i,b);return {mon:e.mon,mname:e.mname,filter:e.filter||'',src:e.src,boss:b,big:b&&e.big,talk:e.talk||'',kill:e.kill||'',taunt:e.taunt||'',hp:s.hp,max:s.hp,atk:s.atk};};
  const E=en.map(e=>mk(e,false));
  let B=boss;if(d.full&&!d.mix){B={mon:KING.mon,mname:KING.mname,talk:pick(KING.talk[0]),kill:pick(KING.kill),taunt:'크하하! 그 정도로 다크나이트(DK)를 쓰러뜨릴 수 있을 것 같으냐!'};}
  else if(d.verbal){const v=VBOSS[d.id];B={mon:v.mon,src:v.src,mname:v.mname,filter:v.filter,big:true,talk:v.t[0],kill:v.k,taunt:'자리부터 다시 봐라!'};}
@@ -5251,6 +5251,8 @@ RLVG.forEach((g,k)=>g.forEach(id=>{RLV[id]=k+1;RT[id]=RLVT[k];ROI[id]=Object.key
 rpgDungeons=function(){return DUNGEONS.filter(d=>d.open&&RLV[d.id]&&(!d.verbal||templeUnlocked()||G.dev)).sort((a,b)=>ROI[a.id]-ROI[b.id]);};
 /* ⭐ 특수던전: 컨정션·속담·이디엄 — 잠금 없이, 장비 수준과 무관하게(적 강도 고정) 언제든 반복 도전 */
 const SPDG=['cj','pv','id'];SPDG.forEach(id=>{RLV[id]=3;RT[id]=3.5;});
+/* 특수던전 적: 내 공격력·체력에 비례 — 졸병 4번, 보스 10번 공격이면 쓰러지고, 졸병은 한 방에 체력의 약 10%를 깎는다 */
+function spStats(boss){const st=pstats();const hp=Math.max(10,Math.round(st.atk*(boss?10:4)));const atk=Math.max(1,Math.round(st.hp*(boss?0.13:0.10)/defMul(st.def)));return {hp,atk};}
 rpgUnlocked=function(d){if(G.dev||SPDG.includes(d.id))return true;const L=rpgDungeons().filter(x=>!SPDG.includes(x.id)),i=L.indexOf(d);return i<=0||SV.rcleared.includes(L[i-1].id);};
 const RDESC={
 d1:['1형식','주어(S)와 동사(V)만으로 끝나는 가장 짧은 문장'],d2:['2형식','주어가 어떤 상태·신분인지 보어(C)로 설명하는 문장'],d3:['3형식','동사의 대상이 되는 목적어(O)가 있는 문장'],d4:['4형식','~에게(간접목적어) ~을(직접목적어) 주는 문장'],d5:['5형식','목적어가 어떻게 되는지 목적격보어(OC)로 알려 주는 문장'],

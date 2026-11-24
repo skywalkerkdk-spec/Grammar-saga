@@ -6953,7 +6953,9 @@ function mpBox(k){if(_mpb[k])return _mpb[k];const d=SPR[k],n=d.r.length,cv=docum
  /* ---- 1) 기본 가격 ≈ +10% (문제를 맞히면 10% 할인 → 예전 가격과 비슷해지도록, 티 안 나게 5/10 단위로 반올림) ---- */
  const bp=p=>{const x=p/0.9,s=x>=500?10:5;return Math.round(x/s)*s;};
  const dp=p=>Math.max(1,Math.round(p*0.9/5)*5);
- if(!window.__SQBP){window.__SQBP=1;[PETS,ACC,SKINS,POT,GEAR].forEach(M=>Object.values(M).forEach(o=>{if(o&&o.price>0&&!o.egg)o.price=bp(o.price);}));}
+ if(!window.__SQBP){window.__SQBP=1;[PETS,ACC,SKINS,POT,GEAR].forEach(M=>Object.values(M).forEach(o=>{if(o&&o.price>0&&!o.egg)o.price=bp(o.price);}));
+  /* 후반 장비(5~9단계) 가격 재조정: 전설 장비는 기본 보상 기준 약 21판 분량 */
+  const GP2={5:2500,6:4000,7:6000,8:9000,9:13000};Object.values(GEAR).forEach(g=>{if(g&&GP2[g.t])g.price=GP2[g.t];});}
  /* ---- 2) 영어 이름 ---- */
  const art=n=>(/^[aeiou]/i.test(n)?'an ':'a ')+n,cap=s=>s.charAt(0).toUpperCase()+s.slice(1);
  const GEN={sword:['Wooden Sword','Rusty Sword','Iron Sword','Steel Sword',"Knight's Sword",'Silver Sword','Flame Sword','Frost Sword','Dragon Slayer','Legendary Holy Sword'],

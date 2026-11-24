@@ -5489,6 +5489,8 @@ function deepGo(){const d=window.__deep;if(!d)return;window.__deep=null;
 (function(){const _r=render;render=function(){const x=_r.apply(this,arguments);try{if(G.scr==='dsel'&&window.__deep)setTimeout(deepGo,60);}catch(e){}return x;};})();
 
 /* ---------- ⚒️ 강화석 · 무기 강화 ---------- */
+/* 강화 비용(시도 1회): 목표 단계 n → 💰 약 40·n^1.5, 💎 5·n (실패해도 소모) */
+const enhCost=n=>({g:Math.round(40*Math.pow(n,1.5)/10)*10,c:5*n});
 const ENH_MAX=10,ENH_MAIN=['d1','d2','d3','d4','d5','d6'];
 const ENH_BONUS=0.1; /* 문제를 맞히면 +10%p */
 const enhRate=(t,bo)=>Math.min(1,Math.max(0.05,(t<=3?0.5:t<=6?0.3:0.1)-ENH_BONUS)+(bo?ENH_BONUS:0)); /* t = 올리려는 목표 단계 · 기본 확률은 문제 보너스(+10%p)만큼 낮춤 */
@@ -5510,17 +5512,17 @@ function enhHTML(){const k=SV.gear.sword,w=GEAR[k],L=(SV.enh||{})[k]||0,st=SV.st
  const ladder=Array.from({length:ENH_MAX},(_,i)=>`<span class="el ${i+1<=L?'on':''} ${i+1===L+1?'nx':''}">+${i+1}<small>${Math.round(enhRate(i+1)*100)}%</small></span>`).join('');
  const R=G.enhRes;let res='';
  if(G.enhBusy)res=`<div class="eres busy">🔨 쾅! 쾅! 쾅!<small>두드리는 중…</small></div>`;
- else if(R)res=R.ok?`<div class="eres ok">✨ 강화 성공! <b>+${R.from} → +${R.to}</b><small>무기가 더 날카로워졌다!</small></div>`:`<div class="eres no">💥 강화 실패…${R.note==='down'?` <b>+${R.from} → +${R.to}</b><small>단계가 내려갔어요 (+5 이상은 실패 시 −1)</small>`:'<small>강화석만 사라졌어요. 단계는 그대로예요.</small>'}</div>`;
+ else if(R)res=R.ok?`<div class="eres ok">✨ 강화 성공! <b>+${R.from} → +${R.to}</b><small>무기가 더 날카로워졌다!</small></div>`:`<div class="eres no">💥 강화 실패…${R.note==='down'?` <b>+${R.from} → +${R.to}</b><small>단계가 내려갔어요 (+5 이상은 실패 시 −1)</small>`:'<small>강화석과 비용이 사라졌어요. 단계는 그대로예요.</small>'}</div>`;
  return `<div class="enhbox"><div class="eh">⚒️ 무기 강화 <span class="est">보유 강화석 ⚒️ <b>${st}</b></span></div>
  <div class="ew">${gearc(k,'big')}<div class="ewi"><b>${w.nm} <span class="plus">+${L}</span></b>
- <div class="hint">${maxed?'최대 강화예요!':`⚔️ 공격력 <b>${a0}</b> → <b>${a1}</b> · 성공 확률 <b>${Math.round(enhRate(L+1)*100)}%</b> <span class="qbn">(📝 문제 정답 시 <b>${Math.round(enhRate(L+1,1)*100)}%</b>)</span> · 필요 ⚒️ 1개`}</div>
+ <div class="hint">${maxed?'최대 강화예요!':`⚔️ 공격력 <b>${a0}</b> → <b>${a1}</b> · 성공 확률 <b>${Math.round(enhRate(L+1)*100)}%</b> <span class="qbn">(📝 문제 정답 시 <b>${Math.round(enhRate(L+1,1)*100)}%</b>)</span> · 필요 ⚒️ 1개 · 💰 ${enhCost(L+1).g} · 💎 ${enhCost(L+1).c}`}</div>
  <div class="hint">${L>=5&&!maxed?'⚠️ +5 이상에서 실패하면 단계가 1 내려가요!':'+5 이상에서 실패하면 단계가 1 내려가요. (+4 이하는 안전)'}</div></div></div>
  <div class="eladder">${ladder}</div>${res}
- <button class="next" id="enh" ${G.enhBusy||st<1||maxed?'disabled':''}>${maxed?'🏁 최대 강화':st<1?'⚒️ 강화석이 없어요':`⚒️ 강화 시도 (+${L} → +${L+1})`}</button>
+ <button class="next" id="enh" ${G.enhBusy||st<1||maxed||(SV.rg||0)<enhCost(L+1).g||(SV.cry||0)<enhCost(L+1).c?'disabled':''}>${maxed?'🏁 최대 강화':st<1?'⚒️ 강화석이 없어요':((SV.rg||0)<enhCost(L+1).g||(SV.cry||0)<enhCost(L+1).c)?'💰·💎가 부족해요':`⚒️ 강화 시도 (+${L} → +${L+1})`}</button>
 ${G.dev?'<button class="btn-s" id="enhdev">🛠️ 강화석 +5 (개발자)</button>':''}
  <p class="hint">📋 받은 내역: 던전 <b>${(SV.sgot||[]).filter(x=>/^dg[LR]?:/.test(x)).length}</b>개 · 난이도 <b>${(SV.sgot||[]).filter(x=>x.startsWith('lv:')).length}</b>개 · 레이드 <b>${(SV.sgot||[]).filter(x=>x.startsWith('rd:')).length}</b>개 · 보상 코드 <b>${(SV.gifts||[]).length}</b>회 (던전은 모드·난이도별로 처음 클리어할 때 1번씩 받아요)</p>
  <p class="hint">강화석은 던전을 모드(학습/RPG)·난이도별로 처음 클리어할 때(1개씩), 반복 클리어 시 15% 확률로, 난이도별로 1~6번 던전을 모두 클리어할 때, 레이드 보스를 일정 이상 몰아붙일 때 얻어요. 강화는 무기마다 따로 쌓여요.</p></div>`;}
-function enhTry(){const k=SV.gear.sword;SV.enh=SV.enh||{};const L=SV.enh[k]||0;if(G.enhBusy||(SV.stone||0)<1||L>=ENH_MAX)return;
+function enhTry(){const k=SV.gear.sword;SV.enh=SV.enh||{};const L=SV.enh[k]||0;if(G.enhBusy||(SV.stone||0)<1||L>=ENH_MAX)return;const EC=enhCost(L+1);if((SV.rg||0)<EC.g||(SV.cry||0)<EC.c)return;SV.rg-=EC.g;SV.cry-=EC.c;
  G.enhBusy=true;G.enhRes=null;sfx('click');render();[0,380,760].forEach(t=>setTimeout(()=>sfx('hit'),t));
  const bo=!!G.enhQ;G.enhQ=false;
  setTimeout(()=>{if(!G.enhBusy)return;SV.stone=Math.max(0,(SV.stone||0)-1);const ok=Math.random()<enhRate(L+1,bo);let nl=L,note='';
@@ -7040,7 +7042,7 @@ function mpBox(k){if(_mpb[k])return _mpb[k];const d=SPR[k],n=d.r.length,cv=docum
   const eb=t.closest('#enh');
   if(eb){if(eb.disabled||eb._sqp)return;ev.stopImmediatePropagation();ev.preventDefault();
    const k=SV.gear.sword,L=(SV.enh||{})[k]||0,r0=Math.round(enhRate(L+1)*100),r1=Math.round(enhRate(L+1,1)*100);
-   ask({ic:'⚒️',title:'강화 전에 문제 풀기!',msg:`문제를 맞히면 성공 확률이 <b>+10%p</b> 올라가요!<br>${r0}% → <b>${r1}%</b>`,plain:`그냥 강화 (${r0}%)`},ok=>{if(ok===null)return;G.enhQ=!!ok;enhTry();});return;}
+   ask({ic:'⚒️',title:'강화 전에 문제 풀기!',msg:`문제를 맞히면 성공 확률이 <b>+10%p</b> 올라가요!<br>${r0}% → <b>${r1}%</b><br><small>비용: 💰 ${enhCost(L+1).g} · 💎 ${enhCost(L+1).c} · ⚒️ 1</small>`,plain:`그냥 강화 (${r0}%)`},ok=>{if(ok===null)return;G.enhQ=!!ok;enhTry();});return;}
   const b=t.closest('button[data-pet],button[data-acc],button[data-skb],button[data-potb],button[data-gb]');
   if(!b||b.disabled||b._sqp)return;const it=itemOf(b);if(!it)return;
   if(it.egg||!(it.obj.price>0)){const had=SV[it.cur];setTimeout(()=>{if(it.has&&it.has())buyPop(it,'알 교환',false);},60);return;}

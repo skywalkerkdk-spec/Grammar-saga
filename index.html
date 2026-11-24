@@ -2732,7 +2732,7 @@ function rpgDodge(i){const R=G.rp,q=R.dq,en=R.en[R.ei],st=pstats(),D=R.deb||{};q
  const ft=dmg<=0?'MISS!':'-'+dmg,fc=dmg<=0?'pmiss':q.ok?'pblock':'phurt';
  setTimeout(()=>{render();const a=$('arena');if(a){const d=document.createElement('div');d.className='dmg pdmg '+fc;d.textContent=ft;a.appendChild(d);}},450);}
 function rpgKill(){const R=G.rp;if(R.ei>=R.en.length-1&&R.wr&&R.wr.length&&!R.rvd&&!G.dev){const en0=R.en[R.ei];startReview(R.wr,skip=>{G.rpg=true;R.rvd=true;if(skip)R.rvskip=true;rpgKill();});return;}
- const en=R.en[R.ei],i=RT[G.dg.id];const gp=(HPERK[rhero()].gold||1),g=Math.round(bonusG(rgoldOf(i,en.boss))*gp),c=rpgKillC(en);
+ const en=R.en[R.ei],i=rwTier(G.dg.id);const gp=(HPERK[rhero()].gold||1),g=Math.round(bonusG(rgoldOf(i,en.boss))*gp),c=rpgKillC(en);
  SV.rg+=g;SV.cry+=c;R.gold+=g;R.cry+=c;saveNow();sfx('coins');
  if(R.ei>=R.en.length-1){const first=!SV.rcleared.includes(G.dg.id);const bg=R.rvskip?0:bonusG(rgoldOf(i,true)),bc=R.rvskip?0:rpgClearC();SV.rg+=bg;SV.cry+=bc;R.gold+=bg;R.cry+=bc;if(first)SV.rcleared.push(G.dg.id);G.stoneMsg=[];if(!R.rvskip)stoneOnClear(G.dg,true);saveNow();R.win=true;R.first=first;if(!R.rvskip)rankDgRpg(R);G.scr='rresult';render();return;}
  R.ei++;R.hl=0;R.healing=false;R.talked=false;R.phase='atk';R.deb={};R.edb={};R.toast=`💰 +${g} · 💎 +${c}`;rpgNextQ();render();
@@ -5253,6 +5253,8 @@ rpgDungeons=function(){return DUNGEONS.filter(d=>d.open&&RLV[d.id]&&(!d.verbal||
 const SPDG=['cj','pv','id'];SPDG.forEach(id=>{RLV[id]=3;RT[id]=3.5;});
 /* 특수던전 적: 내 공격력·체력에 비례 — 졸병 4번, 보스 10번 공격이면 쓰러지고, 졸병은 한 방에 체력의 약 10%를 깎는다 */
 function spStats(boss){const st=pstats();const hp=Math.max(10,Math.round(st.atk*(boss?10:4)));const atk=Math.max(1,Math.round(st.hp*(boss?0.13:0.10)/defMul(st.def)));return {hp,atk};}
+/* 특수던전 보상 단계: 공격력 13(시작 장비)→Lv.3 상당, 78 이상→후반 던전 보상의 약 70% 상한 */
+function rwTier(id){if(!SPDG.includes(id))return RT[id];const a=Math.max(13,pstats().atk),lo=3.5,hi=6.12;return Math.min(hi,lo+Math.log(a/13)/Math.log(78/13)*(hi-lo));}
 rpgUnlocked=function(d){if(G.dev||SPDG.includes(d.id))return true;const L=rpgDungeons().filter(x=>!SPDG.includes(x.id)),i=L.indexOf(d);return i<=0||SV.rcleared.includes(L[i-1].id);};
 const RDESC={
 d1:['1형식','주어(S)와 동사(V)만으로 끝나는 가장 짧은 문장'],d2:['2형식','주어가 어떤 상태·신분인지 보어(C)로 설명하는 문장'],d3:['3형식','동사의 대상이 되는 목적어(O)가 있는 문장'],d4:['4형식','~에게(간접목적어) ~을(직접목적어) 주는 문장'],d5:['5형식','목적어가 어떻게 되는지 목적격보어(OC)로 알려 주는 문장'],

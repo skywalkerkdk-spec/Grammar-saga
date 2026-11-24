@@ -1152,6 +1152,13 @@ body[data-bg="d19"] #bgl{background-image:url(nbg_11.webp)!important;filter:brig
 
 .choice.msel{border-color:var(--gold)!important;background:#3f3516!important}
 
+.sditem{background:#1f1b2e;border:1px solid #3b3552;border-radius:12px;padding:10px 12px;margin:8px 0}
+.sdt{font-weight:700;font-size:13px;margin-bottom:4px}
+.sdr{margin-top:10px;padding:8px 10px;background:#241f36;border:1px dashed #5a4f80;border-radius:10px}
+.sdr.done{border-style:solid;color:#9fe0a8;font-size:13px}
+.sdrb{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+textarea.input{width:100%;box-sizing:border-box;resize:vertical;font-family:inherit}
+
 </style>
 </head>
 <body>
@@ -1695,7 +1702,7 @@ function openGuide(){
 function hud(extra){return `<div class="hud"><span class="nm">${SV.hero==='druid'?'🐻':'🛡️'} ${esc(G.name)}${SV.hero?` <small>(${HERO[SV.hero].slice(2)})</small>`:''}</span><span class="gold">💎 ${SV.cry}</span>${G.started?`<span class="stonechip" title="강화석">⚒️ ${SV.stone||0}</span>`:''}${(SV.egg||0)>0?`<span class="stonechip" title="신비한 알 (레이드 드롭 · 후반 펫 교환)">🥚 ${SV.egg}</span>`:''}${SV.mode==='rpg'&&rpgOpen()?`<span class="rgold">💰 ${SV.rg}</span>`:''}${G.started&&SV.level?`<span class="lvb">${LEVELS[LV()].ic} ${LEVELS[LV()].n}</span>`:''}${extra||''}<span class="sp"></span><button class="btn-s mute" onclick="toggleMute()">${AU.muted?'🔇 소리 꺼짐':'🔊 소리 켜짐'}</button><button class="btn-s" onclick="openGuide()">📖 도감</button></div>`;}
 
 /* ---------- 화면 ---------- */
-function render(){window.scrollTo({top:0});applySkin();const f={splash,title,opening,level,grave,ending,temple,intro,dsel,party,defeat,formed,battle,clear,shop,forge,rbattle,rresult,hsel:heroSel,lhsel:lhSel,mall:mallScr,news:newsPaper,rank:rankScreen,pvp:pvLobby,pvbattle:pvBattle,pvres:pvRes,rdlobby:rdLobby,rdbattle:rdBattle}[G.scr];document.body.dataset.bg=G.scr==='splash'?'':(G.scr==='battle'||G.scr==='rbattle'||G.scr==='pvbattle'||G.scr==='rdbattle')?(G.dg.bg||G.dg.id):'guild';f();fill($('app'));syncBgm();}
+function render(){window.scrollTo({top:0});applySkin();const f={splash,title,opening,level,grave,ending,temple,intro,dsel,party,defeat,formed,battle,clear,shop,forge,rbattle,rresult,hsel:heroSel,lhsel:lhSel,mall:mallScr,sdhub:sdHub,sdmake:sdMake,sdmine:sdMine,sdtch:sdTch,news:newsPaper,rank:rankScreen,pvp:pvLobby,pvbattle:pvBattle,pvres:pvRes,rdlobby:rdLobby,rdbattle:rdBattle}[G.scr];document.body.dataset.bg=G.scr==='splash'?'':(G.scr==='battle'||G.scr==='rbattle'||G.scr==='pvbattle'||G.scr==='rdbattle')?(G.dg.bg||G.dg.id):'guild';f();fill($('app'));syncBgm();}
 
 const CREDIT=`<div class="credit">본 게임의 제작자는 DK KANG입니다.<br>이미지, 음악 및 폰트는 AI 도구를 활용하여 제작되었습니다.<br>학생들의 영어학습을 위해서는 얼마든지 쓰셔도 좋습니다.<br>다만 무단 복제 및 변형은 금지합니다.</div>`;
 const DEVH=()=>{const h=(location.hash||'').replace('#','').toLowerCase();return ({zx:1,qw:1,as:1})[h]?h:'';};
@@ -2448,7 +2455,7 @@ function rpgDsel(){
  $('app').innerHTML=hud()+`<div class="card"><div class="speaker">⚔️ RPG 모드</div>
  <div class="story">장비를 갖추고 더 강한 적에게 도전하세요! <b>내 턴</b>에는 공격 문제, <b>적의 턴</b>에는 회피 문제가 나와요. 공격을 맞히면 <b>💥 필살기</b> 게이지가 차요.</div>
  ${modeTabs()}${dailyCard()}${wkCard()}${G.dev?rpgDevPanel():''}${heroBar()}${statPanel()}
- <div class="dtools"> <button class="shopbtn" id="toshop">${petc('mini')}<div><b>🏪 일반 상점</b><span>펫·스킨 · 대장간 · 무기 강화 · 물약 · 보유 💎 ${SV.cry} · 💰 ${SV.rg}</span></div></button><button class="shopbtn pvbtn" id="topvp"><span style="font-size:32px">⚔️</span><div><b>배틀 아레나</b><span>친구 캐릭터와 1:1 대결 · 전적 🏆 ${(SV.pvp||{}).w||0}승</span></div></button><button class="shopbtn pvbtn raidbtn" id="toraid"><span style="font-size:32px">🐉</span><div><b>레이드</b><span>친구들과 2~6명이 힘을 합쳐 보스 토벌</span></div></button></div>
+ <div class="dtools"> <button class="shopbtn" id="toshop">${petc('mini')}<div><b>🏪 일반 상점</b><span>펫·스킨 · 대장간 · 무기 강화 · 물약 · 보유 💎 ${SV.cry} · 💰 ${SV.rg}</span></div></button><button class="shopbtn" id="tosd"><span style="font-size:32px">🧑‍🏫</span><div><b>셀프던전</b><span>친구들이 만든 문제 · 내 문제도 올려 보세요</span></div></button><button class="shopbtn pvbtn" id="topvp"><span style="font-size:32px">⚔️</span><div><b>배틀 아레나</b><span>친구 캐릭터와 1:1 대결 · 전적 🏆 ${(SV.pvp||{}).w||0}승</span></div></button><button class="shopbtn pvbtn raidbtn" id="toraid"><span style="font-size:32px">🐉</span><div><b>레이드</b><span>친구들과 2~6명이 힘을 합쳐 보스 토벌</span></div></button></div>
  <div class="dtools"><button class="btn-s" id="tolv">${LEVELS[LV()].ic} 문제 난이도: <b>${LEVELS[LV()].n}</b> · 바꾸기</button><button class="btn-s savebtn" id="rsave">💾 저장하기</button><button class="btn-s rankbtn" id="torank">${rankBtnLabel()}</button><button class="btn-s" id="togift">🎁 보상 코드</button><button class="btn-s" id="tologin">👤 다른 계정으로 로그인</button></div>
  ${G.toastSave?'<div class="feedback ok" style="margin:0 0 10px">💾 저장했어요! 같은 이름으로 들어오면 골드·장비·진행 상황이 이어져요.</div>':''}${rpgResumeHTML()}
  ${G.rpgMap!==false?rpgMapHTML():'<div class="dtools"><button class="btn-s" id="rmmap">🗺️ 지도로 보기</button></div>'+`<div class="dgrid">${L.filter(d=>!SPDG.includes(d.id)).concat(L.filter(d=>SPDG.includes(d.id))).map(d=>{const i=RT[d.id],u=rpgUnlocked(d),e=estats(i),b=estats(i,true),cl=SV.rcleared.includes(d.id),rec=GEAR[RREC[Math.min(7,Math.floor(i))]],spx=SPDG.includes(d.id);
@@ -5057,6 +5064,9 @@ const GQD={};Object.keys(GQH).forEach(k=>GQD[k]=GQH[k].slice());if(typeof GQG!==
    boss:{mon:b[0],mname:r[2]+'의 수문장',filter:b[1],t:[`${r[2]}! 이 문을 지나려면 빈칸을 정확히 채워야 한다!`,`${r[2]}의 규칙을 정말 알고 있느냐?`,`내가 무릎을 꿇다니… ${r[2]}를 꿰뚫었구나!`],k:`${r[2]}의 길이 열렸다… 앞으로 나아가라!`,x:['틀렸다! 규칙을 다시 떠올려라!','아직 멀었구나!']},
    desc:`${r[2]} 문제로 이루어진 던전. 문장의 빈칸에 알맞은 말을 골라 보자!`,next:`${r[1]}을(를) 지났어요!`});});})();
 const ORDI=GR.map(x=>x.id);
+GR.push({id:'sd',reg:'gram',name:'셀프(Self) 던전',bg:'d1',trk:'forest',pool:'sd',lab:'친구들이 만든 문제',mons:['goblin','kobold','slime','bat','mushroom'],
+ boss:{mon:'ogre',mname:'문제 출제왕',filter:'hue-rotate(120deg) saturate(1.3)',t:['친구들이 낸 문제를 풀어 보거라!','내 문제는 쉽지 않을 걸?','훌륭하다… 문제를 만든 자도, 푼 자도!'],k:'문제 출제왕이 쓰러졌다! 내일은 네가 문제를 낼 차례다!',x:['아직 멀었구나!','친구의 문제도 못 푸느냐!']},
+ desc:'친구들이 직접 만든 문제로 싸우는 던전. 내가 만든 문제가 여기에 나올 수도 있어요!',next:'셀프던전을 클리어했어요!'});
 GR.forEach(x=>{
  DUNGEONS.push({id:x.id,size:8,form:x.lab,name:x.name,mon:x.boss.mon,open:true,full:true,mix:true,gram:true,reg:x.reg,gramLab:x.lab,bg:x.bg,need:['healer','paladin','dealer','shaman','trader','item'],enc:true,
   desc:x.desc,
@@ -5207,7 +5217,7 @@ function regionScreen(k){
  if(k==='gram'){
   const ORD=['g1','g2','tn','md','TEMPLE','rp','ps','pf','rv','pc','sj','cp','pn','ot','iv','pe','ng','rs','sx'];
   body=GLANG_BOX+`<div class="dgrid">${ORD.map((id,n)=>id==='TEMPLE'?templeCard():dcardG(D(id),(n+1)+'. '+D(id).gramLab)).join('')}</div>
-  <h3 class="tf exph">⭐ 특수던전 <small>수준이 낮아도 언제든 · 반복 도전</small></h3><div class="dgrid">${dcardG(D('cj'),'⭐ 특수')}</div>
+  <h3 class="tf exph">⭐ 특수던전 <small>수준이 낮아도 언제든 · 반복 도전</small></h3><div class="dgrid">${dcardG(D('cj'),'⭐ 특수')}${dcardG(D('sd'),'⭐ 셀프')}</div>
   <h3 class="tf exph">🌍 형식 복습 특별 던전 <small>1~5형식 랜덤 · 풀파티</small></h3><div class="dgrid">${FAR.map(i=>dcardG(D(i),'특별')).join('')}</div>`;}
  else if(k==='prov')body=`<div class="dgrid">${dcardG(D('pv'),'⭐ 특수던전')}</div><div class="hint" style="margin-top:8px">📜 영어 속담의 빈칸을 채워 보세요. 우리말 속담과 짝지어 외우면 쏙쏙 들어와요!</div>`;
  else if(k==='idiom')body=`<div class="dgrid">${dcardG(D('id'),'⭐ 특수던전')}</div><div class="hint" style="margin-top:8px">⚓ 숙어·구동사는 전치사 하나로 뜻이 바뀌어요. 덩어리로 기억하세요!</div>`;
@@ -5244,13 +5254,13 @@ function rpgMapBind(){wmSize();setTimeout(wmSize,60);
  $('wmzoom').onclick=()=>{G.wmz=!G.wmz;sfx('select');render();};}
 
 /* RPG 레벨 묶음: 비슷한 난이도의 던전 2~5개를 한 레벨로 */
-const RLVG=[['d1','d2','d3','d4','d5'],['d6','g1','g2'],['tn','md','pv','id'],['d7','d8','rp','ps'],['pf','rv','pc','cp'],['cj','pn','ot','iv'],['pe','ng','d9','d10'],['sj','rs','d11','d12'],['sx','d13','d14'],['d15','d16','d17','d18']];
+const RLVG=[['d1','d2','d3','d4','d5'],['d6','g1','g2'],['tn','md','pv','id','sd'],['d7','d8','rp','ps'],['pf','rv','pc','cp'],['cj','pn','ot','iv'],['pe','ng','d9','d10'],['sj','rs','d11','d12'],['sx','d13','d14'],['d15','d16','d17','d18']];
 const RLVT=[0.5,2.5,3.5,4.5,5.2,5.8,6.2,6.6,6.8,7];
 const RLV={},ROI={};
 RLVG.forEach((g,k)=>g.forEach(id=>{RLV[id]=k+1;RT[id]=RLVT[k];ROI[id]=Object.keys(ROI).length;}));
 rpgDungeons=function(){return DUNGEONS.filter(d=>d.open&&RLV[d.id]&&(!d.verbal||templeUnlocked()||G.dev)).sort((a,b)=>ROI[a.id]-ROI[b.id]);};
 /* ⭐ 특수던전: 컨정션·속담·이디엄 — 잠금 없이, 장비 수준과 무관하게(적 강도 고정) 언제든 반복 도전 */
-const SPDG=['cj','pv','id'];SPDG.forEach(id=>{RLV[id]=3;RT[id]=3.5;});
+const SPDG=['cj','pv','id','sd'];SPDG.forEach(id=>{RLV[id]=3;RT[id]=3.5;});
 /* 특수던전 적: 내 공격력·체력에 비례 — 졸병 4번, 보스 10번 공격이면 쓰러지고, 졸병은 한 방에 체력의 약 10%를 깎는다 */
 function spStats(boss){const st=pstats();const hp=Math.max(10,Math.round(st.atk*(boss?10:4)));const atk=Math.max(1,Math.round(st.hp*(boss?0.13:0.10)/defMul(st.def)));return {hp,atk};}
 /* 특수던전 보상 단계: 공격력 13(시작 장비)→Lv.3 상당, 78 이상→후반 던전 보상의 약 70% 상한 */
@@ -5259,7 +5269,7 @@ rpgUnlocked=function(d){if(G.dev||SPDG.includes(d.id))return true;const L=rpgDun
 const RDESC={
 d1:['1형식','주어(S)와 동사(V)만으로 끝나는 가장 짧은 문장'],d2:['2형식','주어가 어떤 상태·신분인지 보어(C)로 설명하는 문장'],d3:['3형식','동사의 대상이 되는 목적어(O)가 있는 문장'],d4:['4형식','~에게(간접목적어) ~을(직접목적어) 주는 문장'],d5:['5형식','목적어가 어떻게 되는지 목적격보어(OC)로 알려 주는 문장'],
 d6:['1~5형식 종합','다섯 가지 문장 형식을 한꺼번에 가려내는 최종 시험'],
-d7:['Infinitive','to + 동사원형. 동사 모양 그대로 명사·형용사·부사 역할을 하는 말'],d8:['Gerund·Participle','동사에 -ing를 붙여 명사(동명사)나 꾸미는 말(분사)이 된 것'],
+sd:['셀프던전','친구들이 직접 만든 문제로 싸우는 던전'],d7:['Infinitive','to + 동사원형. 동사 모양 그대로 명사·형용사·부사 역할을 하는 말'],d8:['Gerund·Participle','동사에 -ing를 붙여 명사(동명사)나 꾸미는 말(분사)이 된 것'],
 g1:['be동사','am·is·are·was·were를 주어에 맞게 고르기'],g2:['의문문·부정문','do·does·did로 묻고 부정하는 문장 만들기'],pv:['영어 속담','영어 속담의 빈칸을 채우며 우리말 속담과 비교하기'],id:['숙어·구동사','전치사·부사와 짝을 이루는 숙어 완성하기'],
 tn:['시제','현재·과거·미래·진행 등 때를 나타내는 동사의 모양'],md:['조동사','can·must·should처럼 동사에 뜻을 더해 주는 도우미 동사'],rp:['관계대명사','who·which·that으로 앞의 명사를 설명하는 문장 연결'],ps:['수동태','주어가 동작을 당하는 문장 (be + 과거분사)'],
 pf:['현재완료','과거부터 지금까지 이어지는 일 (have + 과거분사)'],rv:['관계부사','where·when·why·how로 장소·때·이유·방법을 설명하는 연결'],pc:['분사·분사구문','-ing/-ed로 꾸미거나 접속사 없이 문장을 줄이는 표현'],cp:['비교급·최상급','더 ~한, 가장 ~한을 나타내는 형용사·부사의 변화'],
@@ -5426,6 +5436,125 @@ QX.gsyn={label:'🔁 비슷한 뜻 고르기',
   else if(k==='s'&&sp.length){const r=sp.pop();Object.assign(e,{type:'gsyn',wt:2,word:r[1],wko:r[2],syn:r[3][0],mopts:shuffle(r[3].concat(r[4])),why:r[5],sentence:r[1],ko:r[2],tr:r[2],ansText:r[3][0],filled:r[1]+' ≈ '+r[3][0],options:null});last='s';}});
  return run;};})();
 (function(){const _r=reviveTarget;reviveTarget=function(e){if(e&&e.type==='gmulti')return {e,mode:'blank',sent:e.sentence,ans:e.mans[0],ko:e.ko,role:null,tries:0};if(e&&e.type==='gsyn')return {e,mode:'blank',sent:e.word+' ≈ ____',ans:e.syn,ko:e.wko,role:null,tries:0};return _r(e);};})();
+
+/* ===== 셀프던전: 학생이 직접 만든 문제로 싸우는 던전 (이니셜만 공개 · 교사 승인 · 좋아요/보통/개선/신고 평가) ===== */
+const SD_SAMPLES=[
+ ['S1','She ____ to school every day.','goes',['go','going','went','gone'],'그녀는 매일 학교에 간다.','주어가 3인칭 단수(She)이고 현재의 습관 → goes'],
+ ['S2','I have lived here ____ 2015.','since',['for','from','during','ago'],'나는 2015년부터 여기에 살고 있다.','현재완료에서 시작 시점(2015)은 since, 기간은 for'],
+ ['S3','He is the ____ student in our class.','tallest',['taller','tall','more tall','most tall'],'그는 우리 반에서 키가 가장 큰 학생이다.','the + 최상급: 짧은 형용사는 -est → tallest'],
+ ['S4','If it rains tomorrow, we ____ at home.','will stay',['stay','stayed','would stay','have stayed'],'내일 비가 오면 우리는 집에 있을 것이다.','조건절은 현재 시제, 주절은 will + 동사원형'],
+ ['S5','The window ____ by Tom yesterday.','was broken',['broke','is broken','has broken','breaking'],'그 창문은 어제 톰에 의해 깨졌다.','by Tom + yesterday → 과거 수동태 was + p.p.'],
+ ['S6','I look forward to ____ you.','seeing',['see','saw','seen','to see'],'나는 너를 만나기를 기대한다.','look forward to의 to는 전치사 → 동명사(-ing)'],
+ ['S7','This is the book ____ I bought last week.','which',['who','what','where','whose'],'이것은 내가 지난주에 산 책이다.','선행사가 사물(book)이고 목적어 자리 → which(또는 that)'],
+ ['S8','She asked me where ____.','I lived',['did I live','do I live','lived I','I living'],'그녀는 내가 어디에 살았는지 물었다.','간접의문문은 의문사 + 주어 + 동사 어순']
+].map(a=>({id:a[0],q:a[1],a:a[2],w:a[3],ko:a[4],ex:a[5],ini:'T',mine:false,sample:true}));
+GQD.sd=[];for(let k=1;k<=3;k++)for(let i=0;i<14;i++)GQD.sd.push([k,'dummy ____',['a','b','c'],'x','x']);
+const sdKey=()=>'sg_sdq_'+(typeof CLOUD!=='undefined'&&CLOUD?CLOUD.n:'');
+function sdCache(){try{return JSON.parse(lsg(sdKey())||'null')||{ts:0,items:[]};}catch(e){return {ts:0,items:[]};}}
+function sdPool(){const c=sdCache().items||[];return c.length>=8?c:c.concat(SD_SAMPLES);}
+async function sdPost(o,ms){if(!rankOn())return {ok:false,err:'off'};try{const r=await rankPost(Object.assign({n:CLOUD.n,t:CLOUD.h},o),ms);return r||{ok:false,err:'net'};}catch(e){return {ok:false,err:'net'};}}
+async function sdFetch(force){if(!rankOn())return false;const c=sdCache();if(!force&&Date.now()-c.ts<5*60000&&c.items.length)return true;
+ const r=await sdPost({a:'sd_list'});if(r&&r.ok&&Array.isArray(r.items)){lss(sdKey(),JSON.stringify({ts:Date.now(),items:r.items}));return true;}G.sdErr=r&&r.err;return false;}
+async function sdClaim(){if(!rankOn())return;const r=await sdPost({a:'sd_claim'});if(r&&r.ok&&r.cry>0){SV.cry+=r.cry;saveNow();G.sdToast=`🎉 내 문제 덕분에 💎 ${r.cry}를 받았어요!${r.approved?` (승인 ${r.approved}건)`:''}${r.likes?` (좋아요 ${r.likes}개)`:''}`;if(G.scr==='sdhub')render();}}
+const sdErrTxt=e=>({off:'로그인한 계정으로만 쓸 수 있어요.',net:'서버에 연결하지 못했어요. 잠시 뒤 다시 해 보세요.',a:'서버가 아직 업데이트되지 않았어요. 선생님께 알려 주세요.',tok:'계정 확인에 실패했어요.',blank:'문장에 빈칸(____)이 정확히 한 개 있어야 하고 8자 이상이어야 해요.',opts:'정답과 오답 4개를 모두 써 주세요.',same:'보기 5개가 서로 달라야 해요.',dup:'이미 같은 문장이 있어요.',limit:'오늘은 문제를 3개까지만 낼 수 있어요. 내일 다시 만들어요!',pending:'승인 대기 중인 문제가 너무 많아요. 승인된 뒤에 더 올려요.',key:'교사 키가 맞지 않아요.',own:'내가 만든 문제는 평가할 수 없어요.'}[e]||'잠시 뒤 다시 해 보세요.');
+
+/* ---------- 전투 문제 형식 (오지선다) ---------- */
+QX.sdq={label:'🧑‍🎓 친구가 낸 문제',
+ render(e){return `<div class="story">✏️ 빈칸에 알맞은 말을 고르세요. <span class="hint">🧑‍🎓 만든 친구: <b>${esc(e.ini)}</b></span>${e.boss&&e.hp1===0?' (마지막 한 방!)':''}</div>
+  <div class="sentence">${esc(e.sentence)}</div>${e.ko&&LV()!=='expert'?`<div class="tr">💬 해석: ${esc(e.ko)}</div>`:''}
+  <div class="choices">${e.options.map((o,i)=>{let cls='choice';if(G.done){if(i===e.answer&&G.pick==='ok')cls+=' correct';else if(i===G.sel)cls+=' wrong';}return `<button class="${cls}" data-i="${i}" ${G.done?'disabled':''}>${String.fromCharCode(65+i)}. ${esc(o)}</button>`;}).join('')}</div>`;},
+ bind(e){document.querySelectorAll('#qc .choice').forEach(b=>b.onclick=()=>{G.sel=+b.dataset.i;resolve(e,G.sel===e.answer,e.options[G.sel]);});},
+ right(e){return e.ansText;},
+ gloss(e){return `<div class="sentence">${esc(e.filled)}</div>${e.ko?`<div class="tr">💬 해석: ${esc(e.ko)}</div>`:''}`;},
+ exp(e){return `정답: <b>${esc(e.ansText)}</b>${e.why?`<br>${esc(e.why)}`:''}<br><span class="hint">완성 문장: ${esc(e.filled)} · 만든 친구 ${esc(e.ini)}</span>${sdRateBar(e)}`;}};
+function sdRateBar(e){if(!e.sdid||e.sample||e.mine||!rankOn())return '';const r=(SV.sdr||{})[e.sdid];
+ if(r)return `<div class="sdr done">✅ 평가했어요. 고마워요! (${{L:'👍 좋아요',N:'🙂 보통이에요',I:'🛠️ 개선이 필요해요',R:'🚩 신고'}[r]})</div>`;
+ return `<div class="sdr" data-sid="${esc(e.sdid)}"><div class="hint">이 문제는 어땠나요?</div><div class="sdrb"><button class="btn-s" data-sdr="L">👍 좋아요</button><button class="btn-s" data-sdr="N">🙂 보통이에요</button><button class="btn-s" data-sdr="I">🛠️ 개선이 필요해요</button><button class="btn-s" data-sdr="R">🚩 신고</button></div></div>`;}
+document.addEventListener('click',async ev=>{const b=ev.target.closest&&ev.target.closest('[data-sdr]');if(!b)return;const box=b.closest('.sdr');if(!box||box.dataset.busy)return;
+ const id=box.dataset.sid,r=b.dataset.sdr;if(r==='R'&&!window.confirm('이 문제를 신고할까요? (틀린 내용·부적절한 내용일 때만)'))return;
+ box.dataset.busy='1';box.querySelector('.sdrb').innerHTML='<span class="hint">보내는 중…</span>';
+ const res=await sdPost({a:'sd_rate',id,r});
+ if(res&&res.ok){SV.sdr=SV.sdr||{};SV.sdr[id]=r;saveNow();box.className='sdr done';box.innerHTML=`✅ 평가했어요. 고마워요! (${{L:'👍 좋아요',N:'🙂 보통이에요',I:'🛠️ 개선이 필요해요',R:'🚩 신고'}[r]})`;}
+ else{box.dataset.busy='';box.querySelector('.sdrb').innerHTML=`<span class="hint">⚠️ ${esc(sdErrTxt(res&&res.err))}</span>`;}
+},true);
+
+/* ---------- 출제 (genRunG 래퍼): 셀프던전은 친구들이 만든 문제로만 채운다 ---------- */
+(function(){const _g=genRunG;genRunG=function(d){const run=_g(d);if(!d||d.id!=='sd')return run;
+ const pool=sdPool(),bag=shuffle(pool.slice());let bi=0;const KEEP=['mon','filter','mname','talk','kill','taunt','boss','hp0','hp1','big','src'];
+ return run.map(e=>{if(bi>=bag.length){shuffle(pool.slice()).forEach(x=>bag.push(x));}const it=bag[bi++];const o={type:'sdq',pool:'sd'};KEEP.forEach(k=>{if(e[k]!==undefined)o[k]=e[k];});
+  const opts=shuffle([it.a].concat(it.w)),filled=it.q.replace('____',it.a);
+  return Object.assign(o,{c:[[filled,'M',it.ko||'']],tr:it.ko||'',n:'',sentence:it.q,options:opts,answer:opts.indexOf(it.a),ansText:it.a,ko:it.ko||'',why:it.ex||'',filled,sdid:it.id,ini:it.ini||'?',mine:!!it.mine,sample:!!it.sample});});};})();
+(function(){const _r=reviveTarget;reviveTarget=function(e){if(e&&e.type==='sdq')return {e,mode:'blank',sent:e.sentence,ans:e.ansText,ko:e.ko,role:null,tries:0};return _r(e);};})();
+
+/* ---------- 입구: 허브 · 만들기 · 내 문제 · 교사 승인 ---------- */
+function sdEnter(){const dd=DUNGEONS.find(x=>x.id==='sd');if(!dd)return;sfx('formed');
+ if(SV.mode==='rpg'&&typeof rpgStart==='function'){rpgStart(dd);return;}G.dg=dd;G.mates=dd.need.slice();G.pets=1;G.scr='formed';render();}
+function sdHub(){const n=(sdCache().items||[]).length,on=rankOn();
+ $('app').innerHTML=hud()+`<div class="card"><div class="speaker">🧑‍🏫 셀프던전</div>
+ <div class="story">친구들이 직접 만든 문제로 싸우는 던전이에요. 문제를 만들어 올리면 선생님이 확인한 뒤 던전에 나와요. 만든 사람은 <b>이니셜</b>만 보이니 부담 없이 만들어 보세요!</div>
+ ${G.sdToast?`<div class="feedback ok">${G.sdToast}</div>`:''}
+ <div class="hint" style="margin:6px 0">${on?`📚 지금 던전에 올라온 친구 문제: <b>${n}</b>개${n<8?' (부족하면 선생님 예시 문제가 섞여요)':''}`:'⚠️ 로그인한 계정에서만 문제를 만들고 평가할 수 있어요. 지금은 예시 문제로 플레이해요.'}</div>
+ <div class="dtools"><button class="shopbtn" id="sdgo"><span style="font-size:32px">⚔️</span><div><b>셀프던전 입장</b><span>친구들이 만든 문제 · 장비·레벨 상관없이 도전</span></div></button>
+ <button class="shopbtn" id="sdmk"><span style="font-size:32px">✏️</span><div><b>문제 만들기</b><span>빈칸 문제를 직접 내요 · 승인되면 💎 ${SD_REW_OK_TXT}</span></div></button>
+ <button class="shopbtn" id="sdmn"><span style="font-size:32px">📋</span><div><b>내 문제 보기</b><span>승인 여부 · 좋아요를 확인해요</span></div></button></div>
+ <div class="dtools"><button class="btn-s" id="sdtc">🔐 교사 승인</button><button class="btn-s" id="sdbk">↩ 돌아가기</button></div></div>`;
+ $('sdgo').onclick=sdEnter;$('sdmk').onclick=()=>{G.sdm=null;G.scr='sdmake';sfx('select');render();};
+ $('sdmn').onclick=()=>{G.scr='sdmine';sfx('select');render();};$('sdtc').onclick=()=>{G.scr='sdtch';sfx('select');render();};
+ $('sdbk').onclick=()=>{G.sdToast=null;G.scr='dsel';render();};
+ if(on&&Date.now()-(G.sdLast||0)>30000){G.sdLast=Date.now();sdFetch(true).then(()=>{if(G.scr==='sdhub')render();});sdClaim();}}
+const SD_REW_OK_TXT='30';
+function sdMake(){const M=G.sdm||(G.sdm={q:'',a:'',w:['','','',''],ko:'',ex:'',msg:'',busy:0,done:0});
+ $('app').innerHTML=hud()+`<div class="card"><div class="speaker">✏️ 문제 만들기</div>
+ <div class="story">영어 문장에서 빈칸(<b>____</b>)에 들어갈 말을 맞히는 <b>오지선다</b> 문제를 만들어요. 정답 1개와 오답 4개가 필요해요. 하루에 3개까지 올릴 수 있어요.</div>
+ ${M.done?`<div class="feedback ok">✅ 올렸어요! 선생님이 확인하면 셀프던전에 나와요.</div><div class="dtools"><button class="btn-s" id="sdmore">✏️ 하나 더 만들기</button><button class="btn-s" id="sdmb">↩ 셀프던전으로</button></div>`:`
+ <label class="hint">① 영어 문장 (빈칸은 ____ 네 개의 밑줄)</label>
+ <textarea class="input" id="sdq" rows="2" maxlength="140" placeholder="I ____ to school every day.">${esc(M.q)}</textarea>
+ <div class="dtools"><button class="btn-s" id="sdbl">＋ 빈칸 넣기</button></div>
+ <label class="hint">② 정답</label><input class="input" id="sda" maxlength="30" value="${esc(M.a)}" autocomplete="off">
+ <label class="hint">③ 오답 4개 (정답과 비슷해 보이게!)</label>
+ ${[0,1,2,3].map(i=>`<input class="input sdw" data-i="${i}" maxlength="30" value="${esc(M.w[i])}" autocomplete="off" placeholder="오답 ${i+1}">`).join('')}
+ <label class="hint">④ 우리말 해석 (선택)</label><input class="input" id="sdk" maxlength="140" value="${esc(M.ko)}" autocomplete="off">
+ <label class="hint">⑤ 해설 — 왜 그게 정답인지 한 줄로 (선택, 있으면 친구들이 좋아해요)</label><input class="input" id="sde" maxlength="200" value="${esc(M.ex)}" autocomplete="off">
+ ${M.msg?`<div class="feedback bad">${esc(M.msg)}</div>`:''}
+ <button class="next" id="sdsub" ${M.busy?'disabled':''}>${M.busy?'올리는 중…':'📤 선생님께 올리기'}</button>
+ <div class="hint" style="margin-top:6px">⚠️ 장난·욕설·남을 놀리는 문장은 반려돼요. 만든 사람은 이니셜(예: ㄱㄷㄱ)만 보여요.</div>`}</div>`;
+ if(M.done){$('sdmore').onclick=()=>{G.sdm=null;render();};$('sdmb').onclick=()=>{G.scr='sdhub';render();};return;}
+ const sync=()=>{M.q=$('sdq').value;M.a=$('sda').value;document.querySelectorAll('.sdw').forEach(i=>M.w[+i.dataset.i]=i.value);M.ko=$('sdk').value;M.ex=$('sde').value;};
+ ['sdq','sda','sdk','sde'].forEach(i=>$(i).oninput=sync);document.querySelectorAll('.sdw').forEach(i=>i.oninput=sync);
+ $('sdbl').onclick=()=>{const t=$('sdq'),p=t.selectionStart==null?t.value.length:t.selectionStart;t.value=t.value.slice(0,p)+'____'+t.value.slice(t.selectionEnd==null?p:t.selectionEnd);sync();t.focus();};
+ $('sdsub').onclick=async()=>{sync();const q=M.q.trim(),a=M.a.trim(),w=M.w.map(x=>x.trim());
+  const bad=q.split('____').length!==2||q.length<8?'문장에 빈칸(____)이 정확히 한 개 있어야 하고 8자 이상이어야 해요.':(!a||w.some(x=>!x))?'정답과 오답 4개를 모두 써 주세요.':new Set([a,...w].map(x=>x.toLowerCase())).size<5?'보기 5개가 서로 달라야 해요.':'';
+  if(bad){M.msg=bad;render();return;}if(!rankOn()){M.msg=sdErrTxt('off');render();return;}
+  M.busy=1;M.msg='';render();const r=await sdPost({a:'sd_submit',q,ans:a,w,ko:M.ko.trim(),ex:M.ex.trim()});M.busy=0;
+  if(r&&r.ok){M.done=1;sfx('fanfare');}else M.msg=sdErrTxt(r&&r.err);render();};}
+function sdMine(){const S=G.sdmn||(G.sdmn={items:null,err:''});
+ const ST={wait:'⏳ 확인 중',ok:'✅ 승인',no:'❌ 반려',hide:'🙈 숨김(신고 많음)'};
+ $('app').innerHTML=hud()+`<div class="card"><div class="speaker">📋 내 문제</div>
+ ${S.err?`<div class="feedback bad">${esc(S.err)}</div>`:S.items===null?'<div class="hint">불러오는 중…</div>':!S.items.length?'<div class="hint">아직 올린 문제가 없어요.</div>':
+ `<div class="sdlist">${S.items.map(it=>`<div class="sditem"><div class="sdt">${ST[it.st]||it.st}</div><div class="sentence" style="font-size:15px">${esc(it.q)}</div><div class="hint">정답: ${esc(it.a)}${it.st==='ok'||it.st==='hide'?` · 👍 ${it.L} · 🙂 ${it.N} · 🛠️ ${it.I} · 🚩 ${it.R}`:''}${it.note?` · 메모: ${esc(it.note)}`:''}</div></div>`).join('')}</div>`}
+ <div class="dtools"><button class="btn-s" id="sdmb">↩ 셀프던전으로</button></div></div>`;
+ $('sdmb').onclick=()=>{G.scr='sdhub';render();};
+ if(S.items===null&&!S.busy){S.busy=1;sdPost({a:'sd_mine'}).then(r=>{S.busy=0;if(r&&r.ok)S.items=r.items;else S.err=sdErrTxt(r&&r.err);if(G.scr==='sdmine')render();});}}
+function sdTch(){const T=G.sdtc||(G.sdtc={key:'',list:null,err:'',busy:0});
+ const card=(it,wait)=>`<div class="sditem"><div class="hint">제출: <b>${esc(it.name)}</b> (${esc(it.ini)})${wait?'':` · 👍${it.L} 🙂${it.N} 🛠️${it.I} 🚩${it.R}`}</div>
+  <div class="sentence" style="font-size:15px">${esc(it.q)}</div><div class="hint">✅ <b>${esc(it.a)}</b> · ❌ ${it.w.map(esc).join(' / ')}</div>${it.ko?`<div class="hint">해석: ${esc(it.ko)}</div>`:''}${it.ex?`<div class="hint">해설: ${esc(it.ex)}</div>`:''}
+  <div class="dtools">${wait?`<button class="btn-s" data-rv="ok" data-id="${esc(it.id)}">✅ 승인</button><button class="btn-s" data-rv="no" data-id="${esc(it.id)}">❌ 반려</button>`:`<button class="btn-s" data-rv="ok" data-id="${esc(it.id)}">♻️ 복원</button><button class="btn-s" data-rv="del" data-id="${esc(it.id)}">🗑️ 삭제</button>`}</div></div>`;
+ $('app').innerHTML=hud()+`<div class="card"><div class="speaker">🔐 교사 승인</div>
+ ${T.list?`<h3 class="tf">⏳ 승인 대기 (${T.list.wait.length})</h3>${T.list.wait.length?T.list.wait.map(i=>card(i,1)).join(''):'<div class="hint">대기 중인 문제가 없어요.</div>'}
+ <h3 class="tf">🙈 신고로 숨겨진 문제 (${T.list.hide.length})</h3>${T.list.hide.length?T.list.hide.map(i=>card(i,0)).join(''):'<div class="hint">없어요.</div>'}
+ <div class="dtools"><button class="btn-s" id="sdrf">🔄 새로고침</button><button class="btn-s" id="sdmb">↩ 셀프던전으로</button></div>`:
+ `<div class="story">교사 키를 입력하세요. (서버 스크립트의 TEACHER_KEY 값)</div><input class="input" id="sdkey" type="password" autocomplete="off" value="${esc(T.key)}" placeholder="교사 키">
+ ${T.err?`<div class="feedback bad">${esc(T.err)}</div>`:''}<button class="next" id="sdok" ${T.busy?'disabled':''}>${T.busy?'확인 중…':'열기'}</button><div class="dtools"><button class="btn-s" id="sdmb">↩ 셀프던전으로</button></div>`}</div>`;
+ $('sdmb').onclick=()=>{G.scr='sdhub';render();};
+ const load=async()=>{T.busy=1;T.err='';render();const r=await sdPost({a:'sd_pending',k:T.key});T.busy=0;if(r&&r.ok)T.list=r;else{T.list=null;T.err=sdErrTxt(r&&r.err);}render();};
+ const ok=$('sdok');if(ok){$('sdkey').oninput=()=>{T.key=$('sdkey').value;};$('sdkey').onkeydown=e=>{if(e.key==='Enter'){T.key=$('sdkey').value;load();}};ok.onclick=()=>{T.key=$('sdkey').value;load();};}
+ const rf=$('sdrf');if(rf)rf.onclick=load;
+ document.querySelectorAll('[data-rv]').forEach(b=>b.onclick=async()=>{const act=b.dataset.rv;if(act==='del'&&!confirm('이 문제를 완전히 삭제할까요?'))return;
+  let note='';if(act==='no')note=prompt('반려 이유를 짧게 적어 주세요 (학생에게 보여요, 비워도 돼요)','')||'';
+  b.disabled=true;const r=await sdPost({a:'sd_review',k:T.key,id:b.dataset.id,act,note});if(r&&r.ok){sfx('select');load();}else{T.err=sdErrTxt(r&&r.err);b.disabled=false;render();}});}
+/* 입구 버튼: 학습 모드 · RPG 모드 메인 화면 공통 */
+document.addEventListener('click',ev=>{const b=ev.target.closest&&ev.target.closest('#tosd');if(!b)return;ev.stopImmediatePropagation();ev.preventDefault();sfx('select');G.sdToast=null;G.scr='sdhub';render();},true);
+(function(){const _m=mapExtras;mapExtras=function(){return _m.apply(this,arguments)+`<button class="shopbtn" id="tosd"><span style="font-size:32px">🧑‍🏫</span><div><b>셀프던전</b><span>친구들이 만든 문제 · 내 문제도 올려 보세요</span></div></button>`;};})();
 
 /* ---------- 클라우드 계정 (이름 + 비밀번호 · 구글 시트 저장) ---------- */
 const CLOUD_URL='https://script.google.com/macros/s/AKfycbzGyf6xjlJ7UDBUfWcFglQ3z2R3951is295ebYP-VFI5jCJC4AT3aPtDU2wfo5H-Zs9/exec';
@@ -6888,7 +7017,7 @@ function popRunFinal(){const R=G.popRun;if(!R)return '';const ok=R.qok+R.cok,tot
 
 /* ---------- 모든 메뉴 상단바(HUD) 맨 앞에 돌아가기 버튼 ---------- 기존 아래쪽 버튼은 그대로 두고 위에 하나 더 추가해요. */
 (function(){
- const BACK={party:'dsel',shop:'mall',forge:'mall',mall:'dsel',news:'dsel',rank:'dsel',pvp:'dsel',rdlobby:'dsel',hsel:'dsel',lhsel:'dsel',temple:'dsel',level:()=>G.introDone?'dsel':'title'};
+ const BACK={party:'dsel',shop:'mall',forge:'mall',mall:'dsel',news:'dsel',rank:'dsel',pvp:'dsel',rdlobby:'dsel',hsel:'dsel',lhsel:'dsel',temple:'dsel',sdhub:'dsel',sdmake:'sdhub',sdmine:'sdhub',sdtch:'sdhub',level:()=>G.introDone?'dsel':'title'};
  const _r=render;
  render=function(){
   _r.apply(this,arguments);

@@ -2451,8 +2451,8 @@ function rpgDsel(){
  <div class="dtools"> <button class="shopbtn" id="toshop">${petc('mini')}<div><b>🏪 일반 상점</b><span>펫·스킨 · 대장간 · 무기 강화 · 물약 · 보유 💎 ${SV.cry} · 💰 ${SV.rg}</span></div></button><button class="shopbtn pvbtn" id="topvp"><span style="font-size:32px">⚔️</span><div><b>배틀 아레나</b><span>친구 캐릭터와 1:1 대결 · 전적 🏆 ${(SV.pvp||{}).w||0}승</span></div></button><button class="shopbtn pvbtn raidbtn" id="toraid"><span style="font-size:32px">🐉</span><div><b>레이드</b><span>친구들과 2~6명이 힘을 합쳐 보스 토벌</span></div></button></div>
  <div class="dtools"><button class="btn-s" id="tolv">${LEVELS[LV()].ic} 문제 난이도: <b>${LEVELS[LV()].n}</b> · 바꾸기</button><button class="btn-s savebtn" id="rsave">💾 저장하기</button><button class="btn-s rankbtn" id="torank">${rankBtnLabel()}</button><button class="btn-s" id="togift">🎁 보상 코드</button><button class="btn-s" id="tologin">👤 다른 계정으로 로그인</button></div>
  ${G.toastSave?'<div class="feedback ok" style="margin:0 0 10px">💾 저장했어요! 같은 이름으로 들어오면 골드·장비·진행 상황이 이어져요.</div>':''}${rpgResumeHTML()}
- ${G.rpgMap!==false?rpgMapHTML():'<div class="dtools"><button class="btn-s" id="rmmap">🗺️ 지도로 보기</button></div>'+`<div class="dgrid">${L.map(d=>{const i=RT[d.id],u=rpgUnlocked(d),e=estats(i),b=estats(i,true),cl=SV.rcleared.includes(d.id),rec=GEAR[RREC[Math.min(7,Math.floor(i))]];
-  return `<button class="dcard rcard" ${u?'':'disabled'} data-rd="${d.id}"><span class="size">RPG Lv.${RLV[d.id]}</span>${cl?'<span class="lock" style="color:var(--green)">✅ 클리어</span>':u?'':'<span class="lock">🔒 이전 던전 클리어</span>'}
+ ${G.rpgMap!==false?rpgMapHTML():'<div class="dtools"><button class="btn-s" id="rmmap">🗺️ 지도로 보기</button></div>'+`<div class="dgrid">${L.filter(d=>!SPDG.includes(d.id)).concat(L.filter(d=>SPDG.includes(d.id))).map(d=>{const i=RT[d.id],u=rpgUnlocked(d),e=estats(i),b=estats(i,true),cl=SV.rcleared.includes(d.id),rec=GEAR[RREC[Math.min(7,Math.floor(i))]],spx=SPDG.includes(d.id);
+  return (spx&&d.id===SPDG.find(x=>L.some(y=>y.id===x))?'<h3 class="tf exph" style="grid-column:1/-1;margin:10px 0 0">⭐ 특수던전 <small>잠금 없음 · 수준이 낮아도 언제든 · 반복 도전</small></h3>':'')+`<button class="dcard rcard ${spx?'expcard':''}" ${u?'':'disabled'} data-rd="${d.id}"><span class="size">${spx?'⭐ 특수던전':'RPG Lv.'+RLV[d.id]}</span>${cl?'<span class="lock" style="color:var(--green)">✅ 클리어</span>':u?'':'<span class="lock">🔒 이전 던전 클리어</span>'}
   <h3>${d.name}</h3><div class="mon">${bossSp(d)||sp(d.mon,'','MON')}<div class="hint">권장 장비: ${rec.nm} 이상<br><span class="rdesc">${rdescHTML(d.id)}</span></div></div></button>`;}).join('')}</div>`}</div>`;
  bindModeTabs();if(G.dev)bindRpgDev();
  $('todaily').onclick=()=>{G.dg=DAILY;G.mates=DAILY.need.slice();G.pets=1;genRunDaily();sfx('select');G.scr='news';render();};
@@ -5173,7 +5173,7 @@ function mapBindExtras(){wkBind();forgeBind();const t=document.getElementById('t
 function mapImg(c){
  const nodes=c.list.map(n=>{const id=n[0],ok=wmUnlocked(id),cl=SV.cleared.includes(id);
   if(c.ghost)return `<button class="wmn gh ${ok?'':'lk'} ${cl?'dn':''}" data-wm="${id}" style="left:${(n[1]/c.W*100).toFixed(2)}%;top:${(n[2]/c.H*100).toFixed(2)}%"><u>${cl?'✅':ok?'▶':'🔒'}</u></button>`;
-  return `<button class="wmn ${n[6]?'red':''} ${ok?'':'lk'} ${cl?'dn':''}" data-wm="${id}" style="left:${(n[4]/c.W*100).toFixed(2)}%;top:${((n[5]-26)/c.H*100).toFixed(2)}%"><b>${n[2]}${cl?' ✅':ok?'':' 🔒'}</b><em>${n[3]}</em></button>`;}).join('');
+  return `<button class="wmn ${n[6]?'red':''} ${ok?'':'lk'} ${cl?'dn':''}" data-wm="${id}" style="left:${(n[4]/c.W*100).toFixed(2)}%;top:${((n[5]-26)/c.H*100).toFixed(2)}%"><b>${SPDG.includes(id)?'⭐ ':''}${n[2]}${cl?' ✅':ok?'':' 🔒'}</b><em>${n[3]}</em></button>`;}).join('');
  $('app').innerHTML=hud()+`<div class="card"><div class="speaker">${c.title}</div><div class="story">${c.story}</div>
  ${modeTabs()}${mapExtras()}<div class="dtools"><button class="btn-s" id="wmlist">📋 목록으로 보기</button><button class="btn-s" id="wmzoom">🔍 ${G.wmz?'작게':'크게'} 보기</button></div>
  <div class="wmw"><div class="wmi ${G.wmz?'big':''}" id="wmi" style="aspect-ratio:${c.W}/${c.H}"><img src="${c.img}" alt="${c.title}" draggable="false">${nodes}</div></div></div>`;
@@ -5205,11 +5205,12 @@ function fogCard(n){return `<button class="dcard" disabled><span class="size">�
 function regionScreen(k){
  const R=REGS[k],D=id=>DUNGEONS.find(d=>d.id===id);let body='';
  if(k==='gram'){
-  const ORD=['g1','g2','tn','md','TEMPLE','rp','ps','pf','rv','pc','sj','cp','cj','pn','ot','iv','pe','ng','rs','sx'];
+  const ORD=['g1','g2','tn','md','TEMPLE','rp','ps','pf','rv','pc','sj','cp','pn','ot','iv','pe','ng','rs','sx'];
   body=GLANG_BOX+`<div class="dgrid">${ORD.map((id,n)=>id==='TEMPLE'?templeCard():dcardG(D(id),(n+1)+'. '+D(id).gramLab)).join('')}</div>
+  <h3 class="tf exph">⭐ 특수던전 <small>수준이 낮아도 언제든 · 반복 도전</small></h3><div class="dgrid">${dcardG(D('cj'),'⭐ 특수')}</div>
   <h3 class="tf exph">🌍 형식 복습 특별 던전 <small>1~5형식 랜덤 · 풀파티</small></h3><div class="dgrid">${FAR.map(i=>dcardG(D(i),'특별')).join('')}</div>`;}
- else if(k==='prov')body=`<div class="dgrid">${dcardG(D('pv'),'속담섬')}</div><div class="hint" style="margin-top:8px">📜 영어 속담의 빈칸을 채워 보세요. 우리말 속담과 짝지어 외우면 쏙쏙 들어와요!</div>`;
- else if(k==='idiom')body=`<div class="dgrid">${dcardG(D('id'),'숙어섬')}</div><div class="hint" style="margin-top:8px">⚓ 숙어·구동사는 전치사 하나로 뜻이 바뀌어요. 덩어리로 기억하세요!</div>`;
+ else if(k==='prov')body=`<div class="dgrid">${dcardG(D('pv'),'⭐ 특수던전')}</div><div class="hint" style="margin-top:8px">📜 영어 속담의 빈칸을 채워 보세요. 우리말 속담과 짝지어 외우면 쏙쏙 들어와요!</div>`;
+ else if(k==='idiom')body=`<div class="dgrid">${dcardG(D('id'),'⭐ 특수던전')}</div><div class="hint" style="margin-top:8px">⚓ 숙어·구동사는 전치사 하나로 뜻이 바뀌어요. 덩어리로 기억하세요!</div>`;
  else if(k==='port')body=`<div class="dgrid">${PORTS.map((i,n)=>dcardG(D(i),'복습 '+(n+1))).join('')}</div>`;
  $('app').innerHTML=hud()+`<div class="card"><div class="speaker">${R.ic} ${R.nm}</div><button class="btn-s" id="tomap" style="margin:4px 0 8px">🗺️ 세계 지도로</button>${modeTabs()}${body}</div>`;
  bindModeTabs();
@@ -5232,7 +5233,7 @@ function regionScreen(k){
 /* ---------- RPG 모드: 신택스 왕국 지도로 보기 ---------- */
 function rpgMapHTML(){const W=worldOpen(),src=W?'worldmap.jpg?v=1':'kingdom.jpg?v=2',alt=W?'세계 지도':'신택스 왕국 지도';
  const nodes=W?WM.filter(n=>RT[n[0]]!=null).map(n=>{const id=n[0],ok=wmUnlocked(id),cl=SV.rcleared.includes(id);
-  return `<button class="wmn ${n[6]?'red':''} ${ok?'':'lk'} ${cl?'dn':''}" data-wm="${id}" style="left:${(n[4]/1536*100).toFixed(2)}%;top:${((n[5]-26)/1024*100).toFixed(2)}%"><b>${n[2]}${cl?' ✅':ok?'':' 🔒'}</b><em>${n[3]}</em></button>`;}).join('')
+  return `<button class="wmn ${n[6]?'red':''} ${ok?'':'lk'} ${cl?'dn':''}" data-wm="${id}" style="left:${(n[4]/1536*100).toFixed(2)}%;top:${((n[5]-26)/1024*100).toFixed(2)}%"><b>${SPDG.includes(id)?'⭐ ':''}${n[2]}${cl?' ✅':ok?'':' 🔒'}</b><em>${n[3]}</em></button>`;}).join('')
  :KM.map(n=>{const id=n[0],ok=wmUnlocked(id),cl=SV.rcleared.includes(id);
   return `<button class="wmn gh ${ok?'':'lk'} ${cl?'dn':''}" data-wm="${id}" style="left:${(n[1]/1536*100).toFixed(2)}%;top:${(n[2]/1024*100).toFixed(2)}%"><u>${cl?'✅':ok?'▶':'🔒'}</u></button>`;}).join('');
  return `<div class="dtools"><button class="btn-s" id="rmlist">📋 목록으로 보기</button><button class="btn-s" id="wmzoom">🔍 ${G.wmz?'작게':'크게'} 보기</button></div>
@@ -5248,6 +5249,9 @@ const RLVT=[0.5,2.5,3.5,4.5,5.2,5.8,6.2,6.6,6.8,7];
 const RLV={},ROI={};
 RLVG.forEach((g,k)=>g.forEach(id=>{RLV[id]=k+1;RT[id]=RLVT[k];ROI[id]=Object.keys(ROI).length;}));
 rpgDungeons=function(){return DUNGEONS.filter(d=>d.open&&RLV[d.id]&&(!d.verbal||templeUnlocked()||G.dev)).sort((a,b)=>ROI[a.id]-ROI[b.id]);};
+/* ⭐ 특수던전: 컨정션·속담·이디엄 — 잠금 없이, 장비 수준과 무관하게(적 강도 고정) 언제든 반복 도전 */
+const SPDG=['cj','pv','id'];SPDG.forEach(id=>{RLV[id]=3;RT[id]=3.5;});
+rpgUnlocked=function(d){if(G.dev||SPDG.includes(d.id))return true;const L=rpgDungeons().filter(x=>!SPDG.includes(x.id)),i=L.indexOf(d);return i<=0||SV.rcleared.includes(L[i-1].id);};
 const RDESC={
 d1:['1형식','주어(S)와 동사(V)만으로 끝나는 가장 짧은 문장'],d2:['2형식','주어가 어떤 상태·신분인지 보어(C)로 설명하는 문장'],d3:['3형식','동사의 대상이 되는 목적어(O)가 있는 문장'],d4:['4형식','~에게(간접목적어) ~을(직접목적어) 주는 문장'],d5:['5형식','목적어가 어떻게 되는지 목적격보어(OC)로 알려 주는 문장'],
 d6:['1~5형식 종합','다섯 가지 문장 형식을 한꺼번에 가려내는 최종 시험'],

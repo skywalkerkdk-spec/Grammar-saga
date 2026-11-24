@@ -1108,6 +1108,48 @@ canvas.px[data-src="SPR"][data-k="shaman"],canvas.px[data-src="SPR"][data-k^="cs
 .hgear canvas.gearc{width:30px;height:30px;background:var(--panel2);border:1px solid var(--line);border-radius:7px;padding:1px}
 .hgl{font-size:12px;color:var(--muted);margin-left:2px}
 
+/* ===== 🖼️ 새 전투 배경 (GPT 일러스트) ===== */
+.arena{image-rendering:auto!important;box-shadow:inset 0 0 70px rgba(0,0,0,.5)}
+#bgl{image-rendering:auto}
+.arena.d1{background:url(nbg_19.webp) center bottom/cover no-repeat!important}
+body[data-bg="d1"] #bgl{background-image:url(nbg_19.webp)!important;filter:brightness(.5) blur(2px)}
+.arena.d2{background:url(nbg_16.webp) center bottom/cover no-repeat!important}
+body[data-bg="d2"] #bgl{background-image:url(nbg_16.webp)!important;filter:brightness(.5) blur(2px)}
+.arena.d3{background:url(nbg_23.webp) center bottom/cover no-repeat!important}
+body[data-bg="d3"] #bgl{background-image:url(nbg_23.webp)!important;filter:brightness(.5) blur(2px)}
+.arena.d4{background:url(nbg_14.webp) center bottom/cover no-repeat!important}
+body[data-bg="d4"] #bgl{background-image:url(nbg_14.webp)!important;filter:brightness(.5) blur(2px)}
+.arena.d5{background:url(nbg_20.webp) center bottom/cover no-repeat!important}
+body[data-bg="d5"] #bgl{background-image:url(nbg_20.webp)!important;filter:brightness(.5) blur(2px)}
+.arena.d6{background:url(nbg_12.webp) center bottom/cover no-repeat!important}
+body[data-bg="d6"] #bgl{background-image:url(nbg_12.webp)!important;filter:brightness(.5) blur(2px)}
+.arena.d7{background:url(nbg_22.webp) center bottom/cover no-repeat!important}
+body[data-bg="d7"] #bgl{background-image:url(nbg_22.webp)!important;filter:brightness(.5) blur(2px)}
+.arena.d8{background:url(nbg_13.webp) center bottom/cover no-repeat!important}
+body[data-bg="d8"] #bgl{background-image:url(nbg_13.webp)!important;filter:brightness(.5) blur(2px)}
+.arena.d9{background:url(nbg_01.webp) center bottom/cover no-repeat!important}
+body[data-bg="d9"] #bgl{background-image:url(nbg_01.webp)!important;filter:brightness(.5) blur(2px)}
+.arena.d10{background:url(nbg_02.webp) center bottom/cover no-repeat!important}
+body[data-bg="d10"] #bgl{background-image:url(nbg_02.webp)!important;filter:brightness(.5) blur(2px)}
+.arena.d11{background:url(nbg_03.webp) center bottom/cover no-repeat!important}
+body[data-bg="d11"] #bgl{background-image:url(nbg_03.webp)!important;filter:brightness(.5) blur(2px)}
+.arena.d12{background:url(nbg_04.webp) center bottom/cover no-repeat!important}
+body[data-bg="d12"] #bgl{background-image:url(nbg_04.webp)!important;filter:brightness(.5) blur(2px)}
+.arena.d13{background:url(nbg_05.webp) center bottom/cover no-repeat!important}
+body[data-bg="d13"] #bgl{background-image:url(nbg_05.webp)!important;filter:brightness(.5) blur(2px)}
+.arena.d14{background:url(nbg_06.webp) center bottom/cover no-repeat!important}
+body[data-bg="d14"] #bgl{background-image:url(nbg_06.webp)!important;filter:brightness(.5) blur(2px)}
+.arena.d15{background:url(nbg_07.webp) center bottom/cover no-repeat!important}
+body[data-bg="d15"] #bgl{background-image:url(nbg_07.webp)!important;filter:brightness(.5) blur(2px)}
+.arena.d16{background:url(nbg_08.webp) center bottom/cover no-repeat!important}
+body[data-bg="d16"] #bgl{background-image:url(nbg_08.webp)!important;filter:brightness(.5) blur(2px)}
+.arena.d17{background:url(nbg_09.webp) center bottom/cover no-repeat!important}
+body[data-bg="d17"] #bgl{background-image:url(nbg_09.webp)!important;filter:brightness(.5) blur(2px)}
+.arena.d18{background:url(nbg_10.webp) center bottom/cover no-repeat!important}
+body[data-bg="d18"] #bgl{background-image:url(nbg_10.webp)!important;filter:brightness(.5) blur(2px)}
+.arena.d19{background:url(nbg_11.webp) center bottom/cover no-repeat!important}
+body[data-bg="d19"] #bgl{background-image:url(nbg_11.webp)!important;filter:brightness(.5) blur(2px)}
+
 </style>
 </head>
 <body>
@@ -6929,6 +6971,14 @@ heroBar=function(){const h=rhero();if(!EQV_CLS.includes(h))return _heroBar();
  const g=SV.gear||{},t=eqTier(),a=eqAura(t);
  return `<div class="herobar">${heroFig(h)}<div><b>🦸 내 주인공: ${HWORD[h]}</b> <span class="hint">(${skName(h,eqSkin(h))})</span><br><span class="hperk">직업 특성: ${HPERK[h].d}</span>
  <div class="hgear">${gearc(g.sword||'s0')}${gearc(g.armor||'a0')}${gearc(g.shield||'h0')}<span class="hgl">장비 ${t+1}단계</span></div></div><button class="btn-s" id="tohsel">🔄 주인공 바꾸기</button></div>`;};
+
+/* ===== 🖼️ 던전별 전투 배경 풀: 같은 던전도 전투(적 순서)마다 다른 그림 */
+(function(){const P={"d1": ["nbg_19.webp", "nbg_13.webp"], "d2": ["nbg_16.webp"], "d3": ["nbg_23.webp"], "d4": ["nbg_14.webp", "nbg_07.webp"], "d5": ["nbg_20.webp", "nbg_08.webp"], "d6": ["nbg_12.webp", "nbg_21.webp"], "d7": ["nbg_22.webp"], "d8": ["nbg_13.webp"], "d9": ["nbg_01.webp", "nbg_17.webp"], "d10": ["nbg_02.webp", "nbg_15.webp"], "d11": ["nbg_03.webp", "nbg_18.webp", "nbg_24.webp"], "d12": ["nbg_04.webp"], "d13": ["nbg_05.webp"], "d14": ["nbg_06.webp", "nbg_21.webp"], "d15": ["nbg_07.webp"], "d16": ["nbg_08.webp", "nbg_20.webp"], "d17": ["nbg_09.webp", "nbg_21.webp"], "d18": ["nbg_10.webp", "nbg_22.webp"], "d19": ["nbg_11.webp"]};
+const _r=render;
+render=function(){const r=_r.apply(this,arguments);try{const a=document.getElementById('arena');
+ if(a&&!a.classList.contains('pvarena')&&!a.classList.contains('raidarena')){const id=[...a.classList].find(c=>P[c]);
+  if(id&&P[id].length>1){const e=(G.rp&&G.rp.ei!=null?G.rp.ei:G.ei)||0,u=P[id][e%P[id].length];a.style.setProperty('background',`url(${u}) center bottom/cover no-repeat`,'important');}}}catch(e){}return r;};
+})();
 
 render();tryAuto();setTimeout(tryAuto,300);
 setInterval(()=>{document.body.classList.toggle('muted-wait',!(AU.ctx&&AU.ctx.state==='running')&&G.scr==='splash');},500);

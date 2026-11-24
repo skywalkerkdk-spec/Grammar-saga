@@ -6919,7 +6919,7 @@ function mallScr(){
  $('out').onclick=()=>{G.scr='dsel';render();};}
 
 /* ===== 🛡️ 장비 외형: 장비 칸 표시 + 등급 오라 (샘플: 전사만) ===== */
-const EQV_CLS=['tank'];
+const EQV_CLS=HCLS;
 function eqTier(){const g=SV.gear||{};const t=['sword','armor','shield'].map(s=>(GEAR[g[s]]||{t:0}).t);return Math.round(t.reduce((a,b)=>a+b,0)/3);}
 function eqAura(t){return t>=8?['gold','황금','#ffd54a']:t>=6?['violet','보랏빛','#c27bff']:t>=4?['blue','푸른빛','#6fb2ff']:t>=2?['silver','은빛','#dfe8f2']:['none','','#000'];}
 function heroFig(h){const t=eqTier(),a=eqAura(t);

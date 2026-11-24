@@ -1175,6 +1175,8 @@ textarea.input{width:100%;box-sizing:border-box;resize:vertical;font-family:inhe
 .sdchip small{opacity:.7;font-weight:500;margin-left:2px}
 .sdchip.on{border-color:#ffd36b;background:#4a3a1a;color:#ffe9a8}
 #sdgo:disabled{opacity:.45;cursor:default}
+.sdcm{margin-top:8px}.sdcmr{display:flex;gap:6px;margin-top:4px}.sdcmr .input{flex:1;min-width:0}
+.sdcmt{margin-top:6px;padding:6px 10px;border-radius:8px;background:rgba(255,216,107,.12);font-size:14px}
 
 </style>
 </head>
@@ -5482,7 +5484,7 @@ async function sdPost(o,ms){if(!rankOn())return {ok:false,err:'off'};try{const r
 async function sdFetch(force){if(!rankOn())return false;const c=sdCache();if(!force&&Date.now()-c.ts<5*60000&&c.items.length)return true;
  const r=await sdPost({a:'sd_list'});if(r&&r.ok&&Array.isArray(r.items)){lss(sdKey(),JSON.stringify({ts:Date.now(),items:r.items}));return true;}G.sdErr=r&&r.err;return false;}
 async function sdClaim(){if(!rankOn())return;const r=await sdPost({a:'sd_claim'});if(r&&r.ok&&r.cry>0){SV.cry+=r.cry;saveNow();G.sdToast=`🎉 내 문제 덕분에 💎 ${r.cry}를 받았어요!${r.approved?` (승인 ${r.approved}건)`:''}${r.likes?` (좋아요 ${r.likes}개)`:''}`;if(G.scr==='sdhub')render();}}
-const sdErrTxt=e=>({off:'로그인한 계정으로만 쓸 수 있어요.',net:'서버에 연결하지 못했어요. 잠시 뒤 다시 해 보세요.',a:'서버가 아직 업데이트되지 않았어요. 선생님께 알려 주세요.',tok:'계정 확인에 실패했어요.',cls:'학년과 Lesson을 골라 주세요.',blank:'문장에 빈칸(____)이 정확히 한 개 있어야 하고 8자 이상이어야 해요.',opts:'정답과 오답 4개를 모두 써 주세요.',same:'보기 5개가 서로 달라야 해요.',dup:'이미 같은 문장이 있어요.',limit:'오늘은 문제를 3개까지만 낼 수 있어요. 내일 다시 만들어요!',pending:'승인 대기 중인 문제가 너무 많아요. 승인된 뒤에 더 올려요.',key:'교사 키가 맞지 않아요.',own:'내가 만든 문제는 평가할 수 없어요.'}[e]||'잠시 뒤 다시 해 보세요.');
+const sdErrTxt=e=>({off:'로그인한 계정으로만 쓸 수 있어요.',net:'서버에 연결하지 못했어요. 잠시 뒤 다시 해 보세요.',a:'서버가 아직 업데이트되지 않았어요. 선생님께 알려 주세요.',tok:'계정 확인에 실패했어요.',cls:'학년과 Lesson을 골라 주세요.',blank:'문장에 빈칸(____)이 정확히 한 개 있어야 하고 8자 이상이어야 해요.',opts:'정답과 오답 4개를 모두 써 주세요.',same:'보기 5개가 서로 달라야 해요.',dup:'이미 같은 문장이 있어요.',limit:'오늘은 문제를 3개까지만 낼 수 있어요. 내일 다시 만들어요!',pending:'승인 대기 중인 문제가 너무 많아요. 승인된 뒤에 더 올려요.',key:'교사 키가 맞지 않아요.',own:'내가 만든 문제에는 쓸 수 없어요.',short:'두 글자 이상 써 주세요.',dupc:'이 문제에는 이미 의견을 보냈어요.',limc:'오늘은 의견을 10개까지만 보낼 수 있어요.',none:'문제를 찾을 수 없어요.'}[e]||'잠시 뒤 다시 해 보세요.');
 
 /* ---------- 전투 문제 형식 (오지선다) ---------- */
 QX.sdq={label:'🧑‍🎓 친구가 낸 문제',
@@ -5493,15 +5495,23 @@ QX.sdq={label:'🧑‍🎓 친구가 낸 문제',
  right(e){return e.ansText;},
  gloss(e){return `<div class="sentence">${esc(e.filled)}</div>${e.ko?`<div class="tr">💬 해석: ${esc(e.ko)}</div>`:''}`;},
  exp(e){return `정답: <b>${esc(e.ansText)}</b>${e.why?`<br>${esc(e.why)}`:''}<br><span class="hint">완성 문장: ${esc(e.filled)} · 만든 친구 ${esc(e.ini)}</span>${sdRateBar(e)}`;}};
+const sdCmtForm=id=>(SV.sdc||{})[id]?'<div class="hint">💬 의견을 보냈어요. 선생님이 확인한 뒤 전달돼요.</div>':`<div class="sdcm"><div class="hint">💬 만든 친구에게 한마디 (선택) · 선생님이 확인한 뒤 전달돼요. 문제에 도움이 되는 말만 써 주세요.</div><div class="sdcmr"><input class="input sdcmi" maxlength="80" placeholder="예) 해설이 쉬워서 좋았어요 / 보기 C가 헷갈려요" autocomplete="off"><button class="btn-s" data-sdcs="1">보내기</button></div></div>`;
 function sdRateBar(e){if(!e.sdid||e.sample||e.mine||!rankOn())return '';const r=(SV.sdr||{})[e.sdid];
- if(r)return `<div class="sdr done">✅ 평가했어요. 고마워요! (${{L:'👍 좋아요',N:'🙂 보통이에요',I:'🛠️ 개선이 필요해요',R:'🚩 신고'}[r]})</div>`;
+ if(r)return `<div class="sdr done" data-sid="${esc(e.sdid)}">✅ 평가했어요. 고마워요! (${{L:'👍 좋아요',N:'🙂 보통이에요',I:'🛠️ 개선이 필요해요',R:'🚩 신고'}[r]})${r==='R'?'':sdCmtForm(e.sdid)}</div>`;
  return `<div class="sdr" data-sid="${esc(e.sdid)}"><div class="hint">이 문제는 어땠나요?</div><div class="sdrb"><button class="btn-s" data-sdr="L">👍 좋아요</button><button class="btn-s" data-sdr="N">🙂 보통이에요</button><button class="btn-s" data-sdr="I">🛠️ 개선이 필요해요</button><button class="btn-s" data-sdr="R">🚩 신고</button></div></div>`;}
 document.addEventListener('click',async ev=>{const b=ev.target.closest&&ev.target.closest('[data-sdr]');if(!b)return;const box=b.closest('.sdr');if(!box||box.dataset.busy)return;
  const id=box.dataset.sid,r=b.dataset.sdr;if(r==='R'&&!window.confirm('이 문제를 신고할까요? (틀린 내용·부적절한 내용일 때만)'))return;
  box.dataset.busy='1';box.querySelector('.sdrb').innerHTML='<span class="hint">보내는 중…</span>';
  const res=await sdPost({a:'sd_rate',id,r});
- if(res&&res.ok){SV.sdr=SV.sdr||{};SV.sdr[id]=r;saveNow();box.className='sdr done';box.innerHTML=`✅ 평가했어요. 고마워요! (${{L:'👍 좋아요',N:'🙂 보통이에요',I:'🛠️ 개선이 필요해요',R:'🚩 신고'}[r]})`;}
+ if(res&&res.ok){SV.sdr=SV.sdr||{};SV.sdr[id]=r;saveNow();box.className='sdr done';box.innerHTML=`✅ 평가했어요. 고마워요! (${{L:'👍 좋아요',N:'🙂 보통이에요',I:'🛠️ 개선이 필요해요',R:'🚩 신고'}[r]})${r==='R'?'':sdCmtForm(id)}`;}
  else{box.dataset.busy='';box.querySelector('.sdrb').innerHTML=`<span class="hint">⚠️ ${esc(sdErrTxt(res&&res.err))}</span>`;}
+},true);
+
+document.addEventListener('click',async ev=>{const b=ev.target.closest&&ev.target.closest('[data-sdcs]');if(!b||b.disabled)return;const box=b.closest('.sdr'),inp=box&&box.querySelector('.sdcmi');if(!inp)return;
+ const text=inp.value.trim(),id=box.dataset.sid;if(text.length<2){inp.focus();return;}
+ b.disabled=true;b.textContent='보내는 중…';const res=await sdPost({a:'sd_cmt',id,text});
+ if(res&&res.ok||(res&&res.err==='dupc')){SV.sdc=SV.sdc||{};SV.sdc[id]=1;saveNow();box.querySelector('.sdcm').innerHTML='<div class="hint">💬 의견을 보냈어요. 선생님이 확인한 뒤 전달돼요.</div>';}
+ else{b.disabled=false;b.textContent='보내기';const m=document.createElement('div');m.className='hint';m.textContent='⚠️ '+sdErrTxt(res&&res.err);box.querySelector('.sdcm').appendChild(m);}
 },true);
 
 /* ---------- 출제 (genRunG 래퍼): 셀프던전은 친구들이 만든 문제로만 채운다 ---------- */
@@ -5569,7 +5579,7 @@ function sdMine(){const S=G.sdmn||(G.sdmn={items:null,err:''});
  const ST={wait:'⏳ 확인 중',ok:'✅ 승인',no:'❌ 반려',hide:'🙈 숨김(신고 많음)'};
  $('app').innerHTML=hud()+`<div class="card"><div class="speaker">📋 내 문제</div>
  ${S.err?`<div class="feedback bad">${esc(S.err)}</div>`:S.items===null?'<div class="hint">불러오는 중…</div>':!S.items.length?'<div class="hint">아직 올린 문제가 없어요.</div>':
- `<div class="sdlist">${S.items.map(it=>`<div class="sditem"><div class="sdt">${ST[it.st]||it.st}${it.g?` · ${esc(sdTag(it))}`:''}</div><div class="sentence" style="font-size:15px">${esc(it.q)}</div><div class="hint">정답: ${esc(it.a)}${it.st==='ok'||it.st==='hide'?` · 👍 ${it.L} · 🙂 ${it.N} · 🛠️ ${it.I} · 🚩 ${it.R}`:''}${it.note?` · 메모: ${esc(it.note)}`:''}</div></div>`).join('')}</div>`}
+ `<div class="sdlist">${S.items.map(it=>`<div class="sditem"><div class="sdt">${ST[it.st]||it.st}${it.g?` · ${esc(sdTag(it))}`:''}</div><div class="sentence" style="font-size:15px">${esc(it.q)}</div><div class="hint">정답: ${esc(it.a)}${it.st==='ok'||it.st==='hide'?` · 👍 ${it.L} · 🙂 ${it.N} · 🛠️ ${it.I} · 🚩 ${it.R}`:''}${(it.cm&&it.cm.length)?'':''}${it.note?` · 메모: ${esc(it.note)}`:''}</div>${(it.cm||[]).map(c=>`<div class="sdcmt">💬 친구 의견: ${esc(c)}</div>`).join('')}</div>`).join('')}</div>`}
  <div class="dtools"><button class="btn-s" id="sdmb">↩ 셀프던전으로</button></div></div>`;
  $('sdmb').onclick=()=>{G.scr='sdhub';render();};
  if(S.items===null&&!S.busy){S.busy=1;sdPost({a:'sd_mine'}).then(r=>{S.busy=0;if(r&&r.ok)S.items=r.items;else S.err=sdErrTxt(r&&r.err);if(G.scr==='sdmine')render();});}}
@@ -5580,13 +5590,28 @@ function sdTch(){const T=G.sdtc||(G.sdtc={key:'',list:null,err:'',busy:0});
  $('app').innerHTML=hud()+`<div class="card"><div class="speaker">🔐 교사 승인</div>
  ${T.list?`<h3 class="tf">⏳ 승인 대기 (${T.list.wait.length})</h3>${T.list.wait.length?T.list.wait.map(i=>card(i,1)).join(''):'<div class="hint">대기 중인 문제가 없어요.</div>'}
  <h3 class="tf">🙈 신고로 숨겨진 문제 (${T.list.hide.length})</h3>${T.list.hide.length?T.list.hide.map(i=>card(i,0)).join(''):'<div class="hint">없어요.</div>'}
+ <h3 class="tf">💬 학생 의견 대기 (${(T.cm||[]).length})</h3>${T.cmErr?`<div class="hint">${esc(T.cmErr)}</div>`:''}
+ ${(T.cm||[]).length?`<div class="dtools"><button class="btn-s" id="sccp">📋 Claude 검토용으로 복사</button><button class="btn-s" id="scall">✅ 전체 승인</button></div>
+ ${T.cm.map((c,i)=>`<div class="sditem"><div class="hint"><b>${i+1}.</b> ${esc(c.name)} 의견</div><div class="sentence" style="font-size:15px">💬 ${esc(c.text)}</div><div class="hint">문제: ${esc(c.q)} · 정답 <b>${esc(c.a)}</b></div><div class="dtools"><button class="btn-s" data-cv="ok" data-id="${esc(c.id)}">✅ 승인</button><button class="btn-s" data-cv="no" data-id="${esc(c.id)}">❌ 삭제</button></div></div>`).join('')}
+ <div class="hint" style="margin-top:6px">Claude가 알려 준 <b>승인: 번호들 / 반려: 번호들</b> 줄을 붙여 넣으세요.</div><textarea class="input" id="scpaste" rows="3" placeholder="승인: 1, 2, 4 / 반려: 3"></textarea><button class="btn-s" id="scapply">▶ 결과 일괄 적용</button>${T.scMsg?`<div class="hint">${esc(T.scMsg)}</div>`:''}`:'<div class="hint">대기 중인 의견이 없어요.</div>'}
  <div class="dtools"><button class="btn-s" id="sdrf">🔄 새로고침</button><button class="btn-s" id="sdmb">↩ 셀프던전으로</button></div>`:
  `<div class="story">교사 키를 입력하세요. (서버 스크립트의 TEACHER_KEY 값)</div><input class="input" id="sdkey" type="password" autocomplete="off" value="${esc(T.key)}" placeholder="교사 키">
  ${T.err?`<div class="feedback bad">${esc(T.err)}</div>`:''}<button class="next" id="sdok" ${T.busy?'disabled':''}>${T.busy?'확인 중…':'열기'}</button><div class="dtools"><button class="btn-s" id="sdmb">↩ 셀프던전으로</button></div>`}</div>`;
  $('sdmb').onclick=()=>{G.scr='sdhub';render();};
- const load=async()=>{T.busy=1;T.err='';render();const r=await sdPost({a:'sd_pending',k:T.key});T.busy=0;if(r&&r.ok)T.list=r;else{T.list=null;T.err=sdErrTxt(r&&r.err);}render();};
+ const load=async()=>{T.busy=1;T.err='';render();const r=await sdPost({a:'sd_pending',k:T.key});T.busy=0;if(r&&r.ok){T.list=r;const c=await sdPost({a:'sc_pending',k:T.key});T.cm=c&&c.ok?c.items:[];T.cmErr=c&&c.ok?'':'의견 목록을 불러오지 못했어요(서버 업데이트가 필요할 수 있어요).';}else{T.list=null;T.err=sdErrTxt(r&&r.err);}render();};
  const ok=$('sdok');if(ok){$('sdkey').oninput=()=>{T.key=$('sdkey').value;};$('sdkey').onkeydown=e=>{if(e.key==='Enter'){T.key=$('sdkey').value;load();}};ok.onclick=()=>{T.key=$('sdkey').value;load();};}
  const rf=$('sdrf');if(rf)rf.onclick=load;
+ const scAct=async(ids,act)=>{if(!ids.length)return 0;const r=await sdPost({a:'sc_review',k:T.key,ids,act});return r&&r.ok?r.done:0;};
+ const cp=$('sccp');if(cp)cp.onclick=async()=>{T.cmSnap=T.cm.map(c=>c.id);const txt='[학생 의견 검토 요청] 각 의견을 (1) 욕설·비하·공격적 표현, (2) 문제와 무관한 말, (3) 문제에 대한 잘못된 지적(문제·정답·해설이 실제로 맞는데 틀렸다고 함) 기준으로 판단해 주세요. 번호별로 통과/보류/제외와 이유를 한 줄씩 쓰고, 마지막 줄을 반드시 "승인: 번호들 / 반려: 번호들" 형식으로 정리해 주세요. 애매한 것은 반려 말고 보류로 하고 마지막 줄에서 빼 주세요.\n\n'+T.cm.map((c,i)=>`${i+1}. 문제: ${c.q} / 정답: ${c.a} / 오답: ${(c.w||[]).join(', ')}${c.ex?' / 해설: '+c.ex:''}\n   학생 의견: ${c.text}`).join('\n');
+  let ok=false;try{await navigator.clipboard.writeText(txt);ok=true;}catch(e){const ta=document.createElement('textarea');ta.value=txt;document.body.appendChild(ta);ta.select();try{ok=document.execCommand('copy');}catch(e2){}ta.remove();}
+  T.scMsg=ok?'📋 복사했어요. Claude 대화창에 붙여 넣어 주세요. (이 목록 기준으로 번호가 매겨져요)':'복사에 실패했어요. 화면을 길게 눌러 직접 복사해 주세요.';render();};
+ const sa=$('scall');if(sa)sa.onclick=async()=>{if(!confirm('대기 중인 의견을 모두 승인할까요?'))return;await scAct(T.cm.map(c=>c.id),'ok');load();};
+ const ap=$('scapply');if(ap)ap.onclick=async()=>{const t=$('scpaste').value,snap=T.cmSnap&&T.cmSnap.length?T.cmSnap:T.cm.map(c=>c.id);
+  const pick=re=>{const m=t.match(re);if(!m)return[];return (m[1].match(/\d+/g)||[]).map(x=>snap[+x-1]).filter(Boolean);};
+  const okI=pick(/승인\s*[:：]\s*([^/\n]*)/),noI=pick(/반려\s*[:：]\s*([^/\n]*)/);
+  if(!okI.length&&!noI.length){T.scMsg='"승인: 1, 2 / 반려: 3" 형식의 줄이 없어요.';render();return;}
+  const a=await scAct(okI,'ok'),b=await scAct(noI,'no');T.scMsg=`적용했어요: 승인 ${a}건 · 삭제 ${b}건`;T.cmSnap=null;load();};
+ document.querySelectorAll('[data-cv]').forEach(b=>b.onclick=async()=>{b.disabled=true;await scAct([b.dataset.id],b.dataset.cv);load();});
  document.querySelectorAll('[data-rv]').forEach(b=>b.onclick=async()=>{const act=b.dataset.rv;if(act==='del'&&!confirm('이 문제를 완전히 삭제할까요?'))return;
   let note='';if(act==='no')note=prompt('반려 이유를 짧게 적어 주세요 (학생에게 보여요, 비워도 돼요)','')||'';
   b.disabled=true;const r=await sdPost({a:'sd_review',k:T.key,id:b.dataset.id,act,note});if(r&&r.ok){sfx('select');load();}else{T.err=sdErrTxt(r&&r.err);b.disabled=false;render();}});}

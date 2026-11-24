@@ -75,6 +75,9 @@ function doPost(e) {
     if (d.a === 'sd_claim') return out_(sdClaim_(d));
     if (d.a === 'sd_pending') return out_(sdPending_(d));
     if (d.a === 'sd_review') return out_(sdReview_(d));
+    if (d.a === 'sd_cmt') return out_(sdCmt_(d));
+    if (d.a === 'sc_pending') return out_(scPending_(d));
+    if (d.a === 'sc_review') return out_(scReview_(d));
     return out_({ ok: false, err: 'a' });
   } catch (err) {
     return out_({ ok: false, err: 'server', msg: String(err) });
@@ -292,11 +295,12 @@ function sdList_(d) {
 function sdMine_(d) {
   var ss = ss_(), n = String(d.n || '').trim();
   if (!auth_(ss, n, d.t)) return { ok: false, err: 'tok' };
-  var v = sdRows_(sdTab_(ss)), items = [];
+  var v = sdRows_(sdTab_(ss)), items = [], cmap = {}, cv = scTab_(ss).getDataRange().getValues();
+  for (var c = 1; c < cv.length; c++) if (String(cv[c][4]) === 'ok') (cmap[String(cv[c][1])] = cmap[String(cv[c][1])] || []).push(String(cv[c][3]));
   for (var r = v.length - 1; r >= 1 && items.length < 50; r--) {
     if (String(v[r][1]) !== n) continue;
     var o = sdParse_(v[r][3]) || {};
-    items.push({ id: String(v[r][0]), q: o.q, a: o.a, g: +o.g || 0, le: +o.le || 0, st: String(v[r][4]), L: +v[r][6] || 0, N: +v[r][7] || 0, I: +v[r][8] || 0, R: +v[r][9] || 0, note: String(v[r][12] || '') });
+    items.push({ id: String(v[r][0]), q: o.q, a: o.a, cm: cmap[String(v[r][0])] || [], g: +o.g || 0, le: +o.le || 0, st: String(v[r][4]), L: +v[r][6] || 0, N: +v[r][7] || 0, I: +v[r][8] || 0, R: +v[r][9] || 0, note: String(v[r][12] || '') });
   }
   return { ok: true, items: items };
 }
@@ -352,4 +356,51 @@ function sdReview_(d) { // 교사용: act = ok(승인/복원) | no(반려) | del
     return { ok: false, err: 'act' };
   }
   return { ok: false, err: 'none' };
+}
+
+// ===== 셀프던전 학생 의견(한 줄 댓글): 교사가 승인한 것만 만든 학생에게 보임 =====
+var SC_HEAD = ['id', 'qid', 'name', 'text', 'status', 'ts', 'note'];
+var SC_DAY_MAX = 10;     // 학생 1명이 하루에 남길 수 있는 의견 수
+function scTab_(ss) { return tab_(ss, '셀프의견', SC_HEAD); }
+function sdCmt_(d) {
+  var ss = ss_(), n = String(d.n || '').trim();
+  if (!auth_(ss, n, d.t)) return { ok: false, err: 'tok' };
+  var qid = String(d.id || ''), text = sdClean_(d.text, 80);
+  if (text.length < 2) return { ok: false, err: 'short' };
+  var qv = sdRows_(sdTab_(ss)), found = false;
+  for (var r = 1; r < qv.length; r++) if (String(qv[r][0]) === qid) { if (String(qv[r][1]) === n) return { ok: false, err: 'own' }; found = true; break; }
+  if (!found) return { ok: false, err: 'none' };
+  var sh = scTab_(ss), v = sh.getDataRange().getValues(), today = Utilities.formatDate(new Date(), TZ, 'yyyyMMdd'), cnt = 0;
+  for (var i = 1; i < v.length; i++) {
+    if (String(v[i][2]) !== n) continue;
+    if (String(v[i][1]) === qid) return { ok: false, err: 'dupc' };
+    if (Utilities.formatDate(new Date(v[i][5]), TZ, 'yyyyMMdd') === today) cnt++;
+  }
+  if (cnt >= SC_DAY_MAX) return { ok: false, err: 'limc' };
+  sh.appendRow(['C' + new Date().getTime().toString(36) + Math.floor(Math.random() * 1296).toString(36), qid, n, text, 'wait', new Date(), '']);
+  return { ok: true };
+}
+function scPending_(d) { // 교사용: 승인 대기 중인 학생 의견 + 해당 문제
+  if (!sdAuthT_(d)) return { ok: false, err: 'key' };
+  var ss = ss_(), qv = sdRows_(sdTab_(ss)), qm = {};
+  for (var r = 1; r < qv.length; r++) { var o = sdParse_(qv[r][3]) || {}; qm[String(qv[r][0])] = { q: o.q, a: o.a, w: o.w, ex: o.ex }; }
+  var v = scTab_(ss).getDataRange().getValues(), items = [];
+  for (var i = 1; i < v.length && items.length < 100; i++) {
+    if (String(v[i][4]) !== 'wait') continue;
+    var q = qm[String(v[i][1])] || {};
+    items.push({ id: String(v[i][0]), name: String(v[i][2]), text: String(v[i][3]), q: q.q || '(삭제된 문제)', a: q.a || '', w: q.w || [], ex: q.ex || '' });
+  }
+  return { ok: true, items: items };
+}
+function scReview_(d) { // 교사용: ids(배열) 를 act = ok(승인) | no(반려=삭제)
+  if (!sdAuthT_(d)) return { ok: false, err: 'key' };
+  var ids = Array.isArray(d.ids) ? d.ids.map(String) : [String(d.id || '')], act = String(d.act || '');
+  if (act !== 'ok' && act !== 'no') return { ok: false, err: 'act' };
+  var sh = scTab_(ss_()), v = sh.getDataRange().getValues(), done = 0;
+  for (var r = v.length - 1; r >= 1; r--) {
+    if (ids.indexOf(String(v[r][0])) < 0) continue;
+    if (act === 'ok') sh.getRange(r + 1, 5).setValue('ok'); else sh.deleteRow(r + 1);
+    done++;
+  }
+  return { ok: true, done: done };
 }

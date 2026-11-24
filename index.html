@@ -1990,14 +1990,14 @@ function qbody(e){
   <div class="tpick">${TORD.map(k=>{const t=J.tr[k];let cls='cand tbtn';if(G.done){if(G.pick==='ok'&&k===ans)cls+=' good';else if(k===G.sel)cls+=' bad';}return `<button class="${cls}" data-t="${k}" ${G.done?'disabled':''}>${traitCard(job,k)}<div><b>${t.ic} ${t.nm}</b><span>${t.role}</span></div></button>`;}).join('')}</div>`;
  } else if(e.type==='deploy'){
   if(!G.b)G.b={on:[]};const B=G.b;
-  h+=`<div class="talk">💬 <b>${esc(e.mname)}</b>: "${esc(e.talk||'')}"</div><div class="story">적이 문장을 외친다! 이 문장에 필요한 동료만 골라 출전시키자.</div><div class="sentence">${esc(e.sentence)}</div>
+  h+=`<div class="talk">💬 <b>${esc(e.mname)}</b>: "${esc(e.talk||'')}"</div><div class="story nar">적이 문장을 외친다! 이 문장에 필요한 동료만 골라 출전시키자.</div><div class="sentence">${esc(e.sentence)}</div>
   <div class="deploy"><div class="fixed">${sp('tank')}${sp('healer')}<span class="hint">탱커(주어)·사제(동사)는<br>항상 출전</span></div>
   ${DEPLOY.map(k=>{let cls='cand dep'+(B.on.includes(k)?' on':'');if(G.done&&G.pick==='ok'&&B.on.includes(k))cls+=' good';
    return `<button class="${cls}" data-k="${k}" ${G.done?'disabled':''}>${sp(k)}<div><b>${full(k)}</b><span>${RK[CL[k].r]}</span></div></button>`;}).join('')}
   ${(()=>{let cls='cand dep petdep'+(B.pet?' on':'');if(G.done&&G.pick==='ok'&&B.pet)cls+=' good';return `<button class="${cls}" data-k="pet" ${G.done?'disabled':''}>${petc()}<div><b>펫</b><span>수식어 · 인원 외</span></div></button>`;})()}</div>`;
   if(!G.done)h+=`<button class="next" id="sub">⚔️ 출전!</button>`;
  } else {
-  h+=`<div class="story">몬스터가 문장을 외치며 다가온다! <span class="hint">(지금 파티: ${partyTxt()})</span></div><div class="sentence">${esc(e.sentence)}</div>`;
+  h+=`<div class="story nar">몬스터가 문장을 외치며 다가온다! <span class="hint">(지금 파티: ${partyTxt()})</span></div><div class="sentence">${esc(e.sentence)}</div>`;
   if(!G.done) h+=`<div class="judge"><button data-a="attack">⚔️ 공격!<br><span class="hint" style="font-size:14px">지금 파티로 충분해</span></button><button data-a="retreat">🏃 후퇴!<br><span class="hint" style="font-size:14px">다른 동료가 필요해</span></button></div>`;
  }
  if(G.done){if(G.rpg)return h+rpgAfterAtk(e);if(pvOn())return h+pvAfter(e);if(rdOn())return h;
@@ -2731,7 +2731,8 @@ function makeDodge(){const R=G.rp;let src=null;for(let k=0;k<20&&!src;k++){const
 function dodgeSentence(q){const s=q.c.map((x,i)=>i===q.hi?`<u class="dhi">${esc(x[0])}</u>`:esc(x[0])).join(' ');return s.charAt(0).toUpperCase()+s.slice(1)+'.';}
 function rpgDefBody(){const R=G.rp,q=R.dq,en=R.en[R.ei],st=pstats();
  let h=`<span class="qtype">🛡️ 적의 턴 · 회피</span><div class="talk">💬 <b>${esc(en.mname)}</b>: "${esc(tauntNext(en))}"</div>
- <div class="story">${en.mname}이(가) 문장을 휘두르며 공격해 온다! ${q.kind==='form'?'<b>이 문장은 몇 형식?</b>':'<b>밑줄 친 부분의 성분은?</b>'} 맞히면 회피율이 크게 올라가요. <span class="hint">(기본 회피 ${st.eva}% · 정답 +45% · 6초 안에 맞히면 +10%${R.deb&&R.deb.slow?' · 🐌 둔화 중: 회피 절반':''})</span> <span class="hint">⚠️ 공격을 맞으면 ${debOf(en.mon).map(k=>DEBUFF[k].ic+DEBUFF[k].nm).join('·')}에 걸릴 수 있어요.</span></div>
+ <div class="story nar">${en.mname}이(가) 문장을 휘두르며 공격해 온다! <span class="hint">⚠️ 공격을 맞으면 ${debOf(en.mon).map(k=>DEBUFF[k].ic+DEBUFF[k].nm).join('·')}에 걸릴 수 있어요.</span></div>
+ <div class="story">${q.kind==='form'?'<b>이 문장은 몇 형식?</b>':'<b>밑줄 친 부분의 성분은?</b>'}${R.deb&&R.deb.slow?' <span class="hint">🐌 둔화 중: 회피 절반</span>':''}</div>
  <div class="sentence">${dodgeSentence(q)}</div><div class="choices dchoices">${q.opts.map((o,i)=>{let cls='choice';if(R.phase==='defres'){if(i===q.pick)cls+=i===q.ans?' correct':' wrong';}return `<button class="${cls}" data-d="${i}" ${R.phase==='defres'?'disabled':''}>${o}</button>`;}).join('')}</div>`;
  if(R.phase==='defres')h+=`<div class="feedback ${R.dres.hurt?'no':'ok'}"><div style="font-weight:900;font-size:19px">${R.log}</div>${q.ok?'':'<span class="hint">정답은 알려 주지 않아요. 다음 회피 문제에서 만회해요!</span>'}</div>`+(R.php<=0?`<button class="next grave-btn" id="rdn">🪦 쓰러졌다… </button>`:`<button class="next" id="rdn">⚔️ 내 턴 ▶</button>`);
  return h;}
@@ -7233,7 +7234,7 @@ heroBar=function(){const h=rhero();if(!EQV_CLS.includes(h))return _heroBar();
  new MutationObserver(()=>{if(!q)q=requestAnimationFrame(fit);}).observe(document.body,{childList:true,subtree:true});})();
 
 /* ===== 전투 화면: '누가 무엇을 한다'(상황 설명·안내 문구)는 전투 장면 바로 아래 별도 칸으로, 문제 푸는 칸은 그 아래에 ===== */
-(function(){let q=0,busy=0;const SEL=':scope > .story, :scope > .sptag';
+(function(){let q=0,busy=0;const SEL=':scope > .story.nar, :scope > .sptag';
  const split=()=>{q=0;if(busy)return;const qc=document.getElementById('qc'),ar=document.getElementById('arena');if(!qc||!ar||qc.previousElementSibling!==ar&&!(qc.previousElementSibling&&qc.previousElementSibling.id==='nc'))return;
   busy=1;try{const nodes=[...qc.querySelectorAll(SEL)];let nc=document.getElementById('nc');
    if(!nodes.length){if(nc&&!qc.querySelector(':scope > #ncm'))nc.remove();return;}

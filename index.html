@@ -1093,6 +1093,21 @@ canvas.px[data-src="SPR"][data-k="shaman"],canvas.px[data-src="SPR"][data-k^="cs
 .mallg{display:grid;gap:10px;margin-top:12px}
 .mallg .shopbtn{width:100%}
 
+/* 🛡️ 장비 등급 오라 · 장비 칸 */
+.hfig{position:relative;display:inline-block;flex:none}
+.hfig .hart{position:relative;z-index:1}
+.hfig::before{content:'';position:absolute;left:50%;top:55%;width:120%;height:120%;transform:translate(-50%,-50%);border-radius:50%;background:radial-gradient(circle,var(--ac) 0,transparent 66%);opacity:0;z-index:0}
+.hfig.aura-silver::before{opacity:.28}.hfig.aura-blue::before{opacity:.45;animation:aurap 2.4s ease-in-out infinite}
+.hfig.aura-violet::before{opacity:.55;animation:aurap 2s ease-in-out infinite}.hfig.aura-gold::before{opacity:.7;animation:aurap 1.6s ease-in-out infinite}
+.hfig:not(.aura-none) .hart{filter:drop-shadow(0 0 5px var(--ac))}
+@keyframes aurap{50%{transform:translate(-50%,-50%) scale(1.14);opacity:.9}}
+.hfig .sp{position:absolute;z-index:2;color:var(--ac);font-style:normal;font-size:14px;text-shadow:0 0 6px var(--ac);animation:sptw 1.8s ease-in-out infinite}
+.hfig .s1{left:-4px;top:6px}.hfig .s2{right:-2px;top:22px;animation-delay:.6s}.hfig .s3{left:6px;bottom:6px;animation-delay:1.1s}
+@keyframes sptw{0%,100%{opacity:.15;transform:scale(.6)}50%{opacity:1;transform:scale(1.2)}}
+.hgear{display:flex;align-items:center;gap:6px;margin-top:5px}
+.hgear canvas.gearc{width:30px;height:30px;background:var(--panel2);border:1px solid var(--line);border-radius:7px;padding:1px}
+.hgl{font-size:12px;color:var(--muted);margin-left:2px}
+
 </style>
 </head>
 <body>
@@ -6902,6 +6917,18 @@ function mallScr(){
   else{G.scr='forge';G.forgeView=k==='enh'?'enh':'gear';G.stoneBoot=0;G.enhRes=null;}
   render();});
  $('out').onclick=()=>{G.scr='dsel';render();};}
+
+/* ===== 🛡️ 장비 외형: 장비 칸 표시 + 등급 오라 (샘플: 전사만) ===== */
+const EQV_CLS=['tank'];
+function eqTier(){const g=SV.gear||{};const t=['sword','armor','shield'].map(s=>(GEAR[g[s]]||{t:0}).t);return Math.round(t.reduce((a,b)=>a+b,0)/3);}
+function eqAura(t){return t>=8?['gold','황금','#ffd54a']:t>=6?['violet','보랏빛','#c27bff']:t>=4?['blue','푸른빛','#6fb2ff']:t>=2?['silver','은빛','#dfe8f2']:['none','','#000'];}
+function heroFig(h){const t=eqTier(),a=eqAura(t);
+ return `<span class="hfig aura-${a[0]}" style="--ac:${a[2]}" title="장비 단계 ${t+1}">${hArt(h)}${t>=4?'<i class="sp s1">✦</i><i class="sp s2">✦</i>':''}${t>=8?'<i class="sp s3">✧</i>':''}</span>`;}
+const _heroBar=heroBar;
+heroBar=function(){const h=rhero();if(!EQV_CLS.includes(h))return _heroBar();
+ const g=SV.gear||{},t=eqTier(),a=eqAura(t);
+ return `<div class="herobar">${heroFig(h)}<div><b>🦸 내 주인공: ${HWORD[h]}</b> <span class="hint">(${skName(h,eqSkin(h))})</span><br><span class="hperk">직업 특성: ${HPERK[h].d}</span>
+ <div class="hgear">${gearc(g.sword||'s0')}${gearc(g.armor||'a0')}${gearc(g.shield||'h0')}<span class="hgl">장비 ${t+1}단계</span></div></div><button class="btn-s" id="tohsel">🔄 주인공 바꾸기</button></div>`;};
 
 render();tryAuto();setTimeout(tryAuto,300);
 setInterval(()=>{document.body.classList.toggle('muted-wait',!(AU.ctx&&AU.ctx.state==='running')&&G.scr==='splash');},500);

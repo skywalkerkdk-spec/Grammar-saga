@@ -1150,6 +1150,8 @@ body[data-bg="d18"] #bgl{background-image:url(nbg_10.webp)!important;filter:brig
 .arena.d19{background:url(nbg_11.webp) center bottom/cover no-repeat!important}
 body[data-bg="d19"] #bgl{background-image:url(nbg_11.webp)!important;filter:brightness(.5) blur(2px)}
 
+.choice.msel{border-color:var(--gold)!important;background:#3f3516!important}
+
 </style>
 </head>
 <body>
@@ -5324,6 +5326,99 @@ function gqToWrite(e,L,kind){
  run.forEach((e,i)=>{if(e.type!=='gq'||i===0)return;const r=Math.random();let k=null,a=P.gw,b=a+P.gf,c=b+P.gsw;if(r<a)k='gw';else if(r<b)k='gf';else if(r<c)k='gsw';if(!k||k===last)return;if(gqToWrite(e,L,k))last=k;else last='';});return run;};})();
 (function(){const _r=reviveTarget;reviveTarget=function(e){if(e&&['gw','gf','gsw'].includes(e.type))return {e,mode:'blank',sent:e.sentence,ans:e.ansText,ko:e.ko,role:null,tries:0};return _r(e);};})();
 
+/* ===== 컨정션 다리 전용 문제 형식: ① 빈칸에 들어갈 수 있는 말 모두 고르기 ② 비슷한 뜻의 연결어 고르기 ===== */
+const CJM=[ /* [난이도, 문장, 정답들, 오답들, 해석, 풀이] */
+[1,"He was tired. ____, he kept working.",["Nevertheless","Nonetheless","However"],["Therefore","Moreover"],"그는 피곤했다. 그래도 계속 일했다.","앞과 반대되는 내용 → 대조·양보: Nevertheless / Nonetheless / However"],
+[1,"The movie was long. ____, I enjoyed every minute.",["However","Nevertheless","Nonetheless"],["Consequently","For example"],"영화는 길었다. 그렇지만 나는 매 순간을 즐겼다.","대조·양보 연결어: However / Nevertheless / Nonetheless"],
+[1,"She studied hard. ____, she passed the exam.",["Therefore","As a result","Consequently"],["However","In contrast"],"그녀는 열심히 공부했다. 그래서 시험에 합격했다.","원인 → 결과: Therefore / As a result / Consequently"],
+[1,"It rained all day. ____, the match was canceled.",["Therefore","Thus","Consequently"],["However","Besides"],"하루 종일 비가 왔다. 그래서 경기가 취소되었다.","결과 연결어: Therefore / Thus / Consequently"],
+[2,"The apartment is cheap. ____, it is near the station.",["Moreover","Furthermore","In addition"],["However","Otherwise"],"그 아파트는 싸다. 게다가 역에서 가깝다.","추가 연결어: Moreover / Furthermore / In addition"],
+[2,"I don't want to go. It's too far. ____, I have no money.",["Besides","Moreover","Furthermore"],["Nevertheless","Instead"],"가고 싶지 않다. 너무 멀다. 게다가 돈도 없다.","이유를 덧붙임: Besides / Moreover / Furthermore"],
+[1,"Many fruits are rich in vitamin C. ____, oranges and kiwis.",["For example","For instance"],["However","Therefore","Meanwhile"],"많은 과일에는 비타민 C가 풍부하다. 예를 들어 오렌지와 키위가 있다.","예시 연결어: For example / For instance"],
+[1,"____, mix the eggs and sugar. Then, add the flour.",["First","To begin with","First of all"],["Finally","Lastly"],"먼저 달걀과 설탕을 섞는다. 그다음 밀가루를 넣는다.","순서의 시작: First / To begin with / First of all"],
+[1,"We checked every room. ____, we found the missing cat.",["Finally","At last","Eventually"],["First","For example"],"우리는 모든 방을 살폈다. 마침내 잃어버린 고양이를 찾았다.","마침내: Finally / At last / Eventually"],
+[2,"____, the trip was a great success.",["In conclusion","Overall","All in all"],["However","For instance"],"결론적으로 그 여행은 큰 성공이었다.","요약·결론: In conclusion / Overall / All in all"],
+[2,"The test was not easy. ____, it was extremely difficult.",["In fact","Indeed","As a matter of fact"],["Otherwise","Similarly"],"시험은 쉽지 않았다. 사실 매우 어려웠다.","강조·사실 덧붙임: In fact / Indeed / As a matter of fact"],
+[2,"He didn't call me. ____, he sent a message.",["Instead","Rather"],["Moreover","Therefore","Meanwhile"],"그는 나에게 전화하지 않았다. 대신 메시지를 보냈다.","대안 제시: Instead / Rather"],
+[2,"Tom helps his mother. ____, Mina helps her father.",["Similarly","Likewise","In the same way"],["However","Otherwise"],"톰은 어머니를 돕는다. 마찬가지로 미나는 아버지를 돕는다.","유사: Similarly / Likewise / In the same way"],
+[2,"Mom is cooking dinner. ____, Dad is washing the dishes.",["Meanwhile","In the meantime","At the same time"],["Therefore","Otherwise"],"엄마는 저녁을 요리하고 있다. 한편 아빠는 설거지를 하고 있다.","동시에: Meanwhile / In the meantime / At the same time"],
+[2,"Living in a city is exciting. ____, it can be noisy.",["On the other hand","However"],["Therefore","For example","Likewise"],"도시 생활은 신난다. 반면 시끄러울 수 있다.","한편으로는~, 다른 한편으로는: On the other hand / However"],
+[1,"I was tired, ____ I kept working.",["but","yet"],["however","therefore","moreover"],"나는 피곤했지만 계속 일했다.","콤마로 두 절을 직접 잇는 접속사: but / yet (however 등은 접속부사)"],
+[2,"He was late ____ the traffic.",["because of","due to","owing to"],["because","although"],"그는 교통 체증 때문에 늦었다.","뒤에 명사(구) → because of / due to / owing to"],
+[2,"____ the rain, we played soccer.",["Despite","In spite of"],["Although","Because of","However"],"비가 왔지만 우리는 축구를 했다.","뒤에 명사(구) → Despite / In spite of"],
+[2,"____ it was raining, we played soccer.",["Although","Though","Even though"],["Despite","However"],"비가 왔지만 우리는 축구를 했다.","뒤에 절(주어+동사) → Although / Though / Even though"],
+[3,"I'll go with you ____ you pay for lunch.",["if","as long as","provided that"],["unless","although"],"네가 점심값을 내면 같이 갈게.","조건: if / as long as / provided that (unless는 반대 뜻)"],
+[2,"Call me ____ you arrive.",["when","as soon as","once"],["although","unless"],"도착하면 전화해.","시간: when / as soon as / once"],
+[2,"It is cold in winter. ____, we wear coats.",["Therefore","Thus"],["However","For example","On the contrary"],"겨울에는 춥다. 그래서 우리는 코트를 입는다.","결과: Therefore / Thus"],
+[1,"He is generous. ____, he gave half his salary to charity.",["For example","For instance"],["Therefore","However","Meanwhile"],"그는 너그럽다. 예를 들어 월급의 절반을 자선단체에 기부했다.","예시: For example / For instance"],
+[3,"The plan looked perfect. ____, it failed.",["Nevertheless","Nonetheless","Still"],["Thus","Furthermore"],"그 계획은 완벽해 보였다. 그럼에도 실패했다.","대조·양보: Nevertheless / Nonetheless / Still"],
+[3,"The software is easy to use. ____, it is free.",["Furthermore","Moreover","What's more"],["Nevertheless","Hence"],"그 소프트웨어는 쓰기 쉽다. 게다가 무료이다.","추가: Furthermore / Moreover / What's more"],
+[3,"We lost the first game. ____, we won the next three.",["Afterward","Subsequently","Later"],["Namely","In contrast"],"우리는 첫 경기를 졌다. 그 후 다음 세 경기를 이겼다.","시간의 흐름: Afterward / Subsequently / Later"],
+[3,"The bridge was closed; ____, drivers took another road.",["therefore","thus","consequently"],["however","moreover"],"다리가 폐쇄되어 운전자들은 다른 길로 갔다.","세미콜론 뒤 결과 접속부사: therefore / thus / consequently"],
+[3,"Cats are independent. ____, dogs need a lot of attention.",["In contrast","By contrast","On the other hand"],["Similarly","As a result"],"고양이는 독립적이다. 반면 개는 많은 관심이 필요하다.","대비: In contrast / By contrast / On the other hand"],
+[3,"Some students like group work. ____, others prefer to study alone.",["On the other hand","In contrast"],["Therefore","For example","Likewise"],"어떤 학생은 모둠 활동을 좋아한다. 반면 다른 학생은 혼자 공부하길 좋아한다.","대비: On the other hand / In contrast"],
+[3,"The room is small. ____, the rent is high.",["Moreover","Besides","In addition"],["Nevertheless","Hence"],"방이 작다. 게다가 월세도 비싸다.","불리한 내용을 덧붙임: Moreover / Besides / In addition"],
+[2,"She has two sisters. ____, she has a brother.",["Also","In addition"],["However","Instead","Therefore"],"그녀에게는 여동생이 둘 있다. 또한 남동생도 있다.","추가: Also / In addition"]
+];
+const CJS=[ /* [난이도, 단어, 뜻, 정답, 오답들, 풀이] */
+[2,"however","그러나",["nevertheless"],["therefore","moreover","for example"],"however ≈ nevertheless / nonetheless (그럼에도, 그러나)"],
+[2,"therefore","그러므로",["consequently"],["however","besides","similarly"],"therefore ≈ consequently / thus / hence (결과)"],
+[2,"moreover","게다가",["furthermore"],["otherwise","instead","thus"],"moreover ≈ furthermore / in addition / besides (추가)"],
+[2,"in addition","게다가",["moreover"],["however","therefore","meanwhile"],"in addition ≈ moreover / furthermore / besides"],
+[1,"for example","예를 들어",["for instance"],["in fact","as a result","otherwise"],"for example ≈ for instance / e.g."],
+[2,"in other words","다시 말해",["that is"],["on the contrary","finally","besides"],"in other words ≈ that is (to say) / namely"],
+[2,"as a result","그 결과",["consequently"],["nevertheless","in contrast","for example"],"as a result ≈ consequently / therefore (결과)"],
+[2,"on the other hand","반면에",["in contrast"],["therefore","furthermore","namely"],"on the other hand ≈ in contrast / by contrast"],
+[1,"at last","마침내",["finally"],["at first","at least","at most"],"at last ≈ finally / eventually"],
+[1,"in conclusion","결론적으로",["to sum up"],["in addition","in contrast","in particular"],"in conclusion ≈ to sum up / in summary / in short"],
+[2,"meanwhile","그동안, 한편",["in the meantime"],["afterward","otherwise","instead"],"meanwhile ≈ in the meantime / at the same time"],
+[3,"nonetheless","그럼에도 불구하고",["still"],["thus","hence","besides"],"nonetheless ≈ nevertheless / still / even so"],
+[2,"otherwise","그렇지 않으면",["if not"],["if so","because","so that"],"otherwise ≈ if not / or else"],
+[2,"likewise","마찬가지로",["similarly"],["otherwise","however","hence"],"likewise ≈ similarly / in the same way"],
+[3,"thus","따라서",["hence"],["however","besides","instead"],"thus ≈ hence / therefore / consequently"],
+[2,"in fact","사실은",["actually"],["otherwise","instead","similarly"],"in fact ≈ actually / as a matter of fact / indeed"],
+[2,"first of all","우선",["to begin with"],["in conclusion","finally","subsequently"],"first of all ≈ to begin with / first / to start with"],
+[2,"afterward","그 후에",["later"],["previously","meanwhile","at first"],"afterward ≈ later / subsequently / then"],
+[2,"because of","~ 때문에",["due to"],["although","despite","so that"],"because of ≈ due to / owing to / thanks to(좋은 이유)"],
+[2,"despite","~에도 불구하고",["in spite of"],["because of","due to","owing to"],"despite ≈ in spite of (+ 명사)"],
+[2,"although","비록 ~이지만",["even though"],["because","unless","so that"],"although ≈ though / even though (+ 절)"],
+[3,"so that","~하도록",["in order that"],["as if","although","unless"],"so that ≈ in order that (목적)"],
+[2,"as soon as","~하자마자",["once"],["unless","although","because"],"as soon as ≈ once / the moment (~하자마자)"],
+[3,"what's more","게다가",["besides"],["otherwise","for instance","in conclusion"],"what's more ≈ besides / moreover / in addition"],
+[3,"by contrast","대조적으로",["in contrast"],["similarly","likewise","therefore"],"by contrast ≈ in contrast / on the other hand"],
+[3,"especially","특히",["in particular"],["otherwise","instead","namely"],"especially ≈ in particular / particularly"],
+[2,"in short","간단히 말해",["in brief"],["in addition","in contrast","in fact"],"in short ≈ in brief / in a word / to sum up"],
+[3,"nevertheless","그럼에도",["even so"],["as a result","besides","for example"],"nevertheless ≈ even so / nonetheless / still"],
+[2,"in the same way","같은 방식으로",["similarly"],["by contrast","therefore","moreover"],"in the same way ≈ similarly / likewise"],
+[3,"namely","즉, 다시 말해",["that is"],["however","moreover","otherwise"],"namely ≈ that is (to say) / in other words"]
+];
+const cjLvOK=(lv,L)=>L==='beginner'?lv<=2:L==='expert'?lv>=2:true;
+QX.gmulti={label:'🎯 알맞은 말 모두 고르기',
+ render(e){const B=G.b||(G.b={sel:[]});if(!B.sel)B.sel=[];
+  let h=`<div class="story">🎯 빈칸에 들어갈 수 있는 말을 <b>모두</b> 고르세요. <span class="hint">(정답 ${e.mans.length}개)</span></div><div class="sentence">${gqBlank(e.sentence,'<span class="gqbl">＿＿＿</span>')}</div><div class="tr">💬 해석: ${esc(e.ko)}</div>
+  <div class="choices">${e.mopts.map((o,i)=>{let cls='choice';if(G.done){const ok=e.mans.includes(o),sl=(B.sel||[]).includes(o);if(ok)cls+=' correct';else if(sl)cls+=' wrong';}else if(B.sel.includes(o))cls+=' msel';return `<button class="${cls}" data-o="${esc(o)}" ${G.done?'disabled':''}>${B.sel.includes(o)&&!G.done?'☑️ ':G.done&&e.mans.includes(o)?'✅ ':''}${esc(o)}</button>`;}).join('')}</div>`;
+  if(!G.done)h+=`<button class="next" id="sub" ${B.sel.length?'':'disabled'}>⚔️ 이 ${B.sel.length}개로 공격!</button>`;
+  return h;},
+ bind(e){if(G.done)return;document.querySelectorAll('#qc .choice[data-o]').forEach(b=>b.onclick=()=>{const o=b.dataset.o,s=G.b.sel;const i=s.indexOf(o);if(i>=0)s.splice(i,1);else s.push(o);sfx('click');rerQ(e);});
+  const s=$('sub');if(s)s.onclick=()=>{const v=G.b.sel;if(!v.length)return;const ok=v.length===e.mans.length&&e.mans.every(x=>v.includes(x));resolve(e,ok,v.join(', '));};},
+ right(e){return e.mans.join(' / ');},
+ gloss(e){return `<div class="sentence">${esc(e.sentence.replace('____','＿＿＿'))}</div><div class="tr">💬 해석: ${esc(e.ko)}</div>`;},
+ exp(e){return `들어갈 수 있는 말: <b>${esc(e.mans.join(' / '))}</b><br>${esc(e.why)}<br><span class="hint">틀린 보기: ${esc(e.mopts.filter(o=>!e.mans.includes(o)).join(', '))}</span>`;}};
+QX.gsyn={label:'🔁 비슷한 뜻 고르기',
+ render(e){let h=`<div class="story">🔁 <b>${esc(e.word)}</b>(${esc(e.wko)})와 <b>비슷한 뜻</b>의 연결어를 고르세요.</div><div class="sentence"><b>${esc(e.word)}</b></div>
+  <div class="choices">${e.mopts.map((o,i)=>{let cls='choice';if(G.done){if(o===e.syn)cls+=' correct';else if(o===G.selw)cls+=' wrong';}return `<button class="${cls}" data-o="${esc(o)}" ${G.done?'disabled':''}>${String.fromCharCode(65+i)}. ${esc(o)}</button>`;}).join('')}</div>`;return h;},
+ bind(e){if(G.done)return;document.querySelectorAll('#qc .choice[data-o]').forEach(b=>b.onclick=()=>{G.selw=b.dataset.o;resolve(e,G.selw===e.syn,G.selw);});},
+ right(e){return e.syn;},
+ gloss(e){return `<div class="sentence"><b>${esc(e.word)}</b> ≈ <b>${esc(e.syn)}</b></div><div class="tr">💬 ${esc(e.wko)}</div>`;},
+ exp(e){return `<b>${esc(e.word)}</b> ≈ <b>${esc(e.syn)}</b><br>${esc(e.why)}`;}};
+(function(){const _g=genRunG;genRunG=function(d){const run=_g(d);const X=GRMAP[d.id];if(!X||X.pool!=='cj')return run;const L=LV();
+ const mp=shuffle(CJM.filter(r=>cjLvOK(r[0],L))),sp=shuffle(CJS.filter(r=>cjLvOK(r[0],L)));let last='';
+ run.forEach((e,i)=>{if(e.type!=='gq'||i===0||Math.random()>0.3)return;const k=last==='m'?'s':last==='s'?'m':(Math.random()<.55?'m':'s');
+  if(k==='m'&&mp.length){const r=mp.pop();Object.assign(e,{type:'gmulti',wt:3,sentence:r[1],mans:r[2].slice(),mopts:shuffle(r[2].concat(r[3])),ko:r[4],tr:r[4],why:r[5],ansText:r[2][0],filled:r[1].replace('____',r[2].join(' / ')),options:null});last='m';}
+  else if(k==='s'&&sp.length){const r=sp.pop();Object.assign(e,{type:'gsyn',wt:2,word:r[1],wko:r[2],syn:r[3][0],mopts:shuffle(r[3].concat(r[4])),why:r[5],sentence:r[1],ko:r[2],tr:r[2],ansText:r[3][0],filled:r[1]+' ≈ '+r[3][0],options:null});last='s';}});
+ return run;};})();
+(function(){const _r=reviveTarget;reviveTarget=function(e){if(e&&e.type==='gmulti')return {e,mode:'blank',sent:e.sentence,ans:e.mans[0],ko:e.ko,role:null,tries:0};if(e&&e.type==='gsyn')return {e,mode:'blank',sent:e.word+' ≈ ____',ans:e.syn,ko:e.wko,role:null,tries:0};return _r(e);};})();
+
 /* ---------- 클라우드 계정 (이름 + 비밀번호 · 구글 시트 저장) ---------- */
 const CLOUD_URL='https://script.google.com/macros/s/AKfycbzGyf6xjlJ7UDBUfWcFglQ3z2R3951is295ebYP-VFI5jCJC4AT3aPtDU2wfo5H-Zs9/exec';
 let CLOUD=null,_cT=null,_cDirty=false,_cBusy=false;
@@ -6283,7 +6378,7 @@ const GTERMS={
  pc:[['Participle','분사','동사가 형용사처럼 쓰이는 현재분사(-ing)와 과거분사(-ed)','the crying baby / a broken window']],
  sj:[['Subjunctive mood','가정법','사실이 아니거나 일어나기 어려운 일을 가정하는 말투','If I were a bird, I could fly.']],
  cp:[['Comparative','비교급','둘을 비교하여 더 ~하다고 말하는 형태','He is taller than me.'],['Superlative','최상급','셋 이상 중에서 가장 ~하다고 말하는 형태','She is the tallest in my class.']],
- cj:[['Conjunction','접속사','and, but, because처럼 단어·구·절을 이어 주는 말','I was tired, but I kept running.'],['Noun clause','명사절','문장 속에서 주어·목적어·보어 자리에 쓰이는 절','I know that he is honest.'],['Conjunctive adverb','접속부사','however, therefore처럼 앞뒤 문장의 관계를 이어 주는 부사. 절을 스스로 잇지 못해 ; 또는 . 뒤에 쓰고 콤마를 붙여요','It rained; however, we went out.'],['Linking expression','연결어(담화표지)','for example, in addition, as a result처럼 글의 흐름을 이어 주는 표현','First, wash the rice. Then, put it in the pot.']],
+ cj:[['Conjunction','접속사','and, but, because처럼 단어·구·절을 이어 주는 말','I was tired, but I kept running.'],['Noun clause','명사절','문장 속에서 주어·목적어·보어 자리에 쓰이는 절','I know that he is honest.'],['Conjunctive adverb','접속부사','however, therefore처럼 앞뒤 문장의 관계를 이어 주는 부사. 절을 스스로 잇지 못해 ; 또는 . 뒤에 쓰고 콤마를 붙여요','It rained; however, we went out.'],['Transition words','연결어(담화표지)','for example, in addition, as a result처럼 글의 흐름을 이어 주는 표현(연결 표현)','First, wash the rice. Then, put it in the pot.']],
  pn:[['Pronoun','대명사','명사 대신 쓰는 말 (he, she, it, they 등)','Tom lost his bag, so he was sad.'],['Article','관사','명사 앞에서 쓰는 a, an, the','I bought a book. The book is great.']],
  ot:[['Preposition','전치사','명사 앞에서 장소·시간·방향 등을 나타내는 말 (in, on, at 등)','The cat is under the table.']],
  iv:[['Infinitive','to부정사','「to + 동사원형」으로 명사·형용사·부사 역할을 하는 형태','I want to learn English.'],['Gerund','동명사','동사에 -ing를 붙여 명사 역할을 하는 형태','Swimming is fun.'],['Verbal','준동사','동사에서 나왔지만 동사 역할을 하지 않는 to부정사·동명사·분사의 총칭','(to부정사, 동명사, 분사)']],

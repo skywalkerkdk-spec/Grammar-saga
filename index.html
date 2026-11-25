@@ -1177,6 +1177,14 @@ textarea.input{width:100%;box-sizing:border-box;resize:vertical;font-family:inhe
 #sdgo:disabled{opacity:.45;cursor:default}
 .sdcm{margin-top:8px}.sdcmr{display:flex;gap:6px;margin-top:4px}.sdcmr .input{flex:1;min-width:0}
 .sdcmt{margin-top:6px;padding:6px 10px;border-radius:8px;background:rgba(255,216,107,.12);font-size:14px}
+.twban{height:110px}.twgray{filter:grayscale(.9) brightness(.65) contrast(.9)}
+.twn{margin:10px 0;padding:10px 12px;border-radius:12px;border:2px solid #6b4a4a;background:rgba(80,40,40,.35)}
+.twn.twf{border-color:#3f7f55;background:rgba(40,90,60,.3)}
+.twh{display:flex;align-items:center;gap:8px;margin-bottom:4px}.twic{font-size:30px}
+.twsay{font-size:17px;line-height:1.5;font-family:Georgia,'Noto Sans KR',sans-serif;margin:4px 0}
+.twm{background:#ff6b6b55;color:#fff;border-bottom:2px solid #ff6b6b;border-radius:3px;padding:0 2px}
+.twth{margin-top:6px;font-size:14px;color:#9be7b0}
+.twq{margin-top:8px}.twq .choice{display:block;width:100%;margin:6px 0;text-align:left}
 
 </style>
 </head>
@@ -1721,7 +1729,7 @@ function openGuide(){
 function hud(extra){return `<div class="hud"><span class="nm">${SV.hero==='druid'?'🐻':'🛡️'} ${esc(G.name)}${SV.hero?` <small>(${HERO[SV.hero].slice(2)})</small>`:''}</span><span class="gold">💎 ${SV.cry}</span>${G.started?`<span class="stonechip" title="강화석">⚒️ ${SV.stone||0}</span>`:''}${(SV.egg||0)>0?`<span class="stonechip" title="신비한 알 (레이드 드롭 · 후반 펫 교환)">🥚 ${SV.egg}</span>`:''}${SV.mode==='rpg'&&rpgOpen()?`<span class="rgold">💰 ${SV.rg}</span>`:''}${G.started&&SV.level?`<span class="lvb">${LEVELS[LV()].ic} ${LEVELS[LV()].n}</span>`:''}${extra||''}<span class="sp"></span><button class="btn-s mute" onclick="toggleMute()">${AU.muted?'🔇 소리 꺼짐':'🔊 소리 켜짐'}</button><button class="btn-s" onclick="openGuide()">📖 도감</button></div>`;}
 
 /* ---------- 화면 ---------- */
-function render(){window.scrollTo({top:0});applySkin();const f={splash,title,opening,level,grave,ending,temple,intro,dsel,party,defeat,formed,battle,clear,shop,forge,rbattle,rresult,hsel:heroSel,lhsel:lhSel,mall:mallScr,sdhub:sdHub,sdmake:sdMake,sdmine:sdMine,sdtch:sdTch,news:newsPaper,rank:rankScreen,pvp:pvLobby,pvbattle:pvBattle,pvres:pvRes,rdlobby:rdLobby,rdbattle:rdBattle}[G.scr];document.body.dataset.bg=G.scr==='splash'?'':(G.scr==='battle'||G.scr==='rbattle'||G.scr==='pvbattle'||G.scr==='rdbattle')?(G.dg.bg||G.dg.id):'guild';f();fill($('app'));syncBgm();}
+function render(){window.scrollTo({top:0});applySkin();const f={splash,title,opening,level,grave,ending,temple,intro,dsel,party,defeat,formed,battle,clear,shop,forge,rbattle,rresult,hsel:heroSel,lhsel:lhSel,mall:mallScr,sdhub:sdHub,town:townScreen,sdmake:sdMake,sdmine:sdMine,sdtch:sdTch,news:newsPaper,rank:rankScreen,pvp:pvLobby,pvbattle:pvBattle,pvres:pvRes,rdlobby:rdLobby,rdbattle:rdBattle}[G.scr];document.body.dataset.bg=G.scr==='splash'?'':(G.scr==='battle'||G.scr==='rbattle'||G.scr==='pvbattle'||G.scr==='rdbattle')?(G.dg.bg||G.dg.id):'guild';f();fill($('app'));syncBgm();}
 
 const CREDIT=`<div class="credit">본 게임의 제작자는 DK KANG입니다.<br>이미지, 음악 및 폰트는 AI 도구를 활용하여 제작되었습니다.<br>학생들의 영어학습을 위해서는 얼마든지 쓰셔도 좋습니다.<br>다만 무단 복제 및 변형은 금지합니다.</div>`;
 const DEVH=()=>{const h=(location.hash||'').replace('#','').toLowerCase();return ({zx:1,qw:1,as:1})[h]?h:'';};
@@ -7080,7 +7088,7 @@ function popRunFinal(){const R=G.popRun;if(!R)return '';const ok=R.qok+R.cok,tot
 
 /* ---------- 모든 메뉴 상단바(HUD) 맨 앞에 돌아가기 버튼 ---------- 기존 아래쪽 버튼은 그대로 두고 위에 하나 더 추가해요. */
 (function(){
- const BACK={party:'dsel',shop:'mall',forge:'mall',mall:'dsel',news:'dsel',rank:'dsel',pvp:'dsel',rdlobby:'dsel',hsel:'dsel',lhsel:'dsel',temple:'dsel',sdhub:'dsel',sdmake:'sdhub',sdmine:'sdhub',sdtch:'sdhub',level:()=>G.introDone?'dsel':'title'};
+ const BACK={party:'dsel',shop:'mall',forge:'mall',mall:'dsel',news:'dsel',rank:'dsel',pvp:'dsel',rdlobby:'dsel',hsel:'dsel',lhsel:'dsel',temple:'dsel',sdhub:'dsel',town:'dsel',sdmake:'sdhub',sdmine:'sdhub',sdtch:'sdhub',level:()=>G.introDone?'dsel':'title'};
  const _r=render;
  render=function(){
   _r.apply(this,arguments);
@@ -7336,6 +7344,75 @@ render=function(){const r=_r.apply(this,arguments);try{const a=document.getEleme
  if(a&&!a.classList.contains('pvarena')&&!a.classList.contains('raidarena')){const id=[...a.classList].find(c=>P[c]);
   if(id&&P[id].length>1){const e=(G.rp&&G.rp.ei!=null?G.rp.ei:G.ei)||0,u=P[id][e%P[id].length];a.style.setProperty('background',`url(${u}) center bottom/cover no-repeat`,'important');}}}catch(e){}return r;};
 })();
+
+/* ===== 🏘️ 마을: 던전 때문에 말이 망가진 마을 → 던전을 깨면 말이 돌아온다 ===== */
+/* b: 망가진 문장 ([[ ]] 안이 틀린 부분) · f: 고친 문장 · ko: 우리말 뜻 · o: 어색한 보기 2개 · th: 고마워하는 말 */
+const TOWN={
+ tn:{nm:'크로노 마을',sub:'시제 평원 · 시간이 뒤엉킨 마을',
+  bi:'평원의 던전 때문에 마을 사람들의 말에서 <b>시간</b>이 뒤엉켜 버렸어요! 어제와 내일을 구별하지 못하고 있어요. 우리말 뜻을 보고, 어색한 곳을 찾아 보세요.',
+  hi:'던전이 잠잠해지자 마을 사람들의 말이 <b>제 시간</b>을 되찾았어요! 어제는 과거로, 내일은 미래로 정확하게 말해요.',
+  n:[
+  {ic:'👨‍🍳',who:'빵집 주인 보리',b:'Yesterday I [[bake]] bread, and tomorrow I [[baked]] a cake!',f:'Yesterday I baked bread, and tomorrow I will bake a cake!',ko:'어제는 빵을 구웠고, 내일은 케이크를 구울 거예요!',o:['Yesterday I baked bread, and tomorrow I baked a cake!','Yesterday I bake bread, and tomorrow I will bake a cake!'],th:'이제 케이크 반죽 시간을 안 헷갈려요. 고마워요!'},
+  {ic:'👧',who:'꼬마 하나',b:'My mom [[go]] to the market yesterday. She [[buyed]] apples.',f:'My mom went to the market yesterday. She bought apples.',ko:'엄마는 어제 시장에 가셨어요. 사과를 사 오셨어요.',o:['My mom went to the market yesterday. She buyed apples.','My mom goes to the market yesterday. She bought apples.'],th:'엄마가 사 온 사과가 정말 맛있어요!'},
+  {ic:'🧓',who:'시계 할아버지',b:'It [[rains]] now, but it [[is]] sunny last night.',f:'It is raining now, but it was sunny last night.',ko:'지금은 비가 오고 있지만, 어젯밤엔 맑았어요.',o:['It rains now, but it is sunny last night.','It is raining now, but it is sunny last night.'],th:'시계도 다시 제대로 가는구먼. 허허.'},
+  {ic:'📮',who:'우체부 톰',b:'I [[delivered]] letters every day. Tomorrow I [[delivered]] a big package.',f:'I deliver letters every day. Tomorrow I will deliver a big package.',ko:'나는 매일 편지를 배달해요. 내일은 큰 소포를 배달할 거예요.',o:['I delivered letters every day. Tomorrow I will deliver a big package.','I deliver letters every day. Tomorrow I delivered a big package.'],th:'배달 일정이 안 꼬여서 살았어요!'}]},
+ md:{nm:'캔윌 마을',sub:'모달 계곡 · 말끝이 뒤엉킨 마을',
+  bi:'계곡의 던전 때문에 마을 사람들의 말에서 <b>조동사</b> 규칙이 무너졌어요! can, must, will 뒤에 이상한 말이 붙어요. 우리말 뜻을 보고, 어색한 곳을 찾아 보세요.',
+  hi:'던전이 잠잠해지자 <b>조동사</b> 뒤의 말이 제자리로 돌아왔어요! 조동사 뒤에는 늘 동사원형이 와요.',
+  n:[
+  {ic:'👵',who:'약초 할머니',b:'She can [[speaks]] three languages.',f:'She can speak three languages.',ko:'그녀는 세 가지 언어를 말할 수 있어요.',o:['She can speaking three languages.','She cans speak three languages.'],th:'조동사 뒤는 동사원형이지, 암 그렇고말고.'},
+  {ic:'👷',who:'공사장 반장',b:'You must [[to wear]] a helmet here.',f:'You must wear a helmet here.',ko:'여기서는 헬멧을 써야 해요.',o:['You must wearing a helmet here.','You must wears a helmet here.'],th:'덕분에 다들 안전하게 일해요!'},
+  {ic:'🧒',who:'심부름꾼 민',b:'[[Can I to open]] the window?',f:'Can I open the window?',ko:'창문을 열어도 될까요?',o:['Can I opening the window?','Do I can open the window?'],th:'이제 마음 편히 창문을 열어요!'},
+  {ic:'💂',who:'경비대장 로이',b:'He [[will can]] help you tomorrow.',f:'He will be able to help you tomorrow.',ko:'그는 내일 당신을 도와줄 수 있을 거예요.',o:['He will can help you tomorrow.','He will be able help you tomorrow.'],th:'조동사 두 개가 겹치면 안 되는 거였군요. 고맙소!'}]},
+ rp:{nm:'이어말 숲마을',sub:'관계대명사 숲 · 말이 서로 안 이어지는 마을',
+  bi:'숲의 던전 때문에 마을 사람들의 말에서 <b>관계대명사</b>가 엉켜 버렸어요! who, which, whose를 아무렇게나 써요. 우리말 뜻을 보고, 어색한 곳을 찾아 보세요.',
+  hi:'던전이 잠잠해지자 <b>관계대명사</b>가 제자리를 찾았어요! 사람에게는 who, 사물에게는 which·that, 소유는 whose예요.',
+  n:[
+  {ic:'🧝',who:'숲지기 엘라',b:'This is the girl [[which]] lives next door.',f:'This is the girl who lives next door.',ko:'이 아이가 옆집에 사는 소녀예요.',o:['This is the girl whose lives next door.','This is the girl who she lives next door.'],th:'사람에게는 who! 이제 안 헷갈려요.'},
+  {ic:'📚',who:'도서관 사서 노아',b:'The book [[what]] I bought is great.',f:'The book that I bought is great.',ko:'내가 산 책은 아주 좋아요.',o:['The book what I bought is great.','The book that I bought it is great.'],th:'이 책, 정말 재미있다니까요!'},
+  {ic:'🚗',who:'정비공 잭',b:'He is the man [[who]] car is red.',f:'He is the man whose car is red.',ko:'그는 차가 빨간 남자예요.',o:['He is the man who car is red.','He is the man whom car is red.'],th:'whose가 "~의"였군요. 시원하네요!'},
+  {ic:'🏹',who:'사냥꾼 한',b:'I know the boy who you met [[him]] yesterday.',f:'I know the boy who you met yesterday.',ko:'나는 네가 어제 만난 소년을 알아요.',o:['I know the boy who you met him yesterday.','I know the boy whose you met yesterday.'],th:'관계대명사가 이미 목적어 역할을 하는군. 고맙네!'}]}
+};
+const twSV=id=>{SV.town=SV.town||{};return SV.town[id]||(SV.town[id]={b:0,h:0,q:{}});};
+const twHas=id=>!!TOWN[id]&&!G.dev;
+const twCleared=id=>SV.cleared.includes(id)||(SV.rcleared||[]).includes(id);
+function twGate(id,cont){if(!twHas(id))return false;const st=twCleared(id)?'h':'b',T=twSV(id);if(T[st])return false;T[st]=1;saveNow();G.tw={id,cont,back:'dsel'};G.scr='town';render();return true;}
+function twOpen(id){twSV(id)[twCleared(id)?'h':'b']=1;saveNow();G.tw={id,cont:null,back:'dsel'};G.scr='town';sfx('select');render();}
+const twPlain=s=>s.replace(/\[\[|\]\]/g,'');
+const twMark=s=>esc(s).replace(/\[\[(.*?)\]\]/g,'<mark class="twm">$1</mark>');
+function townScreen(){const W=G.tw;if(!W||!TOWN[W.id]){G.scr='dsel';return render();}
+ const id=W.id,D=TOWN[id],dg=DUNGEONS.find(d=>d.id===id)||{},h=twCleared(id),T=twSV(id),fx=G.twfx||(G.twfx={});
+ const card=(n,i)=>{const fixed=h||T.q[i];let line,cls='twb';
+  if(fixed){line=esc(n.f);cls='twf';}else line=W.hint?twMark(n.b):esc(twPlain(n.b));
+  const open=!fixed&&W.open===i;
+  return `<div class="twn ${cls}"><div class="twh"><span class="twic">${n.ic}</span><b>${esc(n.who)}</b>${T.q[i]&&!h?'<small class="hint"> · 고쳐 줬어요 ✅</small>':''}</div>
+  <div class="twsay">“${line}”</div><div class="tr">💬 뜻: ${esc(n.ko)}</div>
+  ${fixed?`<div class="twth">${esc(n.th)}</div>`:`${open?`<div class="twq"><div class="hint">어느 말이 자연스러운가요?</div>${(W.ord&&W.ord[i]||[]).map(k=>`<button class="choice" data-twp="${i}" data-k="${k}">${esc(k==='f'?n.f:n.o[+k])}</button>`).join('')}${fx[i]?`<div class="feedback bad">${esc(fx[i])}</div>`:''}</div>`:`<button class="btn-s" data-two="${i}">🛠️ 말 고쳐 주기 (💎 +2)</button>`}`}</div>`;};
+ const fixedN=h?D.n.length:D.n.filter((_,i)=>T.q[i]).length;
+ $('app').innerHTML=hud()+`<div class="card"><div class="gbanner twban ${h?'':'twgray'}" style="background-image:url(nb_${dg.bg||'d1'}.jpg)"></div>
+ <div class="speaker">🏘️ ${esc(D.nm)}</div><div class="hint" style="margin-bottom:4px">${esc(D.sub)}</div>
+ <div class="story">${h?D.hi:D.bi}</div>
+ ${h?'<div class="feedback ok">🌈 던전을 클리어해서 마을의 말이 모두 돌아왔어요!</div>':`<div class="hint" style="margin:4px 0">🗣️ 말이 돌아온 주민: <b>${fixedN} / ${D.n.length}</b> · 던전을 클리어하면 모두 돌아와요.</div><div class="dtools"><button class="btn-s" id="twhint">${W.hint?'🙈 힌트 끄기':'🔍 어디가 이상해요? (힌트)'}</button></div>`}
+ ${D.n.map(card).join('')}
+ <div class="dtools" style="margin-top:10px">${W.cont?'<button class="next" id="twgo">⚔️ 던전으로 들어가기</button>':''}<button class="${W.cont?'btn-s':'next'}" id="twbk">↩ ${W.cont?'나중에 갈래요':'돌아가기'}</button></div></div>`;
+ const hb=$('twhint');if(hb)hb.onclick=()=>{W.hint=!W.hint;sfx('select');render();};
+ document.querySelectorAll('[data-two]').forEach(b=>b.onclick=()=>{const i=+b.dataset.two;W.open=i;W.ord=W.ord||{};W.ord[i]=shuffle(['f','0','1']);fx[i]='';sfx('select');render();});
+ document.querySelectorAll('[data-twp]').forEach(b=>b.onclick=()=>{const i=+b.dataset.twp;
+  if(b.dataset.k==='f'){if(!T.q[i]){T.q[i]=1;SV.cry+=2;saveNow();}W.open=null;fx[i]='';sfx('fanfare');render();}
+  else{fx[i]='음… 아직 어색해요. 우리말 뜻을 다시 보고 골라 보세요.';sfx('wrong');render();}});
+ $('twbk').onclick=()=>{sfx('select');G.tw=null;G.twfx=null;G.scr=W.back||'dsel';render();};
+ const go=$('twgo');if(go)go.onclick=()=>{sfx('formed');const c=W.cont;G.tw=null;G.twfx=null;c();};}
+/* ----- 연결: 던전에 처음 들어갈 때(망가진 마을) · 클리어 후 처음 들어갈 때(되살아난 마을) ----- */
+(function(){const _s=rpgStart;rpgStart=function(d){if(d&&twGate(d.id,()=>rpgStart(d)))return;return _s.apply(this,arguments);};})();
+(function(){const _f=formed;formed=function(){const d=G.dg;if(d&&twGate(d.id,()=>{G.scr='formed';render();}))return;return _f.apply(this,arguments);};})();
+/* ----- 클리어 화면 · RPG 지도 팝업에서 마을 보러 가기 ----- */
+(function(){const _c=clear;clear=function(){_c.apply(this,arguments);try{const d=G.dg;if(!d||!twHas(d.id))return;const h=document.querySelector('#app .card h2');
+ if(h&&!document.getElementById('twvis'))h.insertAdjacentHTML('afterend',`<div id="twvis" style="margin:8px 0"><button class="btn-s" id="twvb">🏘️ ${esc(TOWN[d.id].nm)}의 말이 돌아왔는지 보러 가기</button></div>`);
+ const b=document.getElementById('twvb');if(b)b.onclick=()=>twOpen(d.id);}catch(e){}};})();
+(function(){const _r=rresult;rresult=function(){_r.apply(this,arguments);try{const R=G.rp,d=G.dg;if(!R||!R.win||!d||!twHas(d.id))return;const a=document.getElementById('again');
+ if(a&&!document.getElementById('twvb')){a.parentNode.insertAdjacentHTML('beforebegin',`<div style="margin:8px 0"><button class="btn-s" id="twvb">🏘️ ${esc(TOWN[d.id].nm)}의 말이 돌아왔는지 보러 가기</button></div>`);document.getElementById('twvb').onclick=()=>twOpen(d.id);}}catch(e){}};})();
+(function(){const _w=wmOpen;wmOpen=function(id){_w.apply(this,arguments);try{if(!twHas(id))return;const bx=document.querySelector('#wmpop .bpbtn');if(!bx||!document.getElementById('wmgo'))return;
+ const b=document.createElement('button');b.className='ghost';b.id='wmtw';b.textContent='🏘️ 마을 보기';b.onclick=()=>{wmClosePop();twOpen(id);};bx.insertBefore(b,document.getElementById('wmx'));}catch(e){}};})();
 
 render();tryAuto();setTimeout(tryAuto,300);
 setInterval(()=>{document.body.classList.toggle('muted-wait',!(AU.ctx&&AU.ctx.state==='running')&&G.scr==='splash');},500);

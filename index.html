@@ -1189,6 +1189,16 @@ textarea.input{width:100%;box-sizing:border-box;resize:vertical;font-family:inhe
 .why{margin-top:8px;padding:10px 12px;border-radius:10px;background:rgba(255,107,107,.1);border:1px solid #ff6b6b66;text-align:left}
 .whyh{font-weight:900;color:#ffb3b3;margin-bottom:4px}.whyl{margin:2px 0;font-size:15px}
 .why .rvans{margin:4px 0}.whyd{margin-top:8px}.whyd summary{cursor:pointer;color:#ffd36b;font-weight:700}
+.exmap{display:grid;grid-template-columns:repeat(9,38px);width:342px;margin:8px auto;border-radius:10px;overflow:hidden;background:linear-gradient(#000a,#000a),url(nb_d1.jpg) center/cover;box-shadow:0 0 0 2px #0006}
+.exmap .t{width:38px;height:38px;display:flex;align-items:center;justify-content:center;font-size:22px;box-sizing:border-box;border:1px solid rgba(255,255,255,.05);cursor:pointer}
+.exmap .t.w{background:rgba(8,36,18,.82)}.exmap .t.f{background:rgba(255,255,255,.2)}
+.exmap .t canvas{width:34px;height:34px;image-rendering:pixelated}
+.exmap .t.en{background:rgba(255,80,80,.3);animation:exp 1s infinite alternate}.exmap .t.lk{opacity:.45;background:rgba(0,0,0,.45)}
+.exmap .t.me{background:rgba(255,230,120,.35)}.exmap .gm{animation:exp 1s infinite alternate}
+@keyframes exp{from{filter:brightness(1)}to{filter:brightness(1.6)}}
+.expad{display:flex;flex-direction:column;align-items:center;gap:4px;margin-top:6px}.expad div{display:flex;gap:4px}
+.expad button{width:56px;height:40px;font-size:20px;border-radius:10px;border:1px solid #fff3;background:#2b2440;color:#fff}
+.exenc{position:fixed;left:50%;top:40%;transform:translate(-50%,-50%);background:#000c;color:#ffd75e;font-size:26px;font-weight:900;padding:14px 22px;border-radius:14px;z-index:99}
 
 </style>
 </head>
@@ -7545,6 +7555,58 @@ Object.assign(TOWN,{
   N('🎨','예술가 비비','She likes singing, dancing, and [[to paint]]. He is kind, smart, and [[humor]].','She likes singing, dancing, and painting. He is kind, smart, and humorous.','그녀는 노래, 춤, 그림을 좋아해요. 그는 친절하고 똑똑하고 유머러스해요.','She likes singing, dancing, and to paint. He is kind, smart, and humorous.','She likes singing, dancing, and painting. He is kind, smart, and humor.','나란히 놓인 말은 모양을 맞춰요!'),
   N('🏰','성지기 클라라','Mina, [[is my best friend]], lives next door. So tired [[he was]] that he fell asleep.','Mina, my best friend, lives next door. So tired was he that he fell asleep.','내 가장 친한 친구 미나는 옆집에 살아요. 너무 피곤해서 그는 잠들었어요.','Mina, is my best friend, lives next door. So tired was he that he fell asleep.','Mina, my best friend, lives next door. So tired he was that he fell asleep.','성채의 말도 반듯해졌어요!')])
 });
+})();
+
+/* ===== 🗺️ 탐험 모드(샘플): 지도를 걸어 다니며 몬스터를 만나 전투 ===== */
+(function(){
+const MP={g1:['###$#$###','#S.a.b.c#','#######.#','#..f.e.d#','#.#######','#.g.h...#','#######.#','#B.....$#','#########']};
+const W=9;
+function groups(){const gs=[];let st=0;G.run.forEach((e,i)=>{if(HP1(e)===0||i===G.run.length-1){gs.push([st,i]);st=i+1;}});return gs;}
+function expInit(){const M=MP[G.dg&&G.dg.id];if(!M||G.rpg)return false;const gs=groups();if(gs.length-1>8)return false;
+ let px=1,py=1;M.forEach((r,y)=>{const x=r.indexOf('S');if(x>=0){px=x;py=y;}});
+ G.exp={on:true,id:G.dg.id,gs,px,py,fk:-1,cur:0,got:{},busy:false};return true;}
+function eidx(ch){const X=G.exp;if(ch==='B')return X.gs.length-1;const i=ch.charCodeAt(0)-97;return(ch>='a'&&ch<='z'&&i<X.gs.length-1)?i:-1;}
+function cell(x,y){const M=MP[G.exp.id];return(M[y]||'')[x]||'#';}
+function kind(x,y){const X=G.exp,ch=cell(x,y);if(ch==='#')return 'w';
+ const i=eidx(ch);if(i>=0){return i<X.cur?'f':(i===X.cur?'e':'l');}return 'f';}
+function expMap(){const X=G.exp,M=MP[X.id];let h='';
+ for(let y=0;y<M.length;y++)for(let x=0;x<W;x++){const ch=cell(x,y),k=kind(x,y);let c='',cls='t '+(k==='w'?'w':'f');
+  if(k==='w')c='🌳';
+  else if(k==='e'||k==='l'){const e=G.run[X.gs[eidx(ch)][0]];c=monHTML(e);cls+=k==='l'?' lk':' en';}
+  else if(ch==='$'&&!X.got[x+','+y])c='<span class="gm">💎</span>';
+  if(x===X.px&&y===X.py){c=sp('tank');cls+=' me';}
+  h+=`<div class="${cls}" data-x="${x}" data-y="${y}">${c}</div>`;}
+ const left=X.gs.length-1-X.cur+1;
+ $('app').innerHTML=hud()+`<div class="card" style="text-align:center"><h2 class="tf" style="margin:0;font-size:26px">🗺️ ${esc(G.dg.name)} 탐험</h2>
+ <div class="hint">길을 눌러 이동하세요. 반짝이는 몬스터에게 다가가면 전투! · 남은 적 ${left} · 💎 ${Object.keys(X.got).length}/3</div>
+ <div class="exmap" id="exmap">${h}</div>
+ <div class="expad"><button data-d="u">▲</button><div><button data-d="l">◀</button><button data-d="d">▼</button><button data-d="r">▶</button></div></div>
+ <button class="next" id="exoff" style="background:#555;margin-top:8px">🚪 탐험 끝내고 바로 전투</button></div>`;
+ fill($('app'));
+ document.querySelectorAll('#exmap .t').forEach(t=>t.onclick=()=>goTo(+t.dataset.x,+t.dataset.y));
+ document.querySelectorAll('.expad button').forEach(b=>b.onclick=()=>{const d={u:[0,-1],d:[0,1],l:[-1,0],r:[1,0]}[b.dataset.d];step(X.px+d[0],X.py+d[1]);});
+ $('exoff').onclick=()=>{X.fk=X.cur;G.exp.on=false;render();};}
+function pass(x,y){const k=kind(x,y);return k==='f'||k==='e';}
+function step(x,y){const X=G.exp;if(!X||X.busy||Math.abs(x-X.px)+Math.abs(y-X.py)!==1||!pass(x,y)){sfxSafe('click');return false;}
+ X.px=x;X.py=y;const ch=cell(x,y);
+ if(ch==='$'&&!X.got[x+','+y]){X.got[x+','+y]=1;SV.cry+=1;saveNow();sfxSafe('fanfare');}
+ if(kind(x,y)==='e'){X.busy=true;expMap();const m=document.querySelector('#exmap .me');
+  const b=document.createElement('div');b.className='exenc';b.textContent='⚔️ 몬스터 조우!';document.querySelector('.card').appendChild(b);sfxSafe('wipe');
+  setTimeout(()=>{X.busy=false;X.fk=X.cur;render();},650);return true;}
+ sfxSafe('click');expMap();return true;}
+function sfxSafe(n){try{sfx(n);}catch(e){}}
+function goTo(tx,ty){const X=G.exp;if(!X||X.busy)return;if(!pass(tx,ty))return;
+ const q=[[X.px,X.py]],prev={},key=(x,y)=>x+','+y;prev[key(X.px,X.py)]=null;
+ while(q.length){const [x,y]=q.shift();if(x===tx&&y===ty)break;[[1,0],[-1,0],[0,1],[0,-1]].forEach(d=>{const nx=x+d[0],ny=y+d[1],k=key(nx,ny);if(!(k in prev)&&nx>=0&&ny>=0&&nx<W&&pass(nx,ny)){prev[k]=[x,y];q.push([nx,ny]);}});}
+ if(!(key(tx,ty) in prev))return;const path=[];let c=[tx,ty];while(c&&!(c[0]===X.px&&c[1]===X.py)){path.unshift(c);c=prev[key(c[0],c[1])];}
+ let i=0;const go=()=>{if(!G.exp||G.exp!==X||i>=path.length)return;const p=path[i++];if(!step(p[0],p[1]))return;if(kind(p[0],p[1])!=='e')setTimeout(go,120);};go();}
+(function(){const _r=render;render=function(){const X=G&&G.exp;
+ if(X&&X.on){if(G.scr==='battle'&&!G.rpg){const k=X.gs.findIndex(g=>g[0]===G.ei);if(k>=0&&X.fk!==k){X.cur=k;window.scrollTo({top:0});applySkin&&applySkin();return expMap();}}
+  else if(G.scr!=='grave'){G.exp=null;}}
+ return _r.apply(this,arguments);};})();
+document.addEventListener('keydown',e=>{const X=G&&G.exp;if(!X||!X.on||G.scr!=='battle')return;const d={ArrowUp:[0,-1],ArrowDown:[0,1],ArrowLeft:[-1,0],ArrowRight:[1,0]}[e.key];if(d){e.preventDefault();step(X.px+d[0],X.py+d[1]);}});
+(function(){const _f=formed;formed=function(){const r=_f.apply(this,arguments);try{const en=$('enter');if(en&&MP[G.dg.id]&&!document.getElementById('enterx')){const b=document.createElement('button');b.className='next';b.id='enterx';b.style.marginTop='8px';b.textContent='🗺️ 탐험하며 입장 (샘플)';en.after(b);b.onclick=()=>{en.onclick();if(!expInit())return;render();};}}catch(x){}return r;};})();
+window.expInit=expInit;
 })();
 
 render();tryAuto();setTimeout(tryAuto,300);

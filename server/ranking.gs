@@ -78,6 +78,9 @@ function doPost(e) {
     if (d.a === 'sd_cmt') return out_(sdCmt_(d));
     if (d.a === 'sc_pending') return out_(scPending_(d));
     if (d.a === 'sc_review') return out_(scReview_(d));
+    if (d.a === 'qr_submit') return out_(qrSubmit_(d));
+    if (d.a === 'qr_pending') return out_(qrPending_(d));
+    if (d.a === 'qr_review') return out_(qrReview_(d));
     return out_({ ok: false, err: 'a' });
   } catch (err) {
     return out_({ ok: false, err: 'server', msg: String(err) });
@@ -402,5 +405,38 @@ function scReview_(d) { // 교사용: ids(배열) 를 act = ok(승인) | no(반�
     if (act === 'ok') sh.getRange(r + 1, 5).setValue('ok'); else sh.deleteRow(r + 1);
     done++;
   }
+  return { ok: true, done: done };
+}
+
+// ---- 문제 신고 (학생이 문제에 이유를 적어 신고) ----
+var QR_HEAD = ['id', 'dg', 'q', 'ans', 'why', 'name', 'ts'];
+var QR_DAY_MAX = 20;
+function qrTab_(ss) { return tab_(ss, '문제신고', QR_HEAD); }
+function qrSubmit_(d) {
+  var ss = ss_(), n = String(d.n || '').trim();
+  if (!auth_(ss, n, d.t)) return { ok: false, err: 'tok' };
+  var q = sdClean_(d.q, 220), a = sdClean_(d.ans, 60), dg = sdClean_(d.dg, 12), why = sdClean_(d.why, 100);
+  if (why.length < 2 || q.length < 2) return { ok: false, err: 'short' };
+  var sh = qrTab_(ss), v = sh.getDataRange().getValues(), today = Utilities.formatDate(new Date(), TZ, 'yyyyMMdd'), cnt = 0;
+  for (var i = 1; i < v.length; i++) {
+    if (String(v[i][5]) !== n) continue;
+    if (String(v[i][2]) === q && String(v[i][4]) === why) return { ok: true };
+    if (Utilities.formatDate(new Date(v[i][6]), TZ, 'yyyyMMdd') === today) cnt++;
+  }
+  if (cnt >= QR_DAY_MAX) return { ok: false, err: 'limc' };
+  sh.appendRow(['Q' + new Date().getTime().toString(36) + Math.floor(Math.random() * 1296).toString(36), dg, q, a, why, n, new Date()]);
+  return { ok: true };
+}
+function qrPending_(d) {
+  if (!sdAuthT_(d)) return { ok: false, err: 'key' };
+  var v = qrTab_(ss_()).getDataRange().getValues(), items = [];
+  for (var i = 1; i < v.length; i++) items.push({ id: String(v[i][0]), dg: String(v[i][1]), q: String(v[i][2]), a: String(v[i][3]), why: String(v[i][4]), n: String(v[i][5]) });
+  return { ok: true, items: items };
+}
+function qrReview_(d) { // 처리 완료한 신고 삭제
+  if (!sdAuthT_(d)) return { ok: false, err: 'key' };
+  var ids = Array.isArray(d.ids) ? d.ids.map(String) : [String(d.id || '')];
+  var sh = qrTab_(ss_()), v = sh.getDataRange().getValues(), done = 0;
+  for (var r = v.length - 1; r >= 1; r--) if (ids.indexOf(String(v[r][0])) >= 0) { sh.deleteRow(r + 1); done++; }
   return { ok: true, done: done };
 }

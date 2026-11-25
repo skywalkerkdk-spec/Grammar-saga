@@ -1185,6 +1185,7 @@ textarea.input{width:100%;box-sizing:border-box;resize:vertical;font-family:inhe
 .twm{background:#ff6b6b55;color:#fff;border-bottom:2px solid #ff6b6b;border-radius:3px;padding:0 2px}
 .twth{margin-top:6px;font-size:14px;color:#9be7b0}
 .twq{margin-top:8px}.twq .choice{display:block;width:100%;margin:6px 0;text-align:left}
+.twrow{margin:8px 0 10px;padding:8px 10px;border-radius:10px;background:rgba(255,255,255,.05)}
 
 </style>
 </head>
@@ -7374,7 +7375,7 @@ const TOWN={
   {ic:'🏹',who:'사냥꾼 한',b:'I know the boy who you met [[him]] yesterday.',f:'I know the boy who you met yesterday.',ko:'나는 네가 어제 만난 소년을 알아요.',o:['I know the boy who you met him yesterday.','I know the boy whose you met yesterday.'],th:'관계대명사가 이미 목적어 역할을 하는군. 고맙네!'}]}
 };
 const twSV=id=>{SV.town=SV.town||{};return SV.town[id]||(SV.town[id]={b:0,h:0,q:{}});};
-const twHas=id=>!!TOWN[id]&&!G.dev;
+const twHas=id=>!!TOWN[id];
 const twCleared=id=>SV.cleared.includes(id)||(SV.rcleared||[]).includes(id);
 function twGate(id,cont){if(!twHas(id))return false;const st=twCleared(id)?'h':'b',T=twSV(id);if(T[st])return false;T[st]=1;saveNow();G.tw={id,cont,back:'dsel'};G.scr='town';render();return true;}
 function twOpen(id){twSV(id)[twCleared(id)?'h':'b']=1;saveNow();G.tw={id,cont:null,back:'dsel'};G.scr='town';sfx('select');render();}
@@ -7413,6 +7414,13 @@ function townScreen(){const W=G.tw;if(!W||!TOWN[W.id]){G.scr='dsel';return rende
  if(a&&!document.getElementById('twvb')){a.parentNode.insertAdjacentHTML('beforebegin',`<div style="margin:8px 0"><button class="btn-s" id="twvb">🏘️ ${esc(TOWN[d.id].nm)}의 말이 돌아왔는지 보러 가기</button></div>`);document.getElementById('twvb').onclick=()=>twOpen(d.id);}}catch(e){}};})();
 (function(){const _w=wmOpen;wmOpen=function(id){_w.apply(this,arguments);try{if(!twHas(id))return;const bx=document.querySelector('#wmpop .bpbtn');if(!bx||!document.getElementById('wmgo'))return;
  const b=document.createElement('button');b.className='ghost';b.id='wmtw';b.textContent='🏘️ 마을 보기';b.onclick=()=>{wmClosePop();twOpen(id);};bx.insertBefore(b,document.getElementById('wmx'));}catch(e){}};})();
+
+/* ----- 언제든 찾아갈 수 있게: 던전 목록 위에 마을 바로가기 ----- */
+const twRow=()=>`<div id="twrow" class="twrow"><div class="hint">🏘️ 마을 둘러보기 <small>(던전 때문에 말이 망가진 마을 · 클리어하면 돌아와요)</small></div><div class="sdchips">${Object.keys(TOWN).map(id=>`<button class="sdchip" data-twv="${id}">${twCleared(id)?'🌈':'🌫️'} ${esc(TOWN[id].nm)}</button>`).join('')}</div></div>`;
+function twBindRow(){document.querySelectorAll('[data-twv]').forEach(b=>b.onclick=()=>twOpen(b.dataset.twv));}
+(function(){const _g=regionScreen;regionScreen=function(k){_g.apply(this,arguments);try{if(k!=='gram'||document.getElementById('twrow'))return;const t=document.getElementById('tomap'),host=t?t.parentNode:document.querySelector('#app .card');
+ if(t)t.insertAdjacentHTML('afterend',twRow());else if(host)host.insertAdjacentHTML('afterbegin',twRow());twBindRow();}catch(e){}};})();
+(function(){const _r=rpgDsel;rpgDsel=function(){_r.apply(this,arguments);try{const c=document.querySelector('#app .card');if(!c||document.getElementById('twrow'))return;c.insertAdjacentHTML('afterbegin',twRow());twBindRow();}catch(e){}};})();
 
 render();tryAuto();setTimeout(tryAuto,300);
 setInterval(()=>{document.body.classList.toggle('muted-wait',!(AU.ctx&&AU.ctx.state==='running')&&G.scr==='splash');},500);

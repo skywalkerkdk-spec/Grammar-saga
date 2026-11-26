@@ -6,6 +6,8 @@
   const preferencesKey = 'grammar-saga.chapter2.dialogue';
   let story;
   let episodes = new Map();
+  let specialQuests = new Map();
+  let specialPalette;
   let dialogue;
   let reading = {mode:'literal', color:true, slash:true};
   try {
@@ -46,7 +48,7 @@
     dialogue=null;
   }
 
-  function show(title, lines, done, back) {
+  function show(title, lines, done, back, options = {}) {
     if (dialogue?.open) closeDialogue();
     dialogue=node('dialog',undefined,'c2-dialog');
     dialogue.setAttribute('aria-label',title);
@@ -64,7 +66,7 @@
       const controls=node('div',undefined,'c2-actions');
       const select=node('select');
       select.setAttribute('aria-label','대화 표시 모드');
-      for (const [key,label] of Object.entries(modes)) select.add(new Option(label,key,key===reading.mode,key===reading.mode));
+      for (const [key,label] of Object.entries(modes)) select.add(new Option(options.gloss&&key==='natural'?'한국어 풀이':label,key,key===reading.mode,key===reading.mode));
       select.onchange=()=>{reading.mode=select.value;persistReading();renderLine();section.querySelector('select').focus();};
       controls.append(select);
       for (const [key,label] of [['color','색상'],['slash','슬래시']]) {
@@ -87,7 +89,7 @@
         if (reading.mode==='literal') line.chunks.forEach((chunk,i)=>{
           if (i) p.append(reading.slash ? ' / ' : ' ');
           const span=node('span',chunk[language]);
-          if (reading.color) span.style.color=story.palette[i];
+          if (reading.color) span.style.color=(options.palette||story.palette)[i];
           p.append(span);
         });
         else p.textContent=line[language];
@@ -108,7 +110,9 @@
         else {index++;window.speechSynthesis?.cancel();renderLine();section.querySelector('[data-advance]').focus();}
       });
       advance.dataset.advance='';
-      actions.append(audio,previous,advance,button('건너뛰기',finish),button('닫기',leave));
+      actions.append(audio,previous,advance);
+      if (options.skip!==false) actions.append(button('건너뛰기',finish));
+      actions.append(button('닫기',leave));
       section.replaceChildren(node('h2',title),node('p',`${index+1} / ${lines.length}`),controls,content,actions);
     }
     renderLine();
@@ -216,12 +220,15 @@
       const hasAnotherPage=[...episodes.keys()].some(id=>id!==episode.id&&episodeState(id).rewardClaimed);
       const relevantClear=hasAnotherPage ? episode.boss_clear : episode.boss_clear.filter(line=>!line.en.includes('another page'));
       const lines=[...relevantClear,episode.completion];
-      if ((episode.next_id&&canLink)||(!episode.next_id&&allOthers)) lines.push(episode.next_dialogue);
+      const next= !episodeState(episode.id).seenEvents?.nextDialogue &&
+        ((episode.next_id&&canLink)||(!episode.next_id&&allOthers));
+      if (next) lines.push(episode.next_dialogue);
       show(titleFor(episode),lines,()=>{
         if (!episodeState(episode.id).rewardClaimed && twCleared(episode.id)) {
           update(episode.id,{accepted:true,rewardClaimed:true});
         }
         rememberEpisode(episode.id,'completion');
+        if (next) rememberEpisode(episode.id,'nextDialogue');
         render();
       });
     }));
@@ -229,6 +236,7 @@
 
   function decorate() {
     if (!story || !worldOpen()) return;
+    decorateSpecial();
     const app=document.getElementById('app');
     if (G.scr==='dsel' && !app.querySelector('#c2-library')) {
       const entry=button('Chapter II · 그래머 대도서관',library);
@@ -252,6 +260,167 @@
       item.append(caption,entry);
       (app.querySelector('.card') || app).prepend(item);
     }
+  }
+
+  function specialState(townId) {
+    return SV.specialQuests?.[townId] || {};
+  }
+
+  function saveSpecial(townId, changes) {
+    const quests=SV.specialQuests ||= {};
+    quests[townId]={...quests[townId],...changes};
+    saveNow();
+  }
+
+  function clueAvailable(townId,index) {
+    return twCleared(townId) || !!SV.town?.[townId]?.q?.[index];
+  }
+
+  function readClue(quest,index,back,collect) {
+    const townId=quest.town_id;
+    show(specialTitle(quest),[quest.clues[index]],()=>{
+      if (collect && clueAvailable(townId,index) && !specialState(townId).clues?.[index]) {
+        saveSpecial(townId,{clues:{...specialState(townId).clues,[index]:true}});
+      }
+    },back,{palette:specialPalette,gloss:true,skip:!collect});
+  }
+
+  function specialTitle(quest) {
+    return displayName(quest.title_en,quest.title_ko);
+  }
+
+  function specialJournal(townId) {
+    closeDialogueIfOpen();
+    const quest=specialQuests.get(townId);
+    const title='특별 퀘스트 일지';
+    dialogue=node('dialog',undefined,'c2-dialog');
+    dialogue.setAttribute('aria-label',title);
+    document.body.append(dialogue);
+    const body=node('div',undefined,'c2-body');
+    dialogue.append(body);
+    dialogue.addEventListener('cancel',event=>{event.preventDefault();closeDialogue();});
+    body.append(node('h2',title));
+    const back=()=>specialJournal(townId);
+    const navigation=node('div',undefined,'c2-actions');
+    if (quest) navigation.append(button('퀘스트 목록',()=>specialJournal()));
+    navigation.append(button('닫기',closeDialogue));
+    body.append(navigation);
+    if (quest) {
+      const saved=specialState(townId);
+      const count=quest.clues.filter((_,i)=>saved.clues?.[i]).length;
+      body.append(node('h3',specialTitle(quest)),node('p',quest.premise_ko),
+        node('p',`수집한 단서 ${count} / ${quest.clues.length}${saved.completionFlag?' · 사건 해결 완료':''}`));
+      const evidence=node('ol',undefined,'c2-evidence');
+      quest.clues.forEach((clue,i)=>{
+        const row=node('li');
+        if (saved.clues?.[i]) row.append(button(clue.speaker+' · 단서 다시 보기',()=>readClue(quest,i,back,false)));
+        else row.append(node('span',clue.speaker+' · 미수집'));
+        evidence.append(row);
+      });
+      body.append(evidence);
+      if (count<quest.clues.length) {
+        body.append(node('p','마을에서 주민의 말을 고치거나 관련 던전을 클리어한 후, 주민에게 단서를 들을 수 있어요.'));
+        if (G.scr!=='town' || G.tw?.id!==townId) {
+          body.append(button('마을 방문',()=>{closeDialogue();twOpen(townId);}));
+        }
+      } else {
+        for (const task of quest.tasks) {
+          const field=node('fieldset',undefined,'c2-task');
+          const english=node('legend',task.question_en);
+          english.lang='en';
+          field.append(english);
+          if (reading.mode!=='english') field.append(node('p',task.question_ko));
+          if (saved.answers?.[task.id]) {
+            field.append(node('p','해결 완료'));
+          } else {
+            const feedback=node('p');
+            feedback.setAttribute('role','status');
+            const options=node('div',undefined,'c2-actions');
+            task.options.forEach((choice,i)=>{
+              const option=button(choice,()=>{
+                if (i!==task.correct_index) {
+                  feedback.textContent=task.retry_ko;
+                  return;
+                }
+                const answers={...specialState(townId).answers,[task.id]:true};
+                const complete=quest.tasks.every(item=>answers[item.id]);
+                saveSpecial(townId,{answers,...(complete?{completionFlag:quest.reward.id}:{})});
+                back();
+              });
+              option.lang='en';
+              options.append(option);
+            });
+            field.append(options,feedback);
+          }
+          body.append(field);
+        }
+      }
+      if (saved.completionFlag && !episodeState(townId).seenEvents?.nextDialogue &&
+          (!quest.next_id ? [...episodes.keys()].every(id=>episodeState(id).rewardClaimed) : true)) {
+        body.append(button('후속 대화',()=>show(specialTitle(quest),[quest.next_dialogue],
+          ()=>rememberEpisode(townId,'nextDialogue'),back)));
+      }
+    } else {
+      const list=node('ul');
+      for (const item of specialQuests.values()) {
+        const saved=specialState(item.town_id);
+        const count=item.clues.filter((_,i)=>saved.clues?.[i]).length;
+        const row=node('li');
+        row.append(button(`${item.town_en} · ${item.title_ko} · ${saved.completionFlag?'해결 완료':count+' / '+item.clues.length}`,
+          ()=>specialJournal(item.town_id)));
+        list.append(row);
+      }
+      body.append(list);
+    }
+    dialogue.showModal();
+  }
+
+  function decorateSpecial() {
+    if (!specialQuests.size) return;
+    const app=document.getElementById('app');
+    if (app.querySelector('[data-special-quest]')) return;
+    if (G.scr==='dsel') {
+      const entry=button('특별 퀘스트 일지',()=>specialJournal());
+      entry.dataset.specialQuest='';
+      (app.querySelector('.card') || app).prepend(entry);
+    } else if (G.scr==='town') {
+      const quest=specialQuests.get(G.tw?.id);
+      if (!quest) return;
+      const entry=button('특별 퀘스트 일지',()=>specialJournal(quest.town_id));
+      entry.dataset.specialQuest='';
+      (app.querySelector('.card') || app).prepend(entry);
+      const cards=app.querySelectorAll('.twn');
+      quest.clues.forEach((_,i)=>{
+        const collected=specialState(quest.town_id).clues?.[i];
+        const clue=button(collected?'단서 다시 보기':'특별 퀘스트 단서',()=>readClue(quest,i,()=>{
+          render();
+          specialJournal(quest.town_id);
+        },!collected));
+        clue.disabled=!clueAvailable(quest.town_id,i) && !collected;
+        if (clue.disabled) clue.title='주민 교정 또는 던전 클리어 후 열립니다.';
+        cards[i]?.append(clue);
+      });
+    }
+  }
+
+  function validateSpecial(data) {
+    if (!Array.isArray(data.palette) || !data.palette.every(c=>/^#[0-9a-f]{6}$/i.test(c))) throw new Error('Invalid special quest palette');
+    const ids=new Set();
+    for (const quest of data.quests) {
+      const episode=episodes.get(quest.town_id);
+      if (!episode || ids.has(quest.town_id) || quest.clues.length!==4 || quest.tasks.length!==2 ||
+          quest.town_en!==episode.town_en || quest.reward.type!=='completion_flag' ||
+          quest.clues.some((line,i)=>line.speaker!==episode.residents.find(r=>r.index===i)?.name_en ||
+            !line.chunks.length || line.chunks.length>data.palette.length ||
+            !line.chunks.every(chunk=>typeof chunk.en==='string' && typeof chunk.ko==='string')) ||
+          quest.tasks.some(task=>task.options.length!==3 || !Number.isInteger(task.correct_index) ||
+            task.correct_index<0 || task.correct_index>=task.options.length ||
+            !task.evidence_indices.length || task.evidence_indices.some(i=>!Number.isInteger(i)||!quest.clues[i]))) {
+        throw new Error('Invalid special quest: '+quest.town_id);
+      }
+      ids.add(quest.town_id);
+    }
+    if (ids.size!==episodes.size) throw new Error('Incomplete special quest coverage');
   }
 
   function validate(data,registry) {
@@ -285,19 +454,9 @@
     [...data.intro,...data.library_intro,...data.finale,...Object.values(data.milestones).flat()].forEach(validateLine);
   }
 
-  // Keep Chapter II flags from both copies without changing the base save's timestamp conflict rule.
-  const baseMergeSave=mergeSave;
-  mergeSave=function(name,remote) {
-    let local;
-    try { local=JSON.parse(lsg('sg_save_'+name)||'null')?.chapter2; } catch {}
-    const localNewer=baseMergeSave.call(this,name,remote);
-    if (!local || !remote) return localNewer;
-    const key='sg_save_'+name;
-    const chosen=JSON.parse(lsg(key)||'null');
-    if (!chosen) return localNewer;
-    const online=remote.chapter2 || {episodes:{},seenEvents:{}};
-    const flags={...online.seenEvents,...local.seenEvents};
-    const merged={episodes:{...online.episodes},seenEvents:flags};
+  // Keep monotonic story flags from both devices using the existing save conflict rule.
+  function mergeChapter(local, online = {}) {
+    const merged={episodes:{...online.episodes},seenEvents:{...online.seenEvents,...local.seenEvents}};
     for (const [id,item] of Object.entries(local.episodes||{})) {
       const previous=merged.episodes[id]||{};
       merged.episodes[id]={
@@ -307,11 +466,41 @@
         seenEvents:{...previous.seenEvents,...item.seenEvents},
       };
     }
-    const added=JSON.stringify(merged)!==JSON.stringify(online);
-    if (added || localNewer) {
-      chosen.chapter2=merged;
-      lss(key,JSON.stringify(chosen));
+    return merged;
+  }
+
+  function mergeSpecial(local, online = {}) {
+    const merged={...online};
+    for (const [id,item] of Object.entries(local)) {
+      const previous=merged[id]||{};
+      merged[id]={...previous,...item,clues:{...previous.clues,...item.clues},answers:{...previous.answers,...item.answers}};
+      const quest=specialQuests.get(id);
+      if (quest && quest.clues.every((_,i)=>merged[id].clues[i]) && quest.tasks.every(task=>merged[id].answers[task.id])) {
+        merged[id].completionFlag ||= quest.reward.id;
+      }
     }
+    return merged;
+  }
+
+  const baseMergeSave=mergeSave;
+  mergeSave=function(name,remote) {
+    const key='sg_save_'+name;
+    let local;
+    try { local=JSON.parse(lsg(key)||'null'); } catch {}
+    const localNewer=baseMergeSave.call(this,name,remote);
+    if (!local || !remote) return localNewer;
+    const chosen=JSON.parse(lsg(key)||'null');
+    if (!chosen) return localNewer;
+    let added=false;
+    for (const [field,merge] of [['chapter2',mergeChapter],['specialQuests',mergeSpecial]]) {
+      if (!local[field]) {
+        if (localNewer && remote[field]) chosen[field]=remote[field];
+        continue;
+      }
+      chosen[field]=merge(local[field],remote[field]);
+      if (JSON.stringify(chosen[field])!==JSON.stringify(remote[field])) added=true;
+    }
+    if (added || localNewer) lss(key,JSON.stringify(chosen));
     return localNewer||added;
   };
 
@@ -333,6 +522,12 @@
       story=data;
       episodes=new Map(data.episodes.map(episode=>[episode.id,episode]));
       decorate();
+      return loadData('story/SPECIAL_QUESTS.json').then(special=>{
+        validateSpecial(special);
+        specialPalette=special.palette;
+        specialQuests=new Map(special.quests.map(quest=>[quest.town_id,quest]));
+        decorate();
+      });
     })
     .catch(error=>console.error('Chapter II:',error));
 })();

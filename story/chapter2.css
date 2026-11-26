@@ -10,3 +10,7 @@
 .c2-line span{white-space:normal}
 .c2-body li{margin:.4em 0}
 .twn .btn-s{margin-top:6px}
+.c2-evidence li{padding:3px 0}
+.c2-task{margin:12px 0;padding:8px 12px;border:1px solid #526787;border-radius:8px;min-width:0;overflow-wrap:anywhere}
+.c2-task legend{color:#ffdfa5;max-width:100%}
+.c2-task [role=status]:empty{display:none}

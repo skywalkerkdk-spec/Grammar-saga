@@ -7666,7 +7666,12 @@ function setPos(c,x,y,row,col){const e=document.getElementById('mapme');if(!e)re
  e.style.left=(x/c.W*100).toFixed(3)+'%';e.style.top=(y/c.H*100).toFixed(3)+'%';if(!e.classList.contains('alt'))e.style.backgroundPosition=(col*33.3333)+'% '+(row*33.3333)+'%';else e.classList.toggle('bob',col!==1||false);return true;}
 function follow(){const w=document.querySelector('.wmw'),e=document.getElementById('mapme');if(!w||!e)return;
  const t=e.offsetLeft-w.clientWidth/2;w.scrollLeft=Math.max(0,t);}
+const _rb2=rpgMapBind;rpgMapBind=function(){G.mpPass=false;return _rb2.apply(this,arguments);};
 mapImg=function(c){_m.apply(this,arguments);
+ G.mpPass=false;
+ try{if(lhero()!=='tank')return; // 전사가 아니면 기존 파티 캐릭터가 그대로 걷습니다
+  const old=document.getElementById('mpg');if(old)old.remove();G.mpPass=true; // 기존 걷기(중복) 끄기
+ }catch(e){return;}
  try{const key=c.ghost?'k':'w',wmi=document.getElementById('wmi');if(!wmi)return;
   const P={};c.list.forEach(n=>P[n[0]]=pt(c,n));
   SV.mp=SV.mp||{};let cur=P[SV.mp[key]]?SV.mp[key]:(c.list.find(n=>wmUnlocked(n[0]))||c.list[0])[0];

@@ -1,0 +1,12 @@
+.c2-dialog{width:min(92vw,620px);max-height:85dvh;overflow:auto;color:#f8f2e6;background:#1c2538;border:1px solid #b9a06d;border-radius:14px;padding:0}
+.c2-dialog::backdrop{background:#080b13c9}
+.c2-body{padding:clamp(14px,4vw,24px)}
+.c2-body h2{margin:0 0 10px;color:#ffdfa5}
+.c2-actions{display:flex;gap:7px;flex-wrap:wrap;align-items:center;margin:10px 0}
+.c2-actions select{padding:8px;background:#2d3b57;color:#fff;border:1px solid #a79b84;border-radius:6px}
+.c2-actions [aria-pressed=true]{outline:1px solid #ffda87}
+.c2-lines{background:#101827;padding:14px;border-radius:9px}
+.c2-line{margin:8px 0;line-height:1.6;overflow-wrap:anywhere;white-space:normal}
+.c2-line span{white-space:normal}
+.c2-body li{margin:.4em 0}
+.twn .btn-s{margin-top:6px}

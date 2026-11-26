@@ -1,5 +1,5 @@
 /* Walkable illustrated fields for Chapter II. Movement is local to the open map. */
-window.openChapterField = function(container, map, hero, targets) {
+window.openChapterField = function(container, map, hero, targets, options={}) {
   const directions=[[0,1],[-1,0],[1,0],[0,-1]];
   const keys=['ArrowDown','ArrowLeft','ArrowRight','ArrowUp'];
   const size=46;
@@ -30,8 +30,8 @@ window.openChapterField = function(container, map, hero, targets) {
     destinations.value='';
   };
   container.append(destinations,viewport,controls,instructions);
-  let [x,y]=map.spawn;
-  let face=0;
+  let [x,y,initialFace]=options.position||map.spawn;
+  let face=initialFace??0;
   let segment=null;
   let route=[];
   let arrival=null;
@@ -67,6 +67,7 @@ window.openChapterField = function(container, map, hero, targets) {
       x=segment.x;y=segment.y;
       start=Math.max(now-30,segment.start+duration);
       segment=null;
+      if (options.onStep?.([x,y,face])) return;
     }
     if (!segment) {
       const direction=requested??route.shift()??held?.direction;

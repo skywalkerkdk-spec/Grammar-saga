@@ -303,46 +303,176 @@
     if (dialogue?.open) closeDialogue();
   }
 
+  const meadowId='g1';
+  const drawEncounterDistance=()=>6+Math.floor(Math.random()*6);
+
+  function townDialogue(episode,resident,back) {
+    const recovered=twCleared(episode.id)||SV.town?.[episode.id]?.q?.[resident.index];
+    show(titleFor(episode),[recovered?resident.after_recovery:resident.before_problem],()=>{
+      if (!episodeState(episode.id).accepted) update(episode.id,{accepted:true});
+      rememberEpisode(episode.id,`resident-${resident.index}-${recovered?'after':'before'}`);
+    },back,{skip:!back});
+  }
+
+  function activeMeadow() {
+    const state=G.c2Meadow;
+    if (!state || state.rpg!==isRpgM()) return null;
+    if (state.pending) return state;
+    const run=state.rpg ? G.rp : G.run?.[0];
+    return run?.c2Meadow===state ? state : null;
+  }
+
+  function meadowIndex(state) {
+    return state.rpg ? G.rp.ei : G.ei;
+  }
+
+  function meadowEnemies(state) {
+    return state.rpg ? G.rp.en : G.run;
+  }
+
+  function meadowRemaining(state) {
+    if (!state || state.pending) return null;
+    return meadowEnemies(state).slice(meadowIndex(state)).filter(enemy=>!enemy.boss).length;
+  }
+
+  function saveMeadow(state) {
+    // RPG's standard run saver only runs in its battle screen.
+    if (state.rpg) {
+      const screen=G.scr;
+      G.scr='rbattle';
+      try {rpgSaveRun();} finally {G.scr=screen;}
+    } else saveRun();
+  }
+
+  function beginMeadowFight(position, guardian) {
+    const state=activeMeadow();
+    if (guardian && (!state || meadowRemaining(state)!==0)) return false;
+    closeDialogue();
+    if (state) {
+      state.position=position;
+      state.onField=false;
+      state.lastFight=meadowIndex(state);
+      state.steps=drawEncounterDistance();
+      G.scr=state.rpg?'rbattle':'battle';
+      saveMeadow(state);
+      render();
+      return true;
+    }
+    const rpg=isRpgM();
+    G.c2Meadow={rpg,pending:true,onField:false,lastFight:0,position,steps:drawEncounterDistance()};
+    G.tw=null;
+    const dungeon=DUNGEONS.find(d=>d.id===meadowId);
+    if (rpg) rpgStart(dungeon);
+    else {
+      G.dg=dungeon;
+      G.mates=dungeon.need.slice();
+      G.pets=1;
+      G.clearPaid=false;
+      G.fails=0;
+      G.scr='formed';
+      render();
+    }
+    return true;
+  }
+
   function bevilleField(area) {
     const map=window.chapterFields?.[area];
     if (!map || typeof window.openChapterField!=='function') return;
-    const episode=episodes.get('g1');
+    const episode=episodes.get(meadowId);
     const isTown=area==='town';
+    const state=activeMeadow();
+    const remaining=meadowRemaining(state);
     const body=hubPanel(isTown?townFor(episode):'Be Meadow · 비 초원',()=>{
-      if (!isTown) bevilleField('town');
-      else closeDialogue();
+      if (!isTown) {
+        if (G.scr!=='town') twOpen(meadowId);
+        bevilleField('town');
+      } else closeDialogue();
     });
     body.querySelector('button').textContent=isTown?'비빌 이야기로':'비빌로 돌아가기';
-    const visitResident=index=>{
-      closeDialogue();
-      const card=document.querySelectorAll('#app .twn')[index];
-      if (!card) return;
-      card.scrollIntoView({block:'center'});
-      [...card.querySelectorAll('button')].find(item=>item.textContent==='스토리 대화')?.click();
+    const start=window.chapterFields.meadow.spawn;
+    const position=isTown ? G.c2TownPosition : state?.position;
+    let at=position||map.spawn;
+    let steps=G.c2MeadowSteps??(G.c2MeadowSteps=drawEncounterDistance());
+    const status=node('p',isTown?'':remaining===null ?
+      '초원 길을 걷다 보면 몬스터와 만납니다.' : remaining ?
+      `남은 일반 몬스터 ${remaining}마리 · 계속 탐험하세요.` : '일반 몬스터를 모두 쓰러뜨렸습니다. 수호자 제단으로 가세요.');
+    status.setAttribute('role','status');
+    if (!isTown) body.append(status);
+
+    const openMeadow=()=>{
+      const rpg=isRpgM();
+      if (!activeMeadow() && !wmUnlocked(meadowId)) {
+        body.append(node('p','비 초원 던전이 아직 잠겨 있습니다.'));
+        return;
+      }
+      const continued=rpg?rpgPeek():peekRun();
+      if (!activeMeadow() && continued) {
+        body.append(node('p','이어하기 기록이 있습니다. 그 모험을 이어서 진행하거나 정리한 뒤 초원에 입장하세요.'));
+        return;
+      }
+      bevilleField('meadow');
     };
     const npcImages=['farmer','guide','grandmother','dogkeeper'];
-    const enterBattle=()=>{
-      closeDialogue();
-      const enter=document.getElementById('twgo');
-      if (enter) enter.click();
-      else wmEnter('g1');
-    };
     const targets=isTown ? [
       ...episode.residents.map(resident=>({
-        id:'npc'+resident.index,label:displayName(resident.name_en,resident.name),action:()=>visitResident(resident.index),
+        id:'npc'+resident.index,label:displayName(resident.name_en,resident.name),
+        action:()=>townDialogue(episode,resident,()=>bevilleField('town')),
         image:'story/maps/'+npcImages[resident.index]+'.webp',
       })),
-      {id:'meadow',label:'비 초원 입구',action:()=>bevilleField('meadow')},
+      {id:'meadow',label:'비 초원 입구',action:openMeadow},
     ] : [
-      {id:'town',label:'비빌로 돌아가기',action:()=>bevilleField('town')},
+      {id:'town',label:'마을 출구',action:()=>{
+        if (G.scr!=='town') twOpen(meadowId);
+        bevilleField('town');
+      }},
       {id:'guardian',label:displayName(episode.boss_en,episode.boss),art:()=>{
         const portrait=node('div',undefined,'c2-field-monster');
         portrait.innerHTML=sp(GRMAP.g1.boss.mon,'','MON');
         fill(portrait);
         return portrait;
-      },action:enterBattle},
+      },action:()=>{
+        if (!beginMeadowFight(at,true)) status.textContent='수호자는 아직 길을 막고 있습니다. 초원을 더 탐험하세요.';
+      }},
     ];
-    window.openChapterField(body,map,isRpgM()?rhero():lhero(),targets);
+    window.openChapterField(body,map,state?.rpg||isRpgM()?rhero():lhero(),targets,{
+      position,
+      onStep(next) {
+        at=next;
+        if (isTown) {G.c2TownPosition=next;return false;}
+        if (state) state.position=next;
+        if (remaining===0 || Math.abs(next[0]-start[0])+Math.abs(next[1]-start[1])<=2) return false;
+        if (state) return --state.steps<=0 && beginMeadowFight(next,false);
+        G.c2MeadowSteps=--steps;
+        return steps<=0 && beginMeadowFight(next,false);
+      },
+    });
+  }
+
+  function meadowBeforeRender() {
+    if (G.dg?.id!==meadowId || G.rvm) return false;
+    const rpg=G.scr==='rbattle';
+    if (!rpg && G.scr!=='battle') return false;
+    const source=rpg?G.rp:G.run?.[0];
+    if (!source) return false;
+    let state=G.c2Meadow;
+    if (state?.pending && state.rpg===rpg) {
+      state.pending=false;
+      source.c2Meadow=state;
+      saveMeadow(state);
+      return false;
+    }
+    if (!source.c2Meadow) return false;
+    state=G.c2Meadow=source.c2Meadow;
+    const advanced=meadowIndex(state)>state.lastFight;
+    const previous=meadowEnemies(state)[state.lastFight];
+    if (!state.onField && (!advanced || !previous || previous.boss)) return false;
+    state.onField=true;
+    state.lastFight=meadowIndex(state);
+    if (state.steps<=0) state.steps=drawEncounterDistance();
+    saveMeadow(state);
+    G.scr='c2meadow';
+    bevilleField('meadow');
+    return true;
   }
 
   function decorateTown(episode) {
@@ -357,13 +487,7 @@
       if (!card) continue;
       const name=card.querySelector('.twh b');
       if (name) name.textContent=displayName(resident.name_en,resident.name);
-      const recovered=cleared || SV.town?.[episode.id]?.q?.[resident.index];
-      const line=recovered ? resident.after_recovery : resident.before_problem;
-      card.append(button('스토리 대화',()=>show(titleFor(episode),[line],()=>{
-        const latest=episodeState(episode.id);
-        if (!latest.accepted) update(episode.id,{accepted:true});
-        rememberEpisode(episode.id,`resident-${resident.index}-${recovered?'after':'before'}`);
-      })));
+      card.append(button('스토리 대화',()=>townDialogue(episode,resident)));
     }
     if (episode.id==='g1' && window.chapterFields?.town) {
       const entry=button('비빌 마을 탐험',()=>bevilleField('town'));
@@ -1001,8 +1125,16 @@
 
   const originalRender=render;
   render=function() {
+    if (G.dg?.id===meadowId && ['clear','rresult','fail'].includes(G.scr)) {
+      G.c2Meadow=null;
+      G.c2MeadowSteps=null;
+    }
+    if (dataReady && meadowBeforeRender()) return;
     const result=originalRender.apply(this,arguments);
     decorate();
+    if (G.c2Meadow?.pending && !G.c2Meadow.rpg && G.scr==='formed' && G.dg?.id===meadowId) {
+      document.getElementById('enter')?.click();
+    }
     return result;
   };
 

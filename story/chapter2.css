@@ -14,3 +14,17 @@
 .c2-task{margin:12px 0;padding:8px 12px;border:1px solid #526787;border-radius:8px;min-width:0;overflow-wrap:anywhere}
 .c2-task legend{color:#ffdfa5;max-width:100%}
 .c2-task [role=status]:empty{display:none}
+.c2-case{display:grid;gap:8px}
+.c2-case h4,.c2-case p{margin:.3em 0}
+.c2-case .c2-task{margin:0}
+.c2-case>.btn-s{justify-self:start}
+.c2-placement{min-height:2em;padding:6px 9px;border:1px dashed #92a5c4;border-radius:6px;background:#101827}
+.c2-podium::before{content:attr(data-place) "위";display:inline-block;padding:2px 7px;background:#846a3e;border-radius:5px}
+.c2-timeline li{padding:4px 8px;border-bottom:1px solid #526787}
+.c2-timeline .c2-actions{margin:4px 0}
+.c2-map{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px 10px;padding:18px 12px;min-height:150px;border:1px solid #6d8c91;border-radius:8px;background:linear-gradient(146deg,#395452 0 38%,#527785 39% 60%,#395452 61%);align-items:center}
+.c2-map-point{min-width:0;min-height:44px;white-space:normal;overflow-wrap:anywhere}
+.c2-map-point:last-child{grid-column:2}
+.c2-map-ot{background:linear-gradient(152deg,#294768 0 45%,#54768a 46% 63%,#626048 64%)}
+.c2-map-rs{background:linear-gradient(90deg,#5e593d 0 29%,#354553 30% 70%,#5e593d 71%)}
+.c2-feedback:empty{display:none}

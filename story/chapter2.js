@@ -289,6 +289,196 @@
     return displayName(quest.title_en,quest.title_ko);
   }
 
+  const caseBoards = {
+    identity_match:'안내소의 이름표와 위치', order_builder:'주문표와 확인 질문',
+    safety_plan:'통행 경로와 안전 장비', suspect_match:'수색 대상과 목격 기록',
+    detective:'용의자와 책의 회수 장소', memory_archive:'편지의 인물과 사건',
+    manuscript_decode:'발견자와 비문의 내용', wish_solution:'소원과 해결 방법',
+    lost_found:'분실물에 주인 연결하기', goal_match:'여행 목표와 활동',
+    witness_board:'목격한 일과 느낀 일', festival_setup:'축제 물품과 안전 표지',
+    seal_puzzle:'문을 연 열쇠와 필요한 덕목',
+  };
+
+  function saveAnswers(quest, correct) {
+    const townId=quest.town_id;
+    const saved=specialState(townId);
+    if (!quest.clues.every((_,i)=>saved.clues?.[i])) return;
+    const answers={...saved.answers};
+    for (const task of correct) answers[task.id]=true;
+    const complete=quest.tasks.every(task=>answers[task.id]);
+    saveSpecial(townId,{answers,...(complete?{completionFlag:quest.reward.id}:{})});
+  }
+
+  function taskField(task) {
+    const field=node('fieldset',undefined,'c2-task');
+    const english=node('legend',task.question_en);
+    english.lang='en';
+    field.append(english);
+    if (reading.mode!=='english') field.append(node('p',task.question_ko));
+    return field;
+  }
+
+  function feedbackBox() {
+    const feedback=node('p',undefined,'c2-feedback');
+    feedback.setAttribute('role','status');
+    return feedback;
+  }
+
+  function caseBoard(quest,saved,back) {
+    const board=node('section',undefined,'c2-case');
+    const feedback=feedbackBox();
+    const selected=new Map();
+    const slots=[];
+    const allDone=quest.tasks.every(task=>saved.answers?.[task.id]);
+    board.append(node('h4',caseBoards[quest.interaction_type] ||
+      (quest.interaction_type==='ranking'?'시상대 배치':'사건 기록')));
+    if (!allDone) board.append(node('p','각 칸에 후보를 놓고 제출하세요.'));
+    for (const [index,task] of quest.tasks.entries()) {
+      const field=taskField(task);
+      field.classList.add('c2-slot');
+      if (saved.answers?.[task.id]) {
+        field.append(node('p',task.options[task.correct_index],'c2-placement'));
+      } else {
+        const placement=node('p','비어 있음','c2-placement');
+        placement.setAttribute('aria-live','polite');
+        const options=node('div',undefined,'c2-actions');
+        const choices=task.options.map((choice,i)=>{
+          const option=button(choice,()=>{
+            selected.set(task.id,i);
+            placement.textContent=choice;
+            placement.lang='en';
+            choices.forEach((item,j)=>item.setAttribute('aria-pressed',String(i===j)));
+            updateSubmit();
+          });
+          option.lang='en';
+          option.setAttribute('aria-pressed','false');
+          return option;
+        });
+        options.append(...choices);
+        field.append(placement,options);
+        slots.push({task,field});
+      }
+      if (quest.interaction_type==='ranking') {
+        field.classList.add('c2-podium');
+        field.dataset.place=String(index+1);
+      }
+      board.append(field);
+    }
+    const submit=button('배치 제출',()=>{
+      const correct=slots.filter(({task})=>selected.get(task.id)===task.correct_index);
+      const wrong=slots.filter(slot=>!correct.includes(slot));
+      if (!wrong.length) {saveAnswers(quest,correct.map(slot=>slot.task));back();return;}
+      if (correct.length) {
+        saveAnswers(quest,correct.map(slot=>slot.task));
+        for (const {field,task} of correct) {
+          field.querySelector('.c2-actions').remove();
+          field.querySelector('.c2-placement').textContent=task.options[task.correct_index];
+        }
+        slots.splice(0,slots.length,...wrong);
+      }
+      feedback.textContent=wrong.map(({task})=>task.retry_ko).join(' ');
+      updateSubmit();
+    });
+    function updateSubmit() {
+      const choices=quest.tasks.map(task=>saved.answers?.[task.id]?task.options[task.correct_index]:task.options[selected.get(task.id)]);
+      const duplicate=quest.interaction_type==='ranking' && choices[0] && choices[0]===choices[1];
+      submit.disabled=!!duplicate || slots.some(({task})=>!selected.has(task.id));
+      if (duplicate) feedback.textContent='1위와 2위에는 서로 다른 선수를 놓아야 합니다.';
+      else if (feedback.textContent==='1위와 2위에는 서로 다른 선수를 놓아야 합니다.') feedback.textContent='';
+    }
+    if (!allDone) {
+      updateSubmit();
+      board.append(submit,feedback);
+    }
+    return board;
+  }
+
+  function chronology(task) {
+    const order=['Baking bread','Buying apples','Delivering the cake'].map(event=>task.options.indexOf(event));
+    return order[0]===task.correct_index && order.every(index=>index>=0) ? order : null;
+  }
+
+  function timelineTask(quest,task,back,sequence) {
+    const field=taskField(task);
+    field.append(node('p','위·아래 버튼으로 이른 사건부터 순서대로 배치하세요.'));
+    const order=task.options.map((_,index)=>index);
+    const list=node('ol',undefined,'c2-timeline');
+    const feedback=feedbackBox();
+    function renderOrder(focusIndex,direction) {
+      list.replaceChildren(...order.map((index,position)=>{
+        const row=node('li');
+        const event=node('span',task.options[index]);
+        event.lang='en';
+        const controls=node('div',undefined,'c2-actions');
+        for (const delta of [-1,1]) {
+          const move=button(delta<0?'↑':'↓',()=>{
+            const other=position+delta;
+            [order[position],order[other]]=[order[other],order[position]];
+            feedback.textContent='';
+            renderOrder(other,delta);
+          });
+          move.setAttribute('aria-label',task.options[index]+(delta<0?' 위로':' 아래로'));
+          move.dataset.delta=delta;
+          move.disabled=position+delta<0 || position+delta>=order.length;
+          controls.append(move);
+        }
+        row.append(event,controls);
+        return row;
+      }));
+      if (focusIndex!==undefined) {
+        const row=list.children[focusIndex];
+        (row.querySelector('[data-delta="'+direction+'"]:not(:disabled)') || row.querySelector('button:not(:disabled)')).focus();
+      }
+    }
+    renderOrder();
+    field.append(list,button('시간표 제출',()=>{
+      if (order.some((index,i)=>index!==sequence[i])) {feedback.textContent=task.retry_ko;return;}
+      saveAnswers(quest,[task]);
+      back();
+    }),feedback);
+    return field;
+  }
+
+  function choiceTask(quest,task,back, map) {
+    const field=taskField(task);
+    const feedback=feedbackBox();
+    const options=node('div',undefined,map?'c2-map c2-map-'+quest.town_id:'c2-actions');
+    if (map) field.append(node('p','약도에서 단서와 일치하는 지점을 선택하세요.'));
+    task.options.forEach((choice,index)=>{
+      const option=button(choice,()=>{
+        if (index!==task.correct_index) {feedback.textContent=task.retry_ko;return;}
+        saveAnswers(quest,[task]);
+        back();
+      });
+      option.lang='en';
+      if (map) option.classList.add('c2-map-point');
+      options.append(option);
+    });
+    field.append(options,feedback);
+    return field;
+  }
+
+  function renderSpecialTasks(body,quest,saved,back) {
+    const type=quest.interaction_type;
+    if (Object.hasOwn(caseBoards,type) || type==='ranking') {
+      body.append(caseBoard(quest,saved,back));
+      return;
+    }
+    const map=['map_search','navigation','message_restore'].includes(type);
+    for (const [i,task] of quest.tasks.entries()) {
+      const sequence=i===0 && type==='timeline' ? chronology(task) : null;
+      if (saved.answers?.[task.id]) {
+        const field=taskField(task);
+        field.append(node('p','해결 완료'));
+        body.append(field);
+      } else if (sequence) {
+        body.append(timelineTask(quest,task,back,sequence));
+      } else {
+        body.append(choiceTask(quest,task,back,map&&i===0));
+      }
+    }
+  }
+
   function specialJournal(townId) {
     closeDialogueIfOpen();
     const quest=specialQuests.get(townId);
@@ -324,36 +514,7 @@
           body.append(button('마을 방문',()=>{closeDialogue();twOpen(townId);}));
         }
       } else {
-        for (const task of quest.tasks) {
-          const field=node('fieldset',undefined,'c2-task');
-          const english=node('legend',task.question_en);
-          english.lang='en';
-          field.append(english);
-          if (reading.mode!=='english') field.append(node('p',task.question_ko));
-          if (saved.answers?.[task.id]) {
-            field.append(node('p','해결 완료'));
-          } else {
-            const feedback=node('p');
-            feedback.setAttribute('role','status');
-            const options=node('div',undefined,'c2-actions');
-            task.options.forEach((choice,i)=>{
-              const option=button(choice,()=>{
-                if (i!==task.correct_index) {
-                  feedback.textContent=task.retry_ko;
-                  return;
-                }
-                const answers={...specialState(townId).answers,[task.id]:true};
-                const complete=quest.tasks.every(item=>answers[item.id]);
-                saveSpecial(townId,{answers,...(complete?{completionFlag:quest.reward.id}:{})});
-                back();
-              });
-              option.lang='en';
-              options.append(option);
-            });
-            field.append(options,feedback);
-          }
-          body.append(field);
-        }
+        renderSpecialTasks(body,quest,saved,back);
       }
       if (saved.completionFlag && !episodeState(townId).seenEvents?.nextDialogue &&
           (!quest.next_id ? [...episodes.keys()].every(id=>episodeState(id).rewardClaimed) : true)) {

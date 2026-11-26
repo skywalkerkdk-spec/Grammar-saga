@@ -19,7 +19,7 @@ window.openChapterField = function(container, map, hero, targets, options={}) {
   const controls=document.createElement('div');
   controls.className='c2-field-controls';
   const instructions=document.createElement('p');
-  instructions.textContent='길이나 주민을 누르거나 방향키로 이동하세요.';
+  instructions.textContent='조이스틱을 밀거나 길을 눌러 이동하세요.';
   const destinations=document.createElement('select');
   destinations.setAttribute('aria-label','탐험 목적지');
   destinations.add(new Option('목적지 선택',''));
@@ -83,7 +83,12 @@ window.openChapterField = function(container, map, hero, targets, options={}) {
       if (completed && options.onStep?.([x,y,face])) return;
     }
     if (!segment) {
-      const direction=requested??route.shift()??held?.direction;
+      const queued=requested??route.shift();
+      let direction=queued??held?.direction;
+      if (held?.token===stick && direction===held.direction && fallback!==null) {
+        const [dx,dy]=directions[direction];
+        if (!walkable(x+dx,y+dy)) direction=fallback;
+      }
       requested=null;
       if (direction!==undefined) {
         const [dx,dy]=directions[direction];
@@ -109,12 +114,13 @@ window.openChapterField = function(container, map, hero, targets, options={}) {
   }
 
   function moveTo(tx,ty,action=null) {
+    const distanceLimit=action || !walkable(tx,ty) ? 1 : 0;
     const start=segment && !segment.returning ? {x:segment.x,y:segment.y} : {x,y};
     const queue=[{...start,path:[]}];
     const seen=new Set([start.x+','+start.y]);
     for (const current of queue) {
       const distance=Math.abs(current.x-tx)+Math.abs(current.y-ty);
-      if (distance<=(action?1:0)) {
+      if (distance<=distanceLimit) {
         route=current.path;
         held=requested=null;
         arrival=action ? ()=>{
@@ -173,17 +179,52 @@ window.openChapterField = function(container, map, hero, targets, options={}) {
     world.append(pin);
   }
 
-  for (const direction of [3,1,0,2]) {
-    const el=control(['▼','◀','▶','▲'][direction],event=>{if(event.detail===0)move(direction);});
-    el.setAttribute('aria-label',['아래로 이동','왼쪽으로 이동','오른쪽으로 이동','위로 이동'][direction]);
-    el.onpointerdown=event=>{
-      if (event.button!==0) return;
-      el.setPointerCapture(event.pointerId);
-      move(direction,el);
-    };
-    el.onlostpointercapture=()=>{if(held?.token===el)held=null;};
-    controls.append(el);
+  const stick=control('',()=>{});
+  stick.className='c2-field-stick';
+  stick.setAttribute('aria-label','이동 조이스틱');
+  const knob=document.createElement('span');
+  knob.className='c2-field-knob';
+  knob.setAttribute('aria-hidden','true');
+  stick.append(knob);
+  let pointer=null;
+  let fallback=null;
+  function aim(event) {
+    const box=stick.getBoundingClientRect();
+    const dx=event.clientX-box.left-box.width/2;
+    const dy=event.clientY-box.top-box.height/2;
+    const distance=Math.hypot(dx,dy);
+    if (distance<9) {
+      if (held?.token===stick) {held=null;requested=null;}
+      fallback=null;
+      knob.style.transform='';
+      return;
+    }
+    const scale=Math.min(1,27/distance);
+    knob.style.transform=`translate(${dx*scale}px,${dy*scale}px)`;
+    const horizontal=dx<0?1:2;
+    const vertical=dy<0?3:0;
+    const horizontalFirst=Math.abs(dx)>Math.abs(dy);
+    const direction=horizontalFirst?horizontal:vertical;
+    fallback=Math.min(Math.abs(dx),Math.abs(dy))>=distance*.35 ? (horizontalFirst?vertical:horizontal) : null;
+    if (held?.token!==stick || held.direction!==direction) move(direction,stick);
+    else schedule();
   }
+  stick.onpointerdown=event=>{
+    if (event.button!==0 || pointer!==null) return;
+    pointer=event.pointerId;
+    stick.setPointerCapture(pointer);
+    aim(event);
+  };
+  stick.onpointermove=event=>{if (event.pointerId===pointer) aim(event);};
+  const release=event=>{
+    if (event.pointerId!==pointer) return;
+    pointer=null;
+    if (held?.token===stick) held=null;
+    fallback=null;
+    knob.style.transform='';
+  };
+  stick.onpointerup=stick.onpointercancel=stick.onlostpointercapture=release;
+  controls.append(stick);
   const interact=control('상호작용',()=>{
     const target=targets.find(item=>{
       const [tx,ty]=map.points[item.id];

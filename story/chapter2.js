@@ -303,6 +303,48 @@
     if (dialogue?.open) closeDialogue();
   }
 
+  function bevilleField(area) {
+    const map=window.chapterFields?.[area];
+    if (!map || typeof window.openChapterField!=='function') return;
+    const episode=episodes.get('g1');
+    const isTown=area==='town';
+    const body=hubPanel(isTown?townFor(episode):'Be Meadow · 비 초원',()=>{
+      if (!isTown) bevilleField('town');
+      else closeDialogue();
+    });
+    body.querySelector('button').textContent=isTown?'비빌 이야기로':'비빌로 돌아가기';
+    const visitResident=index=>{
+      closeDialogue();
+      const card=document.querySelectorAll('#app .twn')[index];
+      if (!card) return;
+      card.scrollIntoView({block:'center'});
+      [...card.querySelectorAll('button')].find(item=>item.textContent==='스토리 대화')?.click();
+    };
+    const npcImages=['farmer','guide','grandmother','dogkeeper'];
+    const enterBattle=()=>{
+      closeDialogue();
+      const enter=document.getElementById('twgo');
+      if (enter) enter.click();
+      else wmEnter('g1');
+    };
+    const targets=isTown ? [
+      ...episode.residents.map(resident=>({
+        id:'npc'+resident.index,label:displayName(resident.name_en,resident.name),action:()=>visitResident(resident.index),
+        image:'story/maps/'+npcImages[resident.index]+'.webp',
+      })),
+      {id:'meadow',label:'비 초원 입구',action:()=>bevilleField('meadow')},
+    ] : [
+      {id:'town',label:'비빌로 돌아가기',action:()=>bevilleField('town')},
+      {id:'guardian',label:displayName(episode.boss_en,episode.boss),art:()=>{
+        const portrait=node('div',undefined,'c2-field-monster');
+        portrait.innerHTML=sp(GRMAP.g1.boss.mon,'','MON');
+        fill(portrait);
+        return portrait;
+      },action:enterBattle},
+    ];
+    window.openChapterField(body,map,isRpgM()?rhero():lhero(),targets);
+  }
+
   function decorateTown(episode) {
     const cards=document.querySelectorAll('#app .twn');
     const saved=episodeState(episode.id);
@@ -322,6 +364,10 @@
         if (!latest.accepted) update(episode.id,{accepted:true});
         rememberEpisode(episode.id,`resident-${resident.index}-${recovered?'after':'before'}`);
       })));
+    }
+    if (episode.id==='g1' && window.chapterFields?.town) {
+      const entry=button('비빌 마을 탐험',()=>bevilleField('town'));
+      document.querySelector('#app .speaker')?.after(entry);
     }
     townEvents(episode,cleared);
     if (!cleared || !representative) return;

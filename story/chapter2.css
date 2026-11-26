@@ -28,3 +28,7 @@
 .c2-map-ot{background:linear-gradient(152deg,#294768 0 45%,#54768a 46% 63%,#626048 64%)}
 .c2-map-rs{background:linear-gradient(90deg,#5e593d 0 29%,#354553 30% 70%,#5e593d 71%)}
 .c2-feedback:empty{display:none}
+.c2-body details{padding:.65rem 0;border-bottom:1px solid #526787}
+.c2-body summary{cursor:pointer}
+.c2-portrait canvas{width:96px;height:auto;image-rendering:auto}
+.c2-scene-art{display:block;width:100%;max-height:180px;object-fit:cover;border-radius:8px;margin-bottom:10px}

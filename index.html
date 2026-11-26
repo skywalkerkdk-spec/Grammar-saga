@@ -2097,7 +2097,7 @@ function bindQ(e){flav();bubbleSync();
 }
 function resolve(e,ok,mine){G.lastMine=mine||'';if(G.rvm){rvResolve(e,ok);return;}if(rdOn()){rdResolve(e,ok);return;}if(G.rpg){rpgResolve(e,ok);return;}if(pvOn()){pvResolve(e,ok);return;}
  G.gotGold=0;
- if(G.first){const wt=e.wt||1;G.tot++;G.totw=(G.totw||0)+wt;if(ok){G.ok++;G.okw=(G.okw||0)+wt;G.cmb=(G.cmb||0)+1;if(G.cmb>(G.maxCmb||0))G.maxCmb=G.cmb;G.gotGold=Math.max(1,bonusC(Math.round(LEVELS[LV()].g*(e.boss?2:1))));SV.cry+=G.gotGold;G.goldRun+=G.gotGold;saveNow();}else{G.cmb=0;G.wrongs.push({e,mine:mine||'',q:e.sentence||e.c.map(c=>c[0]).join(' ')+'.',t:qlabel(e.type)});wkAdd(e);}G.first=false;}
+ if(G.first){const wt=e.wt||1;G.tot++;G.totw=(G.totw||0)+wt;if(ok){G.ok++;G.okw=(G.okw||0)+wt;G.cmb=(G.cmb||0)+1;if(G.cmb>(G.maxCmb||0))G.maxCmb=G.cmb;G.gotGold=G.dg.storyRewardOnly?0:Math.max(1,bonusC(Math.round(LEVELS[LV()].g*(e.boss?2:1))));SV.cry+=G.gotGold;G.goldRun+=G.gotGold;saveNow();}else{G.cmb=0;G.wrongs.push({e,mine:mine||'',q:e.sentence||e.c.map(c=>c[0]).join(' ')+'.',t:qlabel(e.type)});wkAdd(e);}G.first=false;}
  G.done=true;G.pick=ok?'ok':'no';G.healed=false;
  G.guarded=0;if(!ok){if(lhGuard())G.guarded=1;else G.hp--;G.streak=0;}else if(G.hp<3){G.streak=(G.streak||0)+1;if(G.streak>=lhNeed()){G.hp++;G.healed=true;G.streak=0;}}else G.streak=0;
  const pty=$('pty'),mon=$('mon'),ar=$('arena');
@@ -2142,8 +2142,8 @@ function noteHTML(){
 function clear(){
  if(G.wrongs.length&&G.rvFor!==G.wrongs&&!G.rvm&&!G.dev){startReview(G.wrongs.map(w=>w.e),skip=>{G.rvFor=G.wrongs;if(skip)G.rvSkipFor=G.wrongs;G.scr='clear';render();});return;}
  const d=G.dg,rate=G.tot?Math.round(G.ok/G.tot*100):0;
- const first=!SV.cleared.includes(d.id);const bonus=Math.max(1,bonusC(Math.round(LEVELS[LV()].b)));
- const rvSk=G.rvSkipFor===G.wrongs;if(!G.clearPaid){if(!rvSk){SV.cry+=bonus;G.goldRun+=bonus;}if(first)SV.cleared.push(d.id);G.stoneMsg=[];if(!rvSk)stoneOnClear(d,false);saveNow();G.clearPaid=true;if(!rvSk)rankDgLearn();}
+ const first=!SV.cleared.includes(d.id);const bonus=d.storyRewardOnly?0:Math.max(1,bonusC(Math.round(LEVELS[LV()].b)));
+ const rvSk=G.rvSkipFor===G.wrongs;if(!G.clearPaid){if(!rvSk){SV.cry+=bonus;G.goldRun+=bonus;}if(first)SV.cleared.push(d.id);G.stoneMsg=[];if(!rvSk&&!d.storyRewardOnly)stoneOnClear(d,false);saveNow();G.clearPaid=true;if(!rvSk&&!d.storyRewardOnly)rankDgLearn();}
  let title,em;if(rate>=90){title='전설의 파티 리더';em='👑';}else if(rate>=70){title='믿음직한 탱커';em='🛡️';}else{title='성장 중인 견습 탱커';em='🌱';}
  $('app').innerHTML=hud()+`<div class="card">
  <div class="big-emoji">${em}</div><h2 class="tf" style="text-align:center;font-size:34px;margin:0;color:var(--gold)">${d.name} 클리어!</h2>

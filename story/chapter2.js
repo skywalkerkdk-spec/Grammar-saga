@@ -64,7 +64,18 @@
     };
     const finish=() => { dismiss(); done?.(); back?.(); };
     const leave=() => { dismiss(); back?.(); };
-    dialogue.addEventListener('cancel', event => {event.preventDefault();leave();});
+    dialogue.addEventListener('cancel', event => {
+      event.preventDefault();
+      if (field && index===lines.length-1) finish();
+      else leave();
+    });
+    if (field) dialogue.addEventListener('click',event=>{
+      if (event.target!==event.currentTarget) return;
+      const {left,right,top,bottom}=event.currentTarget.getBoundingClientRect();
+      if (event.clientX>=left && event.clientX<=right && event.clientY>=top && event.clientY<=bottom) return;
+      if (index===lines.length-1) finish();
+      else leave();
+    });
     const section=node('div',undefined,'c2-body');
     dialogue.append(section);
     const speech = window.speechSynthesis && typeof window.SpeechSynthesisUtterance === 'function';
@@ -125,7 +136,7 @@
       audio.disabled=!speech;
       const previous=button('이전',()=>{index--;window.speechSynthesis?.cancel();renderLine();section.querySelector('[data-advance]').focus();});
       previous.disabled=index===0;
-      const advance=button(index===lines.length-1?'완료':'다음',()=>{
+      const advance=button(index===lines.length-1?(field?'닫기':'완료'):'다음',()=>{
         if (index===lines.length-1) finish();
         else {index++;window.speechSynthesis?.cancel();renderLine();section.querySelector('[data-advance]').focus();}
       });
@@ -134,7 +145,7 @@
       if (!field || lines.length>1) actions.append(previous);
       actions.append(advance);
       if (options.skip!==false) actions.append(button('건너뛰기',finish));
-      actions.append(button('닫기',leave));
+      if (!field || index<lines.length-1) actions.append(button('닫기',leave));
       if (field) section.replaceChildren(content,controls,actions);
       else section.replaceChildren(node('h2',title),node('p',`${index+1} / ${lines.length}`),controls,content,actions);
       if (options.art?.image) {

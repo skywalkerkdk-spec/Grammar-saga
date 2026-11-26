@@ -2053,7 +2053,7 @@ function qbody(e){
   const heal=ok&&G.healed?` <span class="healpop">🔥${lhNeed()}연속 정답! +❤️</span>`:(ok&&G.hp<3?` <span class="hint">🔥 ${G.streak}/${lhNeed()}</span>`:'');const hurt=!ok&&G.guarded?` <span class="healpop">🛡️ ${HWORD[lhero()]}의 힘으로 하트를 지켰어요!</span>`:!ok&&!G.rvm?` <span class="hurtpop">-❤️ (남은 하트 ${Math.max(0,G.hp)})</span>`:'';
   const gold=ok&&G.gotGold?` <span class="goldpop">+💎${G.gotGold}</span>`:'';
   h+=`<div class="feedback ${ok?'ok':'no'}"><div style="font-weight:900;font-size:19px">${head}${gold}${heal}${hurt}</div>${(()=>{let q='';if(ok&&e.type==='judge'&&e.answer==='retreat')q=e.retreatT;else if(ok&&HP1(e)===0)q=e.kill;else if(!ok)q=e.taunt;return q?`<div class="talk">💬 <b>${esc(e.mname)}</b>: "${esc(q)}"</div>`:'';})()}${ok?glossHTML(e)+'<div class="exp">'+explainHTML(e)+'</div>':(G.rvm?'<div class="rvans">✅ 정답: <b>'+esc(rightAns(e))+'</b></div>'+glossHTML(e)+'<div class="exp">'+explainHTML(e)+'</div>'+(typeof detailHTML==='function'?detailHTML(e):'')+'<div class="hint">👀 해설을 읽고 다시 도전해 보세요!</div>':wrongWhy(e))}</div>`;
-  h+= ok?`<button class="next" id="nx">${G.ei<G.run.length-1?(HP1(e)>0?'⚔️ 계속 공격 ▶':(G.dg.full?'다음 적 ▶':'다음 몬스터 ▶')):'🏆 결과 보기'}</button>`:(G.hp<=0?`<button class="next grave-btn" id="tograve">🪦 파티가 쓰러졌다… 묘지로</button>`:`<button class="next" id="rt">🔁 다시 도전</button>`);
+  h+= ok?`<button class="next" id="nx">${G.ei<G.run.length-1?(HP1(e)>0?'⚔️ 계속 공격 ▶':G.run[0]?.c2Meadow&&!e.boss?'확인':(G.dg.full?'다음 적 ▶':'다음 몬스터 ▶')):'🏆 결과 보기'}</button>`:(G.hp<=0?`<button class="next grave-btn" id="tograve">🪦 파티가 쓰러졌다… 묘지로</button>`:`<button class="next" id="rt">🔁 다시 도전</button>`);
  }
  return h;
 }
@@ -2714,7 +2714,7 @@ function rpgAfterAtk(e){const R=G.rp,ok=G.pick==='ok',en=R.en[R.ei];
  let h=`<div class="feedback ${ok?'ok':'no'}"><div style="font-weight:900;font-size:19px">${R.log}</div>`;
  if(ok)h+=glossHTML(e)+'<div class="exp">'+explainHTML(e)+'</div>';else h+=wrongWhy(e);
  h+='</div>';
- h+= en.hp<=0?`<button class="next" id="rnx">${R.ei<R.en.length-1?'다음 적 ▶':'🏆 결과 보기'}</button>`:`<button class="next" id="rnx">🛡️ 적의 턴 ▶</button>`;
+ h+= en.hp<=0?`<button class="next" id="rnx">${R.ei<R.en.length-1?(R.c2Meadow?'확인':'다음 적 ▶'):'🏆 결과 보기'}</button>`:`<button class="next" id="rnx">🛡️ 적의 턴 ▶</button>`;
  return h;}
 function rpgBind(){const R=G.rp;bubbleSync();
  if(R.phase==='atkres'&&R.hres){const n=$('rnx');if(n)n.onclick=()=>{R.hres=null;rpgToDef();};return;}

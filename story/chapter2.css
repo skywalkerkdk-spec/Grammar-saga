@@ -47,3 +47,10 @@
 .c2-field-monster{pointer-events:none}
 .c2-field-monster canvas{display:block;width:86px;height:86px}
 .c2-body select[aria-label="탐험 목적지"]{box-sizing:border-box;max-width:100%;margin:8px 0;padding:8px;border-radius:6px;background:#243852;color:#fff;border:1px solid #a79b84}
+.c2-field-dialogue{position:fixed;inset:auto 0 max(8px,env(safe-area-inset-bottom));margin:0 auto;width:min(calc(100% - 16px),620px);max-height:70dvh;background:#141d2bea;border-color:#dec191;box-shadow:0 6px 24px #080b13b3}
+.c2-field-dialogue::backdrop{background:#080b1333}
+.c2-field-dialogue .c2-body{padding:12px}
+.c2-field-dialogue .c2-lines{padding:10px 12px;background:#0e1624}
+.c2-field-dialogue .c2-actions{margin:8px 0 0}
+.c2-field-speaker{display:flex;align-items:center;gap:8px;color:#ffdfa5}
+.c2-field-speaker img{width:48px;height:48px;object-fit:contain}

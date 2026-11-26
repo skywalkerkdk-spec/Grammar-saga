@@ -52,13 +52,18 @@
   }
 
   function show(title, lines, done, back, options = {}) {
-    if (dialogue?.open) closeDialogue();
-    dialogue=node('dialog',undefined,'c2-dialog');
-    dialogue.setAttribute('aria-label',title);
+    const field=options.field ? dialogue : null;
+    if (!field && dialogue?.open) closeDialogue();
+    dialogue=node('dialog',undefined,field?'c2-dialog c2-field-dialogue':'c2-dialog');
+    dialogue.setAttribute('aria-label',field ? displayName(lines[0].speaker_en,lines[0].speaker) : title);
     document.body.append(dialogue);
     let index=0;
-    const finish=() => { closeDialogue(); done?.(); back?.(); };
-    const leave=() => { closeDialogue(); back?.(); };
+    const dismiss=()=>{
+      closeDialogue();
+      if (field?.open) dialogue=field;
+    };
+    const finish=() => { dismiss(); done?.(); back?.(); };
+    const leave=() => { dismiss(); back?.(); };
     dialogue.addEventListener('cancel', event => {event.preventDefault();leave();});
     const section=node('div',undefined,'c2-body');
     dialogue.append(section);
@@ -88,7 +93,15 @@
       }
       const content=node('div',undefined,'c2-lines');
       content.setAttribute('aria-live','polite');
-      content.append(node('strong',displayName(line.speaker_en,line.speaker)));
+      const speaker=node('strong',displayName(line.speaker_en,line.speaker));
+      if (field) {
+        const header=node('div',undefined,'c2-field-speaker');
+        const portrait=node('img');
+        portrait.src=options.field;
+        portrait.alt='';
+        header.append(portrait,speaker);
+        content.append(header);
+      } else content.append(speaker);
       const languages=mode==='english' ? ['en'] : ['en','ko'];
       for (const language of languages) {
         const p=node('p',undefined,'c2-line');
@@ -117,10 +130,13 @@
         else {index++;window.speechSynthesis?.cancel();renderLine();section.querySelector('[data-advance]').focus();}
       });
       advance.dataset.advance='';
-      actions.append(audio,previous,advance);
+      actions.append(audio);
+      if (!field || lines.length>1) actions.append(previous);
+      actions.append(advance);
       if (options.skip!==false) actions.append(button('건너뛰기',finish));
       actions.append(button('닫기',leave));
-      section.replaceChildren(node('h2',title),node('p',`${index+1} / ${lines.length}`),controls,content,actions);
+      if (field) section.replaceChildren(content,controls,actions);
+      else section.replaceChildren(node('h2',title),node('p',`${index+1} / ${lines.length}`),controls,content,actions);
       if (options.art?.image) {
         const art=node('img',undefined,'c2-scene-art');
         art.alt='';
@@ -306,12 +322,12 @@
   const meadowId='g1';
   const drawEncounterDistance=()=>6+Math.floor(Math.random()*6);
 
-  function townDialogue(episode,resident,back) {
+  function townDialogue(episode,resident,portrait) {
     const recovered=twCleared(episode.id)||SV.town?.[episode.id]?.q?.[resident.index];
     show(titleFor(episode),[recovered?resident.after_recovery:resident.before_problem],()=>{
       if (!episodeState(episode.id).accepted) update(episode.id,{accepted:true});
       rememberEpisode(episode.id,`resident-${resident.index}-${recovered?'after':'before'}`);
-    },back,{skip:!back});
+    },undefined,{skip:!portrait,field:portrait});
   }
 
   function activeMeadow() {
@@ -416,7 +432,7 @@
     const targets=isTown ? [
       ...episode.residents.map(resident=>({
         id:'npc'+resident.index,label:displayName(resident.name_en,resident.name),
-        action:()=>townDialogue(episode,resident,()=>bevilleField('town')),
+        action:()=>townDialogue(episode,resident,'story/maps/'+npcImages[resident.index]+'.webp'),
         image:'story/maps/'+npcImages[resident.index]+'.webp',
       })),
       {id:'meadow',label:'비 초원 입구',action:openMeadow},

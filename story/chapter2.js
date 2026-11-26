@@ -402,6 +402,25 @@
     return true;
   }
 
+  function residentTargets(episode,portraitFor) {
+    return episode.residents.map(resident=>{
+      const image=portraitFor(resident.index);
+      return {
+        id:'npc'+resident.index,
+        label:displayName(resident.name_en,resident.name),
+        image,
+        action:()=>townDialogue(episode,resident,image),
+      };
+    });
+  }
+
+  function villageField(episode,map) {
+    const body=hubPanel(townFor(episode),closeDialogue);
+    body.querySelector('button').textContent='마을 이야기로';
+    const targets=residentTargets(episode,index=>`story/maps/villages/${episode.id}-${index}.webp`);
+    window.openChapterField(body,map,isRpgM()?rhero():lhero(),targets);
+  }
+
   function bevilleField(area) {
     const map=window.chapterFields?.[area];
     if (!map || typeof window.openChapterField!=='function') return;
@@ -441,11 +460,7 @@
     };
     const npcImages=['farmer','guide','grandmother','dogkeeper'];
     const targets=isTown ? [
-      ...episode.residents.map(resident=>({
-        id:'npc'+resident.index,label:displayName(resident.name_en,resident.name),
-        action:()=>townDialogue(episode,resident,'story/maps/'+npcImages[resident.index]+'.webp'),
-        image:'story/maps/'+npcImages[resident.index]+'.webp',
-      })),
+      ...residentTargets(episode,index=>`story/maps/${npcImages[index]}.webp`),
       {id:'meadow',label:'비 초원 입구',action:openMeadow},
     ] : [
       {id:'town',label:'마을 출구',action:()=>{
@@ -517,8 +532,12 @@
       if (name) name.textContent=displayName(resident.name_en,resident.name);
       card.append(button('스토리 대화',()=>townDialogue(episode,resident)));
     }
-    if (episode.id==='g1' && window.chapterFields?.town) {
-      const entry=button('비빌 마을 탐험',()=>bevilleField('town'));
+    const map=episode.id===meadowId ? window.chapterFields?.town : window.chapterFields?.villages?.[episode.id];
+    if (map && typeof window.openChapterField==='function') {
+      const entry=button(episode.id===meadowId?'비빌 마을 탐험':'마을 탐험',()=>{
+        if (episode.id===meadowId) bevilleField('town');
+        else villageField(episode,map);
+      });
       document.querySelector('#app .speaker')?.after(entry);
     }
     townEvents(episode,cleared);

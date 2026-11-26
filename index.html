@@ -1204,6 +1204,7 @@ textarea.input{width:100%;box-sizing:border-box;resize:vertical;font-family:inhe
 .qrbox{background:#241d36;border:1px solid #fff3;border-radius:16px;padding:16px;width:min(420px,100%);color:#fff}
 .qrbox h3{margin:0 0 6px}.qrchips{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}.qrbox textarea{width:100%;box-sizing:border-box}
 .qri{border-top:1px solid #fff2;padding:8px 0;font-size:14px}.qrwhy{color:#ffd0d0;margin:4px 0}
+.exmap{position:relative}.exme{position:absolute;width:52px;height:52px;background:url(wk_tank.webp) 0 0/208px 208px no-repeat;pointer-events:none;z-index:3;filter:drop-shadow(0 2px 2px #0009)}
 
 </style>
 </head>
@@ -7569,7 +7570,7 @@ const W=9;
 function groups(){const gs=[];let st=0;G.run.forEach((e,i)=>{if(HP1(e)===0||i===G.run.length-1){gs.push([st,i]);st=i+1;}});return gs;}
 function expInit(){const M=MP[G.dg&&G.dg.id];if(!M||G.rpg)return false;const gs=groups();if(gs.length-1>8)return false;
  let px=1,py=1;M.forEach((r,y)=>{const x=r.indexOf('S');if(x>=0){px=x;py=y;}});
- G.exp={on:true,id:G.dg.id,gs,px,py,fk:-1,cur:0,got:{},busy:false};return true;}
+ G.exp={on:true,id:G.dg.id,gs,px,py,fk:-1,cur:0,got:{},busy:false,dir:0,fr:1};return true;}
 function eidx(ch){const X=G.exp;if(ch==='B')return X.gs.length-1;const i=ch.charCodeAt(0)-97;return(ch>='a'&&ch<='z'&&i<X.gs.length-1)?i:-1;}
 function cell(x,y){const M=MP[G.exp.id];return(M[y]||'')[x]||'#';}
 function kind(x,y){const X=G.exp,ch=cell(x,y);if(ch==='#')return 'w';
@@ -7579,26 +7580,27 @@ function expMap(){const X=G.exp,M=MP[X.id];let h='';
   if(k==='w')c='🌳';
   else if(k==='e'||k==='l'){const e=G.run[X.gs[eidx(ch)][0]];c=monHTML(e);cls+=k==='l'?' lk':' en';}
   else if(ch==='$'&&!X.got[x+','+y])c='<span class="gm">💎</span>';
-  if(x===X.px&&y===X.py){c=sp('tank');cls+=' me';}
   h+=`<div class="${cls}" data-x="${x}" data-y="${y}">${c}</div>`;}
- const left=X.gs.length-1-X.cur+1;
  $('app').innerHTML=hud()+`<div class="card" style="text-align:center"><h2 class="tf" style="margin:0;font-size:26px">🗺️ ${esc(G.dg.name)} 탐험</h2>
- <div class="hint">길을 눌러 이동하세요. 반짝이는 몬스터에게 다가가면 전투! · 남은 적 ${left} · 💎 ${Object.keys(X.got).length}/3</div>
- <div class="exmap" id="exmap">${h}</div>
+ <div class="hint" id="exinfo">${infoText()}</div>
+ <div class="exmap" id="exmap">${h}<div class="exme" id="exme"></div></div>
  <div class="expad"><button data-d="u">▲</button><div><button data-d="l">◀</button><button data-d="d">▼</button><button data-d="r">▶</button></div></div>
  <button class="next" id="exoff" style="background:#555;margin-top:8px">🚪 탐험 끝내고 바로 전투</button></div>`;
- fill($('app'));
+ fill($('app'));sprSet(1,false);
  document.querySelectorAll('#exmap .t').forEach(t=>t.onclick=()=>goTo(+t.dataset.x,+t.dataset.y));
  document.querySelectorAll('.expad button').forEach(b=>b.onclick=()=>{const d={u:[0,-1],d:[0,1],l:[-1,0],r:[1,0]}[b.dataset.d];step(X.px+d[0],X.py+d[1]);});
  $('exoff').onclick=()=>{X.fk=X.cur;G.exp.on=false;render();};}
+function infoText(){const X=G.exp,left=X.gs.length-1-X.cur+1;return `길을 눌러 이동하세요. 반짝이는 몬스터에게 다가가면 전투! · 남은 적 ${left} · 💎 ${Object.keys(X.got).length}/3`;}
+function sprSet(frame,anim){const e=document.getElementById('exme'),X=G.exp;if(!e||!X)return;e.style.transition=anim?'left .11s linear,top .11s linear':'none';e.style.left=(X.px*38-7)+'px';e.style.top=((X.py+1)*38-49)+'px';e.style.backgroundPosition=`${-frame*52}px ${-(X.dir||0)*52}px`;}
+function walk(){const X=G.exp;X.fr=((X.fr||0)+1)%4;sprSet(X.fr,true);clearTimeout(X.idle);X.idle=setTimeout(()=>{if(G.exp===X){X.fr=1;sprSet(1,false);}},200);}
 function pass(x,y){const k=kind(x,y);return k==='f'||k==='e';}
 function step(x,y){const X=G.exp;if(!X||X.busy||Math.abs(x-X.px)+Math.abs(y-X.py)!==1||!pass(x,y)){sfxSafe('click');return false;}
- X.px=x;X.py=y;const ch=cell(x,y);
- if(ch==='$'&&!X.got[x+','+y]){X.got[x+','+y]=1;SV.cry+=1;saveNow();sfxSafe('fanfare');}
+ X.dir=y<X.py?3:y>X.py?0:x<X.px?1:2;X.px=x;X.py=y;const ch=cell(x,y);
+ if(ch==='$'&&!X.got[x+','+y]){X.got[x+','+y]=1;SV.cry+=1;saveNow();sfxSafe('fanfare');const g=document.querySelector(`#exmap .t[data-x="${x}"][data-y="${y}"] .gm`);if(g)g.remove();const i=document.getElementById('exinfo');if(i)i.textContent=infoText();}
  if(kind(x,y)==='e'){X.busy=true;expMap();const m=document.querySelector('#exmap .me');
   const b=document.createElement('div');b.className='exenc';b.textContent='⚔️ 몬스터 조우!';document.querySelector('.card').appendChild(b);sfxSafe('wipe');
   setTimeout(()=>{X.busy=false;X.fk=X.cur;render();},650);return true;}
- sfxSafe('click');expMap();return true;}
+ sfxSafe('click');walk();return true;}
 function sfxSafe(n){try{sfx(n);}catch(e){}}
 function goTo(tx,ty){const X=G.exp;if(!X||X.busy)return;if(!pass(tx,ty))return;
  const q=[[X.px,X.py]],prev={},key=(x,y)=>x+','+y;prev[key(X.px,X.py)]=null;

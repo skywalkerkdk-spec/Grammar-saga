@@ -1205,6 +1205,8 @@ textarea.input{width:100%;box-sizing:border-box;resize:vertical;font-family:inhe
 .qrbox h3{margin:0 0 6px}.qrchips{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}.qrbox textarea{width:100%;box-sizing:border-box}
 .qri{border-top:1px solid #fff2;padding:8px 0;font-size:14px}.qrwhy{color:#ffd0d0;margin:4px 0}
 .exmap{position:relative}.exme{position:absolute;width:52px;height:52px;background:url(wk_tank.webp) 0 0/208px 208px no-repeat;pointer-events:none;z-index:3;filter:drop-shadow(0 2px 2px #0009)}
+.mapme{position:absolute;width:calc(var(--wm)*.07);min-width:44px;aspect-ratio:1;transform:translate(-50%,-90%);background:url(wk_tank.webp) 0 0/400% 400% no-repeat;pointer-events:none;z-index:6;filter:drop-shadow(0 3px 3px #0008)}
+.mapme.alt canvas{width:100%;height:100%;display:block}.mapme.alt.bob{animation:mbob .24s infinite alternate}@keyframes mbob{from{margin-top:0}to{margin-top:-5px}}
 
 </style>
 </head>
@@ -7653,6 +7655,43 @@ async function teacherList(){const T=G.sdtc;if(!T||!T.key)return;const r=await s
  o.querySelector('#qrcp').onclick=async()=>{const txt='[문제 신고 검토 요청] 각 신고를 (1) 문제나 정답이 실제로 잘못된 경우, (2) 문제는 맞는데 학생이 오해한 경우, (3) 장난·무관한 신고로 나눠 판단하고, 고쳐야 할 문제는 수정안을 제시해 주세요.\\n\\n'+items.map((c,i)=>`${i+1}. [${c.dg}] 문제: ${c.q} / 정답: ${c.a||'-'}\\n   학생 신고: ${c.why}`).join('\\n');
   let ok=false;try{await navigator.clipboard.writeText(txt);ok=true;}catch(e){}o.querySelector('#qrmsg2').textContent=ok?'📋 복사했어요. Claude 대화창에 붙여 넣어 주세요.':'복사에 실패했어요.';};}
 new MutationObserver(tchBtn).observe(document.body,{childList:true,subtree:true});
+})();
+
+/* ===== 🗺️ 기본 지도(세계·왕국): 눌러서 가면 전사가 걸어서 이동 ===== */
+(function(){
+const SP=520; // 지도 좌표 기준 초당 이동 거리
+const _m=mapImg;
+function pt(c,n){return c.ghost?[n[1],n[2]+34]:[n[4],n[5]+6];}
+function setPos(c,x,y,row,col){const e=document.getElementById('mapme');if(!e)return false;
+ e.style.left=(x/c.W*100).toFixed(3)+'%';e.style.top=(y/c.H*100).toFixed(3)+'%';if(!e.classList.contains('alt'))e.style.backgroundPosition=(col*33.3333)+'% '+(row*33.3333)+'%';else e.classList.toggle('bob',col!==1||false);return true;}
+function follow(){const w=document.querySelector('.wmw'),e=document.getElementById('mapme');if(!w||!e)return;
+ const t=e.offsetLeft-w.clientWidth/2;w.scrollLeft=Math.max(0,t);}
+mapImg=function(c){_m.apply(this,arguments);
+ try{const key=c.ghost?'k':'w',wmi=document.getElementById('wmi');if(!wmi)return;
+  const P={};c.list.forEach(n=>P[n[0]]=pt(c,n));
+  SV.mp=SV.mp||{};let cur=P[SV.mp[key]]?SV.mp[key]:(c.list.find(n=>wmUnlocked(n[0]))||c.list[0])[0];
+  let pos=P[cur].slice(),row=0;
+  const el=document.createElement('div');el.id='mapme';el.className='mapme';wmi.appendChild(el);
+  const alt=SV.hero==='knight'||SV.hero==='druid'; // 걷기 시트가 아직 없는 주인공은 정지 그림이 미끄러지듯 이동
+  if(alt){try{el.style.background='none';el.innerHTML=sp(SV.hero);fill(el);el.classList.add('alt');}catch(e){}}
+  setPos(c,pos[0],pos[1],0,1);
+  setTimeout(()=>{follow();},90);
+  let raf=0;
+  document.querySelectorAll('[data-wm]').forEach(b=>b.onclick=()=>{const id=b.dataset.wm;
+   if(!P[id])return;
+   if(!wmUnlocked(id)){sfx('select');wmOpen(id);return;}
+   cancelAnimationFrame(raf);
+   const from=pos.slice(),to=P[id],dx=to[0]-from[0],dy=to[1]-from[1],dist=Math.hypot(dx,dy);
+   if(dist<4){sfx('select');wmOpen(id);return;}
+   row=Math.abs(dx)>=Math.abs(dy)?(dx<0?1:2):(dy<0?3:0);
+   const dur=Math.min(2600,Math.max(380,dist/SP*1000));let t0=0;sfx('click');
+   const tick=ts=>{if(!document.getElementById('mapme')||!document.body.contains(el))return;if(!t0)t0=ts;
+    const k=Math.min(1,(ts-t0)/dur);pos=[from[0]+dx*k,from[1]+dy*k];
+    setPos(c,pos[0],pos[1],row,k<1?Math.floor((ts-t0)/115)%4:1);follow();
+    if(k<1){raf=requestAnimationFrame(tick);}
+    else{SV.mp[key]=id;setPos(c,to[0],to[1],0,1);setTimeout(()=>{if(document.body.contains(el)){sfx('select');wmOpen(id);}},140);}};
+   raf=requestAnimationFrame(tick);});
+ }catch(e){}};
 })();
 
 render();tryAuto();setTimeout(tryAuto,300);

@@ -37,6 +37,7 @@ window.openChapterField = function(container, map, hero, targets, options={}) {
   let arrival=null;
   let held=null;
   let requested=null;
+  const pressedKeys=[];
   let frame=0;
   let began=null;
 
@@ -63,11 +64,23 @@ window.openChapterField = function(container, map, hero, targets, options={}) {
     frame=0;
     if (!world.isConnected) return;
     let start=now;
+    if (segment && now<segment.start+duration && requested!==null) {
+      const current=segment.returning ? 3-segment.direction : segment.direction;
+      const reverse=3-current;
+      if (requested===reverse) {
+        const elapsed=Math.max(0,Math.min(duration,now-segment.start));
+        segment.start=now-(duration-elapsed);
+        segment.returning=!segment.returning;
+        face=requested;
+        requested=null;
+      } else if (requested===current) requested=null;
+    }
     if (segment && now>=segment.start+duration) {
-      x=segment.x;y=segment.y;
+      const completed=!segment.returning;
+      if (completed) {x=segment.x;y=segment.y;}
       start=Math.max(now-30,segment.start+duration);
       segment=null;
-      if (options.onStep?.([x,y,face])) return;
+      if (completed && options.onStep?.([x,y,face])) return;
     }
     if (!segment) {
       const direction=requested??route.shift()??held?.direction;
@@ -76,13 +89,14 @@ window.openChapterField = function(container, map, hero, targets, options={}) {
         const [dx,dy]=directions[direction];
         face=direction;
         if (walkable(x+dx,y+dy)) {
-          segment={x:x+dx,y:y+dy,start};
+          segment={x:x+dx,y:y+dy,start,direction,returning:false};
           began??=start;
         }
       }
     }
     if (segment) {
-      const t=(now-segment.start)/duration;
+      const progress=(now-segment.start)/duration;
+      const t=segment.returning ? 1-progress : progress;
       paint(x+(segment.x-x)*t,y+(segment.y-y)*t,Math.floor((now-began)/29)%8);
       schedule();
     } else {
@@ -95,7 +109,7 @@ window.openChapterField = function(container, map, hero, targets, options={}) {
   }
 
   function moveTo(tx,ty,action=null) {
-    const start=segment||{x,y};
+    const start=segment && !segment.returning ? {x:segment.x,y:segment.y} : {x,y};
     const queue=[{...start,path:[]}];
     const seen=new Set([start.x+','+start.y]);
     for (const current of queue) {
@@ -182,10 +196,24 @@ window.openChapterField = function(container, map, hero, targets, options={}) {
     const direction=keys.indexOf(event.key);
     if (direction<0 || event.target===destinations) return;
     event.preventDefault();
-    if (!event.repeat || !held) move(direction,event.key);
+    if (event.repeat || pressedKeys.includes(event.key)) return;
+    pressedKeys.push(event.key);
+    move(direction,event.key);
   };
-  container.onkeyup=event=>{if(held?.token===event.key)held=null;};
-  container.onfocusout=event=>{if(!container.contains(event.relatedTarget))held=null;};
+  container.onkeyup=event=>{
+    const index=pressedKeys.indexOf(event.key);
+    if (index>=0) pressedKeys.splice(index,1);
+    if (held?.token!==event.key) return;
+    const previous=pressedKeys.at(-1);
+    if (previous) move(keys.indexOf(previous),previous);
+    else held=null;
+  };
+  container.onfocusout=event=>{
+    if (!container.contains(event.relatedTarget)) {
+      held=null;
+      pressedKeys.length=0;
+    }
+  };
   world.onclick=event=>{
     if (event.target!==world) return;
     const box=world.getBoundingClientRect();

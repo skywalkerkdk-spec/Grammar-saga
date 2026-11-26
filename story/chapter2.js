@@ -485,8 +485,9 @@
     state.onField=true;
     state.lastFight=meadowIndex(state);
     if (state.steps<=0) state.steps=drawEncounterDistance();
-    saveMeadow(state);
     G.scr='c2meadow';
+    syncBgm();
+    saveMeadow(state);
     bevilleField('meadow');
     return true;
   }

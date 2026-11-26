@@ -1647,23 +1647,33 @@ function bgmLoad(n){if(AU.buf[n]){AU.lru=AU.lru.filter(x=>x!==n);AU.lru.push(n);
 function synthBgm(name,me){if(AU.cur!==me)return;me.synth=true;AU.bgmG.gain.setValueAtTime(0.32,AU.ctx.currentTime);me.g.gain.setValueAtTime(1,AU.ctx.currentTime);AU.step=0;AU.next=AU.ctx.currentTime+0.1;AU.timer=setInterval(bgmTick,25);}
 const MENU_POOL=['main','village'];AU.menuLast=null;
 function menuPick(){if(!AU.menuLast){AU.menuLast='main';return 'main';}const L=MENU_POOL.filter(x=>x!==AU.menuLast);AU.menuLast=L[Math.floor(Math.random()*L.length)];return AU.menuLast;}
-function bgm(name){
- if(!AU.ctx)return;if(name===AU.track)return;if(name==='menu'&&AU.cur&&AU.cur.name==='main'){AU.track='menu';AU.menuLast='main';return;}const orig=name;AU.track=name;const menu=name==='menu'||name==='map';if(name==='menu')name=menuPick();else if(name==='map'){name=(AU.mapLast==='village')?'main':(AU.mapLast==='main'?'village':(Math.random()<.5?'village':'main'));AU.mapLast=name;}
+function bgm(name,resume=null){
+ if(!AU.ctx)return;if(name===AU.track&&(AU.cur?.resume??null)===resume)return;if(name==='menu'&&AU.cur&&AU.cur.name==='main'){AU.track='menu';AU.menuLast='main';return;}const orig=name;AU.track=name;const menu=name==='menu'||name==='map';if(name==='menu')name=menuPick();else if(name==='map'){name=(AU.mapLast==='village')?'main':(AU.mapLast==='main'?'village':(Math.random()<.5?'village':'main'));AU.mapLast=name;}
  const c=AU.ctx,now=c.currentTime;clearInterval(AU.timer);AU.timer=null;
- if(AU.cur){const o=AU.cur;o.g.gain.cancelScheduledValues(now);o.g.gain.setValueAtTime(o.g.gain.value,now);o.g.gain.setTargetAtTime(0.0001,now,0.1);setTimeout(()=>{try{if(o.src)o.src.stop();}catch(e){}if(o.el)o.el.pause();try{o.g.disconnect();}catch(e){}},700);AU.cur=null;}
+ if(AU.cur){const o=AU.cur;
+  if(o.resume&&o.src&&Number.isFinite(o.duration)){
+   o.resume.offset=(o.offset+Math.max(0,now-o.startedAt))%o.duration;
+  }else if(o.resume&&o.el?.currentTime>0)o.resume.offset=o.el.currentTime;
+  o.g.gain.cancelScheduledValues(now);o.g.gain.setValueAtTime(o.g.gain.value,now);o.g.gain.setTargetAtTime(0.0001,now,0.1);setTimeout(()=>{try{if(o.src)o.src.stop();}catch(e){}if(o.el)o.el.pause();try{o.g.disconnect();}catch(e){}},700);AU.cur=null;}
  if(!name)return;
- const g=c.createGain();g.gain.value=0.0001;g.connect(AU.bgmG);const me={g,name};AU.cur=me;
+ const g=c.createGain();g.gain.value=0.0001;g.connect(AU.bgmG);const me={g,name,resume};AU.cur=me;
  AU.bgmG.gain.cancelScheduledValues(now);AU.bgmG.gain.setValueAtTime(0.62,now);
- const playBuf=buf=>{if(AU.cur!==me)return;const s=c.createBufferSource();s.buffer=buf;s.loop=!menu;s.connect(g);if(menu)s.onended=()=>{if(AU.cur===me&&AU.track===orig){AU.track=null;bgm(orig);}};s.start();me.src=s;g.gain.setTargetAtTime(1,c.currentTime+0.4,0.3);};
+ const playBuf=buf=>{if(AU.cur!==me)return;const s=c.createBufferSource();s.buffer=buf;s.loop=!menu;s.connect(g);if(menu)s.onended=()=>{if(AU.cur===me&&AU.track===orig){AU.track=null;bgm(orig);}};me.duration=buf.duration;me.offset=(resume?.offset||0)%buf.duration;me.startedAt=c.currentTime;
+ s.start(me.startedAt,me.offset);me.src=s;
+ g.gain.setTargetAtTime(1,c.currentTime+(resume?.offset?0:0.4),0.3);};
  /* 스트리밍 재생이 안 되는 기기(일부 iOS 등)를 위해: 3초 안에 진행이 없으면 통째로 불러와 재생 → 그래도 안 되면 합성음 */
  const viaBuf=()=>{if(AU.cur!==me)return;if(me.el){try{me.el.pause();}catch(e){}}bgmLoad(name).then(playBuf).catch(()=>{if(AU.cur===me)synthBgm(name,me);});};
  const viaEl=()=>{
    try{const el=new Audio('bgm_'+name+'.mp3?v=15');el.loop=!menu;if(menu)el.onended=()=>{if(AU.cur===me&&AU.track===orig){AU.track=null;bgm(orig);}};el.crossOrigin='anonymous';const ms=c.createMediaElementSource(el);ms.connect(g);me.el=el;
+    if(resume?.offset)el.addEventListener('loadedmetadata',()=>{
+      if(AU.cur===me&&Number.isFinite(el.duration)&&el.duration>0)el.currentTime=resume.offset%el.duration;
+    },{once:true});
     el.play().then(()=>{if(AU.cur===me)g.gain.setTargetAtTime(1,c.currentTime+0.4,0.3);else el.pause();}).catch(()=>{el.pause();viaBuf();});
     el.onerror=()=>{el.pause();viaBuf();};
     setTimeout(()=>{if(AU.cur===me&&me.el===el&&!me.src&&!me.synth&&el.currentTime<0.3&&AU.ctx.state==='running')viaBuf();},3500);}
    catch(e){viaBuf();}};
- if(AU.STREAM.includes(name))viaEl();else bgmLoad(name).then(playBuf).catch(viaEl);
+ if(resume)bgmLoad(name).then(playBuf).catch(viaEl);
+ else if(AU.STREAM.includes(name))viaEl();else bgmLoad(name).then(playBuf).catch(viaEl);
 }
 
 const BGM_SCR=['level','intro','shop','forge','rresult'];const MAP_SCR=['dsel','party','formed'];
@@ -1674,7 +1684,7 @@ let _bsLast=null;function bossTrack(){const k=G.scr==='rbattle'?G.rp:(G.scr==='b
 function dgTrack(){const k=G.scr==='rbattle'?G.rp:G.run;if(k&&G._bt&&G._bt.k===k)return G._bt.t;const L=BATTLE_POOL.filter(x=>x!==_btLast),t=L[Math.floor(Math.random()*L.length)];_btLast=t;G._bt={k,t};return t;}
 function dgTrackOld(){return 'battle';const id=G.dg&&G.dg.id;if(BTRK[id])return BTRK[id];if(id==='d19'){const d=new Date();return BTRK_ALL[(d.getFullYear()*372+d.getMonth()*31+d.getDate())%BTRK_ALL.length];}return BTRK_ALL[(G.ei||0)%BTRK_ALL.length];}
 function syncBgm(){
- let n=null;
+ let n=null,resume=null;
  if(G.scr==='splash'||G.scr==='title')n='main';
  else if(MAP_SCR.includes(G.scr))n='map';
  else if(BGM_SCR.includes(G.scr))n='menu';
@@ -1682,9 +1692,18 @@ function syncBgm(){
  else if(G.scr==='pvbattle'||G.scr==='rdbattle')n=bossTrack();
  else if(G.scr==='rdlobby')n='menu';
  else if(G.scr==='pvp'||G.scr==='pvres')n='menu';
- else if(G.scr==='rbattle')n=(G.rp&&G.rp.en[G.rp.ei]&&G.rp.en[G.rp.ei].boss)?bossTrack():dgTrack();
- else if(G.scr==='battle')n=(G.run&&G.run[G.ei]&&G.run[G.ei].boss)?bossTrack():dgTrack();
- bgm(n);
+ else if(G.scr==='c2meadow')n='village';
+ else if(G.scr==='rbattle'||G.scr==='battle'){
+  const rpg=G.scr==='rbattle';
+  const current=rpg?G.rp?.en[G.rp.ei]:G.run?.[G.ei];
+  const field=rpg?G.rp?.c2Meadow:G.run?.[0]?.c2Meadow;
+  if(current?.boss)n=bossTrack();
+  else if(field&&(rpg||!G.rvm)){
+   resume=field.music??(field.music={track:dgTrack(),offset:0});
+   n=resume.track;
+  }else n=dgTrack();
+ }
+ bgm(n,resume);
 }
 document.addEventListener('pointerdown',()=>{if(ainit())syncBgm();},{capture:true});
 document.addEventListener('keydown',()=>{if(ainit())syncBgm();},{capture:true});

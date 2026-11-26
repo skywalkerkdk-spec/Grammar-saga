@@ -50,12 +50,12 @@
         },
         {
           "speaker": "Granny Aria",
-          "en": "We are at the welcome desk.",
-          "ko": "우리는 있다 안내소에.",
+          "en": "My sister and I are at the welcome desk.",
+          "ko": "내 여동생과 나는 안내소에 있다.",
           "chunks": [
             {
-              "en": "We are",
-              "ko": "우리는 있다"
+              "en": "My sister and I are",
+              "ko": "내 여동생과 나는 있다"
             },
             {
               "en": "at the welcome desk.",
@@ -93,7 +93,7 @@
           "evidence_indices": [
             0
           ],
-          "retry_ko": "관련 영어 단서를 다시 읽고 답을 선택하세요."
+          "retry_ko": "다시 확인할 증언: Farmer Am."
         },
         {
           "id": "g1_task_2",
@@ -108,7 +108,7 @@
           "evidence_indices": [
             2
           ],
-          "retry_ko": "관련 영어 단서를 다시 읽고 답을 선택하세요."
+          "retry_ko": "다시 확인할 증언: Granny Aria."
         }
       ],
       "reward": {
@@ -176,12 +176,12 @@
         },
         {
           "speaker": "Donny",
-          "en": "He doesn't like fish.",
-          "ko": "그는 좋아하지 않는다 생선을.",
+          "en": "The guest doesn't like fish.",
+          "ko": "손님은 생선을 좋아하지 않는다.",
           "chunks": [
             {
-              "en": "He doesn't like",
-              "ko": "그는 좋아하지 않는다"
+              "en": "The guest doesn't like",
+              "ko": "손님은 좋아하지 않는다"
             },
             {
               "en": "fish.",
@@ -191,12 +191,12 @@
         },
         {
           "speaker": "Miss Nott",
-          "en": "He likes meat and rice.",
-          "ko": "그는 좋아한다 고기와 밥을.",
+          "en": "The guest likes meat and rice.",
+          "ko": "손님은 고기와 밥을 좋아한다.",
           "chunks": [
             {
-              "en": "He likes",
-              "ko": "그는 좋아한다"
+              "en": "The guest likes",
+              "ko": "손님은 좋아한다"
             },
             {
               "en": "meat and rice.",
@@ -220,7 +220,7 @@
             2,
             3
           ],
-          "retry_ko": "관련 영어 단서를 다시 읽고 답을 선택하세요."
+          "retry_ko": "다시 확인할 증언: Donny, Miss Nott."
         },
         {
           "id": "g2_task_2",
@@ -236,7 +236,7 @@
             1,
             3
           ],
-          "retry_ko": "관련 영어 단서를 다시 읽고 답을 선택하세요."
+          "retry_ko": "다시 확인할 증언: Chef Dot, Miss Nott."
         }
       ],
       "reward": {
@@ -353,7 +353,7 @@
             1,
             3
           ],
-          "retry_ko": "관련 영어 단서를 다시 읽고 답을 선택하세요."
+          "retry_ko": "다시 확인할 증언: Baker Preston, Pasty, Postman Will."
         },
         {
           "id": "tn_task_2",
@@ -369,7 +369,7 @@
             2,
             3
           ],
-          "retry_ko": "관련 영어 단서를 다시 읽고 답을 선택하세요."
+          "retry_ko": "다시 확인할 증언: Grandpa Tick, Postman Will."
         }
       ],
       "reward": {
@@ -482,7 +482,7 @@
             2,
             3
           ],
-          "retry_ko": "관련 영어 단서를 다시 읽고 답을 선택하세요."
+          "retry_ko": "다시 확인할 증언: Foreman Muston, Runner Canby, Captain Coulden."
         },
         {
           "id": "md_task_2",
@@ -497,7 +497,7 @@
           "evidence_indices": [
             0
           ],
-          "retry_ko": "관련 영어 단서를 다시 읽고 답을 선택하세요."
+          "retry_ko": "다시 확인할 증언: Granny May."
         }
       ],
       "reward": {
@@ -609,7 +609,7 @@
             0,
             1
           ],
-          "retry_ko": "관련 영어 단서를 다시 읽고 답을 선택하세요."
+          "retry_ko": "다시 확인할 증언: Ranger Whoa, Librarian Thatton."
         },
         {
           "id": "rp_task_2",
@@ -624,7 +624,7 @@
           "evidence_indices": [
             2
           ],
-          "retry_ko": "관련 영어 단서를 다시 읽고 답을 선택하세요."
+          "retry_ko": "다시 확인할 증언: Mechanic Whoseley."
         }
       ],
       "reward": {
@@ -735,7 +735,7 @@
           "evidence_indices": [
             1
           ],
-          "retry_ko": "관련 영어 단서를 다시 읽고 답을 선택하세요."
+          "retry_ko": "다시 확인할 증언: Traveler Byn."
         },
         {
           "id": "ps_task_2",
@@ -750,7 +750,7 @@
           "evidence_indices": [
             3
           ],
-          "retry_ko": "관련 영어 단서를 다시 읽고 답을 선택하세요."
+          "retry_ko": "다시 확인할 증언: Cleaner Done."
         }
       ],
       "reward": {
@@ -861,7 +861,7 @@
           "evidence_indices": [
             0
           ],
-          "retry_ko": "관련 영어 단서를 다시 읽고 답을 선택하세요."
+          "retry_ko": "다시 확인할 증언: Landlord Haven."
         },
         {
           "id": "pf_task_2",
@@ -876,7 +876,7 @@
           "evidence_indices": [
             2
           ],
-          "retry_ko": "관련 영어 단서를 다시 읽고 답을 선택하세요."
+          "retry_ko": "다시 확인할 증언: Clockmaker Since."
         }
       ],
       "reward": {
@@ -987,7 +987,7 @@
           "evidence_indices": [
             2
           ],
-          "retry_ko": "관련 영어 단서를 다시 읽고 답을 선택하세요."
+          "retry_ko": "다시 확인할 증언: Coach Howie."
         },
         {
           "id": "rv_task_2",
@@ -1002,7 +1002,7 @@
           "evidence_indices": [
             1
           ],
-          "retry_ko": "관련 영어 단서를 다시 읽고 답을 선택하세요."
+          "retry_ko": "다시 확인할 증언: Wynna."
         }
       ],
       "reward": {
@@ -1113,7 +1113,7 @@
           "evidence_indices": [
             0
           ],
-          "retry_ko": "관련 영어 단서를 다시 읽고 답을 선택하세요."
+          "retry_ko": "다시 확인할 증언: Walker Ingmar."
         },
         {
           "id": "pc_task_2",
@@ -1128,7 +1128,7 @@
           "evidence_indices": [
             2
           ],
-          "retry_ko": "관련 영어 단서를 다시 읽고 답을 선택하세요."
+          "retry_ko": "다시 확인할 증언: Librarian Edlyn."
         }
       ],
       "reward": {
@@ -1239,7 +1239,7 @@
           "evidence_indices": [
             2
           ],
-          "retry_ko": "관련 영어 단서를 다시 읽고 답을 선택하세요."
+          "retry_ko": "다시 확인할 증언: Wisha."
         },
         {
           "id": "sj_task_2",
@@ -1254,7 +1254,7 @@
           "evidence_indices": [
             1
           ],
-          "retry_ko": "관련 영어 단서를 다시 읽고 답을 선택하세요."
+          "retry_ko": "다시 확인할 증언: Merchant Woulden."
         }
       ],
       "reward": {
@@ -1367,7 +1367,7 @@
             1,
             3
           ],
-          "retry_ko": "관련 영어 단서를 다시 읽고 답을 선택하세요."
+          "retry_ko": "다시 확인할 증언: Runner Swift, Merchant Morella, Teacher Beston."
         },
         {
           "id": "cp_task_2",
@@ -1383,7 +1383,7 @@
             0,
             1
           ],
-          "retry_ko": "관련 영어 단서를 다시 읽고 답을 선택하세요."
+          "retry_ko": "다시 확인할 증언: Runner Swift, Merchant Morella."
         }
       ],
       "reward": {
@@ -1436,16 +1436,16 @@
         },
         {
           "speaker": "Fruit Seller Annie",
-          "en": "That umbrella is hers.",
-          "ko": "저 우산은 그녀의 것이다.",
+          "en": "That umbrella is Selma's.",
+          "ko": "저 우산은 셀마의 것이다.",
           "chunks": [
             {
               "en": "That umbrella",
               "ko": "저 우산은"
             },
             {
-              "en": "is hers.",
-              "ko": "그녀의 것이다."
+              "en": "is Selma's.",
+              "ko": "셀마의 것이다."
             }
           ]
         },
@@ -1494,7 +1494,7 @@
           "evidence_indices": [
             0
           ],
-          "retry_ko": "관련 영어 단서를 다시 읽고 답을 선택하세요."
+          "retry_ko": "다시 확인할 증언: Bookseller Myra."
         },
         {
           "id": "pn_task_2",
@@ -1510,7 +1510,7 @@
             1,
             2
           ],
-          "retry_ko": "관련 영어 단서를 다시 읽고 답을 선택하세요."
+          "retry_ko": "다시 확인할 증언: Fruit Seller Annie, Selma."
         }
       ],
       "reward": {
@@ -1621,7 +1621,7 @@
           "evidence_indices": [
             2
           ],
-          "retry_ko": "관련 영어 단서를 다시 읽고 답을 선택하세요."
+          "retry_ko": "다시 확인할 증언: Teacher Atley."
         },
         {
           "id": "ot_task_2",
@@ -1637,7 +1637,7 @@
             0,
             1
           ],
-          "retry_ko": "관련 영어 단서를 다시 읽고 답을 선택하세요."
+          "retry_ko": "다시 확인할 증언: Sailor Byron, Onna."
         }
       ],
       "reward": {
@@ -1748,7 +1748,7 @@
           "evidence_indices": [
             1
           ],
-          "retry_ko": "관련 영어 단서를 다시 읽고 답을 선택하세요."
+          "retry_ko": "다시 확인할 증언: Traveler Togo."
         },
         {
           "id": "iv_task_2",
@@ -1763,7 +1763,7 @@
           "evidence_indices": [
             0
           ],
-          "retry_ko": "관련 영어 단서를 다시 읽고 답을 선택하세요."
+          "retry_ko": "다시 확인할 증언: Swimmer Finn."
         }
       ],
       "reward": {
@@ -1874,7 +1874,7 @@
           "evidence_indices": [
             0
           ],
-          "retry_ko": "관련 영어 단서를 다시 읽고 답을 선택하세요."
+          "retry_ko": "다시 확인할 증언: Birdwatcher Seer."
         },
         {
           "id": "pe_task_2",
@@ -1889,7 +1889,7 @@
           "evidence_indices": [
             3
           ],
-          "retry_ko": "관련 영어 단서를 다시 읽고 답을 선택하세요."
+          "retry_ko": "다시 확인할 증언: Mechanic Fix."
         }
       ],
       "reward": {
@@ -2000,7 +2000,7 @@
           "evidence_indices": [
             2
           ],
-          "retry_ko": "관련 영어 단서를 다시 읽고 답을 선택하세요."
+          "retry_ko": "다시 확인할 증언: Baker Loaf."
         },
         {
           "id": "ng_task_2",
@@ -2015,7 +2015,7 @@
           "evidence_indices": [
             1
           ],
-          "retry_ko": "관련 영어 단서를 다시 읽고 답을 선택하세요."
+          "retry_ko": "다시 확인할 증언: Librarian Hush."
         }
       ],
       "reward": {
@@ -2126,7 +2126,7 @@
           "evidence_indices": [
             3
           ],
-          "retry_ko": "관련 영어 단서를 다시 읽고 답을 선택하세요."
+          "retry_ko": "다시 확인할 증언: Guide Wenda."
         },
         {
           "id": "rs_task_2",
@@ -2141,7 +2141,7 @@
           "evidence_indices": [
             0
           ],
-          "retry_ko": "관련 영어 단서를 다시 읽고 답을 선택하세요."
+          "retry_ko": "다시 확인할 증언: Postman Tell."
         }
       ],
       "reward": {
@@ -2252,7 +2252,7 @@
           "evidence_indices": [
             1
           ],
-          "retry_ko": "관련 영어 단서를 다시 읽고 답을 선택하세요."
+          "retry_ko": "다시 확인할 증언: Officer Emphas."
         },
         {
           "id": "sx_task_2",
@@ -2267,7 +2267,7 @@
           "evidence_indices": [
             2
           ],
-          "retry_ko": "관련 영어 단서를 다시 읽고 답을 선택하세요."
+          "retry_ko": "다시 확인할 증언: Artist Parallel."
         }
       ],
       "reward": {

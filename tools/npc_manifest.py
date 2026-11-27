@@ -83,12 +83,12 @@ for r in rows:
     r['walk']=(r['origin']=='original' and r['kind']=='mobile')
     r['walk_sheet']='art/npc/sprites/%s_walk.webp'%r['sprite_id'] if r['walk'] else ''
     r['region_style']=REGION[r['town']]
-FRONT_PER=16;WALK_PER=4
+FRONT_PER=24;WALK_PER=4
 def chunk(l,n):return [l[i:i+n] for i in range(0,len(l),n)]
 batches=[]
 order=sorted(rows,key=lambda r:(r['origin']!='original',r['town'],r['npc_id']))
 for i,ch in enumerate(chunk(order,FRONT_PER),1):
-    batches.append(dict(batch='F%03d'%i,kind='front',image='4열×4행 16명 (칸 약 300px, 투명 배경, 칸 사이 빈 간격)',npcs=[r['npc_id'] for r in ch]))
+    batches.append(dict(batch='F%03d'%i,kind='front',image='6열×4행 24명 (가로 1536×세로1024 이상, 칸 약 250px, 투명 배경, 칸 사이 빈 간격)',npcs=[r['npc_id'] for r in ch]))
 walkers=[r for r in order if r['walk']]
 for i,ch in enumerate(chunk(walkers,WALK_PER),1):
     batches.append(dict(batch='W%03d'%i,kind='walk',image='1024x1024 (2×2, 칸마다 512×512 걷기 시트 1명)',npcs=[r['npc_id'] for r in ch]))

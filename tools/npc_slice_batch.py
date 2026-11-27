@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """GPT가 만든 배치 이미지를 NPC별 그림으로 자르고 규격에 맞춰 저장·검사합니다.
   python3 tools/npc_slice_batch.py F001 batch_F001.png              # 정면 배치: 칸 사이의 빈 간격을 자동으로 찾아 읽는 순서(위→아래, 왼→오른쪽)로 자름
-  python3 tools/npc_slice_batch.py F001 batch.png --grid 4x4         # 빈 간격이 없으면 균등 분할(열x행)
+  python3 tools/npc_slice_batch.py F001 batch.png --grid 6x4         # 빈 간격이 없으면 균등 분할(열x행)
   python3 tools/npc_slice_batch.py W001 batch_W001.png               # 걷기 배치: 1024×1024(2×2) → 512×512 시트 4장
   python3 tools/npc_slice_batch.py W001 one.png --npc cp_o0          # 걷기 한 명짜리 512×512
   python3 tools/npc_slice_batch.py F001 batch.png --dry              # 저장하지 않고 인식 결과만 확인

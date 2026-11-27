@@ -1,5 +1,5 @@
 {
-  "version": "0.1",
+  "version": "0.2",
   "vaults": [
     {
       "id": "hidden_room_guild",
@@ -95,6 +95,105 @@
         "id": "relic_chart",
         "en": "Navigator's Seal Replica",
         "ko": "항해사 인장 모형",
+        "type": "collection_only"
+      },
+      "exit": "return_to_town",
+      "fallback": "dialogue evidence panel if no verified map anchor"
+    },
+    {
+      "id": "hidden_room_archive",
+      "town": "pc",
+      "requires": "book_secret_archive_complete",
+      "title_en": "The Copyist's Alcove",
+      "title_ko": "필경사의 작은 방",
+      "entry": {
+        "speaker": "Narrator",
+        "en": "The keeper invites the party inside.",
+        "ko": "관리인이 모험단을 안으로 초대한다."
+      },
+      "evidence": {
+        "en": "The first copy has a date and a source. The second has neither.",
+        "ko": "첫 사본에는 날짜와 출처가 있어요. 두 번째에는 둘 다 없어요."
+      },
+      "task": {
+        "question_en": "Which copy can we trace?",
+        "options": [
+          "The first copy",
+          "The second copy",
+          "Neither"
+        ],
+        "correct_index": 0
+      },
+      "reward": {
+        "id": "relic_archive",
+        "en": "Copyist's Seal",
+        "ko": "필경사의 인장",
+        "type": "collection_only"
+      },
+      "exit": "return_to_town",
+      "fallback": "dialogue evidence panel if no verified map anchor"
+    },
+    {
+      "id": "hidden_room_stage",
+      "town": "ng",
+      "requires": "book_secret_portrait_complete",
+      "title_en": "Behind the Curtain",
+      "title_ko": "무대 뒤편",
+      "entry": {
+        "speaker": "Narrator",
+        "en": "The keeper invites the party inside.",
+        "ko": "관리인이 모험단을 안으로 초대한다."
+      },
+      "evidence": {
+        "en": "The crown is made of wood. The actors' names are inside it.",
+        "ko": "왕관은 나무로 만들어졌어요. 안에는 배우들의 이름이 있어요."
+      },
+      "task": {
+        "question_en": "What is inside the crown?",
+        "options": [
+          "A jewel",
+          "The actors' names",
+          "A map"
+        ],
+        "correct_index": 1
+      },
+      "reward": {
+        "id": "relic_stage",
+        "en": "Wooden Crown Replica",
+        "ko": "나무 왕관 모형",
+        "type": "collection_only"
+      },
+      "exit": "return_to_town",
+      "fallback": "dialogue evidence panel if no verified map anchor"
+    },
+    {
+      "id": "hidden_room_binding",
+      "town": "pn",
+      "requires": "book_secret_merchant_complete",
+      "title_en": "The Binder's Cabinet",
+      "title_ko": "제본사의 장식장",
+      "entry": {
+        "speaker": "Narrator",
+        "en": "The keeper invites the party inside.",
+        "ko": "관리인이 모험단을 안으로 초대한다."
+      },
+      "evidence": {
+        "en": "The blue cover belongs to a blank notebook. The brown cover belongs to a finished journal.",
+        "ko": "파란 표지는 빈 공책의 것이고 갈색 표지는 완성된 여행기의 것이에요."
+      },
+      "task": {
+        "question_en": "Which cover belongs to the finished journal?",
+        "options": [
+          "Blue",
+          "Both",
+          "Brown"
+        ],
+        "correct_index": 2
+      },
+      "reward": {
+        "id": "relic_binding",
+        "en": "Binder's Sample",
+        "ko": "제본 견본",
         "type": "collection_only"
       },
       "exit": "return_to_town",

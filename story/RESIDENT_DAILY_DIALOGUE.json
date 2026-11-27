@@ -1,5 +1,5 @@
 {
-  "version": "0.1",
+  "version": "0.2",
   "residents": [
     {
       "npc_id": "g1_extra_1",
@@ -13,7 +13,10 @@
         "ko": "방앗간은 해 뜨기 전부터 바빠요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "leader",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": false
     },
     {
       "npc_id": "g1_extra_2",
@@ -27,7 +30,10 @@
         "ko": "방앗간은 해 뜨기 전부터 바빠요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "shopkeeper",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": false
     },
     {
       "npc_id": "g1_extra_3",
@@ -41,7 +47,10 @@
         "ko": "방앗간은 해 뜨기 전부터 바빠요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "innkeeper",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": false
     },
     {
       "npc_id": "g1_extra_4",
@@ -55,7 +64,10 @@
         "ko": "방앗간은 해 뜨기 전부터 바빠요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "guard",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": false
     },
     {
       "npc_id": "g1_extra_5",
@@ -69,7 +81,10 @@
         "ko": "방앗간은 해 뜨기 전부터 바빠요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "specialist_a",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": true
     },
     {
       "npc_id": "g1_extra_6",
@@ -83,7 +98,10 @@
         "ko": "방앗간은 해 뜨기 전부터 바빠요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "specialist_b",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": true
     },
     {
       "npc_id": "g1_extra_7",
@@ -97,7 +115,10 @@
         "ko": "방앗간은 해 뜨기 전부터 바빠요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "resident_a",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": false
     },
     {
       "npc_id": "g1_extra_8",
@@ -111,7 +132,10 @@
         "ko": "방앗간은 해 뜨기 전부터 바빠요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "child",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": false
     },
     {
       "npc_id": "g1_extra_9",
@@ -125,7 +149,10 @@
         "ko": "방앗간은 해 뜨기 전부터 바빠요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "courier",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": false
     },
     {
       "npc_id": "g1_extra_10",
@@ -139,7 +166,10 @@
         "ko": "방앗간은 해 뜨기 전부터 바빠요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "resident_b",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": false
     },
     {
       "npc_id": "g2_extra_1",
@@ -153,7 +183,10 @@
         "ko": "주방에서 갓 만든 수프 냄새가 나요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "leader",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": false
     },
     {
       "npc_id": "g2_extra_2",
@@ -167,7 +200,10 @@
         "ko": "주방에서 갓 만든 수프 냄새가 나요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "shopkeeper",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": false
     },
     {
       "npc_id": "g2_extra_3",
@@ -181,7 +217,10 @@
         "ko": "주방에서 갓 만든 수프 냄새가 나요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "innkeeper",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": false
     },
     {
       "npc_id": "g2_extra_4",
@@ -195,7 +234,10 @@
         "ko": "주방에서 갓 만든 수프 냄새가 나요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "guard",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": false
     },
     {
       "npc_id": "g2_extra_5",
@@ -209,7 +251,10 @@
         "ko": "주방에서 갓 만든 수프 냄새가 나요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "specialist_a",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": true
     },
     {
       "npc_id": "g2_extra_6",
@@ -223,7 +268,10 @@
         "ko": "주방에서 갓 만든 수프 냄새가 나요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "specialist_b",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": true
     },
     {
       "npc_id": "g2_extra_7",
@@ -237,7 +285,10 @@
         "ko": "주방에서 갓 만든 수프 냄새가 나요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "resident_a",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": false
     },
     {
       "npc_id": "g2_extra_8",
@@ -251,7 +302,10 @@
         "ko": "주방에서 갓 만든 수프 냄새가 나요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "child",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": false
     },
     {
       "npc_id": "g2_extra_9",
@@ -265,7 +319,10 @@
         "ko": "주방에서 갓 만든 수프 냄새가 나요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "courier",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": false
     },
     {
       "npc_id": "g2_extra_10",
@@ -279,7 +336,10 @@
         "ko": "주방에서 갓 만든 수프 냄새가 나요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "resident_b",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": false
     },
     {
       "npc_id": "tn_extra_1",
@@ -293,7 +353,10 @@
         "ko": "광장의 시계가 우리 만남의 장소예요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "leader",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": false
     },
     {
       "npc_id": "tn_extra_2",
@@ -307,7 +370,10 @@
         "ko": "광장의 시계가 우리 만남의 장소예요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "shopkeeper",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": false
     },
     {
       "npc_id": "tn_extra_3",
@@ -321,7 +387,10 @@
         "ko": "광장의 시계가 우리 만남의 장소예요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "innkeeper",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": false
     },
     {
       "npc_id": "tn_extra_4",
@@ -335,7 +404,10 @@
         "ko": "광장의 시계가 우리 만남의 장소예요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "guard",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": false
     },
     {
       "npc_id": "tn_extra_5",
@@ -349,7 +421,10 @@
         "ko": "광장의 시계가 우리 만남의 장소예요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "specialist_a",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": true
     },
     {
       "npc_id": "tn_extra_6",
@@ -363,7 +438,10 @@
         "ko": "광장의 시계가 우리 만남의 장소예요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "specialist_b",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": true
     },
     {
       "npc_id": "tn_extra_7",
@@ -377,7 +455,10 @@
         "ko": "광장의 시계가 우리 만남의 장소예요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "resident_a",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": false
     },
     {
       "npc_id": "tn_extra_8",
@@ -391,7 +472,10 @@
         "ko": "광장의 시계가 우리 만남의 장소예요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "child",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": false
     },
     {
       "npc_id": "tn_extra_9",
@@ -405,7 +489,10 @@
         "ko": "광장의 시계가 우리 만남의 장소예요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "courier",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": false
     },
     {
       "npc_id": "tn_extra_10",
@@ -419,7 +506,10 @@
         "ko": "광장의 시계가 우리 만남의 장소예요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "resident_b",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": false
     },
     {
       "npc_id": "md_extra_1",
@@ -433,7 +523,10 @@
         "ko": "폭우 뒤에는 강물이 불어나요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "leader",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": false
     },
     {
       "npc_id": "md_extra_2",
@@ -447,7 +540,10 @@
         "ko": "폭우 뒤에는 강물이 불어나요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "shopkeeper",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": false
     },
     {
       "npc_id": "md_extra_3",
@@ -461,7 +557,10 @@
         "ko": "폭우 뒤에는 강물이 불어나요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "innkeeper",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": false
     },
     {
       "npc_id": "md_extra_4",
@@ -475,7 +574,10 @@
         "ko": "폭우 뒤에는 강물이 불어나요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "guard",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": false
     },
     {
       "npc_id": "md_extra_5",
@@ -489,7 +591,10 @@
         "ko": "폭우 뒤에는 강물이 불어나요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "specialist_a",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": true
     },
     {
       "npc_id": "md_extra_6",
@@ -503,7 +608,10 @@
         "ko": "폭우 뒤에는 강물이 불어나요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "specialist_b",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": true
     },
     {
       "npc_id": "md_extra_7",
@@ -517,7 +625,10 @@
         "ko": "폭우 뒤에는 강물이 불어나요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "resident_a",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": false
     },
     {
       "npc_id": "md_extra_8",
@@ -531,7 +642,10 @@
         "ko": "폭우 뒤에는 강물이 불어나요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "child",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": false
     },
     {
       "npc_id": "md_extra_9",
@@ -545,7 +659,10 @@
         "ko": "폭우 뒤에는 강물이 불어나요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "courier",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": false
     },
     {
       "npc_id": "md_extra_10",
@@ -559,7 +676,10 @@
         "ko": "폭우 뒤에는 강물이 불어나요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "resident_b",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": false
     },
     {
       "npc_id": "rp_extra_1",
@@ -573,7 +693,10 @@
         "ko": "숲길은 계절에 따라 달라져요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "leader",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": false
     },
     {
       "npc_id": "rp_extra_2",
@@ -587,7 +710,10 @@
         "ko": "숲길은 계절에 따라 달라져요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "shopkeeper",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": false
     },
     {
       "npc_id": "rp_extra_3",
@@ -601,7 +727,10 @@
         "ko": "숲길은 계절에 따라 달라져요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "innkeeper",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": false
     },
     {
       "npc_id": "rp_extra_4",
@@ -615,7 +744,10 @@
         "ko": "숲길은 계절에 따라 달라져요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "guard",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": false
     },
     {
       "npc_id": "rp_extra_5",
@@ -629,7 +761,10 @@
         "ko": "숲길은 계절에 따라 달라져요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "specialist_a",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": true
     },
     {
       "npc_id": "rp_extra_6",
@@ -643,7 +778,10 @@
         "ko": "숲길은 계절에 따라 달라져요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "specialist_b",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": true
     },
     {
       "npc_id": "rp_extra_7",
@@ -657,7 +795,10 @@
         "ko": "숲길은 계절에 따라 달라져요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "resident_a",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": false
     },
     {
       "npc_id": "rp_extra_8",
@@ -671,7 +812,10 @@
         "ko": "숲길은 계절에 따라 달라져요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "child",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": false
     },
     {
       "npc_id": "rp_extra_9",
@@ -685,7 +829,10 @@
         "ko": "숲길은 계절에 따라 달라져요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "courier",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": false
     },
     {
       "npc_id": "rp_extra_10",
@@ -699,7 +846,10 @@
         "ko": "숲길은 계절에 따라 달라져요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "resident_b",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": false
     },
     {
       "npc_id": "ps_extra_1",
@@ -713,7 +863,10 @@
         "ko": "이른 아침에는 호수가 고요해요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "leader",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": false
     },
     {
       "npc_id": "ps_extra_2",
@@ -727,7 +880,10 @@
         "ko": "이른 아침에는 호수가 고요해요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "shopkeeper",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": false
     },
     {
       "npc_id": "ps_extra_3",
@@ -741,7 +897,10 @@
         "ko": "이른 아침에는 호수가 고요해요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "innkeeper",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": false
     },
     {
       "npc_id": "ps_extra_4",
@@ -755,7 +914,10 @@
         "ko": "이른 아침에는 호수가 고요해요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "guard",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": false
     },
     {
       "npc_id": "ps_extra_5",
@@ -769,7 +931,10 @@
         "ko": "이른 아침에는 호수가 고요해요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "specialist_a",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": true
     },
     {
       "npc_id": "ps_extra_6",
@@ -783,7 +948,10 @@
         "ko": "이른 아침에는 호수가 고요해요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "specialist_b",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": true
     },
     {
       "npc_id": "ps_extra_7",
@@ -797,7 +965,10 @@
         "ko": "이른 아침에는 호수가 고요해요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "resident_a",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": false
     },
     {
       "npc_id": "ps_extra_8",
@@ -811,7 +982,10 @@
         "ko": "이른 아침에는 호수가 고요해요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "child",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": false
     },
     {
       "npc_id": "ps_extra_9",
@@ -825,7 +999,10 @@
         "ko": "이른 아침에는 호수가 고요해요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "courier",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": false
     },
     {
       "npc_id": "ps_extra_10",
@@ -839,7 +1016,10 @@
         "ko": "이른 아침에는 호수가 고요해요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "resident_b",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": false
     },
     {
       "npc_id": "pf_extra_1",
@@ -853,7 +1033,10 @@
         "ko": "여행자들은 우물 근처에서 쉬어요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "leader",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": false
     },
     {
       "npc_id": "pf_extra_2",
@@ -867,7 +1050,10 @@
         "ko": "여행자들은 우물 근처에서 쉬어요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "shopkeeper",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": false
     },
     {
       "npc_id": "pf_extra_3",
@@ -881,7 +1067,10 @@
         "ko": "여행자들은 우물 근처에서 쉬어요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "innkeeper",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": false
     },
     {
       "npc_id": "pf_extra_4",
@@ -895,7 +1084,10 @@
         "ko": "여행자들은 우물 근처에서 쉬어요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "guard",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": false
     },
     {
       "npc_id": "pf_extra_5",
@@ -909,7 +1101,10 @@
         "ko": "여행자들은 우물 근처에서 쉬어요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "specialist_a",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": true
     },
     {
       "npc_id": "pf_extra_6",
@@ -923,7 +1118,10 @@
         "ko": "여행자들은 우물 근처에서 쉬어요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "specialist_b",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": true
     },
     {
       "npc_id": "pf_extra_7",
@@ -937,7 +1135,10 @@
         "ko": "여행자들은 우물 근처에서 쉬어요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "resident_a",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": false
     },
     {
       "npc_id": "pf_extra_8",
@@ -951,7 +1152,10 @@
         "ko": "여행자들은 우물 근처에서 쉬어요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "child",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": false
     },
     {
       "npc_id": "pf_extra_9",
@@ -965,7 +1169,10 @@
         "ko": "여행자들은 우물 근처에서 쉬어요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "courier",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": false
     },
     {
       "npc_id": "pf_extra_10",
@@ -979,7 +1186,10 @@
         "ko": "여행자들은 우물 근처에서 쉬어요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "resident_b",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": false
     },
     {
       "npc_id": "rv_extra_1",
@@ -993,7 +1203,10 @@
         "ko": "저녁에는 항구의 종이 울려요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "leader",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": false
     },
     {
       "npc_id": "rv_extra_2",
@@ -1007,7 +1220,10 @@
         "ko": "저녁에는 항구의 종이 울려요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "shopkeeper",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": false
     },
     {
       "npc_id": "rv_extra_3",
@@ -1021,7 +1237,10 @@
         "ko": "저녁에는 항구의 종이 울려요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "innkeeper",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": false
     },
     {
       "npc_id": "rv_extra_4",
@@ -1035,7 +1254,10 @@
         "ko": "저녁에는 항구의 종이 울려요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "guard",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": false
     },
     {
       "npc_id": "rv_extra_5",
@@ -1049,7 +1271,10 @@
         "ko": "저녁에는 항구의 종이 울려요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "specialist_a",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": true
     },
     {
       "npc_id": "rv_extra_6",
@@ -1063,7 +1288,10 @@
         "ko": "저녁에는 항구의 종이 울려요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "specialist_b",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": true
     },
     {
       "npc_id": "rv_extra_7",
@@ -1077,7 +1305,10 @@
         "ko": "저녁에는 항구의 종이 울려요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "resident_a",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": false
     },
     {
       "npc_id": "rv_extra_8",
@@ -1091,7 +1322,10 @@
         "ko": "저녁에는 항구의 종이 울려요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "child",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": false
     },
     {
       "npc_id": "rv_extra_9",
@@ -1105,7 +1339,10 @@
         "ko": "저녁에는 항구의 종이 울려요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "courier",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": false
     },
     {
       "npc_id": "rv_extra_10",
@@ -1119,7 +1356,10 @@
         "ko": "저녁에는 항구의 종이 울려요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "resident_b",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": false
     },
     {
       "npc_id": "pc_extra_1",
@@ -1133,7 +1373,10 @@
         "ko": "옛 비문은 쉽게 손상돼요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "leader",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": false
     },
     {
       "npc_id": "pc_extra_2",
@@ -1147,7 +1390,10 @@
         "ko": "옛 비문은 쉽게 손상돼요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "shopkeeper",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": false
     },
     {
       "npc_id": "pc_extra_3",
@@ -1161,7 +1407,10 @@
         "ko": "옛 비문은 쉽게 손상돼요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "innkeeper",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": false
     },
     {
       "npc_id": "pc_extra_4",
@@ -1175,7 +1424,10 @@
         "ko": "옛 비문은 쉽게 손상돼요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "guard",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": false
     },
     {
       "npc_id": "pc_extra_5",
@@ -1189,7 +1441,10 @@
         "ko": "옛 비문은 쉽게 손상돼요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "specialist_a",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": true
     },
     {
       "npc_id": "pc_extra_6",
@@ -1203,7 +1458,10 @@
         "ko": "옛 비문은 쉽게 손상돼요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "specialist_b",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": true
     },
     {
       "npc_id": "pc_extra_7",
@@ -1217,7 +1475,10 @@
         "ko": "옛 비문은 쉽게 손상돼요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "resident_a",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": false
     },
     {
       "npc_id": "pc_extra_8",
@@ -1231,7 +1492,10 @@
         "ko": "옛 비문은 쉽게 손상돼요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "child",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": false
     },
     {
       "npc_id": "pc_extra_9",
@@ -1245,7 +1509,10 @@
         "ko": "옛 비문은 쉽게 손상돼요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "courier",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": false
     },
     {
       "npc_id": "pc_extra_10",
@@ -1259,7 +1526,10 @@
         "ko": "옛 비문은 쉽게 손상돼요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "resident_b",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": false
     },
     {
       "npc_id": "sj_extra_1",
@@ -1273,7 +1543,10 @@
         "ko": "새들은 새벽 전에 조용해요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "leader",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": false
     },
     {
       "npc_id": "sj_extra_2",
@@ -1287,7 +1560,10 @@
         "ko": "새들은 새벽 전에 조용해요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "shopkeeper",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": false
     },
     {
       "npc_id": "sj_extra_3",
@@ -1301,7 +1577,10 @@
         "ko": "새들은 새벽 전에 조용해요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "innkeeper",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": false
     },
     {
       "npc_id": "sj_extra_4",
@@ -1315,7 +1594,10 @@
         "ko": "새들은 새벽 전에 조용해요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "guard",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": false
     },
     {
       "npc_id": "sj_extra_5",
@@ -1329,7 +1611,10 @@
         "ko": "새들은 새벽 전에 조용해요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "specialist_a",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": true
     },
     {
       "npc_id": "sj_extra_6",
@@ -1343,7 +1628,10 @@
         "ko": "새들은 새벽 전에 조용해요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "specialist_b",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": true
     },
     {
       "npc_id": "sj_extra_7",
@@ -1357,7 +1645,10 @@
         "ko": "새들은 새벽 전에 조용해요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "resident_a",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": false
     },
     {
       "npc_id": "sj_extra_8",
@@ -1371,7 +1662,10 @@
         "ko": "새들은 새벽 전에 조용해요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "child",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": false
     },
     {
       "npc_id": "sj_extra_9",
@@ -1385,7 +1679,10 @@
         "ko": "새들은 새벽 전에 조용해요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "courier",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": false
     },
     {
       "npc_id": "sj_extra_10",
@@ -1399,7 +1696,10 @@
         "ko": "새들은 새벽 전에 조용해요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "resident_b",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": false
     },
     {
       "npc_id": "cp_extra_1",
@@ -1413,7 +1713,10 @@
         "ko": "경주로는 연습할 수 있도록 열려 있어요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "leader",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": false
     },
     {
       "npc_id": "cp_extra_2",
@@ -1427,7 +1730,10 @@
         "ko": "경주로는 연습할 수 있도록 열려 있어요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "shopkeeper",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": false
     },
     {
       "npc_id": "cp_extra_3",
@@ -1441,7 +1747,10 @@
         "ko": "경주로는 연습할 수 있도록 열려 있어요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "innkeeper",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": false
     },
     {
       "npc_id": "cp_extra_4",
@@ -1455,7 +1764,10 @@
         "ko": "경주로는 연습할 수 있도록 열려 있어요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "guard",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": false
     },
     {
       "npc_id": "cp_extra_5",
@@ -1469,7 +1781,10 @@
         "ko": "경주로는 연습할 수 있도록 열려 있어요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "specialist_a",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": true
     },
     {
       "npc_id": "cp_extra_6",
@@ -1483,7 +1798,10 @@
         "ko": "경주로는 연습할 수 있도록 열려 있어요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "specialist_b",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": true
     },
     {
       "npc_id": "cp_extra_7",
@@ -1497,7 +1815,10 @@
         "ko": "경주로는 연습할 수 있도록 열려 있어요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "resident_a",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": false
     },
     {
       "npc_id": "cp_extra_8",
@@ -1511,7 +1832,10 @@
         "ko": "경주로는 연습할 수 있도록 열려 있어요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "child",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": false
     },
     {
       "npc_id": "cp_extra_9",
@@ -1525,7 +1849,10 @@
         "ko": "경주로는 연습할 수 있도록 열려 있어요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "courier",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": false
     },
     {
       "npc_id": "cp_extra_10",
@@ -1539,7 +1866,10 @@
         "ko": "경주로는 연습할 수 있도록 열려 있어요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "resident_b",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": false
     },
     {
       "npc_id": "pn_extra_1",
@@ -1553,7 +1883,10 @@
         "ko": "분실물은 보관소에 있어요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "leader",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": false
     },
     {
       "npc_id": "pn_extra_2",
@@ -1567,7 +1900,10 @@
         "ko": "분실물은 보관소에 있어요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "shopkeeper",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": false
     },
     {
       "npc_id": "pn_extra_3",
@@ -1581,7 +1917,10 @@
         "ko": "분실물은 보관소에 있어요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "innkeeper",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": false
     },
     {
       "npc_id": "pn_extra_4",
@@ -1595,7 +1934,10 @@
         "ko": "분실물은 보관소에 있어요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "guard",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": false
     },
     {
       "npc_id": "pn_extra_5",
@@ -1609,7 +1951,10 @@
         "ko": "분실물은 보관소에 있어요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "specialist_a",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": true
     },
     {
       "npc_id": "pn_extra_6",
@@ -1623,7 +1968,10 @@
         "ko": "분실물은 보관소에 있어요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "specialist_b",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": true
     },
     {
       "npc_id": "pn_extra_7",
@@ -1637,7 +1985,10 @@
         "ko": "분실물은 보관소에 있어요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "resident_a",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": false
     },
     {
       "npc_id": "pn_extra_8",
@@ -1651,7 +2002,10 @@
         "ko": "분실물은 보관소에 있어요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "child",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": false
     },
     {
       "npc_id": "pn_extra_9",
@@ -1665,7 +2019,10 @@
         "ko": "분실물은 보관소에 있어요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "courier",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": false
     },
     {
       "npc_id": "pn_extra_10",
@@ -1679,7 +2036,10 @@
         "ko": "분실물은 보관소에 있어요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "resident_b",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": false
     },
     {
       "npc_id": "ot_extra_1",
@@ -1693,7 +2053,10 @@
         "ko": "물가에서 등대가 보여요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "leader",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": false
     },
     {
       "npc_id": "ot_extra_2",
@@ -1707,7 +2070,10 @@
         "ko": "물가에서 등대가 보여요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "shopkeeper",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": false
     },
     {
       "npc_id": "ot_extra_3",
@@ -1721,7 +2087,10 @@
         "ko": "물가에서 등대가 보여요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "innkeeper",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": false
     },
     {
       "npc_id": "ot_extra_4",
@@ -1735,7 +2104,10 @@
         "ko": "물가에서 등대가 보여요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "guard",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": false
     },
     {
       "npc_id": "ot_extra_5",
@@ -1749,7 +2121,10 @@
         "ko": "물가에서 등대가 보여요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "specialist_a",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": true
     },
     {
       "npc_id": "ot_extra_6",
@@ -1763,7 +2138,10 @@
         "ko": "물가에서 등대가 보여요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "specialist_b",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": true
     },
     {
       "npc_id": "ot_extra_7",
@@ -1777,7 +2155,10 @@
         "ko": "물가에서 등대가 보여요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "resident_a",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": false
     },
     {
       "npc_id": "ot_extra_8",
@@ -1791,7 +2172,10 @@
         "ko": "물가에서 등대가 보여요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "child",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": false
     },
     {
       "npc_id": "ot_extra_9",
@@ -1805,7 +2189,10 @@
         "ko": "물가에서 등대가 보여요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "courier",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": false
     },
     {
       "npc_id": "ot_extra_10",
@@ -1819,7 +2206,10 @@
         "ko": "물가에서 등대가 보여요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "resident_b",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": false
     },
     {
       "npc_id": "iv_extra_1",
@@ -1833,7 +2223,10 @@
         "ko": "오르막길은 여행자들에게 힘들어요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "leader",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": false
     },
     {
       "npc_id": "iv_extra_2",
@@ -1847,7 +2240,10 @@
         "ko": "오르막길은 여행자들에게 힘들어요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "shopkeeper",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": false
     },
     {
       "npc_id": "iv_extra_3",
@@ -1861,7 +2257,10 @@
         "ko": "오르막길은 여행자들에게 힘들어요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "innkeeper",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": false
     },
     {
       "npc_id": "iv_extra_4",
@@ -1875,7 +2274,10 @@
         "ko": "오르막길은 여행자들에게 힘들어요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "guard",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": false
     },
     {
       "npc_id": "iv_extra_5",
@@ -1889,7 +2291,10 @@
         "ko": "오르막길은 여행자들에게 힘들어요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "specialist_a",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": true
     },
     {
       "npc_id": "iv_extra_6",
@@ -1903,7 +2308,10 @@
         "ko": "오르막길은 여행자들에게 힘들어요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "specialist_b",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": true
     },
     {
       "npc_id": "iv_extra_7",
@@ -1917,7 +2325,10 @@
         "ko": "오르막길은 여행자들에게 힘들어요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "resident_a",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": false
     },
     {
       "npc_id": "iv_extra_8",
@@ -1931,7 +2342,10 @@
         "ko": "오르막길은 여행자들에게 힘들어요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "child",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": false
     },
     {
       "npc_id": "iv_extra_9",
@@ -1945,7 +2359,10 @@
         "ko": "오르막길은 여행자들에게 힘들어요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "courier",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": false
     },
     {
       "npc_id": "iv_extra_10",
@@ -1959,7 +2376,10 @@
         "ko": "오르막길은 여행자들에게 힘들어요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "resident_b",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": false
     },
     {
       "npc_id": "pe_extra_1",
@@ -1973,7 +2393,10 @@
         "ko": "바람이 종소리를 실어 와요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "leader",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": false
     },
     {
       "npc_id": "pe_extra_2",
@@ -1987,7 +2410,10 @@
         "ko": "바람이 종소리를 실어 와요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "shopkeeper",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": false
     },
     {
       "npc_id": "pe_extra_3",
@@ -2001,7 +2427,10 @@
         "ko": "바람이 종소리를 실어 와요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "innkeeper",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": false
     },
     {
       "npc_id": "pe_extra_4",
@@ -2015,7 +2444,10 @@
         "ko": "바람이 종소리를 실어 와요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "guard",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": false
     },
     {
       "npc_id": "pe_extra_5",
@@ -2029,7 +2461,10 @@
         "ko": "바람이 종소리를 실어 와요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "specialist_a",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": true
     },
     {
       "npc_id": "pe_extra_6",
@@ -2043,7 +2478,10 @@
         "ko": "바람이 종소리를 실어 와요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "specialist_b",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": true
     },
     {
       "npc_id": "pe_extra_7",
@@ -2057,7 +2495,10 @@
         "ko": "바람이 종소리를 실어 와요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "resident_a",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": false
     },
     {
       "npc_id": "pe_extra_8",
@@ -2071,7 +2512,10 @@
         "ko": "바람이 종소리를 실어 와요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "child",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": false
     },
     {
       "npc_id": "pe_extra_9",
@@ -2085,7 +2529,10 @@
         "ko": "바람이 종소리를 실어 와요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "courier",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": false
     },
     {
       "npc_id": "pe_extra_10",
@@ -2099,7 +2546,10 @@
         "ko": "바람이 종소리를 실어 와요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "resident_b",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": false
     },
     {
       "npc_id": "ng_extra_1",
@@ -2113,7 +2563,10 @@
         "ko": "무대에는 공연자들이 쓸 공간이 필요해요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "leader",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": false
     },
     {
       "npc_id": "ng_extra_2",
@@ -2127,7 +2580,10 @@
         "ko": "무대에는 공연자들이 쓸 공간이 필요해요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "shopkeeper",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": false
     },
     {
       "npc_id": "ng_extra_3",
@@ -2141,7 +2597,10 @@
         "ko": "무대에는 공연자들이 쓸 공간이 필요해요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "innkeeper",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": false
     },
     {
       "npc_id": "ng_extra_4",
@@ -2155,7 +2614,10 @@
         "ko": "무대에는 공연자들이 쓸 공간이 필요해요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "guard",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": false
     },
     {
       "npc_id": "ng_extra_5",
@@ -2169,7 +2631,10 @@
         "ko": "무대에는 공연자들이 쓸 공간이 필요해요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "specialist_a",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": true
     },
     {
       "npc_id": "ng_extra_6",
@@ -2183,7 +2648,10 @@
         "ko": "무대에는 공연자들이 쓸 공간이 필요해요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "specialist_b",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": true
     },
     {
       "npc_id": "ng_extra_7",
@@ -2197,7 +2665,10 @@
         "ko": "무대에는 공연자들이 쓸 공간이 필요해요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "resident_a",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": false
     },
     {
       "npc_id": "ng_extra_8",
@@ -2211,7 +2682,10 @@
         "ko": "무대에는 공연자들이 쓸 공간이 필요해요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "child",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": false
     },
     {
       "npc_id": "ng_extra_9",
@@ -2225,7 +2699,10 @@
         "ko": "무대에는 공연자들이 쓸 공간이 필요해요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "courier",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": false
     },
     {
       "npc_id": "ng_extra_10",
@@ -2239,7 +2716,10 @@
         "ko": "무대에는 공연자들이 쓸 공간이 필요해요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "resident_b",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": false
     },
     {
       "npc_id": "rs_extra_1",
@@ -2253,7 +2733,10 @@
         "ko": "명확한 전갈은 두 번 갈 일을 줄여 줘요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "leader",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": false
     },
     {
       "npc_id": "rs_extra_2",
@@ -2267,7 +2750,10 @@
         "ko": "명확한 전갈은 두 번 갈 일을 줄여 줘요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "shopkeeper",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": false
     },
     {
       "npc_id": "rs_extra_3",
@@ -2281,7 +2767,10 @@
         "ko": "명확한 전갈은 두 번 갈 일을 줄여 줘요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "innkeeper",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": false
     },
     {
       "npc_id": "rs_extra_4",
@@ -2295,7 +2784,10 @@
         "ko": "명확한 전갈은 두 번 갈 일을 줄여 줘요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "guard",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": false
     },
     {
       "npc_id": "rs_extra_5",
@@ -2309,7 +2801,10 @@
         "ko": "명확한 전갈은 두 번 갈 일을 줄여 줘요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "specialist_a",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": true
     },
     {
       "npc_id": "rs_extra_6",
@@ -2323,7 +2818,10 @@
         "ko": "명확한 전갈은 두 번 갈 일을 줄여 줘요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "specialist_b",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": true
     },
     {
       "npc_id": "rs_extra_7",
@@ -2337,7 +2835,10 @@
         "ko": "명확한 전갈은 두 번 갈 일을 줄여 줘요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "resident_a",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": false
     },
     {
       "npc_id": "rs_extra_8",
@@ -2351,7 +2852,10 @@
         "ko": "명확한 전갈은 두 번 갈 일을 줄여 줘요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "child",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": false
     },
     {
       "npc_id": "rs_extra_9",
@@ -2365,7 +2869,10 @@
         "ko": "명확한 전갈은 두 번 갈 일을 줄여 줘요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "courier",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": false
     },
     {
       "npc_id": "rs_extra_10",
@@ -2379,7 +2886,10 @@
         "ko": "명확한 전갈은 두 번 갈 일을 줄여 줘요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "resident_b",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": false
     },
     {
       "npc_id": "sx_extra_1",
@@ -2393,7 +2903,10 @@
         "ko": "기록실에는 옛 기록과 새 기록이 있어요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "leader",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": false
     },
     {
       "npc_id": "sx_extra_2",
@@ -2407,7 +2920,10 @@
         "ko": "기록실에는 옛 기록과 새 기록이 있어요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "shopkeeper",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": false
     },
     {
       "npc_id": "sx_extra_3",
@@ -2421,7 +2937,10 @@
         "ko": "기록실에는 옛 기록과 새 기록이 있어요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "innkeeper",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": false
     },
     {
       "npc_id": "sx_extra_4",
@@ -2435,7 +2954,10 @@
         "ko": "기록실에는 옛 기록과 새 기록이 있어요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "guard",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": false
     },
     {
       "npc_id": "sx_extra_5",
@@ -2449,7 +2971,10 @@
         "ko": "기록실에는 옛 기록과 새 기록이 있어요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "specialist_a",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": true
     },
     {
       "npc_id": "sx_extra_6",
@@ -2463,7 +2988,10 @@
         "ko": "기록실에는 옛 기록과 새 기록이 있어요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "specialist_b",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": true
     },
     {
       "npc_id": "sx_extra_7",
@@ -2477,7 +3005,10 @@
         "ko": "기록실에는 옛 기록과 새 기록이 있어요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "resident_a",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": false
     },
     {
       "npc_id": "sx_extra_8",
@@ -2491,7 +3022,10 @@
         "ko": "기록실에는 옛 기록과 새 기록이 있어요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "child",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": false
     },
     {
       "npc_id": "sx_extra_9",
@@ -2505,7 +3039,10 @@
         "ko": "기록실에는 옛 기록과 새 기록이 있어요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "courier",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": false
     },
     {
       "npc_id": "sx_extra_10",
@@ -2519,8 +3056,333 @@
         "ko": "기록실에는 옛 기록과 새 기록이 있어요."
       },
       "condition": "town_recovered",
-      "priority": "active quest > conditional aftermath > idle"
+      "priority": "active quest > conditional aftermath > idle",
+      "role_pool": "resident_b",
+      "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
+      "idle_is_distinct": false
     }
   ],
-  "policy": "180 resident entries; 36 specialist-specific idle lines, remaining role-based placeholders plus town topic. Do not claim all lines unique. Existing quest dialogue wins. Natural Korean; chunks pending."
+  "policy": "180 recovered-town residents. Ten role-slot pools, six bilingual lines each (60 authored common lines). Preserve original idle and town topic; deduplicate identical text per NPC. Distinct specialist lines remain additional. Shuffle without replacement, avoid immediate repeat at cycle boundary; quest and aftermath dialogue override idle. Save cursor optionally; no real-time gating. Natural Korean; semantic chunks pending. Role slots 5/6 are broad specialist pools, 7/10 broad resident pools, not exact occupations.",
+  "role_pools": {
+    "leader": [
+      {
+        "id": "leader_1",
+        "en": "I want visitors to feel welcome here.",
+        "ko": "방문객들이 이곳에서 환영받는다고 느끼면 좋겠어요."
+      },
+      {
+        "id": "leader_2",
+        "en": "People bring their concerns to me after breakfast.",
+        "ko": "주민들은 아침 식사 후에 고민을 이야기하러 와요."
+      },
+      {
+        "id": "leader_3",
+        "en": "A good plan must include the people it affects.",
+        "ko": "좋은 계획에는 영향을 받는 사람들이 참여해야 해요."
+      },
+      {
+        "id": "leader_4",
+        "en": "I enjoy walking around the village before work.",
+        "ko": "일을 시작하기 전에 마을을 둘러보는 걸 좋아해요."
+      },
+      {
+        "id": "leader_5",
+        "en": "Our next meeting is open to every resident.",
+        "ko": "다음 회의에는 모든 주민이 참여할 수 있어요."
+      },
+      {
+        "id": "leader_6",
+        "en": "What do you like most about our village?",
+        "ko": "우리 마을에서 무엇이 가장 마음에 드세요?"
+      }
+    ],
+    "shopkeeper": [
+      {
+        "id": "shopkeeper_1",
+        "en": "I check my stock before opening the shop.",
+        "ko": "가게를 열기 전에 재고를 확인해요."
+      },
+      {
+        "id": "shopkeeper_2",
+        "en": "Fresh goods usually arrive in the morning.",
+        "ko": "신선한 물건은 보통 아침에 도착해요."
+      },
+      {
+        "id": "shopkeeper_3",
+        "en": "You can compare the prices before you buy anything.",
+        "ko": "물건을 사기 전에 가격을 비교해 보세요."
+      },
+      {
+        "id": "shopkeeper_4",
+        "en": "I keep the heavier boxes on the bottom shelf.",
+        "ko": "무거운 상자는 아래쪽 선반에 보관해요."
+      },
+      {
+        "id": "shopkeeper_5",
+        "en": "I sometimes trade goods with merchants from other towns.",
+        "ko": "가끔 다른 마을 상인들과 물건을 교환해요."
+      },
+      {
+        "id": "shopkeeper_6",
+        "en": "On quiet days, I read a book behind the counter.",
+        "ko": "한가한 날에는 계산대 뒤에서 책을 읽어요."
+      }
+    ],
+    "innkeeper": [
+      {
+        "id": "innkeeper_1",
+        "en": "I keep a clean room for tired guests.",
+        "ko": "지친 손님을 위해 깨끗한 방을 마련해요."
+      },
+      {
+        "id": "innkeeper_2",
+        "en": "Breakfast is my favorite part of the day.",
+        "ko": "아침 식사 시간이 하루 중 가장 좋아요."
+      },
+      {
+        "id": "innkeeper_3",
+        "en": "Some guests tell wonderful stories about distant places.",
+        "ko": "어떤 손님들은 먼 곳에 관한 멋진 이야기를 들려줘요."
+      },
+      {
+        "id": "innkeeper_4",
+        "en": "A warm blanket makes a cold night more comfortable.",
+        "ko": "따뜻한 담요가 있으면 추운 밤에도 더 편안해요."
+      },
+      {
+        "id": "innkeeper_5",
+        "en": "Please check your room before you leave.",
+        "ko": "떠나기 전에 방을 확인해 주세요."
+      },
+      {
+        "id": "innkeeper_6",
+        "en": "I enjoy growing flowers near the entrance.",
+        "ko": "입구 근처에서 꽃을 기르는 걸 좋아해요."
+      }
+    ],
+    "guard": [
+      {
+        "id": "guard_1",
+        "en": "Please tell me if you notice a problem.",
+        "ko": "문제를 발견하면 알려 주세요."
+      },
+      {
+        "id": "guard_2",
+        "en": "I walk around the village at the start of my shift.",
+        "ko": "근무를 시작할 때 마을을 한 바퀴 돌아요."
+      },
+      {
+        "id": "guard_3",
+        "en": "A clear report is more useful than a frightening rumor.",
+        "ko": "명확한 보고가 무서운 소문보다 유용해요."
+      },
+      {
+        "id": "guard_4",
+        "en": "I practice with my shield when I have free time.",
+        "ko": "시간이 날 때 방패를 사용하는 연습을 해요."
+      },
+      {
+        "id": "guard_5",
+        "en": "Travelers often ask me where the inn is.",
+        "ko": "여행자들은 여관이 어디 있는지 자주 물어요."
+      },
+      {
+        "id": "guard_6",
+        "en": "Even a quiet day requires careful attention.",
+        "ko": "조용한 날에도 주의를 기울여야 해요."
+      }
+    ],
+    "specialist_a": [
+      {
+        "id": "specialist_a_1",
+        "en": "My work takes patience and practice.",
+        "ko": "제 일에는 인내와 연습이 필요해요."
+      },
+      {
+        "id": "specialist_a_2",
+        "en": "I check my tools before starting a new task.",
+        "ko": "새 작업을 시작하기 전에 도구를 점검해요."
+      },
+      {
+        "id": "specialist_a_3",
+        "en": "I learned a lot from my first teacher.",
+        "ko": "첫 스승에게 많은 것을 배웠어요."
+      },
+      {
+        "id": "specialist_a_4",
+        "en": "A small mistake can cause a bigger problem later.",
+        "ko": "작은 실수가 나중에 더 큰 문제를 일으킬 수 있어요."
+      },
+      {
+        "id": "specialist_a_5",
+        "en": "I keep notes about the things I learn at work.",
+        "ko": "일하면서 배운 것들을 기록해 둬요."
+      },
+      {
+        "id": "specialist_a_6",
+        "en": "I enjoy solving problems with other people.",
+        "ko": "다른 사람들과 함께 문제를 해결하는 게 좋아요."
+      }
+    ],
+    "specialist_b": [
+      {
+        "id": "specialist_b_1",
+        "en": "I enjoy teaching people what I know.",
+        "ko": "제가 아는 것을 사람들에게 가르치는 게 좋아요."
+      },
+      {
+        "id": "specialist_b_2",
+        "en": "There is always something new to learn.",
+        "ko": "새롭게 배울 것은 언제나 있어요."
+      },
+      {
+        "id": "specialist_b_3",
+        "en": "I try a different method when the first one fails.",
+        "ko": "첫 방법이 실패하면 다른 방법을 시도해요."
+      },
+      {
+        "id": "specialist_b_4",
+        "en": "My best ideas often come during a walk.",
+        "ko": "가장 좋은 아이디어는 산책 중에 떠오를 때가 많아요."
+      },
+      {
+        "id": "specialist_b_5",
+        "en": "I prefer careful work to hurried work.",
+        "ko": "서두르는 작업보다 꼼꼼한 작업을 좋아해요."
+      },
+      {
+        "id": "specialist_b_6",
+        "en": "Sometimes a beginner asks the most interesting question.",
+        "ko": "가끔 초보자가 가장 흥미로운 질문을 해요."
+      }
+    ],
+    "resident_a": [
+      {
+        "id": "resident_a_1",
+        "en": "I am saving time for a small project of my own.",
+        "ko": "제 작은 계획을 위해 시간을 내고 있어요."
+      },
+      {
+        "id": "resident_a_2",
+        "en": "I usually finish my chores before lunch.",
+        "ko": "보통 점심 전에 집안일을 끝내요."
+      },
+      {
+        "id": "resident_a_3",
+        "en": "My neighbors and I often help each other.",
+        "ko": "이웃들과 자주 서로 도와요."
+      },
+      {
+        "id": "resident_a_4",
+        "en": "I would like to visit another village someday.",
+        "ko": "언젠가 다른 마을에 가 보고 싶어요."
+      },
+      {
+        "id": "resident_a_5",
+        "en": "I enjoy the quiet moments at the end of the day.",
+        "ko": "하루가 끝날 무렵의 조용한 시간을 좋아해요."
+      },
+      {
+        "id": "resident_a_6",
+        "en": "Have you met anyone interesting on your journey?",
+        "ko": "여행 중에 흥미로운 사람을 만났나요?"
+      }
+    ],
+    "child": [
+      {
+        "id": "child_1",
+        "en": "I want to learn something new today.",
+        "ko": "오늘은 새로운 것을 배우고 싶어요."
+      },
+      {
+        "id": "child_2",
+        "en": "My friends and I like making up stories.",
+        "ko": "친구들과 이야기를 지어내는 걸 좋아해요."
+      },
+      {
+        "id": "child_3",
+        "en": "I found a pretty stone on my way home.",
+        "ko": "집에 가는 길에 예쁜 돌을 발견했어요."
+      },
+      {
+        "id": "child_4",
+        "en": "I am practicing how to draw a map.",
+        "ko": "지도 그리는 법을 연습하고 있어요."
+      },
+      {
+        "id": "child_5",
+        "en": "What was your favorite game when you were little?",
+        "ko": "어렸을 때 어떤 놀이를 가장 좋아했어요?"
+      },
+      {
+        "id": "child_6",
+        "en": "Someday I want to go on an adventure too.",
+        "ko": "언젠가 저도 모험을 떠나고 싶어요."
+      }
+    ],
+    "courier": [
+      {
+        "id": "courier_1",
+        "en": "I check the address before I leave.",
+        "ko": "떠나기 전에 주소를 확인해요."
+      },
+      {
+        "id": "courier_2",
+        "en": "I keep letters in a dry bag when it rains.",
+        "ko": "비가 오면 편지를 마른 가방에 넣어 보관해요."
+      },
+      {
+        "id": "courier_3",
+        "en": "A wrong address can make a short trip much longer.",
+        "ko": "주소가 틀리면 짧은 여행이 훨씬 길어질 수 있어요."
+      },
+      {
+        "id": "courier_4",
+        "en": "I like meeting familiar faces along the road.",
+        "ko": "길에서 익숙한 얼굴을 만나는 게 좋아요."
+      },
+      {
+        "id": "courier_5",
+        "en": "I take a rest before starting a long journey.",
+        "ko": "긴 여행을 시작하기 전에 쉬어요."
+      },
+      {
+        "id": "courier_6",
+        "en": "Every letter has someone waiting for it.",
+        "ko": "모든 편지에는 그 편지를 기다리는 사람이 있어요."
+      }
+    ],
+    "resident_b": [
+      {
+        "id": "resident_b_1",
+        "en": "I like hearing stories from other villages.",
+        "ko": "다른 마을 이야기를 듣는 게 좋아요."
+      },
+      {
+        "id": "resident_b_2",
+        "en": "I sometimes sit outside and watch the clouds.",
+        "ko": "가끔 밖에 앉아 구름을 바라봐요."
+      },
+      {
+        "id": "resident_b_3",
+        "en": "I have a few books that I read again and again.",
+        "ko": "몇 번이고 다시 읽는 책이 몇 권 있어요."
+      },
+      {
+        "id": "resident_b_4",
+        "en": "I try to make something useful from old materials.",
+        "ko": "오래된 재료로 유용한 것을 만들려고 해요."
+      },
+      {
+        "id": "resident_b_5",
+        "en": "The village feels different when the seasons change.",
+        "ko": "계절이 바뀌면 마을의 느낌도 달라져요."
+      },
+      {
+        "id": "resident_b_6",
+        "en": "I hope you find a good place to rest tonight.",
+        "ko": "오늘 밤 편히 쉴 곳을 찾으면 좋겠어요."
+      }
+    ]
+  }
 }

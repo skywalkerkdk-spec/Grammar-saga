@@ -1,0 +1,593 @@
+{
+  "version": "0.1",
+  "arcs": [
+    {
+      "id": "personal_subject",
+      "character": "Subject",
+      "requires": {
+        "available_character": "Subject",
+        "recovered_towns": [
+          "g1",
+          "md"
+        ]
+      },
+      "scenes": [
+        {
+          "town": "g1",
+          "lines": [
+            {
+              "speaker": "Subject",
+              "en": "I promised to carry every sack myself.",
+              "ko": "모든 자루를 혼자 나르겠다고 약속했어."
+            },
+            {
+              "speaker": "g1_extra_5",
+              "en": "We have three carts and six workers. You do not need to carry them alone.",
+              "ko": "수레 세 대와 일꾼 여섯 명이 있어요. 혼자 나를 필요 없어요."
+            }
+          ]
+        },
+        {
+          "town": "md",
+          "lines": [
+            {
+              "speaker": "md_extra_7",
+              "en": "The bridge can take one loaded cart at a time.",
+              "ko": "다리에는 짐을 실은 수레가 한 번에 한 대씩 지나갈 수 있어요."
+            },
+            {
+              "speaker": "Subject",
+              "en": "I should remember that.",
+              "ko": "그걸 기억해야겠어."
+            }
+          ]
+        },
+        {
+          "town": "g1",
+          "lines": [
+            {
+              "speaker": "Subject",
+              "en": "I will organize the team instead of doing everything myself.",
+              "ko": "모든 일을 혼자 하는 대신 팀을 이끌겠어."
+            },
+            {
+              "speaker": "g1_extra_5",
+              "en": "Come back whenever you need a friend.",
+              "ko": "친구가 필요할 때 언제든 돌아오세요."
+            }
+          ]
+        }
+      ],
+      "reward": "optional_story_flag",
+      "completion_flag": "personal_subject_complete"
+    },
+    {
+      "id": "personal_verbella",
+      "character": "Verbella",
+      "requires": {
+        "available_character": "Verbella",
+        "recovered_towns": [
+          "g2",
+          "pf"
+        ]
+      },
+      "scenes": [
+        {
+          "town": "g2",
+          "lines": [
+            {
+              "speaker": "Verbella",
+              "en": "I used to think helping meant doing something immediately.",
+              "ko": "도움이란 즉시 무언가를 하는 것이라고 생각했어요."
+            },
+            {
+              "speaker": "g2_extra_7",
+              "en": "Daisy needs a meal without fish. Please ask her first.",
+              "ko": "데이지에게는 생선 없는 식사가 필요해요. 먼저 아이에게 물어보세요."
+            }
+          ]
+        },
+        {
+          "town": "pf",
+          "lines": [
+            {
+              "speaker": "pf_extra_6",
+              "en": "Some travelers need water, while others need a place to rest.",
+              "ko": "어떤 여행자는 물이 필요하고 다른 사람은 쉴 곳이 필요해요."
+            },
+            {
+              "speaker": "Verbella",
+              "en": "I should remember that.",
+              "ko": "그걸 기억해야겠어."
+            }
+          ]
+        },
+        {
+          "town": "g2",
+          "lines": [
+            {
+              "speaker": "Verbella",
+              "en": "I will listen before I act.",
+              "ko": "행동하기 전에 먼저 들을게요."
+            },
+            {
+              "speaker": "g2_extra_7",
+              "en": "Come back whenever you need a friend.",
+              "ko": "친구가 필요할 때 언제든 돌아오세요."
+            }
+          ]
+        }
+      ],
+      "reward": "optional_story_flag",
+      "completion_flag": "personal_verbella_complete"
+    },
+    {
+      "id": "personal_comple",
+      "character": "Comple",
+      "requires": {
+        "available_character": "Comple",
+        "recovered_towns": [
+          "md",
+          "pe"
+        ]
+      },
+      "scenes": [
+        {
+          "town": "md",
+          "lines": [
+            {
+              "speaker": "Comple",
+              "en": "I once refused help because I thought a knight must stand alone.",
+              "ko": "기사는 홀로 서야 한다고 생각해 도움을 거절한 적이 있어."
+            },
+            {
+              "speaker": "md_extra_7",
+              "en": "A shield cannot repair a bridge. We need carpenters too.",
+              "ko": "방패로 다리를 고칠 수는 없어요. 목수도 필요해요."
+            }
+          ]
+        },
+        {
+          "town": "pe",
+          "lines": [
+            {
+              "speaker": "pe_extra_5",
+              "en": "I can show you a safe path while you protect the travelers.",
+              "ko": "여행자를 지키는 동안 안전한 길을 안내할게요."
+            },
+            {
+              "speaker": "Comple",
+              "en": "I should remember that.",
+              "ko": "그걸 기억해야겠어."
+            }
+          ]
+        },
+        {
+          "town": "md",
+          "lines": [
+            {
+              "speaker": "Comple",
+              "en": "A knight can trust others without abandoning duty.",
+              "ko": "기사는 의무를 버리지 않고도 다른 사람을 믿을 수 있어."
+            },
+            {
+              "speaker": "md_extra_7",
+              "en": "Come back whenever you need a friend.",
+              "ko": "친구가 필요할 때 언제든 돌아오세요."
+            }
+          ]
+        }
+      ],
+      "reward": "optional_story_flag",
+      "completion_flag": "personal_comple_complete"
+    },
+    {
+      "id": "personal_ob",
+      "character": "Ob",
+      "requires": {
+        "available_character": "Ob",
+        "recovered_towns": [
+          "rp",
+          "pn"
+        ]
+      },
+      "scenes": [
+        {
+          "town": "rp",
+          "lines": [
+            {
+              "speaker": "Ob",
+              "en": "I used to follow the first clue I found.",
+              "ko": "처음 발견한 단서를 곧바로 따라가곤 했어."
+            },
+            {
+              "speaker": "rp_extra_6",
+              "en": "Two bags have stars on them. Only one has a green strap.",
+              "ko": "가방 두 개에 별이 있어요. 초록색 끈은 하나에만 있어요."
+            }
+          ]
+        },
+        {
+          "town": "pn",
+          "lines": [
+            {
+              "speaker": "pn_extra_5",
+              "en": "The owner described a green strap, not a red one.",
+              "ko": "주인은 빨간 끈이 아니라 초록 끈이라고 설명했어요."
+            },
+            {
+              "speaker": "Ob",
+              "en": "I should remember that.",
+              "ko": "그걸 기억해야겠어."
+            }
+          ]
+        },
+        {
+          "town": "rp",
+          "lines": [
+            {
+              "speaker": "Ob",
+              "en": "I will check my target before I act.",
+              "ko": "행동하기 전에 목표를 확인할게."
+            },
+            {
+              "speaker": "rp_extra_6",
+              "en": "Come back whenever you need a friend.",
+              "ko": "친구가 필요할 때 언제든 돌아오세요."
+            }
+          ]
+        }
+      ],
+      "reward": "optional_story_flag",
+      "completion_flag": "personal_ob_complete"
+    },
+    {
+      "id": "personal_oxy",
+      "character": "Oxy",
+      "requires": {
+        "available_character": "Oxy",
+        "recovered_towns": [
+          "pe",
+          "pc"
+        ]
+      },
+      "scenes": [
+        {
+          "town": "pe",
+          "lines": [
+            {
+              "speaker": "Oxy",
+              "en": "I once changed a broken object before anyone could examine it.",
+              "ko": "누군가 조사하기 전에 망가진 물건을 바꿔 버린 적이 있어."
+            },
+            {
+              "speaker": "pe_extra_7",
+              "en": "This bell needs a new rope, not a new shape.",
+              "ko": "이 종에는 새 모양이 아니라 새 밧줄이 필요해요."
+            }
+          ]
+        },
+        {
+          "town": "pc",
+          "lines": [
+            {
+              "speaker": "pc_extra_6",
+              "en": "Please copy the old marks before you repair the stone.",
+              "ko": "돌을 수리하기 전에 옛 문양을 옮겨 적어 주세요."
+            },
+            {
+              "speaker": "Oxy",
+              "en": "I should remember that.",
+              "ko": "그걸 기억해야겠어."
+            }
+          ]
+        },
+        {
+          "town": "pe",
+          "lines": [
+            {
+              "speaker": "Oxy",
+              "en": "I can change things without erasing their history.",
+              "ko": "역사를 지우지 않고도 사물을 바꿀 수 있어."
+            },
+            {
+              "speaker": "pe_extra_7",
+              "en": "Come back whenever you need a friend.",
+              "ko": "친구가 필요할 때 언제든 돌아오세요."
+            }
+          ]
+        }
+      ],
+      "reward": "optional_story_flag",
+      "completion_flag": "personal_oxy_complete"
+    },
+    {
+      "id": "personal_indy",
+      "character": "Indy",
+      "requires": {
+        "available_character": "Indy",
+        "recovered_towns": [
+          "pn",
+          "g1"
+        ]
+      },
+      "scenes": [
+        {
+          "town": "pn",
+          "lines": [
+            {
+              "speaker": "Indy",
+              "en": "I used to count every gift as a lost sale.",
+              "ko": "선물을 줄 때마다 판매 기회를 잃었다고 생각했어."
+            },
+            {
+              "speaker": "pn_extra_7",
+              "en": "This spare cover is useful to a child with a torn notebook.",
+              "ko": "이 여분 표지는 공책이 찢어진 아이에게 유용해요."
+            }
+          ]
+        },
+        {
+          "town": "g1",
+          "lines": [
+            {
+              "speaker": "g1_extra_6",
+              "en": "A traveler paid for bread for the next guest.",
+              "ko": "한 여행자가 다음 손님의 빵값을 냈어요."
+            },
+            {
+              "speaker": "Indy",
+              "en": "I should remember that.",
+              "ko": "그걸 기억해야겠어."
+            }
+          ]
+        },
+        {
+          "town": "pn",
+          "lines": [
+            {
+              "speaker": "Indy",
+              "en": "I can run a shop and still choose to give.",
+              "ko": "상점을 운영하면서도 나눔을 선택할 수 있어."
+            },
+            {
+              "speaker": "pn_extra_7",
+              "en": "Come back whenever you need a friend.",
+              "ko": "친구가 필요할 때 언제든 돌아오세요."
+            }
+          ]
+        }
+      ],
+      "reward": "optional_story_flag",
+      "completion_flag": "personal_indy_complete"
+    },
+    {
+      "id": "personal_direct",
+      "character": "Direct",
+      "requires": {
+        "available_character": "Direct",
+        "recovered_towns": [
+          "ot",
+          "rv"
+        ]
+      },
+      "scenes": [
+        {
+          "town": "ot",
+          "lines": [
+            {
+              "speaker": "Direct",
+              "en": "I have carried many things, but I do not always know who needs them.",
+              "ko": "많은 물건을 담아 왔지만 누가 필요한지 늘 아는 건 아니야."
+            },
+            {
+              "speaker": "ot_extra_5",
+              "en": "The sailor needs a chart, not another empty bag.",
+              "ko": "선원에게는 빈 가방이 아니라 해도가 필요해요."
+            }
+          ]
+        },
+        {
+          "town": "rv",
+          "lines": [
+            {
+              "speaker": "rv_extra_5",
+              "en": "This copy belongs to the traveler who requested it.",
+              "ko": "이 사본은 요청한 여행자의 것이에요."
+            },
+            {
+              "speaker": "Direct",
+              "en": "I should remember that.",
+              "ko": "그걸 기억해야겠어."
+            }
+          ]
+        },
+        {
+          "town": "ot",
+          "lines": [
+            {
+              "speaker": "Direct",
+              "en": "I will keep things safe until they reach the right person.",
+              "ko": "물건이 필요한 사람에게 닿을 때까지 안전하게 보관할게."
+            },
+            {
+              "speaker": "ot_extra_5",
+              "en": "Come back whenever you need a friend.",
+              "ko": "친구가 필요할 때 언제든 돌아오세요."
+            }
+          ]
+        }
+      ],
+      "reward": "optional_story_flag",
+      "completion_flag": "personal_direct_complete"
+    },
+    {
+      "id": "personal_modi",
+      "character": "Modi",
+      "requires": {
+        "available_character": "Modi",
+        "recovered_towns": [
+          "rv",
+          "sj"
+        ]
+      },
+      "scenes": [
+        {
+          "town": "rv",
+          "lines": [
+            {
+              "speaker": "Modi",
+              "en": "I notice little things that others miss.",
+              "ko": "다른 사람들이 놓치는 작은 것들을 발견해."
+            },
+            {
+              "speaker": "rv_extra_5",
+              "en": "The bird is above the circle, not inside it.",
+              "ko": "새는 원 안이 아니라 위에 있어요."
+            }
+          ]
+        },
+        {
+          "town": "sj",
+          "lines": [
+            {
+              "speaker": "sj_extra_5",
+              "en": "My grandmother's cage has the same mark.",
+              "ko": "할머니의 새장에도 같은 문양이 있어요."
+            },
+            {
+              "speaker": "Modi",
+              "en": "I should remember that.",
+              "ko": "그걸 기억해야겠어."
+            }
+          ]
+        },
+        {
+          "town": "rv",
+          "lines": [
+            {
+              "speaker": "Modi",
+              "en": "Small details can help us find a bigger story.",
+              "ko": "작은 단서로 더 큰 이야기를 찾을 수 있어."
+            },
+            {
+              "speaker": "rv_extra_5",
+              "en": "Come back whenever you need a friend.",
+              "ko": "친구가 필요할 때 언제든 돌아오세요."
+            }
+          ]
+        }
+      ],
+      "reward": "optional_story_flag",
+      "completion_flag": "personal_modi_complete"
+    }
+  ],
+  "officers": [
+    {
+      "lair": "hideout_black_hand",
+      "insert": "after_evidence_before_existing_boss",
+      "lines": [
+        {
+          "speaker": "Raven",
+          "en": "I once carried supplies to hungry villages. Then I began to decide who deserved them.",
+          "ko": "한때 굶주린 마을에 물자를 날랐다. 그러다 누가 받을 자격이 있는지 내가 결정하기 시작했지."
+        },
+        {
+          "speaker": "Verbella",
+          "en": "The stolen records will go back to their owners.",
+          "ko": "도난 기록은 주인에게 돌아갈 거야."
+        }
+      ],
+      "after_clear": {
+        "speaker": "Lexion",
+        "en": "Record what we learned, but do not excuse the harm.",
+        "ko": "알게 된 사실은 기록하되 피해를 정당화하지는 말게."
+      }
+    },
+    {
+      "lair": "hideout_false_tongue",
+      "insert": "after_evidence_before_existing_boss",
+      "lines": [
+        {
+          "speaker": "Mendax",
+          "en": "I learned that a frightening rumor travels faster than a careful report.",
+          "ko": "무서운 소문이 신중한 보고보다 빨리 퍼진다는 것을 배웠지."
+        },
+        {
+          "speaker": "Verbella",
+          "en": "That does not make the rumor true.",
+          "ko": "그렇다고 소문이 사실이 되는 것은 아니야."
+        }
+      ],
+      "after_clear": {
+        "speaker": "Lexion",
+        "en": "Record what we learned, but do not excuse the harm.",
+        "ko": "알게 된 사실은 기록하되 피해를 정당화하지는 말게."
+      }
+    },
+    {
+      "lair": "hideout_broken_quill",
+      "insert": "after_evidence_before_existing_boss",
+      "lines": [
+        {
+          "speaker": "Palim",
+          "en": "I removed a line from a record to protect my teacher. Soon I was removing whole pages.",
+          "ko": "스승을 보호하려 기록 한 줄을 지웠다. 곧 페이지 전체를 지우게 되었지."
+        },
+        {
+          "speaker": "Verbella",
+          "en": "We can preserve the truth without hiding the mistake.",
+          "ko": "실수를 숨기지 않고 진실을 보존할 수 있어."
+        }
+      ],
+      "after_clear": {
+        "speaker": "Lexion",
+        "en": "Record what we learned, but do not excuse the harm.",
+        "ko": "알게 된 사실은 기록하되 피해를 정당화하지는 말게."
+      }
+    },
+    {
+      "lair": "hideout_iron_chain",
+      "insert": "after_evidence_before_existing_boss",
+      "lines": [
+        {
+          "speaker": "Ferron",
+          "en": "I saw a bridge collapse because no one paid for repairs. I decided that every road should have a price.",
+          "ko": "수리비를 아무도 내지 않아 다리가 무너지는 것을 봤다. 모든 길에 가격을 매겨야 한다고 생각했지."
+        },
+        {
+          "speaker": "Verbella",
+          "en": "A fair agreement is different from a forced payment.",
+          "ko": "공정한 합의와 강제 징수는 달라."
+        }
+      ],
+      "after_clear": {
+        "speaker": "Lexion",
+        "en": "Record what we learned, but do not excuse the harm.",
+        "ko": "알게 된 사실은 기록하되 피해를 정당화하지는 말게."
+      }
+    },
+    {
+      "lair": "hideout_silent_order",
+      "insert": "after_evidence_before_existing_boss",
+      "lines": [
+        {
+          "speaker": "Absol",
+          "en": "I wanted a school where no child would be mocked. I made a rule against every question.",
+          "ko": "아무 아이도 놀림받지 않는 학교를 원했다. 그래서 모든 질문을 금지했지."
+        },
+        {
+          "speaker": "Verbella",
+          "en": "Children need safety and the freedom to ask.",
+          "ko": "아이들에게는 안전과 질문할 자유가 모두 필요해."
+        }
+      ],
+      "after_clear": {
+        "speaker": "Lexion",
+        "en": "Record what we learned, but do not excuse the harm.",
+        "ko": "알게 된 사실은 기록하되 피해를 정당화하지는 말게."
+      }
+    }
+  ],
+  "policy": "Additive optional companion stories after existing activities; no forced recruitment or party removal. Subject lines may be player thought, Direct and Modi use established presentation or narrator fallback. Officer pasts are proposed self-reports, not verified history. No new combat or stats. Natural Korean, chunks pending."
+}

@@ -36,7 +36,8 @@ with ThreadingHTTPServer(('127.0.0.1',0),partial(Q,directory=root)) as srv:
         pg.get_by_role('button',name='비빌 마을 탐험').click()
         pg.wait_for_timeout(800)
         sp=pg.locator('.c2-npc-sprite')
-        assert sp.count()==1,'걷기 스프라이트가 1개여야 함(시트 있는 주민만): %d'%sp.count()
+        want=pg.evaluate("Object.entries(NPC_ATLAS).filter(([k,v])=>k.startsWith('g1_')&&v.walk&&v.walk.ready).length")
+        assert sp.count()==want,'걷기 스프라이트는 시트 있는 주민 수와 같아야 함: %d/%d'%(sp.count(),want)
         pins=pg.locator('.c2-field-pin').count();imgs=pg.locator('.c2-field-pin img').count()
         assert imgs>=2,'시트 없는 주민은 기존 정지 그림 유지'
         assert pg.locator('.c2-field-pin img[src*="npc_g1_o1.webp"]').count()==1,'정면 그림이 등록된 주민은 새 그림으로 바뀌어야 함'

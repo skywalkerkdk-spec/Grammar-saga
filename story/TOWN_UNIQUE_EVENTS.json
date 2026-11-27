@@ -1595,7 +1595,21 @@
             "chunks": [
               {
                 "en": "It was the silver key that opened the gate.",
-                "ko": "문을 연 것은 바로 은빛 열쇠였어요."
+                "ko": "문을 연 것은 바로 은빛 열쇠였어요.",
+                "direct_chunks": [
+                  {
+                    "en": "It was the silver key",
+                    "ko": "바로 은빛 열쇠였다"
+                  },
+                  {
+                    "en": "that opened",
+                    "ko": "연 것은"
+                  },
+                  {
+                    "en": "the gate.",
+                    "ko": "문을."
+                  }
+                ]
               }
             ]
           }

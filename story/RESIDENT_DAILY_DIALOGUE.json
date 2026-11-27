@@ -58,7 +58,17 @@
           },
           {
             "en": "check my stock before opening the shop.",
-            "ko": "가게를 열기 전에 재고를 확인해요."
+            "ko": "가게를 열기 전에 재고를 확인해요.",
+            "direct_chunks": [
+              {
+                "en": "check my stock",
+                "ko": "저는 확인해요 제 재고를"
+              },
+              {
+                "en": "before opening the shop.",
+                "ko": "가게를 열기 전에."
+              }
+            ]
           }
         ]
       },
@@ -102,7 +112,17 @@
           },
           {
             "en": "keep a clean room for tired guests.",
-            "ko": "지친 손님을 위해 깨끗한 방을 마련해요."
+            "ko": "지친 손님을 위해 깨끗한 방을 마련해요.",
+            "direct_chunks": [
+              {
+                "en": "keep a clean room",
+                "ko": "저는 마련해 둬요 깨끗한 방을"
+              },
+              {
+                "en": "for tired guests.",
+                "ko": "지친 손님들을 위해."
+              }
+            ]
           }
         ]
       },
@@ -138,7 +158,21 @@
       "town": "g1",
       "idle": {
         "en": "Please tell me if you notice a problem.",
-        "ko": "문제를 발견하면 알려 주세요."
+        "ko": "문제를 발견하면 알려 주세요.",
+        "direct_chunks": [
+          {
+            "en": "Please tell me",
+            "ko": "저에게 알려 주세요"
+          },
+          {
+            "en": "if you notice",
+            "ko": "당신이 알아차리면"
+          },
+          {
+            "en": "a problem.",
+            "ko": "문제를."
+          }
+        ]
       },
       "local_topic": {
         "en": "The mill is busy before sunrise.",
@@ -180,7 +214,17 @@
           },
           {
             "en": "test the flour before Belle uses it.",
-            "ko": "벨이 쓰기 전에 밀가루를 확인해요."
+            "ko": "벨이 쓰기 전에 밀가루를 확인해요.",
+            "direct_chunks": [
+              {
+                "en": "test the flour",
+                "ko": "저는 확인해요 밀가루를"
+              },
+              {
+                "en": "before Belle uses it.",
+                "ko": "벨이 그것을 쓰기 전에."
+              }
+            ]
           }
         ]
       },
@@ -272,7 +316,21 @@
           },
           {
             "en": "am saving time for a small project of my own.",
-            "ko": "제 작은 계획을 위해 시간을 내고 있어요."
+            "ko": "제 작은 계획을 위해 시간을 내고 있어요.",
+            "direct_chunks": [
+              {
+                "en": "am saving time",
+                "ko": "저는 시간을 아끼고 있어요"
+              },
+              {
+                "en": "for a small project",
+                "ko": "작은 계획을 위해"
+              },
+              {
+                "en": "of my own.",
+                "ko": "제 자신의."
+              }
+            ]
           }
         ]
       },
@@ -489,7 +547,21 @@
             },
             {
               "en": "ask the cooks for ideas before a feast.",
-              "ko": "잔치 전에 요리사들에게 의견을 물어요."
+              "ko": "잔치 전에 요리사들에게 의견을 물어요.",
+              "direct_chunks": [
+                {
+                  "en": "ask the cooks",
+                  "ko": "저는 요리사들에게 물어요"
+                },
+                {
+                  "en": "for ideas",
+                  "ko": "의견을"
+                },
+                {
+                  "en": "before a feast.",
+                  "ko": "잔치 전에."
+                }
+              ]
             }
           ]
         }
@@ -508,7 +580,17 @@
           },
           {
             "en": "check my stock before opening the shop.",
-            "ko": "가게를 열기 전에 재고를 확인해요."
+            "ko": "가게를 열기 전에 재고를 확인해요.",
+            "direct_chunks": [
+              {
+                "en": "check my stock",
+                "ko": "저는 확인해요 제 재고를"
+              },
+              {
+                "en": "before opening the shop.",
+                "ko": "가게를 열기 전에."
+              }
+            ]
           }
         ]
       },
@@ -552,7 +634,17 @@
           },
           {
             "en": "keep a clean room for tired guests.",
-            "ko": "지친 손님을 위해 깨끗한 방을 마련해요."
+            "ko": "지친 손님을 위해 깨끗한 방을 마련해요.",
+            "direct_chunks": [
+              {
+                "en": "keep a clean room",
+                "ko": "저는 마련해 둬요 깨끗한 방을"
+              },
+              {
+                "en": "for tired guests.",
+                "ko": "지친 손님들을 위해."
+              }
+            ]
           }
         ]
       },
@@ -588,7 +680,21 @@
       "town": "g2",
       "idle": {
         "en": "Please tell me if you notice a problem.",
-        "ko": "문제를 발견하면 알려 주세요."
+        "ko": "문제를 발견하면 알려 주세요.",
+        "direct_chunks": [
+          {
+            "en": "Please tell me",
+            "ko": "저에게 알려 주세요"
+          },
+          {
+            "en": "if you notice",
+            "ko": "당신이 알아차리면"
+          },
+          {
+            "en": "a problem.",
+            "ko": "문제를."
+          }
+        ]
       },
       "local_topic": {
         "en": "The kitchen smells of fresh soup.",
@@ -630,7 +736,21 @@
           },
           {
             "en": "repeat each order before taking it to the kitchen.",
-            "ko": "주방에 주문을 전달하기 전에 다시 확인해요."
+            "ko": "주방에 주문을 전달하기 전에 다시 확인해요.",
+            "direct_chunks": [
+              {
+                "en": "repeat each order",
+                "ko": "저는 주문마다 반복해요"
+              },
+              {
+                "en": "before taking it",
+                "ko": "그것을 가져가기 전에"
+              },
+              {
+                "en": "to the kitchen.",
+                "ko": "주방으로."
+              }
+            ]
           }
         ]
       },
@@ -655,7 +775,21 @@
             },
             {
               "en": "remember orders better when I write them down.",
-              "ko": "주문을 적으면 더 잘 기억해요."
+              "ko": "주문을 적으면 더 잘 기억해요.",
+              "direct_chunks": [
+                {
+                  "en": "remember orders",
+                  "ko": "저는 주문을 기억해요"
+                },
+                {
+                  "en": "better",
+                  "ko": "더 잘"
+                },
+                {
+                  "en": "when I write them down.",
+                  "ko": "제가 그것을 적을 때."
+                }
+              ]
             }
           ]
         }
@@ -718,7 +852,21 @@
           },
           {
             "en": "am saving time for a small project of my own.",
-            "ko": "제 작은 계획을 위해 시간을 내고 있어요."
+            "ko": "제 작은 계획을 위해 시간을 내고 있어요.",
+            "direct_chunks": [
+              {
+                "en": "am saving time",
+                "ko": "저는 시간을 아끼고 있어요"
+              },
+              {
+                "en": "for a small project",
+                "ko": "작은 계획을 위해"
+              },
+              {
+                "en": "of my own.",
+                "ko": "제 자신의."
+              }
+            ]
           }
         ]
       },
@@ -787,7 +935,17 @@
             },
             {
               "en": "like drawing pictures of my favorite meals.",
-              "ko": "좋아하는 음식을 그림으로 그리는 게 좋아요."
+              "ko": "좋아하는 음식을 그림으로 그리는 게 좋아요.",
+              "direct_chunks": [
+                {
+                  "en": "like drawing pictures",
+                  "ko": "저는 그림 그리는 것을 좋아해요"
+                },
+                {
+                  "en": "of my favorite meals.",
+                  "ko": "제가 좋아하는 음식의."
+                }
+              ]
             }
           ]
         }
@@ -900,7 +1058,21 @@
       },
       "local_topic": {
         "en": "The clock in the square is our meeting point.",
-        "ko": "광장의 시계가 우리 만남의 장소예요."
+        "ko": "광장의 시계가 우리 만남의 장소예요.",
+        "direct_chunks": [
+          {
+            "en": "The clock",
+            "ko": "시계는"
+          },
+          {
+            "en": "in the square",
+            "ko": "광장에 있는"
+          },
+          {
+            "en": "is our meeting point.",
+            "ko": "우리 만남의 장소예요."
+          }
+        ]
       },
       "condition": "town_recovered",
       "priority": "active quest > conditional aftermath > idle",
@@ -919,7 +1091,17 @@
             },
             {
               "en": "keep a spare clock in my office.",
-              "ko": "사무실에 여분의 시계를 둬요."
+              "ko": "사무실에 여분의 시계를 둬요.",
+              "direct_chunks": [
+                {
+                  "en": "keep a spare clock",
+                  "ko": "저는 여분의 시계를 둬요"
+                },
+                {
+                  "en": "in my office.",
+                  "ko": "제 사무실에."
+                }
+              ]
             }
           ]
         }
@@ -938,13 +1120,37 @@
           },
           {
             "en": "check my stock before opening the shop.",
-            "ko": "가게를 열기 전에 재고를 확인해요."
+            "ko": "가게를 열기 전에 재고를 확인해요.",
+            "direct_chunks": [
+              {
+                "en": "check my stock",
+                "ko": "저는 확인해요 제 재고를"
+              },
+              {
+                "en": "before opening the shop.",
+                "ko": "가게를 열기 전에."
+              }
+            ]
           }
         ]
       },
       "local_topic": {
         "en": "The clock in the square is our meeting point.",
-        "ko": "광장의 시계가 우리 만남의 장소예요."
+        "ko": "광장의 시계가 우리 만남의 장소예요.",
+        "direct_chunks": [
+          {
+            "en": "The clock",
+            "ko": "시계는"
+          },
+          {
+            "en": "in the square",
+            "ko": "광장에 있는"
+          },
+          {
+            "en": "is our meeting point.",
+            "ko": "우리 만남의 장소예요."
+          }
+        ]
       },
       "condition": "town_recovered",
       "priority": "active quest > conditional aftermath > idle",
@@ -963,7 +1169,21 @@
             },
             {
               "en": "sell fruit to people on their way to work.",
-              "ko": "출근하는 사람들에게 과일을 팔아요."
+              "ko": "출근하는 사람들에게 과일을 팔아요.",
+              "direct_chunks": [
+                {
+                  "en": "sell fruit",
+                  "ko": "저는 과일을 팔아요"
+                },
+                {
+                  "en": "to people",
+                  "ko": "사람들에게"
+                },
+                {
+                  "en": "on their way to work.",
+                  "ko": "출근하는 길의."
+                }
+              ]
             }
           ]
         }
@@ -982,13 +1202,37 @@
           },
           {
             "en": "keep a clean room for tired guests.",
-            "ko": "지친 손님을 위해 깨끗한 방을 마련해요."
+            "ko": "지친 손님을 위해 깨끗한 방을 마련해요.",
+            "direct_chunks": [
+              {
+                "en": "keep a clean room",
+                "ko": "저는 마련해 둬요 깨끗한 방을"
+              },
+              {
+                "en": "for tired guests.",
+                "ko": "지친 손님들을 위해."
+              }
+            ]
           }
         ]
       },
       "local_topic": {
         "en": "The clock in the square is our meeting point.",
-        "ko": "광장의 시계가 우리 만남의 장소예요."
+        "ko": "광장의 시계가 우리 만남의 장소예요.",
+        "direct_chunks": [
+          {
+            "en": "The clock",
+            "ko": "시계는"
+          },
+          {
+            "en": "in the square",
+            "ko": "광장에 있는"
+          },
+          {
+            "en": "is our meeting point.",
+            "ko": "우리 만남의 장소예요."
+          }
+        ]
       },
       "condition": "town_recovered",
       "priority": "active quest > conditional aftermath > idle",
@@ -1018,11 +1262,39 @@
       "town": "tn",
       "idle": {
         "en": "Please tell me if you notice a problem.",
-        "ko": "문제를 발견하면 알려 주세요."
+        "ko": "문제를 발견하면 알려 주세요.",
+        "direct_chunks": [
+          {
+            "en": "Please tell me",
+            "ko": "저에게 알려 주세요"
+          },
+          {
+            "en": "if you notice",
+            "ko": "당신이 알아차리면"
+          },
+          {
+            "en": "a problem.",
+            "ko": "문제를."
+          }
+        ]
       },
       "local_topic": {
         "en": "The clock in the square is our meeting point.",
-        "ko": "광장의 시계가 우리 만남의 장소예요."
+        "ko": "광장의 시계가 우리 만남의 장소예요.",
+        "direct_chunks": [
+          {
+            "en": "The clock",
+            "ko": "시계는"
+          },
+          {
+            "en": "in the square",
+            "ko": "광장에 있는"
+          },
+          {
+            "en": "is our meeting point.",
+            "ko": "우리 만남의 장소예요."
+          }
+        ]
       },
       "condition": "town_recovered",
       "priority": "active quest > conditional aftermath > idle",
@@ -1052,11 +1324,39 @@
       "town": "tn",
       "idle": {
         "en": "A clock can be slow even when its hands look fine.",
-        "ko": "시곗바늘이 멀쩡해 보여도 시계가 느릴 수 있어요."
+        "ko": "시곗바늘이 멀쩡해 보여도 시계가 느릴 수 있어요.",
+        "direct_chunks": [
+          {
+            "en": "A clock",
+            "ko": "시계는"
+          },
+          {
+            "en": "can be slow",
+            "ko": "느릴 수 있어요"
+          },
+          {
+            "en": "even when its hands look fine.",
+            "ko": "바늘이 멀쩡해 보여도."
+          }
+        ]
       },
       "local_topic": {
         "en": "The clock in the square is our meeting point.",
-        "ko": "광장의 시계가 우리 만남의 장소예요."
+        "ko": "광장의 시계가 우리 만남의 장소예요.",
+        "direct_chunks": [
+          {
+            "en": "The clock",
+            "ko": "시계는"
+          },
+          {
+            "en": "in the square",
+            "ko": "광장에 있는"
+          },
+          {
+            "en": "is our meeting point.",
+            "ko": "우리 만남의 장소예요."
+          }
+        ]
       },
       "condition": "town_recovered",
       "priority": "active quest > conditional aftermath > idle",
@@ -1100,7 +1400,21 @@
       },
       "local_topic": {
         "en": "The clock in the square is our meeting point.",
-        "ko": "광장의 시계가 우리 만남의 장소예요."
+        "ko": "광장의 시계가 우리 만남의 장소예요.",
+        "direct_chunks": [
+          {
+            "en": "The clock",
+            "ko": "시계는"
+          },
+          {
+            "en": "in the square",
+            "ko": "광장에 있는"
+          },
+          {
+            "en": "is our meeting point.",
+            "ko": "우리 만남의 장소예요."
+          }
+        ]
       },
       "condition": "town_recovered",
       "priority": "active quest > conditional aftermath > idle",
@@ -1119,7 +1433,17 @@
             },
             {
               "en": "can repair a coat with a tiny needle.",
-              "ko": "작은 바늘로 외투를 수선할 수 있어요."
+              "ko": "작은 바늘로 외투를 수선할 수 있어요.",
+              "direct_chunks": [
+                {
+                  "en": "can repair a coat",
+                  "ko": "저는 외투를 수선할 수 있어요"
+                },
+                {
+                  "en": "with a tiny needle.",
+                  "ko": "작은 바늘로."
+                }
+              ]
             }
           ]
         }
@@ -1138,13 +1462,41 @@
           },
           {
             "en": "am saving time for a small project of my own.",
-            "ko": "제 작은 계획을 위해 시간을 내고 있어요."
+            "ko": "제 작은 계획을 위해 시간을 내고 있어요.",
+            "direct_chunks": [
+              {
+                "en": "am saving time",
+                "ko": "저는 시간을 아끼고 있어요"
+              },
+              {
+                "en": "for a small project",
+                "ko": "작은 계획을 위해"
+              },
+              {
+                "en": "of my own.",
+                "ko": "제 자신의."
+              }
+            ]
           }
         ]
       },
       "local_topic": {
         "en": "The clock in the square is our meeting point.",
-        "ko": "광장의 시계가 우리 만남의 장소예요."
+        "ko": "광장의 시계가 우리 만남의 장소예요.",
+        "direct_chunks": [
+          {
+            "en": "The clock",
+            "ko": "시계는"
+          },
+          {
+            "en": "in the square",
+            "ko": "광장에 있는"
+          },
+          {
+            "en": "is our meeting point.",
+            "ko": "우리 만남의 장소예요."
+          }
+        ]
       },
       "condition": "town_recovered",
       "priority": "active quest > conditional aftermath > idle",
@@ -1188,7 +1540,21 @@
       },
       "local_topic": {
         "en": "The clock in the square is our meeting point.",
-        "ko": "광장의 시계가 우리 만남의 장소예요."
+        "ko": "광장의 시계가 우리 만남의 장소예요.",
+        "direct_chunks": [
+          {
+            "en": "The clock",
+            "ko": "시계는"
+          },
+          {
+            "en": "in the square",
+            "ko": "광장에 있는"
+          },
+          {
+            "en": "is our meeting point.",
+            "ko": "우리 만남의 장소예요."
+          }
+        ]
       },
       "condition": "town_recovered",
       "priority": "active quest > conditional aftermath > idle",
@@ -1232,7 +1598,21 @@
       },
       "local_topic": {
         "en": "The clock in the square is our meeting point.",
-        "ko": "광장의 시계가 우리 만남의 장소예요."
+        "ko": "광장의 시계가 우리 만남의 장소예요.",
+        "direct_chunks": [
+          {
+            "en": "The clock",
+            "ko": "시계는"
+          },
+          {
+            "en": "in the square",
+            "ko": "광장에 있는"
+          },
+          {
+            "en": "is our meeting point.",
+            "ko": "우리 만남의 장소예요."
+          }
+        ]
       },
       "condition": "town_recovered",
       "priority": "active quest > conditional aftermath > idle",
@@ -1251,7 +1631,17 @@
             },
             {
               "en": "plan my deliveries around the square clock.",
-              "ko": "광장 시계를 기준으로 배달 일정을 짜요."
+              "ko": "광장 시계를 기준으로 배달 일정을 짜요.",
+              "direct_chunks": [
+                {
+                  "en": "plan my deliveries",
+                  "ko": "저는 배달을 계획해요"
+                },
+                {
+                  "en": "around the square clock.",
+                  "ko": "광장 시계를 기준으로."
+                }
+              ]
             }
           ]
         }
@@ -1276,7 +1666,21 @@
       },
       "local_topic": {
         "en": "The clock in the square is our meeting point.",
-        "ko": "광장의 시계가 우리 만남의 장소예요."
+        "ko": "광장의 시계가 우리 만남의 장소예요.",
+        "direct_chunks": [
+          {
+            "en": "The clock",
+            "ko": "시계는"
+          },
+          {
+            "en": "in the square",
+            "ko": "광장에 있는"
+          },
+          {
+            "en": "is our meeting point.",
+            "ko": "우리 만남의 장소예요."
+          }
+        ]
       },
       "condition": "town_recovered",
       "priority": "active quest > conditional aftermath > idle",
@@ -1295,7 +1699,17 @@
             },
             {
               "en": "watch the seasons rather than the clock.",
-              "ko": "시계보다 계절을 살펴요."
+              "ko": "시계보다 계절을 살펴요.",
+              "direct_chunks": [
+                {
+                  "en": "watch the seasons",
+                  "ko": "저는 계절을 살펴요"
+                },
+                {
+                  "en": "rather than the clock.",
+                  "ko": "시계보다는."
+                }
+              ]
             }
           ]
         }
@@ -1358,7 +1772,17 @@
           },
           {
             "en": "check my stock before opening the shop.",
-            "ko": "가게를 열기 전에 재고를 확인해요."
+            "ko": "가게를 열기 전에 재고를 확인해요.",
+            "direct_chunks": [
+              {
+                "en": "check my stock",
+                "ko": "저는 확인해요 제 재고를"
+              },
+              {
+                "en": "before opening the shop.",
+                "ko": "가게를 열기 전에."
+              }
+            ]
           }
         ]
       },
@@ -1402,7 +1826,17 @@
           },
           {
             "en": "keep a clean room for tired guests.",
-            "ko": "지친 손님을 위해 깨끗한 방을 마련해요."
+            "ko": "지친 손님을 위해 깨끗한 방을 마련해요.",
+            "direct_chunks": [
+              {
+                "en": "keep a clean room",
+                "ko": "저는 마련해 둬요 깨끗한 방을"
+              },
+              {
+                "en": "for tired guests.",
+                "ko": "지친 손님들을 위해."
+              }
+            ]
           }
         ]
       },
@@ -1442,7 +1876,21 @@
       "town": "md",
       "idle": {
         "en": "Please tell me if you notice a problem.",
-        "ko": "문제를 발견하면 알려 주세요."
+        "ko": "문제를 발견하면 알려 주세요.",
+        "direct_chunks": [
+          {
+            "en": "Please tell me",
+            "ko": "저에게 알려 주세요"
+          },
+          {
+            "en": "if you notice",
+            "ko": "당신이 알아차리면"
+          },
+          {
+            "en": "a problem.",
+            "ko": "문제를."
+          }
+        ]
       },
       "local_topic": {
         "en": "The river rises after heavy rain.",
@@ -1509,7 +1957,17 @@
             },
             {
               "en": "enjoy the sound of water against my boat.",
-              "ko": "배에 물이 부딪히는 소리를 좋아해요."
+              "ko": "배에 물이 부딪히는 소리를 좋아해요.",
+              "direct_chunks": [
+                {
+                  "en": "enjoy the sound of water",
+                  "ko": "저는 물소리를 좋아해요"
+                },
+                {
+                  "en": "against my boat.",
+                  "ko": "제 배에 부딪히는."
+                }
+              ]
             }
           ]
         }
@@ -1572,7 +2030,21 @@
           },
           {
             "en": "am saving time for a small project of my own.",
-            "ko": "제 작은 계획을 위해 시간을 내고 있어요."
+            "ko": "제 작은 계획을 위해 시간을 내고 있어요.",
+            "direct_chunks": [
+              {
+                "en": "am saving time",
+                "ko": "저는 시간을 아끼고 있어요"
+              },
+              {
+                "en": "for a small project",
+                "ko": "작은 계획을 위해"
+              },
+              {
+                "en": "of my own.",
+                "ko": "제 자신의."
+              }
+            ]
           }
         ]
       },
@@ -1597,7 +2069,17 @@
             },
             {
               "en": "draw a plan before repairing a bridge.",
-              "ko": "다리를 수리하기 전에 도면을 그려요."
+              "ko": "다리를 수리하기 전에 도면을 그려요.",
+              "direct_chunks": [
+                {
+                  "en": "draw a plan",
+                  "ko": "저는 도면을 그려요"
+                },
+                {
+                  "en": "before repairing a bridge.",
+                  "ko": "다리를 수리하기 전에."
+                }
+              ]
             }
           ]
         }
@@ -1729,7 +2211,17 @@
             },
             {
               "en": "keep clean cloths ready for minor injuries.",
-              "ko": "가벼운 상처에 쓸 깨끗한 천을 준비해요."
+              "ko": "가벼운 상처에 쓸 깨끗한 천을 준비해요.",
+              "direct_chunks": [
+                {
+                  "en": "keep clean cloths ready",
+                  "ko": "저는 깨끗한 천을 준비해 둬요"
+                },
+                {
+                  "en": "for minor injuries.",
+                  "ko": "가벼운 상처를 위해."
+                }
+              ]
             }
           ]
         }
@@ -1754,7 +2246,21 @@
       },
       "local_topic": {
         "en": "The forest paths change with the seasons.",
-        "ko": "숲길은 계절에 따라 달라져요."
+        "ko": "숲길은 계절에 따라 달라져요.",
+        "direct_chunks": [
+          {
+            "en": "The forest paths",
+            "ko": "숲길은"
+          },
+          {
+            "en": "change",
+            "ko": "변해요"
+          },
+          {
+            "en": "with the seasons.",
+            "ko": "계절에 따라."
+          }
+        ]
       },
       "condition": "town_recovered",
       "priority": "active quest > conditional aftermath > idle",
@@ -1792,13 +2298,37 @@
           },
           {
             "en": "check my stock before opening the shop.",
-            "ko": "가게를 열기 전에 재고를 확인해요."
+            "ko": "가게를 열기 전에 재고를 확인해요.",
+            "direct_chunks": [
+              {
+                "en": "check my stock",
+                "ko": "저는 확인해요 제 재고를"
+              },
+              {
+                "en": "before opening the shop.",
+                "ko": "가게를 열기 전에."
+              }
+            ]
           }
         ]
       },
       "local_topic": {
         "en": "The forest paths change with the seasons.",
-        "ko": "숲길은 계절에 따라 달라져요."
+        "ko": "숲길은 계절에 따라 달라져요.",
+        "direct_chunks": [
+          {
+            "en": "The forest paths",
+            "ko": "숲길은"
+          },
+          {
+            "en": "change",
+            "ko": "변해요"
+          },
+          {
+            "en": "with the seasons.",
+            "ko": "계절에 따라."
+          }
+        ]
       },
       "condition": "town_recovered",
       "priority": "active quest > conditional aftermath > idle",
@@ -1836,13 +2366,37 @@
           },
           {
             "en": "keep a clean room for tired guests.",
-            "ko": "지친 손님을 위해 깨끗한 방을 마련해요."
+            "ko": "지친 손님을 위해 깨끗한 방을 마련해요.",
+            "direct_chunks": [
+              {
+                "en": "keep a clean room",
+                "ko": "저는 마련해 둬요 깨끗한 방을"
+              },
+              {
+                "en": "for tired guests.",
+                "ko": "지친 손님들을 위해."
+              }
+            ]
           }
         ]
       },
       "local_topic": {
         "en": "The forest paths change with the seasons.",
-        "ko": "숲길은 계절에 따라 달라져요."
+        "ko": "숲길은 계절에 따라 달라져요.",
+        "direct_chunks": [
+          {
+            "en": "The forest paths",
+            "ko": "숲길은"
+          },
+          {
+            "en": "change",
+            "ko": "변해요"
+          },
+          {
+            "en": "with the seasons.",
+            "ko": "계절에 따라."
+          }
+        ]
       },
       "condition": "town_recovered",
       "priority": "active quest > conditional aftermath > idle",
@@ -1872,11 +2426,39 @@
       "town": "rp",
       "idle": {
         "en": "Please tell me if you notice a problem.",
-        "ko": "문제를 발견하면 알려 주세요."
+        "ko": "문제를 발견하면 알려 주세요.",
+        "direct_chunks": [
+          {
+            "en": "Please tell me",
+            "ko": "저에게 알려 주세요"
+          },
+          {
+            "en": "if you notice",
+            "ko": "당신이 알아차리면"
+          },
+          {
+            "en": "a problem.",
+            "ko": "문제를."
+          }
+        ]
       },
       "local_topic": {
         "en": "The forest paths change with the seasons.",
-        "ko": "숲길은 계절에 따라 달라져요."
+        "ko": "숲길은 계절에 따라 달라져요.",
+        "direct_chunks": [
+          {
+            "en": "The forest paths",
+            "ko": "숲길은"
+          },
+          {
+            "en": "change",
+            "ko": "변해요"
+          },
+          {
+            "en": "with the seasons.",
+            "ko": "계절에 따라."
+          }
+        ]
       },
       "condition": "town_recovered",
       "priority": "active quest > conditional aftermath > idle",
@@ -1895,7 +2477,21 @@
             },
             {
               "en": "remind visitors to stay on marked trails.",
-              "ko": "방문객들에게 표시된 길을 이용하라고 알려요."
+              "ko": "방문객들에게 표시된 길을 이용하라고 알려요.",
+              "direct_chunks": [
+                {
+                  "en": "remind visitors",
+                  "ko": "저는 방문객들에게 알려요"
+                },
+                {
+                  "en": "to stay",
+                  "ko": "머물라고"
+                },
+                {
+                  "en": "on marked trails.",
+                  "ko": "표시된 길에."
+                }
+              ]
             }
           ]
         }
@@ -1914,13 +2510,37 @@
           },
           {
             "en": "balance the load before moving my cart.",
-            "ko": "수레를 움직이기 전에 짐의 균형을 맞춰요."
+            "ko": "수레를 움직이기 전에 짐의 균형을 맞춰요.",
+            "direct_chunks": [
+              {
+                "en": "balance the load",
+                "ko": "저는 짐의 균형을 맞춰요"
+              },
+              {
+                "en": "before moving my cart.",
+                "ko": "제 수레를 움직이기 전에."
+              }
+            ]
           }
         ]
       },
       "local_topic": {
         "en": "The forest paths change with the seasons.",
-        "ko": "숲길은 계절에 따라 달라져요."
+        "ko": "숲길은 계절에 따라 달라져요.",
+        "direct_chunks": [
+          {
+            "en": "The forest paths",
+            "ko": "숲길은"
+          },
+          {
+            "en": "change",
+            "ko": "변해요"
+          },
+          {
+            "en": "with the seasons.",
+            "ko": "계절에 따라."
+          }
+        ]
       },
       "condition": "town_recovered",
       "priority": "active quest > conditional aftermath > idle",
@@ -1958,13 +2578,37 @@
           },
           {
             "en": "mark paths that I have checked myself.",
-            "ko": "직접 확인한 길을 표시해요."
+            "ko": "직접 확인한 길을 표시해요.",
+            "direct_chunks": [
+              {
+                "en": "mark paths",
+                "ko": "저는 길을 표시해요"
+              },
+              {
+                "en": "that I have checked myself.",
+                "ko": "제가 직접 확인한."
+              }
+            ]
           }
         ]
       },
       "local_topic": {
         "en": "The forest paths change with the seasons.",
-        "ko": "숲길은 계절에 따라 달라져요."
+        "ko": "숲길은 계절에 따라 달라져요.",
+        "direct_chunks": [
+          {
+            "en": "The forest paths",
+            "ko": "숲길은"
+          },
+          {
+            "en": "change",
+            "ko": "변해요"
+          },
+          {
+            "en": "with the seasons.",
+            "ko": "계절에 따라."
+          }
+        ]
       },
       "condition": "town_recovered",
       "priority": "active quest > conditional aftermath > idle",
@@ -2002,13 +2646,41 @@
           },
           {
             "en": "am saving time for a small project of my own.",
-            "ko": "제 작은 계획을 위해 시간을 내고 있어요."
+            "ko": "제 작은 계획을 위해 시간을 내고 있어요.",
+            "direct_chunks": [
+              {
+                "en": "am saving time",
+                "ko": "저는 시간을 아끼고 있어요"
+              },
+              {
+                "en": "for a small project",
+                "ko": "작은 계획을 위해"
+              },
+              {
+                "en": "of my own.",
+                "ko": "제 자신의."
+              }
+            ]
           }
         ]
       },
       "local_topic": {
         "en": "The forest paths change with the seasons.",
-        "ko": "숲길은 계절에 따라 달라져요."
+        "ko": "숲길은 계절에 따라 달라져요.",
+        "direct_chunks": [
+          {
+            "en": "The forest paths",
+            "ko": "숲길은"
+          },
+          {
+            "en": "change",
+            "ko": "변해요"
+          },
+          {
+            "en": "with the seasons.",
+            "ko": "계절에 따라."
+          }
+        ]
       },
       "condition": "town_recovered",
       "priority": "active quest > conditional aftermath > idle",
@@ -2052,7 +2724,21 @@
       },
       "local_topic": {
         "en": "The forest paths change with the seasons.",
-        "ko": "숲길은 계절에 따라 달라져요."
+        "ko": "숲길은 계절에 따라 달라져요.",
+        "direct_chunks": [
+          {
+            "en": "The forest paths",
+            "ko": "숲길은"
+          },
+          {
+            "en": "change",
+            "ko": "변해요"
+          },
+          {
+            "en": "with the seasons.",
+            "ko": "계절에 따라."
+          }
+        ]
       },
       "condition": "town_recovered",
       "priority": "active quest > conditional aftermath > idle",
@@ -2096,7 +2782,21 @@
       },
       "local_topic": {
         "en": "The forest paths change with the seasons.",
-        "ko": "숲길은 계절에 따라 달라져요."
+        "ko": "숲길은 계절에 따라 달라져요.",
+        "direct_chunks": [
+          {
+            "en": "The forest paths",
+            "ko": "숲길은"
+          },
+          {
+            "en": "change",
+            "ko": "변해요"
+          },
+          {
+            "en": "with the seasons.",
+            "ko": "계절에 따라."
+          }
+        ]
       },
       "condition": "town_recovered",
       "priority": "active quest > conditional aftermath > idle",
@@ -2115,7 +2815,17 @@
             },
             {
               "en": "carry a trail map in my bag.",
-              "ko": "가방에 숲길 지도를 넣어 다녀요."
+              "ko": "가방에 숲길 지도를 넣어 다녀요.",
+              "direct_chunks": [
+                {
+                  "en": "carry a trail map",
+                  "ko": "저는 숲길 지도를 들고 다녀요"
+                },
+                {
+                  "en": "in my bag.",
+                  "ko": "제 가방에."
+                }
+              ]
             }
           ]
         }
@@ -2140,7 +2850,21 @@
       },
       "local_topic": {
         "en": "The forest paths change with the seasons.",
-        "ko": "숲길은 계절에 따라 달라져요."
+        "ko": "숲길은 계절에 따라 달라져요.",
+        "direct_chunks": [
+          {
+            "en": "The forest paths",
+            "ko": "숲길은"
+          },
+          {
+            "en": "change",
+            "ko": "변해요"
+          },
+          {
+            "en": "with the seasons.",
+            "ko": "계절에 따라."
+          }
+        ]
       },
       "condition": "town_recovered",
       "priority": "active quest > conditional aftermath > idle",
@@ -2159,7 +2883,21 @@
             },
             {
               "en": "know which plants should not be touched.",
-              "ko": "만지면 안 되는 식물들을 알아요."
+              "ko": "만지면 안 되는 식물들을 알아요.",
+              "direct_chunks": [
+                {
+                  "en": "know",
+                  "ko": "저는 알아요"
+                },
+                {
+                  "en": "which plants",
+                  "ko": "어떤 식물들이"
+                },
+                {
+                  "en": "should not be touched.",
+                  "ko": "만져서는 안 되는지."
+                }
+              ]
             }
           ]
         }
@@ -2184,7 +2922,21 @@
       },
       "local_topic": {
         "en": "The lake is quiet in the early morning.",
-        "ko": "이른 아침에는 호수가 고요해요."
+        "ko": "이른 아침에는 호수가 고요해요.",
+        "direct_chunks": [
+          {
+            "en": "The lake",
+            "ko": "호수는"
+          },
+          {
+            "en": "is quiet",
+            "ko": "고요해요"
+          },
+          {
+            "en": "in the early morning.",
+            "ko": "이른 아침에."
+          }
+        ]
       },
       "condition": "town_recovered",
       "priority": "active quest > conditional aftermath > idle",
@@ -2203,7 +2955,17 @@
             },
             {
               "en": "meet the dockworkers before busy market days.",
-              "ko": "시장이 바쁜 날 전에 부두 일꾼들을 만나요."
+              "ko": "시장이 바쁜 날 전에 부두 일꾼들을 만나요.",
+              "direct_chunks": [
+                {
+                  "en": "meet the dockworkers",
+                  "ko": "저는 부두 일꾼들을 만나요"
+                },
+                {
+                  "en": "before busy market days.",
+                  "ko": "바쁜 시장 날 전에."
+                }
+              ]
             }
           ]
         }
@@ -2222,13 +2984,37 @@
           },
           {
             "en": "check my stock before opening the shop.",
-            "ko": "가게를 열기 전에 재고를 확인해요."
+            "ko": "가게를 열기 전에 재고를 확인해요.",
+            "direct_chunks": [
+              {
+                "en": "check my stock",
+                "ko": "저는 확인해요 제 재고를"
+              },
+              {
+                "en": "before opening the shop.",
+                "ko": "가게를 열기 전에."
+              }
+            ]
           }
         ]
       },
       "local_topic": {
         "en": "The lake is quiet in the early morning.",
-        "ko": "이른 아침에는 호수가 고요해요."
+        "ko": "이른 아침에는 호수가 고요해요.",
+        "direct_chunks": [
+          {
+            "en": "The lake",
+            "ko": "호수는"
+          },
+          {
+            "en": "is quiet",
+            "ko": "고요해요"
+          },
+          {
+            "en": "in the early morning.",
+            "ko": "이른 아침에."
+          }
+        ]
       },
       "condition": "town_recovered",
       "priority": "active quest > conditional aftermath > idle",
@@ -2266,13 +3052,37 @@
           },
           {
             "en": "keep a clean room for tired guests.",
-            "ko": "지친 손님을 위해 깨끗한 방을 마련해요."
+            "ko": "지친 손님을 위해 깨끗한 방을 마련해요.",
+            "direct_chunks": [
+              {
+                "en": "keep a clean room",
+                "ko": "저는 마련해 둬요 깨끗한 방을"
+              },
+              {
+                "en": "for tired guests.",
+                "ko": "지친 손님들을 위해."
+              }
+            ]
           }
         ]
       },
       "local_topic": {
         "en": "The lake is quiet in the early morning.",
-        "ko": "이른 아침에는 호수가 고요해요."
+        "ko": "이른 아침에는 호수가 고요해요.",
+        "direct_chunks": [
+          {
+            "en": "The lake",
+            "ko": "호수는"
+          },
+          {
+            "en": "is quiet",
+            "ko": "고요해요"
+          },
+          {
+            "en": "in the early morning.",
+            "ko": "이른 아침에."
+          }
+        ]
       },
       "condition": "town_recovered",
       "priority": "active quest > conditional aftermath > idle",
@@ -2302,11 +3112,39 @@
       "town": "ps",
       "idle": {
         "en": "Please tell me if you notice a problem.",
-        "ko": "문제를 발견하면 알려 주세요."
+        "ko": "문제를 발견하면 알려 주세요.",
+        "direct_chunks": [
+          {
+            "en": "Please tell me",
+            "ko": "저에게 알려 주세요"
+          },
+          {
+            "en": "if you notice",
+            "ko": "당신이 알아차리면"
+          },
+          {
+            "en": "a problem.",
+            "ko": "문제를."
+          }
+        ]
       },
       "local_topic": {
         "en": "The lake is quiet in the early morning.",
-        "ko": "이른 아침에는 호수가 고요해요."
+        "ko": "이른 아침에는 호수가 고요해요.",
+        "direct_chunks": [
+          {
+            "en": "The lake",
+            "ko": "호수는"
+          },
+          {
+            "en": "is quiet",
+            "ko": "고요해요"
+          },
+          {
+            "en": "in the early morning.",
+            "ko": "이른 아침에."
+          }
+        ]
       },
       "condition": "town_recovered",
       "priority": "active quest > conditional aftermath > idle",
@@ -2325,7 +3163,21 @@
             },
             {
               "en": "keep an eye on the dock at night.",
-              "ko": "밤에는 부두를 살펴요."
+              "ko": "밤에는 부두를 살펴요.",
+              "direct_chunks": [
+                {
+                  "en": "keep an eye",
+                  "ko": "저는 살펴요"
+                },
+                {
+                  "en": "on the dock",
+                  "ko": "부두를"
+                },
+                {
+                  "en": "at night.",
+                  "ko": "밤에."
+                }
+              ]
             }
           ]
         }
@@ -2344,13 +3196,41 @@
           },
           {
             "en": "tie my boat before leaving the dock.",
-            "ko": "부두를 떠나기 전에 배를 묶어요."
+            "ko": "부두를 떠나기 전에 배를 묶어요.",
+            "direct_chunks": [
+              {
+                "en": "tie my boat",
+                "ko": "저는 제 배를 묶어요"
+              },
+              {
+                "en": "before leaving",
+                "ko": "떠나기 전에"
+              },
+              {
+                "en": "the dock.",
+                "ko": "부두를."
+              }
+            ]
           }
         ]
       },
       "local_topic": {
         "en": "The lake is quiet in the early morning.",
-        "ko": "이른 아침에는 호수가 고요해요."
+        "ko": "이른 아침에는 호수가 고요해요.",
+        "direct_chunks": [
+          {
+            "en": "The lake",
+            "ko": "호수는"
+          },
+          {
+            "en": "is quiet",
+            "ko": "고요해요"
+          },
+          {
+            "en": "in the early morning.",
+            "ko": "이른 아침에."
+          }
+        ]
       },
       "condition": "town_recovered",
       "priority": "active quest > conditional aftermath > idle",
@@ -2369,7 +3249,17 @@
             },
             {
               "en": "learned to row when I was young.",
-              "ko": "어릴 때 노 젓는 법을 배웠어요."
+              "ko": "어릴 때 노 젓는 법을 배웠어요.",
+              "direct_chunks": [
+                {
+                  "en": "learned to row",
+                  "ko": "저는 노 젓는 법을 배웠어요"
+                },
+                {
+                  "en": "when I was young.",
+                  "ko": "제가 어렸을 때."
+                }
+              ]
             }
           ]
         }
@@ -2388,13 +3278,37 @@
           },
           {
             "en": "write the source of every donated book.",
-            "ko": "기증받은 책마다 출처를 기록해요."
+            "ko": "기증받은 책마다 출처를 기록해요.",
+            "direct_chunks": [
+              {
+                "en": "write the source",
+                "ko": "저는 출처를 기록해요"
+              },
+              {
+                "en": "of every donated book.",
+                "ko": "기증받은 모든 책의."
+              }
+            ]
           }
         ]
       },
       "local_topic": {
         "en": "The lake is quiet in the early morning.",
-        "ko": "이른 아침에는 호수가 고요해요."
+        "ko": "이른 아침에는 호수가 고요해요.",
+        "direct_chunks": [
+          {
+            "en": "The lake",
+            "ko": "호수는"
+          },
+          {
+            "en": "is quiet",
+            "ko": "고요해요"
+          },
+          {
+            "en": "in the early morning.",
+            "ko": "이른 아침에."
+          }
+        ]
       },
       "condition": "town_recovered",
       "priority": "active quest > conditional aftermath > idle",
@@ -2413,7 +3327,17 @@
             },
             {
               "en": "enjoy reading the notes inside donated books.",
-              "ko": "기증 도서 안의 기록을 읽는 게 좋아요."
+              "ko": "기증 도서 안의 기록을 읽는 게 좋아요.",
+              "direct_chunks": [
+                {
+                  "en": "enjoy reading the notes",
+                  "ko": "저는 기록을 읽는 것을 좋아해요"
+                },
+                {
+                  "en": "inside donated books.",
+                  "ko": "기증 도서 안의."
+                }
+              ]
             }
           ]
         }
@@ -2432,13 +3356,41 @@
           },
           {
             "en": "am saving time for a small project of my own.",
-            "ko": "제 작은 계획을 위해 시간을 내고 있어요."
+            "ko": "제 작은 계획을 위해 시간을 내고 있어요.",
+            "direct_chunks": [
+              {
+                "en": "am saving time",
+                "ko": "저는 시간을 아끼고 있어요"
+              },
+              {
+                "en": "for a small project",
+                "ko": "작은 계획을 위해"
+              },
+              {
+                "en": "of my own.",
+                "ko": "제 자신의."
+              }
+            ]
           }
         ]
       },
       "local_topic": {
         "en": "The lake is quiet in the early morning.",
-        "ko": "이른 아침에는 호수가 고요해요."
+        "ko": "이른 아침에는 호수가 고요해요.",
+        "direct_chunks": [
+          {
+            "en": "The lake",
+            "ko": "호수는"
+          },
+          {
+            "en": "is quiet",
+            "ko": "고요해요"
+          },
+          {
+            "en": "in the early morning.",
+            "ko": "이른 아침에."
+          }
+        ]
       },
       "condition": "town_recovered",
       "priority": "active quest > conditional aftermath > idle",
@@ -2482,7 +3434,21 @@
       },
       "local_topic": {
         "en": "The lake is quiet in the early morning.",
-        "ko": "이른 아침에는 호수가 고요해요."
+        "ko": "이른 아침에는 호수가 고요해요.",
+        "direct_chunks": [
+          {
+            "en": "The lake",
+            "ko": "호수는"
+          },
+          {
+            "en": "is quiet",
+            "ko": "고요해요"
+          },
+          {
+            "en": "in the early morning.",
+            "ko": "이른 아침에."
+          }
+        ]
       },
       "condition": "town_recovered",
       "priority": "active quest > conditional aftermath > idle",
@@ -2526,7 +3492,21 @@
       },
       "local_topic": {
         "en": "The lake is quiet in the early morning.",
-        "ko": "이른 아침에는 호수가 고요해요."
+        "ko": "이른 아침에는 호수가 고요해요.",
+        "direct_chunks": [
+          {
+            "en": "The lake",
+            "ko": "호수는"
+          },
+          {
+            "en": "is quiet",
+            "ko": "고요해요"
+          },
+          {
+            "en": "in the early morning.",
+            "ko": "이른 아침에."
+          }
+        ]
       },
       "condition": "town_recovered",
       "priority": "active quest > conditional aftermath > idle",
@@ -2570,7 +3550,21 @@
       },
       "local_topic": {
         "en": "The lake is quiet in the early morning.",
-        "ko": "이른 아침에는 호수가 고요해요."
+        "ko": "이른 아침에는 호수가 고요해요.",
+        "direct_chunks": [
+          {
+            "en": "The lake",
+            "ko": "호수는"
+          },
+          {
+            "en": "is quiet",
+            "ko": "고요해요"
+          },
+          {
+            "en": "in the early morning.",
+            "ko": "이른 아침에."
+          }
+        ]
       },
       "condition": "town_recovered",
       "priority": "active quest > conditional aftermath > idle",
@@ -2652,7 +3646,17 @@
           },
           {
             "en": "check my stock before opening the shop.",
-            "ko": "가게를 열기 전에 재고를 확인해요."
+            "ko": "가게를 열기 전에 재고를 확인해요.",
+            "direct_chunks": [
+              {
+                "en": "check my stock",
+                "ko": "저는 확인해요 제 재고를"
+              },
+              {
+                "en": "before opening the shop.",
+                "ko": "가게를 열기 전에."
+              }
+            ]
           }
         ]
       },
@@ -2696,7 +3700,17 @@
           },
           {
             "en": "keep a clean room for tired guests.",
-            "ko": "지친 손님을 위해 깨끗한 방을 마련해요."
+            "ko": "지친 손님을 위해 깨끗한 방을 마련해요.",
+            "direct_chunks": [
+              {
+                "en": "keep a clean room",
+                "ko": "저는 마련해 둬요 깨끗한 방을"
+              },
+              {
+                "en": "for tired guests.",
+                "ko": "지친 손님들을 위해."
+              }
+            ]
           }
         ]
       },
@@ -2732,7 +3746,21 @@
       "town": "pf",
       "idle": {
         "en": "Please tell me if you notice a problem.",
-        "ko": "문제를 발견하면 알려 주세요."
+        "ko": "문제를 발견하면 알려 주세요.",
+        "direct_chunks": [
+          {
+            "en": "Please tell me",
+            "ko": "저에게 알려 주세요"
+          },
+          {
+            "en": "if you notice",
+            "ko": "당신이 알아차리면"
+          },
+          {
+            "en": "a problem.",
+            "ko": "문제를."
+          }
+        ]
       },
       "local_topic": {
         "en": "Travelers rest near the well.",
@@ -2843,7 +3871,17 @@
             },
             {
               "en": "keep my water jars in the shade.",
-              "ko": "물 항아리를 그늘에 둬요."
+              "ko": "물 항아리를 그늘에 둬요.",
+              "direct_chunks": [
+                {
+                  "en": "keep my water jars",
+                  "ko": "저는 제 물 항아리를 둬요"
+                },
+                {
+                  "en": "in the shade.",
+                  "ko": "그늘에."
+                }
+              ]
             }
           ]
         }
@@ -2862,7 +3900,21 @@
           },
           {
             "en": "am saving time for a small project of my own.",
-            "ko": "제 작은 계획을 위해 시간을 내고 있어요."
+            "ko": "제 작은 계획을 위해 시간을 내고 있어요.",
+            "direct_chunks": [
+              {
+                "en": "am saving time",
+                "ko": "저는 시간을 아끼고 있어요"
+              },
+              {
+                "en": "for a small project",
+                "ko": "작은 계획을 위해"
+              },
+              {
+                "en": "of my own.",
+                "ko": "제 자신의."
+              }
+            ]
           }
         ]
       },
@@ -2931,7 +3983,17 @@
             },
             {
               "en": "like counting the stars above the oasis.",
-              "ko": "오아시스 위의 별을 세는 게 좋아요."
+              "ko": "오아시스 위의 별을 세는 게 좋아요.",
+              "direct_chunks": [
+                {
+                  "en": "like counting the stars",
+                  "ko": "저는 별을 세는 것을 좋아해요"
+                },
+                {
+                  "en": "above the oasis.",
+                  "ko": "오아시스 위의."
+                }
+              ]
             }
           ]
         }
@@ -3044,7 +4106,21 @@
       },
       "local_topic": {
         "en": "The harbor bell rings in the evening.",
-        "ko": "저녁에는 항구의 종이 울려요."
+        "ko": "저녁에는 항구의 종이 울려요.",
+        "direct_chunks": [
+          {
+            "en": "The harbor bell",
+            "ko": "항구의 종은"
+          },
+          {
+            "en": "rings",
+            "ko": "울려요"
+          },
+          {
+            "en": "in the evening.",
+            "ko": "저녁에."
+          }
+        ]
       },
       "condition": "town_recovered",
       "priority": "active quest > conditional aftermath > idle",
@@ -3082,13 +4158,37 @@
           },
           {
             "en": "check my stock before opening the shop.",
-            "ko": "가게를 열기 전에 재고를 확인해요."
+            "ko": "가게를 열기 전에 재고를 확인해요.",
+            "direct_chunks": [
+              {
+                "en": "check my stock",
+                "ko": "저는 확인해요 제 재고를"
+              },
+              {
+                "en": "before opening the shop.",
+                "ko": "가게를 열기 전에."
+              }
+            ]
           }
         ]
       },
       "local_topic": {
         "en": "The harbor bell rings in the evening.",
-        "ko": "저녁에는 항구의 종이 울려요."
+        "ko": "저녁에는 항구의 종이 울려요.",
+        "direct_chunks": [
+          {
+            "en": "The harbor bell",
+            "ko": "항구의 종은"
+          },
+          {
+            "en": "rings",
+            "ko": "울려요"
+          },
+          {
+            "en": "in the evening.",
+            "ko": "저녁에."
+          }
+        ]
       },
       "condition": "town_recovered",
       "priority": "active quest > conditional aftermath > idle",
@@ -3126,13 +4226,37 @@
           },
           {
             "en": "keep a clean room for tired guests.",
-            "ko": "지친 손님을 위해 깨끗한 방을 마련해요."
+            "ko": "지친 손님을 위해 깨끗한 방을 마련해요.",
+            "direct_chunks": [
+              {
+                "en": "keep a clean room",
+                "ko": "저는 마련해 둬요 깨끗한 방을"
+              },
+              {
+                "en": "for tired guests.",
+                "ko": "지친 손님들을 위해."
+              }
+            ]
           }
         ]
       },
       "local_topic": {
         "en": "The harbor bell rings in the evening.",
-        "ko": "저녁에는 항구의 종이 울려요."
+        "ko": "저녁에는 항구의 종이 울려요.",
+        "direct_chunks": [
+          {
+            "en": "The harbor bell",
+            "ko": "항구의 종은"
+          },
+          {
+            "en": "rings",
+            "ko": "울려요"
+          },
+          {
+            "en": "in the evening.",
+            "ko": "저녁에."
+          }
+        ]
       },
       "condition": "town_recovered",
       "priority": "active quest > conditional aftermath > idle",
@@ -3151,7 +4275,17 @@
             },
             {
               "en": "like hearing the harbor bell from my window.",
-              "ko": "창문 너머로 항구 종소리를 듣는 게 좋아요."
+              "ko": "창문 너머로 항구 종소리를 듣는 게 좋아요.",
+              "direct_chunks": [
+                {
+                  "en": "like hearing the harbor bell",
+                  "ko": "저는 항구 종소리 듣는 것을 좋아해요"
+                },
+                {
+                  "en": "from my window.",
+                  "ko": "제 창문에서."
+                }
+              ]
             }
           ]
         }
@@ -3162,11 +4296,39 @@
       "town": "rv",
       "idle": {
         "en": "Please tell me if you notice a problem.",
-        "ko": "문제를 발견하면 알려 주세요."
+        "ko": "문제를 발견하면 알려 주세요.",
+        "direct_chunks": [
+          {
+            "en": "Please tell me",
+            "ko": "저에게 알려 주세요"
+          },
+          {
+            "en": "if you notice",
+            "ko": "당신이 알아차리면"
+          },
+          {
+            "en": "a problem.",
+            "ko": "문제를."
+          }
+        ]
       },
       "local_topic": {
         "en": "The harbor bell rings in the evening.",
-        "ko": "저녁에는 항구의 종이 울려요."
+        "ko": "저녁에는 항구의 종이 울려요.",
+        "direct_chunks": [
+          {
+            "en": "The harbor bell",
+            "ko": "항구의 종은"
+          },
+          {
+            "en": "rings",
+            "ko": "울려요"
+          },
+          {
+            "en": "in the evening.",
+            "ko": "저녁에."
+          }
+        ]
       },
       "condition": "town_recovered",
       "priority": "active quest > conditional aftermath > idle",
@@ -3204,13 +4366,37 @@
           },
           {
             "en": "leave blank spaces where the map is uncertain.",
-            "ko": "확실하지 않은 곳은 지도에 빈칸으로 남겨요."
+            "ko": "확실하지 않은 곳은 지도에 빈칸으로 남겨요.",
+            "direct_chunks": [
+              {
+                "en": "leave blank spaces",
+                "ko": "저는 빈칸을 남겨요"
+              },
+              {
+                "en": "where the map is uncertain.",
+                "ko": "지도가 불확실한 곳에."
+              }
+            ]
           }
         ]
       },
       "local_topic": {
         "en": "The harbor bell rings in the evening.",
-        "ko": "저녁에는 항구의 종이 울려요."
+        "ko": "저녁에는 항구의 종이 울려요.",
+        "direct_chunks": [
+          {
+            "en": "The harbor bell",
+            "ko": "항구의 종은"
+          },
+          {
+            "en": "rings",
+            "ko": "울려요"
+          },
+          {
+            "en": "in the evening.",
+            "ko": "저녁에."
+          }
+        ]
       },
       "condition": "town_recovered",
       "priority": "active quest > conditional aftermath > idle",
@@ -3229,7 +4415,17 @@
             },
             {
               "en": "draw maps in pencil before using ink.",
-              "ko": "잉크를 쓰기 전에 연필로 지도를 그려요."
+              "ko": "잉크를 쓰기 전에 연필로 지도를 그려요.",
+              "direct_chunks": [
+                {
+                  "en": "draw maps in pencil",
+                  "ko": "저는 연필로 지도를 그려요"
+                },
+                {
+                  "en": "before using ink.",
+                  "ko": "잉크를 쓰기 전에."
+                }
+              ]
             }
           ]
         }
@@ -3254,7 +4450,21 @@
       },
       "local_topic": {
         "en": "The harbor bell rings in the evening.",
-        "ko": "저녁에는 항구의 종이 울려요."
+        "ko": "저녁에는 항구의 종이 울려요.",
+        "direct_chunks": [
+          {
+            "en": "The harbor bell",
+            "ko": "항구의 종은"
+          },
+          {
+            "en": "rings",
+            "ko": "울려요"
+          },
+          {
+            "en": "in the evening.",
+            "ko": "저녁에."
+          }
+        ]
       },
       "condition": "town_recovered",
       "priority": "active quest > conditional aftermath > idle",
@@ -3292,13 +4502,41 @@
           },
           {
             "en": "am saving time for a small project of my own.",
-            "ko": "제 작은 계획을 위해 시간을 내고 있어요."
+            "ko": "제 작은 계획을 위해 시간을 내고 있어요.",
+            "direct_chunks": [
+              {
+                "en": "am saving time",
+                "ko": "저는 시간을 아끼고 있어요"
+              },
+              {
+                "en": "for a small project",
+                "ko": "작은 계획을 위해"
+              },
+              {
+                "en": "of my own.",
+                "ko": "제 자신의."
+              }
+            ]
           }
         ]
       },
       "local_topic": {
         "en": "The harbor bell rings in the evening.",
-        "ko": "저녁에는 항구의 종이 울려요."
+        "ko": "저녁에는 항구의 종이 울려요.",
+        "direct_chunks": [
+          {
+            "en": "The harbor bell",
+            "ko": "항구의 종은"
+          },
+          {
+            "en": "rings",
+            "ko": "울려요"
+          },
+          {
+            "en": "in the evening.",
+            "ko": "저녁에."
+          }
+        ]
       },
       "condition": "town_recovered",
       "priority": "active quest > conditional aftermath > idle",
@@ -3342,7 +4580,21 @@
       },
       "local_topic": {
         "en": "The harbor bell rings in the evening.",
-        "ko": "저녁에는 항구의 종이 울려요."
+        "ko": "저녁에는 항구의 종이 울려요.",
+        "direct_chunks": [
+          {
+            "en": "The harbor bell",
+            "ko": "항구의 종은"
+          },
+          {
+            "en": "rings",
+            "ko": "울려요"
+          },
+          {
+            "en": "in the evening.",
+            "ko": "저녁에."
+          }
+        ]
       },
       "condition": "town_recovered",
       "priority": "active quest > conditional aftermath > idle",
@@ -3386,7 +4638,21 @@
       },
       "local_topic": {
         "en": "The harbor bell rings in the evening.",
-        "ko": "저녁에는 항구의 종이 울려요."
+        "ko": "저녁에는 항구의 종이 울려요.",
+        "direct_chunks": [
+          {
+            "en": "The harbor bell",
+            "ko": "항구의 종은"
+          },
+          {
+            "en": "rings",
+            "ko": "울려요"
+          },
+          {
+            "en": "in the evening.",
+            "ko": "저녁에."
+          }
+        ]
       },
       "condition": "town_recovered",
       "priority": "active quest > conditional aftermath > idle",
@@ -3430,7 +4696,21 @@
       },
       "local_topic": {
         "en": "The harbor bell rings in the evening.",
-        "ko": "저녁에는 항구의 종이 울려요."
+        "ko": "저녁에는 항구의 종이 울려요.",
+        "direct_chunks": [
+          {
+            "en": "The harbor bell",
+            "ko": "항구의 종은"
+          },
+          {
+            "en": "rings",
+            "ko": "울려요"
+          },
+          {
+            "en": "in the evening.",
+            "ko": "저녁에."
+          }
+        ]
       },
       "condition": "town_recovered",
       "priority": "active quest > conditional aftermath > idle",
@@ -3512,7 +4792,17 @@
           },
           {
             "en": "check my stock before opening the shop.",
-            "ko": "가게를 열기 전에 재고를 확인해요."
+            "ko": "가게를 열기 전에 재고를 확인해요.",
+            "direct_chunks": [
+              {
+                "en": "check my stock",
+                "ko": "저는 확인해요 제 재고를"
+              },
+              {
+                "en": "before opening the shop.",
+                "ko": "가게를 열기 전에."
+              }
+            ]
           }
         ]
       },
@@ -3556,7 +4846,17 @@
           },
           {
             "en": "keep a clean room for tired guests.",
-            "ko": "지친 손님을 위해 깨끗한 방을 마련해요."
+            "ko": "지친 손님을 위해 깨끗한 방을 마련해요.",
+            "direct_chunks": [
+              {
+                "en": "keep a clean room",
+                "ko": "저는 마련해 둬요 깨끗한 방을"
+              },
+              {
+                "en": "for tired guests.",
+                "ko": "지친 손님들을 위해."
+              }
+            ]
           }
         ]
       },
@@ -3592,7 +4892,21 @@
       "town": "pc",
       "idle": {
         "en": "Please tell me if you notice a problem.",
-        "ko": "문제를 발견하면 알려 주세요."
+        "ko": "문제를 발견하면 알려 주세요.",
+        "direct_chunks": [
+          {
+            "en": "Please tell me",
+            "ko": "저에게 알려 주세요"
+          },
+          {
+            "en": "if you notice",
+            "ko": "당신이 알아차리면"
+          },
+          {
+            "en": "a problem.",
+            "ko": "문제를."
+          }
+        ]
       },
       "local_topic": {
         "en": "Old inscriptions are easy to damage.",
@@ -3634,7 +4948,21 @@
           },
           {
             "en": "never guess a missing letter on a stone.",
-            "ko": "돌에 없는 글자를 함부로 추측하지 않아요."
+            "ko": "돌에 없는 글자를 함부로 추측하지 않아요.",
+            "direct_chunks": [
+              {
+                "en": "never guess",
+                "ko": "저는 절대 추측하지 않아요"
+              },
+              {
+                "en": "a missing letter",
+                "ko": "없는 글자를"
+              },
+              {
+                "en": "on a stone.",
+                "ko": "돌 위의."
+              }
+            ]
           }
         ]
       },
@@ -3703,7 +5031,21 @@
             },
             {
               "en": "leave a space for letters I cannot read.",
-              "ko": "읽을 수 없는 글자는 빈칸으로 남겨요."
+              "ko": "읽을 수 없는 글자는 빈칸으로 남겨요.",
+              "direct_chunks": [
+                {
+                  "en": "leave a space",
+                  "ko": "저는 빈칸을 남겨요"
+                },
+                {
+                  "en": "for letters",
+                  "ko": "글자를 위해"
+                },
+                {
+                  "en": "I cannot read.",
+                  "ko": "제가 읽을 수 없는."
+                }
+              ]
             }
           ]
         }
@@ -3722,7 +5064,21 @@
           },
           {
             "en": "am saving time for a small project of my own.",
-            "ko": "제 작은 계획을 위해 시간을 내고 있어요."
+            "ko": "제 작은 계획을 위해 시간을 내고 있어요.",
+            "direct_chunks": [
+              {
+                "en": "am saving time",
+                "ko": "저는 시간을 아끼고 있어요"
+              },
+              {
+                "en": "for a small project",
+                "ko": "작은 계획을 위해"
+              },
+              {
+                "en": "of my own.",
+                "ko": "제 자신의."
+              }
+            ]
           }
         ]
       },
@@ -3747,7 +5103,21 @@
             },
             {
               "en": "know a path with a fine view of the canyon.",
-              "ko": "협곡 전망이 좋은 길을 알아요."
+              "ko": "협곡 전망이 좋은 길을 알아요.",
+              "direct_chunks": [
+                {
+                  "en": "know a path",
+                  "ko": "저는 길을 알아요"
+                },
+                {
+                  "en": "with a fine view",
+                  "ko": "좋은 전망이 있는"
+                },
+                {
+                  "en": "of the canyon.",
+                  "ko": "협곡의."
+                }
+              ]
             }
           ]
         }
@@ -3791,7 +5161,21 @@
             },
             {
               "en": "like drawing shapes I see on stones.",
-              "ko": "돌에서 본 모양을 그리는 게 좋아요."
+              "ko": "돌에서 본 모양을 그리는 게 좋아요.",
+              "direct_chunks": [
+                {
+                  "en": "like drawing shapes",
+                  "ko": "저는 모양 그리는 것을 좋아해요"
+                },
+                {
+                  "en": "I see",
+                  "ko": "제가 보는"
+                },
+                {
+                  "en": "on stones.",
+                  "ko": "돌 위에서."
+                }
+              ]
             }
           ]
         }
@@ -3879,7 +5263,21 @@
             },
             {
               "en": "remind walkers to rest in the shade.",
-              "ko": "걷는 사람들에게 그늘에서 쉬라고 알려요."
+              "ko": "걷는 사람들에게 그늘에서 쉬라고 알려요.",
+              "direct_chunks": [
+                {
+                  "en": "remind walkers",
+                  "ko": "저는 걷는 사람들에게 알려요"
+                },
+                {
+                  "en": "to rest",
+                  "ko": "쉬라고"
+                },
+                {
+                  "en": "in the shade.",
+                  "ko": "그늘에서."
+                }
+              ]
             }
           ]
         }
@@ -3923,7 +5321,17 @@
             },
             {
               "en": "enjoy hearing the birds in the square.",
-              "ko": "광장에서 새소리를 듣는 게 좋아요."
+              "ko": "광장에서 새소리를 듣는 게 좋아요.",
+              "direct_chunks": [
+                {
+                  "en": "enjoy hearing the birds",
+                  "ko": "저는 새소리 듣는 것을 좋아해요"
+                },
+                {
+                  "en": "in the square.",
+                  "ko": "광장에서."
+                }
+              ]
             }
           ]
         }
@@ -3942,7 +5350,17 @@
           },
           {
             "en": "check my stock before opening the shop.",
-            "ko": "가게를 열기 전에 재고를 확인해요."
+            "ko": "가게를 열기 전에 재고를 확인해요.",
+            "direct_chunks": [
+              {
+                "en": "check my stock",
+                "ko": "저는 확인해요 제 재고를"
+              },
+              {
+                "en": "before opening the shop.",
+                "ko": "가게를 열기 전에."
+              }
+            ]
           }
         ]
       },
@@ -3986,7 +5404,17 @@
           },
           {
             "en": "keep a clean room for tired guests.",
-            "ko": "지친 손님을 위해 깨끗한 방을 마련해요."
+            "ko": "지친 손님을 위해 깨끗한 방을 마련해요.",
+            "direct_chunks": [
+              {
+                "en": "keep a clean room",
+                "ko": "저는 마련해 둬요 깨끗한 방을"
+              },
+              {
+                "en": "for tired guests.",
+                "ko": "지친 손님들을 위해."
+              }
+            ]
           }
         ]
       },
@@ -4011,7 +5439,17 @@
             },
             {
               "en": "keep a small garden for my guests.",
-              "ko": "손님들을 위해 작은 정원을 가꿔요."
+              "ko": "손님들을 위해 작은 정원을 가꿔요.",
+              "direct_chunks": [
+                {
+                  "en": "keep a small garden",
+                  "ko": "저는 작은 정원을 가꿔요"
+                },
+                {
+                  "en": "for my guests.",
+                  "ko": "제 손님들을 위해."
+                }
+              ]
             }
           ]
         }
@@ -4022,7 +5460,21 @@
       "town": "sj",
       "idle": {
         "en": "Please tell me if you notice a problem.",
-        "ko": "문제를 발견하면 알려 주세요."
+        "ko": "문제를 발견하면 알려 주세요.",
+        "direct_chunks": [
+          {
+            "en": "Please tell me",
+            "ko": "저에게 알려 주세요"
+          },
+          {
+            "en": "if you notice",
+            "ko": "당신이 알아차리면"
+          },
+          {
+            "en": "a problem.",
+            "ko": "문제를."
+          }
+        ]
       },
       "local_topic": {
         "en": "The birds are quiet before dawn.",
@@ -4045,7 +5497,21 @@
             },
             {
               "en": "ask visitors not to frighten the birds.",
-              "ko": "방문객들에게 새를 놀라게 하지 말라고 해요."
+              "ko": "방문객들에게 새를 놀라게 하지 말라고 해요.",
+              "direct_chunks": [
+                {
+                  "en": "ask visitors",
+                  "ko": "저는 방문객들에게 부탁해요"
+                },
+                {
+                  "en": "not to frighten",
+                  "ko": "놀라게 하지 말라고"
+                },
+                {
+                  "en": "the birds.",
+                  "ko": "새들을."
+                }
+              ]
             }
           ]
         }
@@ -4064,7 +5530,21 @@
           },
           {
             "en": "clean the cages before feeding the birds.",
-            "ko": "새에게 먹이를 주기 전에 새장을 청소해요."
+            "ko": "새에게 먹이를 주기 전에 새장을 청소해요.",
+            "direct_chunks": [
+              {
+                "en": "clean the cages",
+                "ko": "저는 새장을 청소해요"
+              },
+              {
+                "en": "before feeding",
+                "ko": "먹이를 주기 전에"
+              },
+              {
+                "en": "the birds.",
+                "ko": "새들에게."
+              }
+            ]
           }
         ]
       },
@@ -4108,7 +5588,21 @@
           },
           {
             "en": "read each letter back to its writer.",
-            "ko": "편지를 쓴 사람에게 다시 읽어 줘요."
+            "ko": "편지를 쓴 사람에게 다시 읽어 줘요.",
+            "direct_chunks": [
+              {
+                "en": "read each letter",
+                "ko": "저는 편지마다 읽어 줘요"
+              },
+              {
+                "en": "back",
+                "ko": "다시"
+              },
+              {
+                "en": "to its writer.",
+                "ko": "쓴 사람에게."
+              }
+            ]
           }
         ]
       },
@@ -4133,7 +5627,21 @@
             },
             {
               "en": "help people find words for their feelings.",
-              "ko": "사람들이 감정을 표현할 말을 찾도록 도와요."
+              "ko": "사람들이 감정을 표현할 말을 찾도록 도와요.",
+              "direct_chunks": [
+                {
+                  "en": "help people",
+                  "ko": "저는 사람들을 도와요"
+                },
+                {
+                  "en": "find words",
+                  "ko": "말을 찾도록"
+                },
+                {
+                  "en": "for their feelings.",
+                  "ko": "그들의 감정을 위한."
+                }
+              ]
             }
           ]
         }
@@ -4152,7 +5660,21 @@
           },
           {
             "en": "am saving time for a small project of my own.",
-            "ko": "제 작은 계획을 위해 시간을 내고 있어요."
+            "ko": "제 작은 계획을 위해 시간을 내고 있어요.",
+            "direct_chunks": [
+              {
+                "en": "am saving time",
+                "ko": "저는 시간을 아끼고 있어요"
+              },
+              {
+                "en": "for a small project",
+                "ko": "작은 계획을 위해"
+              },
+              {
+                "en": "of my own.",
+                "ko": "제 자신의."
+              }
+            ]
           }
         ]
       },
@@ -4221,7 +5743,21 @@
             },
             {
               "en": "wish I could draw birds in flight.",
-              "ko": "날아가는 새를 그릴 수 있으면 좋겠어요."
+              "ko": "날아가는 새를 그릴 수 있으면 좋겠어요.",
+              "direct_chunks": [
+                {
+                  "en": "wish",
+                  "ko": "저는 바라요"
+                },
+                {
+                  "en": "I could draw",
+                  "ko": "제가 그릴 수 있기를"
+                },
+                {
+                  "en": "birds in flight.",
+                  "ko": "날아가는 새들을."
+                }
+              ]
             }
           ]
         }
@@ -4309,7 +5845,17 @@
             },
             {
               "en": "enjoy quiet walks near the bird garden.",
-              "ko": "새 정원 근처를 조용히 산책하는 게 좋아요."
+              "ko": "새 정원 근처를 조용히 산책하는 게 좋아요.",
+              "direct_chunks": [
+                {
+                  "en": "enjoy quiet walks",
+                  "ko": "저는 조용한 산책을 좋아해요"
+                },
+                {
+                  "en": "near the bird garden.",
+                  "ko": "새 정원 근처에서."
+                }
+              ]
             }
           ]
         }
@@ -4334,7 +5880,21 @@
       },
       "local_topic": {
         "en": "The race track is open for practice.",
-        "ko": "경주로는 연습할 수 있도록 열려 있어요."
+        "ko": "경주로는 연습할 수 있도록 열려 있어요.",
+        "direct_chunks": [
+          {
+            "en": "The race track",
+            "ko": "경주로는"
+          },
+          {
+            "en": "is open",
+            "ko": "열려 있어요"
+          },
+          {
+            "en": "for practice.",
+            "ko": "연습을 위해."
+          }
+        ]
       },
       "condition": "town_recovered",
       "priority": "active quest > conditional aftermath > idle",
@@ -4353,7 +5913,21 @@
             },
             {
               "en": "want our races to be fair and welcoming.",
-              "ko": "우리 경주가 공정하고 누구나 참여할 수 있으면 좋겠어요."
+              "ko": "우리 경주가 공정하고 누구나 참여할 수 있으면 좋겠어요.",
+              "direct_chunks": [
+                {
+                  "en": "want our races",
+                  "ko": "저는 우리 경주가 바라요"
+                },
+                {
+                  "en": "to be fair",
+                  "ko": "공정하기를"
+                },
+                {
+                  "en": "and welcoming.",
+                  "ko": "그리고 누구나 환영하기를."
+                }
+              ]
             }
           ]
         }
@@ -4372,13 +5946,37 @@
           },
           {
             "en": "check my stock before opening the shop.",
-            "ko": "가게를 열기 전에 재고를 확인해요."
+            "ko": "가게를 열기 전에 재고를 확인해요.",
+            "direct_chunks": [
+              {
+                "en": "check my stock",
+                "ko": "저는 확인해요 제 재고를"
+              },
+              {
+                "en": "before opening the shop.",
+                "ko": "가게를 열기 전에."
+              }
+            ]
           }
         ]
       },
       "local_topic": {
         "en": "The race track is open for practice.",
-        "ko": "경주로는 연습할 수 있도록 열려 있어요."
+        "ko": "경주로는 연습할 수 있도록 열려 있어요.",
+        "direct_chunks": [
+          {
+            "en": "The race track",
+            "ko": "경주로는"
+          },
+          {
+            "en": "is open",
+            "ko": "열려 있어요"
+          },
+          {
+            "en": "for practice.",
+            "ko": "연습을 위해."
+          }
+        ]
       },
       "condition": "town_recovered",
       "priority": "active quest > conditional aftermath > idle",
@@ -4416,13 +6014,37 @@
           },
           {
             "en": "keep a clean room for tired guests.",
-            "ko": "지친 손님을 위해 깨끗한 방을 마련해요."
+            "ko": "지친 손님을 위해 깨끗한 방을 마련해요.",
+            "direct_chunks": [
+              {
+                "en": "keep a clean room",
+                "ko": "저는 마련해 둬요 깨끗한 방을"
+              },
+              {
+                "en": "for tired guests.",
+                "ko": "지친 손님들을 위해."
+              }
+            ]
           }
         ]
       },
       "local_topic": {
         "en": "The race track is open for practice.",
-        "ko": "경주로는 연습할 수 있도록 열려 있어요."
+        "ko": "경주로는 연습할 수 있도록 열려 있어요.",
+        "direct_chunks": [
+          {
+            "en": "The race track",
+            "ko": "경주로는"
+          },
+          {
+            "en": "is open",
+            "ko": "열려 있어요"
+          },
+          {
+            "en": "for practice.",
+            "ko": "연습을 위해."
+          }
+        ]
       },
       "condition": "town_recovered",
       "priority": "active quest > conditional aftermath > idle",
@@ -4452,11 +6074,39 @@
       "town": "cp",
       "idle": {
         "en": "Please tell me if you notice a problem.",
-        "ko": "문제를 발견하면 알려 주세요."
+        "ko": "문제를 발견하면 알려 주세요.",
+        "direct_chunks": [
+          {
+            "en": "Please tell me",
+            "ko": "저에게 알려 주세요"
+          },
+          {
+            "en": "if you notice",
+            "ko": "당신이 알아차리면"
+          },
+          {
+            "en": "a problem.",
+            "ko": "문제를."
+          }
+        ]
       },
       "local_topic": {
         "en": "The race track is open for practice.",
-        "ko": "경주로는 연습할 수 있도록 열려 있어요."
+        "ko": "경주로는 연습할 수 있도록 열려 있어요.",
+        "direct_chunks": [
+          {
+            "en": "The race track",
+            "ko": "경주로는"
+          },
+          {
+            "en": "is open",
+            "ko": "열려 있어요"
+          },
+          {
+            "en": "for practice.",
+            "ko": "연습을 위해."
+          }
+        ]
       },
       "condition": "town_recovered",
       "priority": "active quest > conditional aftermath > idle",
@@ -4494,13 +6144,37 @@
           },
           {
             "en": "explain the same rules to every runner.",
-            "ko": "모든 선수에게 같은 규칙을 설명해요."
+            "ko": "모든 선수에게 같은 규칙을 설명해요.",
+            "direct_chunks": [
+              {
+                "en": "explain the same rules",
+                "ko": "저는 같은 규칙을 설명해요"
+              },
+              {
+                "en": "to every runner.",
+                "ko": "모든 선수에게."
+              }
+            ]
           }
         ]
       },
       "local_topic": {
         "en": "The race track is open for practice.",
-        "ko": "경주로는 연습할 수 있도록 열려 있어요."
+        "ko": "경주로는 연습할 수 있도록 열려 있어요.",
+        "direct_chunks": [
+          {
+            "en": "The race track",
+            "ko": "경주로는"
+          },
+          {
+            "en": "is open",
+            "ko": "열려 있어요"
+          },
+          {
+            "en": "for practice.",
+            "ko": "연습을 위해."
+          }
+        ]
       },
       "condition": "town_recovered",
       "priority": "active quest > conditional aftermath > idle",
@@ -4519,7 +6193,17 @@
             },
             {
               "en": "check the starting line before each race.",
-              "ko": "경주마다 출발선을 확인해요."
+              "ko": "경주마다 출발선을 확인해요.",
+              "direct_chunks": [
+                {
+                  "en": "check the starting line",
+                  "ko": "저는 출발선을 확인해요"
+                },
+                {
+                  "en": "before each race.",
+                  "ko": "경주마다 전에."
+                }
+              ]
             }
           ]
         }
@@ -4534,7 +6218,21 @@
       },
       "local_topic": {
         "en": "The race track is open for practice.",
-        "ko": "경주로는 연습할 수 있도록 열려 있어요."
+        "ko": "경주로는 연습할 수 있도록 열려 있어요.",
+        "direct_chunks": [
+          {
+            "en": "The race track",
+            "ko": "경주로는"
+          },
+          {
+            "en": "is open",
+            "ko": "열려 있어요"
+          },
+          {
+            "en": "for practice.",
+            "ko": "연습을 위해."
+          }
+        ]
       },
       "condition": "town_recovered",
       "priority": "active quest > conditional aftermath > idle",
@@ -4553,7 +6251,21 @@
             },
             {
               "en": "teach runners to set their own goals.",
-              "ko": "선수들에게 자신만의 목표를 세우도록 가르쳐요."
+              "ko": "선수들에게 자신만의 목표를 세우도록 가르쳐요.",
+              "direct_chunks": [
+                {
+                  "en": "teach runners",
+                  "ko": "저는 선수들을 가르쳐요"
+                },
+                {
+                  "en": "to set",
+                  "ko": "세우도록"
+                },
+                {
+                  "en": "their own goals.",
+                  "ko": "자신의 목표를."
+                }
+              ]
             }
           ]
         }
@@ -4572,13 +6284,41 @@
           },
           {
             "en": "am saving time for a small project of my own.",
-            "ko": "제 작은 계획을 위해 시간을 내고 있어요."
+            "ko": "제 작은 계획을 위해 시간을 내고 있어요.",
+            "direct_chunks": [
+              {
+                "en": "am saving time",
+                "ko": "저는 시간을 아끼고 있어요"
+              },
+              {
+                "en": "for a small project",
+                "ko": "작은 계획을 위해"
+              },
+              {
+                "en": "of my own.",
+                "ko": "제 자신의."
+              }
+            ]
           }
         ]
       },
       "local_topic": {
         "en": "The race track is open for practice.",
-        "ko": "경주로는 연습할 수 있도록 열려 있어요."
+        "ko": "경주로는 연습할 수 있도록 열려 있어요.",
+        "direct_chunks": [
+          {
+            "en": "The race track",
+            "ko": "경주로는"
+          },
+          {
+            "en": "is open",
+            "ko": "열려 있어요"
+          },
+          {
+            "en": "for practice.",
+            "ko": "연습을 위해."
+          }
+        ]
       },
       "condition": "town_recovered",
       "priority": "active quest > conditional aftermath > idle",
@@ -4622,7 +6362,21 @@
       },
       "local_topic": {
         "en": "The race track is open for practice.",
-        "ko": "경주로는 연습할 수 있도록 열려 있어요."
+        "ko": "경주로는 연습할 수 있도록 열려 있어요.",
+        "direct_chunks": [
+          {
+            "en": "The race track",
+            "ko": "경주로는"
+          },
+          {
+            "en": "is open",
+            "ko": "열려 있어요"
+          },
+          {
+            "en": "for practice.",
+            "ko": "연습을 위해."
+          }
+        ]
       },
       "condition": "town_recovered",
       "priority": "active quest > conditional aftermath > idle",
@@ -4641,7 +6395,21 @@
             },
             {
               "en": "am trying to run farther than last week.",
-              "ko": "지난주보다 더 멀리 달리려고 해요."
+              "ko": "지난주보다 더 멀리 달리려고 해요.",
+              "direct_chunks": [
+                {
+                  "en": "am trying",
+                  "ko": "저는 노력하고 있어요"
+                },
+                {
+                  "en": "to run farther",
+                  "ko": "더 멀리 달리려고"
+                },
+                {
+                  "en": "than last week.",
+                  "ko": "지난주보다."
+                }
+              ]
             }
           ]
         }
@@ -4666,7 +6434,21 @@
       },
       "local_topic": {
         "en": "The race track is open for practice.",
-        "ko": "경주로는 연습할 수 있도록 열려 있어요."
+        "ko": "경주로는 연습할 수 있도록 열려 있어요.",
+        "direct_chunks": [
+          {
+            "en": "The race track",
+            "ko": "경주로는"
+          },
+          {
+            "en": "is open",
+            "ko": "열려 있어요"
+          },
+          {
+            "en": "for practice.",
+            "ko": "연습을 위해."
+          }
+        ]
       },
       "condition": "town_recovered",
       "priority": "active quest > conditional aftermath > idle",
@@ -4710,7 +6492,21 @@
       },
       "local_topic": {
         "en": "The race track is open for practice.",
-        "ko": "경주로는 연습할 수 있도록 열려 있어요."
+        "ko": "경주로는 연습할 수 있도록 열려 있어요.",
+        "direct_chunks": [
+          {
+            "en": "The race track",
+            "ko": "경주로는"
+          },
+          {
+            "en": "is open",
+            "ko": "열려 있어요"
+          },
+          {
+            "en": "for practice.",
+            "ko": "연습을 위해."
+          }
+        ]
       },
       "condition": "town_recovered",
       "priority": "active quest > conditional aftermath > idle",
@@ -4754,7 +6550,21 @@
       },
       "local_topic": {
         "en": "Lost objects are kept at the desk.",
-        "ko": "분실물은 보관소에 있어요."
+        "ko": "분실물은 보관소에 있어요.",
+        "direct_chunks": [
+          {
+            "en": "Lost objects",
+            "ko": "분실물은"
+          },
+          {
+            "en": "are kept",
+            "ko": "보관돼요"
+          },
+          {
+            "en": "at the desk.",
+            "ko": "보관소에."
+          }
+        ]
       },
       "condition": "town_recovered",
       "priority": "active quest > conditional aftermath > idle",
@@ -4773,7 +6583,21 @@
             },
             {
               "en": "want lost things to reach their owners.",
-              "ko": "분실물이 주인에게 돌아가면 좋겠어요."
+              "ko": "분실물이 주인에게 돌아가면 좋겠어요.",
+              "direct_chunks": [
+                {
+                  "en": "want lost things",
+                  "ko": "저는 분실물이 바라요"
+                },
+                {
+                  "en": "to reach",
+                  "ko": "닿기를"
+                },
+                {
+                  "en": "their owners.",
+                  "ko": "주인에게."
+                }
+              ]
             }
           ]
         }
@@ -4792,13 +6616,37 @@
           },
           {
             "en": "check my stock before opening the shop.",
-            "ko": "가게를 열기 전에 재고를 확인해요."
+            "ko": "가게를 열기 전에 재고를 확인해요.",
+            "direct_chunks": [
+              {
+                "en": "check my stock",
+                "ko": "저는 확인해요 제 재고를"
+              },
+              {
+                "en": "before opening the shop.",
+                "ko": "가게를 열기 전에."
+              }
+            ]
           }
         ]
       },
       "local_topic": {
         "en": "Lost objects are kept at the desk.",
-        "ko": "분실물은 보관소에 있어요."
+        "ko": "분실물은 보관소에 있어요.",
+        "direct_chunks": [
+          {
+            "en": "Lost objects",
+            "ko": "분실물은"
+          },
+          {
+            "en": "are kept",
+            "ko": "보관돼요"
+          },
+          {
+            "en": "at the desk.",
+            "ko": "보관소에."
+          }
+        ]
       },
       "condition": "town_recovered",
       "priority": "active quest > conditional aftermath > idle",
@@ -4836,13 +6684,37 @@
           },
           {
             "en": "keep a clean room for tired guests.",
-            "ko": "지친 손님을 위해 깨끗한 방을 마련해요."
+            "ko": "지친 손님을 위해 깨끗한 방을 마련해요.",
+            "direct_chunks": [
+              {
+                "en": "keep a clean room",
+                "ko": "저는 마련해 둬요 깨끗한 방을"
+              },
+              {
+                "en": "for tired guests.",
+                "ko": "지친 손님들을 위해."
+              }
+            ]
           }
         ]
       },
       "local_topic": {
         "en": "Lost objects are kept at the desk.",
-        "ko": "분실물은 보관소에 있어요."
+        "ko": "분실물은 보관소에 있어요.",
+        "direct_chunks": [
+          {
+            "en": "Lost objects",
+            "ko": "분실물은"
+          },
+          {
+            "en": "are kept",
+            "ko": "보관돼요"
+          },
+          {
+            "en": "at the desk.",
+            "ko": "보관소에."
+          }
+        ]
       },
       "condition": "town_recovered",
       "priority": "active quest > conditional aftermath > idle",
@@ -4872,11 +6744,39 @@
       "town": "pn",
       "idle": {
         "en": "Please tell me if you notice a problem.",
-        "ko": "문제를 발견하면 알려 주세요."
+        "ko": "문제를 발견하면 알려 주세요.",
+        "direct_chunks": [
+          {
+            "en": "Please tell me",
+            "ko": "저에게 알려 주세요"
+          },
+          {
+            "en": "if you notice",
+            "ko": "당신이 알아차리면"
+          },
+          {
+            "en": "a problem.",
+            "ko": "문제를."
+          }
+        ]
       },
       "local_topic": {
         "en": "Lost objects are kept at the desk.",
-        "ko": "분실물은 보관소에 있어요."
+        "ko": "분실물은 보관소에 있어요.",
+        "direct_chunks": [
+          {
+            "en": "Lost objects",
+            "ko": "분실물은"
+          },
+          {
+            "en": "are kept",
+            "ko": "보관돼요"
+          },
+          {
+            "en": "at the desk.",
+            "ko": "보관소에."
+          }
+        ]
       },
       "condition": "town_recovered",
       "priority": "active quest > conditional aftermath > idle",
@@ -4914,13 +6814,41 @@
           },
           {
             "en": "ask owners to describe their lost things.",
-            "ko": "주인에게 잃어버린 물건을 설명해 달라고 해요."
+            "ko": "주인에게 잃어버린 물건을 설명해 달라고 해요.",
+            "direct_chunks": [
+              {
+                "en": "ask owners",
+                "ko": "저는 주인들에게 부탁해요"
+              },
+              {
+                "en": "to describe",
+                "ko": "설명해 달라고"
+              },
+              {
+                "en": "their lost things.",
+                "ko": "그들의 잃어버린 물건을."
+              }
+            ]
           }
         ]
       },
       "local_topic": {
         "en": "Lost objects are kept at the desk.",
-        "ko": "분실물은 보관소에 있어요."
+        "ko": "분실물은 보관소에 있어요.",
+        "direct_chunks": [
+          {
+            "en": "Lost objects",
+            "ko": "분실물은"
+          },
+          {
+            "en": "are kept",
+            "ko": "보관돼요"
+          },
+          {
+            "en": "at the desk.",
+            "ko": "보관소에."
+          }
+        ]
       },
       "condition": "town_recovered",
       "priority": "active quest > conditional aftermath > idle",
@@ -4964,7 +6892,21 @@
       },
       "local_topic": {
         "en": "Lost objects are kept at the desk.",
-        "ko": "분실물은 보관소에 있어요."
+        "ko": "분실물은 보관소에 있어요.",
+        "direct_chunks": [
+          {
+            "en": "Lost objects",
+            "ko": "분실물은"
+          },
+          {
+            "en": "are kept",
+            "ko": "보관돼요"
+          },
+          {
+            "en": "at the desk.",
+            "ko": "보관소에."
+          }
+        ]
       },
       "condition": "town_recovered",
       "priority": "active quest > conditional aftermath > idle",
@@ -5002,13 +6944,41 @@
           },
           {
             "en": "am saving time for a small project of my own.",
-            "ko": "제 작은 계획을 위해 시간을 내고 있어요."
+            "ko": "제 작은 계획을 위해 시간을 내고 있어요.",
+            "direct_chunks": [
+              {
+                "en": "am saving time",
+                "ko": "저는 시간을 아끼고 있어요"
+              },
+              {
+                "en": "for a small project",
+                "ko": "작은 계획을 위해"
+              },
+              {
+                "en": "of my own.",
+                "ko": "제 자신의."
+              }
+            ]
           }
         ]
       },
       "local_topic": {
         "en": "Lost objects are kept at the desk.",
-        "ko": "분실물은 보관소에 있어요."
+        "ko": "분실물은 보관소에 있어요.",
+        "direct_chunks": [
+          {
+            "en": "Lost objects",
+            "ko": "분실물은"
+          },
+          {
+            "en": "are kept",
+            "ko": "보관돼요"
+          },
+          {
+            "en": "at the desk.",
+            "ko": "보관소에."
+          }
+        ]
       },
       "condition": "town_recovered",
       "priority": "active quest > conditional aftermath > idle",
@@ -5052,7 +7022,21 @@
       },
       "local_topic": {
         "en": "Lost objects are kept at the desk.",
-        "ko": "분실물은 보관소에 있어요."
+        "ko": "분실물은 보관소에 있어요.",
+        "direct_chunks": [
+          {
+            "en": "Lost objects",
+            "ko": "분실물은"
+          },
+          {
+            "en": "are kept",
+            "ko": "보관돼요"
+          },
+          {
+            "en": "at the desk.",
+            "ko": "보관소에."
+          }
+        ]
       },
       "condition": "town_recovered",
       "priority": "active quest > conditional aftermath > idle",
@@ -5071,7 +7055,21 @@
             },
             {
               "en": "put my name inside my favorite book.",
-              "ko": "좋아하는 책 안에 이름을 적어요."
+              "ko": "좋아하는 책 안에 이름을 적어요.",
+              "direct_chunks": [
+                {
+                  "en": "put my name",
+                  "ko": "저는 제 이름을 적어요"
+                },
+                {
+                  "en": "inside",
+                  "ko": "안에"
+                },
+                {
+                  "en": "my favorite book.",
+                  "ko": "제가 좋아하는 책."
+                }
+              ]
             }
           ]
         }
@@ -5096,7 +7094,21 @@
       },
       "local_topic": {
         "en": "Lost objects are kept at the desk.",
-        "ko": "분실물은 보관소에 있어요."
+        "ko": "분실물은 보관소에 있어요.",
+        "direct_chunks": [
+          {
+            "en": "Lost objects",
+            "ko": "분실물은"
+          },
+          {
+            "en": "are kept",
+            "ko": "보관돼요"
+          },
+          {
+            "en": "at the desk.",
+            "ko": "보관소에."
+          }
+        ]
       },
       "condition": "town_recovered",
       "priority": "active quest > conditional aftermath > idle",
@@ -5140,7 +7152,21 @@
       },
       "local_topic": {
         "en": "Lost objects are kept at the desk.",
-        "ko": "분실물은 보관소에 있어요."
+        "ko": "분실물은 보관소에 있어요.",
+        "direct_chunks": [
+          {
+            "en": "Lost objects",
+            "ko": "분실물은"
+          },
+          {
+            "en": "are kept",
+            "ko": "보관돼요"
+          },
+          {
+            "en": "at the desk.",
+            "ko": "보관소에."
+          }
+        ]
       },
       "condition": "town_recovered",
       "priority": "active quest > conditional aftermath > idle",
@@ -5184,7 +7210,21 @@
       },
       "local_topic": {
         "en": "The lighthouse is visible from the shore.",
-        "ko": "물가에서 등대가 보여요."
+        "ko": "물가에서 등대가 보여요.",
+        "direct_chunks": [
+          {
+            "en": "The lighthouse",
+            "ko": "등대는"
+          },
+          {
+            "en": "is visible",
+            "ko": "보여요"
+          },
+          {
+            "en": "from the shore.",
+            "ko": "물가에서."
+          }
+        ]
       },
       "condition": "town_recovered",
       "priority": "active quest > conditional aftermath > idle",
@@ -5222,13 +7262,37 @@
           },
           {
             "en": "check my stock before opening the shop.",
-            "ko": "가게를 열기 전에 재고를 확인해요."
+            "ko": "가게를 열기 전에 재고를 확인해요.",
+            "direct_chunks": [
+              {
+                "en": "check my stock",
+                "ko": "저는 확인해요 제 재고를"
+              },
+              {
+                "en": "before opening the shop.",
+                "ko": "가게를 열기 전에."
+              }
+            ]
           }
         ]
       },
       "local_topic": {
         "en": "The lighthouse is visible from the shore.",
-        "ko": "물가에서 등대가 보여요."
+        "ko": "물가에서 등대가 보여요.",
+        "direct_chunks": [
+          {
+            "en": "The lighthouse",
+            "ko": "등대는"
+          },
+          {
+            "en": "is visible",
+            "ko": "보여요"
+          },
+          {
+            "en": "from the shore.",
+            "ko": "물가에서."
+          }
+        ]
       },
       "condition": "town_recovered",
       "priority": "active quest > conditional aftermath > idle",
@@ -5247,7 +7311,21 @@
             },
             {
               "en": "sell food that is easy to carry aboard.",
-              "ko": "배에 싣기 쉬운 음식을 팔아요."
+              "ko": "배에 싣기 쉬운 음식을 팔아요.",
+              "direct_chunks": [
+                {
+                  "en": "sell food",
+                  "ko": "저는 음식을 팔아요"
+                },
+                {
+                  "en": "that is easy",
+                  "ko": "쉬운"
+                },
+                {
+                  "en": "to carry aboard.",
+                  "ko": "배에 싣기."
+                }
+              ]
             }
           ]
         }
@@ -5266,13 +7344,37 @@
           },
           {
             "en": "keep a clean room for tired guests.",
-            "ko": "지친 손님을 위해 깨끗한 방을 마련해요."
+            "ko": "지친 손님을 위해 깨끗한 방을 마련해요.",
+            "direct_chunks": [
+              {
+                "en": "keep a clean room",
+                "ko": "저는 마련해 둬요 깨끗한 방을"
+              },
+              {
+                "en": "for tired guests.",
+                "ko": "지친 손님들을 위해."
+              }
+            ]
           }
         ]
       },
       "local_topic": {
         "en": "The lighthouse is visible from the shore.",
-        "ko": "물가에서 등대가 보여요."
+        "ko": "물가에서 등대가 보여요.",
+        "direct_chunks": [
+          {
+            "en": "The lighthouse",
+            "ko": "등대는"
+          },
+          {
+            "en": "is visible",
+            "ko": "보여요"
+          },
+          {
+            "en": "from the shore.",
+            "ko": "물가에서."
+          }
+        ]
       },
       "condition": "town_recovered",
       "priority": "active quest > conditional aftermath > idle",
@@ -5302,11 +7404,39 @@
       "town": "ot",
       "idle": {
         "en": "Please tell me if you notice a problem.",
-        "ko": "문제를 발견하면 알려 주세요."
+        "ko": "문제를 발견하면 알려 주세요.",
+        "direct_chunks": [
+          {
+            "en": "Please tell me",
+            "ko": "저에게 알려 주세요"
+          },
+          {
+            "en": "if you notice",
+            "ko": "당신이 알아차리면"
+          },
+          {
+            "en": "a problem.",
+            "ko": "문제를."
+          }
+        ]
       },
       "local_topic": {
         "en": "The lighthouse is visible from the shore.",
-        "ko": "물가에서 등대가 보여요."
+        "ko": "물가에서 등대가 보여요.",
+        "direct_chunks": [
+          {
+            "en": "The lighthouse",
+            "ko": "등대는"
+          },
+          {
+            "en": "is visible",
+            "ko": "보여요"
+          },
+          {
+            "en": "from the shore.",
+            "ko": "물가에서."
+          }
+        ]
       },
       "condition": "town_recovered",
       "priority": "active quest > conditional aftermath > idle",
@@ -5350,7 +7480,21 @@
       },
       "local_topic": {
         "en": "The lighthouse is visible from the shore.",
-        "ko": "물가에서 등대가 보여요."
+        "ko": "물가에서 등대가 보여요.",
+        "direct_chunks": [
+          {
+            "en": "The lighthouse",
+            "ko": "등대는"
+          },
+          {
+            "en": "is visible",
+            "ko": "보여요"
+          },
+          {
+            "en": "from the shore.",
+            "ko": "물가에서."
+          }
+        ]
       },
       "condition": "town_recovered",
       "priority": "active quest > conditional aftermath > idle",
@@ -5394,7 +7538,21 @@
       },
       "local_topic": {
         "en": "The lighthouse is visible from the shore.",
-        "ko": "물가에서 등대가 보여요."
+        "ko": "물가에서 등대가 보여요.",
+        "direct_chunks": [
+          {
+            "en": "The lighthouse",
+            "ko": "등대는"
+          },
+          {
+            "en": "is visible",
+            "ko": "보여요"
+          },
+          {
+            "en": "from the shore.",
+            "ko": "물가에서."
+          }
+        ]
       },
       "condition": "town_recovered",
       "priority": "active quest > conditional aftermath > idle",
@@ -5432,13 +7590,41 @@
           },
           {
             "en": "am saving time for a small project of my own.",
-            "ko": "제 작은 계획을 위해 시간을 내고 있어요."
+            "ko": "제 작은 계획을 위해 시간을 내고 있어요.",
+            "direct_chunks": [
+              {
+                "en": "am saving time",
+                "ko": "저는 시간을 아끼고 있어요"
+              },
+              {
+                "en": "for a small project",
+                "ko": "작은 계획을 위해"
+              },
+              {
+                "en": "of my own.",
+                "ko": "제 자신의."
+              }
+            ]
           }
         ]
       },
       "local_topic": {
         "en": "The lighthouse is visible from the shore.",
-        "ko": "물가에서 등대가 보여요."
+        "ko": "물가에서 등대가 보여요.",
+        "direct_chunks": [
+          {
+            "en": "The lighthouse",
+            "ko": "등대는"
+          },
+          {
+            "en": "is visible",
+            "ko": "보여요"
+          },
+          {
+            "en": "from the shore.",
+            "ko": "물가에서."
+          }
+        ]
       },
       "condition": "town_recovered",
       "priority": "active quest > conditional aftermath > idle",
@@ -5482,7 +7668,21 @@
       },
       "local_topic": {
         "en": "The lighthouse is visible from the shore.",
-        "ko": "물가에서 등대가 보여요."
+        "ko": "물가에서 등대가 보여요.",
+        "direct_chunks": [
+          {
+            "en": "The lighthouse",
+            "ko": "등대는"
+          },
+          {
+            "en": "is visible",
+            "ko": "보여요"
+          },
+          {
+            "en": "from the shore.",
+            "ko": "물가에서."
+          }
+        ]
       },
       "condition": "town_recovered",
       "priority": "active quest > conditional aftermath > idle",
@@ -5526,7 +7726,21 @@
       },
       "local_topic": {
         "en": "The lighthouse is visible from the shore.",
-        "ko": "물가에서 등대가 보여요."
+        "ko": "물가에서 등대가 보여요.",
+        "direct_chunks": [
+          {
+            "en": "The lighthouse",
+            "ko": "등대는"
+          },
+          {
+            "en": "is visible",
+            "ko": "보여요"
+          },
+          {
+            "en": "from the shore.",
+            "ko": "물가에서."
+          }
+        ]
       },
       "condition": "town_recovered",
       "priority": "active quest > conditional aftermath > idle",
@@ -5570,7 +7784,21 @@
       },
       "local_topic": {
         "en": "The lighthouse is visible from the shore.",
-        "ko": "물가에서 등대가 보여요."
+        "ko": "물가에서 등대가 보여요.",
+        "direct_chunks": [
+          {
+            "en": "The lighthouse",
+            "ko": "등대는"
+          },
+          {
+            "en": "is visible",
+            "ko": "보여요"
+          },
+          {
+            "en": "from the shore.",
+            "ko": "물가에서."
+          }
+        ]
       },
       "condition": "town_recovered",
       "priority": "active quest > conditional aftermath > idle",
@@ -5614,7 +7842,21 @@
       },
       "local_topic": {
         "en": "The uphill path is tiring for travelers.",
-        "ko": "오르막길은 여행자들에게 힘들어요."
+        "ko": "오르막길은 여행자들에게 힘들어요.",
+        "direct_chunks": [
+          {
+            "en": "The uphill path",
+            "ko": "오르막길은"
+          },
+          {
+            "en": "is tiring",
+            "ko": "힘들어요"
+          },
+          {
+            "en": "for travelers.",
+            "ko": "여행자들에게."
+          }
+        ]
       },
       "condition": "town_recovered",
       "priority": "active quest > conditional aftermath > idle",
@@ -5652,13 +7894,37 @@
           },
           {
             "en": "check my stock before opening the shop.",
-            "ko": "가게를 열기 전에 재고를 확인해요."
+            "ko": "가게를 열기 전에 재고를 확인해요.",
+            "direct_chunks": [
+              {
+                "en": "check my stock",
+                "ko": "저는 확인해요 제 재고를"
+              },
+              {
+                "en": "before opening the shop.",
+                "ko": "가게를 열기 전에."
+              }
+            ]
           }
         ]
       },
       "local_topic": {
         "en": "The uphill path is tiring for travelers.",
-        "ko": "오르막길은 여행자들에게 힘들어요."
+        "ko": "오르막길은 여행자들에게 힘들어요.",
+        "direct_chunks": [
+          {
+            "en": "The uphill path",
+            "ko": "오르막길은"
+          },
+          {
+            "en": "is tiring",
+            "ko": "힘들어요"
+          },
+          {
+            "en": "for travelers.",
+            "ko": "여행자들에게."
+          }
+        ]
       },
       "condition": "town_recovered",
       "priority": "active quest > conditional aftermath > idle",
@@ -5696,13 +7962,37 @@
           },
           {
             "en": "keep a clean room for tired guests.",
-            "ko": "지친 손님을 위해 깨끗한 방을 마련해요."
+            "ko": "지친 손님을 위해 깨끗한 방을 마련해요.",
+            "direct_chunks": [
+              {
+                "en": "keep a clean room",
+                "ko": "저는 마련해 둬요 깨끗한 방을"
+              },
+              {
+                "en": "for tired guests.",
+                "ko": "지친 손님들을 위해."
+              }
+            ]
           }
         ]
       },
       "local_topic": {
         "en": "The uphill path is tiring for travelers.",
-        "ko": "오르막길은 여행자들에게 힘들어요."
+        "ko": "오르막길은 여행자들에게 힘들어요.",
+        "direct_chunks": [
+          {
+            "en": "The uphill path",
+            "ko": "오르막길은"
+          },
+          {
+            "en": "is tiring",
+            "ko": "힘들어요"
+          },
+          {
+            "en": "for travelers.",
+            "ko": "여행자들에게."
+          }
+        ]
       },
       "condition": "town_recovered",
       "priority": "active quest > conditional aftermath > idle",
@@ -5732,11 +8022,39 @@
       "town": "iv",
       "idle": {
         "en": "Please tell me if you notice a problem.",
-        "ko": "문제를 발견하면 알려 주세요."
+        "ko": "문제를 발견하면 알려 주세요.",
+        "direct_chunks": [
+          {
+            "en": "Please tell me",
+            "ko": "저에게 알려 주세요"
+          },
+          {
+            "en": "if you notice",
+            "ko": "당신이 알아차리면"
+          },
+          {
+            "en": "a problem.",
+            "ko": "문제를."
+          }
+        ]
       },
       "local_topic": {
         "en": "The uphill path is tiring for travelers.",
-        "ko": "오르막길은 여행자들에게 힘들어요."
+        "ko": "오르막길은 여행자들에게 힘들어요.",
+        "direct_chunks": [
+          {
+            "en": "The uphill path",
+            "ko": "오르막길은"
+          },
+          {
+            "en": "is tiring",
+            "ko": "힘들어요"
+          },
+          {
+            "en": "for travelers.",
+            "ko": "여행자들에게."
+          }
+        ]
       },
       "condition": "town_recovered",
       "priority": "active quest > conditional aftermath > idle",
@@ -5774,13 +8092,41 @@
           },
           {
             "en": "ask travelers what they hope to see.",
-            "ko": "여행자에게 무엇을 보고 싶은지 물어요."
+            "ko": "여행자에게 무엇을 보고 싶은지 물어요.",
+            "direct_chunks": [
+              {
+                "en": "ask travelers",
+                "ko": "저는 여행자들에게 물어요"
+              },
+              {
+                "en": "what they hope",
+                "ko": "그들이 바라는 것을"
+              },
+              {
+                "en": "to see.",
+                "ko": "보기를."
+              }
+            ]
           }
         ]
       },
       "local_topic": {
         "en": "The uphill path is tiring for travelers.",
-        "ko": "오르막길은 여행자들에게 힘들어요."
+        "ko": "오르막길은 여행자들에게 힘들어요.",
+        "direct_chunks": [
+          {
+            "en": "The uphill path",
+            "ko": "오르막길은"
+          },
+          {
+            "en": "is tiring",
+            "ko": "힘들어요"
+          },
+          {
+            "en": "for travelers.",
+            "ko": "여행자들에게."
+          }
+        ]
       },
       "condition": "town_recovered",
       "priority": "active quest > conditional aftermath > idle",
@@ -5810,11 +8156,39 @@
       "town": "iv",
       "idle": {
         "en": "A good question is welcome in my lessons.",
-        "ko": "제 수업에서는 좋은 질문을 환영해요."
+        "ko": "제 수업에서는 좋은 질문을 환영해요.",
+        "direct_chunks": [
+          {
+            "en": "A good question",
+            "ko": "좋은 질문은"
+          },
+          {
+            "en": "is welcome",
+            "ko": "환영받아요"
+          },
+          {
+            "en": "in my lessons.",
+            "ko": "제 수업에서."
+          }
+        ]
       },
       "local_topic": {
         "en": "The uphill path is tiring for travelers.",
-        "ko": "오르막길은 여행자들에게 힘들어요."
+        "ko": "오르막길은 여행자들에게 힘들어요.",
+        "direct_chunks": [
+          {
+            "en": "The uphill path",
+            "ko": "오르막길은"
+          },
+          {
+            "en": "is tiring",
+            "ko": "힘들어요"
+          },
+          {
+            "en": "for travelers.",
+            "ko": "여행자들에게."
+          }
+        ]
       },
       "condition": "town_recovered",
       "priority": "active quest > conditional aftermath > idle",
@@ -5852,13 +8226,41 @@
           },
           {
             "en": "am saving time for a small project of my own.",
-            "ko": "제 작은 계획을 위해 시간을 내고 있어요."
+            "ko": "제 작은 계획을 위해 시간을 내고 있어요.",
+            "direct_chunks": [
+              {
+                "en": "am saving time",
+                "ko": "저는 시간을 아끼고 있어요"
+              },
+              {
+                "en": "for a small project",
+                "ko": "작은 계획을 위해"
+              },
+              {
+                "en": "of my own.",
+                "ko": "제 자신의."
+              }
+            ]
           }
         ]
       },
       "local_topic": {
         "en": "The uphill path is tiring for travelers.",
-        "ko": "오르막길은 여행자들에게 힘들어요."
+        "ko": "오르막길은 여행자들에게 힘들어요.",
+        "direct_chunks": [
+          {
+            "en": "The uphill path",
+            "ko": "오르막길은"
+          },
+          {
+            "en": "is tiring",
+            "ko": "힘들어요"
+          },
+          {
+            "en": "for travelers.",
+            "ko": "여행자들에게."
+          }
+        ]
       },
       "condition": "town_recovered",
       "priority": "active quest > conditional aftermath > idle",
@@ -5902,7 +8304,21 @@
       },
       "local_topic": {
         "en": "The uphill path is tiring for travelers.",
-        "ko": "오르막길은 여행자들에게 힘들어요."
+        "ko": "오르막길은 여행자들에게 힘들어요.",
+        "direct_chunks": [
+          {
+            "en": "The uphill path",
+            "ko": "오르막길은"
+          },
+          {
+            "en": "is tiring",
+            "ko": "힘들어요"
+          },
+          {
+            "en": "for travelers.",
+            "ko": "여행자들에게."
+          }
+        ]
       },
       "condition": "town_recovered",
       "priority": "active quest > conditional aftermath > idle",
@@ -5921,7 +8337,21 @@
             },
             {
               "en": "want to learn how to read a compass.",
-              "ko": "나침반 읽는 법을 배우고 싶어요."
+              "ko": "나침반 읽는 법을 배우고 싶어요.",
+              "direct_chunks": [
+                {
+                  "en": "want to learn",
+                  "ko": "저는 배우고 싶어요"
+                },
+                {
+                  "en": "how to read",
+                  "ko": "읽는 법을"
+                },
+                {
+                  "en": "a compass.",
+                  "ko": "나침반을."
+                }
+              ]
             }
           ]
         }
@@ -5946,7 +8376,21 @@
       },
       "local_topic": {
         "en": "The uphill path is tiring for travelers.",
-        "ko": "오르막길은 여행자들에게 힘들어요."
+        "ko": "오르막길은 여행자들에게 힘들어요.",
+        "direct_chunks": [
+          {
+            "en": "The uphill path",
+            "ko": "오르막길은"
+          },
+          {
+            "en": "is tiring",
+            "ko": "힘들어요"
+          },
+          {
+            "en": "for travelers.",
+            "ko": "여행자들에게."
+          }
+        ]
       },
       "condition": "town_recovered",
       "priority": "active quest > conditional aftermath > idle",
@@ -5990,7 +8434,21 @@
       },
       "local_topic": {
         "en": "The uphill path is tiring for travelers.",
-        "ko": "오르막길은 여행자들에게 힘들어요."
+        "ko": "오르막길은 여행자들에게 힘들어요.",
+        "direct_chunks": [
+          {
+            "en": "The uphill path",
+            "ko": "오르막길은"
+          },
+          {
+            "en": "is tiring",
+            "ko": "힘들어요"
+          },
+          {
+            "en": "for travelers.",
+            "ko": "여행자들에게."
+          }
+        ]
       },
       "condition": "town_recovered",
       "priority": "active quest > conditional aftermath > idle",
@@ -6034,7 +8492,21 @@
       },
       "local_topic": {
         "en": "The wind carries the sound of bells.",
-        "ko": "바람이 종소리를 실어 와요."
+        "ko": "바람이 종소리를 실어 와요.",
+        "direct_chunks": [
+          {
+            "en": "The wind",
+            "ko": "바람은"
+          },
+          {
+            "en": "carries",
+            "ko": "실어 와요"
+          },
+          {
+            "en": "the sound of bells.",
+            "ko": "종소리를."
+          }
+        ]
       },
       "condition": "town_recovered",
       "priority": "active quest > conditional aftermath > idle",
@@ -6053,7 +8525,21 @@
             },
             {
               "en": "ask residents what they heard before drawing conclusions.",
-              "ko": "결론을 내리기 전에 주민들이 무엇을 들었는지 물어요."
+              "ko": "결론을 내리기 전에 주민들이 무엇을 들었는지 물어요.",
+              "direct_chunks": [
+                {
+                  "en": "ask residents",
+                  "ko": "저는 주민들에게 물어요"
+                },
+                {
+                  "en": "what they heard",
+                  "ko": "그들이 들은 것을"
+                },
+                {
+                  "en": "before drawing conclusions.",
+                  "ko": "결론을 내리기 전에."
+                }
+              ]
             }
           ]
         }
@@ -6072,13 +8558,37 @@
           },
           {
             "en": "check my stock before opening the shop.",
-            "ko": "가게를 열기 전에 재고를 확인해요."
+            "ko": "가게를 열기 전에 재고를 확인해요.",
+            "direct_chunks": [
+              {
+                "en": "check my stock",
+                "ko": "저는 확인해요 제 재고를"
+              },
+              {
+                "en": "before opening the shop.",
+                "ko": "가게를 열기 전에."
+              }
+            ]
           }
         ]
       },
       "local_topic": {
         "en": "The wind carries the sound of bells.",
-        "ko": "바람이 종소리를 실어 와요."
+        "ko": "바람이 종소리를 실어 와요.",
+        "direct_chunks": [
+          {
+            "en": "The wind",
+            "ko": "바람은"
+          },
+          {
+            "en": "carries",
+            "ko": "실어 와요"
+          },
+          {
+            "en": "the sound of bells.",
+            "ko": "종소리를."
+          }
+        ]
       },
       "condition": "town_recovered",
       "priority": "active quest > conditional aftermath > idle",
@@ -6116,13 +8626,37 @@
           },
           {
             "en": "keep a clean room for tired guests.",
-            "ko": "지친 손님을 위해 깨끗한 방을 마련해요."
+            "ko": "지친 손님을 위해 깨끗한 방을 마련해요.",
+            "direct_chunks": [
+              {
+                "en": "keep a clean room",
+                "ko": "저는 마련해 둬요 깨끗한 방을"
+              },
+              {
+                "en": "for tired guests.",
+                "ko": "지친 손님들을 위해."
+              }
+            ]
           }
         ]
       },
       "local_topic": {
         "en": "The wind carries the sound of bells.",
-        "ko": "바람이 종소리를 실어 와요."
+        "ko": "바람이 종소리를 실어 와요.",
+        "direct_chunks": [
+          {
+            "en": "The wind",
+            "ko": "바람은"
+          },
+          {
+            "en": "carries",
+            "ko": "실어 와요"
+          },
+          {
+            "en": "the sound of bells.",
+            "ko": "종소리를."
+          }
+        ]
       },
       "condition": "town_recovered",
       "priority": "active quest > conditional aftermath > idle",
@@ -6152,11 +8686,39 @@
       "town": "pe",
       "idle": {
         "en": "Please tell me if you notice a problem.",
-        "ko": "문제를 발견하면 알려 주세요."
+        "ko": "문제를 발견하면 알려 주세요.",
+        "direct_chunks": [
+          {
+            "en": "Please tell me",
+            "ko": "저에게 알려 주세요"
+          },
+          {
+            "en": "if you notice",
+            "ko": "당신이 알아차리면"
+          },
+          {
+            "en": "a problem.",
+            "ko": "문제를."
+          }
+        ]
       },
       "local_topic": {
         "en": "The wind carries the sound of bells.",
-        "ko": "바람이 종소리를 실어 와요."
+        "ko": "바람이 종소리를 실어 와요.",
+        "direct_chunks": [
+          {
+            "en": "The wind",
+            "ko": "바람은"
+          },
+          {
+            "en": "carries",
+            "ko": "실어 와요"
+          },
+          {
+            "en": "the sound of bells.",
+            "ko": "종소리를."
+          }
+        ]
       },
       "condition": "town_recovered",
       "priority": "active quest > conditional aftermath > idle",
@@ -6175,7 +8737,17 @@
             },
             {
               "en": "check unusual sounds before raising an alarm.",
-              "ko": "경보를 울리기 전에 이상한 소리를 확인해요."
+              "ko": "경보를 울리기 전에 이상한 소리를 확인해요.",
+              "direct_chunks": [
+                {
+                  "en": "check unusual sounds",
+                  "ko": "저는 이상한 소리를 확인해요"
+                },
+                {
+                  "en": "before raising an alarm.",
+                  "ko": "경보를 울리기 전에."
+                }
+              ]
             }
           ]
         }
@@ -6194,13 +8766,37 @@
           },
           {
             "en": "look for fallen branches after a storm.",
-            "ko": "폭풍 뒤에는 떨어진 나뭇가지를 찾아봐요."
+            "ko": "폭풍 뒤에는 떨어진 나뭇가지를 찾아봐요.",
+            "direct_chunks": [
+              {
+                "en": "look for fallen branches",
+                "ko": "저는 떨어진 나뭇가지를 찾아봐요"
+              },
+              {
+                "en": "after a storm.",
+                "ko": "폭풍 뒤에."
+              }
+            ]
           }
         ]
       },
       "local_topic": {
         "en": "The wind carries the sound of bells.",
-        "ko": "바람이 종소리를 실어 와요."
+        "ko": "바람이 종소리를 실어 와요.",
+        "direct_chunks": [
+          {
+            "en": "The wind",
+            "ko": "바람은"
+          },
+          {
+            "en": "carries",
+            "ko": "실어 와요"
+          },
+          {
+            "en": "the sound of bells.",
+            "ko": "종소리를."
+          }
+        ]
       },
       "condition": "town_recovered",
       "priority": "active quest > conditional aftermath > idle",
@@ -6244,7 +8840,21 @@
       },
       "local_topic": {
         "en": "The wind carries the sound of bells.",
-        "ko": "바람이 종소리를 실어 와요."
+        "ko": "바람이 종소리를 실어 와요.",
+        "direct_chunks": [
+          {
+            "en": "The wind",
+            "ko": "바람은"
+          },
+          {
+            "en": "carries",
+            "ko": "실어 와요"
+          },
+          {
+            "en": "the sound of bells.",
+            "ko": "종소리를."
+          }
+        ]
       },
       "condition": "town_recovered",
       "priority": "active quest > conditional aftermath > idle",
@@ -6282,13 +8892,41 @@
           },
           {
             "en": "am saving time for a small project of my own.",
-            "ko": "제 작은 계획을 위해 시간을 내고 있어요."
+            "ko": "제 작은 계획을 위해 시간을 내고 있어요.",
+            "direct_chunks": [
+              {
+                "en": "am saving time",
+                "ko": "저는 시간을 아끼고 있어요"
+              },
+              {
+                "en": "for a small project",
+                "ko": "작은 계획을 위해"
+              },
+              {
+                "en": "of my own.",
+                "ko": "제 자신의."
+              }
+            ]
           }
         ]
       },
       "local_topic": {
         "en": "The wind carries the sound of bells.",
-        "ko": "바람이 종소리를 실어 와요."
+        "ko": "바람이 종소리를 실어 와요.",
+        "direct_chunks": [
+          {
+            "en": "The wind",
+            "ko": "바람은"
+          },
+          {
+            "en": "carries",
+            "ko": "실어 와요"
+          },
+          {
+            "en": "the sound of bells.",
+            "ko": "종소리를."
+          }
+        ]
       },
       "condition": "town_recovered",
       "priority": "active quest > conditional aftermath > idle",
@@ -6307,7 +8945,17 @@
             },
             {
               "en": "test the sound of each finished bell.",
-              "ko": "완성한 종마다 소리를 시험해요."
+              "ko": "완성한 종마다 소리를 시험해요.",
+              "direct_chunks": [
+                {
+                  "en": "test the sound",
+                  "ko": "저는 소리를 시험해요"
+                },
+                {
+                  "en": "of each finished bell.",
+                  "ko": "완성된 종마다의."
+                }
+              ]
             }
           ]
         }
@@ -6332,7 +8980,21 @@
       },
       "local_topic": {
         "en": "The wind carries the sound of bells.",
-        "ko": "바람이 종소리를 실어 와요."
+        "ko": "바람이 종소리를 실어 와요.",
+        "direct_chunks": [
+          {
+            "en": "The wind",
+            "ko": "바람은"
+          },
+          {
+            "en": "carries",
+            "ko": "실어 와요"
+          },
+          {
+            "en": "the sound of bells.",
+            "ko": "종소리를."
+          }
+        ]
       },
       "condition": "town_recovered",
       "priority": "active quest > conditional aftermath > idle",
@@ -6351,7 +9013,17 @@
             },
             {
               "en": "like listening to birds with my eyes closed.",
-              "ko": "눈을 감고 새소리를 듣는 게 좋아요."
+              "ko": "눈을 감고 새소리를 듣는 게 좋아요.",
+              "direct_chunks": [
+                {
+                  "en": "like listening to birds",
+                  "ko": "저는 새소리 듣는 것을 좋아해요"
+                },
+                {
+                  "en": "with my eyes closed.",
+                  "ko": "눈을 감고."
+                }
+              ]
             }
           ]
         }
@@ -6376,7 +9048,21 @@
       },
       "local_topic": {
         "en": "The wind carries the sound of bells.",
-        "ko": "바람이 종소리를 실어 와요."
+        "ko": "바람이 종소리를 실어 와요.",
+        "direct_chunks": [
+          {
+            "en": "The wind",
+            "ko": "바람은"
+          },
+          {
+            "en": "carries",
+            "ko": "실어 와요"
+          },
+          {
+            "en": "the sound of bells.",
+            "ko": "종소리를."
+          }
+        ]
       },
       "condition": "town_recovered",
       "priority": "active quest > conditional aftermath > idle",
@@ -6395,7 +9081,17 @@
             },
             {
               "en": "listen for the village bell on my way home.",
-              "ko": "집에 가는 길에 마을 종소리를 들어요."
+              "ko": "집에 가는 길에 마을 종소리를 들어요.",
+              "direct_chunks": [
+                {
+                  "en": "listen for the village bell",
+                  "ko": "저는 마을 종소리를 귀 기울여 들어요"
+                },
+                {
+                  "en": "on my way home.",
+                  "ko": "집에 가는 길에."
+                }
+              ]
             }
           ]
         }
@@ -6420,7 +9116,21 @@
       },
       "local_topic": {
         "en": "The wind carries the sound of bells.",
-        "ko": "바람이 종소리를 실어 와요."
+        "ko": "바람이 종소리를 실어 와요.",
+        "direct_chunks": [
+          {
+            "en": "The wind",
+            "ko": "바람은"
+          },
+          {
+            "en": "carries",
+            "ko": "실어 와요"
+          },
+          {
+            "en": "the sound of bells.",
+            "ko": "종소리를."
+          }
+        ]
       },
       "condition": "town_recovered",
       "priority": "active quest > conditional aftermath > idle",
@@ -6464,7 +9174,21 @@
       },
       "local_topic": {
         "en": "The stage needs room for the performers.",
-        "ko": "무대에는 공연자들이 쓸 공간이 필요해요."
+        "ko": "무대에는 공연자들이 쓸 공간이 필요해요.",
+        "direct_chunks": [
+          {
+            "en": "The stage",
+            "ko": "무대는"
+          },
+          {
+            "en": "needs room",
+            "ko": "공간이 필요해요"
+          },
+          {
+            "en": "for the performers.",
+            "ko": "공연자들을 위한."
+          }
+        ]
       },
       "condition": "town_recovered",
       "priority": "active quest > conditional aftermath > idle",
@@ -6502,13 +9226,37 @@
           },
           {
             "en": "check my stock before opening the shop.",
-            "ko": "가게를 열기 전에 재고를 확인해요."
+            "ko": "가게를 열기 전에 재고를 확인해요.",
+            "direct_chunks": [
+              {
+                "en": "check my stock",
+                "ko": "저는 확인해요 제 재고를"
+              },
+              {
+                "en": "before opening the shop.",
+                "ko": "가게를 열기 전에."
+              }
+            ]
           }
         ]
       },
       "local_topic": {
         "en": "The stage needs room for the performers.",
-        "ko": "무대에는 공연자들이 쓸 공간이 필요해요."
+        "ko": "무대에는 공연자들이 쓸 공간이 필요해요.",
+        "direct_chunks": [
+          {
+            "en": "The stage",
+            "ko": "무대는"
+          },
+          {
+            "en": "needs room",
+            "ko": "공간이 필요해요"
+          },
+          {
+            "en": "for the performers.",
+            "ko": "공연자들을 위한."
+          }
+        ]
       },
       "condition": "town_recovered",
       "priority": "active quest > conditional aftermath > idle",
@@ -6546,13 +9294,37 @@
           },
           {
             "en": "keep a clean room for tired guests.",
-            "ko": "지친 손님을 위해 깨끗한 방을 마련해요."
+            "ko": "지친 손님을 위해 깨끗한 방을 마련해요.",
+            "direct_chunks": [
+              {
+                "en": "keep a clean room",
+                "ko": "저는 마련해 둬요 깨끗한 방을"
+              },
+              {
+                "en": "for tired guests.",
+                "ko": "지친 손님들을 위해."
+              }
+            ]
           }
         ]
       },
       "local_topic": {
         "en": "The stage needs room for the performers.",
-        "ko": "무대에는 공연자들이 쓸 공간이 필요해요."
+        "ko": "무대에는 공연자들이 쓸 공간이 필요해요.",
+        "direct_chunks": [
+          {
+            "en": "The stage",
+            "ko": "무대는"
+          },
+          {
+            "en": "needs room",
+            "ko": "공간이 필요해요"
+          },
+          {
+            "en": "for the performers.",
+            "ko": "공연자들을 위한."
+          }
+        ]
       },
       "condition": "town_recovered",
       "priority": "active quest > conditional aftermath > idle",
@@ -6582,11 +9354,39 @@
       "town": "ng",
       "idle": {
         "en": "Please tell me if you notice a problem.",
-        "ko": "문제를 발견하면 알려 주세요."
+        "ko": "문제를 발견하면 알려 주세요.",
+        "direct_chunks": [
+          {
+            "en": "Please tell me",
+            "ko": "저에게 알려 주세요"
+          },
+          {
+            "en": "if you notice",
+            "ko": "당신이 알아차리면"
+          },
+          {
+            "en": "a problem.",
+            "ko": "문제를."
+          }
+        ]
       },
       "local_topic": {
         "en": "The stage needs room for the performers.",
-        "ko": "무대에는 공연자들이 쓸 공간이 필요해요."
+        "ko": "무대에는 공연자들이 쓸 공간이 필요해요.",
+        "direct_chunks": [
+          {
+            "en": "The stage",
+            "ko": "무대는"
+          },
+          {
+            "en": "needs room",
+            "ko": "공간이 필요해요"
+          },
+          {
+            "en": "for the performers.",
+            "ko": "공연자들을 위한."
+          }
+        ]
       },
       "condition": "town_recovered",
       "priority": "active quest > conditional aftermath > idle",
@@ -6630,7 +9430,21 @@
       },
       "local_topic": {
         "en": "The stage needs room for the performers.",
-        "ko": "무대에는 공연자들이 쓸 공간이 필요해요."
+        "ko": "무대에는 공연자들이 쓸 공간이 필요해요.",
+        "direct_chunks": [
+          {
+            "en": "The stage",
+            "ko": "무대는"
+          },
+          {
+            "en": "needs room",
+            "ko": "공간이 필요해요"
+          },
+          {
+            "en": "for the performers.",
+            "ko": "공연자들을 위한."
+          }
+        ]
       },
       "condition": "town_recovered",
       "priority": "active quest > conditional aftermath > idle",
@@ -6649,7 +9463,21 @@
             },
             {
               "en": "keep a list of performers and their songs.",
-              "ko": "공연자와 노래 목록을 관리해요."
+              "ko": "공연자와 노래 목록을 관리해요.",
+              "direct_chunks": [
+                {
+                  "en": "keep a list",
+                  "ko": "저는 목록을 관리해요"
+                },
+                {
+                  "en": "of performers",
+                  "ko": "공연자들의"
+                },
+                {
+                  "en": "and their songs.",
+                  "ko": "그리고 그들의 노래."
+                }
+              ]
             }
           ]
         }
@@ -6668,13 +9496,41 @@
           },
           {
             "en": "practice slowly before playing a new song.",
-            "ko": "새 곡을 연주하기 전에 천천히 연습해요."
+            "ko": "새 곡을 연주하기 전에 천천히 연습해요.",
+            "direct_chunks": [
+              {
+                "en": "practice slowly",
+                "ko": "저는 천천히 연습해요"
+              },
+              {
+                "en": "before playing",
+                "ko": "연주하기 전에"
+              },
+              {
+                "en": "a new song.",
+                "ko": "새 곡을."
+              }
+            ]
           }
         ]
       },
       "local_topic": {
         "en": "The stage needs room for the performers.",
-        "ko": "무대에는 공연자들이 쓸 공간이 필요해요."
+        "ko": "무대에는 공연자들이 쓸 공간이 필요해요.",
+        "direct_chunks": [
+          {
+            "en": "The stage",
+            "ko": "무대는"
+          },
+          {
+            "en": "needs room",
+            "ko": "공간이 필요해요"
+          },
+          {
+            "en": "for the performers.",
+            "ko": "공연자들을 위한."
+          }
+        ]
       },
       "condition": "town_recovered",
       "priority": "active quest > conditional aftermath > idle",
@@ -6693,7 +9549,17 @@
             },
             {
               "en": "enjoy playing a melody in different ways.",
-              "ko": "같은 선율을 여러 방식으로 연주하는 게 좋아요."
+              "ko": "같은 선율을 여러 방식으로 연주하는 게 좋아요.",
+              "direct_chunks": [
+                {
+                  "en": "enjoy playing a melody",
+                  "ko": "저는 선율 연주하는 것을 좋아해요"
+                },
+                {
+                  "en": "in different ways.",
+                  "ko": "여러 방식으로."
+                }
+              ]
             }
           ]
         }
@@ -6712,13 +9578,41 @@
           },
           {
             "en": "am saving time for a small project of my own.",
-            "ko": "제 작은 계획을 위해 시간을 내고 있어요."
+            "ko": "제 작은 계획을 위해 시간을 내고 있어요.",
+            "direct_chunks": [
+              {
+                "en": "am saving time",
+                "ko": "저는 시간을 아끼고 있어요"
+              },
+              {
+                "en": "for a small project",
+                "ko": "작은 계획을 위해"
+              },
+              {
+                "en": "of my own.",
+                "ko": "제 자신의."
+              }
+            ]
           }
         ]
       },
       "local_topic": {
         "en": "The stage needs room for the performers.",
-        "ko": "무대에는 공연자들이 쓸 공간이 필요해요."
+        "ko": "무대에는 공연자들이 쓸 공간이 필요해요.",
+        "direct_chunks": [
+          {
+            "en": "The stage",
+            "ko": "무대는"
+          },
+          {
+            "en": "needs room",
+            "ko": "공간이 필요해요"
+          },
+          {
+            "en": "for the performers.",
+            "ko": "공연자들을 위한."
+          }
+        ]
       },
       "condition": "town_recovered",
       "priority": "active quest > conditional aftermath > idle",
@@ -6762,7 +9656,21 @@
       },
       "local_topic": {
         "en": "The stage needs room for the performers.",
-        "ko": "무대에는 공연자들이 쓸 공간이 필요해요."
+        "ko": "무대에는 공연자들이 쓸 공간이 필요해요.",
+        "direct_chunks": [
+          {
+            "en": "The stage",
+            "ko": "무대는"
+          },
+          {
+            "en": "needs room",
+            "ko": "공간이 필요해요"
+          },
+          {
+            "en": "for the performers.",
+            "ko": "공연자들을 위한."
+          }
+        ]
       },
       "condition": "town_recovered",
       "priority": "active quest > conditional aftermath > idle",
@@ -6781,7 +9689,21 @@
             },
             {
               "en": "want to sing with my friends on stage.",
-              "ko": "친구들과 무대에서 노래하고 싶어요."
+              "ko": "친구들과 무대에서 노래하고 싶어요.",
+              "direct_chunks": [
+                {
+                  "en": "want to sing",
+                  "ko": "저는 노래하고 싶어요"
+                },
+                {
+                  "en": "with my friends",
+                  "ko": "제 친구들과"
+                },
+                {
+                  "en": "on stage.",
+                  "ko": "무대에서."
+                }
+              ]
             }
           ]
         }
@@ -6806,7 +9728,21 @@
       },
       "local_topic": {
         "en": "The stage needs room for the performers.",
-        "ko": "무대에는 공연자들이 쓸 공간이 필요해요."
+        "ko": "무대에는 공연자들이 쓸 공간이 필요해요.",
+        "direct_chunks": [
+          {
+            "en": "The stage",
+            "ko": "무대는"
+          },
+          {
+            "en": "needs room",
+            "ko": "공간이 필요해요"
+          },
+          {
+            "en": "for the performers.",
+            "ko": "공연자들을 위한."
+          }
+        ]
       },
       "condition": "town_recovered",
       "priority": "active quest > conditional aftermath > idle",
@@ -6850,7 +9786,21 @@
       },
       "local_topic": {
         "en": "The stage needs room for the performers.",
-        "ko": "무대에는 공연자들이 쓸 공간이 필요해요."
+        "ko": "무대에는 공연자들이 쓸 공간이 필요해요.",
+        "direct_chunks": [
+          {
+            "en": "The stage",
+            "ko": "무대는"
+          },
+          {
+            "en": "needs room",
+            "ko": "공간이 필요해요"
+          },
+          {
+            "en": "for the performers.",
+            "ko": "공연자들을 위한."
+          }
+        ]
       },
       "condition": "town_recovered",
       "priority": "active quest > conditional aftermath > idle",
@@ -6869,7 +9819,17 @@
             },
             {
               "en": "prepare a quiet place for tired performers.",
-              "ko": "지친 공연자들을 위해 조용한 장소를 마련해요."
+              "ko": "지친 공연자들을 위해 조용한 장소를 마련해요.",
+              "direct_chunks": [
+                {
+                  "en": "prepare a quiet place",
+                  "ko": "저는 조용한 장소를 마련해요"
+                },
+                {
+                  "en": "for tired performers.",
+                  "ko": "지친 공연자들을 위해."
+                }
+              ]
             }
           ]
         }
@@ -6894,7 +9854,21 @@
       },
       "local_topic": {
         "en": "A clear message saves a second journey.",
-        "ko": "명확한 전갈은 두 번 갈 일을 줄여 줘요."
+        "ko": "명확한 전갈은 두 번 갈 일을 줄여 줘요.",
+        "direct_chunks": [
+          {
+            "en": "A clear message",
+            "ko": "명확한 전갈은"
+          },
+          {
+            "en": "saves",
+            "ko": "줄여 줘요"
+          },
+          {
+            "en": "a second journey.",
+            "ko": "두 번째 걸음을."
+          }
+        ]
       },
       "condition": "town_recovered",
       "priority": "active quest > conditional aftermath > idle",
@@ -6932,13 +9906,37 @@
           },
           {
             "en": "check my stock before opening the shop.",
-            "ko": "가게를 열기 전에 재고를 확인해요."
+            "ko": "가게를 열기 전에 재고를 확인해요.",
+            "direct_chunks": [
+              {
+                "en": "check my stock",
+                "ko": "저는 확인해요 제 재고를"
+              },
+              {
+                "en": "before opening the shop.",
+                "ko": "가게를 열기 전에."
+              }
+            ]
           }
         ]
       },
       "local_topic": {
         "en": "A clear message saves a second journey.",
-        "ko": "명확한 전갈은 두 번 갈 일을 줄여 줘요."
+        "ko": "명확한 전갈은 두 번 갈 일을 줄여 줘요.",
+        "direct_chunks": [
+          {
+            "en": "A clear message",
+            "ko": "명확한 전갈은"
+          },
+          {
+            "en": "saves",
+            "ko": "줄여 줘요"
+          },
+          {
+            "en": "a second journey.",
+            "ko": "두 번째 걸음을."
+          }
+        ]
       },
       "condition": "town_recovered",
       "priority": "active quest > conditional aftermath > idle",
@@ -6976,13 +9974,37 @@
           },
           {
             "en": "keep a clean room for tired guests.",
-            "ko": "지친 손님을 위해 깨끗한 방을 마련해요."
+            "ko": "지친 손님을 위해 깨끗한 방을 마련해요.",
+            "direct_chunks": [
+              {
+                "en": "keep a clean room",
+                "ko": "저는 마련해 둬요 깨끗한 방을"
+              },
+              {
+                "en": "for tired guests.",
+                "ko": "지친 손님들을 위해."
+              }
+            ]
           }
         ]
       },
       "local_topic": {
         "en": "A clear message saves a second journey.",
-        "ko": "명확한 전갈은 두 번 갈 일을 줄여 줘요."
+        "ko": "명확한 전갈은 두 번 갈 일을 줄여 줘요.",
+        "direct_chunks": [
+          {
+            "en": "A clear message",
+            "ko": "명확한 전갈은"
+          },
+          {
+            "en": "saves",
+            "ko": "줄여 줘요"
+          },
+          {
+            "en": "a second journey.",
+            "ko": "두 번째 걸음을."
+          }
+        ]
       },
       "condition": "town_recovered",
       "priority": "active quest > conditional aftermath > idle",
@@ -7012,11 +10034,39 @@
       "town": "rs",
       "idle": {
         "en": "Please tell me if you notice a problem.",
-        "ko": "문제를 발견하면 알려 주세요."
+        "ko": "문제를 발견하면 알려 주세요.",
+        "direct_chunks": [
+          {
+            "en": "Please tell me",
+            "ko": "저에게 알려 주세요"
+          },
+          {
+            "en": "if you notice",
+            "ko": "당신이 알아차리면"
+          },
+          {
+            "en": "a problem.",
+            "ko": "문제를."
+          }
+        ]
       },
       "local_topic": {
         "en": "A clear message saves a second journey.",
-        "ko": "명확한 전갈은 두 번 갈 일을 줄여 줘요."
+        "ko": "명확한 전갈은 두 번 갈 일을 줄여 줘요.",
+        "direct_chunks": [
+          {
+            "en": "A clear message",
+            "ko": "명확한 전갈은"
+          },
+          {
+            "en": "saves",
+            "ko": "줄여 줘요"
+          },
+          {
+            "en": "a second journey.",
+            "ko": "두 번째 걸음을."
+          }
+        ]
       },
       "condition": "town_recovered",
       "priority": "active quest > conditional aftermath > idle",
@@ -7035,7 +10085,17 @@
             },
             {
               "en": "ask for the original notice when reports disagree.",
-              "ko": "보고 내용이 다르면 원본 공지를 요청해요."
+              "ko": "보고 내용이 다르면 원본 공지를 요청해요.",
+              "direct_chunks": [
+                {
+                  "en": "ask for the original notice",
+                  "ko": "저는 원본 공지를 요청해요"
+                },
+                {
+                  "en": "when reports disagree.",
+                  "ko": "보고가 다를 때."
+                }
+              ]
             }
           ]
         }
@@ -7060,7 +10120,21 @@
       },
       "local_topic": {
         "en": "A clear message saves a second journey.",
-        "ko": "명확한 전갈은 두 번 갈 일을 줄여 줘요."
+        "ko": "명확한 전갈은 두 번 갈 일을 줄여 줘요.",
+        "direct_chunks": [
+          {
+            "en": "A clear message",
+            "ko": "명확한 전갈은"
+          },
+          {
+            "en": "saves",
+            "ko": "줄여 줘요"
+          },
+          {
+            "en": "a second journey.",
+            "ko": "두 번째 걸음을."
+          }
+        ]
       },
       "condition": "town_recovered",
       "priority": "active quest > conditional aftermath > idle",
@@ -7104,7 +10178,21 @@
       },
       "local_topic": {
         "en": "A clear message saves a second journey.",
-        "ko": "명확한 전갈은 두 번 갈 일을 줄여 줘요."
+        "ko": "명확한 전갈은 두 번 갈 일을 줄여 줘요.",
+        "direct_chunks": [
+          {
+            "en": "A clear message",
+            "ko": "명확한 전갈은"
+          },
+          {
+            "en": "saves",
+            "ko": "줄여 줘요"
+          },
+          {
+            "en": "a second journey.",
+            "ko": "두 번째 걸음을."
+          }
+        ]
       },
       "condition": "town_recovered",
       "priority": "active quest > conditional aftermath > idle",
@@ -7123,7 +10211,21 @@
             },
             {
               "en": "ask the sender to clarify unclear messages.",
-              "ko": "불분명한 전갈은 보낸 사람에게 확인해요."
+              "ko": "불분명한 전갈은 보낸 사람에게 확인해요.",
+              "direct_chunks": [
+                {
+                  "en": "ask the sender",
+                  "ko": "저는 보낸 사람에게 부탁해요"
+                },
+                {
+                  "en": "to clarify",
+                  "ko": "확인해 달라고"
+                },
+                {
+                  "en": "unclear messages.",
+                  "ko": "불분명한 전갈을."
+                }
+              ]
             }
           ]
         }
@@ -7142,13 +10244,41 @@
           },
           {
             "en": "am saving time for a small project of my own.",
-            "ko": "제 작은 계획을 위해 시간을 내고 있어요."
+            "ko": "제 작은 계획을 위해 시간을 내고 있어요.",
+            "direct_chunks": [
+              {
+                "en": "am saving time",
+                "ko": "저는 시간을 아끼고 있어요"
+              },
+              {
+                "en": "for a small project",
+                "ko": "작은 계획을 위해"
+              },
+              {
+                "en": "of my own.",
+                "ko": "제 자신의."
+              }
+            ]
           }
         ]
       },
       "local_topic": {
         "en": "A clear message saves a second journey.",
-        "ko": "명확한 전갈은 두 번 갈 일을 줄여 줘요."
+        "ko": "명확한 전갈은 두 번 갈 일을 줄여 줘요.",
+        "direct_chunks": [
+          {
+            "en": "A clear message",
+            "ko": "명확한 전갈은"
+          },
+          {
+            "en": "saves",
+            "ko": "줄여 줘요"
+          },
+          {
+            "en": "a second journey.",
+            "ko": "두 번째 걸음을."
+          }
+        ]
       },
       "condition": "town_recovered",
       "priority": "active quest > conditional aftermath > idle",
@@ -7167,7 +10297,17 @@
             },
             {
               "en": "enjoy finding clear ways to express an idea.",
-              "ko": "생각을 명확하게 표현하는 방법을 찾는 게 좋아요."
+              "ko": "생각을 명확하게 표현하는 방법을 찾는 게 좋아요.",
+              "direct_chunks": [
+                {
+                  "en": "enjoy finding clear ways",
+                  "ko": "저는 명확한 방법 찾는 것을 좋아해요"
+                },
+                {
+                  "en": "to express an idea.",
+                  "ko": "생각을 표현할."
+                }
+              ]
             }
           ]
         }
@@ -7192,7 +10332,21 @@
       },
       "local_topic": {
         "en": "A clear message saves a second journey.",
-        "ko": "명확한 전갈은 두 번 갈 일을 줄여 줘요."
+        "ko": "명확한 전갈은 두 번 갈 일을 줄여 줘요.",
+        "direct_chunks": [
+          {
+            "en": "A clear message",
+            "ko": "명확한 전갈은"
+          },
+          {
+            "en": "saves",
+            "ko": "줄여 줘요"
+          },
+          {
+            "en": "a second journey.",
+            "ko": "두 번째 걸음을."
+          }
+        ]
       },
       "condition": "town_recovered",
       "priority": "active quest > conditional aftermath > idle",
@@ -7236,7 +10390,21 @@
       },
       "local_topic": {
         "en": "A clear message saves a second journey.",
-        "ko": "명확한 전갈은 두 번 갈 일을 줄여 줘요."
+        "ko": "명확한 전갈은 두 번 갈 일을 줄여 줘요.",
+        "direct_chunks": [
+          {
+            "en": "A clear message",
+            "ko": "명확한 전갈은"
+          },
+          {
+            "en": "saves",
+            "ko": "줄여 줘요"
+          },
+          {
+            "en": "a second journey.",
+            "ko": "두 번째 걸음을."
+          }
+        ]
       },
       "condition": "town_recovered",
       "priority": "active quest > conditional aftermath > idle",
@@ -7280,7 +10448,21 @@
       },
       "local_topic": {
         "en": "A clear message saves a second journey.",
-        "ko": "명확한 전갈은 두 번 갈 일을 줄여 줘요."
+        "ko": "명확한 전갈은 두 번 갈 일을 줄여 줘요.",
+        "direct_chunks": [
+          {
+            "en": "A clear message",
+            "ko": "명확한 전갈은"
+          },
+          {
+            "en": "saves",
+            "ko": "줄여 줘요"
+          },
+          {
+            "en": "a second journey.",
+            "ko": "두 번째 걸음을."
+          }
+        ]
       },
       "condition": "town_recovered",
       "priority": "active quest > conditional aftermath > idle",
@@ -7299,7 +10481,21 @@
             },
             {
               "en": "listen carefully when people explain their worries.",
-              "ko": "사람들이 걱정을 이야기하면 주의 깊게 들어요."
+              "ko": "사람들이 걱정을 이야기하면 주의 깊게 들어요.",
+              "direct_chunks": [
+                {
+                  "en": "listen carefully",
+                  "ko": "저는 주의 깊게 들어요"
+                },
+                {
+                  "en": "when people explain",
+                  "ko": "사람들이 설명할 때"
+                },
+                {
+                  "en": "their worries.",
+                  "ko": "그들의 걱정을."
+                }
+              ]
             }
           ]
         }
@@ -7324,7 +10520,21 @@
       },
       "local_topic": {
         "en": "The archive keeps old and new records.",
-        "ko": "기록실에는 옛 기록과 새 기록이 있어요."
+        "ko": "기록실에는 옛 기록과 새 기록이 있어요.",
+        "direct_chunks": [
+          {
+            "en": "The archive",
+            "ko": "기록실은"
+          },
+          {
+            "en": "keeps",
+            "ko": "보관해요"
+          },
+          {
+            "en": "old and new records.",
+            "ko": "옛 기록과 새 기록을."
+          }
+        ]
       },
       "condition": "town_recovered",
       "priority": "active quest > conditional aftermath > idle",
@@ -7343,7 +10553,21 @@
             },
             {
               "en": "consult the archive before changing a rule.",
-              "ko": "규칙을 바꾸기 전에 기록실을 확인해요."
+              "ko": "규칙을 바꾸기 전에 기록실을 확인해요.",
+              "direct_chunks": [
+                {
+                  "en": "consult the archive",
+                  "ko": "저는 기록실을 확인해요"
+                },
+                {
+                  "en": "before changing",
+                  "ko": "바꾸기 전에"
+                },
+                {
+                  "en": "a rule.",
+                  "ko": "규칙을."
+                }
+              ]
             }
           ]
         }
@@ -7362,13 +10586,37 @@
           },
           {
             "en": "check my stock before opening the shop.",
-            "ko": "가게를 열기 전에 재고를 확인해요."
+            "ko": "가게를 열기 전에 재고를 확인해요.",
+            "direct_chunks": [
+              {
+                "en": "check my stock",
+                "ko": "저는 확인해요 제 재고를"
+              },
+              {
+                "en": "before opening the shop.",
+                "ko": "가게를 열기 전에."
+              }
+            ]
           }
         ]
       },
       "local_topic": {
         "en": "The archive keeps old and new records.",
-        "ko": "기록실에는 옛 기록과 새 기록이 있어요."
+        "ko": "기록실에는 옛 기록과 새 기록이 있어요.",
+        "direct_chunks": [
+          {
+            "en": "The archive",
+            "ko": "기록실은"
+          },
+          {
+            "en": "keeps",
+            "ko": "보관해요"
+          },
+          {
+            "en": "old and new records.",
+            "ko": "옛 기록과 새 기록을."
+          }
+        ]
       },
       "condition": "town_recovered",
       "priority": "active quest > conditional aftermath > idle",
@@ -7406,13 +10654,37 @@
           },
           {
             "en": "keep a clean room for tired guests.",
-            "ko": "지친 손님을 위해 깨끗한 방을 마련해요."
+            "ko": "지친 손님을 위해 깨끗한 방을 마련해요.",
+            "direct_chunks": [
+              {
+                "en": "keep a clean room",
+                "ko": "저는 마련해 둬요 깨끗한 방을"
+              },
+              {
+                "en": "for tired guests.",
+                "ko": "지친 손님들을 위해."
+              }
+            ]
           }
         ]
       },
       "local_topic": {
         "en": "The archive keeps old and new records.",
-        "ko": "기록실에는 옛 기록과 새 기록이 있어요."
+        "ko": "기록실에는 옛 기록과 새 기록이 있어요.",
+        "direct_chunks": [
+          {
+            "en": "The archive",
+            "ko": "기록실은"
+          },
+          {
+            "en": "keeps",
+            "ko": "보관해요"
+          },
+          {
+            "en": "old and new records.",
+            "ko": "옛 기록과 새 기록을."
+          }
+        ]
       },
       "condition": "town_recovered",
       "priority": "active quest > conditional aftermath > idle",
@@ -7442,11 +10714,39 @@
       "town": "sx",
       "idle": {
         "en": "Please tell me if you notice a problem.",
-        "ko": "문제를 발견하면 알려 주세요."
+        "ko": "문제를 발견하면 알려 주세요.",
+        "direct_chunks": [
+          {
+            "en": "Please tell me",
+            "ko": "저에게 알려 주세요"
+          },
+          {
+            "en": "if you notice",
+            "ko": "당신이 알아차리면"
+          },
+          {
+            "en": "a problem.",
+            "ko": "문제를."
+          }
+        ]
       },
       "local_topic": {
         "en": "The archive keeps old and new records.",
-        "ko": "기록실에는 옛 기록과 새 기록이 있어요."
+        "ko": "기록실에는 옛 기록과 새 기록이 있어요.",
+        "direct_chunks": [
+          {
+            "en": "The archive",
+            "ko": "기록실은"
+          },
+          {
+            "en": "keeps",
+            "ko": "보관해요"
+          },
+          {
+            "en": "old and new records.",
+            "ko": "옛 기록과 새 기록을."
+          }
+        ]
       },
       "condition": "town_recovered",
       "priority": "active quest > conditional aftermath > idle",
@@ -7465,7 +10765,21 @@
             },
             {
               "en": "check which doors are open to visitors.",
-              "ko": "방문객에게 열린 문이 어느 것인지 확인해요."
+              "ko": "방문객에게 열린 문이 어느 것인지 확인해요.",
+              "direct_chunks": [
+                {
+                  "en": "check",
+                  "ko": "저는 확인해요"
+                },
+                {
+                  "en": "which doors",
+                  "ko": "어느 문이"
+                },
+                {
+                  "en": "are open to visitors.",
+                  "ko": "방문객에게 열려 있는지."
+                }
+              ]
             }
           ]
         }
@@ -7484,13 +10798,37 @@
           },
           {
             "en": "keep spare keys in a locked cabinet.",
-            "ko": "여분 열쇠는 잠긴 장식장에 보관해요."
+            "ko": "여분 열쇠는 잠긴 장식장에 보관해요.",
+            "direct_chunks": [
+              {
+                "en": "keep spare keys",
+                "ko": "저는 여분 열쇠를 보관해요"
+              },
+              {
+                "en": "in a locked cabinet.",
+                "ko": "잠긴 장식장에."
+              }
+            ]
           }
         ]
       },
       "local_topic": {
         "en": "The archive keeps old and new records.",
-        "ko": "기록실에는 옛 기록과 새 기록이 있어요."
+        "ko": "기록실에는 옛 기록과 새 기록이 있어요.",
+        "direct_chunks": [
+          {
+            "en": "The archive",
+            "ko": "기록실은"
+          },
+          {
+            "en": "keeps",
+            "ko": "보관해요"
+          },
+          {
+            "en": "old and new records.",
+            "ko": "옛 기록과 새 기록을."
+          }
+        ]
       },
       "condition": "town_recovered",
       "priority": "active quest > conditional aftermath > idle",
@@ -7509,7 +10847,21 @@
             },
             {
               "en": "label keys so I can find them easily.",
-              "ko": "열쇠를 쉽게 찾도록 이름표를 붙여요."
+              "ko": "열쇠를 쉽게 찾도록 이름표를 붙여요.",
+              "direct_chunks": [
+                {
+                  "en": "label keys",
+                  "ko": "저는 열쇠에 이름표를 붙여요"
+                },
+                {
+                  "en": "so I can find them",
+                  "ko": "제가 찾을 수 있도록"
+                },
+                {
+                  "en": "easily.",
+                  "ko": "쉽게."
+                }
+              ]
             }
           ]
         }
@@ -7534,7 +10886,21 @@
       },
       "local_topic": {
         "en": "The archive keeps old and new records.",
-        "ko": "기록실에는 옛 기록과 새 기록이 있어요."
+        "ko": "기록실에는 옛 기록과 새 기록이 있어요.",
+        "direct_chunks": [
+          {
+            "en": "The archive",
+            "ko": "기록실은"
+          },
+          {
+            "en": "keeps",
+            "ko": "보관해요"
+          },
+          {
+            "en": "old and new records.",
+            "ko": "옛 기록과 새 기록을."
+          }
+        ]
       },
       "condition": "town_recovered",
       "priority": "active quest > conditional aftermath > idle",
@@ -7572,13 +10938,41 @@
           },
           {
             "en": "am saving time for a small project of my own.",
-            "ko": "제 작은 계획을 위해 시간을 내고 있어요."
+            "ko": "제 작은 계획을 위해 시간을 내고 있어요.",
+            "direct_chunks": [
+              {
+                "en": "am saving time",
+                "ko": "저는 시간을 아끼고 있어요"
+              },
+              {
+                "en": "for a small project",
+                "ko": "작은 계획을 위해"
+              },
+              {
+                "en": "of my own.",
+                "ko": "제 자신의."
+              }
+            ]
           }
         ]
       },
       "local_topic": {
         "en": "The archive keeps old and new records.",
-        "ko": "기록실에는 옛 기록과 새 기록이 있어요."
+        "ko": "기록실에는 옛 기록과 새 기록이 있어요.",
+        "direct_chunks": [
+          {
+            "en": "The archive",
+            "ko": "기록실은"
+          },
+          {
+            "en": "keeps",
+            "ko": "보관해요"
+          },
+          {
+            "en": "old and new records.",
+            "ko": "옛 기록과 새 기록을."
+          }
+        ]
       },
       "condition": "town_recovered",
       "priority": "active quest > conditional aftermath > idle",
@@ -7622,7 +11016,21 @@
       },
       "local_topic": {
         "en": "The archive keeps old and new records.",
-        "ko": "기록실에는 옛 기록과 새 기록이 있어요."
+        "ko": "기록실에는 옛 기록과 새 기록이 있어요.",
+        "direct_chunks": [
+          {
+            "en": "The archive",
+            "ko": "기록실은"
+          },
+          {
+            "en": "keeps",
+            "ko": "보관해요"
+          },
+          {
+            "en": "old and new records.",
+            "ko": "옛 기록과 새 기록을."
+          }
+        ]
       },
       "condition": "town_recovered",
       "priority": "active quest > conditional aftermath > idle",
@@ -7641,7 +11049,21 @@
             },
             {
               "en": "want to read every book on the low shelf.",
-              "ko": "낮은 선반의 책을 모두 읽고 싶어요."
+              "ko": "낮은 선반의 책을 모두 읽고 싶어요.",
+              "direct_chunks": [
+                {
+                  "en": "want to read",
+                  "ko": "저는 읽고 싶어요"
+                },
+                {
+                  "en": "every book",
+                  "ko": "모든 책을"
+                },
+                {
+                  "en": "on the low shelf.",
+                  "ko": "낮은 선반의."
+                }
+              ]
             }
           ]
         }
@@ -7666,7 +11088,21 @@
       },
       "local_topic": {
         "en": "The archive keeps old and new records.",
-        "ko": "기록실에는 옛 기록과 새 기록이 있어요."
+        "ko": "기록실에는 옛 기록과 새 기록이 있어요.",
+        "direct_chunks": [
+          {
+            "en": "The archive",
+            "ko": "기록실은"
+          },
+          {
+            "en": "keeps",
+            "ko": "보관해요"
+          },
+          {
+            "en": "old and new records.",
+            "ko": "옛 기록과 새 기록을."
+          }
+        ]
       },
       "condition": "town_recovered",
       "priority": "active quest > conditional aftermath > idle",
@@ -7685,7 +11121,21 @@
             },
             {
               "en": "check the recipient before delivering official letters.",
-              "ko": "공식 편지를 전달하기 전에 수신인을 확인해요."
+              "ko": "공식 편지를 전달하기 전에 수신인을 확인해요.",
+              "direct_chunks": [
+                {
+                  "en": "check the recipient",
+                  "ko": "저는 수신인을 확인해요"
+                },
+                {
+                  "en": "before delivering",
+                  "ko": "전달하기 전에"
+                },
+                {
+                  "en": "official letters.",
+                  "ko": "공식 편지를."
+                }
+              ]
             }
           ]
         }
@@ -7710,7 +11160,21 @@
       },
       "local_topic": {
         "en": "The archive keeps old and new records.",
-        "ko": "기록실에는 옛 기록과 새 기록이 있어요."
+        "ko": "기록실에는 옛 기록과 새 기록이 있어요.",
+        "direct_chunks": [
+          {
+            "en": "The archive",
+            "ko": "기록실은"
+          },
+          {
+            "en": "keeps",
+            "ko": "보관해요"
+          },
+          {
+            "en": "old and new records.",
+            "ko": "옛 기록과 새 기록을."
+          }
+        ]
       },
       "condition": "town_recovered",
       "priority": "active quest > conditional aftermath > idle",
@@ -7729,7 +11193,17 @@
             },
             {
               "en": "enjoy the peaceful courtyard in the morning.",
-              "ko": "아침의 평화로운 안뜰을 좋아해요."
+              "ko": "아침의 평화로운 안뜰을 좋아해요.",
+              "direct_chunks": [
+                {
+                  "en": "enjoy the peaceful courtyard",
+                  "ko": "저는 평화로운 안뜰을 좋아해요"
+                },
+                {
+                  "en": "in the morning.",
+                  "ko": "아침의."
+                }
+              ]
             }
           ]
         }
@@ -7757,12 +11231,44 @@
       {
         "id": "leader_2",
         "en": "People bring their concerns to me after breakfast.",
-        "ko": "주민들은 아침 식사 후에 고민을 이야기하러 와요."
+        "ko": "주민들은 아침 식사 후에 고민을 이야기하러 와요.",
+        "direct_chunks": [
+          {
+            "en": "People",
+            "ko": "사람들은"
+          },
+          {
+            "en": "bring their concerns",
+            "ko": "그들의 고민을 가져와요"
+          },
+          {
+            "en": "to me",
+            "ko": "저에게"
+          },
+          {
+            "en": "after breakfast.",
+            "ko": "아침 식사 후에."
+          }
+        ]
       },
       {
         "id": "leader_3",
         "en": "A good plan must include the people it affects.",
-        "ko": "좋은 계획에는 영향을 받는 사람들이 참여해야 해요."
+        "ko": "좋은 계획에는 영향을 받는 사람들이 참여해야 해요.",
+        "direct_chunks": [
+          {
+            "en": "A good plan",
+            "ko": "좋은 계획은"
+          },
+          {
+            "en": "must include",
+            "ko": "포함해야 해요"
+          },
+          {
+            "en": "the people it affects.",
+            "ko": "영향을 받는 사람들을."
+          }
+        ]
       },
       {
         "id": "leader_4",
@@ -7775,19 +11281,57 @@
           },
           {
             "en": "enjoy walking around the village before work.",
-            "ko": "일을 시작하기 전에 마을을 둘러보는 걸 좋아해요."
+            "ko": "일을 시작하기 전에 마을을 둘러보는 걸 좋아해요.",
+            "direct_chunks": [
+              {
+                "en": "enjoy walking around the village",
+                "ko": "저는 마을을 둘러보는 것을 좋아해요"
+              },
+              {
+                "en": "before work.",
+                "ko": "일하기 전에."
+              }
+            ]
           }
         ]
       },
       {
         "id": "leader_5",
         "en": "Our next meeting is open to every resident.",
-        "ko": "다음 회의에는 모든 주민이 참여할 수 있어요."
+        "ko": "다음 회의에는 모든 주민이 참여할 수 있어요.",
+        "direct_chunks": [
+          {
+            "en": "Our next meeting",
+            "ko": "우리의 다음 회의는"
+          },
+          {
+            "en": "is open",
+            "ko": "열려 있어요"
+          },
+          {
+            "en": "to every resident.",
+            "ko": "모든 주민에게."
+          }
+        ]
       },
       {
         "id": "leader_6",
         "en": "What do you like most about our village?",
-        "ko": "우리 마을에서 무엇이 가장 마음에 드세요?"
+        "ko": "우리 마을에서 무엇이 가장 마음에 드세요?",
+        "direct_chunks": [
+          {
+            "en": "What",
+            "ko": "무엇을"
+          },
+          {
+            "en": "do you like most",
+            "ko": "당신은 가장 좋아하나요"
+          },
+          {
+            "en": "about our village?",
+            "ko": "우리 마을에서?"
+          }
+        ]
       }
     ],
     "shopkeeper": [
@@ -7802,7 +11346,17 @@
           },
           {
             "en": "check my stock before opening the shop.",
-            "ko": "가게를 열기 전에 재고를 확인해요."
+            "ko": "가게를 열기 전에 재고를 확인해요.",
+            "direct_chunks": [
+              {
+                "en": "check my stock",
+                "ko": "저는 확인해요 제 재고를"
+              },
+              {
+                "en": "before opening the shop.",
+                "ko": "가게를 열기 전에."
+              }
+            ]
           }
         ]
       },
@@ -7828,7 +11382,21 @@
       {
         "id": "shopkeeper_3",
         "en": "You can compare the prices before you buy anything.",
-        "ko": "물건을 사기 전에 가격을 비교해 보세요."
+        "ko": "물건을 사기 전에 가격을 비교해 보세요.",
+        "direct_chunks": [
+          {
+            "en": "You can compare the prices",
+            "ko": "당신은 가격을 비교할 수 있어요"
+          },
+          {
+            "en": "before you buy",
+            "ko": "사기 전에"
+          },
+          {
+            "en": "anything.",
+            "ko": "무엇이든."
+          }
+        ]
       },
       {
         "id": "shopkeeper_4",
@@ -7841,7 +11409,17 @@
           },
           {
             "en": "keep the heavier boxes on the bottom shelf.",
-            "ko": "무거운 상자는 아래쪽 선반에 보관해요."
+            "ko": "무거운 상자는 아래쪽 선반에 보관해요.",
+            "direct_chunks": [
+              {
+                "en": "keep the heavier boxes",
+                "ko": "저는 더 무거운 상자를 둬요"
+              },
+              {
+                "en": "on the bottom shelf.",
+                "ko": "아래쪽 선반에."
+              }
+            ]
           }
         ]
       },
@@ -7856,14 +11434,42 @@
           },
           {
             "en": "sometimes trade goods with merchants from other towns.",
-            "ko": "가끔 다른 마을 상인들과 물건을 교환해요."
+            "ko": "가끔 다른 마을 상인들과 물건을 교환해요.",
+            "direct_chunks": [
+              {
+                "en": "sometimes trade goods",
+                "ko": "저는 가끔 물건을 교환해요"
+              },
+              {
+                "en": "with merchants",
+                "ko": "상인들과"
+              },
+              {
+                "en": "from other towns.",
+                "ko": "다른 마을의."
+              }
+            ]
           }
         ]
       },
       {
         "id": "shopkeeper_6",
         "en": "On quiet days, I read a book behind the counter.",
-        "ko": "한가한 날에는 계산대 뒤에서 책을 읽어요."
+        "ko": "한가한 날에는 계산대 뒤에서 책을 읽어요.",
+        "direct_chunks": [
+          {
+            "en": "On quiet days,",
+            "ko": "한가한 날에는"
+          },
+          {
+            "en": "I read a book",
+            "ko": "저는 책을 읽어요"
+          },
+          {
+            "en": "behind the counter.",
+            "ko": "계산대 뒤에서."
+          }
+        ]
       }
     ],
     "innkeeper": [
@@ -7878,29 +11484,103 @@
           },
           {
             "en": "keep a clean room for tired guests.",
-            "ko": "지친 손님을 위해 깨끗한 방을 마련해요."
+            "ko": "지친 손님을 위해 깨끗한 방을 마련해요.",
+            "direct_chunks": [
+              {
+                "en": "keep a clean room",
+                "ko": "저는 마련해 둬요 깨끗한 방을"
+              },
+              {
+                "en": "for tired guests.",
+                "ko": "지친 손님들을 위해."
+              }
+            ]
           }
         ]
       },
       {
         "id": "innkeeper_2",
         "en": "Breakfast is my favorite part of the day.",
-        "ko": "아침 식사 시간이 하루 중 가장 좋아요."
+        "ko": "아침 식사 시간이 하루 중 가장 좋아요.",
+        "direct_chunks": [
+          {
+            "en": "Breakfast",
+            "ko": "아침 식사는"
+          },
+          {
+            "en": "is my favorite part",
+            "ko": "제가 가장 좋아하는 부분이에요"
+          },
+          {
+            "en": "of the day.",
+            "ko": "하루의."
+          }
+        ]
       },
       {
         "id": "innkeeper_3",
         "en": "Some guests tell wonderful stories about distant places.",
-        "ko": "어떤 손님들은 먼 곳에 관한 멋진 이야기를 들려줘요."
+        "ko": "어떤 손님들은 먼 곳에 관한 멋진 이야기를 들려줘요.",
+        "direct_chunks": [
+          {
+            "en": "Some guests",
+            "ko": "어떤 손님들은"
+          },
+          {
+            "en": "tell",
+            "ko": "들려줘요"
+          },
+          {
+            "en": "wonderful stories",
+            "ko": "멋진 이야기를"
+          },
+          {
+            "en": "about distant places.",
+            "ko": "먼 곳에 관한."
+          }
+        ]
       },
       {
         "id": "innkeeper_4",
         "en": "A warm blanket makes a cold night more comfortable.",
-        "ko": "따뜻한 담요가 있으면 추운 밤에도 더 편안해요."
+        "ko": "따뜻한 담요가 있으면 추운 밤에도 더 편안해요.",
+        "direct_chunks": [
+          {
+            "en": "A warm blanket",
+            "ko": "따뜻한 담요는"
+          },
+          {
+            "en": "makes",
+            "ko": "만들어요"
+          },
+          {
+            "en": "a cold night",
+            "ko": "추운 밤을"
+          },
+          {
+            "en": "more comfortable.",
+            "ko": "더 편안하게."
+          }
+        ]
       },
       {
         "id": "innkeeper_5",
         "en": "Please check your room before you leave.",
-        "ko": "떠나기 전에 방을 확인해 주세요."
+        "ko": "떠나기 전에 방을 확인해 주세요.",
+        "direct_chunks": [
+          {
+            "en": "Please check",
+            "ko": "확인해 주세요"
+          },
+          {
+            "en": "your room",
+            "ko": "당신의 방을"
+          },
+          {
+            "en": "before you leave.",
+            "ko": "당신이 떠나기 전에."
+          }
+        ]
       },
       {
         "id": "innkeeper_6",
@@ -7922,7 +11602,21 @@
       {
         "id": "guard_1",
         "en": "Please tell me if you notice a problem.",
-        "ko": "문제를 발견하면 알려 주세요."
+        "ko": "문제를 발견하면 알려 주세요.",
+        "direct_chunks": [
+          {
+            "en": "Please tell me",
+            "ko": "저에게 알려 주세요"
+          },
+          {
+            "en": "if you notice",
+            "ko": "당신이 알아차리면"
+          },
+          {
+            "en": "a problem.",
+            "ko": "문제를."
+          }
+        ]
       },
       {
         "id": "guard_2",
@@ -7935,7 +11629,21 @@
           },
           {
             "en": "walk around the village at the start of my shift.",
-            "ko": "근무를 시작할 때 마을을 한 바퀴 돌아요."
+            "ko": "근무를 시작할 때 마을을 한 바퀴 돌아요.",
+            "direct_chunks": [
+              {
+                "en": "walk around the village",
+                "ko": "저는 마을을 한 바퀴 돌아요"
+              },
+              {
+                "en": "at the start",
+                "ko": "시작할 때"
+              },
+              {
+                "en": "of my shift.",
+                "ko": "제 근무의."
+              }
+            ]
           }
         ]
       },
@@ -7969,19 +11677,57 @@
           },
           {
             "en": "practice with my shield when I have free time.",
-            "ko": "시간이 날 때 방패를 사용하는 연습을 해요."
+            "ko": "시간이 날 때 방패를 사용하는 연습을 해요.",
+            "direct_chunks": [
+              {
+                "en": "practice with my shield",
+                "ko": "저는 제 방패로 연습해요"
+              },
+              {
+                "en": "when I have free time.",
+                "ko": "제가 시간이 있을 때."
+              }
+            ]
           }
         ]
       },
       {
         "id": "guard_5",
         "en": "Travelers often ask me where the inn is.",
-        "ko": "여행자들은 여관이 어디 있는지 자주 물어요."
+        "ko": "여행자들은 여관이 어디 있는지 자주 물어요.",
+        "direct_chunks": [
+          {
+            "en": "Travelers",
+            "ko": "여행자들은"
+          },
+          {
+            "en": "often ask me",
+            "ko": "자주 저에게 물어요"
+          },
+          {
+            "en": "where the inn is.",
+            "ko": "여관이 어디인지."
+          }
+        ]
       },
       {
         "id": "guard_6",
         "en": "Even a quiet day requires careful attention.",
-        "ko": "조용한 날에도 주의를 기울여야 해요."
+        "ko": "조용한 날에도 주의를 기울여야 해요.",
+        "direct_chunks": [
+          {
+            "en": "Even a quiet day",
+            "ko": "조용한 날조차"
+          },
+          {
+            "en": "requires",
+            "ko": "필요로 해요"
+          },
+          {
+            "en": "careful attention.",
+            "ko": "주의 깊은 관심을."
+          }
+        ]
       }
     ],
     "specialist_a": [
@@ -8015,7 +11761,21 @@
           },
           {
             "en": "check my tools before starting a new task.",
-            "ko": "새 작업을 시작하기 전에 도구를 점검해요."
+            "ko": "새 작업을 시작하기 전에 도구를 점검해요.",
+            "direct_chunks": [
+              {
+                "en": "check my tools",
+                "ko": "저는 제 도구를 점검해요"
+              },
+              {
+                "en": "before starting",
+                "ko": "시작하기 전에"
+              },
+              {
+                "en": "a new task.",
+                "ko": "새 작업을."
+              }
+            ]
           }
         ]
       },
@@ -8030,14 +11790,42 @@
           },
           {
             "en": "learned a lot from my first teacher.",
-            "ko": "첫 스승에게 많은 것을 배웠어요."
+            "ko": "첫 스승에게 많은 것을 배웠어요.",
+            "direct_chunks": [
+              {
+                "en": "learned a lot",
+                "ko": "저는 많이 배웠어요"
+              },
+              {
+                "en": "from my first teacher.",
+                "ko": "제 첫 스승에게서."
+              }
+            ]
           }
         ]
       },
       {
         "id": "specialist_a_4",
         "en": "A small mistake can cause a bigger problem later.",
-        "ko": "작은 실수가 나중에 더 큰 문제를 일으킬 수 있어요."
+        "ko": "작은 실수가 나중에 더 큰 문제를 일으킬 수 있어요.",
+        "direct_chunks": [
+          {
+            "en": "A small mistake",
+            "ko": "작은 실수가"
+          },
+          {
+            "en": "can cause",
+            "ko": "일으킬 수 있어요"
+          },
+          {
+            "en": "a bigger problem",
+            "ko": "더 큰 문제를"
+          },
+          {
+            "en": "later.",
+            "ko": "나중에."
+          }
+        ]
       },
       {
         "id": "specialist_a_5",
@@ -8050,7 +11838,21 @@
           },
           {
             "en": "keep notes about the things I learn at work.",
-            "ko": "일하면서 배운 것들을 기록해 둬요."
+            "ko": "일하면서 배운 것들을 기록해 둬요.",
+            "direct_chunks": [
+              {
+                "en": "keep notes",
+                "ko": "저는 기록해 둬요"
+              },
+              {
+                "en": "about the things",
+                "ko": "것들에 대해"
+              },
+              {
+                "en": "I learn at work.",
+                "ko": "제가 일하며 배우는."
+              }
+            ]
           }
         ]
       },
@@ -8074,12 +11876,40 @@
       {
         "id": "specialist_b_1",
         "en": "I enjoy teaching people what I know.",
-        "ko": "제가 아는 것을 사람들에게 가르치는 게 좋아요."
+        "ko": "제가 아는 것을 사람들에게 가르치는 게 좋아요.",
+        "direct_chunks": [
+          {
+            "en": "I enjoy teaching",
+            "ko": "저는 가르치는 것을 좋아해요"
+          },
+          {
+            "en": "people",
+            "ko": "사람들에게"
+          },
+          {
+            "en": "what I know.",
+            "ko": "제가 아는 것을."
+          }
+        ]
       },
       {
         "id": "specialist_b_2",
         "en": "There is always something new to learn.",
-        "ko": "새롭게 배울 것은 언제나 있어요."
+        "ko": "새롭게 배울 것은 언제나 있어요.",
+        "direct_chunks": [
+          {
+            "en": "There is always",
+            "ko": "언제나 있어요"
+          },
+          {
+            "en": "something new",
+            "ko": "새로운 것이"
+          },
+          {
+            "en": "to learn.",
+            "ko": "배울."
+          }
+        ]
       },
       {
         "id": "specialist_b_3",
@@ -8092,14 +11922,38 @@
           },
           {
             "en": "try a different method when the first one fails.",
-            "ko": "첫 방법이 실패하면 다른 방법을 시도해요."
+            "ko": "첫 방법이 실패하면 다른 방법을 시도해요.",
+            "direct_chunks": [
+              {
+                "en": "try a different method",
+                "ko": "저는 다른 방법을 시도해요"
+              },
+              {
+                "en": "when the first one fails.",
+                "ko": "첫 번째가 실패할 때."
+              }
+            ]
           }
         ]
       },
       {
         "id": "specialist_b_4",
         "en": "My best ideas often come during a walk.",
-        "ko": "가장 좋은 아이디어는 산책 중에 떠오를 때가 많아요."
+        "ko": "가장 좋은 아이디어는 산책 중에 떠오를 때가 많아요.",
+        "direct_chunks": [
+          {
+            "en": "My best ideas",
+            "ko": "제 가장 좋은 아이디어는"
+          },
+          {
+            "en": "often come",
+            "ko": "자주 와요"
+          },
+          {
+            "en": "during a walk.",
+            "ko": "산책하는 동안."
+          }
+        ]
       },
       {
         "id": "specialist_b_5",
@@ -8119,7 +11973,25 @@
       {
         "id": "specialist_b_6",
         "en": "Sometimes a beginner asks the most interesting question.",
-        "ko": "가끔 초보자가 가장 흥미로운 질문을 해요."
+        "ko": "가끔 초보자가 가장 흥미로운 질문을 해요.",
+        "direct_chunks": [
+          {
+            "en": "Sometimes",
+            "ko": "가끔"
+          },
+          {
+            "en": "a beginner",
+            "ko": "초보자가"
+          },
+          {
+            "en": "asks",
+            "ko": "물어요"
+          },
+          {
+            "en": "the most interesting question.",
+            "ko": "가장 흥미로운 질문을."
+          }
+        ]
       }
     ],
     "resident_a": [
@@ -8134,7 +12006,21 @@
           },
           {
             "en": "am saving time for a small project of my own.",
-            "ko": "제 작은 계획을 위해 시간을 내고 있어요."
+            "ko": "제 작은 계획을 위해 시간을 내고 있어요.",
+            "direct_chunks": [
+              {
+                "en": "am saving time",
+                "ko": "저는 시간을 아끼고 있어요"
+              },
+              {
+                "en": "for a small project",
+                "ko": "작은 계획을 위해"
+              },
+              {
+                "en": "of my own.",
+                "ko": "제 자신의."
+              }
+            ]
           }
         ]
       },
@@ -8156,7 +12042,21 @@
       {
         "id": "resident_a_3",
         "en": "My neighbors and I often help each other.",
-        "ko": "이웃들과 자주 서로 도와요."
+        "ko": "이웃들과 자주 서로 도와요.",
+        "direct_chunks": [
+          {
+            "en": "My neighbors and I",
+            "ko": "제 이웃들과 저는"
+          },
+          {
+            "en": "often help",
+            "ko": "자주 도와요"
+          },
+          {
+            "en": "each other.",
+            "ko": "서로를."
+          }
+        ]
       },
       {
         "id": "resident_a_4",
@@ -8169,7 +12069,21 @@
           },
           {
             "en": "would like to visit another village someday.",
-            "ko": "언젠가 다른 마을에 가 보고 싶어요."
+            "ko": "언젠가 다른 마을에 가 보고 싶어요.",
+            "direct_chunks": [
+              {
+                "en": "would like to visit",
+                "ko": "저는 가 보고 싶어요"
+              },
+              {
+                "en": "another village",
+                "ko": "다른 마을에"
+              },
+              {
+                "en": "someday.",
+                "ko": "언젠가."
+              }
+            ]
           }
         ]
       },
@@ -8184,14 +12098,38 @@
           },
           {
             "en": "enjoy the quiet moments at the end of the day.",
-            "ko": "하루가 끝날 무렵의 조용한 시간을 좋아해요."
+            "ko": "하루가 끝날 무렵의 조용한 시간을 좋아해요.",
+            "direct_chunks": [
+              {
+                "en": "enjoy the quiet moments",
+                "ko": "저는 조용한 시간을 좋아해요"
+              },
+              {
+                "en": "at the end of the day.",
+                "ko": "하루의 끝에."
+              }
+            ]
           }
         ]
       },
       {
         "id": "resident_a_6",
         "en": "Have you met anyone interesting on your journey?",
-        "ko": "여행 중에 흥미로운 사람을 만났나요?"
+        "ko": "여행 중에 흥미로운 사람을 만났나요?",
+        "direct_chunks": [
+          {
+            "en": "Have you met",
+            "ko": "당신은 만난 적 있나요"
+          },
+          {
+            "en": "anyone interesting",
+            "ko": "흥미로운 사람을"
+          },
+          {
+            "en": "on your journey?",
+            "ko": "당신의 여행 중에?"
+          }
+        ]
       }
     ],
     "child": [
@@ -8213,7 +12151,21 @@
       {
         "id": "child_2",
         "en": "My friends and I like making up stories.",
-        "ko": "친구들과 이야기를 지어내는 걸 좋아해요."
+        "ko": "친구들과 이야기를 지어내는 걸 좋아해요.",
+        "direct_chunks": [
+          {
+            "en": "My friends and I",
+            "ko": "제 친구들과 저는"
+          },
+          {
+            "en": "like making up",
+            "ko": "지어내는 것을 좋아해요"
+          },
+          {
+            "en": "stories.",
+            "ko": "이야기를."
+          }
+        ]
       },
       {
         "id": "child_3",
@@ -8226,7 +12178,17 @@
           },
           {
             "en": "found a pretty stone on my way home.",
-            "ko": "집에 가는 길에 예쁜 돌을 발견했어요."
+            "ko": "집에 가는 길에 예쁜 돌을 발견했어요.",
+            "direct_chunks": [
+              {
+                "en": "found a pretty stone",
+                "ko": "저는 예쁜 돌을 발견했어요"
+              },
+              {
+                "en": "on my way home.",
+                "ko": "집에 가는 길에."
+              }
+            ]
           }
         ]
       },
@@ -8241,19 +12203,61 @@
           },
           {
             "en": "am practicing how to draw a map.",
-            "ko": "지도 그리는 법을 연습하고 있어요."
+            "ko": "지도 그리는 법을 연습하고 있어요.",
+            "direct_chunks": [
+              {
+                "en": "am practicing",
+                "ko": "저는 연습하고 있어요"
+              },
+              {
+                "en": "how to draw",
+                "ko": "그리는 법을"
+              },
+              {
+                "en": "a map.",
+                "ko": "지도를."
+              }
+            ]
           }
         ]
       },
       {
         "id": "child_5",
         "en": "What was your favorite game when you were little?",
-        "ko": "어렸을 때 어떤 놀이를 가장 좋아했어요?"
+        "ko": "어렸을 때 어떤 놀이를 가장 좋아했어요?",
+        "direct_chunks": [
+          {
+            "en": "What was your favorite game",
+            "ko": "무엇이 당신이 가장 좋아한 놀이였나요"
+          },
+          {
+            "en": "when you were little?",
+            "ko": "당신이 어렸을 때?"
+          }
+        ]
       },
       {
         "id": "child_6",
         "en": "Someday I want to go on an adventure too.",
-        "ko": "언젠가 저도 모험을 떠나고 싶어요."
+        "ko": "언젠가 저도 모험을 떠나고 싶어요.",
+        "direct_chunks": [
+          {
+            "en": "Someday",
+            "ko": "언젠가"
+          },
+          {
+            "en": "I want to go",
+            "ko": "저는 가고 싶어요"
+          },
+          {
+            "en": "on an adventure",
+            "ko": "모험을"
+          },
+          {
+            "en": "too.",
+            "ko": "저도."
+          }
+        ]
       }
     ],
     "courier": [
@@ -8283,14 +12287,46 @@
           },
           {
             "en": "keep letters in a dry bag when it rains.",
-            "ko": "비가 오면 편지를 마른 가방에 넣어 보관해요."
+            "ko": "비가 오면 편지를 마른 가방에 넣어 보관해요.",
+            "direct_chunks": [
+              {
+                "en": "keep letters",
+                "ko": "저는 편지를 보관해요"
+              },
+              {
+                "en": "in a dry bag",
+                "ko": "마른 가방에"
+              },
+              {
+                "en": "when it rains.",
+                "ko": "비가 올 때."
+              }
+            ]
           }
         ]
       },
       {
         "id": "courier_3",
         "en": "A wrong address can make a short trip much longer.",
-        "ko": "주소가 틀리면 짧은 여행이 훨씬 길어질 수 있어요."
+        "ko": "주소가 틀리면 짧은 여행이 훨씬 길어질 수 있어요.",
+        "direct_chunks": [
+          {
+            "en": "A wrong address",
+            "ko": "틀린 주소는"
+          },
+          {
+            "en": "can make",
+            "ko": "만들 수 있어요"
+          },
+          {
+            "en": "a short trip",
+            "ko": "짧은 여행을"
+          },
+          {
+            "en": "much longer.",
+            "ko": "훨씬 더 길게."
+          }
+        ]
       },
       {
         "id": "courier_4",
@@ -8303,7 +12339,17 @@
           },
           {
             "en": "like meeting familiar faces along the road.",
-            "ko": "길에서 익숙한 얼굴을 만나는 게 좋아요."
+            "ko": "길에서 익숙한 얼굴을 만나는 게 좋아요.",
+            "direct_chunks": [
+              {
+                "en": "like meeting familiar faces",
+                "ko": "저는 익숙한 얼굴 만나는 것을 좋아해요"
+              },
+              {
+                "en": "along the road.",
+                "ko": "길을 따라."
+              }
+            ]
           }
         ]
       },
@@ -8318,14 +12364,42 @@
           },
           {
             "en": "take a rest before starting a long journey.",
-            "ko": "긴 여행을 시작하기 전에 쉬어요."
+            "ko": "긴 여행을 시작하기 전에 쉬어요.",
+            "direct_chunks": [
+              {
+                "en": "take a rest",
+                "ko": "저는 쉬어요"
+              },
+              {
+                "en": "before starting",
+                "ko": "시작하기 전에"
+              },
+              {
+                "en": "a long journey.",
+                "ko": "긴 여행을."
+              }
+            ]
           }
         ]
       },
       {
         "id": "courier_6",
         "en": "Every letter has someone waiting for it.",
-        "ko": "모든 편지에는 그 편지를 기다리는 사람이 있어요."
+        "ko": "모든 편지에는 그 편지를 기다리는 사람이 있어요.",
+        "direct_chunks": [
+          {
+            "en": "Every letter",
+            "ko": "모든 편지에는"
+          },
+          {
+            "en": "has someone",
+            "ko": "누군가가 있어요"
+          },
+          {
+            "en": "waiting for it.",
+            "ko": "그것을 기다리는."
+          }
+        ]
       }
     ],
     "resident_b": [
@@ -8355,7 +12429,17 @@
           },
           {
             "en": "sometimes sit outside and watch the clouds.",
-            "ko": "가끔 밖에 앉아 구름을 바라봐요."
+            "ko": "가끔 밖에 앉아 구름을 바라봐요.",
+            "direct_chunks": [
+              {
+                "en": "sometimes sit outside",
+                "ko": "저는 가끔 밖에 앉아요"
+              },
+              {
+                "en": "and watch the clouds.",
+                "ko": "그리고 구름을 바라봐요."
+              }
+            ]
           }
         ]
       },
@@ -8370,7 +12454,21 @@
           },
           {
             "en": "have a few books that I read again and again.",
-            "ko": "몇 번이고 다시 읽는 책이 몇 권 있어요."
+            "ko": "몇 번이고 다시 읽는 책이 몇 권 있어요.",
+            "direct_chunks": [
+              {
+                "en": "have a few books",
+                "ko": "저는 책이 몇 권 있어요"
+              },
+              {
+                "en": "that I read",
+                "ko": "제가 읽는"
+              },
+              {
+                "en": "again and again.",
+                "ko": "몇 번이고."
+              }
+            ]
           }
         ]
       },
@@ -8385,14 +12483,42 @@
           },
           {
             "en": "try to make something useful from old materials.",
-            "ko": "오래된 재료로 유용한 것을 만들려고 해요."
+            "ko": "오래된 재료로 유용한 것을 만들려고 해요.",
+            "direct_chunks": [
+              {
+                "en": "try to make",
+                "ko": "저는 만들려고 해요"
+              },
+              {
+                "en": "something useful",
+                "ko": "유용한 것을"
+              },
+              {
+                "en": "from old materials.",
+                "ko": "오래된 재료로."
+              }
+            ]
           }
         ]
       },
       {
         "id": "resident_b_5",
         "en": "The village feels different when the seasons change.",
-        "ko": "계절이 바뀌면 마을의 느낌도 달라져요."
+        "ko": "계절이 바뀌면 마을의 느낌도 달라져요.",
+        "direct_chunks": [
+          {
+            "en": "The village",
+            "ko": "마을은"
+          },
+          {
+            "en": "feels different",
+            "ko": "다르게 느껴져요"
+          },
+          {
+            "en": "when the seasons change.",
+            "ko": "계절이 바뀔 때."
+          }
+        ]
       },
       {
         "id": "resident_b_6",
@@ -8405,7 +12531,25 @@
           },
           {
             "en": "hope you find a good place to rest tonight.",
-            "ko": "오늘 밤 편히 쉴 곳을 찾으면 좋겠어요."
+            "ko": "오늘 밤 편히 쉴 곳을 찾으면 좋겠어요.",
+            "direct_chunks": [
+              {
+                "en": "hope",
+                "ko": "저는 바라요"
+              },
+              {
+                "en": "you find",
+                "ko": "당신이 찾기를"
+              },
+              {
+                "en": "a good place to rest",
+                "ko": "쉴 좋은 곳을"
+              },
+              {
+                "en": "tonight.",
+                "ko": "오늘 밤."
+              }
+            ]
           }
         ]
       }

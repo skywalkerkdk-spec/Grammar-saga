@@ -1734,7 +1734,21 @@
           "npc": "tn_extra_5",
           "action": "collect_evidence",
           "en": "The cake order is in the other box.",
-          "ko": "케이크 주문서는 다른 상자에 있다."
+          "ko": "케이크 주문서는 다른 상자에 있다.",
+          "direct_chunks": [
+            {
+              "en": "The cake order",
+              "ko": "케이크 주문서는"
+            },
+            {
+              "en": "is in",
+              "ko": "있다"
+            },
+            {
+              "en": "the other box.",
+              "ko": "다른 상자 안에."
+            }
+          ]
         },
         {
           "id": "verify",
@@ -1777,7 +1791,21 @@
           "npc": "rp_extra_5",
           "action": "collect_evidence",
           "en": "The cart crossed before the bridge broke.",
-          "ko": "수레는 다리가 부서지기 전에 건넜다."
+          "ko": "수레는 다리가 부서지기 전에 건넜다.",
+          "direct_chunks": [
+            {
+              "en": "The cart",
+              "ko": "수레는"
+            },
+            {
+              "en": "crossed",
+              "ko": "건넜다"
+            },
+            {
+              "en": "before the bridge broke.",
+              "ko": "다리가 부서지기 전에."
+            }
+          ]
         },
         {
           "id": "report",
@@ -1789,7 +1817,21 @@
           "npc": "ps_extra_5",
           "action": "collect_evidence",
           "en": "The child is safe with the cart driver.",
-          "ko": "아이는 수레 운전사와 안전하게 있다."
+          "ko": "아이는 수레 운전사와 안전하게 있다.",
+          "direct_chunks": [
+            {
+              "en": "The child",
+              "ko": "아이는"
+            },
+            {
+              "en": "is safe",
+              "ko": "안전하다"
+            },
+            {
+              "en": "with the cart driver.",
+              "ko": "수레 운전사와 함께."
+            }
+          ]
         },
         {
           "id": "verify",
@@ -1832,7 +1874,21 @@
           "npc": "pf_extra_5",
           "action": "collect_evidence",
           "en": "The letter was kept inside the book.",
-          "ko": "편지는 책 속에 보관되어 있었다."
+          "ko": "편지는 책 속에 보관되어 있었다.",
+          "direct_chunks": [
+            {
+              "en": "The letter",
+              "ko": "편지는"
+            },
+            {
+              "en": "was kept",
+              "ko": "보관되어 있었다"
+            },
+            {
+              "en": "inside the book.",
+              "ko": "책 속에."
+            }
+          ]
         },
         {
           "id": "report",
@@ -1844,7 +1900,21 @@
           "npc": "rv_extra_5",
           "action": "collect_evidence",
           "en": "The old house is near the park.",
-          "ko": "옛집은 공원 근처에 있다."
+          "ko": "옛집은 공원 근처에 있다.",
+          "direct_chunks": [
+            {
+              "en": "The old house",
+              "ko": "옛집은"
+            },
+            {
+              "en": "is near",
+              "ko": "가까이 있다"
+            },
+            {
+              "en": "the park.",
+              "ko": "공원에."
+            }
+          ]
         },
         {
           "id": "verify",
@@ -1887,7 +1957,21 @@
           "npc": "pc_extra_5",
           "action": "collect_evidence",
           "en": "The mark is on the old tablet.",
-          "ko": "문양은 오래된 돌판에 있다."
+          "ko": "문양은 오래된 돌판에 있다.",
+          "direct_chunks": [
+            {
+              "en": "The mark",
+              "ko": "문양은"
+            },
+            {
+              "en": "is on",
+              "ko": "있다"
+            },
+            {
+              "en": "the old tablet.",
+              "ko": "오래된 돌판 위에."
+            }
+          ]
         },
         {
           "id": "report",
@@ -1899,7 +1983,21 @@
           "npc": "sj_extra_5",
           "action": "collect_evidence",
           "en": "The same mark is on the bird cage.",
-          "ko": "같은 문양이 새장에 있다."
+          "ko": "같은 문양이 새장에 있다.",
+          "direct_chunks": [
+            {
+              "en": "The same mark",
+              "ko": "같은 문양이"
+            },
+            {
+              "en": "is on",
+              "ko": "있다"
+            },
+            {
+              "en": "the bird cage.",
+              "ko": "새장 위에."
+            }
+          ]
         },
         {
           "id": "verify",
@@ -1997,7 +2095,21 @@
           "npc": "ot_extra_5",
           "action": "collect_evidence",
           "en": "The map is in the blue bag.",
-          "ko": "지도는 파란 가방에 있다."
+          "ko": "지도는 파란 가방에 있다.",
+          "direct_chunks": [
+            {
+              "en": "The map",
+              "ko": "지도는"
+            },
+            {
+              "en": "is in",
+              "ko": "있다"
+            },
+            {
+              "en": "the blue bag.",
+              "ko": "파란 가방 안에."
+            }
+          ]
         },
         {
           "id": "report",
@@ -2009,7 +2121,21 @@
           "npc": "iv_extra_5",
           "action": "collect_evidence",
           "en": "I need the map to reach the island.",
-          "ko": "섬에 도착하려면 지도가 필요하다."
+          "ko": "섬에 도착하려면 지도가 필요하다.",
+          "direct_chunks": [
+            {
+              "en": "I need the map",
+              "ko": "나는 지도가 필요하다"
+            },
+            {
+              "en": "to reach",
+              "ko": "도착하기 위해"
+            },
+            {
+              "en": "the island.",
+              "ko": "섬에."
+            }
+          ]
         },
         {
           "id": "verify",
@@ -2107,7 +2233,21 @@
           "npc": "rs_extra_5",
           "action": "collect_evidence",
           "en": "The messenger said the seal was safe.",
-          "ko": "전령은 인장이 안전하다고 말했다."
+          "ko": "전령은 인장이 안전하다고 말했다.",
+          "direct_chunks": [
+            {
+              "en": "The messenger",
+              "ko": "전령은"
+            },
+            {
+              "en": "said",
+              "ko": "말했다"
+            },
+            {
+              "en": "the seal was safe.",
+              "ko": "인장이 안전하다고."
+            }
+          ]
         },
         {
           "id": "report",
@@ -2119,7 +2259,21 @@
           "npc": "sx_extra_5",
           "action": "collect_evidence",
           "en": "It was the silver key that opened the gate.",
-          "ko": "문을 연 것은 바로 은빛 열쇠였다."
+          "ko": "문을 연 것은 바로 은빛 열쇠였다.",
+          "direct_chunks": [
+            {
+              "en": "It was the silver key",
+              "ko": "바로 은빛 열쇠였다"
+            },
+            {
+              "en": "that opened",
+              "ko": "연 것은"
+            },
+            {
+              "en": "the gate.",
+              "ko": "문을."
+            }
+          ]
         },
         {
           "id": "verify",

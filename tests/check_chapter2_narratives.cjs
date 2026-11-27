@@ -56,7 +56,7 @@ function complete(event,steps,settings={}){
     town=npc?.town||step.town||town;
     assert.ok(town,event.id);
     world.town(town,()=>{});
-    if (npc) screenButton(text=>text.startsWith(npc.name+' ·')).action();
+    if (npc) screenButton(text=>text.startsWith(npc.name+' ·')||(text.startsWith('(')&&text.endsWith(') '+npc.name.split(' ').pop()))).action();
     currentDialogue=null;
     screenButton(text=>text===title).action();
     const before=state.stages?.[event.id]||0;

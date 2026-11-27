@@ -59,7 +59,7 @@ with sync_playwright() as p:
     assert page.get_by_text('미수집',exact=False).count()==18
     room('Beville · 비빌 방문').click()
     page.get_by_role('button',name='마을 도착 장면',exact=True).click()
-    assert 'The welcome desk is closed.' in page.locator('.c2-line[lang=en]').text_content()
+    assert 'The welcome desk is closed.' in page.locator('.c2-line[lang=en]').text_content().replace(' / ',' ')
     room('완료').click()
     assert page.get_by_role('button',name='마을 도착 장면 다시 보기',exact=True).count()==1
     page.evaluate("SV.rcleared.push('g1');twOpen('g1')")

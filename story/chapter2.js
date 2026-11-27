@@ -56,10 +56,11 @@
   }
 
   function show(title, lines, done, back, options = {}) {
-    const field=options.field ? dialogue : null;
+    const docked=!!(options.field||options.dock);
+    const field=docked ? dialogue : null;
     if (!field && dialogue?.open) closeDialogue();
-    dialogue=node('dialog',undefined,field?'c2-dialog c2-field-dialogue':'c2-dialog');
-    dialogue.setAttribute('aria-label',field ? displayName(lines[0].speaker_en,lines[0].speaker) : title);
+    dialogue=node('dialog',undefined,docked?'c2-dialog c2-field-dialogue':'c2-dialog');
+    dialogue.setAttribute('aria-label',docked ? displayName(lines[0].speaker_en,lines[0].speaker) : title);
     document.body.append(dialogue);
     let index=0;
     const dismiss=()=>{
@@ -70,10 +71,10 @@
     const leave=() => { dismiss(); (options.cancel||back)?.(); };
     dialogue.addEventListener('cancel', event => {
       event.preventDefault();
-      if (field && index===lines.length-1) finish();
+      if (docked && index===lines.length-1) finish();
       else leave();
     });
-    if (field) dialogue.addEventListener('click',event=>{
+    if (docked) dialogue.addEventListener('click',event=>{
       if (event.target!==event.currentTarget) return;
       const {left,right,top,bottom}=event.currentTarget.getBoundingClientRect();
       if (event.clientX>=left && event.clientX<=right && event.clientY>=top && event.clientY<=bottom) return;
@@ -109,12 +110,15 @@
       const content=node('div',undefined,'c2-lines');
       content.setAttribute('aria-live','polite');
       const speaker=node('strong',displayName(line.speaker_en,line.speaker));
-      if (field) {
+      if (docked) {
         const header=node('div',undefined,'c2-field-speaker');
-        const portrait=node('img');
-        portrait.src=options.field;
-        portrait.alt='';
-        header.append(portrait,speaker);
+        if (options.field) {
+          const portrait=node('img');
+          portrait.src=options.field;
+          portrait.alt='';
+          header.append(portrait);
+        }
+        header.append(speaker);
         content.append(header);
       } else content.append(speaker);
       const languages=mode==='english' ? ['en'] : ['en','ko'];
@@ -140,17 +144,17 @@
       audio.disabled=!speech;
       const previous=button('이전',()=>{index--;window.speechSynthesis?.cancel();renderLine();section.querySelector('[data-advance]').focus();});
       previous.disabled=index===0;
-      const advance=button(index===lines.length-1?(field?'닫기':'완료'):'다음',()=>{
+      const advance=button(index===lines.length-1?(docked&&!options.confirm?'닫기':'완료'):'다음',()=>{
         if (index===lines.length-1) finish();
         else {index++;window.speechSynthesis?.cancel();renderLine();section.querySelector('[data-advance]').focus();}
       });
       advance.dataset.advance='';
       actions.append(audio);
-      if (!field || lines.length>1) actions.append(previous);
+      if (!docked || lines.length>1) actions.append(previous);
       actions.append(advance);
       if (options.skip!==false) actions.append(button('건너뛰기',finish));
-      if (!field || index<lines.length-1) actions.append(button('닫기',leave));
-      if (field) section.replaceChildren(content,controls,actions);
+      if (!docked || options.confirm || index<lines.length-1) actions.append(button('닫기',leave));
+      if (docked) section.replaceChildren(content,controls,actions);
       else section.replaceChildren(node('h2',title),node('p',`${index+1} / ${lines.length}`),controls,content,actions);
       if (options.art?.image) {
         const art=node('img',undefined,'c2-scene-art');
@@ -406,7 +410,7 @@
     show(titleFor(episode),[recovered?resident.after_recovery:resident.before_problem],()=>{
       if (!episodeState(episode.id).accepted) update(episode.id,{accepted:true});
       rememberEpisode(episode.id,`resident-${resident.index}-${recovered?'after':'before'}`);
-    },undefined,{skip:!portrait,field:portrait});
+    },undefined,{skip:false,field:portrait,dock:true});
   }
 
   function activeMeadow() {
@@ -482,9 +486,41 @@
     });
   }
 
+  function openTownField(episode) {
+    if (episode.id===meadowId) bevilleField('town');
+    else {
+      const map=window.chapterFields?.villages?.[episode.id];
+      if(map)villageField(episode,map);
+    }
+  }
+
+  function townTravel(current,back) {
+    const list=worldPanel('다른 마을로 이동',back,'현재 마을로');
+    for(const episode of episodes.values()){
+      if(episode.id===current.id)continue;
+      const access=wmUnlocked(episode.id);
+      const entry=button(townFor(episode)+(access?'':' · 잠김'),()=>{
+        if(!wmUnlocked(episode.id))return;
+        closeDialogue();
+        twOpen(episode.id);
+        openTownField(episode);
+      });
+      entry.disabled=!access;
+      list.append(entry);
+    }
+  }
+
+  function townFieldActions(body,episode,back) {
+    const actions=node('div',undefined,'c2-actions');
+    if(chapterWorld)actions.append(button('다른 주민 만나기',()=>chapterWorld.town(episode.id,back)));
+    actions.append(button('다른 마을로 이동',()=>townTravel(episode,back)));
+    body.append(actions);
+  }
+
   function villageField(episode,map) {
     const body=hubPanel(townFor(episode),closeDialogue);
     body.querySelector('button').textContent='마을 이야기로';
+    townFieldActions(body,episode,()=>villageField(episode,map));
     const targets=residentTargets(episode,index=>`story/maps/villages/${episode.id}-${index}.webp`);
     window.openChapterField(body,map,isRpgM()?rhero():lhero(),targets);
   }
@@ -503,6 +539,7 @@
       } else closeDialogue();
     });
     body.querySelector('button').textContent=isTown?'비빌 이야기로':'비빌로 돌아가기';
+    if(isTown)townFieldActions(body,episode,()=>bevilleField('town'));
     const start=window.chapterFields.meadow.spawn;
     const position=isTown ? G.c2TownPosition : state?.position;
     let at=position||map.spawn;
@@ -529,6 +566,10 @@
     const npcImages=['farmer','guide','grandmother','dogkeeper'];
     const targets=isTown ? [
       ...residentTargets(episode,index=>`story/maps/${npcImages[index]}.webp`),
+      ...(chapterWorld?[{
+        id:'belle',label:'Baker Belle · 제빵사 벨',image:'story/maps/villages/ps-0.webp',
+        action:()=>chapterWorld.meetBelle('story/maps/villages/ps-0.webp',()=>bevilleField('town')),
+      }]:[]),
       {id:'meadow',label:'비 초원 입구',action:openMeadow},
     ] : [
       {id:'town',label:'마을 출구',action:()=>{

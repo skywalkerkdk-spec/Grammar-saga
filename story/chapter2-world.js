@@ -151,7 +151,7 @@ window.createChapterWorld = function(api, data) {
       (state().souvenirs ||= {})[id]=name;
       save();shop(merchant,back);
     }));
-    body.append(button('상인과 대화',()=>show(title,[localized(merchant.dialogue,merchant.npc)],null,()=>shop(merchant,back))));
+    body.append(button('상인과 대화',()=>show(title,[localized(merchant.dialogue,merchant.npc)],null,()=>shop(merchant,back),{dock:true,skip:false})));
   }
   const vaultArt=['nbg_05.webp','nbg_08.webp','nbg_10.webp','nbg_04.webp','nbg_12.webp','nbg_20.webp'];
   for(const [index,room] of close.vaults.entries()){
@@ -160,7 +160,7 @@ window.createChapterWorld = function(api, data) {
     });
   }
 
-  function openQuest(event,index,back) {
+  function openQuest(event,index,back,portrait) {
     if(index>cursor(event.id)||!event.requires())return;
     const stage=event.stages[index];
     if(!stage||!canVisit(stage.town))return;
@@ -190,7 +190,7 @@ window.createChapterWorld = function(api, data) {
       body.append(row,status);
     };
     const openEvidence=()=>{
-      if(stage.lines.length)show(event.title,stage.lines,stage.task?null:proceed,stage.task?ask:null,{skip:false,cancel:back});
+      if(stage.lines.length)show(event.title,stage.lines,stage.task?null:proceed,stage.task?ask:null,{skip:false,cancel:back,dock:!!stage.npc,field:portrait,confirm:true});
       else ask();
     };
     if(stage.field&&api.field){
@@ -225,13 +225,13 @@ window.createChapterWorld = function(api, data) {
     if(!queue.length)return;
     const index=queue.shift();
     bags[npc.id]=queue;save();
-    show(label(npc),[localized(lines[index],npc.id)],null,back);
+    show(label(npc),[localized(lines[index],npc.id)],null,back,{dock:true,skip:false});
   }
   function resident(npc,back) {
     const body=panel(label(npc),back,'주민 목록으로');
     for(const event of active(npc.town,npc.id))body.append(button(event.title,()=>openQuest(event,cursor(event.id),()=>resident(npc,back))));
     for(const event of events)if(flag(event.finish)&&event.after?.npc===npc.id) {
-      body.append(button(event.title+' · 후일담',()=>show(event.title,[localized(event.after,npc.id)],null,()=>resident(npc,back))));
+      body.append(button(event.title+' · 후일담',()=>show(event.title,[localized(event.after,npc.id)],null,()=>resident(npc,back),{dock:true,skip:false})));
     }
     if(daily.has(npc.id)&&recovered(npc.town))body.append(button('일상 대화',()=>dailyLine(npc,()=>resident(npc,back))));
     for(const merchant of merchants.filter(item=>item.npc===npc.id&&flag(item.requires))){
@@ -239,7 +239,7 @@ window.createChapterWorld = function(api, data) {
     }
     const aftermath=close.aftermath.find(item=>item.npc===npc.id&&
       item.requires.every(requirement=>requirement==='town_recovered'?recovered(npc.town):flag(requirement)));
-    if(aftermath)body.append(button('마을 후일담',()=>show(label(npc),[localized(aftermath,npc.id)],null,()=>resident(npc,back))));
+    if(aftermath)body.append(button('마을 후일담',()=>show(label(npc),[localized(aftermath,npc.id)],null,()=>resident(npc,back),{dock:true,skip:false})));
   }
   function town(townId,back) {
     const body=panel(townName(townId)+' · 주민',back,'마을 이야기로');
@@ -295,5 +295,18 @@ window.createChapterWorld = function(api, data) {
     const line=close.finale.find(item=>item.id==='phase'+(index+1));
     return line&&localized(line);
   }
-  return {town,journal,finaleOpening,finaleClosing,finalePhase};
+  function meetBelle(portrait,back) {
+    const npc=residents.get('g1_extra_6');
+    const regional=active(npc.town,npc.id).find(event=>event.id==='regional_1');
+    if(regional)openQuest(regional,cursor(regional.id),back,portrait);
+    else {
+      const greeting={
+        en:'Fresh bread is on the counter. Take a moment to rest.',
+        ko:'갓 구운 빵이 계산대에 있어요. 잠깐 쉬어 가세요.',
+        chunks:[{en:'Fresh bread is on the counter.',ko:'갓 구운 빵이 계산대에 있어요.'},{en:'Take a moment to rest.',ko:'잠깐 쉬어 가세요.'}],
+      };
+      show(label(npc),[localized(greeting,npc.id)],null,null,{field:portrait,skip:false});
+    }
+  }
+  return {town,journal,finaleOpening,finaleClosing,finalePhase,meetBelle};
 };

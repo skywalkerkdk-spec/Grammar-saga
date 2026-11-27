@@ -446,9 +446,26 @@
   const meadowId='g1';
   const drawEncounterDistance=()=>6+Math.floor(Math.random()*6);
 
+  function originalResidentIdentity(resident) {
+    const en=resident.name_en||resident.name;
+    const boundary=en.lastIndexOf(' ');
+    const job=en.slice(0,boundary);
+    const names={Farmer:'농부',Herbalist:'약초상',Chef:'요리사',Baker:'제빵사',Postman:'우체부',
+      Foreman:'반장',Runner:'달리기 선수',Captain:'대장',Ranger:'숲지기',Librarian:'사서',
+      Mechanic:'정비공',Hunter:'사냥꾼',Traveler:'여행자',Guard:'경비병',Cleaner:'청소부',
+      Landlord:'여관 주인',Student:'학생',Clockmaker:'시계공',Gourmet:'미식가',Fisher:'어부',
+      Coach:'코치',Mayor:'마을 대표',Walker:'산책객',Falconer:'매사냥꾼',Merchant:'상인',
+      Teacher:'교사',Bookseller:'책방 주인','Fruit Seller':'과일 상인',Sailor:'선원',
+      Swimmer:'수영 선수',Linguist:'언어학자','Chess Master':'체스 명인',Birdwatcher:'탐조가',
+      Florist:'꽃집 주인',Keeper:'관리인',Detective:'탐정',Guide:'안내인',Officer:'장교',Artist:'화가'};
+    return names[job]?{name:en.slice(boundary+1),job:names[job]}:{name:en};
+  }
+
   function townDialogue(episode,resident,portrait) {
     const recovered=twCleared(episode.id)||SV.town?.[episode.id]?.q?.[resident.index];
-    show(titleFor(episode),[recovered?resident.after_recovery:resident.before_problem],()=>{
+    const identity=originalResidentIdentity(resident);
+    const line=recovered?resident.after_recovery:resident.before_problem;
+    show(titleFor(episode),[{...line,speakerName:identity.name,speakerJob:identity.job}],()=>{
       if (!episodeState(episode.id).accepted) update(episode.id,{accepted:true});
       rememberEpisode(episode.id,`resident-${resident.index}-${recovered?'after':'before'}`);
     },undefined,{skip:false,field:portrait,dock:true});
@@ -518,10 +535,11 @@
   function residentTargets(episode,portraitFor) {
     return episode.residents.map(resident=>{
       const image=portraitFor(resident.index);
+      const identity=originalResidentIdentity(resident);
       return {
         id:'npc'+resident.index,
         label:displayName(resident.name_en,resident.name),
-        image,
+        image,caption:identity.name,job:identity.job,
         action:()=>townDialogue(episode,resident,image),
       };
     });

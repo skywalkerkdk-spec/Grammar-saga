@@ -1209,6 +1209,7 @@ textarea.input{width:100%;box-sizing:border-box;resize:vertical;font-family:inhe
 .mapme.alt canvas{width:100%;height:100%;display:block}.mapme.alt.bob{animation:mbob .24s infinite alternate}@keyframes mbob{from{margin-top:0}to{margin-top:-5px}}
 
 </style>
+<link rel="stylesheet" href="story/chapter2.css">
 </head>
 <body>
 <div id="bgl"></div><div class="wrap" id="app"></div>
@@ -1646,23 +1647,33 @@ function bgmLoad(n){if(AU.buf[n]){AU.lru=AU.lru.filter(x=>x!==n);AU.lru.push(n);
 function synthBgm(name,me){if(AU.cur!==me)return;me.synth=true;AU.bgmG.gain.setValueAtTime(0.32,AU.ctx.currentTime);me.g.gain.setValueAtTime(1,AU.ctx.currentTime);AU.step=0;AU.next=AU.ctx.currentTime+0.1;AU.timer=setInterval(bgmTick,25);}
 const MENU_POOL=['main','village'];AU.menuLast=null;
 function menuPick(){if(!AU.menuLast){AU.menuLast='main';return 'main';}const L=MENU_POOL.filter(x=>x!==AU.menuLast);AU.menuLast=L[Math.floor(Math.random()*L.length)];return AU.menuLast;}
-function bgm(name){
- if(!AU.ctx)return;if(name===AU.track)return;if(name==='menu'&&AU.cur&&AU.cur.name==='main'){AU.track='menu';AU.menuLast='main';return;}const orig=name;AU.track=name;const menu=name==='menu'||name==='map';if(name==='menu')name=menuPick();else if(name==='map'){name=(AU.mapLast==='village')?'main':(AU.mapLast==='main'?'village':(Math.random()<.5?'village':'main'));AU.mapLast=name;}
+function bgm(name,resume=null){
+ if(!AU.ctx)return;if(name===AU.track&&(AU.cur?.resume??null)===resume)return;if(name==='menu'&&AU.cur&&AU.cur.name==='main'){AU.track='menu';AU.menuLast='main';return;}const orig=name;AU.track=name;const menu=name==='menu'||name==='map';if(name==='menu')name=menuPick();else if(name==='map'){name=(AU.mapLast==='village')?'main':(AU.mapLast==='main'?'village':(Math.random()<.5?'village':'main'));AU.mapLast=name;}
  const c=AU.ctx,now=c.currentTime;clearInterval(AU.timer);AU.timer=null;
- if(AU.cur){const o=AU.cur;o.g.gain.cancelScheduledValues(now);o.g.gain.setValueAtTime(o.g.gain.value,now);o.g.gain.setTargetAtTime(0.0001,now,0.1);setTimeout(()=>{try{if(o.src)o.src.stop();}catch(e){}if(o.el)o.el.pause();try{o.g.disconnect();}catch(e){}},700);AU.cur=null;}
+ if(AU.cur){const o=AU.cur;
+  if(o.resume&&o.src&&Number.isFinite(o.duration)){
+   o.resume.offset=(o.offset+Math.max(0,now-o.startedAt))%o.duration;
+  }else if(o.resume&&o.el?.currentTime>0)o.resume.offset=o.el.currentTime;
+  o.g.gain.cancelScheduledValues(now);o.g.gain.setValueAtTime(o.g.gain.value,now);o.g.gain.setTargetAtTime(0.0001,now,0.1);setTimeout(()=>{try{if(o.src)o.src.stop();}catch(e){}if(o.el)o.el.pause();try{o.g.disconnect();}catch(e){}},700);AU.cur=null;}
  if(!name)return;
- const g=c.createGain();g.gain.value=0.0001;g.connect(AU.bgmG);const me={g,name};AU.cur=me;
+ const g=c.createGain();g.gain.value=0.0001;g.connect(AU.bgmG);const me={g,name,resume};AU.cur=me;
  AU.bgmG.gain.cancelScheduledValues(now);AU.bgmG.gain.setValueAtTime(0.62,now);
- const playBuf=buf=>{if(AU.cur!==me)return;const s=c.createBufferSource();s.buffer=buf;s.loop=!menu;s.connect(g);if(menu)s.onended=()=>{if(AU.cur===me&&AU.track===orig){AU.track=null;bgm(orig);}};s.start();me.src=s;g.gain.setTargetAtTime(1,c.currentTime+0.4,0.3);};
+ const playBuf=buf=>{if(AU.cur!==me)return;const s=c.createBufferSource();s.buffer=buf;s.loop=!menu;s.connect(g);if(menu)s.onended=()=>{if(AU.cur===me&&AU.track===orig){AU.track=null;bgm(orig);}};me.duration=buf.duration;me.offset=(resume?.offset||0)%buf.duration;me.startedAt=c.currentTime;
+ s.start(me.startedAt,me.offset);me.src=s;
+ g.gain.setTargetAtTime(1,c.currentTime+(resume?.offset?0:0.4),0.3);};
  /* 스트리밍 재생이 안 되는 기기(일부 iOS 등)를 위해: 3초 안에 진행이 없으면 통째로 불러와 재생 → 그래도 안 되면 합성음 */
  const viaBuf=()=>{if(AU.cur!==me)return;if(me.el){try{me.el.pause();}catch(e){}}bgmLoad(name).then(playBuf).catch(()=>{if(AU.cur===me)synthBgm(name,me);});};
  const viaEl=()=>{
    try{const el=new Audio('bgm_'+name+'.mp3?v=15');el.loop=!menu;if(menu)el.onended=()=>{if(AU.cur===me&&AU.track===orig){AU.track=null;bgm(orig);}};el.crossOrigin='anonymous';const ms=c.createMediaElementSource(el);ms.connect(g);me.el=el;
+    if(resume?.offset)el.addEventListener('loadedmetadata',()=>{
+      if(AU.cur===me&&Number.isFinite(el.duration)&&el.duration>0)el.currentTime=resume.offset%el.duration;
+    },{once:true});
     el.play().then(()=>{if(AU.cur===me)g.gain.setTargetAtTime(1,c.currentTime+0.4,0.3);else el.pause();}).catch(()=>{el.pause();viaBuf();});
     el.onerror=()=>{el.pause();viaBuf();};
     setTimeout(()=>{if(AU.cur===me&&me.el===el&&!me.src&&!me.synth&&el.currentTime<0.3&&AU.ctx.state==='running')viaBuf();},3500);}
    catch(e){viaBuf();}};
- if(AU.STREAM.includes(name))viaEl();else bgmLoad(name).then(playBuf).catch(viaEl);
+ if(resume)bgmLoad(name).then(playBuf).catch(viaEl);
+ else if(AU.STREAM.includes(name))viaEl();else bgmLoad(name).then(playBuf).catch(viaEl);
 }
 
 const BGM_SCR=['level','intro','shop','forge','rresult'];const MAP_SCR=['dsel','party','formed'];
@@ -1673,7 +1684,7 @@ let _bsLast=null;function bossTrack(){const k=G.scr==='rbattle'?G.rp:(G.scr==='b
 function dgTrack(){const k=G.scr==='rbattle'?G.rp:G.run;if(k&&G._bt&&G._bt.k===k)return G._bt.t;const L=BATTLE_POOL.filter(x=>x!==_btLast),t=L[Math.floor(Math.random()*L.length)];_btLast=t;G._bt={k,t};return t;}
 function dgTrackOld(){return 'battle';const id=G.dg&&G.dg.id;if(BTRK[id])return BTRK[id];if(id==='d19'){const d=new Date();return BTRK_ALL[(d.getFullYear()*372+d.getMonth()*31+d.getDate())%BTRK_ALL.length];}return BTRK_ALL[(G.ei||0)%BTRK_ALL.length];}
 function syncBgm(){
- let n=null;
+ let n=null,resume=null;
  if(G.scr==='splash'||G.scr==='title')n='main';
  else if(MAP_SCR.includes(G.scr))n='map';
  else if(BGM_SCR.includes(G.scr))n='menu';
@@ -1681,9 +1692,18 @@ function syncBgm(){
  else if(G.scr==='pvbattle'||G.scr==='rdbattle')n=bossTrack();
  else if(G.scr==='rdlobby')n='menu';
  else if(G.scr==='pvp'||G.scr==='pvres')n='menu';
- else if(G.scr==='rbattle')n=(G.rp&&G.rp.en[G.rp.ei]&&G.rp.en[G.rp.ei].boss)?bossTrack():dgTrack();
- else if(G.scr==='battle')n=(G.run&&G.run[G.ei]&&G.run[G.ei].boss)?bossTrack():dgTrack();
- bgm(n);
+ else if(G.scr==='c2meadow')n='village';
+ else if(G.scr==='rbattle'||G.scr==='battle'){
+  const rpg=G.scr==='rbattle';
+  const current=rpg?G.rp?.en[G.rp.ei]:G.run?.[G.ei];
+  const field=rpg?G.rp?.c2Meadow:G.run?.[0]?.c2Meadow;
+  if(current?.boss)n=bossTrack();
+  else if(field&&(rpg||!G.rvm)){
+   resume=field.music??(field.music={track:dgTrack(),offset:0});
+   n=resume.track;
+  }else n=dgTrack();
+ }
+ bgm(n,resume);
 }
 document.addEventListener('pointerdown',()=>{if(ainit())syncBgm();},{capture:true});
 document.addEventListener('keydown',()=>{if(ainit())syncBgm();},{capture:true});
@@ -2052,7 +2072,7 @@ function qbody(e){
   const heal=ok&&G.healed?` <span class="healpop">🔥${lhNeed()}연속 정답! +❤️</span>`:(ok&&G.hp<3?` <span class="hint">🔥 ${G.streak}/${lhNeed()}</span>`:'');const hurt=!ok&&G.guarded?` <span class="healpop">🛡️ ${HWORD[lhero()]}의 힘으로 하트를 지켰어요!</span>`:!ok&&!G.rvm?` <span class="hurtpop">-❤️ (남은 하트 ${Math.max(0,G.hp)})</span>`:'';
   const gold=ok&&G.gotGold?` <span class="goldpop">+💎${G.gotGold}</span>`:'';
   h+=`<div class="feedback ${ok?'ok':'no'}"><div style="font-weight:900;font-size:19px">${head}${gold}${heal}${hurt}</div>${(()=>{let q='';if(ok&&e.type==='judge'&&e.answer==='retreat')q=e.retreatT;else if(ok&&HP1(e)===0)q=e.kill;else if(!ok)q=e.taunt;return q?`<div class="talk">💬 <b>${esc(e.mname)}</b>: "${esc(q)}"</div>`:'';})()}${ok?glossHTML(e)+'<div class="exp">'+explainHTML(e)+'</div>':(G.rvm?'<div class="rvans">✅ 정답: <b>'+esc(rightAns(e))+'</b></div>'+glossHTML(e)+'<div class="exp">'+explainHTML(e)+'</div>'+(typeof detailHTML==='function'?detailHTML(e):'')+'<div class="hint">👀 해설을 읽고 다시 도전해 보세요!</div>':wrongWhy(e))}</div>`;
-  h+= ok?`<button class="next" id="nx">${G.ei<G.run.length-1?(HP1(e)>0?'⚔️ 계속 공격 ▶':(G.dg.full?'다음 적 ▶':'다음 몬스터 ▶')):'🏆 결과 보기'}</button>`:(G.hp<=0?`<button class="next grave-btn" id="tograve">🪦 파티가 쓰러졌다… 묘지로</button>`:`<button class="next" id="rt">🔁 다시 도전</button>`);
+  h+= ok?`<button class="next" id="nx">${G.ei<G.run.length-1?(HP1(e)>0?'⚔️ 계속 공격 ▶':G.run[0]?.c2Meadow&&!e.boss?'확인':(G.dg.full?'다음 적 ▶':'다음 몬스터 ▶')):'🏆 결과 보기'}</button>`:(G.hp<=0?`<button class="next grave-btn" id="tograve">🪦 파티가 쓰러졌다… 묘지로</button>`:`<button class="next" id="rt">🔁 다시 도전</button>`);
  }
  return h;
 }
@@ -2096,7 +2116,7 @@ function bindQ(e){flav();bubbleSync();
 }
 function resolve(e,ok,mine){G.lastMine=mine||'';if(G.rvm){rvResolve(e,ok);return;}if(rdOn()){rdResolve(e,ok);return;}if(G.rpg){rpgResolve(e,ok);return;}if(pvOn()){pvResolve(e,ok);return;}
  G.gotGold=0;
- if(G.first){const wt=e.wt||1;G.tot++;G.totw=(G.totw||0)+wt;if(ok){G.ok++;G.okw=(G.okw||0)+wt;G.cmb=(G.cmb||0)+1;if(G.cmb>(G.maxCmb||0))G.maxCmb=G.cmb;G.gotGold=Math.max(1,bonusC(Math.round(LEVELS[LV()].g*(e.boss?2:1))));SV.cry+=G.gotGold;G.goldRun+=G.gotGold;saveNow();}else{G.cmb=0;G.wrongs.push({e,mine:mine||'',q:e.sentence||e.c.map(c=>c[0]).join(' ')+'.',t:qlabel(e.type)});wkAdd(e);}G.first=false;}
+ if(G.first){const wt=e.wt||1;G.tot++;G.totw=(G.totw||0)+wt;if(ok){G.ok++;G.okw=(G.okw||0)+wt;G.cmb=(G.cmb||0)+1;if(G.cmb>(G.maxCmb||0))G.maxCmb=G.cmb;G.gotGold=G.dg.storyRewardOnly?0:Math.max(1,bonusC(Math.round(LEVELS[LV()].g*(e.boss?2:1))));SV.cry+=G.gotGold;G.goldRun+=G.gotGold;saveNow();}else{G.cmb=0;G.wrongs.push({e,mine:mine||'',q:e.sentence||e.c.map(c=>c[0]).join(' ')+'.',t:qlabel(e.type)});wkAdd(e);}G.first=false;}
  G.done=true;G.pick=ok?'ok':'no';G.healed=false;
  G.guarded=0;if(!ok){if(lhGuard())G.guarded=1;else G.hp--;G.streak=0;}else if(G.hp<3){G.streak=(G.streak||0)+1;if(G.streak>=lhNeed()){G.hp++;G.healed=true;G.streak=0;}}else G.streak=0;
  const pty=$('pty'),mon=$('mon'),ar=$('arena');
@@ -2141,8 +2161,8 @@ function noteHTML(){
 function clear(){
  if(G.wrongs.length&&G.rvFor!==G.wrongs&&!G.rvm&&!G.dev){startReview(G.wrongs.map(w=>w.e),skip=>{G.rvFor=G.wrongs;if(skip)G.rvSkipFor=G.wrongs;G.scr='clear';render();});return;}
  const d=G.dg,rate=G.tot?Math.round(G.ok/G.tot*100):0;
- const first=!SV.cleared.includes(d.id);const bonus=Math.max(1,bonusC(Math.round(LEVELS[LV()].b)));
- const rvSk=G.rvSkipFor===G.wrongs;if(!G.clearPaid){if(!rvSk){SV.cry+=bonus;G.goldRun+=bonus;}if(first)SV.cleared.push(d.id);G.stoneMsg=[];if(!rvSk)stoneOnClear(d,false);saveNow();G.clearPaid=true;if(!rvSk)rankDgLearn();}
+ const first=!SV.cleared.includes(d.id);const bonus=d.storyRewardOnly?0:Math.max(1,bonusC(Math.round(LEVELS[LV()].b)));
+ const rvSk=G.rvSkipFor===G.wrongs;if(!G.clearPaid){if(!rvSk){SV.cry+=bonus;G.goldRun+=bonus;}if(first)SV.cleared.push(d.id);G.stoneMsg=[];if(!rvSk&&!d.storyRewardOnly)stoneOnClear(d,false);saveNow();G.clearPaid=true;if(!rvSk&&!d.storyRewardOnly)rankDgLearn();}
  let title,em;if(rate>=90){title='전설의 파티 리더';em='👑';}else if(rate>=70){title='믿음직한 탱커';em='🛡️';}else{title='성장 중인 견습 탱커';em='🌱';}
  $('app').innerHTML=hud()+`<div class="card">
  <div class="big-emoji">${em}</div><h2 class="tf" style="text-align:center;font-size:34px;margin:0;color:var(--gold)">${d.name} 클리어!</h2>
@@ -2713,7 +2733,7 @@ function rpgAfterAtk(e){const R=G.rp,ok=G.pick==='ok',en=R.en[R.ei];
  let h=`<div class="feedback ${ok?'ok':'no'}"><div style="font-weight:900;font-size:19px">${R.log}</div>`;
  if(ok)h+=glossHTML(e)+'<div class="exp">'+explainHTML(e)+'</div>';else h+=wrongWhy(e);
  h+='</div>';
- h+= en.hp<=0?`<button class="next" id="rnx">${R.ei<R.en.length-1?'다음 적 ▶':'🏆 결과 보기'}</button>`:`<button class="next" id="rnx">🛡️ 적의 턴 ▶</button>`;
+ h+= en.hp<=0?`<button class="next" id="rnx">${R.ei<R.en.length-1?(R.c2Meadow?'확인':'다음 적 ▶'):'🏆 결과 보기'}</button>`:`<button class="next" id="rnx">🛡️ 적의 턴 ▶</button>`;
  return h;}
 function rpgBind(){const R=G.rp;bubbleSync();
  if(R.phase==='atkres'&&R.hres){const n=$('rnx');if(n)n.onclick=()=>{R.hres=null;rpgToDef();};return;}
@@ -7719,5 +7739,10 @@ function rvDecorate(){const R=G.run,hud=document.querySelector('#app .hud .mut')
  const ar=$('arena');if(ar&&!$('rvban'))ar.insertAdjacentHTML('beforebegin',(G.rvWk?'<div class="rvban" id="rvban">📚 <b>주간 복습 던전!</b> 문제를 풀고 해설까지 읽으면 이번 주 보상이 지급돼요.</div>':'<div class="rvban" id="rvban">📝 <b>복습 관문!</b> 틀렸던 문제를 모두 맞히면 클리어 보상이 지급돼요.</div>'));}
 
 </script>
+<script src="story/maps/fields.js"></script>
+<script src="story/maps/field.js"></script>
+<script src="story/chapter2-reading.js"></script>
+<script src="story/chapter2-world.js"></script>
+<script src="story/chapter2.js"></script>
 </body>
 </html>

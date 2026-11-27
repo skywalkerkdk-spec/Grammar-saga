@@ -1,5 +1,5 @@
 {
-  "version": "0.2",
+  "version": "0.3",
   "residents": [
     {
       "npc_id": "g1_extra_1",
@@ -16,7 +16,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "leader",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": false
+      "idle_is_distinct": false,
+      "personal_dialogue": [
+        {
+          "id": "g1_extra_1_personal_1",
+          "en": "I grew up beside the mill.",
+          "ko": "방앗간 옆에서 자랐어요."
+        }
+      ]
     },
     {
       "npc_id": "g1_extra_2",
@@ -33,7 +40,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "shopkeeper",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": false
+      "idle_is_distinct": false,
+      "personal_dialogue": [
+        {
+          "id": "g1_extra_2_personal_1",
+          "en": "I sell apples from nearby farms.",
+          "ko": "인근 농장의 사과를 팔아요."
+        }
+      ]
     },
     {
       "npc_id": "g1_extra_3",
@@ -50,7 +64,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "innkeeper",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": false
+      "idle_is_distinct": false,
+      "personal_dialogue": [
+        {
+          "id": "g1_extra_3_personal_1",
+          "en": "The smell of Belle's bread reaches my inn.",
+          "ko": "벨의 빵 냄새가 여관까지 와요."
+        }
+      ]
     },
     {
       "npc_id": "g1_extra_4",
@@ -67,7 +88,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "guard",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": false
+      "idle_is_distinct": false,
+      "personal_dialogue": [
+        {
+          "id": "g1_extra_4_personal_1",
+          "en": "I know most of the farmers by name.",
+          "ko": "농부들 대부분의 이름을 알아요."
+        }
+      ]
     },
     {
       "npc_id": "g1_extra_5",
@@ -84,7 +112,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "specialist_a",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": true
+      "idle_is_distinct": true,
+      "personal_dialogue": [
+        {
+          "id": "g1_extra_5_personal_1",
+          "en": "Fine flour makes a softer loaf.",
+          "ko": "고운 밀가루로 더 부드러운 빵을 만들어요."
+        }
+      ]
     },
     {
       "npc_id": "g1_extra_6",
@@ -101,7 +136,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "specialist_b",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": true
+      "idle_is_distinct": true,
+      "personal_dialogue": [
+        {
+          "id": "g1_extra_6_personal_1",
+          "en": "I like baking small rolls for children.",
+          "ko": "아이들을 위해 작은 빵을 굽는 게 좋아요."
+        }
+      ]
     },
     {
       "npc_id": "g1_extra_7",
@@ -118,7 +160,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "resident_a",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": false
+      "idle_is_distinct": false,
+      "personal_dialogue": [
+        {
+          "id": "g1_extra_7_personal_1",
+          "en": "Bees often visit my flowers.",
+          "ko": "벌들이 제 꽃을 자주 찾아와요."
+        }
+      ]
     },
     {
       "npc_id": "g1_extra_8",
@@ -135,7 +184,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "child",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": false
+      "idle_is_distinct": false,
+      "personal_dialogue": [
+        {
+          "id": "g1_extra_8_personal_1",
+          "en": "I want to grow a sunflower taller than me.",
+          "ko": "저보다 큰 해바라기를 키우고 싶어요."
+        }
+      ]
     },
     {
       "npc_id": "g1_extra_9",
@@ -152,7 +208,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "courier",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": false
+      "idle_is_distinct": false,
+      "personal_dialogue": [
+        {
+          "id": "g1_extra_9_personal_1",
+          "en": "The mill is my first stop on many mornings.",
+          "ko": "아침마다 방앗간에 먼저 들를 때가 많아요."
+        }
+      ]
     },
     {
       "npc_id": "g1_extra_10",
@@ -169,7 +232,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "resident_b",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": false
+      "idle_is_distinct": false,
+      "personal_dialogue": [
+        {
+          "id": "g1_extra_10_personal_1",
+          "en": "My sheep recognize my voice.",
+          "ko": "양들이 제 목소리를 알아들어요."
+        }
+      ]
     },
     {
       "npc_id": "g2_extra_1",
@@ -186,7 +256,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "leader",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": false
+      "idle_is_distinct": false,
+      "personal_dialogue": [
+        {
+          "id": "g2_extra_1_personal_1",
+          "en": "I ask the cooks for ideas before a feast.",
+          "ko": "잔치 전에 요리사들에게 의견을 물어요."
+        }
+      ]
     },
     {
       "npc_id": "g2_extra_2",
@@ -203,7 +280,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "shopkeeper",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": false
+      "idle_is_distinct": false,
+      "personal_dialogue": [
+        {
+          "id": "g2_extra_2_personal_1",
+          "en": "Pepper buys vegetables from me.",
+          "ko": "페퍼는 제게 채소를 사요."
+        }
+      ]
     },
     {
       "npc_id": "g2_extra_3",
@@ -220,7 +304,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "innkeeper",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": false
+      "idle_is_distinct": false,
+      "personal_dialogue": [
+        {
+          "id": "g2_extra_3_personal_1",
+          "en": "Guests often ask for a second bowl of soup.",
+          "ko": "손님들이 수프를 한 그릇 더 달라고 자주 해요."
+        }
+      ]
     },
     {
       "npc_id": "g2_extra_4",
@@ -237,7 +328,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "guard",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": false
+      "idle_is_distinct": false,
+      "personal_dialogue": [
+        {
+          "id": "g2_extra_4_personal_1",
+          "en": "The cave road is quieter than the market.",
+          "ko": "동굴로 가는 길은 시장보다 조용해요."
+        }
+      ]
     },
     {
       "npc_id": "g2_extra_5",
@@ -254,7 +352,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "specialist_a",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": true
+      "idle_is_distinct": true,
+      "personal_dialogue": [
+        {
+          "id": "g2_extra_5_personal_1",
+          "en": "I remember orders better when I write them down.",
+          "ko": "주문을 적으면 더 잘 기억해요."
+        }
+      ]
     },
     {
       "npc_id": "g2_extra_6",
@@ -271,7 +376,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "specialist_b",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": true
+      "idle_is_distinct": true,
+      "personal_dialogue": [
+        {
+          "id": "g2_extra_6_personal_1",
+          "en": "I mend my nets after fishing.",
+          "ko": "낚시 후에 그물을 손질해요."
+        }
+      ]
     },
     {
       "npc_id": "g2_extra_7",
@@ -288,7 +400,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "resident_a",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": false
+      "idle_is_distinct": false,
+      "personal_dialogue": [
+        {
+          "id": "g2_extra_7_personal_1",
+          "en": "I am trying a new vegetable soup.",
+          "ko": "새로운 채소 수프를 만들어 보고 있어요."
+        }
+      ]
     },
     {
       "npc_id": "g2_extra_8",
@@ -305,7 +424,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "child",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": false
+      "idle_is_distinct": false,
+      "personal_dialogue": [
+        {
+          "id": "g2_extra_8_personal_1",
+          "en": "I like drawing pictures of my favorite meals.",
+          "ko": "좋아하는 음식을 그림으로 그리는 게 좋아요."
+        }
+      ]
     },
     {
       "npc_id": "g2_extra_9",
@@ -322,7 +448,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "courier",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": false
+      "idle_is_distinct": false,
+      "personal_dialogue": [
+        {
+          "id": "g2_extra_9_personal_1",
+          "en": "I carry menus as well as letters.",
+          "ko": "편지뿐 아니라 메뉴도 배달해요."
+        }
+      ]
     },
     {
       "npc_id": "g2_extra_10",
@@ -339,7 +472,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "resident_b",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": false
+      "idle_is_distinct": false,
+      "personal_dialogue": [
+        {
+          "id": "g2_extra_10_personal_1",
+          "en": "My beans grow well in warm weather.",
+          "ko": "따뜻한 날씨에 콩이 잘 자라요."
+        }
+      ]
     },
     {
       "npc_id": "tn_extra_1",
@@ -356,7 +496,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "leader",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": false
+      "idle_is_distinct": false,
+      "personal_dialogue": [
+        {
+          "id": "tn_extra_1_personal_1",
+          "en": "I keep a spare clock in my office.",
+          "ko": "사무실에 여분의 시계를 둬요."
+        }
+      ]
     },
     {
       "npc_id": "tn_extra_2",
@@ -373,7 +520,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "shopkeeper",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": false
+      "idle_is_distinct": false,
+      "personal_dialogue": [
+        {
+          "id": "tn_extra_2_personal_1",
+          "en": "I sell fruit to people on their way to work.",
+          "ko": "출근하는 사람들에게 과일을 팔아요."
+        }
+      ]
     },
     {
       "npc_id": "tn_extra_3",
@@ -390,7 +544,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "innkeeper",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": false
+      "idle_is_distinct": false,
+      "personal_dialogue": [
+        {
+          "id": "tn_extra_3_personal_1",
+          "en": "Early guests can hear the square clock.",
+          "ko": "일찍 일어난 손님들은 광장 시계 소리를 들을 수 있어요."
+        }
+      ]
     },
     {
       "npc_id": "tn_extra_4",
@@ -407,7 +568,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "guard",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": false
+      "idle_is_distinct": false,
+      "personal_dialogue": [
+        {
+          "id": "tn_extra_4_personal_1",
+          "en": "Pendle helps me check my watch.",
+          "ko": "펜들이 제 시계를 점검해 줘요."
+        }
+      ]
     },
     {
       "npc_id": "tn_extra_5",
@@ -424,7 +592,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "specialist_a",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": true
+      "idle_is_distinct": true,
+      "personal_dialogue": [
+        {
+          "id": "tn_extra_5_personal_1",
+          "en": "I collect old clock hands.",
+          "ko": "오래된 시곗바늘을 모아요."
+        }
+      ]
     },
     {
       "npc_id": "tn_extra_6",
@@ -441,7 +616,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "specialist_b",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": true
+      "idle_is_distinct": true,
+      "personal_dialogue": [
+        {
+          "id": "tn_extra_6_personal_1",
+          "en": "I can repair a coat with a tiny needle.",
+          "ko": "작은 바늘로 외투를 수선할 수 있어요."
+        }
+      ]
     },
     {
       "npc_id": "tn_extra_7",
@@ -458,7 +640,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "resident_a",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": false
+      "idle_is_distinct": false,
+      "personal_dialogue": [
+        {
+          "id": "tn_extra_7_personal_1",
+          "en": "I keep a calendar of birthdays.",
+          "ko": "생일을 기록한 달력을 관리해요."
+        }
+      ]
     },
     {
       "npc_id": "tn_extra_8",
@@ -475,7 +664,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "child",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": false
+      "idle_is_distinct": false,
+      "personal_dialogue": [
+        {
+          "id": "tn_extra_8_personal_1",
+          "en": "I am learning to tell the time.",
+          "ko": "시간 읽는 법을 배우고 있어요."
+        }
+      ]
     },
     {
       "npc_id": "tn_extra_9",
@@ -492,7 +688,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "courier",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": false
+      "idle_is_distinct": false,
+      "personal_dialogue": [
+        {
+          "id": "tn_extra_9_personal_1",
+          "en": "I plan my deliveries around the square clock.",
+          "ko": "광장 시계를 기준으로 배달 일정을 짜요."
+        }
+      ]
     },
     {
       "npc_id": "tn_extra_10",
@@ -509,7 +712,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "resident_b",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": false
+      "idle_is_distinct": false,
+      "personal_dialogue": [
+        {
+          "id": "tn_extra_10_personal_1",
+          "en": "I watch the seasons rather than the clock.",
+          "ko": "시계보다 계절을 살펴요."
+        }
+      ]
     },
     {
       "npc_id": "md_extra_1",
@@ -526,7 +736,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "leader",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": false
+      "idle_is_distinct": false,
+      "personal_dialogue": [
+        {
+          "id": "md_extra_1_personal_1",
+          "en": "I meet Mason to discuss bridge repairs.",
+          "ko": "다리 수리를 논의하려 메이슨을 만나요."
+        }
+      ]
     },
     {
       "npc_id": "md_extra_2",
@@ -543,7 +760,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "shopkeeper",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": false
+      "idle_is_distinct": false,
+      "personal_dialogue": [
+        {
+          "id": "md_extra_2_personal_1",
+          "en": "I keep extra supplies for rainy days.",
+          "ko": "비 오는 날을 대비해 여분의 물품을 보관해요."
+        }
+      ]
     },
     {
       "npc_id": "md_extra_3",
@@ -560,7 +784,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "innkeeper",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": false
+      "idle_is_distinct": false,
+      "personal_dialogue": [
+        {
+          "id": "md_extra_3_personal_1",
+          "en": "Wet travelers can dry their coats here.",
+          "ko": "비에 젖은 여행자는 여기서 외투를 말릴 수 있어요."
+        }
+      ]
     },
     {
       "npc_id": "md_extra_4",
@@ -577,7 +808,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "guard",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": false
+      "idle_is_distinct": false,
+      "personal_dialogue": [
+        {
+          "id": "md_extra_4_personal_1",
+          "en": "I check the river path after storms.",
+          "ko": "폭풍 뒤에 강변 길을 점검해요."
+        }
+      ]
     },
     {
       "npc_id": "md_extra_5",
@@ -594,7 +832,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "specialist_a",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": true
+      "idle_is_distinct": true,
+      "personal_dialogue": [
+        {
+          "id": "md_extra_5_personal_1",
+          "en": "I enjoy the sound of water against my boat.",
+          "ko": "배에 물이 부딪히는 소리를 좋아해요."
+        }
+      ]
     },
     {
       "npc_id": "md_extra_6",
@@ -611,7 +856,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "specialist_b",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": true
+      "idle_is_distinct": true,
+      "personal_dialogue": [
+        {
+          "id": "md_extra_6_personal_1",
+          "en": "Oak wood is useful for many repairs.",
+          "ko": "참나무는 여러 수리에 유용해요."
+        }
+      ]
     },
     {
       "npc_id": "md_extra_7",
@@ -628,7 +880,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "resident_a",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": false
+      "idle_is_distinct": false,
+      "personal_dialogue": [
+        {
+          "id": "md_extra_7_personal_1",
+          "en": "I draw a plan before repairing a bridge.",
+          "ko": "다리를 수리하기 전에 도면을 그려요."
+        }
+      ]
     },
     {
       "npc_id": "md_extra_8",
@@ -645,7 +904,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "child",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": false
+      "idle_is_distinct": false,
+      "personal_dialogue": [
+        {
+          "id": "md_extra_8_personal_1",
+          "en": "I like making little boats from paper.",
+          "ko": "종이로 작은 배를 만드는 게 좋아요."
+        }
+      ]
     },
     {
       "npc_id": "md_extra_9",
@@ -662,7 +928,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "courier",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": false
+      "idle_is_distinct": false,
+      "personal_dialogue": [
+        {
+          "id": "md_extra_9_personal_1",
+          "en": "I wait when the crossing is unsafe.",
+          "ko": "건너기 위험할 때는 기다려요."
+        }
+      ]
     },
     {
       "npc_id": "md_extra_10",
@@ -679,7 +952,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "resident_b",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": false
+      "idle_is_distinct": false,
+      "personal_dialogue": [
+        {
+          "id": "md_extra_10_personal_1",
+          "en": "I keep clean cloths ready for minor injuries.",
+          "ko": "가벼운 상처에 쓸 깨끗한 천을 준비해요."
+        }
+      ]
     },
     {
       "npc_id": "rp_extra_1",
@@ -696,7 +976,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "leader",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": false
+      "idle_is_distinct": false,
+      "personal_dialogue": [
+        {
+          "id": "rp_extra_1_personal_1",
+          "en": "I ask Wren about the forest paths.",
+          "ko": "렌에게 숲길에 관해 물어요."
+        }
+      ]
     },
     {
       "npc_id": "rp_extra_2",
@@ -713,7 +1000,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "shopkeeper",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": false
+      "idle_is_distinct": false,
+      "personal_dialogue": [
+        {
+          "id": "rp_extra_2_personal_1",
+          "en": "I sell baskets for forest walks.",
+          "ko": "숲 산책용 바구니를 팔아요."
+        }
+      ]
     },
     {
       "npc_id": "rp_extra_3",
@@ -730,7 +1024,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "innkeeper",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": false
+      "idle_is_distinct": false,
+      "personal_dialogue": [
+        {
+          "id": "rp_extra_3_personal_1",
+          "en": "The trees shade my inn in summer.",
+          "ko": "여름에는 나무들이 여관에 그늘을 만들어 줘요."
+        }
+      ]
     },
     {
       "npc_id": "rp_extra_4",
@@ -747,7 +1048,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "guard",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": false
+      "idle_is_distinct": false,
+      "personal_dialogue": [
+        {
+          "id": "rp_extra_4_personal_1",
+          "en": "I remind visitors to stay on marked trails.",
+          "ko": "방문객들에게 표시된 길을 이용하라고 알려요."
+        }
+      ]
     },
     {
       "npc_id": "rp_extra_5",
@@ -764,7 +1072,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "specialist_a",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": true
+      "idle_is_distinct": true,
+      "personal_dialogue": [
+        {
+          "id": "rp_extra_5_personal_1",
+          "en": "My cart needs new wheels from time to time.",
+          "ko": "제 수레는 때때로 새 바퀴가 필요해요."
+        }
+      ]
     },
     {
       "npc_id": "rp_extra_6",
@@ -781,7 +1096,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "specialist_b",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": true
+      "idle_is_distinct": true,
+      "personal_dialogue": [
+        {
+          "id": "rp_extra_6_personal_1",
+          "en": "I recognize many birds by their calls.",
+          "ko": "울음소리로 많은 새를 구별해요."
+        }
+      ]
     },
     {
       "npc_id": "rp_extra_7",
@@ -798,7 +1120,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "resident_a",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": false
+      "idle_is_distinct": false,
+      "personal_dialogue": [
+        {
+          "id": "rp_extra_7_personal_1",
+          "en": "I enjoy carving small wooden animals.",
+          "ko": "작은 나무 동물을 조각하는 게 좋아요."
+        }
+      ]
     },
     {
       "npc_id": "rp_extra_8",
@@ -815,7 +1144,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "child",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": false
+      "idle_is_distinct": false,
+      "personal_dialogue": [
+        {
+          "id": "rp_extra_8_personal_1",
+          "en": "I collect fallen leaves of different shapes.",
+          "ko": "다양한 모양의 낙엽을 모아요."
+        }
+      ]
     },
     {
       "npc_id": "rp_extra_9",
@@ -832,7 +1168,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "courier",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": false
+      "idle_is_distinct": false,
+      "personal_dialogue": [
+        {
+          "id": "rp_extra_9_personal_1",
+          "en": "I carry a trail map in my bag.",
+          "ko": "가방에 숲길 지도를 넣어 다녀요."
+        }
+      ]
     },
     {
       "npc_id": "rp_extra_10",
@@ -849,7 +1192,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "resident_b",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": false
+      "idle_is_distinct": false,
+      "personal_dialogue": [
+        {
+          "id": "rp_extra_10_personal_1",
+          "en": "I know which plants should not be touched.",
+          "ko": "만지면 안 되는 식물들을 알아요."
+        }
+      ]
     },
     {
       "npc_id": "ps_extra_1",
@@ -866,7 +1216,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "leader",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": false
+      "idle_is_distinct": false,
+      "personal_dialogue": [
+        {
+          "id": "ps_extra_1_personal_1",
+          "en": "I meet the dockworkers before busy market days.",
+          "ko": "시장이 바쁜 날 전에 부두 일꾼들을 만나요."
+        }
+      ]
     },
     {
       "npc_id": "ps_extra_2",
@@ -883,7 +1240,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "shopkeeper",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": false
+      "idle_is_distinct": false,
+      "personal_dialogue": [
+        {
+          "id": "ps_extra_2_personal_1",
+          "en": "I sell small lanterns for lakeside walks.",
+          "ko": "호숫가 산책용 작은 등불을 팔아요."
+        }
+      ]
     },
     {
       "npc_id": "ps_extra_3",
@@ -900,7 +1264,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "innkeeper",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": false
+      "idle_is_distinct": false,
+      "personal_dialogue": [
+        {
+          "id": "ps_extra_3_personal_1",
+          "en": "My favorite room looks out over the lake.",
+          "ko": "가장 좋아하는 방은 호수가 보여요."
+        }
+      ]
     },
     {
       "npc_id": "ps_extra_4",
@@ -917,7 +1288,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "guard",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": false
+      "idle_is_distinct": false,
+      "personal_dialogue": [
+        {
+          "id": "ps_extra_4_personal_1",
+          "en": "I keep an eye on the dock at night.",
+          "ko": "밤에는 부두를 살펴요."
+        }
+      ]
     },
     {
       "npc_id": "ps_extra_5",
@@ -934,7 +1312,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "specialist_a",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": true
+      "idle_is_distinct": true,
+      "personal_dialogue": [
+        {
+          "id": "ps_extra_5_personal_1",
+          "en": "I learned to row when I was young.",
+          "ko": "어릴 때 노 젓는 법을 배웠어요."
+        }
+      ]
     },
     {
       "npc_id": "ps_extra_6",
@@ -951,7 +1336,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "specialist_b",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": true
+      "idle_is_distinct": true,
+      "personal_dialogue": [
+        {
+          "id": "ps_extra_6_personal_1",
+          "en": "I enjoy reading the notes inside donated books.",
+          "ko": "기증 도서 안의 기록을 읽는 게 좋아요."
+        }
+      ]
     },
     {
       "npc_id": "ps_extra_7",
@@ -968,7 +1360,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "resident_a",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": false
+      "idle_is_distinct": false,
+      "personal_dialogue": [
+        {
+          "id": "ps_extra_7_personal_1",
+          "en": "I check the ropes before unloading cargo.",
+          "ko": "화물을 내리기 전에 밧줄을 확인해요."
+        }
+      ]
     },
     {
       "npc_id": "ps_extra_8",
@@ -985,7 +1384,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "child",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": false
+      "idle_is_distinct": false,
+      "personal_dialogue": [
+        {
+          "id": "ps_extra_8_personal_1",
+          "en": "I like watching ripples on the water.",
+          "ko": "물 위의 잔물결을 보는 게 좋아요."
+        }
+      ]
     },
     {
       "npc_id": "ps_extra_9",
@@ -1002,7 +1408,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "courier",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": false
+      "idle_is_distinct": false,
+      "personal_dialogue": [
+        {
+          "id": "ps_extra_9_personal_1",
+          "en": "I protect my letters from lake spray.",
+          "ko": "호수의 물보라로부터 편지를 보호해요."
+        }
+      ]
     },
     {
       "npc_id": "ps_extra_10",
@@ -1019,7 +1432,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "resident_b",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": false
+      "idle_is_distinct": false,
+      "personal_dialogue": [
+        {
+          "id": "ps_extra_10_personal_1",
+          "en": "I release fish that are too small.",
+          "ko": "너무 작은 물고기는 놓아줘요."
+        }
+      ]
     },
     {
       "npc_id": "pf_extra_1",
@@ -1036,7 +1456,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "leader",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": false
+      "idle_is_distinct": false,
+      "personal_dialogue": [
+        {
+          "id": "pf_extra_1_personal_1",
+          "en": "I check the public well regularly.",
+          "ko": "공용 우물을 정기적으로 점검해요."
+        }
+      ]
     },
     {
       "npc_id": "pf_extra_2",
@@ -1053,7 +1480,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "shopkeeper",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": false
+      "idle_is_distinct": false,
+      "personal_dialogue": [
+        {
+          "id": "pf_extra_2_personal_1",
+          "en": "Dates are popular with tired travelers.",
+          "ko": "지친 여행자들에게 대추야자가 인기예요."
+        }
+      ]
     },
     {
       "npc_id": "pf_extra_3",
@@ -1070,7 +1504,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "innkeeper",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": false
+      "idle_is_distinct": false,
+      "personal_dialogue": [
+        {
+          "id": "pf_extra_3_personal_1",
+          "en": "I enjoy serving tea in the afternoon.",
+          "ko": "오후에 차를 내는 게 좋아요."
+        }
+      ]
     },
     {
       "npc_id": "pf_extra_4",
@@ -1087,7 +1528,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "guard",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": false
+      "idle_is_distinct": false,
+      "personal_dialogue": [
+        {
+          "id": "pf_extra_4_personal_1",
+          "en": "I remind visitors to carry enough water.",
+          "ko": "방문객들에게 물을 충분히 챙기라고 알려요."
+        }
+      ]
     },
     {
       "npc_id": "pf_extra_5",
@@ -1104,7 +1552,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "specialist_a",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": true
+      "idle_is_distinct": true,
+      "personal_dialogue": [
+        {
+          "id": "pf_extra_5_personal_1",
+          "en": "I sort letters by destination.",
+          "ko": "목적지별로 편지를 분류해요."
+        }
+      ]
     },
     {
       "npc_id": "pf_extra_6",
@@ -1121,7 +1576,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "specialist_b",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": true
+      "idle_is_distinct": true,
+      "personal_dialogue": [
+        {
+          "id": "pf_extra_6_personal_1",
+          "en": "I keep my water jars in the shade.",
+          "ko": "물 항아리를 그늘에 둬요."
+        }
+      ]
     },
     {
       "npc_id": "pf_extra_7",
@@ -1138,7 +1600,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "resident_a",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": false
+      "idle_is_distinct": false,
+      "personal_dialogue": [
+        {
+          "id": "pf_extra_7_personal_1",
+          "en": "I prefer traveling during the cooler hours.",
+          "ko": "서늘한 시간에 여행하는 걸 좋아해요."
+        }
+      ]
     },
     {
       "npc_id": "pf_extra_8",
@@ -1155,7 +1624,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "child",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": false
+      "idle_is_distinct": false,
+      "personal_dialogue": [
+        {
+          "id": "pf_extra_8_personal_1",
+          "en": "I like counting the stars above the oasis.",
+          "ko": "오아시스 위의 별을 세는 게 좋아요."
+        }
+      ]
     },
     {
       "npc_id": "pf_extra_9",
@@ -1172,7 +1648,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "courier",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": false
+      "idle_is_distinct": false,
+      "personal_dialogue": [
+        {
+          "id": "pf_extra_9_personal_1",
+          "en": "I rest at the well between deliveries.",
+          "ko": "배달 사이에 우물에서 쉬어요."
+        }
+      ]
     },
     {
       "npc_id": "pf_extra_10",
@@ -1189,7 +1672,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "resident_b",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": false
+      "idle_is_distinct": false,
+      "personal_dialogue": [
+        {
+          "id": "pf_extra_10_personal_1",
+          "en": "Light cloth is popular in hot weather.",
+          "ko": "더운 날에는 가벼운 천이 인기예요."
+        }
+      ]
     },
     {
       "npc_id": "rv_extra_1",
@@ -1206,7 +1696,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "leader",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": false
+      "idle_is_distinct": false,
+      "personal_dialogue": [
+        {
+          "id": "rv_extra_1_personal_1",
+          "en": "I record the arrival of each ship.",
+          "ko": "배가 도착할 때마다 기록해요."
+        }
+      ]
     },
     {
       "npc_id": "rv_extra_2",
@@ -1223,7 +1720,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "shopkeeper",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": false
+      "idle_is_distinct": false,
+      "personal_dialogue": [
+        {
+          "id": "rv_extra_2_personal_1",
+          "en": "Sailors often buy fruit before leaving.",
+          "ko": "선원들은 떠나기 전에 과일을 자주 사요."
+        }
+      ]
     },
     {
       "npc_id": "rv_extra_3",
@@ -1240,7 +1744,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "innkeeper",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": false
+      "idle_is_distinct": false,
+      "personal_dialogue": [
+        {
+          "id": "rv_extra_3_personal_1",
+          "en": "I like hearing the harbor bell from my window.",
+          "ko": "창문 너머로 항구 종소리를 듣는 게 좋아요."
+        }
+      ]
     },
     {
       "npc_id": "rv_extra_4",
@@ -1257,7 +1768,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "guard",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": false
+      "idle_is_distinct": false,
+      "personal_dialogue": [
+        {
+          "id": "rv_extra_4_personal_1",
+          "en": "I help visitors find the correct dock.",
+          "ko": "방문객들이 올바른 부두를 찾도록 도와요."
+        }
+      ]
     },
     {
       "npc_id": "rv_extra_5",
@@ -1274,7 +1792,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "specialist_a",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": true
+      "idle_is_distinct": true,
+      "personal_dialogue": [
+        {
+          "id": "rv_extra_5_personal_1",
+          "en": "I draw maps in pencil before using ink.",
+          "ko": "잉크를 쓰기 전에 연필로 지도를 그려요."
+        }
+      ]
     },
     {
       "npc_id": "rv_extra_6",
@@ -1291,7 +1816,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "specialist_b",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": true
+      "idle_is_distinct": true,
+      "personal_dialogue": [
+        {
+          "id": "rv_extra_6_personal_1",
+          "en": "I listen carefully when the bell rings.",
+          "ko": "종이 울리면 주의 깊게 들어요."
+        }
+      ]
     },
     {
       "npc_id": "rv_extra_7",
@@ -1308,7 +1840,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "resident_a",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": false
+      "idle_is_distinct": false,
+      "personal_dialogue": [
+        {
+          "id": "rv_extra_7_personal_1",
+          "en": "Salt water is hard on wooden boats.",
+          "ko": "바닷물은 나무 배를 손상시켜요."
+        }
+      ]
     },
     {
       "npc_id": "rv_extra_8",
@@ -1325,7 +1864,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "child",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": false
+      "idle_is_distinct": false,
+      "personal_dialogue": [
+        {
+          "id": "rv_extra_8_personal_1",
+          "en": "I collect empty shells on the beach.",
+          "ko": "해변에서 빈 조개껍데기를 모아요."
+        }
+      ]
     },
     {
       "npc_id": "rv_extra_9",
@@ -1342,7 +1888,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "courier",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": false
+      "idle_is_distinct": false,
+      "personal_dialogue": [
+        {
+          "id": "rv_extra_9_personal_1",
+          "en": "I check ship names before delivering letters.",
+          "ko": "편지를 배달하기 전에 배 이름을 확인해요."
+        }
+      ]
     },
     {
       "npc_id": "rv_extra_10",
@@ -1359,7 +1912,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "resident_b",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": false
+      "idle_is_distinct": false,
+      "personal_dialogue": [
+        {
+          "id": "rv_extra_10_personal_1",
+          "en": "I enjoy watching the sea at dawn.",
+          "ko": "새벽 바다를 바라보는 게 좋아요."
+        }
+      ]
     },
     {
       "npc_id": "pc_extra_1",
@@ -1376,7 +1936,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "leader",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": false
+      "idle_is_distinct": false,
+      "personal_dialogue": [
+        {
+          "id": "pc_extra_1_personal_1",
+          "en": "I ask Slate before moving old stones.",
+          "ko": "오래된 돌을 옮기기 전에 슬레이트에게 물어요."
+        }
+      ]
     },
     {
       "npc_id": "pc_extra_2",
@@ -1393,7 +1960,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "shopkeeper",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": false
+      "idle_is_distinct": false,
+      "personal_dialogue": [
+        {
+          "id": "pc_extra_2_personal_1",
+          "en": "Visitors often need sturdy bags.",
+          "ko": "방문객들은 튼튼한 가방을 자주 필요로 해요."
+        }
+      ]
     },
     {
       "npc_id": "pc_extra_3",
@@ -1410,7 +1984,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "innkeeper",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": false
+      "idle_is_distinct": false,
+      "personal_dialogue": [
+        {
+          "id": "pc_extra_3_personal_1",
+          "en": "My inn has a shelf of local history books.",
+          "ko": "여관에는 지역 역사책을 모은 선반이 있어요."
+        }
+      ]
     },
     {
       "npc_id": "pc_extra_4",
@@ -1427,7 +2008,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "guard",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": false
+      "idle_is_distinct": false,
+      "personal_dialogue": [
+        {
+          "id": "pc_extra_4_personal_1",
+          "en": "I keep visitors away from damaged walls.",
+          "ko": "방문객들이 손상된 벽에 접근하지 않도록 해요."
+        }
+      ]
     },
     {
       "npc_id": "pc_extra_5",
@@ -1444,7 +2032,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "specialist_a",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": true
+      "idle_is_distinct": true,
+      "personal_dialogue": [
+        {
+          "id": "pc_extra_5_personal_1",
+          "en": "I sketch inscriptions before studying them.",
+          "ko": "비문을 연구하기 전에 스케치해요."
+        }
+      ]
     },
     {
       "npc_id": "pc_extra_6",
@@ -1461,7 +2056,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "specialist_b",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": true
+      "idle_is_distinct": true,
+      "personal_dialogue": [
+        {
+          "id": "pc_extra_6_personal_1",
+          "en": "I leave a space for letters I cannot read.",
+          "ko": "읽을 수 없는 글자는 빈칸으로 남겨요."
+        }
+      ]
     },
     {
       "npc_id": "pc_extra_7",
@@ -1478,7 +2080,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "resident_a",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": false
+      "idle_is_distinct": false,
+      "personal_dialogue": [
+        {
+          "id": "pc_extra_7_personal_1",
+          "en": "I know a path with a fine view of the canyon.",
+          "ko": "협곡 전망이 좋은 길을 알아요."
+        }
+      ]
     },
     {
       "npc_id": "pc_extra_8",
@@ -1495,7 +2104,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "child",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": false
+      "idle_is_distinct": false,
+      "personal_dialogue": [
+        {
+          "id": "pc_extra_8_personal_1",
+          "en": "I like drawing shapes I see on stones.",
+          "ko": "돌에서 본 모양을 그리는 게 좋아요."
+        }
+      ]
     },
     {
       "npc_id": "pc_extra_9",
@@ -1512,7 +2128,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "courier",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": false
+      "idle_is_distinct": false,
+      "personal_dialogue": [
+        {
+          "id": "pc_extra_9_personal_1",
+          "en": "I wrap fragile documents carefully.",
+          "ko": "손상되기 쉬운 문서를 조심스럽게 포장해요."
+        }
+      ]
     },
     {
       "npc_id": "pc_extra_10",
@@ -1529,7 +2152,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "resident_b",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": false
+      "idle_is_distinct": false,
+      "personal_dialogue": [
+        {
+          "id": "pc_extra_10_personal_1",
+          "en": "I remind walkers to rest in the shade.",
+          "ko": "걷는 사람들에게 그늘에서 쉬라고 알려요."
+        }
+      ]
     },
     {
       "npc_id": "sj_extra_1",
@@ -1546,7 +2176,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "leader",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": false
+      "idle_is_distinct": false,
+      "personal_dialogue": [
+        {
+          "id": "sj_extra_1_personal_1",
+          "en": "I enjoy hearing the birds in the square.",
+          "ko": "광장에서 새소리를 듣는 게 좋아요."
+        }
+      ]
     },
     {
       "npc_id": "sj_extra_2",
@@ -1563,7 +2200,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "shopkeeper",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": false
+      "idle_is_distinct": false,
+      "personal_dialogue": [
+        {
+          "id": "sj_extra_2_personal_1",
+          "en": "I sell seeds as well as fruit.",
+          "ko": "과일뿐 아니라 씨앗도 팔아요."
+        }
+      ]
     },
     {
       "npc_id": "sj_extra_3",
@@ -1580,7 +2224,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "innkeeper",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": false
+      "idle_is_distinct": false,
+      "personal_dialogue": [
+        {
+          "id": "sj_extra_3_personal_1",
+          "en": "I keep a small garden for my guests.",
+          "ko": "손님들을 위해 작은 정원을 가꿔요."
+        }
+      ]
     },
     {
       "npc_id": "sj_extra_4",
@@ -1597,7 +2248,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "guard",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": false
+      "idle_is_distinct": false,
+      "personal_dialogue": [
+        {
+          "id": "sj_extra_4_personal_1",
+          "en": "I ask visitors not to frighten the birds.",
+          "ko": "방문객들에게 새를 놀라게 하지 말라고 해요."
+        }
+      ]
     },
     {
       "npc_id": "sj_extra_5",
@@ -1614,7 +2272,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "specialist_a",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": true
+      "idle_is_distinct": true,
+      "personal_dialogue": [
+        {
+          "id": "sj_extra_5_personal_1",
+          "en": "Each bird has a different favorite food.",
+          "ko": "새마다 좋아하는 먹이가 달라요."
+        }
+      ]
     },
     {
       "npc_id": "sj_extra_6",
@@ -1631,7 +2296,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "specialist_b",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": true
+      "idle_is_distinct": true,
+      "personal_dialogue": [
+        {
+          "id": "sj_extra_6_personal_1",
+          "en": "I help people find words for their feelings.",
+          "ko": "사람들이 감정을 표현할 말을 찾도록 도와요."
+        }
+      ]
     },
     {
       "npc_id": "sj_extra_7",
@@ -1648,7 +2320,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "resident_a",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": false
+      "idle_is_distinct": false,
+      "personal_dialogue": [
+        {
+          "id": "sj_extra_7_personal_1",
+          "en": "I weave patterns inspired by feathers.",
+          "ko": "깃털에서 영감을 얻은 무늬를 짜요."
+        }
+      ]
     },
     {
       "npc_id": "sj_extra_8",
@@ -1665,7 +2344,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "child",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": false
+      "idle_is_distinct": false,
+      "personal_dialogue": [
+        {
+          "id": "sj_extra_8_personal_1",
+          "en": "I wish I could draw birds in flight.",
+          "ko": "날아가는 새를 그릴 수 있으면 좋겠어요."
+        }
+      ]
     },
     {
       "npc_id": "sj_extra_9",
@@ -1682,7 +2368,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "courier",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": false
+      "idle_is_distinct": false,
+      "personal_dialogue": [
+        {
+          "id": "sj_extra_9_personal_1",
+          "en": "I keep ribbons away from my letters.",
+          "ko": "리본과 편지를 따로 보관해요."
+        }
+      ]
     },
     {
       "npc_id": "sj_extra_10",
@@ -1699,7 +2392,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "resident_b",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": false
+      "idle_is_distinct": false,
+      "personal_dialogue": [
+        {
+          "id": "sj_extra_10_personal_1",
+          "en": "I enjoy quiet walks near the bird garden.",
+          "ko": "새 정원 근처를 조용히 산책하는 게 좋아요."
+        }
+      ]
     },
     {
       "npc_id": "cp_extra_1",
@@ -1716,7 +2416,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "leader",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": false
+      "idle_is_distinct": false,
+      "personal_dialogue": [
+        {
+          "id": "cp_extra_1_personal_1",
+          "en": "I want our races to be fair and welcoming.",
+          "ko": "우리 경주가 공정하고 누구나 참여할 수 있으면 좋겠어요."
+        }
+      ]
     },
     {
       "npc_id": "cp_extra_2",
@@ -1733,7 +2440,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "shopkeeper",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": false
+      "idle_is_distinct": false,
+      "personal_dialogue": [
+        {
+          "id": "cp_extra_2_personal_1",
+          "en": "Runners often buy fruit after practice.",
+          "ko": "선수들은 연습 후에 과일을 자주 사요."
+        }
+      ]
     },
     {
       "npc_id": "cp_extra_3",
@@ -1750,7 +2464,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "innkeeper",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": false
+      "idle_is_distinct": false,
+      "personal_dialogue": [
+        {
+          "id": "cp_extra_3_personal_1",
+          "en": "I prepare extra towels on race days.",
+          "ko": "경주 날에는 수건을 더 준비해요."
+        }
+      ]
     },
     {
       "npc_id": "cp_extra_4",
@@ -1767,7 +2488,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "guard",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": false
+      "idle_is_distinct": false,
+      "personal_dialogue": [
+        {
+          "id": "cp_extra_4_personal_1",
+          "en": "I keep the finish area clear.",
+          "ko": "결승선 주변을 비워 둬요."
+        }
+      ]
     },
     {
       "npc_id": "cp_extra_5",
@@ -1784,7 +2512,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "specialist_a",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": true
+      "idle_is_distinct": true,
+      "personal_dialogue": [
+        {
+          "id": "cp_extra_5_personal_1",
+          "en": "I check the starting line before each race.",
+          "ko": "경주마다 출발선을 확인해요."
+        }
+      ]
     },
     {
       "npc_id": "cp_extra_6",
@@ -1801,7 +2536,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "specialist_b",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": true
+      "idle_is_distinct": true,
+      "personal_dialogue": [
+        {
+          "id": "cp_extra_6_personal_1",
+          "en": "I teach runners to set their own goals.",
+          "ko": "선수들에게 자신만의 목표를 세우도록 가르쳐요."
+        }
+      ]
     },
     {
       "npc_id": "cp_extra_7",
@@ -1818,7 +2560,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "resident_a",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": false
+      "idle_is_distinct": false,
+      "personal_dialogue": [
+        {
+          "id": "cp_extra_7_personal_1",
+          "en": "I polish medals before the ceremony.",
+          "ko": "시상식 전에 메달을 닦아요."
+        }
+      ]
     },
     {
       "npc_id": "cp_extra_8",
@@ -1835,7 +2584,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "child",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": false
+      "idle_is_distinct": false,
+      "personal_dialogue": [
+        {
+          "id": "cp_extra_8_personal_1",
+          "en": "I am trying to run farther than last week.",
+          "ko": "지난주보다 더 멀리 달리려고 해요."
+        }
+      ]
     },
     {
       "npc_id": "cp_extra_9",
@@ -1852,7 +2608,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "courier",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": false
+      "idle_is_distinct": false,
+      "personal_dialogue": [
+        {
+          "id": "cp_extra_9_personal_1",
+          "en": "I carry race notices to nearby villages.",
+          "ko": "인근 마을에 경주 안내문을 배달해요."
+        }
+      ]
     },
     {
       "npc_id": "cp_extra_10",
@@ -1869,7 +2632,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "resident_b",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": false
+      "idle_is_distinct": false,
+      "personal_dialogue": [
+        {
+          "id": "cp_extra_10_personal_1",
+          "en": "I remind runners that rest matters.",
+          "ko": "선수들에게 휴식이 중요하다고 알려요."
+        }
+      ]
     },
     {
       "npc_id": "pn_extra_1",
@@ -1886,7 +2656,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "leader",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": false
+      "idle_is_distinct": false,
+      "personal_dialogue": [
+        {
+          "id": "pn_extra_1_personal_1",
+          "en": "I want lost things to reach their owners.",
+          "ko": "분실물이 주인에게 돌아가면 좋겠어요."
+        }
+      ]
     },
     {
       "npc_id": "pn_extra_2",
@@ -1903,7 +2680,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "shopkeeper",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": false
+      "idle_is_distinct": false,
+      "personal_dialogue": [
+        {
+          "id": "pn_extra_2_personal_1",
+          "en": "I write names on special orders.",
+          "ko": "특별 주문에는 이름을 적어요."
+        }
+      ]
     },
     {
       "npc_id": "pn_extra_3",
@@ -1920,7 +2704,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "innkeeper",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": false
+      "idle_is_distinct": false,
+      "personal_dialogue": [
+        {
+          "id": "pn_extra_3_personal_1",
+          "en": "I check rooms for forgotten belongings.",
+          "ko": "방에 두고 간 물건이 있는지 확인해요."
+        }
+      ]
     },
     {
       "npc_id": "pn_extra_4",
@@ -1937,7 +2728,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "guard",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": false
+      "idle_is_distinct": false,
+      "personal_dialogue": [
+        {
+          "id": "pn_extra_4_personal_1",
+          "en": "I take found objects to Tag.",
+          "ko": "발견한 물건은 태그에게 가져가요."
+        }
+      ]
     },
     {
       "npc_id": "pn_extra_5",
@@ -1954,7 +2752,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "specialist_a",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": true
+      "idle_is_distinct": true,
+      "personal_dialogue": [
+        {
+          "id": "pn_extra_5_personal_1",
+          "en": "A description helps me identify an owner.",
+          "ko": "물건에 대한 설명은 주인을 찾는 데 도움이 돼요."
+        }
+      ]
     },
     {
       "npc_id": "pn_extra_6",
@@ -1971,7 +2776,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "specialist_b",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": true
+      "idle_is_distinct": true,
+      "personal_dialogue": [
+        {
+          "id": "pn_extra_6_personal_1",
+          "en": "I like making umbrellas in bright colors.",
+          "ko": "밝은 색의 우산을 만드는 게 좋아요."
+        }
+      ]
     },
     {
       "npc_id": "pn_extra_7",
@@ -1988,7 +2800,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "resident_a",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": false
+      "idle_is_distinct": false,
+      "personal_dialogue": [
+        {
+          "id": "pn_extra_7_personal_1",
+          "en": "I repair torn book covers.",
+          "ko": "찢어진 책 표지를 수리해요."
+        }
+      ]
     },
     {
       "npc_id": "pn_extra_8",
@@ -2005,7 +2824,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "child",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": false
+      "idle_is_distinct": false,
+      "personal_dialogue": [
+        {
+          "id": "pn_extra_8_personal_1",
+          "en": "I put my name inside my favorite book.",
+          "ko": "좋아하는 책 안에 이름을 적어요."
+        }
+      ]
     },
     {
       "npc_id": "pn_extra_9",
@@ -2022,7 +2848,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "courier",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": false
+      "idle_is_distinct": false,
+      "personal_dialogue": [
+        {
+          "id": "pn_extra_9_personal_1",
+          "en": "I compare names before handing over parcels.",
+          "ko": "소포를 건네기 전에 이름을 비교해요."
+        }
+      ]
     },
     {
       "npc_id": "pn_extra_10",
@@ -2039,7 +2872,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "resident_b",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": false
+      "idle_is_distinct": false,
+      "personal_dialogue": [
+        {
+          "id": "pn_extra_10_personal_1",
+          "en": "I sew name labels into coats.",
+          "ko": "외투에 이름표를 꿰매요."
+        }
+      ]
     },
     {
       "npc_id": "ot_extra_1",
@@ -2056,7 +2896,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "leader",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": false
+      "idle_is_distinct": false,
+      "personal_dialogue": [
+        {
+          "id": "ot_extra_1_personal_1",
+          "en": "I check harbor reports every morning.",
+          "ko": "매일 아침 항구 보고서를 확인해요."
+        }
+      ]
     },
     {
       "npc_id": "ot_extra_2",
@@ -2073,7 +2920,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "shopkeeper",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": false
+      "idle_is_distinct": false,
+      "personal_dialogue": [
+        {
+          "id": "ot_extra_2_personal_1",
+          "en": "I sell food that is easy to carry aboard.",
+          "ko": "배에 싣기 쉬운 음식을 팔아요."
+        }
+      ]
     },
     {
       "npc_id": "ot_extra_3",
@@ -2090,7 +2944,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "innkeeper",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": false
+      "idle_is_distinct": false,
+      "personal_dialogue": [
+        {
+          "id": "ot_extra_3_personal_1",
+          "en": "I enjoy hearing sailors talk about islands.",
+          "ko": "선원들의 섬 이야기를 듣는 게 좋아요."
+        }
+      ]
     },
     {
       "npc_id": "ot_extra_4",
@@ -2107,7 +2968,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "guard",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": false
+      "idle_is_distinct": false,
+      "personal_dialogue": [
+        {
+          "id": "ot_extra_4_personal_1",
+          "en": "I keep the harbor entrance clear.",
+          "ko": "항구 입구를 비워 둬요."
+        }
+      ]
     },
     {
       "npc_id": "ot_extra_5",
@@ -2124,7 +2992,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "specialist_a",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": true
+      "idle_is_distinct": true,
+      "personal_dialogue": [
+        {
+          "id": "ot_extra_5_personal_1",
+          "en": "I compare landmarks with my charts.",
+          "ko": "지형지물과 해도를 비교해요."
+        }
+      ]
     },
     {
       "npc_id": "ot_extra_6",
@@ -2141,7 +3016,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "specialist_b",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": true
+      "idle_is_distinct": true,
+      "personal_dialogue": [
+        {
+          "id": "ot_extra_6_personal_1",
+          "en": "I choose strong wood for boat repairs.",
+          "ko": "배 수리에는 튼튼한 나무를 골라요."
+        }
+      ]
     },
     {
       "npc_id": "ot_extra_7",
@@ -2158,7 +3040,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "resident_a",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": false
+      "idle_is_distinct": false,
+      "personal_dialogue": [
+        {
+          "id": "ot_extra_7_personal_1",
+          "en": "I check the lighthouse lamp before dark.",
+          "ko": "어두워지기 전에 등대 램프를 확인해요."
+        }
+      ]
     },
     {
       "npc_id": "ot_extra_8",
@@ -2175,7 +3064,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "child",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": false
+      "idle_is_distinct": false,
+      "personal_dialogue": [
+        {
+          "id": "ot_extra_8_personal_1",
+          "en": "I like drawing boats with colorful sails.",
+          "ko": "알록달록한 돛을 단 배를 그리는 게 좋아요."
+        }
+      ]
     },
     {
       "npc_id": "ot_extra_9",
@@ -2192,7 +3088,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "courier",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": false
+      "idle_is_distinct": false,
+      "personal_dialogue": [
+        {
+          "id": "ot_extra_9_personal_1",
+          "en": "I ask which ferry carries each parcel.",
+          "ko": "소포마다 어느 배로 운반하는지 물어요."
+        }
+      ]
     },
     {
       "npc_id": "ot_extra_10",
@@ -2209,7 +3112,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "resident_b",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": false
+      "idle_is_distinct": false,
+      "personal_dialogue": [
+        {
+          "id": "ot_extra_10_personal_1",
+          "en": "I repair my nets beside the harbor.",
+          "ko": "항구 옆에서 그물을 수리해요."
+        }
+      ]
     },
     {
       "npc_id": "iv_extra_1",
@@ -2226,7 +3136,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "leader",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": false
+      "idle_is_distinct": false,
+      "personal_dialogue": [
+        {
+          "id": "iv_extra_1_personal_1",
+          "en": "I enjoy hearing students describe their dreams.",
+          "ko": "학생들이 꿈을 이야기하는 걸 듣는 게 좋아요."
+        }
+      ]
     },
     {
       "npc_id": "iv_extra_2",
@@ -2243,7 +3160,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "shopkeeper",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": false
+      "idle_is_distinct": false,
+      "personal_dialogue": [
+        {
+          "id": "iv_extra_2_personal_1",
+          "en": "I sell snacks for long uphill walks.",
+          "ko": "긴 오르막길에 먹을 간식을 팔아요."
+        }
+      ]
     },
     {
       "npc_id": "iv_extra_3",
@@ -2260,7 +3184,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "innkeeper",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": false
+      "idle_is_distinct": false,
+      "personal_dialogue": [
+        {
+          "id": "iv_extra_3_personal_1",
+          "en": "Guests often rest here before climbing higher.",
+          "ko": "손님들은 더 높이 오르기 전에 여기서 쉬어요."
+        }
+      ]
     },
     {
       "npc_id": "iv_extra_4",
@@ -2277,7 +3208,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "guard",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": false
+      "idle_is_distinct": false,
+      "personal_dialogue": [
+        {
+          "id": "iv_extra_4_personal_1",
+          "en": "I check the mountain path after rain.",
+          "ko": "비가 온 뒤 산길을 점검해요."
+        }
+      ]
     },
     {
       "npc_id": "iv_extra_5",
@@ -2294,7 +3232,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "specialist_a",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": true
+      "idle_is_distinct": true,
+      "personal_dialogue": [
+        {
+          "id": "iv_extra_5_personal_1",
+          "en": "I help visitors choose a suitable journey.",
+          "ko": "방문객들이 알맞은 여행을 선택하도록 도와요."
+        }
+      ]
     },
     {
       "npc_id": "iv_extra_6",
@@ -2311,7 +3256,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "specialist_b",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": true
+      "idle_is_distinct": true,
+      "personal_dialogue": [
+        {
+          "id": "iv_extra_6_personal_1",
+          "en": "I enjoy questions that make me think.",
+          "ko": "저를 생각하게 만드는 질문이 좋아요."
+        }
+      ]
     },
     {
       "npc_id": "iv_extra_7",
@@ -2328,7 +3280,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "resident_a",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": false
+      "idle_is_distinct": false,
+      "personal_dialogue": [
+        {
+          "id": "iv_extra_7_personal_1",
+          "en": "I make bags with comfortable straps.",
+          "ko": "편안한 끈이 달린 가방을 만들어요."
+        }
+      ]
     },
     {
       "npc_id": "iv_extra_8",
@@ -2345,7 +3304,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "child",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": false
+      "idle_is_distinct": false,
+      "personal_dialogue": [
+        {
+          "id": "iv_extra_8_personal_1",
+          "en": "I want to learn how to read a compass.",
+          "ko": "나침반 읽는 법을 배우고 싶어요."
+        }
+      ]
     },
     {
       "npc_id": "iv_extra_9",
@@ -2362,7 +3328,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "courier",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": false
+      "idle_is_distinct": false,
+      "personal_dialogue": [
+        {
+          "id": "iv_extra_9_personal_1",
+          "en": "I pack lightly for steep paths.",
+          "ko": "가파른 길을 갈 때 짐을 가볍게 꾸려요."
+        }
+      ]
     },
     {
       "npc_id": "iv_extra_10",
@@ -2379,7 +3352,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "resident_b",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": false
+      "idle_is_distinct": false,
+      "personal_dialogue": [
+        {
+          "id": "iv_extra_10_personal_1",
+          "en": "I remind climbers to take breaks.",
+          "ko": "등산객들에게 쉬어 가라고 알려요."
+        }
+      ]
     },
     {
       "npc_id": "pe_extra_1",
@@ -2396,7 +3376,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "leader",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": false
+      "idle_is_distinct": false,
+      "personal_dialogue": [
+        {
+          "id": "pe_extra_1_personal_1",
+          "en": "I ask residents what they heard before drawing conclusions.",
+          "ko": "결론을 내리기 전에 주민들이 무엇을 들었는지 물어요."
+        }
+      ]
     },
     {
       "npc_id": "pe_extra_2",
@@ -2413,7 +3400,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "shopkeeper",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": false
+      "idle_is_distinct": false,
+      "personal_dialogue": [
+        {
+          "id": "pe_extra_2_personal_1",
+          "en": "I keep fragrant herbs near the counter.",
+          "ko": "계산대 근처에 향긋한 허브를 둬요."
+        }
+      ]
     },
     {
       "npc_id": "pe_extra_3",
@@ -2430,7 +3424,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "innkeeper",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": false
+      "idle_is_distinct": false,
+      "personal_dialogue": [
+        {
+          "id": "pe_extra_3_personal_1",
+          "en": "My guests enjoy the quiet forest evenings.",
+          "ko": "손님들은 고요한 숲의 저녁을 좋아해요."
+        }
+      ]
     },
     {
       "npc_id": "pe_extra_4",
@@ -2447,7 +3448,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "guard",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": false
+      "idle_is_distinct": false,
+      "personal_dialogue": [
+        {
+          "id": "pe_extra_4_personal_1",
+          "en": "I check unusual sounds before raising an alarm.",
+          "ko": "경보를 울리기 전에 이상한 소리를 확인해요."
+        }
+      ]
     },
     {
       "npc_id": "pe_extra_5",
@@ -2464,7 +3472,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "specialist_a",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": true
+      "idle_is_distinct": true,
+      "personal_dialogue": [
+        {
+          "id": "pe_extra_5_personal_1",
+          "en": "I recognize trees by their bark.",
+          "ko": "나무껍질로 나무를 구별해요."
+        }
+      ]
     },
     {
       "npc_id": "pe_extra_6",
@@ -2481,7 +3496,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "specialist_b",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": true
+      "idle_is_distinct": true,
+      "personal_dialogue": [
+        {
+          "id": "pe_extra_6_personal_1",
+          "en": "I dry herbs in a well-ventilated room.",
+          "ko": "통풍이 잘되는 방에서 허브를 말려요."
+        }
+      ]
     },
     {
       "npc_id": "pe_extra_7",
@@ -2498,7 +3520,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "resident_a",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": false
+      "idle_is_distinct": false,
+      "personal_dialogue": [
+        {
+          "id": "pe_extra_7_personal_1",
+          "en": "I test the sound of each finished bell.",
+          "ko": "완성한 종마다 소리를 시험해요."
+        }
+      ]
     },
     {
       "npc_id": "pe_extra_8",
@@ -2515,7 +3544,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "child",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": false
+      "idle_is_distinct": false,
+      "personal_dialogue": [
+        {
+          "id": "pe_extra_8_personal_1",
+          "en": "I like listening to birds with my eyes closed.",
+          "ko": "눈을 감고 새소리를 듣는 게 좋아요."
+        }
+      ]
     },
     {
       "npc_id": "pe_extra_9",
@@ -2532,7 +3568,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "courier",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": false
+      "idle_is_distinct": false,
+      "personal_dialogue": [
+        {
+          "id": "pe_extra_9_personal_1",
+          "en": "I listen for the village bell on my way home.",
+          "ko": "집에 가는 길에 마을 종소리를 들어요."
+        }
+      ]
     },
     {
       "npc_id": "pe_extra_10",
@@ -2549,7 +3592,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "resident_b",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": false
+      "idle_is_distinct": false,
+      "personal_dialogue": [
+        {
+          "id": "pe_extra_10_personal_1",
+          "en": "I keep my workroom clean and quiet.",
+          "ko": "작업실을 깨끗하고 조용하게 유지해요."
+        }
+      ]
     },
     {
       "npc_id": "ng_extra_1",
@@ -2566,7 +3616,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "leader",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": false
+      "idle_is_distinct": false,
+      "personal_dialogue": [
+        {
+          "id": "ng_extra_1_personal_1",
+          "en": "I invite residents to suggest festival ideas.",
+          "ko": "주민들에게 축제 아이디어를 제안해 달라고 해요."
+        }
+      ]
     },
     {
       "npc_id": "ng_extra_2",
@@ -2583,7 +3640,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "shopkeeper",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": false
+      "idle_is_distinct": false,
+      "personal_dialogue": [
+        {
+          "id": "ng_extra_2_personal_1",
+          "en": "I sell extra supplies before the festival.",
+          "ko": "축제 전에 여분의 물품을 팔아요."
+        }
+      ]
     },
     {
       "npc_id": "ng_extra_3",
@@ -2600,7 +3664,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "innkeeper",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": false
+      "idle_is_distinct": false,
+      "personal_dialogue": [
+        {
+          "id": "ng_extra_3_personal_1",
+          "en": "Performers often practice songs in my inn.",
+          "ko": "공연자들이 여관에서 노래를 자주 연습해요."
+        }
+      ]
     },
     {
       "npc_id": "ng_extra_4",
@@ -2617,7 +3688,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "guard",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": false
+      "idle_is_distinct": false,
+      "personal_dialogue": [
+        {
+          "id": "ng_extra_4_personal_1",
+          "en": "I keep the audience paths clear.",
+          "ko": "관객들이 다니는 길을 비워 둬요."
+        }
+      ]
     },
     {
       "npc_id": "ng_extra_5",
@@ -2634,7 +3712,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "specialist_a",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": true
+      "idle_is_distinct": true,
+      "personal_dialogue": [
+        {
+          "id": "ng_extra_5_personal_1",
+          "en": "I keep a list of performers and their songs.",
+          "ko": "공연자와 노래 목록을 관리해요."
+        }
+      ]
     },
     {
       "npc_id": "ng_extra_6",
@@ -2651,7 +3736,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "specialist_b",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": true
+      "idle_is_distinct": true,
+      "personal_dialogue": [
+        {
+          "id": "ng_extra_6_personal_1",
+          "en": "I enjoy playing a melody in different ways.",
+          "ko": "같은 선율을 여러 방식으로 연주하는 게 좋아요."
+        }
+      ]
     },
     {
       "npc_id": "ng_extra_7",
@@ -2668,7 +3760,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "resident_a",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": false
+      "idle_is_distinct": false,
+      "personal_dialogue": [
+        {
+          "id": "ng_extra_7_personal_1",
+          "en": "I reuse ribbons from old decorations.",
+          "ko": "옛 장식의 리본을 다시 사용해요."
+        }
+      ]
     },
     {
       "npc_id": "ng_extra_8",
@@ -2685,7 +3784,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "child",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": false
+      "idle_is_distinct": false,
+      "personal_dialogue": [
+        {
+          "id": "ng_extra_8_personal_1",
+          "en": "I want to sing with my friends on stage.",
+          "ko": "친구들과 무대에서 노래하고 싶어요."
+        }
+      ]
     },
     {
       "npc_id": "ng_extra_9",
@@ -2702,7 +3808,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "courier",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": false
+      "idle_is_distinct": false,
+      "personal_dialogue": [
+        {
+          "id": "ng_extra_9_personal_1",
+          "en": "I deliver festival notices to nearby towns.",
+          "ko": "인근 마을에 축제 안내문을 배달해요."
+        }
+      ]
     },
     {
       "npc_id": "ng_extra_10",
@@ -2719,7 +3832,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "resident_b",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": false
+      "idle_is_distinct": false,
+      "personal_dialogue": [
+        {
+          "id": "ng_extra_10_personal_1",
+          "en": "I prepare a quiet place for tired performers.",
+          "ko": "지친 공연자들을 위해 조용한 장소를 마련해요."
+        }
+      ]
     },
     {
       "npc_id": "rs_extra_1",
@@ -2736,7 +3856,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "leader",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": false
+      "idle_is_distinct": false,
+      "personal_dialogue": [
+        {
+          "id": "rs_extra_1_personal_1",
+          "en": "I check important announcements before sharing them.",
+          "ko": "중요한 공지를 전달하기 전에 확인해요."
+        }
+      ]
     },
     {
       "npc_id": "rs_extra_2",
@@ -2753,7 +3880,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "shopkeeper",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": false
+      "idle_is_distinct": false,
+      "personal_dialogue": [
+        {
+          "id": "rs_extra_2_personal_1",
+          "en": "I sell paper and ink to travelers.",
+          "ko": "여행자들에게 종이와 잉크를 팔아요."
+        }
+      ]
     },
     {
       "npc_id": "rs_extra_3",
@@ -2770,7 +3904,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "innkeeper",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": false
+      "idle_is_distinct": false,
+      "personal_dialogue": [
+        {
+          "id": "rs_extra_3_personal_1",
+          "en": "Guests often leave messages for their friends.",
+          "ko": "손님들은 친구에게 전갈을 자주 남겨요."
+        }
+      ]
     },
     {
       "npc_id": "rs_extra_4",
@@ -2787,7 +3928,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "guard",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": false
+      "idle_is_distinct": false,
+      "personal_dialogue": [
+        {
+          "id": "rs_extra_4_personal_1",
+          "en": "I ask for the original notice when reports disagree.",
+          "ko": "보고 내용이 다르면 원본 공지를 요청해요."
+        }
+      ]
     },
     {
       "npc_id": "rs_extra_5",
@@ -2804,7 +3952,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "specialist_a",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": true
+      "idle_is_distinct": true,
+      "personal_dialogue": [
+        {
+          "id": "rs_extra_5_personal_1",
+          "en": "I keep samples of official seals.",
+          "ko": "공식 인장의 견본을 보관해요."
+        }
+      ]
     },
     {
       "npc_id": "rs_extra_6",
@@ -2821,7 +3976,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "specialist_b",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": true
+      "idle_is_distinct": true,
+      "personal_dialogue": [
+        {
+          "id": "rs_extra_6_personal_1",
+          "en": "I ask the sender to clarify unclear messages.",
+          "ko": "불분명한 전갈은 보낸 사람에게 확인해요."
+        }
+      ]
     },
     {
       "npc_id": "rs_extra_7",
@@ -2838,7 +4000,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "resident_a",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": false
+      "idle_is_distinct": false,
+      "personal_dialogue": [
+        {
+          "id": "rs_extra_7_personal_1",
+          "en": "I enjoy finding clear ways to express an idea.",
+          "ko": "생각을 명확하게 표현하는 방법을 찾는 게 좋아요."
+        }
+      ]
     },
     {
       "npc_id": "rs_extra_8",
@@ -2855,7 +4024,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "child",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": false
+      "idle_is_distinct": false,
+      "personal_dialogue": [
+        {
+          "id": "rs_extra_8_personal_1",
+          "en": "I practice writing short letters.",
+          "ko": "짧은 편지 쓰기를 연습해요."
+        }
+      ]
     },
     {
       "npc_id": "rs_extra_9",
@@ -2872,7 +4048,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "courier",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": false
+      "idle_is_distinct": false,
+      "personal_dialogue": [
+        {
+          "id": "rs_extra_9_personal_1",
+          "en": "I record the destination of each delivery.",
+          "ko": "배달마다 목적지를 기록해요."
+        }
+      ]
     },
     {
       "npc_id": "rs_extra_10",
@@ -2889,7 +4072,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "resident_b",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": false
+      "idle_is_distinct": false,
+      "personal_dialogue": [
+        {
+          "id": "rs_extra_10_personal_1",
+          "en": "I listen carefully when people explain their worries.",
+          "ko": "사람들이 걱정을 이야기하면 주의 깊게 들어요."
+        }
+      ]
     },
     {
       "npc_id": "sx_extra_1",
@@ -2906,7 +4096,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "leader",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": false
+      "idle_is_distinct": false,
+      "personal_dialogue": [
+        {
+          "id": "sx_extra_1_personal_1",
+          "en": "I consult the archive before changing a rule.",
+          "ko": "규칙을 바꾸기 전에 기록실을 확인해요."
+        }
+      ]
     },
     {
       "npc_id": "sx_extra_2",
@@ -2923,7 +4120,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "shopkeeper",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": false
+      "idle_is_distinct": false,
+      "personal_dialogue": [
+        {
+          "id": "sx_extra_2_personal_1",
+          "en": "I sell notebooks to archive visitors.",
+          "ko": "기록실 방문객에게 공책을 팔아요."
+        }
+      ]
     },
     {
       "npc_id": "sx_extra_3",
@@ -2940,7 +4144,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "innkeeper",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": false
+      "idle_is_distinct": false,
+      "personal_dialogue": [
+        {
+          "id": "sx_extra_3_personal_1",
+          "en": "My guests enjoy reading by the window.",
+          "ko": "손님들은 창가에서 책 읽는 것을 좋아해요."
+        }
+      ]
     },
     {
       "npc_id": "sx_extra_4",
@@ -2957,7 +4168,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "guard",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": false
+      "idle_is_distinct": false,
+      "personal_dialogue": [
+        {
+          "id": "sx_extra_4_personal_1",
+          "en": "I check which doors are open to visitors.",
+          "ko": "방문객에게 열린 문이 어느 것인지 확인해요."
+        }
+      ]
     },
     {
       "npc_id": "sx_extra_5",
@@ -2974,7 +4192,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "specialist_a",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": true
+      "idle_is_distinct": true,
+      "personal_dialogue": [
+        {
+          "id": "sx_extra_5_personal_1",
+          "en": "I label keys so I can find them easily.",
+          "ko": "열쇠를 쉽게 찾도록 이름표를 붙여요."
+        }
+      ]
     },
     {
       "npc_id": "sx_extra_6",
@@ -2991,7 +4216,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "specialist_b",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": true
+      "idle_is_distinct": true,
+      "personal_dialogue": [
+        {
+          "id": "sx_extra_6_personal_1",
+          "en": "I compare dates when studying old records.",
+          "ko": "옛 기록을 연구할 때 날짜를 비교해요."
+        }
+      ]
     },
     {
       "npc_id": "sx_extra_7",
@@ -3008,7 +4240,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "resident_a",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": false
+      "idle_is_distinct": false,
+      "personal_dialogue": [
+        {
+          "id": "sx_extra_7_personal_1",
+          "en": "I enjoy carving simple patterns into stone.",
+          "ko": "돌에 단순한 무늬를 새기는 게 좋아요."
+        }
+      ]
     },
     {
       "npc_id": "sx_extra_8",
@@ -3025,7 +4264,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "child",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": false
+      "idle_is_distinct": false,
+      "personal_dialogue": [
+        {
+          "id": "sx_extra_8_personal_1",
+          "en": "I want to read every book on the low shelf.",
+          "ko": "낮은 선반의 책을 모두 읽고 싶어요."
+        }
+      ]
     },
     {
       "npc_id": "sx_extra_9",
@@ -3042,7 +4288,14 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "courier",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": false
+      "idle_is_distinct": false,
+      "personal_dialogue": [
+        {
+          "id": "sx_extra_9_personal_1",
+          "en": "I check the recipient before delivering official letters.",
+          "ko": "공식 편지를 전달하기 전에 수신인을 확인해요."
+        }
+      ]
     },
     {
       "npc_id": "sx_extra_10",
@@ -3059,10 +4312,17 @@
       "priority": "active quest > conditional aftermath > idle",
       "role_pool": "resident_b",
       "dialogue_selection": "shuffle_bag_no_repeat_until_exhausted",
-      "idle_is_distinct": false
+      "idle_is_distinct": false,
+      "personal_dialogue": [
+        {
+          "id": "sx_extra_10_personal_1",
+          "en": "I enjoy the peaceful courtyard in the morning.",
+          "ko": "아침의 평화로운 안뜰을 좋아해요."
+        }
+      ]
     }
   ],
-  "policy": "180 recovered-town residents. Ten role-slot pools, six bilingual lines each (60 authored common lines). Preserve original idle and town topic; deduplicate identical text per NPC. Distinct specialist lines remain additional. Shuffle without replacement, avoid immediate repeat at cycle boundary; quest and aftermath dialogue override idle. Save cursor optionally; no real-time gating. Natural Korean; semantic chunks pending. Role slots 5/6 are broad specialist pools, 7/10 broad resident pools, not exact occupations.",
+  "policy": "180 recovered-town residents. Ten role-slot pools, six bilingual lines each (60 authored common lines). Preserve original idle and town topic; deduplicate identical text per NPC. Distinct specialist lines remain additional. Shuffle without replacement, avoid immediate repeat at cycle boundary; quest and aftermath dialogue override idle. Save cursor optionally; no real-time gating. Natural Korean; semantic chunks pending. Role slots 5/6 are broad specialist pools, 7/10 broad resident pools, not exact occupations. Every resident now has an additional individually authored line keyed to exact NPC ID; include personal_dialogue in shuffle bag, deduplicate by text. These are proposed everyday details, not mandatory quest facts.",
   "role_pools": {
     "leader": [
       {

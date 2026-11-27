@@ -1,5 +1,6 @@
 /* Walkable illustrated fields for Chapter II. Movement is local to the open map. */
 window.openChapterField = function(container, map, hero, targets, options={}) {
+  const live={};
   const directions=[[0,1],[-1,0],[1,0],[0,-1]];
   const keys=['ArrowDown','ArrowLeft','ArrowRight','ArrowUp'];
   const size=46;
@@ -26,12 +27,74 @@ window.openChapterField = function(container, map, hero, targets, options={}) {
   for (const target of targets) destinations.add(new Option(target.label,target.id));
   destinations.onchange=event=>{
     const target=targets.find(item=>item.id===destinations.value);
-    if (target) moveTo(...map.points[target.id],()=>target.action(event.detail));
+    if (target) moveTo(...live[target.id],()=>target.action(event.detail));
     destinations.value='';
   };
   container.append(destinations,viewport,controls,instructions);
   let [x,y,initialFace]=options.position||map.spawn;
   let face=initialFace??0;
+
+  // ---- 주민 배치 검증: 주인공이 주민 칸에 올라가지 못하므로, 주민이 길목을 막아 다른 곳을 못 가게 만들지 않게 합니다 ----
+  const isNpc=t=>!!(t.image||t.walk||t.caption);
+  const keyOf=(a,b)=>a+','+b;
+  function reach(sx,sy,blocked) {
+    const seen=new Set([keyOf(sx,sy)]);
+    const queue=[[sx,sy]];
+    for (const [cx,cy] of queue) {
+      for (const [dx,dy] of directions) {
+        const nx=cx+dx,ny=cy+dy,k=keyOf(nx,ny);
+        if (seen.has(k)||map.tiles[ny]?.[nx]!=='.'||blocked.has(k)) continue;
+        seen.add(k);
+        queue.push([nx,ny]);
+      }
+    }
+    return seen;
+  }
+  const componentSize=new Map();
+  function layoutOK(npcTiles,sx,sy) {
+    const blocked=new Set(npcTiles.map(([a,b])=>keyOf(a,b)));
+    blocked.delete(keyOf(sx,sy));
+    const comp=componentSize.get(keyOf(sx,sy))||(()=>{const c=reach(sx,sy,new Set());componentSize.set(keyOf(sx,sy),c);return c;})();
+    let blockedInside=0;
+    for (const k of blocked) if (comp.has(k)) blockedInside++;
+    const seen=reach(sx,sy,blocked);
+    if (seen.size!==comp.size-blockedInside) return false;
+    return npcTiles.every(([a,b])=>{
+      for (let dy=-1;dy<=1;dy++) for (let dx=-1;dx<=1;dx++) if ((dx||dy)&&seen.has(keyOf(a+dx,b+dy))) return true;
+      return false;
+    });
+  }
+  {
+    const points={...map.points};
+    const npcs=targets.filter(isNpc);
+    const others=targets.filter(t=>!isNpc(t)).map(t=>points[t.id]);
+    const placed=[];
+    for (const t of npcs) {
+      const home=points[t.id];
+      const order=[];
+      const seen=new Set([keyOf(...home)]);
+      const queue=[home];
+      for (const [cx,cy] of queue) {
+        order.push([cx,cy]);
+        for (const [dx,dy] of directions) {
+          const nx=cx+dx,ny=cy+dy;
+          if (seen.has(keyOf(nx,ny))||map.tiles[ny]?.[nx]!=='.') continue;
+          seen.add(keyOf(nx,ny));queue.push([nx,ny]);
+        }
+        if (order.length>80) break;
+      }
+      const taken=new Set([...placed,...others,[x,y]].map(([a,b])=>keyOf(a,b)));
+      const pick=order.find(c=>!taken.has(keyOf(...c))&&layoutOK([...placed,c],x,y));
+      const chosen=pick||home;
+      points[t.id]=chosen;
+      placed.push(chosen);
+    }
+    map={...map,points};
+  }
+  const canStand=(id,nx,ny,pending=[])=>{
+    const tiles=targets.filter(t=>isNpc(t)&&t.id!==id).map(t=>live[t.id]||map.points[t.id]);
+    return layoutOK([...tiles,...pending,[nx,ny]],x,y);
+  };
   let segment=null;
   let route=[];
   let arrival=null;
@@ -41,8 +104,15 @@ window.openChapterField = function(container, map, hero, targets, options={}) {
   let frame=0;
   let began=null;
 
-  function walkable(x,y) {
+  function floor(x,y) {
     return map.tiles[y]?.[x]==='.';
+  }
+
+  // 주인공은 주민·표지가 서 있는 칸에는 들어가지 않습니다(옆 칸까지 가서 말을 겁니다).
+  function walkable(x,y) {
+    if (!floor(x,y)) return false;
+    for (const id in live) if (live[id][0]===x && live[id][1]===y) return false;
+    return true;
   }
 
   function paint(px,py,step) {
@@ -119,13 +189,13 @@ window.openChapterField = function(container, map, hero, targets, options={}) {
     const queue=[{...start,path:[]}];
     const seen=new Set([start.x+','+start.y]);
     for (const current of queue) {
-      const distance=Math.abs(current.x-tx)+Math.abs(current.y-ty);
+      const distance=action ? Math.max(Math.abs(current.x-tx),Math.abs(current.y-ty)) : Math.abs(current.x-tx)+Math.abs(current.y-ty);
       if (distance<=distanceLimit) {
         route=current.path;
         held=requested=null;
         arrival=action ? ()=>{
-          const toward=directions.findIndex(([dx,dy])=>x+dx===tx&&y+dy===ty);
-          if (toward>=0) face=toward;
+          const ddx=tx-x,ddy=ty-y;
+          if (ddx||ddy) face=Math.abs(ddx)>=Math.abs(ddy) ? (ddx<0?1:2) : (ddy<0?3:0);
           paint(x,y,2);
           action();
         } : null;
@@ -158,7 +228,6 @@ window.openChapterField = function(container, map, hero, targets, options={}) {
     return el;
   }
 
-  const live={};
   const pins={};
   for (const target of targets) {
     const [tx,ty]=map.points[target.id];
@@ -185,7 +254,7 @@ window.openChapterField = function(container, map, hero, targets, options={}) {
     world.append(pin);
   }
 
-  window.ChapterNpcWalk?.start({world,size,targets,live,pins,map,walkable,hero:()=>({x,y,target:segment?[segment.x,segment.y]:null})});
+  window.ChapterNpcWalk?.start({world,size,targets,live,pins,map,walkable,canStand,hero:()=>({x,y,target:segment?[segment.x,segment.y]:null})});
   const stick=control('',()=>{});
   stick.className='c2-field-stick';
   stick.setAttribute('aria-label','이동 조이스틱');
@@ -233,10 +302,8 @@ window.openChapterField = function(container, map, hero, targets, options={}) {
   stick.onpointerup=stick.onpointercancel=stick.onlostpointercapture=release;
   controls.append(stick);
   const interact=control('상호작용',()=>{
-    const target=targets.find(item=>{
-      const [tx,ty]=live[item.id]||map.points[item.id];
-      return Math.abs(x-tx)+Math.abs(y-ty)<=1;
-    });
+    const reach=item=>{const [tx,ty]=live[item.id]||map.points[item.id];return Math.max(Math.abs(x-tx),Math.abs(y-ty));};
+    const target=targets.filter(item=>reach(item)<=1).sort((a,b)=>reach(a)-reach(b))[0];
     if (target && !segment) target.action();
   });
   controls.append(interact);

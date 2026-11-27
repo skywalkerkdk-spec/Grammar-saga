@@ -58,7 +58,7 @@
               }
               continue;
             }
-            const near=Math.abs(h.x-w.x)+Math.abs(h.y-w.y)<=1;
+            const near=Math.max(Math.abs(h.x-w.x),Math.abs(h.y-w.y))<=1;
             if(near||dialogOpen){
               if(near){const dx=h.x-w.x,dy=h.y-w.y;w.face=Math.abs(dx)>Math.abs(dy)?(dx<0?1:2):(dy<0?3:0);}
               place(w,w.x,w.y,IDLE_FRAME);w.next=Math.max(w.next,now+900);continue;
@@ -70,6 +70,8 @@
               const nx=w.x+dirs[d][0],ny=w.y+dirs[d][1];
               if(Math.abs(nx-w.home[0])+Math.abs(ny-w.home[1])>RADIUS)continue;
               if(!ctx.walkable(nx,ny)||occupied(nx,ny,w))continue;
+              const pending=walkers.filter(o=>o!==w&&o.seg).map(o=>[o.seg.x,o.seg.y]);
+              if(ctx.canStand&&!ctx.canStand(w.t.id,nx,ny,pending))continue; // 길목을 막아 다른 곳을 못 가게 만드는 칸은 피함
               w.face=d;w.seg={x:nx,y:ny,t0:now};moved=true;break;
             }
             if(!moved){w.next=now+800+Math.random()*1500;place(w,w.x,w.y,IDLE_FRAME);}

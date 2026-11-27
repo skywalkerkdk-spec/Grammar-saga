@@ -69,10 +69,17 @@ function complete(event,steps,settings={}){
       back?.();
     }
     if(task) {
-      const wrong=task.options.find((_,i)=>i!==task.correct_index);
-      screenButton(text=>text===wrong).action();
-      assert.equal(state.stages?.[event.id]||0,index,'Wrong response moved '+event.id);
-      screenButton(text=>text===task.options[task.correct_index]).action();
+      if(task.choice) {
+        assert.ok(task.options.length===task.reactions?.length,'Every choice needs a reaction '+event.id);
+        screenButton(text=>text===task.options[0]).action();
+        assert.ok(currentDialogue.lines.every(line=>line.en&&line.ko&&line.chunks.length));
+        currentDialogue.done();
+      } else {
+        const wrong=task.options.find((_,i)=>i!==task.correct_index);
+        screenButton(text=>text===wrong).action();
+        assert.equal(state.stages?.[event.id]||0,index,'Wrong response moved '+event.id);
+        screenButton(text=>text===task.options[task.correct_index]).action();
+      }
     }
     assert.equal(state.stages[event.id],index+1,event.id);
   }
@@ -95,5 +102,5 @@ for(const room of data.CHAPTER2_CLOSURE_AND_EXPLORATION.vaults)complete(room,[
 ]);
 for(const event of data.COMPANION_AND_OFFICER_DEPTH.arcs)complete(event,event.scenes,{title:event.character+' · 동료 이야기'});
 assert.equal(Object.keys(state.souvenirs).length,30);
-assert.equal(Object.keys(state.flags).length,136);
+assert.equal(Object.keys(state.flags).length,139);
 console.log('Passed 136 narrative routes and '+saves+' stage save operations.');

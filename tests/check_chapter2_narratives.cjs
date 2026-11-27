@@ -102,5 +102,5 @@ for(const room of data.CHAPTER2_CLOSURE_AND_EXPLORATION.vaults)complete(room,[
 ]);
 for(const event of data.COMPANION_AND_OFFICER_DEPTH.arcs)complete(event,event.scenes,{title:event.character+' · 동료 이야기'});
 assert.equal(Object.keys(state.souvenirs).length,30);
-assert.equal(Object.keys(state.flags).length,160);
+assert.equal(Object.keys(state.flags).length,163);
 console.log('Passed 136 narrative routes and '+saves+' stage save operations.');

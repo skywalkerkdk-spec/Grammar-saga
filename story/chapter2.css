@@ -64,3 +64,19 @@
 .c2-field-extra span{max-width:86px;overflow:hidden;text-overflow:ellipsis}
 .c2-next-step{margin:8px 0;padding:8px 10px;border-left:3px solid #e4b868;background:#28354a;color:#fff0cc}
 .c2-next-step p{margin:5px 0}
+.c2-field-dialogue{width:min(calc(100% - 12px),760px);max-height:78dvh}
+.c2-quest-dialogue{max-height:84dvh}
+.c2-speaker-identity{display:grid;gap:3px;min-width:0}
+.c2-speaker-name{color:#ffe0a3}
+.c2-speaker-job,.c2-field-extra small{color:#9de3ee}
+.c2-field-extra small{display:block;line-height:1.2}
+.c2-field-speaker{gap:12px}
+.c2-field-speaker .c2-speaker-name{font-size:1.25rem}
+.c2-speaker-photo{flex:none;width:66px;height:66px;display:grid;place-items:center;border-radius:10px;overflow:hidden;background:#263952}
+.c2-field-speaker .c2-speaker-photo img{width:100%;height:100%;object-fit:contain}
+.c2-quest-dialogue .c2-speaker-photo{width:clamp(92px,28vw,148px);height:clamp(88px,25vw,130px);display:block;background:radial-gradient(ellipse,#536183,#26334a 75%)}
+.c2-quest-dialogue .c2-speaker-photo img{width:100%;height:auto;display:block;transform:scale(1.68);transform-origin:50% 0}
+.c2-talk-label{color:#a9d4ff;font-weight:700;font-size:.82rem}
+.c2-quest-dialogue .c2-talk-label,.c2-dialogue-quest-title{color:#ffe0a3}
+.c2-dialogue-quest-title{font-weight:700;overflow-wrap:anywhere}
+.c2-talk-menu .c2-body>button{margin:4px}

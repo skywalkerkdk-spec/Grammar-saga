@@ -74,6 +74,7 @@
     const field=docked ? dialogue : null;
     if (!field && dialogue?.open) closeDialogue();
     dialogue=node('dialog',undefined,docked?'c2-dialog c2-field-dialogue':'c2-dialog');
+    if(docked&&options.questTitle)dialogue.classList.add('c2-quest-dialogue');
     dialogue.setAttribute('aria-label',docked ? displayName(lines[0].speaker_en,lines[0].speaker) : title);
     document.body.append(dialogue);
     let index=0;
@@ -118,16 +119,23 @@
       }
       const content=node('div',undefined,'c2-lines');
       content.setAttribute('aria-live','polite');
-      const speaker=node('strong',displayName(line.speaker_en,line.speaker));
+      const speaker=node('strong',line.speakerName||displayName(line.speaker_en,line.speaker),'c2-speaker-name');
       if (docked) {
         const header=node('div',undefined,'c2-field-speaker');
         if (options.field) {
           const portrait=node('img');
           portrait.src=options.field;
           portrait.alt='';
-          header.append(portrait);
+          const frame=node('div',undefined,'c2-speaker-photo');
+          frame.append(portrait);
+          header.append(frame);
         }
-        header.append(speaker);
+        const identity=node('div',undefined,'c2-speaker-identity');
+        identity.append(node('span',options.questTitle?'퀘스트 대화':'일반 대화','c2-talk-label'));
+        if(options.questTitle)identity.append(node('span',options.questTitle,'c2-dialogue-quest-title'));
+        if(line.speakerJob)identity.append(node('span',line.speakerJob,'c2-speaker-job'));
+        identity.append(speaker);
+        header.append(identity);
         content.append(header);
       } else content.append(speaker);
       const languages=mode==='english' ? ['en'] : ['en','ko'];
@@ -225,6 +233,25 @@
     return body;
   }
 
+  function conversationMenu(npc) {
+    const field=dialogue;
+    dialogue=node('dialog',undefined,'c2-dialog c2-field-dialogue c2-talk-menu');
+    dialogue.setAttribute('aria-label',npc.en+' 대화 선택');
+    const body=node('div',undefined,'c2-body');
+    const close=()=>{
+      closeDialogue();
+      if(field?.open)dialogue=field;
+    };
+    const title=node('h2',npc.name,'c2-speaker-name');
+    if(npc.job)title.prepend(node('span',npc.job+' ','c2-speaker-job'));
+    body.append(title,button('닫기',close));
+    dialogue.append(body);
+    dialogue.addEventListener('cancel',event=>{event.preventDefault();close();});
+    document.body.append(dialogue);
+    dialogue.showModal();
+    return {body,close};
+  }
+
   function worldProgress() {
     const world=SV.chapter2World ||= {version:1};
     world.flags ||= {};
@@ -281,7 +308,7 @@
       },
       volumeRead:id=>!!worldProgress().reading?.read?.[id],startHideout,
       field:(body,map,targets)=>window.openChapterField(body,map,isRpgM()?rhero():lhero(),targets),
-      koreanVisible:()=>reading.mode!=='english',
+      koreanVisible:()=>reading.mode!=='english',conversationMenu,portraitFor:extraPortrait,
     },data);
     registerHideouts(data.CHAPTER2_FINAL_EXPANSION.lairs);
   }
@@ -542,7 +569,7 @@
         const select=body.querySelector('select[aria-label="탐험 목적지"]');
         if(!select)return;
         select.value=guide.npcId;
-        select.dispatchEvent(new Event('change'));
+        select.dispatchEvent(new CustomEvent('change',{detail:{guide:true}}));
       }));
     }else if(guide.town==='library'){
       notice.append(button('대도서관으로',library));
@@ -556,6 +583,13 @@
     body.append(notice);
   }
 
+  function extraPortrait(id) {
+    const [town,,number]=id.split('_');
+    const portraits=['tn-0','g2-0','pf-0','sx-1','rp-2','ps-0','sj-1','ng-0','rs-0','cp-1','iv-1','ot-0','md-3','pe-0','pn-0','rv-0'];
+    const available=portraits.filter(name=>!name.startsWith(town+'-'));
+    return 'story/maps/villages/'+available[number?Number(number)-1:10]+'.webp';
+  }
+
   function townResidentsOnMap(episode,map,targets,back) {
     if(!chapterWorld)return {map,targets};
     const points={...map.points};
@@ -563,20 +597,18 @@
     for(const [y,row] of map.tiles.entries())for(const [x,tile] of [...row].entries()){
       if(tile==='.' && [[0,1],[1,0],[0,-1],[-1,0]].filter(([dx,dy])=>map.tiles[y+dy]?.[x+dx]==='.').length>=2) choices.push([x,y]);
     }
-    const portraits=['tn-0','g2-0','pf-0','sx-1','rp-2','ps-0','sj-1','ng-0','rs-0','cp-1','iv-1','ot-0','md-3','pe-0','pn-0','rv-0'];
-    const available=portraits.filter(name=>!name.startsWith(episode.id+'-'));
     const residents=chapterWorld.residentsForTown(episode.id);
     const extras=[];
     // Keep existing actors and exits in place. Spread new actors across open ground.
-    for(const [i,npc] of residents.entries()){
+    for(const npc of residents){
       const occupied=[map.spawn,...Object.values(points)];
       const distance=([x,y])=>Math.min(...occupied.map(([a,b])=>Math.hypot(x-a,y-b)));
       const point=choices.reduce((best,tile)=>distance(tile)>distance(best)?tile:best,choices[0]);
       if(!point||distance(point)===0)throw new Error('No resident placement for '+npc.id);
       points[npc.id]=point;
-      const image='story/maps/villages/'+available[i]+'.webp';
-      extras.push({id:npc.id,label:npc.en+' · '+npc.ko,caption:npc.en,image,
-        action:()=>chapterWorld.meetResident(npc.id,image,back)});
+      const image=extraPortrait(npc.id);
+      extras.push({id:npc.id,label:npc.en+' · '+npc.ko,caption:npc.name,job:npc.job,image,
+        action:detail=>chapterWorld.meetResident(npc.id,image,back,!!detail?.guide)});
     }
     return {map:{...map,points},targets:[...targets,...extras]};
   }

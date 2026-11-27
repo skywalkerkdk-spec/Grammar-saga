@@ -5,7 +5,12 @@ window.createChapterWorld = function(api, data) {
   const townResidents=new Map();
   const addResident=(id,town,en,ko,role)=>{
     if (residents.has(id)) throw new Error('Duplicate resident '+id);
-    const resident={id,town,en,ko,role};
+    const boundary=en.lastIndexOf(' ');
+    const name=boundary>0?en.slice(boundary+1):en;
+    const jobEn=boundary>0?en.slice(0,boundary):'';
+    const jobKo={Baker:'제빵사',Miller:'방앗간지기',Courier:'배달부',Gardener:'정원사',Shepherd:'양치기',Cook:'요리사',Waiter:'식당 종업원'}[jobEn];
+    const job=jobKo||jobEn;
+    const resident={id,town,en,ko,role,name,job};
     residents.set(id,resident);
     if(!townResidents.has(town)) townResidents.set(town,[]);
     townResidents.get(town).push(resident);
@@ -38,6 +43,7 @@ window.createChapterWorld = function(api, data) {
     return {
       ...text,speaker:npc?.ko||named?.ko||key||'이야기',
       speaker_en:npc?.en||named?.en||key||'Narrator',
+      speakerName:npc?.name,speakerJob:npc?.job,
       chunks:lineChunks(text),
     };
   };
@@ -209,6 +215,7 @@ window.createChapterWorld = function(api, data) {
     };
     const openEvidence=()=>{
       if(stage.lines.length)show(event.title,stage.lines,stage.task?null:proceed,stage.task?ask:null,{skip:false,cancel:back,dock:!!stage.npc,field:portrait,confirm:true,
+        questTitle:event.title,
         nextHint:stage.task?'이 대화를 마치면 단서를 확인하는 문제가 나옵니다.'
           : nextStep(event,index+1)?.text||'이야기가 마무리됩니다.'});
       else ask();
@@ -249,9 +256,9 @@ window.createChapterWorld = function(api, data) {
   }
   function resident(npc,back) {
     const body=panel(label(npc),back,'주민 목록으로');
-    for(const event of active(npc.town,npc.id))body.append(button(event.title,()=>openQuest(event,cursor(event.id),()=>resident(npc,back))));
+    for(const event of active(npc.town,npc.id))body.append(button(event.title,()=>openQuest(event,cursor(event.id),()=>resident(npc,back),api.portraitFor?.(npc.id))));
     for(const event of events)if(flag(event.finish)&&event.after?.npc===npc.id) {
-      body.append(button(event.title+' · 후일담',()=>show(event.title,[localized(event.after,npc.id)],null,()=>resident(npc,back),{dock:true,skip:false})));
+      body.append(button(event.title+' · 후일담',()=>show(event.title,[localized(event.after,npc.id)],null,()=>resident(npc,back),{dock:true,field:api.portraitFor?.(npc.id),questTitle:event.title,skip:false})));
     }
     if(daily.has(npc.id)&&recovered(npc.town))body.append(button('일상 대화',()=>dailyLine(npc,()=>resident(npc,back))));
     for(const merchant of merchants.filter(item=>item.npc===npc.id&&flag(item.requires))){
@@ -315,21 +322,27 @@ window.createChapterWorld = function(api, data) {
     const line=close.finale.find(item=>item.id==='phase'+(index+1));
     return line&&localized(line);
   }
-  function meetResident(id,portrait,back) {
+  function meetResident(id,portrait,back,guide=false) {
     const npc=residents.get(id);
     if(!npc)return;
     const routes=active(npc.town,id);
-    const event=routes.find(route=>route.id===state().trackedStory)||routes.find(route=>cursor(route.id)>0)||
-      routes.find(route=>route.group==='지역')||routes[0];
-    if(event)openQuest(event,cursor(event.id),back,portrait);
-    else if(daily.has(id))dailyLine(npc,null,portrait);
-    else {
+    const tracked=routes.find(route=>route.id===state().trackedStory);
+    if(guide&&tracked){openQuest(tracked,cursor(tracked.id),back,portrait);return;}
+    const talk=()=>{
+      if(daily.has(id)){dailyLine(npc,null,portrait);return;}
       const greeting={
         en:'I am staying in this town. We may speak again later.',
         ko:'이 마을에 머물고 있어요. 나중에 다시 이야기할 수도 있겠군요.',
         chunks:[{en:'I am staying in this town.',ko:'이 마을에 머물고 있어요.'},{en:'We may speak again later.',ko:'나중에 다시 이야기할 수도 있겠군요.'}],
       };
       show(label(npc),[localized(greeting,id)],null,null,{field:portrait,skip:false});
+    };
+    if(!routes.length){talk();return;}
+    const {body,close}=api.conversationMenu(npc);
+    body.append(button('일반 대화',()=>{close();talk();}));
+    body.append(node('p','퀘스트 대화','c2-talk-label'));
+    for(const event of routes){
+      body.append(button(event.title,()=>{close();openQuest(event,cursor(event.id),back,portrait);}));
     }
   }
   const residentsForTown=id=>townResidents.get(id)||[];

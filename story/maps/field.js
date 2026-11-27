@@ -24,9 +24,9 @@ window.openChapterField = function(container, map, hero, targets, options={}) {
   destinations.setAttribute('aria-label','탐험 목적지');
   destinations.add(new Option('목적지 선택',''));
   for (const target of targets) destinations.add(new Option(target.label,target.id));
-  destinations.onchange=()=>{
+  destinations.onchange=event=>{
     const target=targets.find(item=>item.id===destinations.value);
-    if (target) moveTo(...map.points[target.id],target.action);
+    if (target) moveTo(...map.points[target.id],()=>target.action(event.detail));
     destinations.value='';
   };
   container.append(destinations,viewport,controls,instructions);
@@ -175,7 +175,8 @@ window.openChapterField = function(container, map, hero, targets, options={}) {
       pin.append(sprite);
     }
     const label=document.createElement('span');
-    label.textContent=target.caption||target.label;
+    if(target.job)label.append(Object.assign(document.createElement('small'),{textContent:target.job}));
+    label.append(target.caption||target.label);
     pin.append(label);
     world.append(pin);
   }

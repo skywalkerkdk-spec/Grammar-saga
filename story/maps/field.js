@@ -158,9 +158,13 @@ window.openChapterField = function(container, map, hero, targets, options={}) {
     return el;
   }
 
+  const live={};
+  const pins={};
   for (const target of targets) {
     const [tx,ty]=map.points[target.id];
-    const pin=control('',()=>moveTo(tx,ty,target.action));
+    live[target.id]=[tx,ty];
+    const pin=control('',()=>moveTo(...live[target.id],target.action));
+    pins[target.id]=pin;
     pin.classList.add('c2-field-pin');
     pin.setAttribute('aria-label',target.label);
     pin.style.left=(tx+.5)*size+'px';
@@ -181,6 +185,7 @@ window.openChapterField = function(container, map, hero, targets, options={}) {
     world.append(pin);
   }
 
+  window.ChapterNpcWalk?.start({world,size,targets,live,pins,map,walkable,hero:()=>({x,y,target:segment?[segment.x,segment.y]:null})});
   const stick=control('',()=>{});
   stick.className='c2-field-stick';
   stick.setAttribute('aria-label','이동 조이스틱');
@@ -229,7 +234,7 @@ window.openChapterField = function(container, map, hero, targets, options={}) {
   controls.append(stick);
   const interact=control('상호작용',()=>{
     const target=targets.find(item=>{
-      const [tx,ty]=map.points[item.id];
+      const [tx,ty]=live[item.id]||map.points[item.id];
       return Math.abs(x-tx)+Math.abs(y-ty)<=1;
     });
     if (target && !segment) target.action();

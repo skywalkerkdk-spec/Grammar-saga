@@ -80,3 +80,5 @@
 .c2-quest-dialogue .c2-talk-label,.c2-dialogue-quest-title{color:#ffe0a3}
 .c2-dialogue-quest-title{font-weight:700;overflow-wrap:anywhere}
 .c2-talk-menu .c2-body>button{margin:4px}
+
+.c2-npc-sprite{width:56px;height:56px;background-size:800% 400%;background-repeat:no-repeat;filter:drop-shadow(0 2px 2px #1724119e);pointer-events:none}

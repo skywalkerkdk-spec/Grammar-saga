@@ -1,0 +1,2526 @@
+{
+  "version": "0.1",
+  "residents": [
+    {
+      "npc_id": "g1_extra_1",
+      "town": "g1",
+      "idle": {
+        "en": "I want visitors to feel welcome here.",
+        "ko": "방문객들이 이곳에서 환영받는다고 느끼면 좋겠어요."
+      },
+      "local_topic": {
+        "en": "The mill is busy before sunrise.",
+        "ko": "방앗간은 해 뜨기 전부터 바빠요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "g1_extra_2",
+      "town": "g1",
+      "idle": {
+        "en": "I check my stock before opening the shop.",
+        "ko": "가게를 열기 전에 재고를 확인해요."
+      },
+      "local_topic": {
+        "en": "The mill is busy before sunrise.",
+        "ko": "방앗간은 해 뜨기 전부터 바빠요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "g1_extra_3",
+      "town": "g1",
+      "idle": {
+        "en": "I keep a clean room for tired guests.",
+        "ko": "지친 손님을 위해 깨끗한 방을 마련해요."
+      },
+      "local_topic": {
+        "en": "The mill is busy before sunrise.",
+        "ko": "방앗간은 해 뜨기 전부터 바빠요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "g1_extra_4",
+      "town": "g1",
+      "idle": {
+        "en": "Please tell me if you notice a problem.",
+        "ko": "문제를 발견하면 알려 주세요."
+      },
+      "local_topic": {
+        "en": "The mill is busy before sunrise.",
+        "ko": "방앗간은 해 뜨기 전부터 바빠요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "g1_extra_5",
+      "town": "g1",
+      "idle": {
+        "en": "I test the flour before Belle uses it.",
+        "ko": "벨이 쓰기 전에 밀가루를 확인해요."
+      },
+      "local_topic": {
+        "en": "The mill is busy before sunrise.",
+        "ko": "방앗간은 해 뜨기 전부터 바빠요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "g1_extra_6",
+      "town": "g1",
+      "idle": {
+        "en": "I keep a little dough for tomorrow.",
+        "ko": "내일 쓸 반죽을 조금 남겨 둬요."
+      },
+      "local_topic": {
+        "en": "The mill is busy before sunrise.",
+        "ko": "방앗간은 해 뜨기 전부터 바빠요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "g1_extra_7",
+      "town": "g1",
+      "idle": {
+        "en": "I am saving time for a small project of my own.",
+        "ko": "제 작은 계획을 위해 시간을 내고 있어요."
+      },
+      "local_topic": {
+        "en": "The mill is busy before sunrise.",
+        "ko": "방앗간은 해 뜨기 전부터 바빠요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "g1_extra_8",
+      "town": "g1",
+      "idle": {
+        "en": "I want to learn something new today.",
+        "ko": "오늘은 새로운 것을 배우고 싶어요."
+      },
+      "local_topic": {
+        "en": "The mill is busy before sunrise.",
+        "ko": "방앗간은 해 뜨기 전부터 바빠요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "g1_extra_9",
+      "town": "g1",
+      "idle": {
+        "en": "I check the address before I leave.",
+        "ko": "떠나기 전에 주소를 확인해요."
+      },
+      "local_topic": {
+        "en": "The mill is busy before sunrise.",
+        "ko": "방앗간은 해 뜨기 전부터 바빠요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "g1_extra_10",
+      "town": "g1",
+      "idle": {
+        "en": "I like hearing stories from other villages.",
+        "ko": "다른 마을 이야기를 듣는 게 좋아요."
+      },
+      "local_topic": {
+        "en": "The mill is busy before sunrise.",
+        "ko": "방앗간은 해 뜨기 전부터 바빠요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "g2_extra_1",
+      "town": "g2",
+      "idle": {
+        "en": "I want visitors to feel welcome here.",
+        "ko": "방문객들이 이곳에서 환영받는다고 느끼면 좋겠어요."
+      },
+      "local_topic": {
+        "en": "The kitchen smells of fresh soup.",
+        "ko": "주방에서 갓 만든 수프 냄새가 나요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "g2_extra_2",
+      "town": "g2",
+      "idle": {
+        "en": "I check my stock before opening the shop.",
+        "ko": "가게를 열기 전에 재고를 확인해요."
+      },
+      "local_topic": {
+        "en": "The kitchen smells of fresh soup.",
+        "ko": "주방에서 갓 만든 수프 냄새가 나요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "g2_extra_3",
+      "town": "g2",
+      "idle": {
+        "en": "I keep a clean room for tired guests.",
+        "ko": "지친 손님을 위해 깨끗한 방을 마련해요."
+      },
+      "local_topic": {
+        "en": "The kitchen smells of fresh soup.",
+        "ko": "주방에서 갓 만든 수프 냄새가 나요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "g2_extra_4",
+      "town": "g2",
+      "idle": {
+        "en": "Please tell me if you notice a problem.",
+        "ko": "문제를 발견하면 알려 주세요."
+      },
+      "local_topic": {
+        "en": "The kitchen smells of fresh soup.",
+        "ko": "주방에서 갓 만든 수프 냄새가 나요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "g2_extra_5",
+      "town": "g2",
+      "idle": {
+        "en": "I repeat each order before taking it to the kitchen.",
+        "ko": "주방에 주문을 전달하기 전에 다시 확인해요."
+      },
+      "local_topic": {
+        "en": "The kitchen smells of fresh soup.",
+        "ko": "주방에서 갓 만든 수프 냄새가 나요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "g2_extra_6",
+      "town": "g2",
+      "idle": {
+        "en": "I sell the morning catch before noon.",
+        "ko": "아침에 잡은 생선을 정오 전에 팔아요."
+      },
+      "local_topic": {
+        "en": "The kitchen smells of fresh soup.",
+        "ko": "주방에서 갓 만든 수프 냄새가 나요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "g2_extra_7",
+      "town": "g2",
+      "idle": {
+        "en": "I am saving time for a small project of my own.",
+        "ko": "제 작은 계획을 위해 시간을 내고 있어요."
+      },
+      "local_topic": {
+        "en": "The kitchen smells of fresh soup.",
+        "ko": "주방에서 갓 만든 수프 냄새가 나요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "g2_extra_8",
+      "town": "g2",
+      "idle": {
+        "en": "I want to learn something new today.",
+        "ko": "오늘은 새로운 것을 배우고 싶어요."
+      },
+      "local_topic": {
+        "en": "The kitchen smells of fresh soup.",
+        "ko": "주방에서 갓 만든 수프 냄새가 나요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "g2_extra_9",
+      "town": "g2",
+      "idle": {
+        "en": "I check the address before I leave.",
+        "ko": "떠나기 전에 주소를 확인해요."
+      },
+      "local_topic": {
+        "en": "The kitchen smells of fresh soup.",
+        "ko": "주방에서 갓 만든 수프 냄새가 나요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "g2_extra_10",
+      "town": "g2",
+      "idle": {
+        "en": "I like hearing stories from other villages.",
+        "ko": "다른 마을 이야기를 듣는 게 좋아요."
+      },
+      "local_topic": {
+        "en": "The kitchen smells of fresh soup.",
+        "ko": "주방에서 갓 만든 수프 냄새가 나요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "tn_extra_1",
+      "town": "tn",
+      "idle": {
+        "en": "I want visitors to feel welcome here.",
+        "ko": "방문객들이 이곳에서 환영받는다고 느끼면 좋겠어요."
+      },
+      "local_topic": {
+        "en": "The clock in the square is our meeting point.",
+        "ko": "광장의 시계가 우리 만남의 장소예요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "tn_extra_2",
+      "town": "tn",
+      "idle": {
+        "en": "I check my stock before opening the shop.",
+        "ko": "가게를 열기 전에 재고를 확인해요."
+      },
+      "local_topic": {
+        "en": "The clock in the square is our meeting point.",
+        "ko": "광장의 시계가 우리 만남의 장소예요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "tn_extra_3",
+      "town": "tn",
+      "idle": {
+        "en": "I keep a clean room for tired guests.",
+        "ko": "지친 손님을 위해 깨끗한 방을 마련해요."
+      },
+      "local_topic": {
+        "en": "The clock in the square is our meeting point.",
+        "ko": "광장의 시계가 우리 만남의 장소예요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "tn_extra_4",
+      "town": "tn",
+      "idle": {
+        "en": "Please tell me if you notice a problem.",
+        "ko": "문제를 발견하면 알려 주세요."
+      },
+      "local_topic": {
+        "en": "The clock in the square is our meeting point.",
+        "ko": "광장의 시계가 우리 만남의 장소예요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "tn_extra_5",
+      "town": "tn",
+      "idle": {
+        "en": "A clock can be slow even when its hands look fine.",
+        "ko": "시곗바늘이 멀쩡해 보여도 시계가 느릴 수 있어요."
+      },
+      "local_topic": {
+        "en": "The clock in the square is our meeting point.",
+        "ko": "광장의 시계가 우리 만남의 장소예요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "tn_extra_6",
+      "town": "tn",
+      "idle": {
+        "en": "I keep spare thread in my pocket.",
+        "ko": "주머니에 여분의 실을 넣어 둬요."
+      },
+      "local_topic": {
+        "en": "The clock in the square is our meeting point.",
+        "ko": "광장의 시계가 우리 만남의 장소예요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "tn_extra_7",
+      "town": "tn",
+      "idle": {
+        "en": "I am saving time for a small project of my own.",
+        "ko": "제 작은 계획을 위해 시간을 내고 있어요."
+      },
+      "local_topic": {
+        "en": "The clock in the square is our meeting point.",
+        "ko": "광장의 시계가 우리 만남의 장소예요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "tn_extra_8",
+      "town": "tn",
+      "idle": {
+        "en": "I want to learn something new today.",
+        "ko": "오늘은 새로운 것을 배우고 싶어요."
+      },
+      "local_topic": {
+        "en": "The clock in the square is our meeting point.",
+        "ko": "광장의 시계가 우리 만남의 장소예요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "tn_extra_9",
+      "town": "tn",
+      "idle": {
+        "en": "I check the address before I leave.",
+        "ko": "떠나기 전에 주소를 확인해요."
+      },
+      "local_topic": {
+        "en": "The clock in the square is our meeting point.",
+        "ko": "광장의 시계가 우리 만남의 장소예요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "tn_extra_10",
+      "town": "tn",
+      "idle": {
+        "en": "I like hearing stories from other villages.",
+        "ko": "다른 마을 이야기를 듣는 게 좋아요."
+      },
+      "local_topic": {
+        "en": "The clock in the square is our meeting point.",
+        "ko": "광장의 시계가 우리 만남의 장소예요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "md_extra_1",
+      "town": "md",
+      "idle": {
+        "en": "I want visitors to feel welcome here.",
+        "ko": "방문객들이 이곳에서 환영받는다고 느끼면 좋겠어요."
+      },
+      "local_topic": {
+        "en": "The river rises after heavy rain.",
+        "ko": "폭우 뒤에는 강물이 불어나요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "md_extra_2",
+      "town": "md",
+      "idle": {
+        "en": "I check my stock before opening the shop.",
+        "ko": "가게를 열기 전에 재고를 확인해요."
+      },
+      "local_topic": {
+        "en": "The river rises after heavy rain.",
+        "ko": "폭우 뒤에는 강물이 불어나요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "md_extra_3",
+      "town": "md",
+      "idle": {
+        "en": "I keep a clean room for tired guests.",
+        "ko": "지친 손님을 위해 깨끗한 방을 마련해요."
+      },
+      "local_topic": {
+        "en": "The river rises after heavy rain.",
+        "ko": "폭우 뒤에는 강물이 불어나요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "md_extra_4",
+      "town": "md",
+      "idle": {
+        "en": "Please tell me if you notice a problem.",
+        "ko": "문제를 발견하면 알려 주세요."
+      },
+      "local_topic": {
+        "en": "The river rises after heavy rain.",
+        "ko": "폭우 뒤에는 강물이 불어나요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "md_extra_5",
+      "town": "md",
+      "idle": {
+        "en": "I check the river before taking passengers.",
+        "ko": "손님을 태우기 전에 강을 확인해요."
+      },
+      "local_topic": {
+        "en": "The river rises after heavy rain.",
+        "ko": "폭우 뒤에는 강물이 불어나요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "md_extra_6",
+      "town": "md",
+      "idle": {
+        "en": "I choose dry wood for my repairs.",
+        "ko": "수리에는 마른 나무를 골라요."
+      },
+      "local_topic": {
+        "en": "The river rises after heavy rain.",
+        "ko": "폭우 뒤에는 강물이 불어나요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "md_extra_7",
+      "town": "md",
+      "idle": {
+        "en": "I am saving time for a small project of my own.",
+        "ko": "제 작은 계획을 위해 시간을 내고 있어요."
+      },
+      "local_topic": {
+        "en": "The river rises after heavy rain.",
+        "ko": "폭우 뒤에는 강물이 불어나요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "md_extra_8",
+      "town": "md",
+      "idle": {
+        "en": "I want to learn something new today.",
+        "ko": "오늘은 새로운 것을 배우고 싶어요."
+      },
+      "local_topic": {
+        "en": "The river rises after heavy rain.",
+        "ko": "폭우 뒤에는 강물이 불어나요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "md_extra_9",
+      "town": "md",
+      "idle": {
+        "en": "I check the address before I leave.",
+        "ko": "떠나기 전에 주소를 확인해요."
+      },
+      "local_topic": {
+        "en": "The river rises after heavy rain.",
+        "ko": "폭우 뒤에는 강물이 불어나요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "md_extra_10",
+      "town": "md",
+      "idle": {
+        "en": "I like hearing stories from other villages.",
+        "ko": "다른 마을 이야기를 듣는 게 좋아요."
+      },
+      "local_topic": {
+        "en": "The river rises after heavy rain.",
+        "ko": "폭우 뒤에는 강물이 불어나요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "rp_extra_1",
+      "town": "rp",
+      "idle": {
+        "en": "I want visitors to feel welcome here.",
+        "ko": "방문객들이 이곳에서 환영받는다고 느끼면 좋겠어요."
+      },
+      "local_topic": {
+        "en": "The forest paths change with the seasons.",
+        "ko": "숲길은 계절에 따라 달라져요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "rp_extra_2",
+      "town": "rp",
+      "idle": {
+        "en": "I check my stock before opening the shop.",
+        "ko": "가게를 열기 전에 재고를 확인해요."
+      },
+      "local_topic": {
+        "en": "The forest paths change with the seasons.",
+        "ko": "숲길은 계절에 따라 달라져요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "rp_extra_3",
+      "town": "rp",
+      "idle": {
+        "en": "I keep a clean room for tired guests.",
+        "ko": "지친 손님을 위해 깨끗한 방을 마련해요."
+      },
+      "local_topic": {
+        "en": "The forest paths change with the seasons.",
+        "ko": "숲길은 계절에 따라 달라져요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "rp_extra_4",
+      "town": "rp",
+      "idle": {
+        "en": "Please tell me if you notice a problem.",
+        "ko": "문제를 발견하면 알려 주세요."
+      },
+      "local_topic": {
+        "en": "The forest paths change with the seasons.",
+        "ko": "숲길은 계절에 따라 달라져요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "rp_extra_5",
+      "town": "rp",
+      "idle": {
+        "en": "I balance the load before moving my cart.",
+        "ko": "수레를 움직이기 전에 짐의 균형을 맞춰요."
+      },
+      "local_topic": {
+        "en": "The forest paths change with the seasons.",
+        "ko": "숲길은 계절에 따라 달라져요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "rp_extra_6",
+      "town": "rp",
+      "idle": {
+        "en": "I mark paths that I have checked myself.",
+        "ko": "직접 확인한 길을 표시해요."
+      },
+      "local_topic": {
+        "en": "The forest paths change with the seasons.",
+        "ko": "숲길은 계절에 따라 달라져요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "rp_extra_7",
+      "town": "rp",
+      "idle": {
+        "en": "I am saving time for a small project of my own.",
+        "ko": "제 작은 계획을 위해 시간을 내고 있어요."
+      },
+      "local_topic": {
+        "en": "The forest paths change with the seasons.",
+        "ko": "숲길은 계절에 따라 달라져요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "rp_extra_8",
+      "town": "rp",
+      "idle": {
+        "en": "I want to learn something new today.",
+        "ko": "오늘은 새로운 것을 배우고 싶어요."
+      },
+      "local_topic": {
+        "en": "The forest paths change with the seasons.",
+        "ko": "숲길은 계절에 따라 달라져요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "rp_extra_9",
+      "town": "rp",
+      "idle": {
+        "en": "I check the address before I leave.",
+        "ko": "떠나기 전에 주소를 확인해요."
+      },
+      "local_topic": {
+        "en": "The forest paths change with the seasons.",
+        "ko": "숲길은 계절에 따라 달라져요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "rp_extra_10",
+      "town": "rp",
+      "idle": {
+        "en": "I like hearing stories from other villages.",
+        "ko": "다른 마을 이야기를 듣는 게 좋아요."
+      },
+      "local_topic": {
+        "en": "The forest paths change with the seasons.",
+        "ko": "숲길은 계절에 따라 달라져요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "ps_extra_1",
+      "town": "ps",
+      "idle": {
+        "en": "I want visitors to feel welcome here.",
+        "ko": "방문객들이 이곳에서 환영받는다고 느끼면 좋겠어요."
+      },
+      "local_topic": {
+        "en": "The lake is quiet in the early morning.",
+        "ko": "이른 아침에는 호수가 고요해요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "ps_extra_2",
+      "town": "ps",
+      "idle": {
+        "en": "I check my stock before opening the shop.",
+        "ko": "가게를 열기 전에 재고를 확인해요."
+      },
+      "local_topic": {
+        "en": "The lake is quiet in the early morning.",
+        "ko": "이른 아침에는 호수가 고요해요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "ps_extra_3",
+      "town": "ps",
+      "idle": {
+        "en": "I keep a clean room for tired guests.",
+        "ko": "지친 손님을 위해 깨끗한 방을 마련해요."
+      },
+      "local_topic": {
+        "en": "The lake is quiet in the early morning.",
+        "ko": "이른 아침에는 호수가 고요해요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "ps_extra_4",
+      "town": "ps",
+      "idle": {
+        "en": "Please tell me if you notice a problem.",
+        "ko": "문제를 발견하면 알려 주세요."
+      },
+      "local_topic": {
+        "en": "The lake is quiet in the early morning.",
+        "ko": "이른 아침에는 호수가 고요해요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "ps_extra_5",
+      "town": "ps",
+      "idle": {
+        "en": "I tie my boat before leaving the dock.",
+        "ko": "부두를 떠나기 전에 배를 묶어요."
+      },
+      "local_topic": {
+        "en": "The lake is quiet in the early morning.",
+        "ko": "이른 아침에는 호수가 고요해요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "ps_extra_6",
+      "town": "ps",
+      "idle": {
+        "en": "I write the source of every donated book.",
+        "ko": "기증받은 책마다 출처를 기록해요."
+      },
+      "local_topic": {
+        "en": "The lake is quiet in the early morning.",
+        "ko": "이른 아침에는 호수가 고요해요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "ps_extra_7",
+      "town": "ps",
+      "idle": {
+        "en": "I am saving time for a small project of my own.",
+        "ko": "제 작은 계획을 위해 시간을 내고 있어요."
+      },
+      "local_topic": {
+        "en": "The lake is quiet in the early morning.",
+        "ko": "이른 아침에는 호수가 고요해요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "ps_extra_8",
+      "town": "ps",
+      "idle": {
+        "en": "I want to learn something new today.",
+        "ko": "오늘은 새로운 것을 배우고 싶어요."
+      },
+      "local_topic": {
+        "en": "The lake is quiet in the early morning.",
+        "ko": "이른 아침에는 호수가 고요해요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "ps_extra_9",
+      "town": "ps",
+      "idle": {
+        "en": "I check the address before I leave.",
+        "ko": "떠나기 전에 주소를 확인해요."
+      },
+      "local_topic": {
+        "en": "The lake is quiet in the early morning.",
+        "ko": "이른 아침에는 호수가 고요해요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "ps_extra_10",
+      "town": "ps",
+      "idle": {
+        "en": "I like hearing stories from other villages.",
+        "ko": "다른 마을 이야기를 듣는 게 좋아요."
+      },
+      "local_topic": {
+        "en": "The lake is quiet in the early morning.",
+        "ko": "이른 아침에는 호수가 고요해요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "pf_extra_1",
+      "town": "pf",
+      "idle": {
+        "en": "I want visitors to feel welcome here.",
+        "ko": "방문객들이 이곳에서 환영받는다고 느끼면 좋겠어요."
+      },
+      "local_topic": {
+        "en": "Travelers rest near the well.",
+        "ko": "여행자들은 우물 근처에서 쉬어요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "pf_extra_2",
+      "town": "pf",
+      "idle": {
+        "en": "I check my stock before opening the shop.",
+        "ko": "가게를 열기 전에 재고를 확인해요."
+      },
+      "local_topic": {
+        "en": "Travelers rest near the well.",
+        "ko": "여행자들은 우물 근처에서 쉬어요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "pf_extra_3",
+      "town": "pf",
+      "idle": {
+        "en": "I keep a clean room for tired guests.",
+        "ko": "지친 손님을 위해 깨끗한 방을 마련해요."
+      },
+      "local_topic": {
+        "en": "Travelers rest near the well.",
+        "ko": "여행자들은 우물 근처에서 쉬어요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "pf_extra_4",
+      "town": "pf",
+      "idle": {
+        "en": "Please tell me if you notice a problem.",
+        "ko": "문제를 발견하면 알려 주세요."
+      },
+      "local_topic": {
+        "en": "Travelers rest near the well.",
+        "ko": "여행자들은 우물 근처에서 쉬어요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "pf_extra_5",
+      "town": "pf",
+      "idle": {
+        "en": "I keep letters dry and sorted.",
+        "ko": "편지를 젖지 않게 분류해 보관해요."
+      },
+      "local_topic": {
+        "en": "Travelers rest near the well.",
+        "ko": "여행자들은 우물 근처에서 쉬어요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "pf_extra_6",
+      "town": "pf",
+      "idle": {
+        "en": "I refill the water jars every morning.",
+        "ko": "매일 아침 물 항아리를 채워요."
+      },
+      "local_topic": {
+        "en": "Travelers rest near the well.",
+        "ko": "여행자들은 우물 근처에서 쉬어요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "pf_extra_7",
+      "town": "pf",
+      "idle": {
+        "en": "I am saving time for a small project of my own.",
+        "ko": "제 작은 계획을 위해 시간을 내고 있어요."
+      },
+      "local_topic": {
+        "en": "Travelers rest near the well.",
+        "ko": "여행자들은 우물 근처에서 쉬어요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "pf_extra_8",
+      "town": "pf",
+      "idle": {
+        "en": "I want to learn something new today.",
+        "ko": "오늘은 새로운 것을 배우고 싶어요."
+      },
+      "local_topic": {
+        "en": "Travelers rest near the well.",
+        "ko": "여행자들은 우물 근처에서 쉬어요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "pf_extra_9",
+      "town": "pf",
+      "idle": {
+        "en": "I check the address before I leave.",
+        "ko": "떠나기 전에 주소를 확인해요."
+      },
+      "local_topic": {
+        "en": "Travelers rest near the well.",
+        "ko": "여행자들은 우물 근처에서 쉬어요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "pf_extra_10",
+      "town": "pf",
+      "idle": {
+        "en": "I like hearing stories from other villages.",
+        "ko": "다른 마을 이야기를 듣는 게 좋아요."
+      },
+      "local_topic": {
+        "en": "Travelers rest near the well.",
+        "ko": "여행자들은 우물 근처에서 쉬어요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "rv_extra_1",
+      "town": "rv",
+      "idle": {
+        "en": "I want visitors to feel welcome here.",
+        "ko": "방문객들이 이곳에서 환영받는다고 느끼면 좋겠어요."
+      },
+      "local_topic": {
+        "en": "The harbor bell rings in the evening.",
+        "ko": "저녁에는 항구의 종이 울려요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "rv_extra_2",
+      "town": "rv",
+      "idle": {
+        "en": "I check my stock before opening the shop.",
+        "ko": "가게를 열기 전에 재고를 확인해요."
+      },
+      "local_topic": {
+        "en": "The harbor bell rings in the evening.",
+        "ko": "저녁에는 항구의 종이 울려요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "rv_extra_3",
+      "town": "rv",
+      "idle": {
+        "en": "I keep a clean room for tired guests.",
+        "ko": "지친 손님을 위해 깨끗한 방을 마련해요."
+      },
+      "local_topic": {
+        "en": "The harbor bell rings in the evening.",
+        "ko": "저녁에는 항구의 종이 울려요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "rv_extra_4",
+      "town": "rv",
+      "idle": {
+        "en": "Please tell me if you notice a problem.",
+        "ko": "문제를 발견하면 알려 주세요."
+      },
+      "local_topic": {
+        "en": "The harbor bell rings in the evening.",
+        "ko": "저녁에는 항구의 종이 울려요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "rv_extra_5",
+      "town": "rv",
+      "idle": {
+        "en": "I leave blank spaces where the map is uncertain.",
+        "ko": "확실하지 않은 곳은 지도에 빈칸으로 남겨요."
+      },
+      "local_topic": {
+        "en": "The harbor bell rings in the evening.",
+        "ko": "저녁에는 항구의 종이 울려요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "rv_extra_6",
+      "town": "rv",
+      "idle": {
+        "en": "I check the bell rope before evening.",
+        "ko": "저녁 전에 종의 밧줄을 확인해요."
+      },
+      "local_topic": {
+        "en": "The harbor bell rings in the evening.",
+        "ko": "저녁에는 항구의 종이 울려요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "rv_extra_7",
+      "town": "rv",
+      "idle": {
+        "en": "I am saving time for a small project of my own.",
+        "ko": "제 작은 계획을 위해 시간을 내고 있어요."
+      },
+      "local_topic": {
+        "en": "The harbor bell rings in the evening.",
+        "ko": "저녁에는 항구의 종이 울려요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "rv_extra_8",
+      "town": "rv",
+      "idle": {
+        "en": "I want to learn something new today.",
+        "ko": "오늘은 새로운 것을 배우고 싶어요."
+      },
+      "local_topic": {
+        "en": "The harbor bell rings in the evening.",
+        "ko": "저녁에는 항구의 종이 울려요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "rv_extra_9",
+      "town": "rv",
+      "idle": {
+        "en": "I check the address before I leave.",
+        "ko": "떠나기 전에 주소를 확인해요."
+      },
+      "local_topic": {
+        "en": "The harbor bell rings in the evening.",
+        "ko": "저녁에는 항구의 종이 울려요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "rv_extra_10",
+      "town": "rv",
+      "idle": {
+        "en": "I like hearing stories from other villages.",
+        "ko": "다른 마을 이야기를 듣는 게 좋아요."
+      },
+      "local_topic": {
+        "en": "The harbor bell rings in the evening.",
+        "ko": "저녁에는 항구의 종이 울려요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "pc_extra_1",
+      "town": "pc",
+      "idle": {
+        "en": "I want visitors to feel welcome here.",
+        "ko": "방문객들이 이곳에서 환영받는다고 느끼면 좋겠어요."
+      },
+      "local_topic": {
+        "en": "Old inscriptions are easy to damage.",
+        "ko": "옛 비문은 쉽게 손상돼요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "pc_extra_2",
+      "town": "pc",
+      "idle": {
+        "en": "I check my stock before opening the shop.",
+        "ko": "가게를 열기 전에 재고를 확인해요."
+      },
+      "local_topic": {
+        "en": "Old inscriptions are easy to damage.",
+        "ko": "옛 비문은 쉽게 손상돼요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "pc_extra_3",
+      "town": "pc",
+      "idle": {
+        "en": "I keep a clean room for tired guests.",
+        "ko": "지친 손님을 위해 깨끗한 방을 마련해요."
+      },
+      "local_topic": {
+        "en": "Old inscriptions are easy to damage.",
+        "ko": "옛 비문은 쉽게 손상돼요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "pc_extra_4",
+      "town": "pc",
+      "idle": {
+        "en": "Please tell me if you notice a problem.",
+        "ko": "문제를 발견하면 알려 주세요."
+      },
+      "local_topic": {
+        "en": "Old inscriptions are easy to damage.",
+        "ko": "옛 비문은 쉽게 손상돼요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "pc_extra_5",
+      "town": "pc",
+      "idle": {
+        "en": "I never guess a missing letter on a stone.",
+        "ko": "돌에 없는 글자를 함부로 추측하지 않아요."
+      },
+      "local_topic": {
+        "en": "Old inscriptions are easy to damage.",
+        "ko": "옛 비문은 쉽게 손상돼요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "pc_extra_6",
+      "town": "pc",
+      "idle": {
+        "en": "I mark damaged words in my copies.",
+        "ko": "사본에 손상된 단어를 표시해요."
+      },
+      "local_topic": {
+        "en": "Old inscriptions are easy to damage.",
+        "ko": "옛 비문은 쉽게 손상돼요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "pc_extra_7",
+      "town": "pc",
+      "idle": {
+        "en": "I am saving time for a small project of my own.",
+        "ko": "제 작은 계획을 위해 시간을 내고 있어요."
+      },
+      "local_topic": {
+        "en": "Old inscriptions are easy to damage.",
+        "ko": "옛 비문은 쉽게 손상돼요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "pc_extra_8",
+      "town": "pc",
+      "idle": {
+        "en": "I want to learn something new today.",
+        "ko": "오늘은 새로운 것을 배우고 싶어요."
+      },
+      "local_topic": {
+        "en": "Old inscriptions are easy to damage.",
+        "ko": "옛 비문은 쉽게 손상돼요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "pc_extra_9",
+      "town": "pc",
+      "idle": {
+        "en": "I check the address before I leave.",
+        "ko": "떠나기 전에 주소를 확인해요."
+      },
+      "local_topic": {
+        "en": "Old inscriptions are easy to damage.",
+        "ko": "옛 비문은 쉽게 손상돼요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "pc_extra_10",
+      "town": "pc",
+      "idle": {
+        "en": "I like hearing stories from other villages.",
+        "ko": "다른 마을 이야기를 듣는 게 좋아요."
+      },
+      "local_topic": {
+        "en": "Old inscriptions are easy to damage.",
+        "ko": "옛 비문은 쉽게 손상돼요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "sj_extra_1",
+      "town": "sj",
+      "idle": {
+        "en": "I want visitors to feel welcome here.",
+        "ko": "방문객들이 이곳에서 환영받는다고 느끼면 좋겠어요."
+      },
+      "local_topic": {
+        "en": "The birds are quiet before dawn.",
+        "ko": "새들은 새벽 전에 조용해요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "sj_extra_2",
+      "town": "sj",
+      "idle": {
+        "en": "I check my stock before opening the shop.",
+        "ko": "가게를 열기 전에 재고를 확인해요."
+      },
+      "local_topic": {
+        "en": "The birds are quiet before dawn.",
+        "ko": "새들은 새벽 전에 조용해요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "sj_extra_3",
+      "town": "sj",
+      "idle": {
+        "en": "I keep a clean room for tired guests.",
+        "ko": "지친 손님을 위해 깨끗한 방을 마련해요."
+      },
+      "local_topic": {
+        "en": "The birds are quiet before dawn.",
+        "ko": "새들은 새벽 전에 조용해요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "sj_extra_4",
+      "town": "sj",
+      "idle": {
+        "en": "Please tell me if you notice a problem.",
+        "ko": "문제를 발견하면 알려 주세요."
+      },
+      "local_topic": {
+        "en": "The birds are quiet before dawn.",
+        "ko": "새들은 새벽 전에 조용해요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "sj_extra_5",
+      "town": "sj",
+      "idle": {
+        "en": "I clean the cages before feeding the birds.",
+        "ko": "새에게 먹이를 주기 전에 새장을 청소해요."
+      },
+      "local_topic": {
+        "en": "The birds are quiet before dawn.",
+        "ko": "새들은 새벽 전에 조용해요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "sj_extra_6",
+      "town": "sj",
+      "idle": {
+        "en": "I read each letter back to its writer.",
+        "ko": "편지를 쓴 사람에게 다시 읽어 줘요."
+      },
+      "local_topic": {
+        "en": "The birds are quiet before dawn.",
+        "ko": "새들은 새벽 전에 조용해요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "sj_extra_7",
+      "town": "sj",
+      "idle": {
+        "en": "I am saving time for a small project of my own.",
+        "ko": "제 작은 계획을 위해 시간을 내고 있어요."
+      },
+      "local_topic": {
+        "en": "The birds are quiet before dawn.",
+        "ko": "새들은 새벽 전에 조용해요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "sj_extra_8",
+      "town": "sj",
+      "idle": {
+        "en": "I want to learn something new today.",
+        "ko": "오늘은 새로운 것을 배우고 싶어요."
+      },
+      "local_topic": {
+        "en": "The birds are quiet before dawn.",
+        "ko": "새들은 새벽 전에 조용해요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "sj_extra_9",
+      "town": "sj",
+      "idle": {
+        "en": "I check the address before I leave.",
+        "ko": "떠나기 전에 주소를 확인해요."
+      },
+      "local_topic": {
+        "en": "The birds are quiet before dawn.",
+        "ko": "새들은 새벽 전에 조용해요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "sj_extra_10",
+      "town": "sj",
+      "idle": {
+        "en": "I like hearing stories from other villages.",
+        "ko": "다른 마을 이야기를 듣는 게 좋아요."
+      },
+      "local_topic": {
+        "en": "The birds are quiet before dawn.",
+        "ko": "새들은 새벽 전에 조용해요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "cp_extra_1",
+      "town": "cp",
+      "idle": {
+        "en": "I want visitors to feel welcome here.",
+        "ko": "방문객들이 이곳에서 환영받는다고 느끼면 좋겠어요."
+      },
+      "local_topic": {
+        "en": "The race track is open for practice.",
+        "ko": "경주로는 연습할 수 있도록 열려 있어요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "cp_extra_2",
+      "town": "cp",
+      "idle": {
+        "en": "I check my stock before opening the shop.",
+        "ko": "가게를 열기 전에 재고를 확인해요."
+      },
+      "local_topic": {
+        "en": "The race track is open for practice.",
+        "ko": "경주로는 연습할 수 있도록 열려 있어요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "cp_extra_3",
+      "town": "cp",
+      "idle": {
+        "en": "I keep a clean room for tired guests.",
+        "ko": "지친 손님을 위해 깨끗한 방을 마련해요."
+      },
+      "local_topic": {
+        "en": "The race track is open for practice.",
+        "ko": "경주로는 연습할 수 있도록 열려 있어요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "cp_extra_4",
+      "town": "cp",
+      "idle": {
+        "en": "Please tell me if you notice a problem.",
+        "ko": "문제를 발견하면 알려 주세요."
+      },
+      "local_topic": {
+        "en": "The race track is open for practice.",
+        "ko": "경주로는 연습할 수 있도록 열려 있어요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "cp_extra_5",
+      "town": "cp",
+      "idle": {
+        "en": "I explain the same rules to every runner.",
+        "ko": "모든 선수에게 같은 규칙을 설명해요."
+      },
+      "local_topic": {
+        "en": "The race track is open for practice.",
+        "ko": "경주로는 연습할 수 있도록 열려 있어요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "cp_extra_6",
+      "town": "cp",
+      "idle": {
+        "en": "Rest is part of training too.",
+        "ko": "휴식도 훈련의 일부예요."
+      },
+      "local_topic": {
+        "en": "The race track is open for practice.",
+        "ko": "경주로는 연습할 수 있도록 열려 있어요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "cp_extra_7",
+      "town": "cp",
+      "idle": {
+        "en": "I am saving time for a small project of my own.",
+        "ko": "제 작은 계획을 위해 시간을 내고 있어요."
+      },
+      "local_topic": {
+        "en": "The race track is open for practice.",
+        "ko": "경주로는 연습할 수 있도록 열려 있어요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "cp_extra_8",
+      "town": "cp",
+      "idle": {
+        "en": "I want to learn something new today.",
+        "ko": "오늘은 새로운 것을 배우고 싶어요."
+      },
+      "local_topic": {
+        "en": "The race track is open for practice.",
+        "ko": "경주로는 연습할 수 있도록 열려 있어요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "cp_extra_9",
+      "town": "cp",
+      "idle": {
+        "en": "I check the address before I leave.",
+        "ko": "떠나기 전에 주소를 확인해요."
+      },
+      "local_topic": {
+        "en": "The race track is open for practice.",
+        "ko": "경주로는 연습할 수 있도록 열려 있어요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "cp_extra_10",
+      "town": "cp",
+      "idle": {
+        "en": "I like hearing stories from other villages.",
+        "ko": "다른 마을 이야기를 듣는 게 좋아요."
+      },
+      "local_topic": {
+        "en": "The race track is open for practice.",
+        "ko": "경주로는 연습할 수 있도록 열려 있어요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "pn_extra_1",
+      "town": "pn",
+      "idle": {
+        "en": "I want visitors to feel welcome here.",
+        "ko": "방문객들이 이곳에서 환영받는다고 느끼면 좋겠어요."
+      },
+      "local_topic": {
+        "en": "Lost objects are kept at the desk.",
+        "ko": "분실물은 보관소에 있어요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "pn_extra_2",
+      "town": "pn",
+      "idle": {
+        "en": "I check my stock before opening the shop.",
+        "ko": "가게를 열기 전에 재고를 확인해요."
+      },
+      "local_topic": {
+        "en": "Lost objects are kept at the desk.",
+        "ko": "분실물은 보관소에 있어요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "pn_extra_3",
+      "town": "pn",
+      "idle": {
+        "en": "I keep a clean room for tired guests.",
+        "ko": "지친 손님을 위해 깨끗한 방을 마련해요."
+      },
+      "local_topic": {
+        "en": "Lost objects are kept at the desk.",
+        "ko": "분실물은 보관소에 있어요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "pn_extra_4",
+      "town": "pn",
+      "idle": {
+        "en": "Please tell me if you notice a problem.",
+        "ko": "문제를 발견하면 알려 주세요."
+      },
+      "local_topic": {
+        "en": "Lost objects are kept at the desk.",
+        "ko": "분실물은 보관소에 있어요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "pn_extra_5",
+      "town": "pn",
+      "idle": {
+        "en": "I ask owners to describe their lost things.",
+        "ko": "주인에게 잃어버린 물건을 설명해 달라고 해요."
+      },
+      "local_topic": {
+        "en": "Lost objects are kept at the desk.",
+        "ko": "분실물은 보관소에 있어요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "pn_extra_6",
+      "town": "pn",
+      "idle": {
+        "en": "I test each umbrella before selling it.",
+        "ko": "우산을 팔기 전에 하나씩 검사해요."
+      },
+      "local_topic": {
+        "en": "Lost objects are kept at the desk.",
+        "ko": "분실물은 보관소에 있어요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "pn_extra_7",
+      "town": "pn",
+      "idle": {
+        "en": "I am saving time for a small project of my own.",
+        "ko": "제 작은 계획을 위해 시간을 내고 있어요."
+      },
+      "local_topic": {
+        "en": "Lost objects are kept at the desk.",
+        "ko": "분실물은 보관소에 있어요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "pn_extra_8",
+      "town": "pn",
+      "idle": {
+        "en": "I want to learn something new today.",
+        "ko": "오늘은 새로운 것을 배우고 싶어요."
+      },
+      "local_topic": {
+        "en": "Lost objects are kept at the desk.",
+        "ko": "분실물은 보관소에 있어요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "pn_extra_9",
+      "town": "pn",
+      "idle": {
+        "en": "I check the address before I leave.",
+        "ko": "떠나기 전에 주소를 확인해요."
+      },
+      "local_topic": {
+        "en": "Lost objects are kept at the desk.",
+        "ko": "분실물은 보관소에 있어요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "pn_extra_10",
+      "town": "pn",
+      "idle": {
+        "en": "I like hearing stories from other villages.",
+        "ko": "다른 마을 이야기를 듣는 게 좋아요."
+      },
+      "local_topic": {
+        "en": "Lost objects are kept at the desk.",
+        "ko": "분실물은 보관소에 있어요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "ot_extra_1",
+      "town": "ot",
+      "idle": {
+        "en": "I want visitors to feel welcome here.",
+        "ko": "방문객들이 이곳에서 환영받는다고 느끼면 좋겠어요."
+      },
+      "local_topic": {
+        "en": "The lighthouse is visible from the shore.",
+        "ko": "물가에서 등대가 보여요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "ot_extra_2",
+      "town": "ot",
+      "idle": {
+        "en": "I check my stock before opening the shop.",
+        "ko": "가게를 열기 전에 재고를 확인해요."
+      },
+      "local_topic": {
+        "en": "The lighthouse is visible from the shore.",
+        "ko": "물가에서 등대가 보여요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "ot_extra_3",
+      "town": "ot",
+      "idle": {
+        "en": "I keep a clean room for tired guests.",
+        "ko": "지친 손님을 위해 깨끗한 방을 마련해요."
+      },
+      "local_topic": {
+        "en": "The lighthouse is visible from the shore.",
+        "ko": "물가에서 등대가 보여요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "ot_extra_4",
+      "town": "ot",
+      "idle": {
+        "en": "Please tell me if you notice a problem.",
+        "ko": "문제를 발견하면 알려 주세요."
+      },
+      "local_topic": {
+        "en": "The lighthouse is visible from the shore.",
+        "ko": "물가에서 등대가 보여요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "ot_extra_5",
+      "town": "ot",
+      "idle": {
+        "en": "I compare charts before planning a route.",
+        "ko": "항로를 계획하기 전에 해도를 비교해요."
+      },
+      "local_topic": {
+        "en": "The lighthouse is visible from the shore.",
+        "ko": "물가에서 등대가 보여요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "ot_extra_6",
+      "town": "ot",
+      "idle": {
+        "en": "I check the boards for cracks.",
+        "ko": "널빤지에 금이 있는지 확인해요."
+      },
+      "local_topic": {
+        "en": "The lighthouse is visible from the shore.",
+        "ko": "물가에서 등대가 보여요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "ot_extra_7",
+      "town": "ot",
+      "idle": {
+        "en": "I am saving time for a small project of my own.",
+        "ko": "제 작은 계획을 위해 시간을 내고 있어요."
+      },
+      "local_topic": {
+        "en": "The lighthouse is visible from the shore.",
+        "ko": "물가에서 등대가 보여요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "ot_extra_8",
+      "town": "ot",
+      "idle": {
+        "en": "I want to learn something new today.",
+        "ko": "오늘은 새로운 것을 배우고 싶어요."
+      },
+      "local_topic": {
+        "en": "The lighthouse is visible from the shore.",
+        "ko": "물가에서 등대가 보여요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "ot_extra_9",
+      "town": "ot",
+      "idle": {
+        "en": "I check the address before I leave.",
+        "ko": "떠나기 전에 주소를 확인해요."
+      },
+      "local_topic": {
+        "en": "The lighthouse is visible from the shore.",
+        "ko": "물가에서 등대가 보여요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "ot_extra_10",
+      "town": "ot",
+      "idle": {
+        "en": "I like hearing stories from other villages.",
+        "ko": "다른 마을 이야기를 듣는 게 좋아요."
+      },
+      "local_topic": {
+        "en": "The lighthouse is visible from the shore.",
+        "ko": "물가에서 등대가 보여요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "iv_extra_1",
+      "town": "iv",
+      "idle": {
+        "en": "I want visitors to feel welcome here.",
+        "ko": "방문객들이 이곳에서 환영받는다고 느끼면 좋겠어요."
+      },
+      "local_topic": {
+        "en": "The uphill path is tiring for travelers.",
+        "ko": "오르막길은 여행자들에게 힘들어요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "iv_extra_2",
+      "town": "iv",
+      "idle": {
+        "en": "I check my stock before opening the shop.",
+        "ko": "가게를 열기 전에 재고를 확인해요."
+      },
+      "local_topic": {
+        "en": "The uphill path is tiring for travelers.",
+        "ko": "오르막길은 여행자들에게 힘들어요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "iv_extra_3",
+      "town": "iv",
+      "idle": {
+        "en": "I keep a clean room for tired guests.",
+        "ko": "지친 손님을 위해 깨끗한 방을 마련해요."
+      },
+      "local_topic": {
+        "en": "The uphill path is tiring for travelers.",
+        "ko": "오르막길은 여행자들에게 힘들어요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "iv_extra_4",
+      "town": "iv",
+      "idle": {
+        "en": "Please tell me if you notice a problem.",
+        "ko": "문제를 발견하면 알려 주세요."
+      },
+      "local_topic": {
+        "en": "The uphill path is tiring for travelers.",
+        "ko": "오르막길은 여행자들에게 힘들어요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "iv_extra_5",
+      "town": "iv",
+      "idle": {
+        "en": "I ask travelers what they hope to see.",
+        "ko": "여행자에게 무엇을 보고 싶은지 물어요."
+      },
+      "local_topic": {
+        "en": "The uphill path is tiring for travelers.",
+        "ko": "오르막길은 여행자들에게 힘들어요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "iv_extra_6",
+      "town": "iv",
+      "idle": {
+        "en": "A good question is welcome in my lessons.",
+        "ko": "제 수업에서는 좋은 질문을 환영해요."
+      },
+      "local_topic": {
+        "en": "The uphill path is tiring for travelers.",
+        "ko": "오르막길은 여행자들에게 힘들어요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "iv_extra_7",
+      "town": "iv",
+      "idle": {
+        "en": "I am saving time for a small project of my own.",
+        "ko": "제 작은 계획을 위해 시간을 내고 있어요."
+      },
+      "local_topic": {
+        "en": "The uphill path is tiring for travelers.",
+        "ko": "오르막길은 여행자들에게 힘들어요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "iv_extra_8",
+      "town": "iv",
+      "idle": {
+        "en": "I want to learn something new today.",
+        "ko": "오늘은 새로운 것을 배우고 싶어요."
+      },
+      "local_topic": {
+        "en": "The uphill path is tiring for travelers.",
+        "ko": "오르막길은 여행자들에게 힘들어요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "iv_extra_9",
+      "town": "iv",
+      "idle": {
+        "en": "I check the address before I leave.",
+        "ko": "떠나기 전에 주소를 확인해요."
+      },
+      "local_topic": {
+        "en": "The uphill path is tiring for travelers.",
+        "ko": "오르막길은 여행자들에게 힘들어요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "iv_extra_10",
+      "town": "iv",
+      "idle": {
+        "en": "I like hearing stories from other villages.",
+        "ko": "다른 마을 이야기를 듣는 게 좋아요."
+      },
+      "local_topic": {
+        "en": "The uphill path is tiring for travelers.",
+        "ko": "오르막길은 여행자들에게 힘들어요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "pe_extra_1",
+      "town": "pe",
+      "idle": {
+        "en": "I want visitors to feel welcome here.",
+        "ko": "방문객들이 이곳에서 환영받는다고 느끼면 좋겠어요."
+      },
+      "local_topic": {
+        "en": "The wind carries the sound of bells.",
+        "ko": "바람이 종소리를 실어 와요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "pe_extra_2",
+      "town": "pe",
+      "idle": {
+        "en": "I check my stock before opening the shop.",
+        "ko": "가게를 열기 전에 재고를 확인해요."
+      },
+      "local_topic": {
+        "en": "The wind carries the sound of bells.",
+        "ko": "바람이 종소리를 실어 와요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "pe_extra_3",
+      "town": "pe",
+      "idle": {
+        "en": "I keep a clean room for tired guests.",
+        "ko": "지친 손님을 위해 깨끗한 방을 마련해요."
+      },
+      "local_topic": {
+        "en": "The wind carries the sound of bells.",
+        "ko": "바람이 종소리를 실어 와요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "pe_extra_4",
+      "town": "pe",
+      "idle": {
+        "en": "Please tell me if you notice a problem.",
+        "ko": "문제를 발견하면 알려 주세요."
+      },
+      "local_topic": {
+        "en": "The wind carries the sound of bells.",
+        "ko": "바람이 종소리를 실어 와요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "pe_extra_5",
+      "town": "pe",
+      "idle": {
+        "en": "I look for fallen branches after a storm.",
+        "ko": "폭풍 뒤에는 떨어진 나뭇가지를 찾아봐요."
+      },
+      "local_topic": {
+        "en": "The wind carries the sound of bells.",
+        "ko": "바람이 종소리를 실어 와요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "pe_extra_6",
+      "town": "pe",
+      "idle": {
+        "en": "I label every jar of herbs.",
+        "ko": "허브 병마다 이름표를 붙여요."
+      },
+      "local_topic": {
+        "en": "The wind carries the sound of bells.",
+        "ko": "바람이 종소리를 실어 와요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "pe_extra_7",
+      "town": "pe",
+      "idle": {
+        "en": "I am saving time for a small project of my own.",
+        "ko": "제 작은 계획을 위해 시간을 내고 있어요."
+      },
+      "local_topic": {
+        "en": "The wind carries the sound of bells.",
+        "ko": "바람이 종소리를 실어 와요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "pe_extra_8",
+      "town": "pe",
+      "idle": {
+        "en": "I want to learn something new today.",
+        "ko": "오늘은 새로운 것을 배우고 싶어요."
+      },
+      "local_topic": {
+        "en": "The wind carries the sound of bells.",
+        "ko": "바람이 종소리를 실어 와요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "pe_extra_9",
+      "town": "pe",
+      "idle": {
+        "en": "I check the address before I leave.",
+        "ko": "떠나기 전에 주소를 확인해요."
+      },
+      "local_topic": {
+        "en": "The wind carries the sound of bells.",
+        "ko": "바람이 종소리를 실어 와요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "pe_extra_10",
+      "town": "pe",
+      "idle": {
+        "en": "I like hearing stories from other villages.",
+        "ko": "다른 마을 이야기를 듣는 게 좋아요."
+      },
+      "local_topic": {
+        "en": "The wind carries the sound of bells.",
+        "ko": "바람이 종소리를 실어 와요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "ng_extra_1",
+      "town": "ng",
+      "idle": {
+        "en": "I want visitors to feel welcome here.",
+        "ko": "방문객들이 이곳에서 환영받는다고 느끼면 좋겠어요."
+      },
+      "local_topic": {
+        "en": "The stage needs room for the performers.",
+        "ko": "무대에는 공연자들이 쓸 공간이 필요해요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "ng_extra_2",
+      "town": "ng",
+      "idle": {
+        "en": "I check my stock before opening the shop.",
+        "ko": "가게를 열기 전에 재고를 확인해요."
+      },
+      "local_topic": {
+        "en": "The stage needs room for the performers.",
+        "ko": "무대에는 공연자들이 쓸 공간이 필요해요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "ng_extra_3",
+      "town": "ng",
+      "idle": {
+        "en": "I keep a clean room for tired guests.",
+        "ko": "지친 손님을 위해 깨끗한 방을 마련해요."
+      },
+      "local_topic": {
+        "en": "The stage needs room for the performers.",
+        "ko": "무대에는 공연자들이 쓸 공간이 필요해요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "ng_extra_4",
+      "town": "ng",
+      "idle": {
+        "en": "Please tell me if you notice a problem.",
+        "ko": "문제를 발견하면 알려 주세요."
+      },
+      "local_topic": {
+        "en": "The stage needs room for the performers.",
+        "ko": "무대에는 공연자들이 쓸 공간이 필요해요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "ng_extra_5",
+      "town": "ng",
+      "idle": {
+        "en": "I check the stage before the show.",
+        "ko": "공연 전에 무대를 확인해요."
+      },
+      "local_topic": {
+        "en": "The stage needs room for the performers.",
+        "ko": "무대에는 공연자들이 쓸 공간이 필요해요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "ng_extra_6",
+      "town": "ng",
+      "idle": {
+        "en": "I practice slowly before playing a new song.",
+        "ko": "새 곡을 연주하기 전에 천천히 연습해요."
+      },
+      "local_topic": {
+        "en": "The stage needs room for the performers.",
+        "ko": "무대에는 공연자들이 쓸 공간이 필요해요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "ng_extra_7",
+      "town": "ng",
+      "idle": {
+        "en": "I am saving time for a small project of my own.",
+        "ko": "제 작은 계획을 위해 시간을 내고 있어요."
+      },
+      "local_topic": {
+        "en": "The stage needs room for the performers.",
+        "ko": "무대에는 공연자들이 쓸 공간이 필요해요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "ng_extra_8",
+      "town": "ng",
+      "idle": {
+        "en": "I want to learn something new today.",
+        "ko": "오늘은 새로운 것을 배우고 싶어요."
+      },
+      "local_topic": {
+        "en": "The stage needs room for the performers.",
+        "ko": "무대에는 공연자들이 쓸 공간이 필요해요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "ng_extra_9",
+      "town": "ng",
+      "idle": {
+        "en": "I check the address before I leave.",
+        "ko": "떠나기 전에 주소를 확인해요."
+      },
+      "local_topic": {
+        "en": "The stage needs room for the performers.",
+        "ko": "무대에는 공연자들이 쓸 공간이 필요해요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "ng_extra_10",
+      "town": "ng",
+      "idle": {
+        "en": "I like hearing stories from other villages.",
+        "ko": "다른 마을 이야기를 듣는 게 좋아요."
+      },
+      "local_topic": {
+        "en": "The stage needs room for the performers.",
+        "ko": "무대에는 공연자들이 쓸 공간이 필요해요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "rs_extra_1",
+      "town": "rs",
+      "idle": {
+        "en": "I want visitors to feel welcome here.",
+        "ko": "방문객들이 이곳에서 환영받는다고 느끼면 좋겠어요."
+      },
+      "local_topic": {
+        "en": "A clear message saves a second journey.",
+        "ko": "명확한 전갈은 두 번 갈 일을 줄여 줘요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "rs_extra_2",
+      "town": "rs",
+      "idle": {
+        "en": "I check my stock before opening the shop.",
+        "ko": "가게를 열기 전에 재고를 확인해요."
+      },
+      "local_topic": {
+        "en": "A clear message saves a second journey.",
+        "ko": "명확한 전갈은 두 번 갈 일을 줄여 줘요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "rs_extra_3",
+      "town": "rs",
+      "idle": {
+        "en": "I keep a clean room for tired guests.",
+        "ko": "지친 손님을 위해 깨끗한 방을 마련해요."
+      },
+      "local_topic": {
+        "en": "A clear message saves a second journey.",
+        "ko": "명확한 전갈은 두 번 갈 일을 줄여 줘요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "rs_extra_4",
+      "town": "rs",
+      "idle": {
+        "en": "Please tell me if you notice a problem.",
+        "ko": "문제를 발견하면 알려 주세요."
+      },
+      "local_topic": {
+        "en": "A clear message saves a second journey.",
+        "ko": "명확한 전갈은 두 번 갈 일을 줄여 줘요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "rs_extra_5",
+      "town": "rs",
+      "idle": {
+        "en": "I compare seals with the register.",
+        "ko": "인장을 등록부와 비교해요."
+      },
+      "local_topic": {
+        "en": "A clear message saves a second journey.",
+        "ko": "명확한 전갈은 두 번 갈 일을 줄여 줘요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "rs_extra_6",
+      "town": "rs",
+      "idle": {
+        "en": "I repeat messages before delivering them.",
+        "ko": "전갈을 전달하기 전에 다시 말해 봐요."
+      },
+      "local_topic": {
+        "en": "A clear message saves a second journey.",
+        "ko": "명확한 전갈은 두 번 갈 일을 줄여 줘요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "rs_extra_7",
+      "town": "rs",
+      "idle": {
+        "en": "I am saving time for a small project of my own.",
+        "ko": "제 작은 계획을 위해 시간을 내고 있어요."
+      },
+      "local_topic": {
+        "en": "A clear message saves a second journey.",
+        "ko": "명확한 전갈은 두 번 갈 일을 줄여 줘요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "rs_extra_8",
+      "town": "rs",
+      "idle": {
+        "en": "I want to learn something new today.",
+        "ko": "오늘은 새로운 것을 배우고 싶어요."
+      },
+      "local_topic": {
+        "en": "A clear message saves a second journey.",
+        "ko": "명확한 전갈은 두 번 갈 일을 줄여 줘요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "rs_extra_9",
+      "town": "rs",
+      "idle": {
+        "en": "I check the address before I leave.",
+        "ko": "떠나기 전에 주소를 확인해요."
+      },
+      "local_topic": {
+        "en": "A clear message saves a second journey.",
+        "ko": "명확한 전갈은 두 번 갈 일을 줄여 줘요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "rs_extra_10",
+      "town": "rs",
+      "idle": {
+        "en": "I like hearing stories from other villages.",
+        "ko": "다른 마을 이야기를 듣는 게 좋아요."
+      },
+      "local_topic": {
+        "en": "A clear message saves a second journey.",
+        "ko": "명확한 전갈은 두 번 갈 일을 줄여 줘요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "sx_extra_1",
+      "town": "sx",
+      "idle": {
+        "en": "I want visitors to feel welcome here.",
+        "ko": "방문객들이 이곳에서 환영받는다고 느끼면 좋겠어요."
+      },
+      "local_topic": {
+        "en": "The archive keeps old and new records.",
+        "ko": "기록실에는 옛 기록과 새 기록이 있어요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "sx_extra_2",
+      "town": "sx",
+      "idle": {
+        "en": "I check my stock before opening the shop.",
+        "ko": "가게를 열기 전에 재고를 확인해요."
+      },
+      "local_topic": {
+        "en": "The archive keeps old and new records.",
+        "ko": "기록실에는 옛 기록과 새 기록이 있어요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "sx_extra_3",
+      "town": "sx",
+      "idle": {
+        "en": "I keep a clean room for tired guests.",
+        "ko": "지친 손님을 위해 깨끗한 방을 마련해요."
+      },
+      "local_topic": {
+        "en": "The archive keeps old and new records.",
+        "ko": "기록실에는 옛 기록과 새 기록이 있어요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "sx_extra_4",
+      "town": "sx",
+      "idle": {
+        "en": "Please tell me if you notice a problem.",
+        "ko": "문제를 발견하면 알려 주세요."
+      },
+      "local_topic": {
+        "en": "The archive keeps old and new records.",
+        "ko": "기록실에는 옛 기록과 새 기록이 있어요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "sx_extra_5",
+      "town": "sx",
+      "idle": {
+        "en": "I keep spare keys in a locked cabinet.",
+        "ko": "여분 열쇠는 잠긴 장식장에 보관해요."
+      },
+      "local_topic": {
+        "en": "The archive keeps old and new records.",
+        "ko": "기록실에는 옛 기록과 새 기록이 있어요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "sx_extra_6",
+      "town": "sx",
+      "idle": {
+        "en": "I record the reason for every correction.",
+        "ko": "수정할 때마다 이유를 기록해요."
+      },
+      "local_topic": {
+        "en": "The archive keeps old and new records.",
+        "ko": "기록실에는 옛 기록과 새 기록이 있어요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "sx_extra_7",
+      "town": "sx",
+      "idle": {
+        "en": "I am saving time for a small project of my own.",
+        "ko": "제 작은 계획을 위해 시간을 내고 있어요."
+      },
+      "local_topic": {
+        "en": "The archive keeps old and new records.",
+        "ko": "기록실에는 옛 기록과 새 기록이 있어요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "sx_extra_8",
+      "town": "sx",
+      "idle": {
+        "en": "I want to learn something new today.",
+        "ko": "오늘은 새로운 것을 배우고 싶어요."
+      },
+      "local_topic": {
+        "en": "The archive keeps old and new records.",
+        "ko": "기록실에는 옛 기록과 새 기록이 있어요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "sx_extra_9",
+      "town": "sx",
+      "idle": {
+        "en": "I check the address before I leave.",
+        "ko": "떠나기 전에 주소를 확인해요."
+      },
+      "local_topic": {
+        "en": "The archive keeps old and new records.",
+        "ko": "기록실에는 옛 기록과 새 기록이 있어요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    },
+    {
+      "npc_id": "sx_extra_10",
+      "town": "sx",
+      "idle": {
+        "en": "I like hearing stories from other villages.",
+        "ko": "다른 마을 이야기를 듣는 게 좋아요."
+      },
+      "local_topic": {
+        "en": "The archive keeps old and new records.",
+        "ko": "기록실에는 옛 기록과 새 기록이 있어요."
+      },
+      "condition": "town_recovered",
+      "priority": "active quest > conditional aftermath > idle"
+    }
+  ],
+  "policy": "180 resident entries; 36 specialist-specific idle lines, remaining role-based placeholders plus town topic. Do not claim all lines unique. Existing quest dialogue wins. Natural Korean; chunks pending."
+}

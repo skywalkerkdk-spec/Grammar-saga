@@ -1,0 +1,454 @@
+{
+  "version": "0.1",
+  "books": [
+    {
+      "id": "merchant",
+      "title_en": "A Merchant's Travel Journal",
+      "title_ko": "어느 상인의 여행기",
+      "genre": "fictional_travelogue",
+      "volumes": [
+        {
+          "id": "merchant_1",
+          "number": 1,
+          "title_en": "Beville",
+          "title_ko": "비빌",
+          "en": "Belle shares yesterday's bread with travelers who cannot pay. I bought fresh bread and left a little extra for the next guest.",
+          "ko": "벨은 돈을 낼 수 없는 여행자에게 어제 구운 빵을 나누어 준다. 나는 새 빵을 사고 다음 손님을 위해 돈을 조금 더 남겼다.",
+          "unlock": {
+            "town_recovered": "g1"
+          },
+          "previous_volume": null
+        },
+        {
+          "id": "merchant_2",
+          "number": 2,
+          "title_en": "Queston",
+          "title_ko": "퀘스턴",
+          "en": "Pepper asked every guest about food they could not eat. I learned that a good meal begins with a good question.",
+          "ko": "페퍼는 손님마다 먹을 수 없는 음식이 있는지 물었다. 좋은 식사는 좋은 질문에서 시작한다는 것을 배웠다.",
+          "unlock": {
+            "town_recovered": "g2"
+          },
+          "previous_volume": null
+        },
+        {
+          "id": "merchant_3",
+          "number": 3,
+          "title_en": "Tensefield",
+          "title_ko": "텐스필드",
+          "en": "Pendle showed me a clock that needed repair. He lent me a smaller clock while he worked, so I could keep my appointments.",
+          "ko": "펜들은 수리가 필요한 시계를 보여 주었다. 작업하는 동안 약속을 지킬 수 있도록 작은 시계를 빌려 주었다.",
+          "unlock": {
+            "town_recovered": "tn"
+          },
+          "previous_volume": null
+        },
+        {
+          "id": "merchant_4",
+          "number": 4,
+          "title_en": "Modalvale",
+          "title_ko": "모달베일",
+          "en": "Mason checks the bridge before heavy rain. Ferry told me that a boat is useful when the road is closed, but only when the crossing is safe.",
+          "ko": "메이슨은 폭우 전에 다리를 점검한다. 페리는 길이 막히면 배가 유용하지만 안전하게 건널 수 있을 때만 그렇다고 말했다.",
+          "unlock": {
+            "town_recovered": "md"
+          },
+          "previous_volume": null
+        },
+        {
+          "id": "merchant_5",
+          "number": 5,
+          "title_en": "Relawood",
+          "title_ko": "렐라우드",
+          "en": "Wren showed me the trail signs, and Birch repaired my wooden box. I promised not to leave the marked path.",
+          "ko": "렌은 길 표지판을 보여 주었고 버치는 내 나무 상자를 고쳐 주었다. 나는 표시된 길을 벗어나지 않겠다고 약속했다.",
+          "unlock": {
+            "town_recovered": "rp"
+          },
+          "previous_volume": null
+        },
+        {
+          "id": "merchant_6",
+          "number": 6,
+          "title_en": "Passive Lake",
+          "title_ko": "패시브 레이크",
+          "en": "Quill keeps records of donated books. I left a small collection of travel notes and asked him to record where they came from.",
+          "ko": "퀼은 기증 도서의 기록을 관리한다. 나는 여행 기록 모음집을 남기고 출처를 기록해 달라고 부탁했다.",
+          "unlock": {
+            "town_recovered": "ps"
+          },
+          "previous_volume": null
+        },
+        {
+          "id": "merchant_7",
+          "number": 7,
+          "title_en": "Perfect Oasis",
+          "title_ko": "퍼펙트 오아시스",
+          "en": "Palm offered me tea after a long journey. Seal explained how letters are sorted before couriers carry them away.",
+          "ko": "팜은 긴 여행 끝에 차를 내주었다. 실은 전령이 편지를 가져가기 전에 어떻게 분류하는지 설명했다.",
+          "unlock": {
+            "town_recovered": "pf"
+          },
+          "previous_volume": null
+        },
+        {
+          "id": "merchant_8",
+          "number": 8,
+          "title_en": "Whereport",
+          "title_ko": "웨어포트",
+          "en": "Atlas drew a map of the harbor for me. Chime explained that the bell helps people recognize the evening return of the boats.",
+          "ko": "아틀라스는 내게 항구 지도를 그려 주었다. 차임은 종이 저녁에 배가 돌아오는 것을 알아차리도록 돕는다고 설명했다.",
+          "unlock": {
+            "town_recovered": "rv"
+          },
+          "previous_volume": null
+        },
+        {
+          "id": "merchant_9",
+          "number": 9,
+          "title_en": "Participle Canyon",
+          "title_ko": "파티서플 캐니언",
+          "en": "Rune showed me how to copy an inscription without changing its letters. Slate asked me to mark any part I could not read.",
+          "ko": "룬은 글자를 바꾸지 않고 비문을 옮겨 적는 법을 보여 주었다. 슬레이트는 읽을 수 없는 부분을 표시하라고 했다.",
+          "unlock": {
+            "town_recovered": "pc"
+          },
+          "previous_volume": null
+        },
+        {
+          "id": "merchant_10",
+          "number": 10,
+          "title_en": "Ifhaven",
+          "title_ko": "이프헤이븐",
+          "en": "Lark cares for birds, and Pen writes letters for people who need help. I bought a ribbon from Loom before leaving.",
+          "ko": "라크는 새를 돌보고 펜은 도움이 필요한 사람들을 위해 편지를 쓴다. 떠나기 전에 룸에게 리본을 샀다.",
+          "unlock": {
+            "town_recovered": "sj"
+          },
+          "previous_volume": null
+        },
+        {
+          "id": "merchant_11",
+          "number": 11,
+          "title_en": "Compare Hills",
+          "title_ko": "컴페어 힐스",
+          "en": "Merit explained the rules of a race before it began. Goldie showed me how medals are made, but she would not tell me who might win.",
+          "ko": "메릿은 경주가 시작되기 전에 규칙을 설명했다. 골디는 메달 제작법을 보여 주었지만 누가 이길지는 말해 주지 않았다.",
+          "unlock": {
+            "town_recovered": "cp"
+          },
+          "previous_volume": null
+        },
+        {
+          "id": "merchant_12",
+          "number": 12,
+          "title_en": "Pronovia",
+          "title_ko": "프로노비아",
+          "en": "Tag keeps a careful list of lost objects. Spine repaired my notebook and advised me to write my name inside it.",
+          "ko": "태그는 분실물 목록을 꼼꼼하게 관리한다. 스파인은 내 공책을 수리하고 안에 이름을 적으라고 권했다.",
+          "unlock": {
+            "town_recovered": "pn"
+          },
+          "previous_volume": null
+        },
+        {
+          "id": "merchant_13",
+          "number": 13,
+          "title_en": "Prep Isles",
+          "title_ko": "프렙 아일스",
+          "en": "North helped me read a harbor map, and Beam showed me the lighthouse from the shore. I waited for the next safe ferry.",
+          "ko": "노스는 항구 지도를 읽도록 도왔고 빔은 물가에서 등대를 보여 주었다. 나는 다음 안전한 배를 기다렸다.",
+          "unlock": {
+            "town_recovered": "ot"
+          },
+          "previous_volume": null
+        },
+        {
+          "id": "merchant_14",
+          "number": 14,
+          "title_en": "Verbal Heights",
+          "title_ko": "버벌 하이츠",
+          "en": "Journey asked what I hoped to do on my trip. Trek helped me choose a bag that was light enough to carry uphill.",
+          "ko": "저니는 여행에서 무엇을 하고 싶은지 물었다. 트렉은 언덕을 오르기에 충분히 가벼운 가방을 고르도록 도왔다.",
+          "unlock": {
+            "town_recovered": "iv"
+          },
+          "previous_volume": null
+        },
+        {
+          "id": "merchant_15",
+          "number": 15,
+          "title_en": "Sensewood",
+          "title_ko": "센스우드",
+          "en": "Aroma let me smell several herbs before buying tea. Ring explained why different bells produce different sounds.",
+          "ko": "아로마는 차를 사기 전에 여러 허브의 향을 맡게 해 주었다. 링은 종마다 다른 소리가 나는 이유를 설명했다.",
+          "unlock": {
+            "town_recovered": "pe"
+          },
+          "previous_volume": null
+        },
+        {
+          "id": "merchant_16",
+          "number": 16,
+          "title_en": "Nounville",
+          "title_ko": "노운빌",
+          "en": "Melody was practicing a song, and Ribbon was making decorations. Cue asked me to keep the space beside the stage clear.",
+          "ko": "멜로디는 노래를 연습하고 리본은 장식품을 만들고 있었다. 큐는 무대 옆 공간을 비워 달라고 부탁했다.",
+          "unlock": {
+            "town_recovered": "ng"
+          },
+          "previous_volume": null
+        },
+        {
+          "id": "merchant_17",
+          "number": 17,
+          "title_en": "Speechport",
+          "title_ko": "스피치포트",
+          "en": "Reedley repeated my message to check that he had understood it. Gloss helped me choose clearer words before the message was sent.",
+          "ko": "리들리는 내 전갈을 이해했는지 확인하려고 되풀이했다. 글로스는 전갈을 보내기 전에 더 명확한 말을 고르도록 도왔다.",
+          "unlock": {
+            "town_recovered": "rs"
+          },
+          "previous_volume": null
+        },
+        {
+          "id": "merchant_18",
+          "number": 18,
+          "title_en": "Inversion Keep",
+          "title_ko": "인버전 킵",
+          "en": "Silver showed me the difference between a key and a decorative copy. Verse explained why the archive keeps a record of every official change.",
+          "ko": "실버는 열쇠와 장식용 모조품의 차이를 보여 주었다. 버스는 기록실이 공식 변경 사항을 모두 기록하는 이유를 설명했다.",
+          "unlock": {
+            "town_recovered": "sx"
+          },
+          "previous_volume": null
+        }
+      ]
+    },
+    {
+      "id": "beasts",
+      "title_en": "Creatures of the Ancient Lands",
+      "title_ko": "고대의 괴물들",
+      "genre": "folklore",
+      "volumes": [
+        {
+          "id": "beasts_1",
+          "number": 1,
+          "title_en": "Legends of Beville",
+          "title_ko": "비빌의 전설",
+          "en": "An old song describes the bee guardian warning farmers of storms. The song is a legend, not a weather record.",
+          "ko": "옛 노래에는 벌 수호자가 농부들에게 폭풍을 경고하는 이야기가 나온다. 이 노래는 전설이지 기상 기록은 아니다.",
+          "unlock": {
+            "town_recovered": "g1"
+          },
+          "previous_volume": null
+        },
+        {
+          "id": "beasts_2",
+          "number": 2,
+          "title_en": "Legends of Queston",
+          "title_ko": "퀘스턴의 전설",
+          "en": "A cave tale describes a guardian who answered questions with more questions. Some travelers found this annoying, while others learned to examine their own assumptions.",
+          "ko": "동굴 설화에는 질문에 또 다른 질문으로 답하는 수호자가 나온다. 어떤 여행자는 귀찮아했고 다른 이들은 자신의 생각을 점검하는 법을 배웠다.",
+          "unlock": {
+            "town_recovered": "g2"
+          },
+          "previous_volume": null
+        },
+        {
+          "id": "beasts_3",
+          "number": 3,
+          "title_en": "Legends of Tensefield",
+          "title_ko": "텐스필드의 전설",
+          "en": "The keeper of time appears in stories about patience. In one tale, he waits for a child who has stopped to help an injured bird.",
+          "ko": "시간 수호자는 인내에 관한 이야기에 등장한다. 한 설화에서는 다친 새를 돕느라 멈춘 아이를 기다린다.",
+          "unlock": {
+            "town_recovered": "tn"
+          },
+          "previous_volume": null
+        },
+        {
+          "id": "beasts_4",
+          "number": 4,
+          "title_en": "Legends of Modalvale",
+          "title_ko": "모달베일의 전설",
+          "en": "A story about Mustar says that he taught travelers the difference between a warning and a command. The oldest surviving version is incomplete.",
+          "ko": "머스타에 관한 이야기는 그가 여행자들에게 경고와 명령의 차이를 가르쳤다고 전한다. 남아 있는 가장 오래된 판본은 불완전하다.",
+          "unlock": {
+            "town_recovered": "md"
+          },
+          "previous_volume": null
+        },
+        {
+          "id": "beasts_5",
+          "number": 5,
+          "title_en": "Legends of Relawood",
+          "title_ko": "렐라우드의 전설",
+          "en": "Relator is described as a guardian of paths through the forest. In one tale, a lost traveler finds the way home by asking several people for help.",
+          "ko": "렐레이터는 숲길의 수호자로 묘사된다. 한 설화에서는 길 잃은 여행자가 여러 사람에게 도움을 청해 집으로 돌아간다.",
+          "unlock": {
+            "town_recovered": "rp"
+          },
+          "previous_volume": null
+        },
+        {
+          "id": "beasts_6",
+          "number": 6,
+          "title_en": "Legends of Passive Lake",
+          "title_ko": "패시브 레이크의 전설",
+          "en": "Passivus appears in a song about a boat returned by the lake. The song does not establish whether the guardian actually moved the boat.",
+          "ko": "파시부스는 호수가 돌려준 배에 관한 노래에 등장한다. 수호자가 실제로 배를 옮겼는지는 노래만으로 알 수 없다.",
+          "unlock": {
+            "town_recovered": "ps"
+          },
+          "previous_volume": null
+        },
+        {
+          "id": "beasts_7",
+          "number": 7,
+          "title_en": "Legends of Perfect Oasis",
+          "title_ko": "퍼펙트 오아시스의 전설",
+          "en": "Perfectus is remembered in tales about promises kept over many years. A popular version describes two friends meeting again at a well.",
+          "ko": "퍼펙투스는 오랜 세월 지킨 약속에 관한 설화에서 기억된다. 유명한 판본은 우물에서 다시 만난 두 친구를 묘사한다.",
+          "unlock": {
+            "town_recovered": "pf"
+          },
+          "previous_volume": null
+        },
+        {
+          "id": "beasts_8",
+          "number": 8,
+          "title_en": "Legends of Whereport",
+          "title_ko": "웨어포트의 전설",
+          "en": "Locarus appears in stories about finding one's way home. One map bears his name, but its maker is unknown.",
+          "ko": "로카루스는 집으로 가는 길을 찾는 이야기에 등장한다. 지도 하나에 그의 이름이 있지만 제작자는 알려지지 않았다.",
+          "unlock": {
+            "town_recovered": "rv"
+          },
+          "previous_volume": null
+        },
+        {
+          "id": "beasts_9",
+          "number": 9,
+          "title_en": "Legends of Participle Canyon",
+          "title_ko": "파티서플 캐니언의 전설",
+          "en": "Partix is pictured above a canyon in several old drawings. The pictures disagree about the shape of his wings, so they cannot serve as exact descriptions.",
+          "ko": "파틱스는 여러 옛 그림에서 협곡 위에 그려져 있다. 날개의 모양이 서로 달라 정확한 묘사로 삼을 수 없다.",
+          "unlock": {
+            "town_recovered": "pc"
+          },
+          "previous_volume": null
+        },
+        {
+          "id": "beasts_10",
+          "number": 10,
+          "title_en": "Legends of Ifhaven",
+          "title_ko": "이프헤이븐의 전설",
+          "en": "Wishra is the subject of a tale about a wish that changed after a girl listened to her friend. The ending differs between villages.",
+          "ko": "위시라는 소녀가 친구의 말을 들은 뒤 소원이 바뀌는 설화의 주인공이다. 결말은 마을마다 다르다.",
+          "unlock": {
+            "town_recovered": "sj"
+          },
+          "previous_volume": null
+        },
+        {
+          "id": "beasts_11",
+          "number": 11,
+          "title_en": "Legends of Compare Hills",
+          "title_ko": "컴페어 힐스의 전설",
+          "en": "A tale about Maximus compares two runners who choose different goals. One seeks a record, while the other helps a friend finish the race.",
+          "ko": "맥시머스에 관한 설화는 서로 다른 목표를 택한 두 달리기 선수를 비교한다. 한 명은 기록을 추구하고 다른 한 명은 친구의 완주를 돕는다.",
+          "unlock": {
+            "town_recovered": "cp"
+          },
+          "previous_volume": null
+        },
+        {
+          "id": "beasts_12",
+          "number": 12,
+          "title_en": "Legends of Pronovia",
+          "title_ko": "프로노비아의 전설",
+          "en": "Pronomus appears in a story about two identical bags. Their owners recover them by describing the contents rather than guessing from their appearance.",
+          "ko": "프로노무스는 똑같은 가방 두 개에 관한 이야기에서 등장한다. 주인들은 겉모습으로 추측하지 않고 내용물을 설명해 가방을 되찾는다.",
+          "unlock": {
+            "town_recovered": "pn"
+          },
+          "previous_volume": null
+        },
+        {
+          "id": "beasts_13",
+          "number": 13,
+          "title_en": "Legends of Prep Isles",
+          "title_ko": "프렙 아일스의 전설",
+          "en": "Prepos is said to have taught sailors to describe the positions of islands. Surviving verses are too short to reconstruct an actual route.",
+          "ko": "프레포스는 선원들에게 섬의 위치를 설명하는 법을 가르쳤다고 전해진다. 남은 시구가 너무 짧아 실제 항로를 복원할 수는 없다.",
+          "unlock": {
+            "town_recovered": "ot"
+          },
+          "previous_volume": null
+        },
+        {
+          "id": "beasts_14",
+          "number": 14,
+          "title_en": "Legends of Verbal Heights",
+          "title_ko": "버벌 하이츠의 전설",
+          "en": "Verbalis appears in a tale about a traveler who changes her plan after discovering a new skill. The tale celebrates learning rather than reaching a particular destination.",
+          "ko": "버발리스는 새로운 재능을 발견한 뒤 계획을 바꾸는 여행자의 설화에 등장한다. 이 이야기는 특정 목적지 도착보다 배움을 기린다.",
+          "unlock": {
+            "town_recovered": "iv"
+          },
+          "previous_volume": null
+        },
+        {
+          "id": "beasts_15",
+          "number": 15,
+          "title_en": "Legends of Sensewood",
+          "title_ko": "센스우드의 전설",
+          "en": "Sensar is associated with stories about listening carefully. A common tale warns that a frightening sound need not come from a dangerous creature.",
+          "ko": "센사르는 주의 깊게 듣는 이야기와 관련된다. 흔한 설화는 무서운 소리가 반드시 위험한 생물에게서 나오는 것은 아니라고 경고한다.",
+          "unlock": {
+            "town_recovered": "pe"
+          },
+          "previous_volume": null
+        },
+        {
+          "id": "beasts_16",
+          "number": 16,
+          "title_en": "Legends of Nounville",
+          "title_ko": "노운빌의 전설",
+          "en": "Nomina appears in a festival tale in which children name objects for a play. The story ends when the actors agree on what each object represents.",
+          "ko": "노미나는 아이들이 연극 소품의 이름을 붙이는 축제 설화에 등장한다. 배우들이 각 물건이 무엇을 나타내는지 합의하면서 이야기가 끝난다.",
+          "unlock": {
+            "town_recovered": "ng"
+          },
+          "previous_volume": null
+        },
+        {
+          "id": "beasts_17",
+          "number": 17,
+          "title_en": "Legends of Speechport",
+          "title_ko": "스피치포트의 전설",
+          "en": "Reportus is remembered in a tale about a messenger who checks a doubtful report. The messenger returns with the original letter instead of spreading a rumor.",
+          "ko": "리포터스는 의심스러운 보고를 확인하는 전령의 설화에서 기억된다. 전령은 소문을 퍼뜨리는 대신 원래 편지를 가지고 돌아온다.",
+          "unlock": {
+            "town_recovered": "rs"
+          },
+          "previous_volume": null
+        },
+        {
+          "id": "beasts_18",
+          "number": 18,
+          "title_en": "Legends of Inversion Keep",
+          "title_ko": "인버전 킵의 전설",
+          "en": "Invertus appears in a legend about a keeper who opens a hall to public discussion. The surviving text does not identify the hall or the date.",
+          "ko": "인버터스는 전당을 공개 토론에 개방하는 관리인의 전설에 등장한다. 남아 있는 글은 전당이나 날짜를 밝히지 않는다.",
+          "unlock": {
+            "town_recovered": "sx"
+          },
+          "previous_volume": null
+        }
+      ]
+    }
+  ],
+  "policy": "18 independent entries per collection. Append to reading room. Recovery means existing learning OR RPG dungeon clear; use actual save mapping. Travelogue is fictional and not proof of completed optional quests. Folklore is not a monster stat guide. Existing Songs of the Guardians remains separate; review overlap before release. Natural Korean; chunks pending."
+}

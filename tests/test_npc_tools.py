@@ -30,4 +30,11 @@ for r in range(4):
 E,_,_=c.check_mobile(save(im,'still.png'));assert any('프레임이 모두 같음' in e for e in E);ok+=1
 f=Image.new('RGBA',(128,128));ImageDraw.Draw(f).rectangle((40,18,88,118),fill=(10,90,160,255));E,W,_=c.check_fixed(save(f,'f.png'));assert not E,E;ok+=1
 f=Image.new('RGBA',(128,128),(255,255,255,255));E,_,_=c.check_fixed(save(f,'fb.png'));assert E;ok+=1
-print('NPC 검사기 테스트 통과',ok,'/ 9')
+def w4(h=100):
+    im=Image.new('RGBA',(512,512));d=ImageDraw.Draw(im)
+    for r in range(4):
+        for k in range(4):d.rectangle((k*128+44+[-4,0,4,0][k],r*128+116-h,k*128+84+[-4,0,4,0][k],r*128+116),fill=(180,60,60,255))
+    return im
+E,W,_=c.check_walk(save(w4(),'w4.png'));assert not E,E;ok+=1
+E,_,_=c.check_walk(save(good_mobile(),'w8.png'));assert any('크기' in e for e in E);ok+=1
+print('NPC 검사기 테스트 통과',ok,'/ 11')

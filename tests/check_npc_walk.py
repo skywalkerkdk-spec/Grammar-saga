@@ -10,12 +10,15 @@ root=Path(__file__).resolve().parents[1]
 class Q(SimpleHTTPRequestHandler):
     def log_message(self,*_):pass
 def sheet():
-    im=Image.new('RGBA',(1024,512));d=ImageDraw.Draw(im)
+    im=Image.new('RGBA',(512,512));d=ImageDraw.Draw(im)
     for r in range(4):
-        for k in range(8):
-            sw=[-4,0,4,0][k%4];d.rectangle((k*128+44+sw,r*128+16,k*128+84+sw,r*128+116),fill=(200,60+r*40,60,255))
+        for k in range(4):
+            sw=[-4,0,4,0][k];d.rectangle((k*128+44+sw,r*128+16,k*128+84+sw,r*128+116),fill=(200,60+r*40,60,255))
     b=io.BytesIO();im.save(b,'PNG');return b.getvalue()
-SH=sheet()
+def front():
+    im=Image.new('RGBA',(128,128));ImageDraw.Draw(im).rectangle((40,18,88,118),fill=(30,90,160,255))
+    b=io.BytesIO();im.save(b,'PNG');return b.getvalue()
+SH=sheet();FR=front()
 with ThreadingHTTPServer(('127.0.0.1',0),partial(Q,directory=root)) as srv:
     Thread(target=srv.serve_forever,daemon=True).start()
     url=f'http://127.0.0.1:{srv.server_port}/'
@@ -23,11 +26,12 @@ with ThreadingHTTPServer(('127.0.0.1',0),partial(Q,directory=root)) as srv:
         br=pw.chromium.launch(executable_path=os.environ.get('GRAMMAR_CHROMIUM'))
         pg=br.new_page(viewport={'width':390,'height':844},is_mobile=True,has_touch=True)
         pg.route('**/*',lambda r:r.continue_() if r.request.url.startswith(url) else r.abort())
-        pg.route('**/art/npc/sprites/npc_g1_o0.webp',lambda r:r.fulfill(status=200,body=SH,content_type='image/png'))  # 나중에 등록한 규칙이 먼저 적용됨
+        pg.route('**/art/npc/sprites/npc_g1_o0_walk.webp',lambda r:r.fulfill(status=200,body=SH,content_type='image/png'))  # 나중에 등록한 규칙이 먼저 적용됨
+        pg.route('**/art/npc/sprites/npc_g1_o1.webp',lambda r:r.fulfill(status=200,body=FR,content_type='image/png'))
         errs=[];pg.on('pageerror',lambda e:errs.append(str(e)))
         pg.goto(url)
         pg.evaluate("""()=>{G=fresh('Walk test');SV=defSave();SV.cleared=['d6','d7','d8'];G.started=true;G.scr='dsel';render();
-          NPC_ATLAS['g1_o0']={sheet:'art/npc/sprites/npc_g1_o0.webp',kind:'mobile',ready:true,cols:8,rows:4,cell:128,idle:2};}""")
+          NPC_ATLAS['g1_o0']={front:{sheet:'art/npc/sprites/npc_g1_o0.webp',ready:false},walk:{sheet:'art/npc/sprites/npc_g1_o0_walk.webp',ready:true,cols:4,rows:4,cell:128,idle:1}};\n          NPC_ATLAS['g1_o1']={front:{sheet:'art/npc/sprites/npc_g1_o1.webp',ready:true}};}""")
         pg.evaluate("twOpen('g1')")
         pg.get_by_role('button',name='비빌 마을 탐험').click()
         pg.wait_for_timeout(800)
@@ -35,6 +39,8 @@ with ThreadingHTTPServer(('127.0.0.1',0),partial(Q,directory=root)) as srv:
         assert sp.count()==1,'걷기 스프라이트가 1개여야 함(시트 있는 주민만): %d'%sp.count()
         pins=pg.locator('.c2-field-pin').count();imgs=pg.locator('.c2-field-pin img').count()
         assert imgs>=2,'시트 없는 주민은 기존 정지 그림 유지'
+        assert pg.locator('.c2-field-pin img[src*="npc_g1_o1.webp"]').count()==1,'정면 그림이 등록된 주민은 새 그림으로 바뀌어야 함'
+        assert pg.evaluate("getComputedStyle(document.querySelector('.c2-npc-sprite')).backgroundSize").split(' ')[0]!='auto'
         pos0=pg.evaluate("document.querySelector('.c2-npc-sprite').closest('.c2-field-pin').style.cssText")
         moved=False
         for _ in range(40):

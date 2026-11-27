@@ -14,10 +14,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_g1_o0",
-   "sheet": "art/npc/sprites/npc_g1_o0.webp",
-   "format": "walk8x4_1024x512",
+   "front_sheet": "art/npc/sprites/npc_g1_o0.webp",
+   "walk": true,
+   "walk_sheet": "art/npc/sprites/npc_g1_o0_walk.webp",
    "region_style": "Beville 비 초원: 초원 농촌, 밀짚·소박한 린넨",
-   "batch": "M002"
+   "front_batch": "F001",
+   "walk_batch": "W001"
   },
   {
    "npc_id": "g1_o1",
@@ -31,10 +33,12 @@
    "age": "child",
    "gender": "any",
    "sprite_id": "npc_g1_o1",
-   "sheet": "art/npc/sprites/npc_g1_o1.webp",
-   "format": "walk8x4_1024x512",
+   "front_sheet": "art/npc/sprites/npc_g1_o1.webp",
+   "walk": true,
+   "walk_sheet": "art/npc/sprites/npc_g1_o1_walk.webp",
    "region_style": "Beville 비 초원: 초원 농촌, 밀짚·소박한 린넨",
-   "batch": "M003"
+   "front_batch": "F001",
+   "walk_batch": "W002"
   },
   {
    "npc_id": "g1_o2",
@@ -48,10 +52,12 @@
    "age": "elder",
    "gender": "f",
    "sprite_id": "npc_g1_o2",
-   "sheet": "art/npc/sprites/npc_g1_o2.webp",
-   "format": "walk8x4_1024x512",
+   "front_sheet": "art/npc/sprites/npc_g1_o2.webp",
+   "walk": true,
+   "walk_sheet": "art/npc/sprites/npc_g1_o2_walk.webp",
    "region_style": "Beville 비 초원: 초원 농촌, 밀짚·소박한 린넨",
-   "batch": "M003"
+   "front_batch": "F001",
+   "walk_batch": "W002"
   },
   {
    "npc_id": "g1_o3",
@@ -65,10 +71,12 @@
    "age": "adult",
    "gender": "m",
    "sprite_id": "npc_g1_o3",
-   "sheet": "art/npc/sprites/npc_g1_o3.webp",
-   "format": "walk8x4_1024x512",
+   "front_sheet": "art/npc/sprites/npc_g1_o3.webp",
+   "walk": true,
+   "walk_sheet": "art/npc/sprites/npc_g1_o3_walk.webp",
    "region_style": "Beville 비 초원: 초원 농촌, 밀짚·소박한 린넨",
-   "batch": "M004"
+   "front_batch": "F001",
+   "walk_batch": "W002"
   },
   {
    "npc_id": "g1_extra_1",
@@ -82,10 +90,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_g1_extra_1",
-   "sheet": "art/npc/sprites/npc_g1_extra_1.webp",
-   "format": "front1_128",
+   "front_sheet": "art/npc/sprites/npc_g1_extra_1.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Beville 비 초원: 초원 농촌, 밀짚·소박한 린넨",
-   "batch": "F004"
+   "front_batch": "F006",
+   "walk_batch": ""
   },
   {
    "npc_id": "g1_extra_2",
@@ -99,10 +109,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_g1_extra_2",
-   "sheet": "art/npc/sprites/npc_g1_extra_2.webp",
-   "format": "front1_128",
+   "front_sheet": "art/npc/sprites/npc_g1_extra_2.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Beville 비 초원: 초원 농촌, 밀짚·소박한 린넨",
-   "batch": "F002"
+   "front_batch": "F006",
+   "walk_batch": ""
   },
   {
    "npc_id": "g1_extra_3",
@@ -116,10 +128,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_g1_extra_3",
-   "sheet": "art/npc/sprites/npc_g1_extra_3.webp",
-   "format": "front1_128",
+   "front_sheet": "art/npc/sprites/npc_g1_extra_3.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Beville 비 초원: 초원 농촌, 밀짚·소박한 린넨",
-   "batch": "F003"
+   "front_batch": "F006",
+   "walk_batch": ""
   },
   {
    "npc_id": "g1_extra_4",
@@ -133,10 +147,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_g1_extra_4",
-   "sheet": "art/npc/sprites/npc_g1_extra_4.webp",
-   "format": "walk8x4_1024x512",
+   "front_sheet": "art/npc/sprites/npc_g1_extra_4.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Beville 비 초원: 초원 농촌, 밀짚·소박한 린넨",
-   "batch": "M030"
+   "front_batch": "F006",
+   "walk_batch": ""
   },
   {
    "npc_id": "g1_extra_5",
@@ -150,10 +166,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_g1_extra_5",
-   "sheet": "art/npc/sprites/npc_g1_extra_5.webp",
-   "format": "front1_128",
+   "front_sheet": "art/npc/sprites/npc_g1_extra_5.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Beville 비 초원: 초원 농촌, 밀짚·소박한 린넨",
-   "batch": "F005"
+   "front_batch": "F006",
+   "walk_batch": ""
   },
   {
    "npc_id": "g1_extra_6",
@@ -167,10 +185,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_g1_extra_6",
-   "sheet": "art/npc/sprites/npc_g1_extra_6.webp",
-   "format": "front1_128",
+   "front_sheet": "art/npc/sprites/npc_g1_extra_6.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Beville 비 초원: 초원 농촌, 밀짚·소박한 린넨",
-   "batch": "F001"
+   "front_batch": "F006",
+   "walk_batch": ""
   },
   {
    "npc_id": "g1_extra_7",
@@ -184,10 +204,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_g1_extra_7",
-   "sheet": "art/npc/sprites/npc_g1_extra_7.webp",
-   "format": "walk8x4_1024x512",
+   "front_sheet": "art/npc/sprites/npc_g1_extra_7.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Beville 비 초원: 초원 농촌, 밀짚·소박한 린넨",
-   "batch": "M030"
+   "front_batch": "F006",
+   "walk_batch": ""
   },
   {
    "npc_id": "g1_extra_8",
@@ -201,10 +223,12 @@
    "age": "child",
    "gender": "any",
    "sprite_id": "npc_g1_extra_8",
-   "sheet": "art/npc/sprites/npc_g1_extra_8.webp",
-   "format": "walk8x4_1024x512",
+   "front_sheet": "art/npc/sprites/npc_g1_extra_8.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Beville 비 초원: 초원 농촌, 밀짚·소박한 린넨",
-   "batch": "M031"
+   "front_batch": "F006",
+   "walk_batch": ""
   },
   {
    "npc_id": "g1_extra_9",
@@ -218,10 +242,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_g1_extra_9",
-   "sheet": "art/npc/sprites/npc_g1_extra_9.webp",
-   "format": "walk8x4_1024x512",
+   "front_sheet": "art/npc/sprites/npc_g1_extra_9.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Beville 비 초원: 초원 농촌, 밀짚·소박한 린넨",
-   "batch": "M031"
+   "front_batch": "F006",
+   "walk_batch": ""
   },
   {
    "npc_id": "g1_extra_10",
@@ -235,10 +261,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_g1_extra_10",
-   "sheet": "art/npc/sprites/npc_g1_extra_10.webp",
-   "format": "walk8x4_1024x512",
+   "front_sheet": "art/npc/sprites/npc_g1_extra_10.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Beville 비 초원: 초원 농촌, 밀짚·소박한 린넨",
-   "batch": "M029"
+   "front_batch": "F006",
+   "walk_batch": ""
   },
   {
    "npc_id": "g2_o0",
@@ -252,10 +280,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_g2_o0",
-   "sheet": "art/npc/sprites/npc_g2_o0.webp",
-   "format": "front1_128",
+   "front_sheet": "art/npc/sprites/npc_g2_o0.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Queston 의문·부정: 물음표 장식 소품, 호기심 어린 도시 복식",
-   "batch": "F001"
+   "front_batch": "F001",
+   "walk_batch": ""
   },
   {
    "npc_id": "g2_o1",
@@ -269,10 +299,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_g2_o1",
-   "sheet": "art/npc/sprites/npc_g2_o1.webp",
-   "format": "front1_128",
+   "front_sheet": "art/npc/sprites/npc_g2_o1.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Queston 의문·부정: 물음표 장식 소품, 호기심 어린 도시 복식",
-   "batch": "F001"
+   "front_batch": "F001",
+   "walk_batch": ""
   },
   {
    "npc_id": "g2_o2",
@@ -286,10 +318,12 @@
    "age": "child",
    "gender": "m",
    "sprite_id": "npc_g2_o2",
-   "sheet": "art/npc/sprites/npc_g2_o2.webp",
-   "format": "walk8x4_1024x512",
+   "front_sheet": "art/npc/sprites/npc_g2_o2.webp",
+   "walk": true,
+   "walk_sheet": "art/npc/sprites/npc_g2_o2_walk.webp",
    "region_style": "Queston 의문·부정: 물음표 장식 소품, 호기심 어린 도시 복식",
-   "batch": "M004"
+   "front_batch": "F001",
+   "walk_batch": "W002"
   },
   {
    "npc_id": "g2_o3",
@@ -303,10 +337,12 @@
    "age": "adult",
    "gender": "f",
    "sprite_id": "npc_g2_o3",
-   "sheet": "art/npc/sprites/npc_g2_o3.webp",
-   "format": "walk8x4_1024x512",
+   "front_sheet": "art/npc/sprites/npc_g2_o3.webp",
+   "walk": true,
+   "walk_sheet": "art/npc/sprites/npc_g2_o3_walk.webp",
    "region_style": "Queston 의문·부정: 물음표 장식 소품, 호기심 어린 도시 복식",
-   "batch": "M005"
+   "front_batch": "F001",
+   "walk_batch": "W003"
   },
   {
    "npc_id": "g2_extra_1",
@@ -320,10 +356,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_g2_extra_1",
-   "sheet": "art/npc/sprites/npc_g2_extra_1.webp",
-   "format": "front1_128",
+   "front_sheet": "art/npc/sprites/npc_g2_extra_1.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Queston 의문·부정: 물음표 장식 소품, 호기심 어린 도시 복식",
-   "batch": "F004"
+   "front_batch": "F006",
+   "walk_batch": ""
   },
   {
    "npc_id": "g2_extra_2",
@@ -337,10 +375,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_g2_extra_2",
-   "sheet": "art/npc/sprites/npc_g2_extra_2.webp",
-   "format": "front1_128",
+   "front_sheet": "art/npc/sprites/npc_g2_extra_2.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Queston 의문·부정: 물음표 장식 소품, 호기심 어린 도시 복식",
-   "batch": "F002"
+   "front_batch": "F006",
+   "walk_batch": ""
   },
   {
    "npc_id": "g2_extra_3",
@@ -354,10 +394,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_g2_extra_3",
-   "sheet": "art/npc/sprites/npc_g2_extra_3.webp",
-   "format": "front1_128",
+   "front_sheet": "art/npc/sprites/npc_g2_extra_3.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Queston 의문·부정: 물음표 장식 소품, 호기심 어린 도시 복식",
-   "batch": "F003"
+   "front_batch": "F006",
+   "walk_batch": ""
   },
   {
    "npc_id": "g2_extra_4",
@@ -371,10 +413,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_g2_extra_4",
-   "sheet": "art/npc/sprites/npc_g2_extra_4.webp",
-   "format": "walk8x4_1024x512",
+   "front_sheet": "art/npc/sprites/npc_g2_extra_4.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Queston 의문·부정: 물음표 장식 소품, 호기심 어린 도시 복식",
-   "batch": "M032"
+   "front_batch": "F007",
+   "walk_batch": ""
   },
   {
    "npc_id": "g2_extra_5",
@@ -388,10 +432,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_g2_extra_5",
-   "sheet": "art/npc/sprites/npc_g2_extra_5.webp",
-   "format": "front1_128",
+   "front_sheet": "art/npc/sprites/npc_g2_extra_5.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Queston 의문·부정: 물음표 장식 소품, 호기심 어린 도시 복식",
-   "batch": "F005"
+   "front_batch": "F007",
+   "walk_batch": ""
   },
   {
    "npc_id": "g2_extra_6",
@@ -405,10 +451,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_g2_extra_6",
-   "sheet": "art/npc/sprites/npc_g2_extra_6.webp",
-   "format": "walk8x4_1024x512",
+   "front_sheet": "art/npc/sprites/npc_g2_extra_6.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Queston 의문·부정: 물음표 장식 소품, 호기심 어린 도시 복식",
-   "batch": "M033"
+   "front_batch": "F007",
+   "walk_batch": ""
   },
   {
    "npc_id": "g2_extra_7",
@@ -422,10 +470,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_g2_extra_7",
-   "sheet": "art/npc/sprites/npc_g2_extra_7.webp",
-   "format": "front1_128",
+   "front_sheet": "art/npc/sprites/npc_g2_extra_7.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Queston 의문·부정: 물음표 장식 소품, 호기심 어린 도시 복식",
-   "batch": "F002"
+   "front_batch": "F007",
+   "walk_batch": ""
   },
   {
    "npc_id": "g2_extra_8",
@@ -439,10 +489,12 @@
    "age": "child",
    "gender": "any",
    "sprite_id": "npc_g2_extra_8",
-   "sheet": "art/npc/sprites/npc_g2_extra_8.webp",
-   "format": "walk8x4_1024x512",
+   "front_sheet": "art/npc/sprites/npc_g2_extra_8.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Queston 의문·부정: 물음표 장식 소품, 호기심 어린 도시 복식",
-   "batch": "M033"
+   "front_batch": "F007",
+   "walk_batch": ""
   },
   {
    "npc_id": "g2_extra_9",
@@ -456,10 +508,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_g2_extra_9",
-   "sheet": "art/npc/sprites/npc_g2_extra_9.webp",
-   "format": "walk8x4_1024x512",
+   "front_sheet": "art/npc/sprites/npc_g2_extra_9.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Queston 의문·부정: 물음표 장식 소품, 호기심 어린 도시 복식",
-   "batch": "M034"
+   "front_batch": "F007",
+   "walk_batch": ""
   },
   {
    "npc_id": "g2_extra_10",
@@ -473,10 +527,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_g2_extra_10",
-   "sheet": "art/npc/sprites/npc_g2_extra_10.webp",
-   "format": "walk8x4_1024x512",
+   "front_sheet": "art/npc/sprites/npc_g2_extra_10.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Queston 의문·부정: 물음표 장식 소품, 호기심 어린 도시 복식",
-   "batch": "M032"
+   "front_batch": "F006",
+   "walk_batch": ""
   },
   {
    "npc_id": "tn_o0",
@@ -490,10 +546,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_tn_o0",
-   "sheet": "art/npc/sprites/npc_tn_o0.webp",
-   "format": "front1_128",
+   "front_sheet": "art/npc/sprites/npc_tn_o0.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Tensefield 시제: 시계·시간 모티프, 들판 마을",
-   "batch": "F001"
+   "front_batch": "F005",
+   "walk_batch": ""
   },
   {
    "npc_id": "tn_o1",
@@ -507,10 +565,12 @@
    "age": "child",
    "gender": "f",
    "sprite_id": "npc_tn_o1",
-   "sheet": "art/npc/sprites/npc_tn_o1.webp",
-   "format": "walk8x4_1024x512",
+   "front_sheet": "art/npc/sprites/npc_tn_o1.webp",
+   "walk": true,
+   "walk_sheet": "art/npc/sprites/npc_tn_o1_walk.webp",
    "region_style": "Tensefield 시제: 시계·시간 모티프, 들판 마을",
-   "batch": "M025"
+   "front_batch": "F005",
+   "walk_batch": "W013"
   },
   {
    "npc_id": "tn_o2",
@@ -524,10 +584,12 @@
    "age": "elder",
    "gender": "m",
    "sprite_id": "npc_tn_o2",
-   "sheet": "art/npc/sprites/npc_tn_o2.webp",
-   "format": "walk8x4_1024x512",
+   "front_sheet": "art/npc/sprites/npc_tn_o2.webp",
+   "walk": true,
+   "walk_sheet": "art/npc/sprites/npc_tn_o2_walk.webp",
    "region_style": "Tensefield 시제: 시계·시간 모티프, 들판 마을",
-   "batch": "M026"
+   "front_batch": "F005",
+   "walk_batch": "W013"
   },
   {
    "npc_id": "tn_o3",
@@ -541,10 +603,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_tn_o3",
-   "sheet": "art/npc/sprites/npc_tn_o3.webp",
-   "format": "walk8x4_1024x512",
+   "front_sheet": "art/npc/sprites/npc_tn_o3.webp",
+   "walk": true,
+   "walk_sheet": "art/npc/sprites/npc_tn_o3_walk.webp",
    "region_style": "Tensefield 시제: 시계·시간 모티프, 들판 마을",
-   "batch": "M026"
+   "front_batch": "F005",
+   "walk_batch": "W013"
   },
   {
    "npc_id": "tn_extra_1",
@@ -558,10 +622,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_tn_extra_1",
-   "sheet": "art/npc/sprites/npc_tn_extra_1.webp",
-   "format": "front1_128",
+   "front_sheet": "art/npc/sprites/npc_tn_extra_1.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Tensefield 시제: 시계·시간 모티프, 들판 마을",
-   "batch": "F005"
+   "front_batch": "F016",
+   "walk_batch": ""
   },
   {
    "npc_id": "tn_extra_2",
@@ -575,10 +641,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_tn_extra_2",
-   "sheet": "art/npc/sprites/npc_tn_extra_2.webp",
-   "format": "front1_128",
+   "front_sheet": "art/npc/sprites/npc_tn_extra_2.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Tensefield 시제: 시계·시간 모티프, 들판 마을",
-   "batch": "F003"
+   "front_batch": "F016",
+   "walk_batch": ""
   },
   {
    "npc_id": "tn_extra_3",
@@ -592,10 +660,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_tn_extra_3",
-   "sheet": "art/npc/sprites/npc_tn_extra_3.webp",
-   "format": "front1_128",
+   "front_sheet": "art/npc/sprites/npc_tn_extra_3.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Tensefield 시제: 시계·시간 모티프, 들판 마을",
-   "batch": "F004"
+   "front_batch": "F016",
+   "walk_batch": ""
   },
   {
    "npc_id": "tn_extra_4",
@@ -609,10 +679,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_tn_extra_4",
-   "sheet": "art/npc/sprites/npc_tn_extra_4.webp",
-   "format": "walk8x4_1024x512",
+   "front_sheet": "art/npc/sprites/npc_tn_extra_4.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Tensefield 시제: 시계·시간 모티프, 들판 마을",
-   "batch": "M063"
+   "front_batch": "F016",
+   "walk_batch": ""
   },
   {
    "npc_id": "tn_extra_5",
@@ -626,10 +698,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_tn_extra_5",
-   "sheet": "art/npc/sprites/npc_tn_extra_5.webp",
-   "format": "front1_128",
+   "front_sheet": "art/npc/sprites/npc_tn_extra_5.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Tensefield 시제: 시계·시간 모티프, 들판 마을",
-   "batch": "F002"
+   "front_batch": "F016",
+   "walk_batch": ""
   },
   {
    "npc_id": "tn_extra_6",
@@ -643,10 +717,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_tn_extra_6",
-   "sheet": "art/npc/sprites/npc_tn_extra_6.webp",
-   "format": "front1_128",
+   "front_sheet": "art/npc/sprites/npc_tn_extra_6.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Tensefield 시제: 시계·시간 모티프, 들판 마을",
-   "batch": "F005"
+   "front_batch": "F016",
+   "walk_batch": ""
   },
   {
    "npc_id": "tn_extra_7",
@@ -660,10 +736,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_tn_extra_7",
-   "sheet": "art/npc/sprites/npc_tn_extra_7.webp",
-   "format": "walk8x4_1024x512",
+   "front_sheet": "art/npc/sprites/npc_tn_extra_7.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Tensefield 시제: 시계·시간 모티프, 들판 마을",
-   "batch": "M064"
+   "front_batch": "F016",
+   "walk_batch": ""
   },
   {
    "npc_id": "tn_extra_8",
@@ -677,10 +755,12 @@
    "age": "child",
    "gender": "any",
    "sprite_id": "npc_tn_extra_8",
-   "sheet": "art/npc/sprites/npc_tn_extra_8.webp",
-   "format": "walk8x4_1024x512",
+   "front_sheet": "art/npc/sprites/npc_tn_extra_8.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Tensefield 시제: 시계·시간 모티프, 들판 마을",
-   "batch": "M064"
+   "front_batch": "F016",
+   "walk_batch": ""
   },
   {
    "npc_id": "tn_extra_9",
@@ -694,10 +774,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_tn_extra_9",
-   "sheet": "art/npc/sprites/npc_tn_extra_9.webp",
-   "format": "walk8x4_1024x512",
+   "front_sheet": "art/npc/sprites/npc_tn_extra_9.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Tensefield 시제: 시계·시간 모티프, 들판 마을",
-   "batch": "M065"
+   "front_batch": "F016",
+   "walk_batch": ""
   },
   {
    "npc_id": "tn_extra_10",
@@ -711,10 +793,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_tn_extra_10",
-   "sheet": "art/npc/sprites/npc_tn_extra_10.webp",
-   "format": "walk8x4_1024x512",
+   "front_sheet": "art/npc/sprites/npc_tn_extra_10.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Tensefield 시제: 시계·시간 모티프, 들판 마을",
-   "batch": "M063"
+   "front_batch": "F016",
+   "walk_batch": ""
   },
   {
    "npc_id": "md_o0",
@@ -728,10 +812,12 @@
    "age": "elder",
    "gender": "f",
    "sprite_id": "npc_md_o0",
-   "sheet": "art/npc/sprites/npc_md_o0.webp",
-   "format": "walk8x4_1024x512",
+   "front_sheet": "art/npc/sprites/npc_md_o0.webp",
+   "walk": true,
+   "walk_sheet": "art/npc/sprites/npc_md_o0_walk.webp",
    "region_style": "Modalvale 조동사: 건설·항구 작업복, 힘·가능성 모티프",
-   "batch": "M007"
+   "front_batch": "F002",
+   "walk_batch": "W004"
   },
   {
    "npc_id": "md_o1",
@@ -745,10 +831,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_md_o1",
-   "sheet": "art/npc/sprites/npc_md_o1.webp",
-   "format": "walk8x4_1024x512",
+   "front_sheet": "art/npc/sprites/npc_md_o1.webp",
+   "walk": true,
+   "walk_sheet": "art/npc/sprites/npc_md_o1_walk.webp",
    "region_style": "Modalvale 조동사: 건설·항구 작업복, 힘·가능성 모티프",
-   "batch": "M007"
+   "front_batch": "F002",
+   "walk_batch": "W004"
   },
   {
    "npc_id": "md_o2",
@@ -762,10 +850,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_md_o2",
-   "sheet": "art/npc/sprites/npc_md_o2.webp",
-   "format": "walk8x4_1024x512",
+   "front_sheet": "art/npc/sprites/npc_md_o2.webp",
+   "walk": true,
+   "walk_sheet": "art/npc/sprites/npc_md_o2_walk.webp",
    "region_style": "Modalvale 조동사: 건설·항구 작업복, 힘·가능성 모티프",
-   "batch": "M008"
+   "front_batch": "F002",
+   "walk_batch": "W004"
   },
   {
    "npc_id": "md_o3",
@@ -779,10 +869,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_md_o3",
-   "sheet": "art/npc/sprites/npc_md_o3.webp",
-   "format": "walk8x4_1024x512",
+   "front_sheet": "art/npc/sprites/npc_md_o3.webp",
+   "walk": true,
+   "walk_sheet": "art/npc/sprites/npc_md_o3_walk.webp",
    "region_style": "Modalvale 조동사: 건설·항구 작업복, 힘·가능성 모티프",
-   "batch": "M008"
+   "front_batch": "F002",
+   "walk_batch": "W004"
   },
   {
    "npc_id": "md_extra_1",
@@ -796,10 +888,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_md_extra_1",
-   "sheet": "art/npc/sprites/npc_md_extra_1.webp",
-   "format": "front1_128",
+   "front_sheet": "art/npc/sprites/npc_md_extra_1.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Modalvale 조동사: 건설·항구 작업복, 힘·가능성 모티프",
-   "batch": "F004"
+   "front_batch": "F008",
+   "walk_batch": ""
   },
   {
    "npc_id": "md_extra_2",
@@ -813,10 +907,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_md_extra_2",
-   "sheet": "art/npc/sprites/npc_md_extra_2.webp",
-   "format": "front1_128",
+   "front_sheet": "art/npc/sprites/npc_md_extra_2.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Modalvale 조동사: 건설·항구 작업복, 힘·가능성 모티프",
-   "batch": "F002"
+   "front_batch": "F008",
+   "walk_batch": ""
   },
   {
    "npc_id": "md_extra_3",
@@ -830,10 +926,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_md_extra_3",
-   "sheet": "art/npc/sprites/npc_md_extra_3.webp",
-   "format": "front1_128",
+   "front_sheet": "art/npc/sprites/npc_md_extra_3.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Modalvale 조동사: 건설·항구 작업복, 힘·가능성 모티프",
-   "batch": "F003"
+   "front_batch": "F008",
+   "walk_batch": ""
   },
   {
    "npc_id": "md_extra_4",
@@ -847,10 +945,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_md_extra_4",
-   "sheet": "art/npc/sprites/npc_md_extra_4.webp",
-   "format": "walk8x4_1024x512",
+   "front_sheet": "art/npc/sprites/npc_md_extra_4.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Modalvale 조동사: 건설·항구 작업복, 힘·가능성 모티프",
-   "batch": "M036"
+   "front_batch": "F008",
+   "walk_batch": ""
   },
   {
    "npc_id": "md_extra_5",
@@ -864,10 +964,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_md_extra_5",
-   "sheet": "art/npc/sprites/npc_md_extra_5.webp",
-   "format": "walk8x4_1024x512",
+   "front_sheet": "art/npc/sprites/npc_md_extra_5.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Modalvale 조동사: 건설·항구 작업복, 힘·가능성 모티프",
-   "batch": "M036"
+   "front_batch": "F008",
+   "walk_batch": ""
   },
   {
    "npc_id": "md_extra_6",
@@ -881,10 +983,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_md_extra_6",
-   "sheet": "art/npc/sprites/npc_md_extra_6.webp",
-   "format": "front1_128",
+   "front_sheet": "art/npc/sprites/npc_md_extra_6.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Modalvale 조동사: 건설·항구 작업복, 힘·가능성 모티프",
-   "batch": "F002"
+   "front_batch": "F008",
+   "walk_batch": ""
   },
   {
    "npc_id": "md_extra_7",
@@ -898,10 +1002,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_md_extra_7",
-   "sheet": "art/npc/sprites/npc_md_extra_7.webp",
-   "format": "walk8x4_1024x512",
+   "front_sheet": "art/npc/sprites/npc_md_extra_7.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Modalvale 조동사: 건설·항구 작업복, 힘·가능성 모티프",
-   "batch": "M037"
+   "front_batch": "F008",
+   "walk_batch": ""
   },
   {
    "npc_id": "md_extra_8",
@@ -915,10 +1021,12 @@
    "age": "child",
    "gender": "any",
    "sprite_id": "npc_md_extra_8",
-   "sheet": "art/npc/sprites/npc_md_extra_8.webp",
-   "format": "walk8x4_1024x512",
+   "front_sheet": "art/npc/sprites/npc_md_extra_8.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Modalvale 조동사: 건설·항구 작업복, 힘·가능성 모티프",
-   "batch": "M037"
+   "front_batch": "F008",
+   "walk_batch": ""
   },
   {
    "npc_id": "md_extra_9",
@@ -932,10 +1040,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_md_extra_9",
-   "sheet": "art/npc/sprites/npc_md_extra_9.webp",
-   "format": "walk8x4_1024x512",
+   "front_sheet": "art/npc/sprites/npc_md_extra_9.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Modalvale 조동사: 건설·항구 작업복, 힘·가능성 모티프",
-   "batch": "M038"
+   "front_batch": "F008",
+   "walk_batch": ""
   },
   {
    "npc_id": "md_extra_10",
@@ -949,10 +1059,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_md_extra_10",
-   "sheet": "art/npc/sprites/npc_md_extra_10.webp",
-   "format": "front1_128",
+   "front_sheet": "art/npc/sprites/npc_md_extra_10.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Modalvale 조동사: 건설·항구 작업복, 힘·가능성 모티프",
-   "batch": "F003"
+   "front_batch": "F008",
+   "walk_batch": ""
   },
   {
    "npc_id": "rp_o0",
@@ -966,10 +1078,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_rp_o0",
-   "sheet": "art/npc/sprites/npc_rp_o0.webp",
-   "format": "walk8x4_1024x512",
+   "front_sheet": "art/npc/sprites/npc_rp_o0.webp",
+   "walk": true,
+   "walk_sheet": "art/npc/sprites/npc_rp_o0_walk.webp",
    "region_style": "Relawood 관계대명사: 숲 갈색·초록 사냥복, 연결(끈·매듭) 소품",
-   "batch": "M018"
+   "front_batch": "F004",
+   "walk_batch": "W009"
   },
   {
    "npc_id": "rp_o1",
@@ -983,10 +1097,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_rp_o1",
-   "sheet": "art/npc/sprites/npc_rp_o1.webp",
-   "format": "front1_128",
+   "front_sheet": "art/npc/sprites/npc_rp_o1.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Relawood 관계대명사: 숲 갈색·초록 사냥복, 연결(끈·매듭) 소품",
-   "batch": "F001"
+   "front_batch": "F004",
+   "walk_batch": ""
   },
   {
    "npc_id": "rp_o2",
@@ -1000,10 +1116,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_rp_o2",
-   "sheet": "art/npc/sprites/npc_rp_o2.webp",
-   "format": "front1_128",
+   "front_sheet": "art/npc/sprites/npc_rp_o2.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Relawood 관계대명사: 숲 갈색·초록 사냥복, 연결(끈·매듭) 소품",
-   "batch": "F001"
+   "front_batch": "F004",
+   "walk_batch": ""
   },
   {
    "npc_id": "rp_o3",
@@ -1017,10 +1135,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_rp_o3",
-   "sheet": "art/npc/sprites/npc_rp_o3.webp",
-   "format": "walk8x4_1024x512",
+   "front_sheet": "art/npc/sprites/npc_rp_o3.webp",
+   "walk": true,
+   "walk_sheet": "art/npc/sprites/npc_rp_o3_walk.webp",
    "region_style": "Relawood 관계대명사: 숲 갈색·초록 사냥복, 연결(끈·매듭) 소품",
-   "batch": "M018"
+   "front_batch": "F004",
+   "walk_batch": "W009"
   },
   {
    "npc_id": "rp_extra_1",
@@ -1034,10 +1154,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_rp_extra_1",
-   "sheet": "art/npc/sprites/npc_rp_extra_1.webp",
-   "format": "front1_128",
+   "front_sheet": "art/npc/sprites/npc_rp_extra_1.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Relawood 관계대명사: 숲 갈색·초록 사냥복, 연결(끈·매듭) 소품",
-   "batch": "F005"
+   "front_batch": "F013",
+   "walk_batch": ""
   },
   {
    "npc_id": "rp_extra_2",
@@ -1051,10 +1173,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_rp_extra_2",
-   "sheet": "art/npc/sprites/npc_rp_extra_2.webp",
-   "format": "front1_128",
+   "front_sheet": "art/npc/sprites/npc_rp_extra_2.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Relawood 관계대명사: 숲 갈색·초록 사냥복, 연결(끈·매듭) 소품",
-   "batch": "F002"
+   "front_batch": "F013",
+   "walk_batch": ""
   },
   {
    "npc_id": "rp_extra_3",
@@ -1068,10 +1192,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_rp_extra_3",
-   "sheet": "art/npc/sprites/npc_rp_extra_3.webp",
-   "format": "front1_128",
+   "front_sheet": "art/npc/sprites/npc_rp_extra_3.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Relawood 관계대명사: 숲 갈색·초록 사냥복, 연결(끈·매듭) 소품",
-   "batch": "F004"
+   "front_batch": "F013",
+   "walk_batch": ""
   },
   {
    "npc_id": "rp_extra_4",
@@ -1085,10 +1211,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_rp_extra_4",
-   "sheet": "art/npc/sprites/npc_rp_extra_4.webp",
-   "format": "walk8x4_1024x512",
+   "front_sheet": "art/npc/sprites/npc_rp_extra_4.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Relawood 관계대명사: 숲 갈색·초록 사냥복, 연결(끈·매듭) 소품",
-   "batch": "M053"
+   "front_batch": "F013",
+   "walk_batch": ""
   },
   {
    "npc_id": "rp_extra_5",
@@ -1102,10 +1230,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_rp_extra_5",
-   "sheet": "art/npc/sprites/npc_rp_extra_5.webp",
-   "format": "walk8x4_1024x512",
+   "front_sheet": "art/npc/sprites/npc_rp_extra_5.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Relawood 관계대명사: 숲 갈색·초록 사냥복, 연결(끈·매듭) 소품",
-   "batch": "M054"
+   "front_batch": "F013",
+   "walk_batch": ""
   },
   {
    "npc_id": "rp_extra_6",
@@ -1119,10 +1249,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_rp_extra_6",
-   "sheet": "art/npc/sprites/npc_rp_extra_6.webp",
-   "format": "walk8x4_1024x512",
+   "front_sheet": "art/npc/sprites/npc_rp_extra_6.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Relawood 관계대명사: 숲 갈색·초록 사냥복, 연결(끈·매듭) 소품",
-   "batch": "M054"
+   "front_batch": "F013",
+   "walk_batch": ""
   },
   {
    "npc_id": "rp_extra_7",
@@ -1136,10 +1268,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_rp_extra_7",
-   "sheet": "art/npc/sprites/npc_rp_extra_7.webp",
-   "format": "front1_128",
+   "front_sheet": "art/npc/sprites/npc_rp_extra_7.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Relawood 관계대명사: 숲 갈색·초록 사냥복, 연결(끈·매듭) 소품",
-   "batch": "F006"
+   "front_batch": "F013",
+   "walk_batch": ""
   },
   {
    "npc_id": "rp_extra_8",
@@ -1153,10 +1287,12 @@
    "age": "child",
    "gender": "any",
    "sprite_id": "npc_rp_extra_8",
-   "sheet": "art/npc/sprites/npc_rp_extra_8.webp",
-   "format": "walk8x4_1024x512",
+   "front_sheet": "art/npc/sprites/npc_rp_extra_8.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Relawood 관계대명사: 숲 갈색·초록 사냥복, 연결(끈·매듭) 소품",
-   "batch": "M055"
+   "front_batch": "F013",
+   "walk_batch": ""
   },
   {
    "npc_id": "rp_extra_9",
@@ -1170,10 +1306,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_rp_extra_9",
-   "sheet": "art/npc/sprites/npc_rp_extra_9.webp",
-   "format": "walk8x4_1024x512",
+   "front_sheet": "art/npc/sprites/npc_rp_extra_9.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Relawood 관계대명사: 숲 갈색·초록 사냥복, 연결(끈·매듭) 소품",
-   "batch": "M055"
+   "front_batch": "F013",
+   "walk_batch": ""
   },
   {
    "npc_id": "rp_extra_10",
@@ -1187,10 +1325,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_rp_extra_10",
-   "sheet": "art/npc/sprites/npc_rp_extra_10.webp",
-   "format": "front1_128",
+   "front_sheet": "art/npc/sprites/npc_rp_extra_10.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Relawood 관계대명사: 숲 갈색·초록 사냥복, 연결(끈·매듭) 소품",
-   "batch": "F003"
+   "front_batch": "F013",
+   "walk_batch": ""
   },
   {
    "npc_id": "ps_o0",
@@ -1204,10 +1344,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_ps_o0",
-   "sheet": "art/npc/sprites/npc_ps_o0.webp",
-   "format": "front1_128",
+   "front_sheet": "art/npc/sprites/npc_ps_o0.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Passive Lake 수동태: 호수 마을 푸른 방수 외투, 물가 소품",
-   "batch": "F001"
+   "front_batch": "F003",
+   "walk_batch": ""
   },
   {
    "npc_id": "ps_o1",
@@ -1221,10 +1363,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_ps_o1",
-   "sheet": "art/npc/sprites/npc_ps_o1.webp",
-   "format": "walk8x4_1024x512",
+   "front_sheet": "art/npc/sprites/npc_ps_o1.webp",
+   "walk": true,
+   "walk_sheet": "art/npc/sprites/npc_ps_o1_walk.webp",
    "region_style": "Passive Lake 수동태: 호수 마을 푸른 방수 외투, 물가 소품",
-   "batch": "M016"
+   "front_batch": "F003",
+   "walk_batch": "W008"
   },
   {
    "npc_id": "ps_o2",
@@ -1238,10 +1382,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_ps_o2",
-   "sheet": "art/npc/sprites/npc_ps_o2.webp",
-   "format": "walk8x4_1024x512",
+   "front_sheet": "art/npc/sprites/npc_ps_o2.webp",
+   "walk": true,
+   "walk_sheet": "art/npc/sprites/npc_ps_o2_walk.webp",
    "region_style": "Passive Lake 수동태: 호수 마을 푸른 방수 외투, 물가 소품",
-   "batch": "M017"
+   "front_batch": "F003",
+   "walk_batch": "W009"
   },
   {
    "npc_id": "ps_o3",
@@ -1255,10 +1401,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_ps_o3",
-   "sheet": "art/npc/sprites/npc_ps_o3.webp",
-   "format": "walk8x4_1024x512",
+   "front_sheet": "art/npc/sprites/npc_ps_o3.webp",
+   "walk": true,
+   "walk_sheet": "art/npc/sprites/npc_ps_o3_walk.webp",
    "region_style": "Passive Lake 수동태: 호수 마을 푸른 방수 외투, 물가 소품",
-   "batch": "M017"
+   "front_batch": "F003",
+   "walk_batch": "W009"
   },
   {
    "npc_id": "ps_extra_1",
@@ -1272,10 +1420,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_ps_extra_1",
-   "sheet": "art/npc/sprites/npc_ps_extra_1.webp",
-   "format": "front1_128",
+   "front_sheet": "art/npc/sprites/npc_ps_extra_1.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Passive Lake 수동태: 호수 마을 푸른 방수 외투, 물가 소품",
-   "batch": "F005"
+   "front_batch": "F012",
+   "walk_batch": ""
   },
   {
    "npc_id": "ps_extra_2",
@@ -1289,10 +1439,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_ps_extra_2",
-   "sheet": "art/npc/sprites/npc_ps_extra_2.webp",
-   "format": "front1_128",
+   "front_sheet": "art/npc/sprites/npc_ps_extra_2.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Passive Lake 수동태: 호수 마을 푸른 방수 외투, 물가 소품",
-   "batch": "F002"
+   "front_batch": "F012",
+   "walk_batch": ""
   },
   {
    "npc_id": "ps_extra_3",
@@ -1306,10 +1458,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_ps_extra_3",
-   "sheet": "art/npc/sprites/npc_ps_extra_3.webp",
-   "format": "front1_128",
+   "front_sheet": "art/npc/sprites/npc_ps_extra_3.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Passive Lake 수동태: 호수 마을 푸른 방수 외투, 물가 소품",
-   "batch": "F004"
+   "front_batch": "F012",
+   "walk_batch": ""
   },
   {
    "npc_id": "ps_extra_4",
@@ -1323,10 +1477,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_ps_extra_4",
-   "sheet": "art/npc/sprites/npc_ps_extra_4.webp",
-   "format": "walk8x4_1024x512",
+   "front_sheet": "art/npc/sprites/npc_ps_extra_4.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Passive Lake 수동태: 호수 마을 푸른 방수 외투, 물가 소품",
-   "batch": "M051"
+   "front_batch": "F012",
+   "walk_batch": ""
   },
   {
    "npc_id": "ps_extra_5",
@@ -1340,10 +1496,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_ps_extra_5",
-   "sheet": "art/npc/sprites/npc_ps_extra_5.webp",
-   "format": "walk8x4_1024x512",
+   "front_sheet": "art/npc/sprites/npc_ps_extra_5.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Passive Lake 수동태: 호수 마을 푸른 방수 외투, 물가 소품",
-   "batch": "M051"
+   "front_batch": "F012",
+   "walk_batch": ""
   },
   {
    "npc_id": "ps_extra_6",
@@ -1357,10 +1515,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_ps_extra_6",
-   "sheet": "art/npc/sprites/npc_ps_extra_6.webp",
-   "format": "front1_128",
+   "front_sheet": "art/npc/sprites/npc_ps_extra_6.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Passive Lake 수동태: 호수 마을 푸른 방수 외투, 물가 소품",
-   "batch": "F001"
+   "front_batch": "F012",
+   "walk_batch": ""
   },
   {
    "npc_id": "ps_extra_7",
@@ -1374,10 +1534,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_ps_extra_7",
-   "sheet": "art/npc/sprites/npc_ps_extra_7.webp",
-   "format": "walk8x4_1024x512",
+   "front_sheet": "art/npc/sprites/npc_ps_extra_7.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Passive Lake 수동태: 호수 마을 푸른 방수 외투, 물가 소품",
-   "batch": "M052"
+   "front_batch": "F012",
+   "walk_batch": ""
   },
   {
    "npc_id": "ps_extra_8",
@@ -1391,10 +1553,12 @@
    "age": "child",
    "gender": "any",
    "sprite_id": "npc_ps_extra_8",
-   "sheet": "art/npc/sprites/npc_ps_extra_8.webp",
-   "format": "walk8x4_1024x512",
+   "front_sheet": "art/npc/sprites/npc_ps_extra_8.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Passive Lake 수동태: 호수 마을 푸른 방수 외투, 물가 소품",
-   "batch": "M052"
+   "front_batch": "F012",
+   "walk_batch": ""
   },
   {
    "npc_id": "ps_extra_9",
@@ -1408,10 +1572,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_ps_extra_9",
-   "sheet": "art/npc/sprites/npc_ps_extra_9.webp",
-   "format": "walk8x4_1024x512",
+   "front_sheet": "art/npc/sprites/npc_ps_extra_9.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Passive Lake 수동태: 호수 마을 푸른 방수 외투, 물가 소품",
-   "batch": "M053"
+   "front_batch": "F012",
+   "walk_batch": ""
   },
   {
    "npc_id": "ps_extra_10",
@@ -1425,10 +1591,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_ps_extra_10",
-   "sheet": "art/npc/sprites/npc_ps_extra_10.webp",
-   "format": "walk8x4_1024x512",
+   "front_sheet": "art/npc/sprites/npc_ps_extra_10.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Passive Lake 수동태: 호수 마을 푸른 방수 외투, 물가 소품",
-   "batch": "M050"
+   "front_batch": "F012",
+   "walk_batch": ""
   },
   {
    "npc_id": "pf_o0",
@@ -1442,10 +1610,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_pf_o0",
-   "sheet": "art/npc/sprites/npc_pf_o0.webp",
-   "format": "walk8x4_1024x512",
+   "front_sheet": "art/npc/sprites/npc_pf_o0.webp",
+   "walk": true,
+   "walk_sheet": "art/npc/sprites/npc_pf_o0_walk.webp",
    "region_style": "Perfect Oasis 완료: 사막 오아시스 흰 천·터번, 모래색",
-   "batch": "M014"
+   "front_batch": "F003",
+   "walk_batch": "W007"
   },
   {
    "npc_id": "pf_o1",
@@ -1459,10 +1629,12 @@
    "age": "teen",
    "gender": "any",
    "sprite_id": "npc_pf_o1",
-   "sheet": "art/npc/sprites/npc_pf_o1.webp",
-   "format": "walk8x4_1024x512",
+   "front_sheet": "art/npc/sprites/npc_pf_o1.webp",
+   "walk": true,
+   "walk_sheet": "art/npc/sprites/npc_pf_o1_walk.webp",
    "region_style": "Perfect Oasis 완료: 사막 오아시스 흰 천·터번, 모래색",
-   "batch": "M014"
+   "front_batch": "F003",
+   "walk_batch": "W007"
   },
   {
    "npc_id": "pf_o2",
@@ -1476,10 +1648,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_pf_o2",
-   "sheet": "art/npc/sprites/npc_pf_o2.webp",
-   "format": "front1_128",
+   "front_sheet": "art/npc/sprites/npc_pf_o2.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Perfect Oasis 완료: 사막 오아시스 흰 천·터번, 모래색",
-   "batch": "F001"
+   "front_batch": "F003",
+   "walk_batch": ""
   },
   {
    "npc_id": "pf_o3",
@@ -1493,10 +1667,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_pf_o3",
-   "sheet": "art/npc/sprites/npc_pf_o3.webp",
-   "format": "walk8x4_1024x512",
+   "front_sheet": "art/npc/sprites/npc_pf_o3.webp",
+   "walk": true,
+   "walk_sheet": "art/npc/sprites/npc_pf_o3_walk.webp",
    "region_style": "Perfect Oasis 완료: 사막 오아시스 흰 천·터번, 모래색",
-   "batch": "M015"
+   "front_batch": "F003",
+   "walk_batch": "W008"
   },
   {
    "npc_id": "pf_extra_1",
@@ -1510,10 +1686,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_pf_extra_1",
-   "sheet": "art/npc/sprites/npc_pf_extra_1.webp",
-   "format": "front1_128",
+   "front_sheet": "art/npc/sprites/npc_pf_extra_1.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Perfect Oasis 완료: 사막 오아시스 흰 천·터번, 모래색",
-   "batch": "F005"
+   "front_batch": "F011",
+   "walk_batch": ""
   },
   {
    "npc_id": "pf_extra_2",
@@ -1527,10 +1705,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_pf_extra_2",
-   "sheet": "art/npc/sprites/npc_pf_extra_2.webp",
-   "format": "front1_128",
+   "front_sheet": "art/npc/sprites/npc_pf_extra_2.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Perfect Oasis 완료: 사막 오아시스 흰 천·터번, 모래색",
-   "batch": "F002"
+   "front_batch": "F011",
+   "walk_batch": ""
   },
   {
    "npc_id": "pf_extra_3",
@@ -1544,10 +1724,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_pf_extra_3",
-   "sheet": "art/npc/sprites/npc_pf_extra_3.webp",
-   "format": "front1_128",
+   "front_sheet": "art/npc/sprites/npc_pf_extra_3.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Perfect Oasis 완료: 사막 오아시스 흰 천·터번, 모래색",
-   "batch": "F004"
+   "front_batch": "F011",
+   "walk_batch": ""
   },
   {
    "npc_id": "pf_extra_4",
@@ -1561,10 +1743,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_pf_extra_4",
-   "sheet": "art/npc/sprites/npc_pf_extra_4.webp",
-   "format": "walk8x4_1024x512",
+   "front_sheet": "art/npc/sprites/npc_pf_extra_4.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Perfect Oasis 완료: 사막 오아시스 흰 천·터번, 모래색",
-   "batch": "M047"
+   "front_batch": "F011",
+   "walk_batch": ""
   },
   {
    "npc_id": "pf_extra_5",
@@ -1578,10 +1762,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_pf_extra_5",
-   "sheet": "art/npc/sprites/npc_pf_extra_5.webp",
-   "format": "front1_128",
+   "front_sheet": "art/npc/sprites/npc_pf_extra_5.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Perfect Oasis 완료: 사막 오아시스 흰 천·터번, 모래색",
-   "batch": "F004"
+   "front_batch": "F011",
+   "walk_batch": ""
   },
   {
    "npc_id": "pf_extra_6",
@@ -1595,10 +1781,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_pf_extra_6",
-   "sheet": "art/npc/sprites/npc_pf_extra_6.webp",
-   "format": "front1_128",
+   "front_sheet": "art/npc/sprites/npc_pf_extra_6.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Perfect Oasis 완료: 사막 오아시스 흰 천·터번, 모래색",
-   "batch": "F006"
+   "front_batch": "F011",
+   "walk_batch": ""
   },
   {
    "npc_id": "pf_extra_7",
@@ -1612,10 +1800,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_pf_extra_7",
-   "sheet": "art/npc/sprites/npc_pf_extra_7.webp",
-   "format": "walk8x4_1024x512",
+   "front_sheet": "art/npc/sprites/npc_pf_extra_7.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Perfect Oasis 완료: 사막 오아시스 흰 천·터번, 모래색",
-   "batch": "M047"
+   "front_batch": "F011",
+   "walk_batch": ""
   },
   {
    "npc_id": "pf_extra_8",
@@ -1629,10 +1819,12 @@
    "age": "child",
    "gender": "any",
    "sprite_id": "npc_pf_extra_8",
-   "sheet": "art/npc/sprites/npc_pf_extra_8.webp",
-   "format": "walk8x4_1024x512",
+   "front_sheet": "art/npc/sprites/npc_pf_extra_8.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Perfect Oasis 완료: 사막 오아시스 흰 천·터번, 모래색",
-   "batch": "M048"
+   "front_batch": "F011",
+   "walk_batch": ""
   },
   {
    "npc_id": "pf_extra_9",
@@ -1646,10 +1838,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_pf_extra_9",
-   "sheet": "art/npc/sprites/npc_pf_extra_9.webp",
-   "format": "walk8x4_1024x512",
+   "front_sheet": "art/npc/sprites/npc_pf_extra_9.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Perfect Oasis 완료: 사막 오아시스 흰 천·터번, 모래색",
-   "batch": "M048"
+   "front_batch": "F011",
+   "walk_batch": ""
   },
   {
    "npc_id": "pf_extra_10",
@@ -1663,10 +1857,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_pf_extra_10",
-   "sheet": "art/npc/sprites/npc_pf_extra_10.webp",
-   "format": "front1_128",
+   "front_sheet": "art/npc/sprites/npc_pf_extra_10.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Perfect Oasis 완료: 사막 오아시스 흰 천·터번, 모래색",
-   "batch": "F005"
+   "front_batch": "F011",
+   "walk_batch": ""
   },
   {
    "npc_id": "rv_o0",
@@ -1680,10 +1876,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_rv_o0",
-   "sheet": "art/npc/sprites/npc_rv_o0.webp",
-   "format": "walk8x4_1024x512",
+   "front_sheet": "art/npc/sprites/npc_rv_o0.webp",
+   "walk": true,
+   "walk_sheet": "art/npc/sprites/npc_rv_o0_walk.webp",
    "region_style": "Whereport 관계부사: 항구 선원복, 지도·나침반 소품",
-   "batch": "M021"
+   "front_batch": "F004",
+   "walk_batch": "W011"
   },
   {
    "npc_id": "rv_o1",
@@ -1697,10 +1895,12 @@
    "age": "child",
    "gender": "f",
    "sprite_id": "npc_rv_o1",
-   "sheet": "art/npc/sprites/npc_rv_o1.webp",
-   "format": "walk8x4_1024x512",
+   "front_sheet": "art/npc/sprites/npc_rv_o1.webp",
+   "walk": true,
+   "walk_sheet": "art/npc/sprites/npc_rv_o1_walk.webp",
    "region_style": "Whereport 관계부사: 항구 선원복, 지도·나침반 소품",
-   "batch": "M021"
+   "front_batch": "F004",
+   "walk_batch": "W011"
   },
   {
    "npc_id": "rv_o2",
@@ -1714,10 +1914,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_rv_o2",
-   "sheet": "art/npc/sprites/npc_rv_o2.webp",
-   "format": "walk8x4_1024x512",
+   "front_sheet": "art/npc/sprites/npc_rv_o2.webp",
+   "walk": true,
+   "walk_sheet": "art/npc/sprites/npc_rv_o2_walk.webp",
    "region_style": "Whereport 관계부사: 항구 선원복, 지도·나침반 소품",
-   "batch": "M022"
+   "front_batch": "F004",
+   "walk_batch": "W011"
   },
   {
    "npc_id": "rv_o3",
@@ -1731,10 +1933,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_rv_o3",
-   "sheet": "art/npc/sprites/npc_rv_o3.webp",
-   "format": "front1_128",
+   "front_sheet": "art/npc/sprites/npc_rv_o3.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Whereport 관계부사: 항구 선원복, 지도·나침반 소품",
-   "batch": "F001"
+   "front_batch": "F004",
+   "walk_batch": ""
   },
   {
    "npc_id": "rv_extra_1",
@@ -1748,10 +1952,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_rv_extra_1",
-   "sheet": "art/npc/sprites/npc_rv_extra_1.webp",
-   "format": "front1_128",
+   "front_sheet": "art/npc/sprites/npc_rv_extra_1.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Whereport 관계부사: 항구 선원복, 지도·나침반 소품",
-   "batch": "F003"
+   "front_batch": "F014",
+   "walk_batch": ""
   },
   {
    "npc_id": "rv_extra_2",
@@ -1765,10 +1971,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_rv_extra_2",
-   "sheet": "art/npc/sprites/npc_rv_extra_2.webp",
-   "format": "front1_128",
+   "front_sheet": "art/npc/sprites/npc_rv_extra_2.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Whereport 관계부사: 항구 선원복, 지도·나침반 소품",
-   "batch": "F003"
+   "front_batch": "F014",
+   "walk_batch": ""
   },
   {
    "npc_id": "rv_extra_3",
@@ -1782,10 +1990,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_rv_extra_3",
-   "sheet": "art/npc/sprites/npc_rv_extra_3.webp",
-   "format": "front1_128",
+   "front_sheet": "art/npc/sprites/npc_rv_extra_3.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Whereport 관계부사: 항구 선원복, 지도·나침반 소품",
-   "batch": "F004"
+   "front_batch": "F014",
+   "walk_batch": ""
   },
   {
    "npc_id": "rv_extra_4",
@@ -1799,10 +2009,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_rv_extra_4",
-   "sheet": "art/npc/sprites/npc_rv_extra_4.webp",
-   "format": "walk8x4_1024x512",
+   "front_sheet": "art/npc/sprites/npc_rv_extra_4.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Whereport 관계부사: 항구 선원복, 지도·나침반 소품",
-   "batch": "M058"
+   "front_batch": "F014",
+   "walk_batch": ""
   },
   {
    "npc_id": "rv_extra_5",
@@ -1816,10 +2028,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_rv_extra_5",
-   "sheet": "art/npc/sprites/npc_rv_extra_5.webp",
-   "format": "front1_128",
+   "front_sheet": "art/npc/sprites/npc_rv_extra_5.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Whereport 관계부사: 항구 선원복, 지도·나침반 소품",
-   "batch": "F004"
+   "front_batch": "F014",
+   "walk_batch": ""
   },
   {
    "npc_id": "rv_extra_6",
@@ -1833,10 +2047,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_rv_extra_6",
-   "sheet": "art/npc/sprites/npc_rv_extra_6.webp",
-   "format": "front1_128",
+   "front_sheet": "art/npc/sprites/npc_rv_extra_6.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Whereport 관계부사: 항구 선원복, 지도·나침반 소품",
-   "batch": "F001"
+   "front_batch": "F014",
+   "walk_batch": ""
   },
   {
    "npc_id": "rv_extra_7",
@@ -1850,10 +2066,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_rv_extra_7",
-   "sheet": "art/npc/sprites/npc_rv_extra_7.webp",
-   "format": "front1_128",
+   "front_sheet": "art/npc/sprites/npc_rv_extra_7.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Whereport 관계부사: 항구 선원복, 지도·나침반 소품",
-   "batch": "F002"
+   "front_batch": "F014",
+   "walk_batch": ""
   },
   {
    "npc_id": "rv_extra_8",
@@ -1867,10 +2085,12 @@
    "age": "child",
    "gender": "any",
    "sprite_id": "npc_rv_extra_8",
-   "sheet": "art/npc/sprites/npc_rv_extra_8.webp",
-   "format": "walk8x4_1024x512",
+   "front_sheet": "art/npc/sprites/npc_rv_extra_8.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Whereport 관계부사: 항구 선원복, 지도·나침반 소품",
-   "batch": "M059"
+   "front_batch": "F014",
+   "walk_batch": ""
   },
   {
    "npc_id": "rv_extra_9",
@@ -1884,10 +2104,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_rv_extra_9",
-   "sheet": "art/npc/sprites/npc_rv_extra_9.webp",
-   "format": "walk8x4_1024x512",
+   "front_sheet": "art/npc/sprites/npc_rv_extra_9.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Whereport 관계부사: 항구 선원복, 지도·나침반 소품",
-   "batch": "M059"
+   "front_batch": "F014",
+   "walk_batch": ""
   },
   {
    "npc_id": "rv_extra_10",
@@ -1901,10 +2123,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_rv_extra_10",
-   "sheet": "art/npc/sprites/npc_rv_extra_10.webp",
-   "format": "walk8x4_1024x512",
+   "front_sheet": "art/npc/sprites/npc_rv_extra_10.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Whereport 관계부사: 항구 선원복, 지도·나침반 소품",
-   "batch": "M058"
+   "front_batch": "F014",
+   "walk_batch": ""
   },
   {
    "npc_id": "pc_o0",
@@ -1918,10 +2142,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_pc_o0",
-   "sheet": "art/npc/sprites/npc_pc_o0.webp",
-   "format": "walk8x4_1024x512",
+   "front_sheet": "art/npc/sprites/npc_pc_o0.webp",
+   "walk": true,
+   "walk_sheet": "art/npc/sprites/npc_pc_o0_walk.webp",
    "region_style": "Participle Canyon 분사: 협곡 암갈색·붉은 흙, 탐험가 복장",
-   "batch": "M011"
+   "front_batch": "F002",
+   "walk_batch": "W006"
   },
   {
    "npc_id": "pc_o1",
@@ -1935,10 +2161,12 @@
    "age": "teen",
    "gender": "any",
    "sprite_id": "npc_pc_o1",
-   "sheet": "art/npc/sprites/npc_pc_o1.webp",
-   "format": "walk8x4_1024x512",
+   "front_sheet": "art/npc/sprites/npc_pc_o1.webp",
+   "walk": true,
+   "walk_sheet": "art/npc/sprites/npc_pc_o1_walk.webp",
    "region_style": "Participle Canyon 분사: 협곡 암갈색·붉은 흙, 탐험가 복장",
-   "batch": "M012"
+   "front_batch": "F002",
+   "walk_batch": "W006"
   },
   {
    "npc_id": "pc_o2",
@@ -1952,10 +2180,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_pc_o2",
-   "sheet": "art/npc/sprites/npc_pc_o2.webp",
-   "format": "front1_128",
+   "front_sheet": "art/npc/sprites/npc_pc_o2.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Participle Canyon 분사: 협곡 암갈색·붉은 흙, 탐험가 복장",
-   "batch": "F001"
+   "front_batch": "F002",
+   "walk_batch": ""
   },
   {
    "npc_id": "pc_o3",
@@ -1969,10 +2199,12 @@
    "age": "child",
    "gender": "f",
    "sprite_id": "npc_pc_o3",
-   "sheet": "art/npc/sprites/npc_pc_o3.webp",
-   "format": "walk8x4_1024x512",
+   "front_sheet": "art/npc/sprites/npc_pc_o3.webp",
+   "walk": true,
+   "walk_sheet": "art/npc/sprites/npc_pc_o3_walk.webp",
    "region_style": "Participle Canyon 분사: 협곡 암갈색·붉은 흙, 탐험가 복장",
-   "batch": "M012"
+   "front_batch": "F002",
+   "walk_batch": "W006"
   },
   {
    "npc_id": "pc_extra_1",
@@ -1986,10 +2218,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_pc_extra_1",
-   "sheet": "art/npc/sprites/npc_pc_extra_1.webp",
-   "format": "front1_128",
+   "front_sheet": "art/npc/sprites/npc_pc_extra_1.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Participle Canyon 분사: 협곡 암갈색·붉은 흙, 탐험가 복장",
-   "batch": "F005"
+   "front_batch": "F009",
+   "walk_batch": ""
   },
   {
    "npc_id": "pc_extra_2",
@@ -2003,10 +2237,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_pc_extra_2",
-   "sheet": "art/npc/sprites/npc_pc_extra_2.webp",
-   "format": "front1_128",
+   "front_sheet": "art/npc/sprites/npc_pc_extra_2.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Participle Canyon 분사: 협곡 암갈색·붉은 흙, 탐험가 복장",
-   "batch": "F002"
+   "front_batch": "F010",
+   "walk_batch": ""
   },
   {
    "npc_id": "pc_extra_3",
@@ -2020,10 +2256,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_pc_extra_3",
-   "sheet": "art/npc/sprites/npc_pc_extra_3.webp",
-   "format": "front1_128",
+   "front_sheet": "art/npc/sprites/npc_pc_extra_3.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Participle Canyon 분사: 협곡 암갈색·붉은 흙, 탐험가 복장",
-   "batch": "F004"
+   "front_batch": "F010",
+   "walk_batch": ""
   },
   {
    "npc_id": "pc_extra_4",
@@ -2037,10 +2275,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_pc_extra_4",
-   "sheet": "art/npc/sprites/npc_pc_extra_4.webp",
-   "format": "walk8x4_1024x512",
+   "front_sheet": "art/npc/sprites/npc_pc_extra_4.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Participle Canyon 분사: 협곡 암갈색·붉은 흙, 탐험가 복장",
-   "batch": "M043"
+   "front_batch": "F010",
+   "walk_batch": ""
   },
   {
    "npc_id": "pc_extra_5",
@@ -2054,10 +2294,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_pc_extra_5",
-   "sheet": "art/npc/sprites/npc_pc_extra_5.webp",
-   "format": "front1_128",
+   "front_sheet": "art/npc/sprites/npc_pc_extra_5.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Participle Canyon 분사: 협곡 암갈색·붉은 흙, 탐험가 복장",
-   "batch": "F001"
+   "front_batch": "F010",
+   "walk_batch": ""
   },
   {
    "npc_id": "pc_extra_6",
@@ -2071,10 +2313,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_pc_extra_6",
-   "sheet": "art/npc/sprites/npc_pc_extra_6.webp",
-   "format": "front1_128",
+   "front_sheet": "art/npc/sprites/npc_pc_extra_6.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Participle Canyon 분사: 협곡 암갈색·붉은 흙, 탐험가 복장",
-   "batch": "F005"
+   "front_batch": "F010",
+   "walk_batch": ""
   },
   {
    "npc_id": "pc_extra_7",
@@ -2088,10 +2332,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_pc_extra_7",
-   "sheet": "art/npc/sprites/npc_pc_extra_7.webp",
-   "format": "walk8x4_1024x512",
+   "front_sheet": "art/npc/sprites/npc_pc_extra_7.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Participle Canyon 분사: 협곡 암갈색·붉은 흙, 탐험가 복장",
-   "batch": "M043"
+   "front_batch": "F010",
+   "walk_batch": ""
   },
   {
    "npc_id": "pc_extra_8",
@@ -2105,10 +2351,12 @@
    "age": "child",
    "gender": "any",
    "sprite_id": "npc_pc_extra_8",
-   "sheet": "art/npc/sprites/npc_pc_extra_8.webp",
-   "format": "walk8x4_1024x512",
+   "front_sheet": "art/npc/sprites/npc_pc_extra_8.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Participle Canyon 분사: 협곡 암갈색·붉은 흙, 탐험가 복장",
-   "batch": "M044"
+   "front_batch": "F010",
+   "walk_batch": ""
   },
   {
    "npc_id": "pc_extra_9",
@@ -2122,10 +2370,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_pc_extra_9",
-   "sheet": "art/npc/sprites/npc_pc_extra_9.webp",
-   "format": "walk8x4_1024x512",
+   "front_sheet": "art/npc/sprites/npc_pc_extra_9.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Participle Canyon 분사: 협곡 암갈색·붉은 흙, 탐험가 복장",
-   "batch": "M044"
+   "front_batch": "F010",
+   "walk_batch": ""
   },
   {
    "npc_id": "pc_extra_10",
@@ -2139,10 +2389,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_pc_extra_10",
-   "sheet": "art/npc/sprites/npc_pc_extra_10.webp",
-   "format": "front1_128",
+   "front_sheet": "art/npc/sprites/npc_pc_extra_10.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Participle Canyon 분사: 협곡 암갈색·붉은 흙, 탐험가 복장",
-   "batch": "F003"
+   "front_batch": "F009",
+   "walk_batch": ""
   },
   {
    "npc_id": "sj_o0",
@@ -2156,10 +2408,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_sj_o0",
-   "sheet": "art/npc/sprites/npc_sj_o0.webp",
-   "format": "walk8x4_1024x512",
+   "front_sheet": "art/npc/sprites/npc_sj_o0.webp",
+   "walk": true,
+   "walk_sheet": "art/npc/sprites/npc_sj_o0_walk.webp",
    "region_style": "Ifhaven 가정법: 소원·별·깃털 모티프, 몽환적 보라·남색",
-   "batch": "M022"
+   "front_batch": "F004",
+   "walk_batch": "W011"
   },
   {
    "npc_id": "sj_o1",
@@ -2173,10 +2427,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_sj_o1",
-   "sheet": "art/npc/sprites/npc_sj_o1.webp",
-   "format": "front1_128",
+   "front_sheet": "art/npc/sprites/npc_sj_o1.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Ifhaven 가정법: 소원·별·깃털 모티프, 몽환적 보라·남색",
-   "batch": "F001"
+   "front_batch": "F004",
+   "walk_batch": ""
   },
   {
    "npc_id": "sj_o2",
@@ -2190,10 +2446,12 @@
    "age": "child",
    "gender": "f",
    "sprite_id": "npc_sj_o2",
-   "sheet": "art/npc/sprites/npc_sj_o2.webp",
-   "format": "walk8x4_1024x512",
+   "front_sheet": "art/npc/sprites/npc_sj_o2.webp",
+   "walk": true,
+   "walk_sheet": "art/npc/sprites/npc_sj_o2_walk.webp",
    "region_style": "Ifhaven 가정법: 소원·별·깃털 모티프, 몽환적 보라·남색",
-   "batch": "M023"
+   "front_batch": "F004",
+   "walk_batch": "W012"
   },
   {
    "npc_id": "sj_o3",
@@ -2207,10 +2465,12 @@
    "age": "teen",
    "gender": "any",
    "sprite_id": "npc_sj_o3",
-   "sheet": "art/npc/sprites/npc_sj_o3.webp",
-   "format": "walk8x4_1024x512",
+   "front_sheet": "art/npc/sprites/npc_sj_o3.webp",
+   "walk": true,
+   "walk_sheet": "art/npc/sprites/npc_sj_o3_walk.webp",
    "region_style": "Ifhaven 가정법: 소원·별·깃털 모티프, 몽환적 보라·남색",
-   "batch": "M023"
+   "front_batch": "F004",
+   "walk_batch": "W012"
   },
   {
    "npc_id": "sj_extra_1",
@@ -2224,10 +2484,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_sj_extra_1",
-   "sheet": "art/npc/sprites/npc_sj_extra_1.webp",
-   "format": "front1_128",
+   "front_sheet": "art/npc/sprites/npc_sj_extra_1.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Ifhaven 가정법: 소원·별·깃털 모티프, 몽환적 보라·남색",
-   "batch": "F005"
+   "front_batch": "F014",
+   "walk_batch": ""
   },
   {
    "npc_id": "sj_extra_2",
@@ -2241,10 +2503,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_sj_extra_2",
-   "sheet": "art/npc/sprites/npc_sj_extra_2.webp",
-   "format": "front1_128",
+   "front_sheet": "art/npc/sprites/npc_sj_extra_2.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Ifhaven 가정법: 소원·별·깃털 모티프, 몽환적 보라·남색",
-   "batch": "F003"
+   "front_batch": "F015",
+   "walk_batch": ""
   },
   {
    "npc_id": "sj_extra_3",
@@ -2258,10 +2522,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_sj_extra_3",
-   "sheet": "art/npc/sprites/npc_sj_extra_3.webp",
-   "format": "front1_128",
+   "front_sheet": "art/npc/sprites/npc_sj_extra_3.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Ifhaven 가정법: 소원·별·깃털 모티프, 몽환적 보라·남색",
-   "batch": "F004"
+   "front_batch": "F015",
+   "walk_batch": ""
   },
   {
    "npc_id": "sj_extra_4",
@@ -2275,10 +2541,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_sj_extra_4",
-   "sheet": "art/npc/sprites/npc_sj_extra_4.webp",
-   "format": "walk8x4_1024x512",
+   "front_sheet": "art/npc/sprites/npc_sj_extra_4.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Ifhaven 가정법: 소원·별·깃털 모티프, 몽환적 보라·남색",
-   "batch": "M060"
+   "front_batch": "F015",
+   "walk_batch": ""
   },
   {
    "npc_id": "sj_extra_5",
@@ -2292,10 +2560,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_sj_extra_5",
-   "sheet": "art/npc/sprites/npc_sj_extra_5.webp",
-   "format": "front1_128",
+   "front_sheet": "art/npc/sprites/npc_sj_extra_5.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Ifhaven 가정법: 소원·별·깃털 모티프, 몽환적 보라·남색",
-   "batch": "F002"
+   "front_batch": "F015",
+   "walk_batch": ""
   },
   {
    "npc_id": "sj_extra_6",
@@ -2309,10 +2579,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_sj_extra_6",
-   "sheet": "art/npc/sprites/npc_sj_extra_6.webp",
-   "format": "front1_128",
+   "front_sheet": "art/npc/sprites/npc_sj_extra_6.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Ifhaven 가정법: 소원·별·깃털 모티프, 몽환적 보라·남색",
-   "batch": "F004"
+   "front_batch": "F015",
+   "walk_batch": ""
   },
   {
    "npc_id": "sj_extra_7",
@@ -2326,10 +2598,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_sj_extra_7",
-   "sheet": "art/npc/sprites/npc_sj_extra_7.webp",
-   "format": "front1_128",
+   "front_sheet": "art/npc/sprites/npc_sj_extra_7.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Ifhaven 가정법: 소원·별·깃털 모티프, 몽환적 보라·남색",
-   "batch": "F006"
+   "front_batch": "F015",
+   "walk_batch": ""
   },
   {
    "npc_id": "sj_extra_8",
@@ -2343,10 +2617,12 @@
    "age": "child",
    "gender": "any",
    "sprite_id": "npc_sj_extra_8",
-   "sheet": "art/npc/sprites/npc_sj_extra_8.webp",
-   "format": "walk8x4_1024x512",
+   "front_sheet": "art/npc/sprites/npc_sj_extra_8.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Ifhaven 가정법: 소원·별·깃털 모티프, 몽환적 보라·남색",
-   "batch": "M060"
+   "front_batch": "F015",
+   "walk_batch": ""
   },
   {
    "npc_id": "sj_extra_9",
@@ -2360,10 +2636,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_sj_extra_9",
-   "sheet": "art/npc/sprites/npc_sj_extra_9.webp",
-   "format": "walk8x4_1024x512",
+   "front_sheet": "art/npc/sprites/npc_sj_extra_9.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Ifhaven 가정법: 소원·별·깃털 모티프, 몽환적 보라·남색",
-   "batch": "M061"
+   "front_batch": "F015",
+   "walk_batch": ""
   },
   {
    "npc_id": "sj_extra_10",
@@ -2377,10 +2655,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_sj_extra_10",
-   "sheet": "art/npc/sprites/npc_sj_extra_10.webp",
-   "format": "front1_128",
+   "front_sheet": "art/npc/sprites/npc_sj_extra_10.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Ifhaven 가정법: 소원·별·깃털 모티프, 몽환적 보라·남색",
-   "batch": "F003"
+   "front_batch": "F014",
+   "walk_batch": ""
   },
   {
    "npc_id": "cp_o0",
@@ -2394,10 +2674,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_cp_o0",
-   "sheet": "art/npc/sprites/npc_cp_o0.webp",
-   "format": "walk8x4_1024x512",
+   "front_sheet": "art/npc/sprites/npc_cp_o0.webp",
+   "walk": true,
+   "walk_sheet": "art/npc/sprites/npc_cp_o0_walk.webp",
    "region_style": "Compare Hills 비교: 달리기·경기장 운동복, 메달·저울 소품",
-   "batch": "M001"
+   "front_batch": "F001",
+   "walk_batch": "W001"
   },
   {
    "npc_id": "cp_o1",
@@ -2411,10 +2693,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_cp_o1",
-   "sheet": "art/npc/sprites/npc_cp_o1.webp",
-   "format": "front1_128",
+   "front_sheet": "art/npc/sprites/npc_cp_o1.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Compare Hills 비교: 달리기·경기장 운동복, 메달·저울 소품",
-   "batch": "F001"
+   "front_batch": "F001",
+   "walk_batch": ""
   },
   {
    "npc_id": "cp_o2",
@@ -2428,10 +2712,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_cp_o2",
-   "sheet": "art/npc/sprites/npc_cp_o2.webp",
-   "format": "walk8x4_1024x512",
+   "front_sheet": "art/npc/sprites/npc_cp_o2.webp",
+   "walk": true,
+   "walk_sheet": "art/npc/sprites/npc_cp_o2_walk.webp",
    "region_style": "Compare Hills 비교: 달리기·경기장 운동복, 메달·저울 소품",
-   "batch": "M001"
+   "front_batch": "F001",
+   "walk_batch": "W001"
   },
   {
    "npc_id": "cp_o3",
@@ -2445,10 +2731,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_cp_o3",
-   "sheet": "art/npc/sprites/npc_cp_o3.webp",
-   "format": "walk8x4_1024x512",
+   "front_sheet": "art/npc/sprites/npc_cp_o3.webp",
+   "walk": true,
+   "walk_sheet": "art/npc/sprites/npc_cp_o3_walk.webp",
    "region_style": "Compare Hills 비교: 달리기·경기장 운동복, 메달·저울 소품",
-   "batch": "M002"
+   "front_batch": "F001",
+   "walk_batch": "W001"
   },
   {
    "npc_id": "cp_extra_1",
@@ -2462,10 +2750,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_cp_extra_1",
-   "sheet": "art/npc/sprites/npc_cp_extra_1.webp",
-   "format": "front1_128",
+   "front_sheet": "art/npc/sprites/npc_cp_extra_1.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Compare Hills 비교: 달리기·경기장 운동복, 메달·저울 소품",
-   "batch": "F004"
+   "front_batch": "F005",
+   "walk_batch": ""
   },
   {
    "npc_id": "cp_extra_2",
@@ -2479,10 +2769,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_cp_extra_2",
-   "sheet": "art/npc/sprites/npc_cp_extra_2.webp",
-   "format": "front1_128",
+   "front_sheet": "art/npc/sprites/npc_cp_extra_2.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Compare Hills 비교: 달리기·경기장 운동복, 메달·저울 소품",
-   "batch": "F002"
+   "front_batch": "F005",
+   "walk_batch": ""
   },
   {
    "npc_id": "cp_extra_3",
@@ -2496,10 +2788,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_cp_extra_3",
-   "sheet": "art/npc/sprites/npc_cp_extra_3.webp",
-   "format": "front1_128",
+   "front_sheet": "art/npc/sprites/npc_cp_extra_3.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Compare Hills 비교: 달리기·경기장 운동복, 메달·저울 소품",
-   "batch": "F003"
+   "front_batch": "F005",
+   "walk_batch": ""
   },
   {
    "npc_id": "cp_extra_4",
@@ -2513,10 +2807,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_cp_extra_4",
-   "sheet": "art/npc/sprites/npc_cp_extra_4.webp",
-   "format": "walk8x4_1024x512",
+   "front_sheet": "art/npc/sprites/npc_cp_extra_4.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Compare Hills 비교: 달리기·경기장 운동복, 메달·저울 소품",
-   "batch": "M027"
+   "front_batch": "F005",
+   "walk_batch": ""
   },
   {
    "npc_id": "cp_extra_5",
@@ -2530,10 +2826,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_cp_extra_5",
-   "sheet": "art/npc/sprites/npc_cp_extra_5.webp",
-   "format": "walk8x4_1024x512",
+   "front_sheet": "art/npc/sprites/npc_cp_extra_5.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Compare Hills 비교: 달리기·경기장 운동복, 메달·저울 소품",
-   "batch": "M027"
+   "front_batch": "F005",
+   "walk_batch": ""
   },
   {
    "npc_id": "cp_extra_6",
@@ -2547,10 +2845,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_cp_extra_6",
-   "sheet": "art/npc/sprites/npc_cp_extra_6.webp",
-   "format": "walk8x4_1024x512",
+   "front_sheet": "art/npc/sprites/npc_cp_extra_6.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Compare Hills 비교: 달리기·경기장 운동복, 메달·저울 소품",
-   "batch": "M028"
+   "front_batch": "F005",
+   "walk_batch": ""
   },
   {
    "npc_id": "cp_extra_7",
@@ -2564,10 +2864,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_cp_extra_7",
-   "sheet": "art/npc/sprites/npc_cp_extra_7.webp",
-   "format": "front1_128",
+   "front_sheet": "art/npc/sprites/npc_cp_extra_7.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Compare Hills 비교: 달리기·경기장 운동복, 메달·저울 소품",
-   "batch": "F005"
+   "front_batch": "F005",
+   "walk_batch": ""
   },
   {
    "npc_id": "cp_extra_8",
@@ -2581,10 +2883,12 @@
    "age": "child",
    "gender": "any",
    "sprite_id": "npc_cp_extra_8",
-   "sheet": "art/npc/sprites/npc_cp_extra_8.webp",
-   "format": "walk8x4_1024x512",
+   "front_sheet": "art/npc/sprites/npc_cp_extra_8.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Compare Hills 비교: 달리기·경기장 운동복, 메달·저울 소품",
-   "batch": "M028"
+   "front_batch": "F006",
+   "walk_batch": ""
   },
   {
    "npc_id": "cp_extra_9",
@@ -2598,10 +2902,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_cp_extra_9",
-   "sheet": "art/npc/sprites/npc_cp_extra_9.webp",
-   "format": "walk8x4_1024x512",
+   "front_sheet": "art/npc/sprites/npc_cp_extra_9.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Compare Hills 비교: 달리기·경기장 운동복, 메달·저울 소품",
-   "batch": "M029"
+   "front_batch": "F006",
+   "walk_batch": ""
   },
   {
    "npc_id": "cp_extra_10",
@@ -2615,10 +2921,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_cp_extra_10",
-   "sheet": "art/npc/sprites/npc_cp_extra_10.webp",
-   "format": "front1_128",
+   "front_sheet": "art/npc/sprites/npc_cp_extra_10.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Compare Hills 비교: 달리기·경기장 운동복, 메달·저울 소품",
-   "batch": "F003"
+   "front_batch": "F005",
+   "walk_batch": ""
   },
   {
    "npc_id": "pn_o0",
@@ -2632,10 +2940,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_pn_o0",
-   "sheet": "art/npc/sprites/npc_pn_o0.webp",
-   "format": "front1_128",
+   "front_sheet": "art/npc/sprites/npc_pn_o0.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Pronovia 대명사/관사: 우체·상점가, 라벨·명찰 소품",
-   "batch": "F001"
+   "front_batch": "F003",
+   "walk_batch": ""
   },
   {
    "npc_id": "pn_o1",
@@ -2649,10 +2959,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_pn_o1",
-   "sheet": "art/npc/sprites/npc_pn_o1.webp",
-   "format": "front1_128",
+   "front_sheet": "art/npc/sprites/npc_pn_o1.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Pronovia 대명사/관사: 우체·상점가, 라벨·명찰 소품",
-   "batch": "F001"
+   "front_batch": "F003",
+   "walk_batch": ""
   },
   {
    "npc_id": "pn_o2",
@@ -2666,10 +2978,12 @@
    "age": "child",
    "gender": "f",
    "sprite_id": "npc_pn_o2",
-   "sheet": "art/npc/sprites/npc_pn_o2.webp",
-   "format": "walk8x4_1024x512",
+   "front_sheet": "art/npc/sprites/npc_pn_o2.webp",
+   "walk": true,
+   "walk_sheet": "art/npc/sprites/npc_pn_o2_walk.webp",
    "region_style": "Pronovia 대명사/관사: 우체·상점가, 라벨·명찰 소품",
-   "batch": "M015"
+   "front_batch": "F003",
+   "walk_batch": "W008"
   },
   {
    "npc_id": "pn_o3",
@@ -2683,10 +2997,12 @@
    "age": "child",
    "gender": "m",
    "sprite_id": "npc_pn_o3",
-   "sheet": "art/npc/sprites/npc_pn_o3.webp",
-   "format": "walk8x4_1024x512",
+   "front_sheet": "art/npc/sprites/npc_pn_o3.webp",
+   "walk": true,
+   "walk_sheet": "art/npc/sprites/npc_pn_o3_walk.webp",
    "region_style": "Pronovia 대명사/관사: 우체·상점가, 라벨·명찰 소품",
-   "batch": "M016"
+   "front_batch": "F003",
+   "walk_batch": "W008"
   },
   {
    "npc_id": "pn_extra_1",
@@ -2700,10 +3016,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_pn_extra_1",
-   "sheet": "art/npc/sprites/npc_pn_extra_1.webp",
-   "format": "front1_128",
+   "front_sheet": "art/npc/sprites/npc_pn_extra_1.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Pronovia 대명사/관사: 우체·상점가, 라벨·명찰 소품",
-   "batch": "F005"
+   "front_batch": "F011",
+   "walk_batch": ""
   },
   {
    "npc_id": "pn_extra_2",
@@ -2717,10 +3035,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_pn_extra_2",
-   "sheet": "art/npc/sprites/npc_pn_extra_2.webp",
-   "format": "front1_128",
+   "front_sheet": "art/npc/sprites/npc_pn_extra_2.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Pronovia 대명사/관사: 우체·상점가, 라벨·명찰 소품",
-   "batch": "F002"
+   "front_batch": "F011",
+   "walk_batch": ""
   },
   {
    "npc_id": "pn_extra_3",
@@ -2734,10 +3054,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_pn_extra_3",
-   "sheet": "art/npc/sprites/npc_pn_extra_3.webp",
-   "format": "front1_128",
+   "front_sheet": "art/npc/sprites/npc_pn_extra_3.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Pronovia 대명사/관사: 우체·상점가, 라벨·명찰 소품",
-   "batch": "F004"
+   "front_batch": "F011",
+   "walk_batch": ""
   },
   {
    "npc_id": "pn_extra_4",
@@ -2751,10 +3073,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_pn_extra_4",
-   "sheet": "art/npc/sprites/npc_pn_extra_4.webp",
-   "format": "walk8x4_1024x512",
+   "front_sheet": "art/npc/sprites/npc_pn_extra_4.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Pronovia 대명사/관사: 우체·상점가, 라벨·명찰 소품",
-   "batch": "M049"
+   "front_batch": "F012",
+   "walk_batch": ""
   },
   {
    "npc_id": "pn_extra_5",
@@ -2768,10 +3092,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_pn_extra_5",
-   "sheet": "art/npc/sprites/npc_pn_extra_5.webp",
-   "format": "front1_128",
+   "front_sheet": "art/npc/sprites/npc_pn_extra_5.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Pronovia 대명사/관사: 우체·상점가, 라벨·명찰 소품",
-   "batch": "F004"
+   "front_batch": "F012",
+   "walk_batch": ""
   },
   {
    "npc_id": "pn_extra_6",
@@ -2785,10 +3111,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_pn_extra_6",
-   "sheet": "art/npc/sprites/npc_pn_extra_6.webp",
-   "format": "front1_128",
+   "front_sheet": "art/npc/sprites/npc_pn_extra_6.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Pronovia 대명사/관사: 우체·상점가, 라벨·명찰 소품",
-   "batch": "F005"
+   "front_batch": "F012",
+   "walk_batch": ""
   },
   {
    "npc_id": "pn_extra_7",
@@ -2802,10 +3130,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_pn_extra_7",
-   "sheet": "art/npc/sprites/npc_pn_extra_7.webp",
-   "format": "front1_128",
+   "front_sheet": "art/npc/sprites/npc_pn_extra_7.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Pronovia 대명사/관사: 우체·상점가, 라벨·명찰 소품",
-   "batch": "F002"
+   "front_batch": "F012",
+   "walk_batch": ""
   },
   {
    "npc_id": "pn_extra_8",
@@ -2819,10 +3149,12 @@
    "age": "child",
    "gender": "any",
    "sprite_id": "npc_pn_extra_8",
-   "sheet": "art/npc/sprites/npc_pn_extra_8.webp",
-   "format": "walk8x4_1024x512",
+   "front_sheet": "art/npc/sprites/npc_pn_extra_8.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Pronovia 대명사/관사: 우체·상점가, 라벨·명찰 소품",
-   "batch": "M049"
+   "front_batch": "F012",
+   "walk_batch": ""
   },
   {
    "npc_id": "pn_extra_9",
@@ -2836,10 +3168,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_pn_extra_9",
-   "sheet": "art/npc/sprites/npc_pn_extra_9.webp",
-   "format": "walk8x4_1024x512",
+   "front_sheet": "art/npc/sprites/npc_pn_extra_9.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Pronovia 대명사/관사: 우체·상점가, 라벨·명찰 소품",
-   "batch": "M050"
+   "front_batch": "F012",
+   "walk_batch": ""
   },
   {
    "npc_id": "pn_extra_10",
@@ -2853,10 +3187,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_pn_extra_10",
-   "sheet": "art/npc/sprites/npc_pn_extra_10.webp",
-   "format": "front1_128",
+   "front_sheet": "art/npc/sprites/npc_pn_extra_10.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Pronovia 대명사/관사: 우체·상점가, 라벨·명찰 소품",
-   "batch": "F005"
+   "front_batch": "F011",
+   "walk_batch": ""
   },
   {
    "npc_id": "ot_o0",
@@ -2870,10 +3206,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_ot_o0",
-   "sheet": "art/npc/sprites/npc_ot_o0.webp",
-   "format": "walk8x4_1024x512",
+   "front_sheet": "art/npc/sprites/npc_ot_o0.webp",
+   "walk": true,
+   "walk_sheet": "art/npc/sprites/npc_ot_o0_walk.webp",
    "region_style": "Prep Isles 전치사: 섬 선원·등대 복식, 위치 표지 소품",
-   "batch": "M009"
+   "front_batch": "F002",
+   "walk_batch": "W005"
   },
   {
    "npc_id": "ot_o1",
@@ -2887,10 +3225,12 @@
    "age": "child",
    "gender": "f",
    "sprite_id": "npc_ot_o1",
-   "sheet": "art/npc/sprites/npc_ot_o1.webp",
-   "format": "walk8x4_1024x512",
+   "front_sheet": "art/npc/sprites/npc_ot_o1.webp",
+   "walk": true,
+   "walk_sheet": "art/npc/sprites/npc_ot_o1_walk.webp",
    "region_style": "Prep Isles 전치사: 섬 선원·등대 복식, 위치 표지 소품",
-   "batch": "M010"
+   "front_batch": "F002",
+   "walk_batch": "W005"
   },
   {
    "npc_id": "ot_o2",
@@ -2904,10 +3244,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_ot_o2",
-   "sheet": "art/npc/sprites/npc_ot_o2.webp",
-   "format": "walk8x4_1024x512",
+   "front_sheet": "art/npc/sprites/npc_ot_o2.webp",
+   "walk": true,
+   "walk_sheet": "art/npc/sprites/npc_ot_o2_walk.webp",
    "region_style": "Prep Isles 전치사: 섬 선원·등대 복식, 위치 표지 소품",
-   "batch": "M010"
+   "front_batch": "F002",
+   "walk_batch": "W005"
   },
   {
    "npc_id": "ot_o3",
@@ -2921,10 +3263,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_ot_o3",
-   "sheet": "art/npc/sprites/npc_ot_o3.webp",
-   "format": "walk8x4_1024x512",
+   "front_sheet": "art/npc/sprites/npc_ot_o3.webp",
+   "walk": true,
+   "walk_sheet": "art/npc/sprites/npc_ot_o3_walk.webp",
    "region_style": "Prep Isles 전치사: 섬 선원·등대 복식, 위치 표지 소품",
-   "batch": "M011"
+   "front_batch": "F002",
+   "walk_batch": "W006"
   },
   {
    "npc_id": "ot_extra_1",
@@ -2938,10 +3282,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_ot_extra_1",
-   "sheet": "art/npc/sprites/npc_ot_extra_1.webp",
-   "format": "front1_128",
+   "front_sheet": "art/npc/sprites/npc_ot_extra_1.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Prep Isles 전치사: 섬 선원·등대 복식, 위치 표지 소품",
-   "batch": "F003"
+   "front_batch": "F009",
+   "walk_batch": ""
   },
   {
    "npc_id": "ot_extra_2",
@@ -2955,10 +3301,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_ot_extra_2",
-   "sheet": "art/npc/sprites/npc_ot_extra_2.webp",
-   "format": "front1_128",
+   "front_sheet": "art/npc/sprites/npc_ot_extra_2.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Prep Isles 전치사: 섬 선원·등대 복식, 위치 표지 소품",
-   "batch": "F002"
+   "front_batch": "F009",
+   "walk_batch": ""
   },
   {
    "npc_id": "ot_extra_3",
@@ -2972,10 +3320,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_ot_extra_3",
-   "sheet": "art/npc/sprites/npc_ot_extra_3.webp",
-   "format": "front1_128",
+   "front_sheet": "art/npc/sprites/npc_ot_extra_3.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Prep Isles 전치사: 섬 선원·등대 복식, 위치 표지 소품",
-   "batch": "F004"
+   "front_batch": "F009",
+   "walk_batch": ""
   },
   {
    "npc_id": "ot_extra_4",
@@ -2989,10 +3339,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_ot_extra_4",
-   "sheet": "art/npc/sprites/npc_ot_extra_4.webp",
-   "format": "walk8x4_1024x512",
+   "front_sheet": "art/npc/sprites/npc_ot_extra_4.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Prep Isles 전치사: 섬 선원·등대 복식, 위치 표지 소품",
-   "batch": "M041"
+   "front_batch": "F009",
+   "walk_batch": ""
   },
   {
    "npc_id": "ot_extra_5",
@@ -3006,10 +3358,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_ot_extra_5",
-   "sheet": "art/npc/sprites/npc_ot_extra_5.webp",
-   "format": "walk8x4_1024x512",
+   "front_sheet": "art/npc/sprites/npc_ot_extra_5.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Prep Isles 전치사: 섬 선원·등대 복식, 위치 표지 소품",
-   "batch": "M041"
+   "front_batch": "F009",
+   "walk_batch": ""
   },
   {
    "npc_id": "ot_extra_6",
@@ -3023,10 +3377,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_ot_extra_6",
-   "sheet": "art/npc/sprites/npc_ot_extra_6.webp",
-   "format": "front1_128",
+   "front_sheet": "art/npc/sprites/npc_ot_extra_6.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Prep Isles 전치사: 섬 선원·등대 복식, 위치 표지 소품",
-   "batch": "F005"
+   "front_batch": "F009",
+   "walk_batch": ""
   },
   {
    "npc_id": "ot_extra_7",
@@ -3040,10 +3396,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_ot_extra_7",
-   "sheet": "art/npc/sprites/npc_ot_extra_7.webp",
-   "format": "front1_128",
+   "front_sheet": "art/npc/sprites/npc_ot_extra_7.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Prep Isles 전치사: 섬 선원·등대 복식, 위치 표지 소품",
-   "batch": "F004"
+   "front_batch": "F009",
+   "walk_batch": ""
   },
   {
    "npc_id": "ot_extra_8",
@@ -3057,10 +3415,12 @@
    "age": "child",
    "gender": "any",
    "sprite_id": "npc_ot_extra_8",
-   "sheet": "art/npc/sprites/npc_ot_extra_8.webp",
-   "format": "walk8x4_1024x512",
+   "front_sheet": "art/npc/sprites/npc_ot_extra_8.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Prep Isles 전치사: 섬 선원·등대 복식, 위치 표지 소품",
-   "batch": "M042"
+   "front_batch": "F009",
+   "walk_batch": ""
   },
   {
    "npc_id": "ot_extra_9",
@@ -3074,10 +3434,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_ot_extra_9",
-   "sheet": "art/npc/sprites/npc_ot_extra_9.webp",
-   "format": "walk8x4_1024x512",
+   "front_sheet": "art/npc/sprites/npc_ot_extra_9.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Prep Isles 전치사: 섬 선원·등대 복식, 위치 표지 소품",
-   "batch": "M042"
+   "front_batch": "F009",
+   "walk_batch": ""
   },
   {
    "npc_id": "ot_extra_10",
@@ -3091,10 +3453,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_ot_extra_10",
-   "sheet": "art/npc/sprites/npc_ot_extra_10.webp",
-   "format": "walk8x4_1024x512",
+   "front_sheet": "art/npc/sprites/npc_ot_extra_10.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Prep Isles 전치사: 섬 선원·등대 복식, 위치 표지 소품",
-   "batch": "M040"
+   "front_batch": "F009",
+   "walk_batch": ""
   },
   {
    "npc_id": "iv_o0",
@@ -3108,10 +3472,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_iv_o0",
-   "sheet": "art/npc/sprites/npc_iv_o0.webp",
-   "format": "walk8x4_1024x512",
+   "front_sheet": "art/npc/sprites/npc_iv_o0.webp",
+   "walk": true,
+   "walk_sheet": "art/npc/sprites/npc_iv_o0_walk.webp",
    "region_style": "Verbal Heights 부정사/동명사: 산악 여행자·등산 장비",
-   "batch": "M005"
+   "front_batch": "F001",
+   "walk_batch": "W003"
   },
   {
    "npc_id": "iv_o1",
@@ -3125,10 +3491,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_iv_o1",
-   "sheet": "art/npc/sprites/npc_iv_o1.webp",
-   "format": "walk8x4_1024x512",
+   "front_sheet": "art/npc/sprites/npc_iv_o1.webp",
+   "walk": true,
+   "walk_sheet": "art/npc/sprites/npc_iv_o1_walk.webp",
    "region_style": "Verbal Heights 부정사/동명사: 산악 여행자·등산 장비",
-   "batch": "M006"
+   "front_batch": "F001",
+   "walk_batch": "W003"
   },
   {
    "npc_id": "iv_o2",
@@ -3142,10 +3510,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_iv_o2",
-   "sheet": "art/npc/sprites/npc_iv_o2.webp",
-   "format": "walk8x4_1024x512",
+   "front_sheet": "art/npc/sprites/npc_iv_o2.webp",
+   "walk": true,
+   "walk_sheet": "art/npc/sprites/npc_iv_o2_walk.webp",
    "region_style": "Verbal Heights 부정사/동명사: 산악 여행자·등산 장비",
-   "batch": "M006"
+   "front_batch": "F001",
+   "walk_batch": "W003"
   },
   {
    "npc_id": "iv_o3",
@@ -3159,10 +3529,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_iv_o3",
-   "sheet": "art/npc/sprites/npc_iv_o3.webp",
-   "format": "front1_128",
+   "front_sheet": "art/npc/sprites/npc_iv_o3.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Verbal Heights 부정사/동명사: 산악 여행자·등산 장비",
-   "batch": "F001"
+   "front_batch": "F001",
+   "walk_batch": ""
   },
   {
    "npc_id": "iv_extra_1",
@@ -3176,10 +3548,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_iv_extra_1",
-   "sheet": "art/npc/sprites/npc_iv_extra_1.webp",
-   "format": "front1_128",
+   "front_sheet": "art/npc/sprites/npc_iv_extra_1.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Verbal Heights 부정사/동명사: 산악 여행자·등산 장비",
-   "batch": "F004"
+   "front_batch": "F007",
+   "walk_batch": ""
   },
   {
    "npc_id": "iv_extra_2",
@@ -3193,10 +3567,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_iv_extra_2",
-   "sheet": "art/npc/sprites/npc_iv_extra_2.webp",
-   "format": "front1_128",
+   "front_sheet": "art/npc/sprites/npc_iv_extra_2.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Verbal Heights 부정사/동명사: 산악 여행자·등산 장비",
-   "batch": "F002"
+   "front_batch": "F007",
+   "walk_batch": ""
   },
   {
    "npc_id": "iv_extra_3",
@@ -3210,10 +3586,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_iv_extra_3",
-   "sheet": "art/npc/sprites/npc_iv_extra_3.webp",
-   "format": "front1_128",
+   "front_sheet": "art/npc/sprites/npc_iv_extra_3.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Verbal Heights 부정사/동명사: 산악 여행자·등산 장비",
-   "batch": "F003"
+   "front_batch": "F007",
+   "walk_batch": ""
   },
   {
    "npc_id": "iv_extra_4",
@@ -3227,10 +3605,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_iv_extra_4",
-   "sheet": "art/npc/sprites/npc_iv_extra_4.webp",
-   "format": "walk8x4_1024x512",
+   "front_sheet": "art/npc/sprites/npc_iv_extra_4.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Verbal Heights 부정사/동명사: 산악 여행자·등산 장비",
-   "batch": "M034"
+   "front_batch": "F007",
+   "walk_batch": ""
   },
   {
    "npc_id": "iv_extra_5",
@@ -3244,10 +3624,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_iv_extra_5",
-   "sheet": "art/npc/sprites/npc_iv_extra_5.webp",
-   "format": "front1_128",
+   "front_sheet": "art/npc/sprites/npc_iv_extra_5.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Verbal Heights 부정사/동명사: 산악 여행자·등산 장비",
-   "batch": "F005"
+   "front_batch": "F007",
+   "walk_batch": ""
   },
   {
    "npc_id": "iv_extra_6",
@@ -3261,10 +3643,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_iv_extra_6",
-   "sheet": "art/npc/sprites/npc_iv_extra_6.webp",
-   "format": "front1_128",
+   "front_sheet": "art/npc/sprites/npc_iv_extra_6.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Verbal Heights 부정사/동명사: 산악 여행자·등산 장비",
-   "batch": "F005"
+   "front_batch": "F007",
+   "walk_batch": ""
   },
   {
    "npc_id": "iv_extra_7",
@@ -3278,10 +3662,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_iv_extra_7",
-   "sheet": "art/npc/sprites/npc_iv_extra_7.webp",
-   "format": "front1_128",
+   "front_sheet": "art/npc/sprites/npc_iv_extra_7.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Verbal Heights 부정사/동명사: 산악 여행자·등산 장비",
-   "batch": "F002"
+   "front_batch": "F007",
+   "walk_batch": ""
   },
   {
    "npc_id": "iv_extra_8",
@@ -3295,10 +3681,12 @@
    "age": "child",
    "gender": "any",
    "sprite_id": "npc_iv_extra_8",
-   "sheet": "art/npc/sprites/npc_iv_extra_8.webp",
-   "format": "walk8x4_1024x512",
+   "front_sheet": "art/npc/sprites/npc_iv_extra_8.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Verbal Heights 부정사/동명사: 산악 여행자·등산 장비",
-   "batch": "M035"
+   "front_batch": "F007",
+   "walk_batch": ""
   },
   {
    "npc_id": "iv_extra_9",
@@ -3312,10 +3700,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_iv_extra_9",
-   "sheet": "art/npc/sprites/npc_iv_extra_9.webp",
-   "format": "walk8x4_1024x512",
+   "front_sheet": "art/npc/sprites/npc_iv_extra_9.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Verbal Heights 부정사/동명사: 산악 여행자·등산 장비",
-   "batch": "M035"
+   "front_batch": "F007",
+   "walk_batch": ""
   },
   {
    "npc_id": "iv_extra_10",
@@ -3329,10 +3719,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_iv_extra_10",
-   "sheet": "art/npc/sprites/npc_iv_extra_10.webp",
-   "format": "front1_128",
+   "front_sheet": "art/npc/sprites/npc_iv_extra_10.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Verbal Heights 부정사/동명사: 산악 여행자·등산 장비",
-   "batch": "F003"
+   "front_batch": "F007",
+   "walk_batch": ""
   },
   {
    "npc_id": "pe_o0",
@@ -3346,10 +3738,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_pe_o0",
-   "sheet": "art/npc/sprites/npc_pe_o0.webp",
-   "format": "walk8x4_1024x512",
+   "front_sheet": "art/npc/sprites/npc_pe_o0.webp",
+   "walk": true,
+   "walk_sheet": "art/npc/sprites/npc_pe_o0_walk.webp",
    "region_style": "Sensewood 지각/사역: 숲 감각 모티프, 귀·눈·방울 소품",
-   "batch": "M013"
+   "front_batch": "F003",
+   "walk_batch": "W007"
   },
   {
    "npc_id": "pe_o1",
@@ -3363,10 +3757,12 @@
    "age": "adult",
    "gender": "f",
    "sprite_id": "npc_pe_o1",
-   "sheet": "art/npc/sprites/npc_pe_o1.webp",
-   "format": "walk8x4_1024x512",
+   "front_sheet": "art/npc/sprites/npc_pe_o1.webp",
+   "walk": true,
+   "walk_sheet": "art/npc/sprites/npc_pe_o1_walk.webp",
    "region_style": "Sensewood 지각/사역: 숲 감각 모티프, 귀·눈·방울 소품",
-   "batch": "M013"
+   "front_batch": "F003",
+   "walk_batch": "W007"
   },
   {
    "npc_id": "pe_o2",
@@ -3380,10 +3776,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_pe_o2",
-   "sheet": "art/npc/sprites/npc_pe_o2.webp",
-   "format": "front1_128",
+   "front_sheet": "art/npc/sprites/npc_pe_o2.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Sensewood 지각/사역: 숲 감각 모티프, 귀·눈·방울 소품",
-   "batch": "F001"
+   "front_batch": "F003",
+   "walk_batch": ""
   },
   {
    "npc_id": "pe_o3",
@@ -3397,10 +3795,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_pe_o3",
-   "sheet": "art/npc/sprites/npc_pe_o3.webp",
-   "format": "front1_128",
+   "front_sheet": "art/npc/sprites/npc_pe_o3.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Sensewood 지각/사역: 숲 감각 모티프, 귀·눈·방울 소품",
-   "batch": "F001"
+   "front_batch": "F003",
+   "walk_batch": ""
   },
   {
    "npc_id": "pe_extra_1",
@@ -3414,10 +3814,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_pe_extra_1",
-   "sheet": "art/npc/sprites/npc_pe_extra_1.webp",
-   "format": "front1_128",
+   "front_sheet": "art/npc/sprites/npc_pe_extra_1.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Sensewood 지각/사역: 숲 감각 모티프, 귀·눈·방울 소품",
-   "batch": "F005"
+   "front_batch": "F010",
+   "walk_batch": ""
   },
   {
    "npc_id": "pe_extra_2",
@@ -3431,10 +3833,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_pe_extra_2",
-   "sheet": "art/npc/sprites/npc_pe_extra_2.webp",
-   "format": "front1_128",
+   "front_sheet": "art/npc/sprites/npc_pe_extra_2.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Sensewood 지각/사역: 숲 감각 모티프, 귀·눈·방울 소품",
-   "batch": "F002"
+   "front_batch": "F010",
+   "walk_batch": ""
   },
   {
    "npc_id": "pe_extra_3",
@@ -3448,10 +3852,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_pe_extra_3",
-   "sheet": "art/npc/sprites/npc_pe_extra_3.webp",
-   "format": "front1_128",
+   "front_sheet": "art/npc/sprites/npc_pe_extra_3.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Sensewood 지각/사역: 숲 감각 모티프, 귀·눈·방울 소품",
-   "batch": "F004"
+   "front_batch": "F010",
+   "walk_batch": ""
   },
   {
    "npc_id": "pe_extra_4",
@@ -3465,10 +3871,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_pe_extra_4",
-   "sheet": "art/npc/sprites/npc_pe_extra_4.webp",
-   "format": "walk8x4_1024x512",
+   "front_sheet": "art/npc/sprites/npc_pe_extra_4.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Sensewood 지각/사역: 숲 감각 모티프, 귀·눈·방울 소품",
-   "batch": "M045"
+   "front_batch": "F010",
+   "walk_batch": ""
   },
   {
    "npc_id": "pe_extra_5",
@@ -3482,10 +3890,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_pe_extra_5",
-   "sheet": "art/npc/sprites/npc_pe_extra_5.webp",
-   "format": "walk8x4_1024x512",
+   "front_sheet": "art/npc/sprites/npc_pe_extra_5.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Sensewood 지각/사역: 숲 감각 모티프, 귀·눈·방울 소품",
-   "batch": "M045"
+   "front_batch": "F010",
+   "walk_batch": ""
   },
   {
    "npc_id": "pe_extra_6",
@@ -3499,10 +3909,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_pe_extra_6",
-   "sheet": "art/npc/sprites/npc_pe_extra_6.webp",
-   "format": "front1_128",
+   "front_sheet": "art/npc/sprites/npc_pe_extra_6.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Sensewood 지각/사역: 숲 감각 모티프, 귀·눈·방울 소품",
-   "batch": "F003"
+   "front_batch": "F010",
+   "walk_batch": ""
   },
   {
    "npc_id": "pe_extra_7",
@@ -3516,10 +3928,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_pe_extra_7",
-   "sheet": "art/npc/sprites/npc_pe_extra_7.webp",
-   "format": "front1_128",
+   "front_sheet": "art/npc/sprites/npc_pe_extra_7.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Sensewood 지각/사역: 숲 감각 모티프, 귀·눈·방울 소품",
-   "batch": "F002"
+   "front_batch": "F010",
+   "walk_batch": ""
   },
   {
    "npc_id": "pe_extra_8",
@@ -3533,10 +3947,12 @@
    "age": "child",
    "gender": "any",
    "sprite_id": "npc_pe_extra_8",
-   "sheet": "art/npc/sprites/npc_pe_extra_8.webp",
-   "format": "walk8x4_1024x512",
+   "front_sheet": "art/npc/sprites/npc_pe_extra_8.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Sensewood 지각/사역: 숲 감각 모티프, 귀·눈·방울 소품",
-   "batch": "M046"
+   "front_batch": "F011",
+   "walk_batch": ""
   },
   {
    "npc_id": "pe_extra_9",
@@ -3550,10 +3966,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_pe_extra_9",
-   "sheet": "art/npc/sprites/npc_pe_extra_9.webp",
-   "format": "walk8x4_1024x512",
+   "front_sheet": "art/npc/sprites/npc_pe_extra_9.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Sensewood 지각/사역: 숲 감각 모티프, 귀·눈·방울 소품",
-   "batch": "M046"
+   "front_batch": "F011",
+   "walk_batch": ""
   },
   {
    "npc_id": "pe_extra_10",
@@ -3567,10 +3985,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_pe_extra_10",
-   "sheet": "art/npc/sprites/npc_pe_extra_10.webp",
-   "format": "front1_128",
+   "front_sheet": "art/npc/sprites/npc_pe_extra_10.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Sensewood 지각/사역: 숲 감각 모티프, 귀·눈·방울 소품",
-   "batch": "F003"
+   "front_batch": "F010",
+   "walk_batch": ""
   },
   {
    "npc_id": "ng_o0",
@@ -3584,10 +4004,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_ng_o0",
-   "sheet": "art/npc/sprites/npc_ng_o0.webp",
-   "format": "front1_128",
+   "front_sheet": "art/npc/sprites/npc_ng_o0.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Nounville 명사/명령/감탄: 축제 의상, 리본·꽃",
-   "batch": "F001"
+   "front_batch": "F002",
+   "walk_batch": ""
   },
   {
    "npc_id": "ng_o1",
@@ -3601,10 +4023,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_ng_o1",
-   "sheet": "art/npc/sprites/npc_ng_o1.webp",
-   "format": "front1_128",
+   "front_sheet": "art/npc/sprites/npc_ng_o1.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Nounville 명사/명령/감탄: 축제 의상, 리본·꽃",
-   "batch": "F001"
+   "front_batch": "F002",
+   "walk_batch": ""
   },
   {
    "npc_id": "ng_o2",
@@ -3618,10 +4042,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_ng_o2",
-   "sheet": "art/npc/sprites/npc_ng_o2.webp",
-   "format": "front1_128",
+   "front_sheet": "art/npc/sprites/npc_ng_o2.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Nounville 명사/명령/감탄: 축제 의상, 리본·꽃",
-   "batch": "F001"
+   "front_batch": "F002",
+   "walk_batch": ""
   },
   {
    "npc_id": "ng_o3",
@@ -3635,10 +4061,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_ng_o3",
-   "sheet": "art/npc/sprites/npc_ng_o3.webp",
-   "format": "walk8x4_1024x512",
+   "front_sheet": "art/npc/sprites/npc_ng_o3.webp",
+   "walk": true,
+   "walk_sheet": "art/npc/sprites/npc_ng_o3_walk.webp",
    "region_style": "Nounville 명사/명령/감탄: 축제 의상, 리본·꽃",
-   "batch": "M009"
+   "front_batch": "F002",
+   "walk_batch": "W005"
   },
   {
    "npc_id": "ng_extra_1",
@@ -3652,10 +4080,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_ng_extra_1",
-   "sheet": "art/npc/sprites/npc_ng_extra_1.webp",
-   "format": "front1_128",
+   "front_sheet": "art/npc/sprites/npc_ng_extra_1.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Nounville 명사/명령/감탄: 축제 의상, 리본·꽃",
-   "batch": "F004"
+   "front_batch": "F008",
+   "walk_batch": ""
   },
   {
    "npc_id": "ng_extra_2",
@@ -3669,10 +4099,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_ng_extra_2",
-   "sheet": "art/npc/sprites/npc_ng_extra_2.webp",
-   "format": "front1_128",
+   "front_sheet": "art/npc/sprites/npc_ng_extra_2.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Nounville 명사/명령/감탄: 축제 의상, 리본·꽃",
-   "batch": "F002"
+   "front_batch": "F008",
+   "walk_batch": ""
   },
   {
    "npc_id": "ng_extra_3",
@@ -3686,10 +4118,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_ng_extra_3",
-   "sheet": "art/npc/sprites/npc_ng_extra_3.webp",
-   "format": "front1_128",
+   "front_sheet": "art/npc/sprites/npc_ng_extra_3.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Nounville 명사/명령/감탄: 축제 의상, 리본·꽃",
-   "batch": "F003"
+   "front_batch": "F008",
+   "walk_batch": ""
   },
   {
    "npc_id": "ng_extra_4",
@@ -3703,10 +4137,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_ng_extra_4",
-   "sheet": "art/npc/sprites/npc_ng_extra_4.webp",
-   "format": "walk8x4_1024x512",
+   "front_sheet": "art/npc/sprites/npc_ng_extra_4.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Nounville 명사/명령/감탄: 축제 의상, 리본·꽃",
-   "batch": "M038"
+   "front_batch": "F008",
+   "walk_batch": ""
   },
   {
    "npc_id": "ng_extra_5",
@@ -3720,10 +4156,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_ng_extra_5",
-   "sheet": "art/npc/sprites/npc_ng_extra_5.webp",
-   "format": "front1_128",
+   "front_sheet": "art/npc/sprites/npc_ng_extra_5.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Nounville 명사/명령/감탄: 축제 의상, 리본·꽃",
-   "batch": "F005"
+   "front_batch": "F008",
+   "walk_batch": ""
   },
   {
    "npc_id": "ng_extra_6",
@@ -3737,10 +4175,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_ng_extra_6",
-   "sheet": "art/npc/sprites/npc_ng_extra_6.webp",
-   "format": "walk8x4_1024x512",
+   "front_sheet": "art/npc/sprites/npc_ng_extra_6.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Nounville 명사/명령/감탄: 축제 의상, 리본·꽃",
-   "batch": "M039"
+   "front_batch": "F009",
+   "walk_batch": ""
   },
   {
    "npc_id": "ng_extra_7",
@@ -3754,10 +4194,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_ng_extra_7",
-   "sheet": "art/npc/sprites/npc_ng_extra_7.webp",
-   "format": "front1_128",
+   "front_sheet": "art/npc/sprites/npc_ng_extra_7.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Nounville 명사/명령/감탄: 축제 의상, 리본·꽃",
-   "batch": "F002"
+   "front_batch": "F009",
+   "walk_batch": ""
   },
   {
    "npc_id": "ng_extra_8",
@@ -3771,10 +4213,12 @@
    "age": "child",
    "gender": "any",
    "sprite_id": "npc_ng_extra_8",
-   "sheet": "art/npc/sprites/npc_ng_extra_8.webp",
-   "format": "walk8x4_1024x512",
+   "front_sheet": "art/npc/sprites/npc_ng_extra_8.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Nounville 명사/명령/감탄: 축제 의상, 리본·꽃",
-   "batch": "M039"
+   "front_batch": "F009",
+   "walk_batch": ""
   },
   {
    "npc_id": "ng_extra_9",
@@ -3788,10 +4232,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_ng_extra_9",
-   "sheet": "art/npc/sprites/npc_ng_extra_9.webp",
-   "format": "walk8x4_1024x512",
+   "front_sheet": "art/npc/sprites/npc_ng_extra_9.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Nounville 명사/명령/감탄: 축제 의상, 리본·꽃",
-   "batch": "M040"
+   "front_batch": "F009",
+   "walk_batch": ""
   },
   {
    "npc_id": "ng_extra_10",
@@ -3805,10 +4251,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_ng_extra_10",
-   "sheet": "art/npc/sprites/npc_ng_extra_10.webp",
-   "format": "front1_128",
+   "front_sheet": "art/npc/sprites/npc_ng_extra_10.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Nounville 명사/명령/감탄: 축제 의상, 리본·꽃",
-   "batch": "F003"
+   "front_batch": "F008",
+   "walk_batch": ""
   },
   {
    "npc_id": "rs_o0",
@@ -3822,10 +4270,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_rs_o0",
-   "sheet": "art/npc/sprites/npc_rs_o0.webp",
-   "format": "walk8x4_1024x512",
+   "front_sheet": "art/npc/sprites/npc_rs_o0.webp",
+   "walk": true,
+   "walk_sheet": "art/npc/sprites/npc_rs_o0_walk.webp",
    "region_style": "Speechport 화법/간접의문: 항구 우편·밀랍 인장, 말풍선 모티프",
-   "batch": "M019"
+   "front_batch": "F004",
+   "walk_batch": "W010"
   },
   {
    "npc_id": "rs_o1",
@@ -3839,10 +4289,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_rs_o1",
-   "sheet": "art/npc/sprites/npc_rs_o1.webp",
-   "format": "walk8x4_1024x512",
+   "front_sheet": "art/npc/sprites/npc_rs_o1.webp",
+   "walk": true,
+   "walk_sheet": "art/npc/sprites/npc_rs_o1_walk.webp",
    "region_style": "Speechport 화법/간접의문: 항구 우편·밀랍 인장, 말풍선 모티프",
-   "batch": "M019"
+   "front_batch": "F004",
+   "walk_batch": "W010"
   },
   {
    "npc_id": "rs_o2",
@@ -3856,10 +4308,12 @@
    "age": "teen",
    "gender": "any",
    "sprite_id": "npc_rs_o2",
-   "sheet": "art/npc/sprites/npc_rs_o2.webp",
-   "format": "walk8x4_1024x512",
+   "front_sheet": "art/npc/sprites/npc_rs_o2.webp",
+   "walk": true,
+   "walk_sheet": "art/npc/sprites/npc_rs_o2_walk.webp",
    "region_style": "Speechport 화법/간접의문: 항구 우편·밀랍 인장, 말풍선 모티프",
-   "batch": "M020"
+   "front_batch": "F004",
+   "walk_batch": "W010"
   },
   {
    "npc_id": "rs_o3",
@@ -3873,10 +4327,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_rs_o3",
-   "sheet": "art/npc/sprites/npc_rs_o3.webp",
-   "format": "walk8x4_1024x512",
+   "front_sheet": "art/npc/sprites/npc_rs_o3.webp",
+   "walk": true,
+   "walk_sheet": "art/npc/sprites/npc_rs_o3_walk.webp",
    "region_style": "Speechport 화법/간접의문: 항구 우편·밀랍 인장, 말풍선 모티프",
-   "batch": "M020"
+   "front_batch": "F004",
+   "walk_batch": "W010"
   },
   {
    "npc_id": "rs_extra_1",
@@ -3890,10 +4346,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_rs_extra_1",
-   "sheet": "art/npc/sprites/npc_rs_extra_1.webp",
-   "format": "front1_128",
+   "front_sheet": "art/npc/sprites/npc_rs_extra_1.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Speechport 화법/간접의문: 항구 우편·밀랍 인장, 말풍선 모티프",
-   "batch": "F005"
+   "front_batch": "F013",
+   "walk_batch": ""
   },
   {
    "npc_id": "rs_extra_2",
@@ -3907,10 +4365,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_rs_extra_2",
-   "sheet": "art/npc/sprites/npc_rs_extra_2.webp",
-   "format": "front1_128",
+   "front_sheet": "art/npc/sprites/npc_rs_extra_2.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Speechport 화법/간접의문: 항구 우편·밀랍 인장, 말풍선 모티프",
-   "batch": "F002"
+   "front_batch": "F013",
+   "walk_batch": ""
   },
   {
    "npc_id": "rs_extra_3",
@@ -3924,10 +4384,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_rs_extra_3",
-   "sheet": "art/npc/sprites/npc_rs_extra_3.webp",
-   "format": "front1_128",
+   "front_sheet": "art/npc/sprites/npc_rs_extra_3.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Speechport 화법/간접의문: 항구 우편·밀랍 인장, 말풍선 모티프",
-   "batch": "F004"
+   "front_batch": "F013",
+   "walk_batch": ""
   },
   {
    "npc_id": "rs_extra_4",
@@ -3941,10 +4403,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_rs_extra_4",
-   "sheet": "art/npc/sprites/npc_rs_extra_4.webp",
-   "format": "walk8x4_1024x512",
+   "front_sheet": "art/npc/sprites/npc_rs_extra_4.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Speechport 화법/간접의문: 항구 우편·밀랍 인장, 말풍선 모티프",
-   "batch": "M056"
+   "front_batch": "F013",
+   "walk_batch": ""
   },
   {
    "npc_id": "rs_extra_5",
@@ -3958,10 +4422,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_rs_extra_5",
-   "sheet": "art/npc/sprites/npc_rs_extra_5.webp",
-   "format": "front1_128",
+   "front_sheet": "art/npc/sprites/npc_rs_extra_5.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Speechport 화법/간접의문: 항구 우편·밀랍 인장, 말풍선 모티프",
-   "batch": "F005"
+   "front_batch": "F013",
+   "walk_batch": ""
   },
   {
    "npc_id": "rs_extra_6",
@@ -3975,10 +4441,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_rs_extra_6",
-   "sheet": "art/npc/sprites/npc_rs_extra_6.webp",
-   "format": "walk8x4_1024x512",
+   "front_sheet": "art/npc/sprites/npc_rs_extra_6.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Speechport 화법/간접의문: 항구 우편·밀랍 인장, 말풍선 모티프",
-   "batch": "M056"
+   "front_batch": "F014",
+   "walk_batch": ""
   },
   {
    "npc_id": "rs_extra_7",
@@ -3992,10 +4460,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_rs_extra_7",
-   "sheet": "art/npc/sprites/npc_rs_extra_7.webp",
-   "format": "front1_128",
+   "front_sheet": "art/npc/sprites/npc_rs_extra_7.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Speechport 화법/간접의문: 항구 우편·밀랍 인장, 말풍선 모티프",
-   "batch": "F005"
+   "front_batch": "F014",
+   "walk_batch": ""
   },
   {
    "npc_id": "rs_extra_8",
@@ -4009,10 +4479,12 @@
    "age": "child",
    "gender": "any",
    "sprite_id": "npc_rs_extra_8",
-   "sheet": "art/npc/sprites/npc_rs_extra_8.webp",
-   "format": "walk8x4_1024x512",
+   "front_sheet": "art/npc/sprites/npc_rs_extra_8.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Speechport 화법/간접의문: 항구 우편·밀랍 인장, 말풍선 모티프",
-   "batch": "M057"
+   "front_batch": "F014",
+   "walk_batch": ""
   },
   {
    "npc_id": "rs_extra_9",
@@ -4026,10 +4498,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_rs_extra_9",
-   "sheet": "art/npc/sprites/npc_rs_extra_9.webp",
-   "format": "walk8x4_1024x512",
+   "front_sheet": "art/npc/sprites/npc_rs_extra_9.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Speechport 화법/간접의문: 항구 우편·밀랍 인장, 말풍선 모티프",
-   "batch": "M057"
+   "front_batch": "F014",
+   "walk_batch": ""
   },
   {
    "npc_id": "rs_extra_10",
@@ -4043,10 +4517,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_rs_extra_10",
-   "sheet": "art/npc/sprites/npc_rs_extra_10.webp",
-   "format": "front1_128",
+   "front_sheet": "art/npc/sprites/npc_rs_extra_10.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Speechport 화법/간접의문: 항구 우편·밀랍 인장, 말풍선 모티프",
-   "batch": "F003"
+   "front_batch": "F013",
+   "walk_batch": ""
   },
   {
    "npc_id": "sx_o0",
@@ -4060,10 +4536,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_sx_o0",
-   "sheet": "art/npc/sprites/npc_sx_o0.webp",
-   "format": "walk8x4_1024x512",
+   "front_sheet": "art/npc/sprites/npc_sx_o0.webp",
+   "walk": true,
+   "walk_sheet": "art/npc/sprites/npc_sx_o0_walk.webp",
    "region_style": "Inversion Keep 도치/강조: 성채 문장, 대칭 무늬·강조 부호",
-   "batch": "M024"
+   "front_batch": "F005",
+   "walk_batch": "W012"
   },
   {
    "npc_id": "sx_o1",
@@ -4077,10 +4555,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_sx_o1",
-   "sheet": "art/npc/sprites/npc_sx_o1.webp",
-   "format": "walk8x4_1024x512",
+   "front_sheet": "art/npc/sprites/npc_sx_o1.webp",
+   "walk": true,
+   "walk_sheet": "art/npc/sprites/npc_sx_o1_walk.webp",
    "region_style": "Inversion Keep 도치/강조: 성채 문장, 대칭 무늬·강조 부호",
-   "batch": "M024"
+   "front_batch": "F005",
+   "walk_batch": "W012"
   },
   {
    "npc_id": "sx_o2",
@@ -4094,10 +4574,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_sx_o2",
-   "sheet": "art/npc/sprites/npc_sx_o2.webp",
-   "format": "front1_128",
+   "front_sheet": "art/npc/sprites/npc_sx_o2.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Inversion Keep 도치/강조: 성채 문장, 대칭 무늬·강조 부호",
-   "batch": "F001"
+   "front_batch": "F005",
+   "walk_batch": ""
   },
   {
    "npc_id": "sx_o3",
@@ -4111,10 +4593,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_sx_o3",
-   "sheet": "art/npc/sprites/npc_sx_o3.webp",
-   "format": "walk8x4_1024x512",
+   "front_sheet": "art/npc/sprites/npc_sx_o3.webp",
+   "walk": true,
+   "walk_sheet": "art/npc/sprites/npc_sx_o3_walk.webp",
    "region_style": "Inversion Keep 도치/강조: 성채 문장, 대칭 무늬·강조 부호",
-   "batch": "M025"
+   "front_batch": "F005",
+   "walk_batch": "W013"
   },
   {
    "npc_id": "sx_extra_1",
@@ -4128,10 +4612,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_sx_extra_1",
-   "sheet": "art/npc/sprites/npc_sx_extra_1.webp",
-   "format": "front1_128",
+   "front_sheet": "art/npc/sprites/npc_sx_extra_1.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Inversion Keep 도치/강조: 성채 문장, 대칭 무늬·강조 부호",
-   "batch": "F002"
+   "front_batch": "F015",
+   "walk_batch": ""
   },
   {
    "npc_id": "sx_extra_2",
@@ -4145,10 +4631,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_sx_extra_2",
-   "sheet": "art/npc/sprites/npc_sx_extra_2.webp",
-   "format": "front1_128",
+   "front_sheet": "art/npc/sprites/npc_sx_extra_2.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Inversion Keep 도치/강조: 성채 문장, 대칭 무늬·강조 부호",
-   "batch": "F003"
+   "front_batch": "F015",
+   "walk_batch": ""
   },
   {
    "npc_id": "sx_extra_3",
@@ -4162,10 +4650,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_sx_extra_3",
-   "sheet": "art/npc/sprites/npc_sx_extra_3.webp",
-   "format": "front1_128",
+   "front_sheet": "art/npc/sprites/npc_sx_extra_3.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Inversion Keep 도치/강조: 성채 문장, 대칭 무늬·강조 부호",
-   "batch": "F004"
+   "front_batch": "F015",
+   "walk_batch": ""
   },
   {
    "npc_id": "sx_extra_4",
@@ -4179,10 +4669,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_sx_extra_4",
-   "sheet": "art/npc/sprites/npc_sx_extra_4.webp",
-   "format": "walk8x4_1024x512",
+   "front_sheet": "art/npc/sprites/npc_sx_extra_4.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Inversion Keep 도치/강조: 성채 문장, 대칭 무늬·강조 부호",
-   "batch": "M061"
+   "front_batch": "F015",
+   "walk_batch": ""
   },
   {
    "npc_id": "sx_extra_5",
@@ -4196,10 +4688,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_sx_extra_5",
-   "sheet": "art/npc/sprites/npc_sx_extra_5.webp",
-   "format": "front1_128",
+   "front_sheet": "art/npc/sprites/npc_sx_extra_5.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Inversion Keep 도치/강조: 성채 문장, 대칭 무늬·강조 부호",
-   "batch": "F004"
+   "front_batch": "F015",
+   "walk_batch": ""
   },
   {
    "npc_id": "sx_extra_6",
@@ -4213,10 +4707,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_sx_extra_6",
-   "sheet": "art/npc/sprites/npc_sx_extra_6.webp",
-   "format": "front1_128",
+   "front_sheet": "art/npc/sprites/npc_sx_extra_6.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Inversion Keep 도치/강조: 성채 문장, 대칭 무늬·강조 부호",
-   "batch": "F003"
+   "front_batch": "F015",
+   "walk_batch": ""
   },
   {
    "npc_id": "sx_extra_7",
@@ -4230,10 +4726,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_sx_extra_7",
-   "sheet": "art/npc/sprites/npc_sx_extra_7.webp",
-   "format": "front1_128",
+   "front_sheet": "art/npc/sprites/npc_sx_extra_7.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Inversion Keep 도치/강조: 성채 문장, 대칭 무늬·강조 부호",
-   "batch": "F005"
+   "front_batch": "F015",
+   "walk_batch": ""
   },
   {
    "npc_id": "sx_extra_8",
@@ -4247,10 +4745,12 @@
    "age": "child",
    "gender": "any",
    "sprite_id": "npc_sx_extra_8",
-   "sheet": "art/npc/sprites/npc_sx_extra_8.webp",
-   "format": "walk8x4_1024x512",
+   "front_sheet": "art/npc/sprites/npc_sx_extra_8.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Inversion Keep 도치/강조: 성채 문장, 대칭 무늬·강조 부호",
-   "batch": "M062"
+   "front_batch": "F016",
+   "walk_batch": ""
   },
   {
    "npc_id": "sx_extra_9",
@@ -4264,10 +4764,12 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_sx_extra_9",
-   "sheet": "art/npc/sprites/npc_sx_extra_9.webp",
-   "format": "walk8x4_1024x512",
+   "front_sheet": "art/npc/sprites/npc_sx_extra_9.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Inversion Keep 도치/강조: 성채 문장, 대칭 무늬·강조 부호",
-   "batch": "M062"
+   "front_batch": "F016",
+   "walk_batch": ""
   },
   {
    "npc_id": "sx_extra_10",
@@ -4281,760 +4783,520 @@
    "age": "adult",
    "gender": "any",
    "sprite_id": "npc_sx_extra_10",
-   "sheet": "art/npc/sprites/npc_sx_extra_10.webp",
-   "format": "front1_128",
+   "front_sheet": "art/npc/sprites/npc_sx_extra_10.webp",
+   "walk": false,
+   "walk_sheet": "",
    "region_style": "Inversion Keep 도치/강조: 성채 문장, 대칭 무늬·강조 부호",
-   "batch": "F003"
+   "front_batch": "F015",
+   "walk_batch": ""
   }
  ],
  "batches": [
   {
-   "batch": "M001",
-   "kind": "mobile",
-   "image": "1024x1024 (위·아래 1024×512 시트 2장)",
+   "batch": "F001",
+   "kind": "front",
+   "image": "4열×4행 16명 (칸 약 300px, 투명 배경, 칸 사이 빈 간격)",
    "npcs": [
     "cp_o0",
-    "cp_o2"
-   ]
-  },
-  {
-   "batch": "M002",
-   "kind": "mobile",
-   "image": "1024x1024 (위·아래 1024×512 시트 2장)",
-   "npcs": [
+    "cp_o1",
+    "cp_o2",
     "cp_o3",
-    "g1_o0"
-   ]
-  },
-  {
-   "batch": "M003",
-   "kind": "mobile",
-   "image": "1024x1024 (위·아래 1024×512 시트 2장)",
-   "npcs": [
+    "g1_o0",
     "g1_o1",
-    "g1_o2"
-   ]
-  },
-  {
-   "batch": "M004",
-   "kind": "mobile",
-   "image": "1024x1024 (위·아래 1024×512 시트 2장)",
-   "npcs": [
+    "g1_o2",
     "g1_o3",
-    "g2_o2"
-   ]
-  },
-  {
-   "batch": "M005",
-   "kind": "mobile",
-   "image": "1024x1024 (위·아래 1024×512 시트 2장)",
-   "npcs": [
+    "g2_o0",
+    "g2_o1",
+    "g2_o2",
     "g2_o3",
-    "iv_o0"
-   ]
-  },
-  {
-   "batch": "M006",
-   "kind": "mobile",
-   "image": "1024x1024 (위·아래 1024×512 시트 2장)",
-   "npcs": [
+    "iv_o0",
     "iv_o1",
-    "iv_o2"
+    "iv_o2",
+    "iv_o3"
    ]
   },
   {
-   "batch": "M007",
-   "kind": "mobile",
-   "image": "1024x1024 (위·아래 1024×512 시트 2장)",
+   "batch": "F002",
+   "kind": "front",
+   "image": "4열×4행 16명 (칸 약 300px, 투명 배경, 칸 사이 빈 간격)",
    "npcs": [
     "md_o0",
-    "md_o1"
-   ]
-  },
-  {
-   "batch": "M008",
-   "kind": "mobile",
-   "image": "1024x1024 (위·아래 1024×512 시트 2장)",
-   "npcs": [
+    "md_o1",
     "md_o2",
-    "md_o3"
-   ]
-  },
-  {
-   "batch": "M009",
-   "kind": "mobile",
-   "image": "1024x1024 (위·아래 1024×512 시트 2장)",
-   "npcs": [
+    "md_o3",
+    "ng_o0",
+    "ng_o1",
+    "ng_o2",
     "ng_o3",
-    "ot_o0"
-   ]
-  },
-  {
-   "batch": "M010",
-   "kind": "mobile",
-   "image": "1024x1024 (위·아래 1024×512 시트 2장)",
-   "npcs": [
+    "ot_o0",
     "ot_o1",
-    "ot_o2"
-   ]
-  },
-  {
-   "batch": "M011",
-   "kind": "mobile",
-   "image": "1024x1024 (위·아래 1024×512 시트 2장)",
-   "npcs": [
+    "ot_o2",
     "ot_o3",
-    "pc_o0"
-   ]
-  },
-  {
-   "batch": "M012",
-   "kind": "mobile",
-   "image": "1024x1024 (위·아래 1024×512 시트 2장)",
-   "npcs": [
+    "pc_o0",
     "pc_o1",
+    "pc_o2",
     "pc_o3"
    ]
   },
   {
-   "batch": "M013",
-   "kind": "mobile",
-   "image": "1024x1024 (위·아래 1024×512 시트 2장)",
+   "batch": "F003",
+   "kind": "front",
+   "image": "4열×4행 16명 (칸 약 300px, 투명 배경, 칸 사이 빈 간격)",
    "npcs": [
     "pe_o0",
-    "pe_o1"
-   ]
-  },
-  {
-   "batch": "M014",
-   "kind": "mobile",
-   "image": "1024x1024 (위·아래 1024×512 시트 2장)",
-   "npcs": [
+    "pe_o1",
+    "pe_o2",
+    "pe_o3",
     "pf_o0",
-    "pf_o1"
-   ]
-  },
-  {
-   "batch": "M015",
-   "kind": "mobile",
-   "image": "1024x1024 (위·아래 1024×512 시트 2장)",
-   "npcs": [
+    "pf_o1",
+    "pf_o2",
     "pf_o3",
-    "pn_o2"
-   ]
-  },
-  {
-   "batch": "M016",
-   "kind": "mobile",
-   "image": "1024x1024 (위·아래 1024×512 시트 2장)",
-   "npcs": [
+    "pn_o0",
+    "pn_o1",
+    "pn_o2",
     "pn_o3",
-    "ps_o1"
-   ]
-  },
-  {
-   "batch": "M017",
-   "kind": "mobile",
-   "image": "1024x1024 (위·아래 1024×512 시트 2장)",
-   "npcs": [
+    "ps_o0",
+    "ps_o1",
     "ps_o2",
     "ps_o3"
    ]
   },
   {
-   "batch": "M018",
-   "kind": "mobile",
-   "image": "1024x1024 (위·아래 1024×512 시트 2장)",
+   "batch": "F004",
+   "kind": "front",
+   "image": "4열×4행 16명 (칸 약 300px, 투명 배경, 칸 사이 빈 간격)",
    "npcs": [
     "rp_o0",
-    "rp_o3"
-   ]
-  },
-  {
-   "batch": "M019",
-   "kind": "mobile",
-   "image": "1024x1024 (위·아래 1024×512 시트 2장)",
-   "npcs": [
+    "rp_o1",
+    "rp_o2",
+    "rp_o3",
     "rs_o0",
-    "rs_o1"
-   ]
-  },
-  {
-   "batch": "M020",
-   "kind": "mobile",
-   "image": "1024x1024 (위·아래 1024×512 시트 2장)",
-   "npcs": [
+    "rs_o1",
     "rs_o2",
-    "rs_o3"
-   ]
-  },
-  {
-   "batch": "M021",
-   "kind": "mobile",
-   "image": "1024x1024 (위·아래 1024×512 시트 2장)",
-   "npcs": [
+    "rs_o3",
     "rv_o0",
-    "rv_o1"
-   ]
-  },
-  {
-   "batch": "M022",
-   "kind": "mobile",
-   "image": "1024x1024 (위·아래 1024×512 시트 2장)",
-   "npcs": [
+    "rv_o1",
     "rv_o2",
-    "sj_o0"
-   ]
-  },
-  {
-   "batch": "M023",
-   "kind": "mobile",
-   "image": "1024x1024 (위·아래 1024×512 시트 2장)",
-   "npcs": [
+    "rv_o3",
+    "sj_o0",
+    "sj_o1",
     "sj_o2",
     "sj_o3"
    ]
   },
   {
-   "batch": "M024",
-   "kind": "mobile",
-   "image": "1024x1024 (위·아래 1024×512 시트 2장)",
+   "batch": "F005",
+   "kind": "front",
+   "image": "4열×4행 16명 (칸 약 300px, 투명 배경, 칸 사이 빈 간격)",
    "npcs": [
     "sx_o0",
-    "sx_o1"
-   ]
-  },
-  {
-   "batch": "M025",
-   "kind": "mobile",
-   "image": "1024x1024 (위·아래 1024×512 시트 2장)",
-   "npcs": [
+    "sx_o1",
+    "sx_o2",
     "sx_o3",
-    "tn_o1"
-   ]
-  },
-  {
-   "batch": "M026",
-   "kind": "mobile",
-   "image": "1024x1024 (위·아래 1024×512 시트 2장)",
-   "npcs": [
+    "tn_o0",
+    "tn_o1",
     "tn_o2",
-    "tn_o3"
-   ]
-  },
-  {
-   "batch": "M027",
-   "kind": "mobile",
-   "image": "1024x1024 (위·아래 1024×512 시트 2장)",
-   "npcs": [
+    "tn_o3",
+    "cp_extra_1",
+    "cp_extra_10",
+    "cp_extra_2",
+    "cp_extra_3",
     "cp_extra_4",
-    "cp_extra_5"
-   ]
-  },
-  {
-   "batch": "M028",
-   "kind": "mobile",
-   "image": "1024x1024 (위·아래 1024×512 시트 2장)",
-   "npcs": [
+    "cp_extra_5",
     "cp_extra_6",
-    "cp_extra_8"
+    "cp_extra_7"
    ]
   },
   {
-   "batch": "M029",
-   "kind": "mobile",
-   "image": "1024x1024 (위·아래 1024×512 시트 2장)",
+   "batch": "F006",
+   "kind": "front",
+   "image": "4열×4행 16명 (칸 약 300px, 투명 배경, 칸 사이 빈 간격)",
    "npcs": [
+    "cp_extra_8",
     "cp_extra_9",
-    "g1_extra_10"
-   ]
-  },
-  {
-   "batch": "M030",
-   "kind": "mobile",
-   "image": "1024x1024 (위·아래 1024×512 시트 2장)",
-   "npcs": [
+    "g1_extra_1",
+    "g1_extra_10",
+    "g1_extra_2",
+    "g1_extra_3",
     "g1_extra_4",
-    "g1_extra_7"
-   ]
-  },
-  {
-   "batch": "M031",
-   "kind": "mobile",
-   "image": "1024x1024 (위·아래 1024×512 시트 2장)",
-   "npcs": [
+    "g1_extra_5",
+    "g1_extra_6",
+    "g1_extra_7",
     "g1_extra_8",
-    "g1_extra_9"
-   ]
-  },
-  {
-   "batch": "M032",
-   "kind": "mobile",
-   "image": "1024x1024 (위·아래 1024×512 시트 2장)",
-   "npcs": [
+    "g1_extra_9",
+    "g2_extra_1",
     "g2_extra_10",
-    "g2_extra_4"
+    "g2_extra_2",
+    "g2_extra_3"
    ]
   },
   {
-   "batch": "M033",
-   "kind": "mobile",
-   "image": "1024x1024 (위·아래 1024×512 시트 2장)",
+   "batch": "F007",
+   "kind": "front",
+   "image": "4열×4행 16명 (칸 약 300px, 투명 배경, 칸 사이 빈 간격)",
    "npcs": [
+    "g2_extra_4",
+    "g2_extra_5",
     "g2_extra_6",
-    "g2_extra_8"
-   ]
-  },
-  {
-   "batch": "M034",
-   "kind": "mobile",
-   "image": "1024x1024 (위·아래 1024×512 시트 2장)",
-   "npcs": [
+    "g2_extra_7",
+    "g2_extra_8",
     "g2_extra_9",
-    "iv_extra_4"
-   ]
-  },
-  {
-   "batch": "M035",
-   "kind": "mobile",
-   "image": "1024x1024 (위·아래 1024×512 시트 2장)",
-   "npcs": [
+    "iv_extra_1",
+    "iv_extra_10",
+    "iv_extra_2",
+    "iv_extra_3",
+    "iv_extra_4",
+    "iv_extra_5",
+    "iv_extra_6",
+    "iv_extra_7",
     "iv_extra_8",
     "iv_extra_9"
    ]
   },
   {
-   "batch": "M036",
-   "kind": "mobile",
-   "image": "1024x1024 (위·아래 1024×512 시트 2장)",
+   "batch": "F008",
+   "kind": "front",
+   "image": "4열×4행 16명 (칸 약 300px, 투명 배경, 칸 사이 빈 간격)",
    "npcs": [
+    "md_extra_1",
+    "md_extra_10",
+    "md_extra_2",
+    "md_extra_3",
     "md_extra_4",
-    "md_extra_5"
-   ]
-  },
-  {
-   "batch": "M037",
-   "kind": "mobile",
-   "image": "1024x1024 (위·아래 1024×512 시트 2장)",
-   "npcs": [
+    "md_extra_5",
+    "md_extra_6",
     "md_extra_7",
-    "md_extra_8"
-   ]
-  },
-  {
-   "batch": "M038",
-   "kind": "mobile",
-   "image": "1024x1024 (위·아래 1024×512 시트 2장)",
-   "npcs": [
+    "md_extra_8",
     "md_extra_9",
-    "ng_extra_4"
+    "ng_extra_1",
+    "ng_extra_10",
+    "ng_extra_2",
+    "ng_extra_3",
+    "ng_extra_4",
+    "ng_extra_5"
    ]
   },
   {
-   "batch": "M039",
-   "kind": "mobile",
-   "image": "1024x1024 (위·아래 1024×512 시트 2장)",
+   "batch": "F009",
+   "kind": "front",
+   "image": "4열×4행 16명 (칸 약 300px, 투명 배경, 칸 사이 빈 간격)",
    "npcs": [
     "ng_extra_6",
-    "ng_extra_8"
-   ]
-  },
-  {
-   "batch": "M040",
-   "kind": "mobile",
-   "image": "1024x1024 (위·아래 1024×512 시트 2장)",
-   "npcs": [
+    "ng_extra_7",
+    "ng_extra_8",
     "ng_extra_9",
-    "ot_extra_10"
-   ]
-  },
-  {
-   "batch": "M041",
-   "kind": "mobile",
-   "image": "1024x1024 (위·아래 1024×512 시트 2장)",
-   "npcs": [
+    "ot_extra_1",
+    "ot_extra_10",
+    "ot_extra_2",
+    "ot_extra_3",
     "ot_extra_4",
-    "ot_extra_5"
-   ]
-  },
-  {
-   "batch": "M042",
-   "kind": "mobile",
-   "image": "1024x1024 (위·아래 1024×512 시트 2장)",
-   "npcs": [
+    "ot_extra_5",
+    "ot_extra_6",
+    "ot_extra_7",
     "ot_extra_8",
-    "ot_extra_9"
+    "ot_extra_9",
+    "pc_extra_1",
+    "pc_extra_10"
    ]
   },
   {
-   "batch": "M043",
-   "kind": "mobile",
-   "image": "1024x1024 (위·아래 1024×512 시트 2장)",
+   "batch": "F010",
+   "kind": "front",
+   "image": "4열×4행 16명 (칸 약 300px, 투명 배경, 칸 사이 빈 간격)",
    "npcs": [
+    "pc_extra_2",
+    "pc_extra_3",
     "pc_extra_4",
-    "pc_extra_7"
-   ]
-  },
-  {
-   "batch": "M044",
-   "kind": "mobile",
-   "image": "1024x1024 (위·아래 1024×512 시트 2장)",
-   "npcs": [
+    "pc_extra_5",
+    "pc_extra_6",
+    "pc_extra_7",
     "pc_extra_8",
-    "pc_extra_9"
-   ]
-  },
-  {
-   "batch": "M045",
-   "kind": "mobile",
-   "image": "1024x1024 (위·아래 1024×512 시트 2장)",
-   "npcs": [
+    "pc_extra_9",
+    "pe_extra_1",
+    "pe_extra_10",
+    "pe_extra_2",
+    "pe_extra_3",
     "pe_extra_4",
-    "pe_extra_5"
+    "pe_extra_5",
+    "pe_extra_6",
+    "pe_extra_7"
    ]
   },
   {
-   "batch": "M046",
-   "kind": "mobile",
-   "image": "1024x1024 (위·아래 1024×512 시트 2장)",
+   "batch": "F011",
+   "kind": "front",
+   "image": "4열×4행 16명 (칸 약 300px, 투명 배경, 칸 사이 빈 간격)",
    "npcs": [
     "pe_extra_8",
-    "pe_extra_9"
-   ]
-  },
-  {
-   "batch": "M047",
-   "kind": "mobile",
-   "image": "1024x1024 (위·아래 1024×512 시트 2장)",
-   "npcs": [
+    "pe_extra_9",
+    "pf_extra_1",
+    "pf_extra_10",
+    "pf_extra_2",
+    "pf_extra_3",
     "pf_extra_4",
-    "pf_extra_7"
-   ]
-  },
-  {
-   "batch": "M048",
-   "kind": "mobile",
-   "image": "1024x1024 (위·아래 1024×512 시트 2장)",
-   "npcs": [
+    "pf_extra_5",
+    "pf_extra_6",
+    "pf_extra_7",
     "pf_extra_8",
-    "pf_extra_9"
+    "pf_extra_9",
+    "pn_extra_1",
+    "pn_extra_10",
+    "pn_extra_2",
+    "pn_extra_3"
    ]
   },
   {
-   "batch": "M049",
-   "kind": "mobile",
-   "image": "1024x1024 (위·아래 1024×512 시트 2장)",
+   "batch": "F012",
+   "kind": "front",
+   "image": "4열×4행 16명 (칸 약 300px, 투명 배경, 칸 사이 빈 간격)",
    "npcs": [
     "pn_extra_4",
-    "pn_extra_8"
-   ]
-  },
-  {
-   "batch": "M050",
-   "kind": "mobile",
-   "image": "1024x1024 (위·아래 1024×512 시트 2장)",
-   "npcs": [
+    "pn_extra_5",
+    "pn_extra_6",
+    "pn_extra_7",
+    "pn_extra_8",
     "pn_extra_9",
-    "ps_extra_10"
-   ]
-  },
-  {
-   "batch": "M051",
-   "kind": "mobile",
-   "image": "1024x1024 (위·아래 1024×512 시트 2장)",
-   "npcs": [
+    "ps_extra_1",
+    "ps_extra_10",
+    "ps_extra_2",
+    "ps_extra_3",
     "ps_extra_4",
-    "ps_extra_5"
-   ]
-  },
-  {
-   "batch": "M052",
-   "kind": "mobile",
-   "image": "1024x1024 (위·아래 1024×512 시트 2장)",
-   "npcs": [
+    "ps_extra_5",
+    "ps_extra_6",
     "ps_extra_7",
-    "ps_extra_8"
+    "ps_extra_8",
+    "ps_extra_9"
    ]
   },
   {
-   "batch": "M053",
-   "kind": "mobile",
-   "image": "1024x1024 (위·아래 1024×512 시트 2장)",
+   "batch": "F013",
+   "kind": "front",
+   "image": "4열×4행 16명 (칸 약 300px, 투명 배경, 칸 사이 빈 간격)",
    "npcs": [
-    "ps_extra_9",
-    "rp_extra_4"
-   ]
-  },
-  {
-   "batch": "M054",
-   "kind": "mobile",
-   "image": "1024x1024 (위·아래 1024×512 시트 2장)",
-   "npcs": [
+    "rp_extra_1",
+    "rp_extra_10",
+    "rp_extra_2",
+    "rp_extra_3",
+    "rp_extra_4",
     "rp_extra_5",
-    "rp_extra_6"
-   ]
-  },
-  {
-   "batch": "M055",
-   "kind": "mobile",
-   "image": "1024x1024 (위·아래 1024×512 시트 2장)",
-   "npcs": [
+    "rp_extra_6",
+    "rp_extra_7",
     "rp_extra_8",
-    "rp_extra_9"
-   ]
-  },
-  {
-   "batch": "M056",
-   "kind": "mobile",
-   "image": "1024x1024 (위·아래 1024×512 시트 2장)",
-   "npcs": [
+    "rp_extra_9",
+    "rs_extra_1",
+    "rs_extra_10",
+    "rs_extra_2",
+    "rs_extra_3",
     "rs_extra_4",
-    "rs_extra_6"
+    "rs_extra_5"
    ]
   },
   {
-   "batch": "M057",
-   "kind": "mobile",
-   "image": "1024x1024 (위·아래 1024×512 시트 2장)",
+   "batch": "F014",
+   "kind": "front",
+   "image": "4열×4행 16명 (칸 약 300px, 투명 배경, 칸 사이 빈 간격)",
    "npcs": [
+    "rs_extra_6",
+    "rs_extra_7",
     "rs_extra_8",
-    "rs_extra_9"
-   ]
-  },
-  {
-   "batch": "M058",
-   "kind": "mobile",
-   "image": "1024x1024 (위·아래 1024×512 시트 2장)",
-   "npcs": [
+    "rs_extra_9",
+    "rv_extra_1",
     "rv_extra_10",
-    "rv_extra_4"
-   ]
-  },
-  {
-   "batch": "M059",
-   "kind": "mobile",
-   "image": "1024x1024 (위·아래 1024×512 시트 2장)",
-   "npcs": [
+    "rv_extra_2",
+    "rv_extra_3",
+    "rv_extra_4",
+    "rv_extra_5",
+    "rv_extra_6",
+    "rv_extra_7",
     "rv_extra_8",
-    "rv_extra_9"
+    "rv_extra_9",
+    "sj_extra_1",
+    "sj_extra_10"
    ]
   },
   {
-   "batch": "M060",
-   "kind": "mobile",
-   "image": "1024x1024 (위·아래 1024×512 시트 2장)",
+   "batch": "F015",
+   "kind": "front",
+   "image": "4열×4행 16명 (칸 약 300px, 투명 배경, 칸 사이 빈 간격)",
    "npcs": [
+    "sj_extra_2",
+    "sj_extra_3",
     "sj_extra_4",
-    "sj_extra_8"
-   ]
-  },
-  {
-   "batch": "M061",
-   "kind": "mobile",
-   "image": "1024x1024 (위·아래 1024×512 시트 2장)",
-   "npcs": [
+    "sj_extra_5",
+    "sj_extra_6",
+    "sj_extra_7",
+    "sj_extra_8",
     "sj_extra_9",
-    "sx_extra_4"
+    "sx_extra_1",
+    "sx_extra_10",
+    "sx_extra_2",
+    "sx_extra_3",
+    "sx_extra_4",
+    "sx_extra_5",
+    "sx_extra_6",
+    "sx_extra_7"
    ]
   },
   {
-   "batch": "M062",
-   "kind": "mobile",
-   "image": "1024x1024 (위·아래 1024×512 시트 2장)",
+   "batch": "F016",
+   "kind": "front",
+   "image": "4열×4행 16명 (칸 약 300px, 투명 배경, 칸 사이 빈 간격)",
    "npcs": [
     "sx_extra_8",
-    "sx_extra_9"
-   ]
-  },
-  {
-   "batch": "M063",
-   "kind": "mobile",
-   "image": "1024x1024 (위·아래 1024×512 시트 2장)",
-   "npcs": [
+    "sx_extra_9",
+    "tn_extra_1",
     "tn_extra_10",
-    "tn_extra_4"
-   ]
-  },
-  {
-   "batch": "M064",
-   "kind": "mobile",
-   "image": "1024x1024 (위·아래 1024×512 시트 2장)",
-   "npcs": [
+    "tn_extra_2",
+    "tn_extra_3",
+    "tn_extra_4",
+    "tn_extra_5",
+    "tn_extra_6",
     "tn_extra_7",
-    "tn_extra_8"
-   ]
-  },
-  {
-   "batch": "M065",
-   "kind": "mobile",
-   "image": "1024x1024 (위·아래 1024×512 시트 2장)",
-   "npcs": [
+    "tn_extra_8",
     "tn_extra_9"
    ]
   },
   {
-   "batch": "F001",
-   "kind": "fixed",
-   "image": "1536x1024 (6열×4행, 칸 256×256)",
+   "batch": "W001",
+   "kind": "walk",
+   "image": "1024x1024 (2×2, 칸마다 512×512 걷기 시트 1명)",
    "npcs": [
-    "sx_o2",
-    "ng_o2",
-    "ps_o0",
-    "tn_o0",
-    "pn_o0",
-    "g2_o1",
-    "pe_o2",
-    "iv_o3",
-    "pf_o2",
-    "ng_o0",
-    "pn_o1",
-    "g2_o0",
-    "ng_o1",
-    "pc_o2",
-    "rp_o1",
-    "rv_o3",
-    "pe_o3",
-    "rp_o2",
-    "cp_o1",
-    "sj_o1",
-    "pc_extra_5",
-    "ps_extra_6",
-    "g1_extra_6",
-    "rv_extra_6"
+    "cp_o0",
+    "cp_o2",
+    "cp_o3",
+    "g1_o0"
    ]
   },
   {
-   "batch": "F002",
-   "kind": "fixed",
-   "image": "1536x1024 (6열×4행, 칸 256×256)",
+   "batch": "W002",
+   "kind": "walk",
+   "image": "1024x1024 (2×2, 칸마다 512×512 걷기 시트 1명)",
    "npcs": [
-    "pe_extra_7",
-    "sj_extra_5",
-    "pn_extra_7",
-    "md_extra_6",
-    "rv_extra_7",
-    "sx_extra_1",
-    "tn_extra_5",
-    "g2_extra_7",
-    "ng_extra_7",
-    "iv_extra_7",
-    "cp_extra_2",
-    "g1_extra_2",
-    "g2_extra_2",
-    "iv_extra_2",
-    "md_extra_2",
-    "ng_extra_2",
-    "ot_extra_2",
-    "pc_extra_2",
-    "pe_extra_2",
-    "pf_extra_2",
-    "pn_extra_2",
-    "ps_extra_2",
-    "rp_extra_2",
-    "rs_extra_2"
+    "g1_o1",
+    "g1_o2",
+    "g1_o3",
+    "g2_o2"
    ]
   },
   {
-   "batch": "F003",
-   "kind": "fixed",
-   "image": "1536x1024 (6열×4행, 칸 256×256)",
+   "batch": "W003",
+   "kind": "walk",
+   "image": "1024x1024 (2×2, 칸마다 512×512 걷기 시트 1명)",
    "npcs": [
-    "rv_extra_2",
-    "sj_extra_2",
-    "sx_extra_2",
-    "tn_extra_2",
-    "ot_extra_1",
-    "rv_extra_1",
-    "cp_extra_10",
-    "iv_extra_10",
-    "md_extra_10",
-    "ng_extra_10",
-    "pc_extra_10",
-    "pe_extra_10",
-    "rp_extra_10",
-    "rs_extra_10",
-    "sj_extra_10",
-    "sx_extra_10",
-    "pe_extra_6",
-    "sx_extra_6",
-    "cp_extra_3",
-    "g1_extra_3",
-    "g2_extra_3",
-    "iv_extra_3",
-    "md_extra_3",
-    "ng_extra_3"
+    "g2_o3",
+    "iv_o0",
+    "iv_o1",
+    "iv_o2"
    ]
   },
   {
-   "batch": "F004",
-   "kind": "fixed",
-   "image": "1536x1024 (6열×4행, 칸 256×256)",
+   "batch": "W004",
+   "kind": "walk",
+   "image": "1024x1024 (2×2, 칸마다 512×512 걷기 시트 1명)",
    "npcs": [
-    "ot_extra_3",
-    "pc_extra_3",
-    "pe_extra_3",
-    "pf_extra_3",
-    "pn_extra_3",
-    "ps_extra_3",
-    "rp_extra_3",
-    "rs_extra_3",
-    "rv_extra_3",
-    "sj_extra_3",
-    "sx_extra_3",
-    "tn_extra_3",
-    "pf_extra_5",
-    "sj_extra_6",
-    "ot_extra_7",
-    "sx_extra_5",
-    "pn_extra_5",
-    "rv_extra_5",
-    "cp_extra_1",
-    "g1_extra_1",
-    "g2_extra_1",
-    "iv_extra_1",
-    "md_extra_1",
-    "ng_extra_1"
+    "md_o0",
+    "md_o1",
+    "md_o2",
+    "md_o3"
    ]
   },
   {
-   "batch": "F005",
-   "kind": "fixed",
-   "image": "1536x1024 (6열×4행, 칸 256×256)",
+   "batch": "W005",
+   "kind": "walk",
+   "image": "1024x1024 (2×2, 칸마다 512×512 걷기 시트 1명)",
    "npcs": [
-    "pc_extra_1",
-    "pe_extra_1",
-    "pf_extra_1",
-    "pn_extra_1",
-    "ps_extra_1",
-    "rp_extra_1",
-    "rs_extra_1",
-    "sj_extra_1",
-    "tn_extra_1",
-    "cp_extra_7",
-    "g1_extra_5",
-    "pc_extra_6",
-    "rs_extra_5",
-    "ot_extra_6",
-    "ng_extra_5",
-    "sx_extra_7",
-    "pf_extra_10",
-    "pn_extra_10",
-    "tn_extra_6",
-    "rs_extra_7",
-    "iv_extra_5",
-    "iv_extra_6",
-    "pn_extra_6",
-    "g2_extra_5"
+    "ng_o3",
+    "ot_o0",
+    "ot_o1",
+    "ot_o2"
    ]
   },
   {
-   "batch": "F006",
-   "kind": "fixed",
-   "image": "1536x1024 (6열×4행, 칸 256×256)",
+   "batch": "W006",
+   "kind": "walk",
+   "image": "1024x1024 (2×2, 칸마다 512×512 걷기 시트 1명)",
    "npcs": [
-    "pf_extra_6",
-    "sj_extra_7",
-    "rp_extra_7"
+    "ot_o3",
+    "pc_o0",
+    "pc_o1",
+    "pc_o3"
+   ]
+  },
+  {
+   "batch": "W007",
+   "kind": "walk",
+   "image": "1024x1024 (2×2, 칸마다 512×512 걷기 시트 1명)",
+   "npcs": [
+    "pe_o0",
+    "pe_o1",
+    "pf_o0",
+    "pf_o1"
+   ]
+  },
+  {
+   "batch": "W008",
+   "kind": "walk",
+   "image": "1024x1024 (2×2, 칸마다 512×512 걷기 시트 1명)",
+   "npcs": [
+    "pf_o3",
+    "pn_o2",
+    "pn_o3",
+    "ps_o1"
+   ]
+  },
+  {
+   "batch": "W009",
+   "kind": "walk",
+   "image": "1024x1024 (2×2, 칸마다 512×512 걷기 시트 1명)",
+   "npcs": [
+    "ps_o2",
+    "ps_o3",
+    "rp_o0",
+    "rp_o3"
+   ]
+  },
+  {
+   "batch": "W010",
+   "kind": "walk",
+   "image": "1024x1024 (2×2, 칸마다 512×512 걷기 시트 1명)",
+   "npcs": [
+    "rs_o0",
+    "rs_o1",
+    "rs_o2",
+    "rs_o3"
+   ]
+  },
+  {
+   "batch": "W011",
+   "kind": "walk",
+   "image": "1024x1024 (2×2, 칸마다 512×512 걷기 시트 1명)",
+   "npcs": [
+    "rv_o0",
+    "rv_o1",
+    "rv_o2",
+    "sj_o0"
+   ]
+  },
+  {
+   "batch": "W012",
+   "kind": "walk",
+   "image": "1024x1024 (2×2, 칸마다 512×512 걷기 시트 1명)",
+   "npcs": [
+    "sj_o2",
+    "sj_o3",
+    "sx_o0",
+    "sx_o1"
+   ]
+  },
+  {
+   "batch": "W013",
+   "kind": "walk",
+   "image": "1024x1024 (2×2, 칸마다 512×512 걷기 시트 1명)",
+   "npcs": [
+    "sx_o3",
+    "tn_o1",
+    "tn_o2",
+    "tn_o3"
    ]
   }
  ]

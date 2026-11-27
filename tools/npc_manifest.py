@@ -74,25 +74,28 @@ for tw in net['towns']:
         rows.append(dict(npc_id=r['id'],town=tid,origin='extra',name_en=r['name_en'],name_ko='',legacy_ko='',profession=c[0],kind=c[1],age=c[2],gender=c[3]))
 if bad:print('미분류:',bad);sys.exit(1)
 
-# 스프라이트 ID와 시트 파일 규칙
+# ---- 2단계 방식 ----
+# 1단계(front): 252명 전원 정면 전신 1컷 128×128 (한 이미지 1536×1024에 24명, 칸 256×256)
+# 2단계(walk) : 기존 주민 중 이동형 52명만 4프레임 걷기 시트 512×512 (4열×4행, 칸 128×128, 한 이미지 1024×1024에 4명)
 for r in rows:
     r['sprite_id']='npc_'+r['npc_id']
-    r['sheet']='art/npc/sprites/%s.webp'%r['sprite_id']
-    r['format']='front1_128' if r['kind']=='fixed' else 'walk8x4_1024x512'
+    r['front_sheet']='art/npc/sprites/%s.webp'%r['sprite_id']
+    r['walk']=(r['origin']=='original' and r['kind']=='mobile')
+    r['walk_sheet']='art/npc/sprites/%s_walk.webp'%r['sprite_id'] if r['walk'] else ''
     r['region_style']=REGION[r['town']]
-# 배치(한 이미지 = 1536×1024 → 3×2칸, 칸당 512×512 시트 1장/걷기형은 8프레임 가로 → 칸당 1024×512이므로 1536×1024에 1장+…): 형식별로 다르게 묶음
-fixed=[r for r in rows if r['kind']=='fixed'];mob=[r for r in rows if r['kind']=='mobile']
-# 고정형: 128×128 정면 1프레임. 한 이미지(1024×1024)에 4×... 해상도 유지를 위해 8×8=64칸(칸 128px) 대신 안전하게 6×4=24칸(칸 256px 작업 → 128로 축소) 사용 금지: 원본 128 기준 8×6=48칸은 1024×768.
-FIX_PER=24   # 1536×1024 이미지에서 6열×4행, 칸 256×256로 그린 뒤 128로 축소
-MOB_PER=2    # 걷기형 1024×512 시트 2장을 1024×1024 이미지 한 장에 세로로
+FRONT_PER=16;WALK_PER=4
 def chunk(l,n):return [l[i:i+n] for i in range(0,len(l),n)]
 batches=[]
-for i,ch in enumerate(chunk(sorted(mob,key=lambda r:(r['origin']!='original',r['town'],r['npc_id'])),MOB_PER),1):
-    batches.append(dict(batch='M%03d'%i,kind='mobile',image='1024x1024 (위·아래 1024×512 시트 2장)',npcs=[r['npc_id'] for r in ch]))
-for i,ch in enumerate(chunk(sorted(fixed,key=lambda r:(r['origin']!='original',r['profession'],r['town'])),FIX_PER),1):
-    batches.append(dict(batch='F%03d'%i,kind='fixed',image='1536x1024 (6열×4행, 칸 256×256)',npcs=[r['npc_id'] for r in ch]))
-bmap={n:b['batch'] for b in batches for n in b['npcs']}
-for r in rows:r['batch']=bmap[r['npc_id']]
+order=sorted(rows,key=lambda r:(r['origin']!='original',r['town'],r['npc_id']))
+for i,ch in enumerate(chunk(order,FRONT_PER),1):
+    batches.append(dict(batch='F%03d'%i,kind='front',image='4열×4행 16명 (칸 약 300px, 투명 배경, 칸 사이 빈 간격)',npcs=[r['npc_id'] for r in ch]))
+walkers=[r for r in order if r['walk']]
+for i,ch in enumerate(chunk(walkers,WALK_PER),1):
+    batches.append(dict(batch='W%03d'%i,kind='walk',image='1024x1024 (2×2, 칸마다 512×512 걷기 시트 1명)',npcs=[r['npc_id'] for r in ch]))
+fmap={n:b['batch'] for b in batches if b['kind']=='front' for n in b['npcs']}
+wmap={n:b['batch'] for b in batches if b['kind']=='walk' for n in b['npcs']}
+for r in rows:r['front_batch']=fmap[r['npc_id']];r['walk_batch']=wmap.get(r['npc_id'],'')
+fixed=[r for r in rows if r['kind']=='fixed'];mob=[r for r in rows if r['kind']=='mobile']
 
 os.makedirs(os.path.join(ROOT,'art/npc'),exist_ok=True)
 json.dump(dict(version=1,count=len(rows),npcs=rows,batches=batches),open(os.path.join(ROOT,'art/npc/NPC_MANIFEST.json'),'w',encoding='utf-8'),ensure_ascii=False,indent=1)
@@ -106,4 +109,5 @@ print('총',len(rows),'명 / 고정형',len(fixed),'/ 이동형',len(mob),'/ 미
 pc=collections.Counter((r['profession'],r['kind']) for r in rows)
 print('직업 종류',len(pc),'(중복 직업=같은 직업이 여러 마을에 있음, 그림은 인물별로 따로 제작)')
 print('직업별 인원:',sorted(((k[0],v) for k,v in pc.items()),key=lambda x:-x[1])[:15])
-print('배치(이미지 생성 횟수): 이동형',sum(1 for b in batches if b['kind']=='mobile'),'+ 고정형',sum(1 for b in batches if b['kind']=='fixed'))
+print('걷는 주민',len(walkers),'명 / 정면 그림 전원',len(rows),'명')
+print('이미지 생성 횟수: 정면',sum(1 for b in batches if b['kind']=='front'),'+ 걷기',sum(1 for b in batches if b['kind']=='walk'),'=',len(batches))

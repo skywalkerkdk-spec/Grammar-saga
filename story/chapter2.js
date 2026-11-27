@@ -534,20 +534,21 @@
 
   // 새 NPC 그림(art/npc)이 검사를 통과해 등록되어 있으면 그것을 쓰고, 없으면 기존 그림으로 대체합니다.
   function npcArt(episode,index) {
-    const e=window.NPC_ATLAS?.[`${episode.id}_o${index}`];
-    return e&&e.ready?e:null;
+    return window.NPC_ATLAS?.[`${episode.id}_o${index}`]||null;
   }
+  const artFront=e=>e?.front?.ready?e.front.sheet:null;
+  const artWalk=e=>e?.walk?.ready?e.walk:null;
 
   function residentTargets(episode,portraitFor) {
     return episode.residents.map(resident=>{
       const art=npcArt(episode,resident.index);
-      const image=art&&art.kind==='fixed'?art.sheet:portraitFor(resident.index);
+      const image=artFront(art)||portraitFor(resident.index);
       const identity=originalResidentIdentity(resident);
       return {
         id:'npc'+resident.index,
         label:displayName(resident.name_en,resident.name),
         image,caption:identity.name,job:identity.job,
-        walk:art&&art.kind==='mobile'?art:null,
+        walk:artWalk(art),
         action:()=>townDialogue(episode,resident,image),
       };
     });
@@ -632,10 +633,9 @@
       const point=choices.reduce((best,tile)=>distance(tile)>distance(best)?tile:best,choices[0]);
       if(!point||distance(point)===0)throw new Error('No resident placement for '+npc.id);
       points[npc.id]=point;
-      const art=window.NPC_ATLAS?.[npc.id];
-      const ready=art&&art.ready?art:null;
-      const image=ready&&ready.kind==='fixed'?ready.sheet:extraPortrait(npc.id);
-      extras.push({id:npc.id,label:npc.en+' · '+npc.ko,caption:npc.name,job:npc.job,image,walk:ready&&ready.kind==='mobile'?ready:null,
+      const art=window.NPC_ATLAS?.[npc.id]||null;
+      const image=artFront(art)||extraPortrait(npc.id);
+      extras.push({id:npc.id,label:npc.en+' · '+npc.ko,caption:npc.name,job:npc.job,image,walk:artWalk(art),
         action:detail=>chapterWorld.meetResident(npc.id,image,back,!!detail?.guide)});
     }
     return {map:{...map,points},targets:[...targets,...extras]};

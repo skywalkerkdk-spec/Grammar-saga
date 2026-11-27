@@ -31,7 +31,7 @@ with ThreadingHTTPServer(('127.0.0.1',0),partial(Q,directory=root)) as srv:
                 if ok is not True:bad.append((tid,'탐험 버튼 없음',ok));continue
             pg.wait_for_timeout(500)
             r=pg.evaluate("""()=>{const w=document.querySelector('.c2-field-world');if(!w)return null;
-              const key=tid=>0;const S=46;
+              const S=(window.chapterFields.villages[document.querySelector('.c2-field-world') && Object.keys(window.chapterFields.villages).find(k=>document.querySelector('.c2-field-world').style.backgroundImage.includes('/villages/'+k+'.webp'))]||{}).tileSize||46;
               const pins=[...w.querySelectorAll('.c2-field-pin')].map(p=>[Math.round(parseFloat(p.style.left)/S-.5),Math.round(parseFloat(p.style.top)/S-.72),p.getAttribute('aria-label')]);
               const hero=w.querySelector('.c2-field-hero');const hx=Math.round(parseFloat(hero.style.left)/S-.5),hy=Math.round(parseFloat(hero.style.top)/S-.72);
               return {pins,hero:[hx,hy]};}""")

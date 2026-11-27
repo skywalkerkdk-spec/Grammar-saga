@@ -1,5 +1,5 @@
 {
-  "version": "0.1",
+  "version": "0.2",
   "room": {
     "id": "reading_room",
     "en": "Reading Room",
@@ -73,8 +73,8 @@
           "number": 1,
           "title_en": "A Baker's Son",
           "title_ko": "제빵사의 아들",
-          "en": "Eren was a baker's son who wanted to see the sea. He had no sword and very little money. His mother gave him bread and a small lantern. On his first night away from home, he met a girl beside a broken cart. Her name was Mira, and she was carrying a map.",
-          "ko": "에렌은 바다를 보고 싶어 하는 제빵사의 아들이었다. 검도 없었고 돈도 거의 없었다. 어머니는 빵과 작은 등불을 주었다. 집을 떠난 첫날 밤, 그는 부서진 수레 옆에서 소녀를 만났다. 이름은 미라였고 지도를 가지고 있었다.",
+          "en": "Eren was a baker's son who wanted to see the sea. He had no sword and very little money. His mother gave him bread and a small lantern. On his first night away from home, he met a girl beside a broken cart. Her name was Mira, and she was carrying a map.\n\nEren tried to lift the cart, but its wheel sank deeper into the mud. Mira asked him to collect flat stones instead. They placed the stones under the wheel and pushed together. When the cart finally moved, Eren offered her half his bread. Mira unfolded her map and showed him a road that led toward the coast.",
+          "ko": "에렌은 바다를 보고 싶어 하는 제빵사의 아들이었다. 검도 없었고 돈도 거의 없었다. 어머니는 빵과 작은 등불을 주었다. 집을 떠난 첫날 밤, 그는 부서진 수레 옆에서 소녀를 만났다. 이름은 미라였고 지도를 가지고 있었다.\n\n에렌은 수레를 들어 올리려 했지만 바퀴가 진흙에 더 깊이 빠졌다. 미라는 대신 납작한 돌을 모아 달라고 했다. 두 사람은 바퀴 아래 돌을 놓고 함께 밀었다. 마침내 수레가 움직이자 에렌은 빵의 절반을 건넸다. 미라는 지도를 펼쳐 해안으로 이어지는 길을 보여 주었다.",
           "unlock": {
             "registered_pages": 0
           },
@@ -85,8 +85,8 @@
           "number": 2,
           "title_en": "The River Crossing",
           "title_ko": "강을 건너다",
-          "en": "Mira knew a path to the river, but the bridge was gone. Eren wanted to swim across. Mira stopped him and pointed to a boat tied to a tree. They asked the boatman for help and carried his baskets in return. By sunset, they were on the other side.",
-          "ko": "미라는 강으로 가는 길을 알았지만 다리가 사라져 있었다. 에렌은 헤엄쳐 건너려 했다. 미라는 그를 말리고 나무에 묶인 배를 가리켰다. 두 사람은 뱃사공에게 도움을 청하고 보답으로 바구니를 날라 주었다. 해 질 무렵 강 건너편에 도착했다.",
+          "en": "Mira knew a path to the river, but the bridge was gone. Eren wanted to swim across. Mira stopped him and pointed to a boat tied to a tree. They asked the boatman for help and carried his baskets in return. By sunset, they were on the other side.\n\nThe boatman was preparing to close his little ferry for the day. His baskets were full of wet clothes, and he could not move them quickly. Eren carried the baskets while Mira helped him count them. On the boat, Eren admitted that he had never crossed such a wide river. The boatman smiled and told him that asking for help was part of traveling.",
+          "ko": "미라는 강으로 가는 길을 알았지만 다리가 사라져 있었다. 에렌은 헤엄쳐 건너려 했다. 미라는 그를 말리고 나무에 묶인 배를 가리켰다. 두 사람은 뱃사공에게 도움을 청하고 보답으로 바구니를 날라 주었다. 해 질 무렵 강 건너편에 도착했다.\n\n뱃사공은 그날의 나룻배 운행을 마치려 했다. 바구니에는 젖은 옷이 가득했고 그는 빨리 옮길 수 없었다. 에렌은 바구니를 나르고 미라는 개수를 세는 일을 도왔다. 배 위에서 에렌은 이렇게 넓은 강을 건너 본 적이 없다고 인정했다. 뱃사공은 웃으며 도움을 청하는 것도 여행의 일부라고 말했다.",
           "unlock": {
             "registered_pages": 3
           },
@@ -97,8 +97,8 @@
           "number": 3,
           "title_en": "The Empty Inn",
           "title_ko": "텅 빈 여관",
-          "en": "At the next village, the inn was empty. Its owner had left to help people after a storm. Eren and Mira found a note asking travelers to leave the door open. They cleaned the rooms and lit their lantern. That evening, three tired strangers found a warm place to sleep.",
-          "ko": "다음 마을의 여관은 비어 있었다. 주인은 폭풍 피해를 입은 사람들을 돕기 위해 떠났다. 에렌과 미라는 여행자들에게 문을 열어 두라는 쪽지를 발견했다. 두 사람은 방을 청소하고 등불을 켰다. 그날 저녁 지친 낯선 사람 세 명이 따뜻한 잠자리를 찾았다.",
+          "en": "At the next village, the inn was empty. Its owner had left to help people after a storm. Eren and Mira found a note asking travelers to leave the door open. They cleaned the rooms and lit their lantern. That evening, three tired strangers found a warm place to sleep.\n\nOne of the strangers was a woman carrying a sleeping child. Another had lost his shoes in the storm. Mira found dry blankets while Eren shared the last of his bread. In the morning, the owner returned and offered them breakfast. Before leaving, Mira marked the inn on her map so that other travelers could find it.",
+          "ko": "다음 마을의 여관은 비어 있었다. 주인은 폭풍 피해를 입은 사람들을 돕기 위해 떠났다. 에렌과 미라는 여행자들에게 문을 열어 두라는 쪽지를 발견했다. 두 사람은 방을 청소하고 등불을 켰다. 그날 저녁 지친 낯선 사람 세 명이 따뜻한 잠자리를 찾았다.\n\n낯선 사람 중 한 명은 잠든 아이를 안은 여인이었다. 다른 사람은 폭풍에 신발을 잃었다. 미라는 마른 담요를 찾았고 에렌은 남은 빵을 나누었다. 아침에 주인이 돌아와 아침 식사를 대접했다. 떠나기 전에 미라는 다른 여행자들이 찾을 수 있도록 지도에 여관을 표시했다.",
           "unlock": {
             "registered_pages": 6
           },
@@ -109,8 +109,8 @@
           "number": 4,
           "title_en": "The False Guide",
           "title_ko": "거짓 안내자",
-          "en": "A guide offered to take them to the sea. He said that the old road was closed, but Mira's map showed another path. They asked a woodworker about the road. He told them that the guide had never visited the coast. Eren learned that a confident voice was not always a truthful one.",
-          "ko": "한 안내자가 바다까지 데려다주겠다고 했다. 옛길이 막혔다고 했지만 미라의 지도에는 다른 길이 있었다. 두 사람은 목공에게 길을 물었다. 그는 안내자가 해안에 가 본 적이 없다고 말했다. 에렌은 자신감 있는 목소리가 언제나 진실을 말하는 것은 아님을 배웠다.",
+          "en": "A guide offered to take them to the sea. He said that the old road was closed, but Mira's map showed another path. They asked a woodworker about the road. He told them that the guide had never visited the coast. Eren learned that a confident voice was not always a truthful one.\n\nThe guide wanted payment before showing them the road. Eren almost handed him their remaining coins. Mira asked the woodworker to draw the next two turns on a scrap of paper. His drawing matched the old map. They thanked him and kept their money for the journey. From then on, Eren asked how people knew what they claimed to know.",
+          "ko": "한 안내자가 바다까지 데려다주겠다고 했다. 옛길이 막혔다고 했지만 미라의 지도에는 다른 길이 있었다. 두 사람은 목공에게 길을 물었다. 그는 안내자가 해안에 가 본 적이 없다고 말했다. 에렌은 자신감 있는 목소리가 언제나 진실을 말하는 것은 아님을 배웠다.\n\n안내인은 길을 보여 주기 전에 돈을 요구했다. 에렌은 남은 동전을 거의 건넬 뻔했다. 미라는 목수에게 종잇조각에 다음 두 갈림길을 그려 달라고 했다. 그림은 옛 지도와 일치했다. 두 사람은 감사 인사를 하고 여행 경비를 아꼈다. 그때부터 에렌은 사람들이 주장하는 사실을 어떻게 알게 되었는지 물었다.",
           "unlock": {
             "registered_pages": 9
           },
@@ -121,8 +121,8 @@
           "number": 5,
           "title_en": "The Last Lantern",
           "title_ko": "마지막 등불",
-          "en": "At last they reached the harbor. A storm had put out the harbor light, and a fishing boat was still at sea. Mira found the keeper while Eren helped carry oil to the tower. Together they lit the great lamp. When the boat returned, Eren forgot all about becoming a famous hero.",
-          "ko": "마침내 항구에 도착했다. 폭풍으로 항구의 불빛이 꺼졌고 어선 한 척이 아직 바다에 있었다. 미라는 관리인을 찾고 에렌은 탑으로 기름을 나르는 일을 도왔다. 함께 큰 등불을 밝혔다. 배가 돌아오자 에렌은 유명한 영웅이 되겠다는 생각을 잊었다.",
+          "en": "At last they reached the harbor. A storm had put out the harbor light, and a fishing boat was still at sea. Mira found the keeper while Eren helped carry oil to the tower. Together they lit the great lamp. When the boat returned, Eren forgot all about becoming a famous hero.\n\nThe keeper's hands were shaking after the long storm. Mira held the door while Eren brought the oil inside. They watched the lamp shine across the dark water. A woman on the shore called out when she saw the returning boat. Eren understood why the keeper climbed the tower every evening, even when nobody thanked him.",
+          "ko": "마침내 항구에 도착했다. 폭풍으로 항구의 불빛이 꺼졌고 어선 한 척이 아직 바다에 있었다. 미라는 관리인을 찾고 에렌은 탑으로 기름을 나르는 일을 도왔다. 함께 큰 등불을 밝혔다. 배가 돌아오자 에렌은 유명한 영웅이 되겠다는 생각을 잊었다.\n\n긴 폭풍 뒤 등대지기의 손은 떨리고 있었다. 미라가 문을 잡고 에렌이 기름을 안으로 가져왔다. 두 사람은 등불이 어두운 바다를 비추는 것을 지켜보았다. 해안의 한 여인이 돌아오는 배를 보고 소리쳤다. 에렌은 아무도 감사하지 않을 때조차 등대지기가 매일 저녁 탑을 오르는 이유를 이해했다.",
           "unlock": {
             "registered_pages": 12
           },
@@ -133,8 +133,8 @@
           "number": 6,
           "title_en": "A Road for Others",
           "title_ko": "다른 사람들을 위한 길",
-          "en": "Years later, Mira drew a new map and Eren opened a small shelter. They placed a sign beside the door: a bird above a broken circle. It meant that every traveler was welcome. Eren never became a king. Yet people remembered the road he helped to build.",
-          "ko": "세월이 흐른 뒤 미라는 새 지도를 그렸고 에렌은 작은 쉼터를 열었다. 문 옆에 끊어진 원 위의 새 문양을 달았다. 모든 여행자를 환영한다는 뜻이었다. 에렌은 왕이 되지 않았다. 그러나 사람들은 그가 만드는 데 힘을 보탠 길을 기억했다.",
+          "en": "Years later, Mira drew a new map and Eren opened a small shelter. They placed a sign beside the door: a bird above a broken circle. It meant that every traveler was welcome. Eren never became a king. Yet people remembered the road he helped to build.\n\nOne winter evening, a young traveler arrived with a torn map. Eren gave her a meal while Mira repaired the map. The traveler asked whether they had once been great adventurers. Mira laughed and pointed to the names of the people who had helped them. Before leaving, the traveler copied the shelter sign into her own notebook.",
+          "ko": "세월이 흐른 뒤 미라는 새 지도를 그렸고 에렌은 작은 쉼터를 열었다. 문 옆에 끊어진 원 위의 새 문양을 달았다. 모든 여행자를 환영한다는 뜻이었다. 에렌은 왕이 되지 않았다. 그러나 사람들은 그가 만드는 데 힘을 보탠 길을 기억했다.\n\n어느 겨울 저녁, 젊은 여행자가 찢어진 지도를 들고 찾아왔다. 에렌은 식사를 대접하고 미라는 지도를 수리했다. 여행자는 두 사람이 한때 위대한 모험가였는지 물었다. 미라는 웃으며 자신들을 도운 사람들의 이름을 가리켰다. 떠나기 전에 여행자는 쉼터 문양을 자신의 수첩에 옮겨 그렸다.",
           "unlock": {
             "registered_pages": 15
           },

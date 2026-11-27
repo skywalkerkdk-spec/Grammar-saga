@@ -25,6 +25,13 @@ assert all(len(lines) == 6 for lines in daily['role_pools'].values())
 def normalize(text):
     return ' '.join(text.split())
 
+personal_lines=[line for resident in daily['residents'] for line in resident['personal_dialogue']]
+assert len(personal_lines)==180
+for line in personal_lines:
+    chunks=line['direct_chunks']
+    assert len(chunks)>1 and all(chunk['ko'] for chunk in chunks)
+    assert normalize(' '.join(chunk['en'] for chunk in chunks))==normalize(line['en'])
+
 volumes = {}
 series = sum((data[name]['books'] for name in (
     'LIBRARY_SERIAL_BOOKS', 'LIBRARY_SERIAL_EXPANSION_A', 'LIBRARY_SERIAL_EXPANSION_B')), [])

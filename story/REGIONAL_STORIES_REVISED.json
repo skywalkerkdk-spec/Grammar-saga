@@ -15,7 +15,25 @@
           "npc": "g1_extra_6",
           "en": "My flour has gone to Queston, and I have received a box of vegetables.",
           "ko": "제 밀가루는 퀘스턴으로 갔고 저는 채소 상자를 받았어요.",
-          "requires": []
+          "requires": [],
+          "direct_chunks": [
+            {
+              "en": "My flour",
+              "ko": "제 밀가루는"
+            },
+            {
+              "en": "has gone to Queston,",
+              "ko": "퀘스턴으로 갔고,"
+            },
+            {
+              "en": "and I have received",
+              "ko": "저는 받았어요"
+            },
+            {
+              "en": "a box of vegetables.",
+              "ko": "채소 한 상자를."
+            }
+          ]
         },
         {
           "id": "visit_2",
@@ -24,6 +42,24 @@
           "ko": "비에 배송표가 둘 다 떨어졌어요. 밀가루 상자의 빨간 리본은 기억해요.",
           "requires": [
             "visit_1"
+          ],
+          "direct_chunks": [
+            {
+              "en": "Both labels",
+              "ko": "배송표 두 장이"
+            },
+            {
+              "en": "came loose in the rain.",
+              "ko": "빗속에서 떨어졌어요."
+            },
+            {
+              "en": "I remember the red ribbon",
+              "ko": "저는 빨간 리본을 기억해요"
+            },
+            {
+              "en": "on the flour box.",
+              "ko": "밀가루 상자에 달린."
+            }
           ]
         },
         {
@@ -33,6 +69,24 @@
           "ko": "빨간 상자를 열었어요. 채소가 아니라 밀가루가 들어 있어요.",
           "requires": [
             "visit_2"
+          ],
+          "direct_chunks": [
+            {
+              "en": "We opened",
+              "ko": "우리는 열었어요"
+            },
+            {
+              "en": "the red box.",
+              "ko": "빨간 상자를."
+            },
+            {
+              "en": "It contains flour,",
+              "ko": "그 안에는 밀가루가 들어 있어요"
+            },
+            {
+              "en": "not vegetables.",
+              "ko": "채소가 아니라."
+            }
           ]
         },
         {
@@ -42,6 +96,24 @@
           "ko": "밀가루를 벨에게 가져다주세요. 우리 채소는 내일까지 기다려도 돼요.",
           "requires": [
             "visit_3"
+          ],
+          "direct_chunks": [
+            {
+              "en": "Please take the flour",
+              "ko": "밀가루를 가져다주세요"
+            },
+            {
+              "en": "to Belle.",
+              "ko": "벨에게."
+            },
+            {
+              "en": "Our vegetables can wait",
+              "ko": "우리 채소는 기다려도 돼요"
+            },
+            {
+              "en": "until tomorrow.",
+              "ko": "내일까지."
+            }
           ]
         },
         {
@@ -61,7 +133,21 @@
             ],
             "correct_index": 0,
             "retry_ko": "앞서 확인한 대화를 다시 읽어 보세요."
-          }
+          },
+          "direct_chunks": [
+            {
+              "en": "The birthday cake order",
+              "ko": "생일 케이크 주문은"
+            },
+            {
+              "en": "is for Belle,",
+              "ko": "벨한테 한 거예요"
+            },
+            {
+              "en": "not for our kitchen.",
+              "ko": "저희 주방에 한 게 아니라."
+            }
+          ]
         },
         {
           "id": "visit_6",
@@ -122,6 +208,16 @@
           "ko": "길 잃은 아이를 위한 쉼터를 고치는 데 널빤지 일부를 썼어요.",
           "requires": [
             "visit_2"
+          ],
+          "direct_chunks": [
+            {
+              "en": "I",
+              "ko": "저는"
+            },
+            {
+              "en": "used some boards to repair a shelter for a lost child.",
+              "ko": "길 잃은 아이를 위한 쉼터를 고치는 데 널빤지 일부를 썼어요."
+            }
           ]
         },
         {
@@ -211,6 +307,16 @@
           "ko": "친구 베이가 이사하기 전에 편지를 썼어요.",
           "requires": [
             "visit_2"
+          ],
+          "direct_chunks": [
+            {
+              "en": "I",
+              "ko": "저는"
+            },
+            {
+              "en": "wrote to my friend Bay before she moved away.",
+              "ko": "친구 베이가 이사하기 전에 편지를 썼어요."
+            }
           ]
         },
         {
@@ -257,6 +363,16 @@
           "ko": "여관이 한가해지면 팜을 찾아갈게요.",
           "requires": [
             "visit_6"
+          ],
+          "direct_chunks": [
+            {
+              "en": "I",
+              "ko": "저는"
+            },
+            {
+              "en": "will visit Palm when my inn is quiet.",
+              "ko": "여관이 한가해지면 팜을 찾아갈게요."
+            }
           ]
         }
       ],
@@ -346,6 +462,16 @@
           "ko": "옛 쉼터들을 역사 지도에 추가할게요.",
           "requires": [
             "visit_6"
+          ],
+          "direct_chunks": [
+            {
+              "en": "I",
+              "ko": "저는"
+            },
+            {
+              "en": "will add the old shelters to our historical map.",
+              "ko": "옛 쉼터들을 역사 지도에 추가할게요."
+            }
           ]
         }
       ],
@@ -389,6 +515,16 @@
           "ko": "실수로 깃털 메달을 프로노비아에 배달했어요.",
           "requires": [
             "visit_2"
+          ],
+          "direct_chunks": [
+            {
+              "en": "I",
+              "ko": "저는"
+            },
+            {
+              "en": "delivered the feather medal to Pronovia by mistake.",
+              "ko": "실수로 깃털 메달을 프로노비아에 배달했어요."
+            }
           ]
         },
         {
@@ -417,7 +553,17 @@
             ],
             "correct_index": 1,
             "retry_ko": "앞서 확인한 대화를 다시 읽어 보세요."
-          }
+          },
+          "direct_chunks": [
+            {
+              "en": "I",
+              "ko": "저는"
+            },
+            {
+              "en": "found the parcel outside our shop and brought it here.",
+              "ko": "가게 밖에서 소포를 발견해 여기로 가져왔어요."
+            }
+          ]
         },
         {
           "id": "visit_6",
@@ -435,6 +581,16 @@
           "ko": "다음 새 경주를 꼭 보고 싶어요.",
           "requires": [
             "visit_6"
+          ],
+          "direct_chunks": [
+            {
+              "en": "I",
+              "ko": "저는"
+            },
+            {
+              "en": "would love to watch the next bird race.",
+              "ko": "다음 새 경주를 꼭 보고 싶어요."
+            }
           ]
         }
       ],
@@ -531,7 +687,17 @@
       "aftermath": {
         "npc": "iv_extra_5",
         "en": "I now keep my name on every travel bag.",
-        "ko": "이제 모든 여행 가방에 제 이름을 붙여요."
+        "ko": "이제 모든 여행 가방에 제 이름을 붙여요.",
+        "direct_chunks": [
+          {
+            "en": "I",
+            "ko": "저는"
+          },
+          {
+            "en": "now keep my name on every travel bag.",
+            "ko": "이제 모든 여행 가방에 제 이름을 붙여요."
+          }
+        ]
       },
       "reward": "story_flag_only"
     },
@@ -567,6 +733,16 @@
           "ko": "종은 수리했지만 쓰러진 나무가 아직 길을 막고 있어요.",
           "requires": [
             "visit_2"
+          ],
+          "direct_chunks": [
+            {
+              "en": "I",
+              "ko": "저는"
+            },
+            {
+              "en": "have repaired the bell, but a fallen tree still blocks the road.",
+              "ko": "종은 수리했지만 쓰러진 나무가 아직 길을 막고 있어요."
+            }
           ]
         },
         {
@@ -604,6 +780,16 @@
           "ko": "음악가들에게 새 경로를 알려 줄게요.",
           "requires": [
             "visit_5"
+          ],
+          "direct_chunks": [
+            {
+              "en": "I",
+              "ko": "저는"
+            },
+            {
+              "en": "will send the musicians the new route.",
+              "ko": "음악가들에게 새 경로를 알려 줄게요."
+            }
           ]
         },
         {
@@ -702,6 +888,16 @@
           "ko": "편지를 보내기 전에 오래된 초안에는 확실히 표시할게요.",
           "requires": [
             "visit_6"
+          ],
+          "direct_chunks": [
+            {
+              "en": "I",
+              "ko": "저는"
+            },
+            {
+              "en": "will mark old drafts clearly before sending any letters.",
+              "ko": "편지를 보내기 전에 오래된 초안에는 확실히 표시할게요."
+            }
           ]
         }
       ],

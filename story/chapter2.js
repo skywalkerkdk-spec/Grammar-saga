@@ -2,7 +2,7 @@
 (() => {
   'use strict';
 
-  const modes = { literal:'직독직해', natural:'자연스러운 해석', english:'영어 전용' };
+  const modes = { literal:'직독직해', english:'영어 전용' };
   const preferencesKey = 'grammar-saga.chapter2.dialogue';
   let story;
   let naming;
@@ -55,6 +55,20 @@
     dialogue=null;
   }
 
+  function modeSelect() {
+    const select=node('select');
+    select.setAttribute('aria-label','대화 표시 모드');
+    for (const [key,label] of Object.entries(modes)) select.add(new Option(label,key,key===reading.mode,key===reading.mode));
+    return select;
+  }
+
+  function dialogueSettings(back) {
+    const body=worldPanel('대화 설정',back,'닫기');
+    const select=modeSelect();
+    select.onchange=()=>{reading.mode=select.value;persistReading();};
+    body.append(select);
+  }
+
   function show(title, lines, done, back, options = {}) {
     const docked=!!(options.field||options.dock);
     const field=docked ? dialogue : null;
@@ -87,14 +101,9 @@
 
     function renderLine() {
       const line=lines[index];
-      const mode=options.gloss==='direct' && reading.mode==='natural' ? 'literal' : reading.mode;
+      const mode=reading.mode;
       const controls=node('div',undefined,'c2-actions');
-      const select=node('select');
-      select.setAttribute('aria-label','대화 표시 모드');
-      for (const [key,label] of Object.entries(modes)) {
-        if (key==='natural' && options.gloss==='direct') continue;
-        select.add(new Option(options.gloss&&key==='natural'?'한국어 풀이':label,key,key===mode,key===mode));
-      }
+      const select=modeSelect();
       select.onchange=()=>{reading.mode=select.value;persistReading();renderLine();section.querySelector('select').focus();};
       controls.append(select);
       for (const [key,label] of [['color','색상'],['slash','슬래시']]) {
@@ -125,10 +134,10 @@
       for (const language of languages) {
         const p=node('p',undefined,'c2-line');
         p.lang=language;
-        if (mode==='literal') line.chunks.forEach((chunk,i)=>{
+        if (mode==='literal') (line.direct_chunks||line.chunks).forEach((chunk,i)=>{
           if (i) p.append(reading.slash ? ' / ' : ' ');
           const span=node('span',chunk[language]);
-          if (reading.color) span.style.color=(options.palette||story.palette)[i];
+          if (reading.color) span.style.color=(options.palette||story.palette)[i%(options.palette||story.palette).length];
           p.append(span);
         });
         else p.textContent=line[language];
@@ -513,8 +522,33 @@
   function townFieldActions(body,episode,back) {
     const actions=node('div',undefined,'c2-actions');
     if(chapterWorld)actions.append(button('다른 주민 만나기',()=>chapterWorld.town(episode.id,back)));
-    actions.append(button('다른 마을로 이동',()=>townTravel(episode,back)));
+    actions.append(button('다른 마을로 이동',()=>townTravel(episode,back)),button('대화 설정',()=>dialogueSettings(back)));
     body.append(actions);
+  }
+
+  function townResidentsOnMap(episode,map,targets,back) {
+    if(!chapterWorld)return {map,targets};
+    const points={...map.points};
+    const choices=[];
+    for(const [y,row] of map.tiles.entries())for(const [x,tile] of [...row].entries()){
+      if(tile==='.' && [[0,1],[1,0],[0,-1],[-1,0]].filter(([dx,dy])=>map.tiles[y+dy]?.[x+dx]==='.').length>=2) choices.push([x,y]);
+    }
+    const portraits=['tn-0','g2-0','pf-0','sx-1','rp-2','ps-0','sj-1','ng-0','rs-0','cp-1','iv-1','ot-0','md-3','pe-0','pn-0','rv-0'];
+    const available=portraits.filter(name=>!name.startsWith(episode.id+'-'));
+    const residents=chapterWorld.residentsForTown(episode.id);
+    const extras=[];
+    // Keep existing actors and exits in place. Spread new actors across open ground.
+    for(const [i,npc] of residents.entries()){
+      const occupied=[map.spawn,...Object.values(points)];
+      const distance=([x,y])=>Math.min(...occupied.map(([a,b])=>Math.hypot(x-a,y-b)));
+      const point=choices.reduce((best,tile)=>distance(tile)>distance(best)?tile:best,choices[0]);
+      if(!point||distance(point)===0)throw new Error('No resident placement for '+npc.id);
+      points[npc.id]=point;
+      const image='story/maps/villages/'+available[i]+'.webp';
+      extras.push({id:npc.id,label:npc.en+' · '+npc.ko,caption:npc.en,image,
+        action:()=>chapterWorld.meetResident(npc.id,image,back)});
+    }
+    return {map:{...map,points},targets:[...targets,...extras]};
   }
 
   function villageField(episode,map) {
@@ -522,7 +556,12 @@
     body.querySelector('button').textContent='마을 이야기로';
     townFieldActions(body,episode,()=>villageField(episode,map));
     const targets=residentTargets(episode,index=>`story/maps/villages/${episode.id}-${index}.webp`);
-    window.openChapterField(body,map,isRpgM()?rhero():lhero(),targets);
+    const layout=townResidentsOnMap(episode,map,targets,()=>villageField(episode,map));
+    const positions=G.c2VillagePositions ||= {};
+    window.openChapterField(body,layout.map,isRpgM()?rhero():lhero(),layout.targets,{
+      position:positions[episode.id],
+      onStep(position){positions[episode.id]=position;},
+    });
   }
 
   function bevilleField(area) {
@@ -566,10 +605,6 @@
     const npcImages=['farmer','guide','grandmother','dogkeeper'];
     const targets=isTown ? [
       ...residentTargets(episode,index=>`story/maps/${npcImages[index]}.webp`),
-      ...(chapterWorld?[{
-        id:'belle',label:'Baker Belle · 제빵사 벨',image:'story/maps/villages/ps-0.webp',
-        action:()=>chapterWorld.meetBelle('story/maps/villages/ps-0.webp',()=>bevilleField('town')),
-      }]:[]),
       {id:'meadow',label:'비 초원 입구',action:openMeadow},
     ] : [
       {id:'town',label:'마을 출구',action:()=>{
@@ -585,7 +620,8 @@
         if (!beginMeadowFight(at,true)) status.textContent='수호자는 아직 길을 막고 있습니다. 초원을 더 탐험하세요.';
       }},
     ];
-    window.openChapterField(body,map,state?.rpg||isRpgM()?rhero():lhero(),targets,{
+    const layout=isTown?townResidentsOnMap(episode,map,targets,()=>bevilleField('town')):{map,targets};
+    window.openChapterField(body,layout.map,state?.rpg||isRpgM()?rhero():lhero(),layout.targets,{
       position,
       onStep(next) {
         at=next;
@@ -679,6 +715,14 @@
   }
 
   function decorate() {
+    if (G.scr==='title') {
+      const container=document.querySelector('#app #go')?.parentElement;
+      if(container&&!container.querySelector('#c2-dialogue-settings')){
+        const entry=button('대화 설정',()=>dialogueSettings());
+        entry.id='c2-dialogue-settings';
+        container.append(entry);
+      }
+    }
     if (!dataReady || !worldOpen()) return;
     decorateSpecial();
     const app=document.getElementById('app');

@@ -566,6 +566,26 @@
             "chunks": [
               {
                 "en": "I have sent letters for years, but none has reached my friend.",
+                "ko": "수년 동안 편지를 보냈지만 친구에게 하나도 도착하지 않았어요.",
+                "direct_chunks": [
+                  {
+                    "en": "I",
+                    "ko": "저는"
+                  },
+                  {
+                    "en": "have sent letters for years, but none has reached my friend.",
+                    "ko": "수년 동안 편지를 보냈지만 친구에게 하나도 도착하지 않았어요."
+                  }
+                ]
+              }
+            ],
+            "direct_chunks": [
+              {
+                "en": "I",
+                "ko": "저는"
+              },
+              {
+                "en": "have sent letters for years, but none has reached my friend.",
                 "ko": "수년 동안 편지를 보냈지만 친구에게 하나도 도착하지 않았어요."
               }
             ]
@@ -1278,6 +1298,26 @@
             "chunks": [
               {
                 "en": "I heard someone make the bell ring.",
+                "ko": "누군가 종을 울리게 하는 것을 들었어요.",
+                "direct_chunks": [
+                  {
+                    "en": "I",
+                    "ko": "저는"
+                  },
+                  {
+                    "en": "heard someone make the bell ring.",
+                    "ko": "누군가 종을 울리게 하는 것을 들었어요."
+                  }
+                ]
+              }
+            ],
+            "direct_chunks": [
+              {
+                "en": "I",
+                "ko": "저는"
+              },
+              {
+                "en": "heard someone make the bell ring.",
                 "ko": "누군가 종을 울리게 하는 것을 들었어요."
               }
             ]

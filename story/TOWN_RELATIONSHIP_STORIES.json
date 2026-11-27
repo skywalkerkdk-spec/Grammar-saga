@@ -33,6 +33,26 @@
             "chunks": [
               {
                 "en": "I kept half the flour for families who had no food.",
+                "ko": "먹을 것이 없는 가족들을 위해 밀가루 절반을 남겨 두었어요.",
+                "direct_chunks": [
+                  {
+                    "en": "I",
+                    "ko": "저는"
+                  },
+                  {
+                    "en": "kept half the flour for families who had no food.",
+                    "ko": "먹을 것이 없는 가족들을 위해 밀가루 절반을 남겨 두었어요."
+                  }
+                ]
+              }
+            ],
+            "direct_chunks": [
+              {
+                "en": "I",
+                "ko": "저는"
+              },
+              {
+                "en": "kept half the flour for families who had no food.",
                 "ko": "먹을 것이 없는 가족들을 위해 밀가루 절반을 남겨 두었어요."
               }
             ]
@@ -69,6 +89,26 @@
             "chunks": [
               {
                 "en": "I did not know why you kept it.",
+                "ko": "왜 남겨 두었는지 몰랐어요.",
+                "direct_chunks": [
+                  {
+                    "en": "I",
+                    "ko": "저는"
+                  },
+                  {
+                    "en": "did not know why you kept it.",
+                    "ko": "왜 남겨 두었는지 몰랐어요."
+                  }
+                ]
+              }
+            ],
+            "direct_chunks": [
+              {
+                "en": "I",
+                "ko": "저는"
+              },
+              {
+                "en": "did not know why you kept it.",
                 "ko": "왜 남겨 두었는지 몰랐어요."
               }
             ]
@@ -105,6 +145,26 @@
             "chunks": [
               {
                 "en": "I should have explained my plan first.",
+                "ko": "먼저 내 계획을 설명했어야 했어요.",
+                "direct_chunks": [
+                  {
+                    "en": "I",
+                    "ko": "저는"
+                  },
+                  {
+                    "en": "should have explained my plan first.",
+                    "ko": "먼저 내 계획을 설명했어야 했어요."
+                  }
+                ]
+              }
+            ],
+            "direct_chunks": [
+              {
+                "en": "I",
+                "ko": "저는"
+              },
+              {
+                "en": "should have explained my plan first.",
                 "ko": "먼저 내 계획을 설명했어야 했어요."
               }
             ]
@@ -183,6 +243,26 @@
             "chunks": [
               {
                 "en": "I cannot eat fish, but I do not want to upset the cook.",
+                "ko": "생선을 먹을 수 없지만 요리사를 속상하게 하고 싶지 않아요.",
+                "direct_chunks": [
+                  {
+                    "en": "I",
+                    "ko": "저는"
+                  },
+                  {
+                    "en": "cannot eat fish, but I do not want to upset the cook.",
+                    "ko": "생선을 먹을 수 없지만 요리사를 속상하게 하고 싶지 않아요."
+                  }
+                ]
+              }
+            ],
+            "direct_chunks": [
+              {
+                "en": "I",
+                "ko": "저는"
+              },
+              {
+                "en": "cannot eat fish, but I do not want to upset the cook.",
                 "ko": "생선을 먹을 수 없지만 요리사를 속상하게 하고 싶지 않아요."
               }
             ]
@@ -237,6 +317,26 @@
             "chunks": [
               {
                 "en": "I can make vegetable soup in a separate pot.",
+                "ko": "별도의 냄비에 채소 수프를 만들 수 있어요.",
+                "direct_chunks": [
+                  {
+                    "en": "I",
+                    "ko": "저는"
+                  },
+                  {
+                    "en": "can make vegetable soup in a separate pot.",
+                    "ko": "별도의 냄비에 채소 수프를 만들 수 있어요."
+                  }
+                ]
+              }
+            ],
+            "direct_chunks": [
+              {
+                "en": "I",
+                "ko": "저는"
+              },
+              {
+                "en": "can make vegetable soup in a separate pot.",
                 "ko": "별도의 냄비에 채소 수프를 만들 수 있어요."
               }
             ]
@@ -317,6 +417,26 @@
             "chunks": [
               {
                 "en": "I stopped this clock on the day my brother left.",
+                "ko": "동생이 떠난 날 이 시계를 멈췄어요.",
+                "direct_chunks": [
+                  {
+                    "en": "I",
+                    "ko": "저는"
+                  },
+                  {
+                    "en": "stopped this clock on the day my brother left.",
+                    "ko": "동생이 떠난 날 이 시계를 멈췄어요."
+                  }
+                ]
+              }
+            ],
+            "direct_chunks": [
+              {
+                "en": "I",
+                "ko": "저는"
+              },
+              {
+                "en": "stopped this clock on the day my brother left.",
                 "ko": "동생이 떠난 날 이 시계를 멈췄어요."
               }
             ]
@@ -333,6 +453,26 @@
             "chunks": [
               {
                 "en": "I thought the clock was broken.",
+                "ko": "시계가 고장 난 줄 알았어요.",
+                "direct_chunks": [
+                  {
+                    "en": "I",
+                    "ko": "저는"
+                  },
+                  {
+                    "en": "thought the clock was broken.",
+                    "ko": "시계가 고장 난 줄 알았어요."
+                  }
+                ]
+              }
+            ],
+            "direct_chunks": [
+              {
+                "en": "I",
+                "ko": "저는"
+              },
+              {
+                "en": "thought the clock was broken.",
                 "ko": "시계가 고장 난 줄 알았어요."
               }
             ]
@@ -369,6 +509,26 @@
             "chunks": [
               {
                 "en": "I was afraid to start it again.",
+                "ko": "다시 작동시키기가 두려웠어요.",
+                "direct_chunks": [
+                  {
+                    "en": "I",
+                    "ko": "저는"
+                  },
+                  {
+                    "en": "was afraid to start it again.",
+                    "ko": "다시 작동시키기가 두려웠어요."
+                  }
+                ]
+              }
+            ],
+            "direct_chunks": [
+              {
+                "en": "I",
+                "ko": "저는"
+              },
+              {
+                "en": "was afraid to start it again.",
                 "ko": "다시 작동시키기가 두려웠어요."
               }
             ]
@@ -483,6 +643,26 @@
             "chunks": [
               {
                 "en": "I can carry people while the bridge is being repaired.",
+                "ko": "다리를 수리하는 동안 사람들을 태워 줄 수 있어요.",
+                "direct_chunks": [
+                  {
+                    "en": "I",
+                    "ko": "저는"
+                  },
+                  {
+                    "en": "can carry people while the bridge is being repaired.",
+                    "ko": "다리를 수리하는 동안 사람들을 태워 줄 수 있어요."
+                  }
+                ]
+              }
+            ],
+            "direct_chunks": [
+              {
+                "en": "I",
+                "ko": "저는"
+              },
+              {
+                "en": "can carry people while the bridge is being repaired.",
                 "ko": "다리를 수리하는 동안 사람들을 태워 줄 수 있어요."
               }
             ]
@@ -555,6 +735,26 @@
             "chunks": [
               {
                 "en": "I will help Oak build it.",
+                "ko": "오크가 만드는 것을 도울게요.",
+                "direct_chunks": [
+                  {
+                    "en": "I",
+                    "ko": "저는"
+                  },
+                  {
+                    "en": "will help Oak build it.",
+                    "ko": "오크가 만드는 것을 도울게요."
+                  }
+                ]
+              }
+            ],
+            "direct_chunks": [
+              {
+                "en": "I",
+                "ko": "저는"
+              },
+              {
+                "en": "will help Oak build it.",
                 "ko": "오크가 만드는 것을 도울게요."
               }
             ]
@@ -617,6 +817,26 @@
             "chunks": [
               {
                 "en": "I want to cut down the tree that blocks my path.",
+                "ko": "길을 막는 나무를 베고 싶어요.",
+                "direct_chunks": [
+                  {
+                    "en": "I",
+                    "ko": "저는"
+                  },
+                  {
+                    "en": "want to cut down the tree that blocks my path.",
+                    "ko": "길을 막는 나무를 베고 싶어요."
+                  }
+                ]
+              }
+            ],
+            "direct_chunks": [
+              {
+                "en": "I",
+                "ko": "저는"
+              },
+              {
+                "en": "want to cut down the tree that blocks my path.",
                 "ko": "길을 막는 나무를 베고 싶어요."
               }
             ]
@@ -669,6 +889,26 @@
             "chunks": [
               {
                 "en": "I did not know it meant so much to you.",
+                "ko": "그 나무가 그렇게 소중한 줄 몰랐어요.",
+                "direct_chunks": [
+                  {
+                    "en": "I",
+                    "ko": "저는"
+                  },
+                  {
+                    "en": "did not know it meant so much to you.",
+                    "ko": "그 나무가 그렇게 소중한 줄 몰랐어요."
+                  }
+                ]
+              }
+            ],
+            "direct_chunks": [
+              {
+                "en": "I",
+                "ko": "저는"
+              },
+              {
+                "en": "did not know it meant so much to you.",
                 "ko": "그 나무가 그렇게 소중한 줄 몰랐어요."
               }
             ]
@@ -705,6 +945,26 @@
             "chunks": [
               {
                 "en": "I will show you the path tomorrow.",
+                "ko": "내일 그 길을 보여 줄게요.",
+                "direct_chunks": [
+                  {
+                    "en": "I",
+                    "ko": "저는"
+                  },
+                  {
+                    "en": "will show you the path tomorrow.",
+                    "ko": "내일 그 길을 보여 줄게요."
+                  }
+                ]
+              }
+            ],
+            "direct_chunks": [
+              {
+                "en": "I",
+                "ko": "저는"
+              },
+              {
+                "en": "will show you the path tomorrow.",
                 "ko": "내일 그 길을 보여 줄게요."
               }
             ]
@@ -801,6 +1061,26 @@
             "chunks": [
               {
                 "en": "I saw the boat hit the dock in the wind.",
+                "ko": "바람에 배가 부두에 부딪치는 것을 봤어요.",
+                "direct_chunks": [
+                  {
+                    "en": "I",
+                    "ko": "저는"
+                  },
+                  {
+                    "en": "saw the boat hit the dock in the wind.",
+                    "ko": "바람에 배가 부두에 부딪치는 것을 봤어요."
+                  }
+                ]
+              }
+            ],
+            "direct_chunks": [
+              {
+                "en": "I",
+                "ko": "저는"
+              },
+              {
+                "en": "saw the boat hit the dock in the wind.",
                 "ko": "바람에 배가 부두에 부딪치는 것을 봤어요."
               }
             ]
@@ -873,6 +1153,26 @@
             "chunks": [
               {
                 "en": "I will keep my promise to take Ripple fishing.",
+                "ko": "리플을 낚시하러 데려가겠다는 약속을 지킬게요.",
+                "direct_chunks": [
+                  {
+                    "en": "I",
+                    "ko": "저는"
+                  },
+                  {
+                    "en": "will keep my promise to take Ripple fishing.",
+                    "ko": "리플을 낚시하러 데려가겠다는 약속을 지킬게요."
+                  }
+                ]
+              }
+            ],
+            "direct_chunks": [
+              {
+                "en": "I",
+                "ko": "저는"
+              },
+              {
+                "en": "will keep my promise to take Ripple fishing.",
                 "ko": "리플을 낚시하러 데려가겠다는 약속을 지킬게요."
               }
             ]
@@ -917,6 +1217,26 @@
             "chunks": [
               {
                 "en": "I have kept this cup for ten years.",
+                "ko": "이 잔을 십 년 동안 간직했어요.",
+                "direct_chunks": [
+                  {
+                    "en": "I",
+                    "ko": "저는"
+                  },
+                  {
+                    "en": "have kept this cup for ten years.",
+                    "ko": "이 잔을 십 년 동안 간직했어요."
+                  }
+                ]
+              }
+            ],
+            "direct_chunks": [
+              {
+                "en": "I",
+                "ko": "저는"
+              },
+              {
+                "en": "have kept this cup for ten years.",
                 "ko": "이 잔을 십 년 동안 간직했어요."
               }
             ]
@@ -951,6 +1271,26 @@
             "chunks": [
               {
                 "en": "I have seen the same flower on a letter.",
+                "ko": "편지에서 같은 꽃을 본 적이 있어요.",
+                "direct_chunks": [
+                  {
+                    "en": "I",
+                    "ko": "저는"
+                  },
+                  {
+                    "en": "have seen the same flower on a letter.",
+                    "ko": "편지에서 같은 꽃을 본 적이 있어요."
+                  }
+                ]
+              }
+            ],
+            "direct_chunks": [
+              {
+                "en": "I",
+                "ko": "저는"
+              },
+              {
+                "en": "have seen the same flower on a letter.",
                 "ko": "편지에서 같은 꽃을 본 적이 있어요."
               }
             ]
@@ -1067,6 +1407,26 @@
             "chunks": [
               {
                 "en": "I ring the bell at the time when the boats return.",
+                "ko": "배가 돌아오는 시간에 종을 울려요.",
+                "direct_chunks": [
+                  {
+                    "en": "I",
+                    "ko": "저는"
+                  },
+                  {
+                    "en": "ring the bell at the time when the boats return.",
+                    "ko": "배가 돌아오는 시간에 종을 울려요."
+                  }
+                ]
+              }
+            ],
+            "direct_chunks": [
+              {
+                "en": "I",
+                "ko": "저는"
+              },
+              {
+                "en": "ring the bell at the time when the boats return.",
                 "ko": "배가 돌아오는 시간에 종을 울려요."
               }
             ]
@@ -1155,6 +1515,26 @@
             "chunks": [
               {
                 "en": "I can make a pole for the flag.",
+                "ko": "깃발용 기둥을 만들 수 있어요.",
+                "direct_chunks": [
+                  {
+                    "en": "I",
+                    "ko": "저는"
+                  },
+                  {
+                    "en": "can make a pole for the flag.",
+                    "ko": "깃발용 기둥을 만들 수 있어요."
+                  }
+                ]
+              }
+            ],
+            "direct_chunks": [
+              {
+                "en": "I",
+                "ko": "저는"
+              },
+              {
+                "en": "can make a pole for the flag.",
                 "ko": "깃발용 기둥을 만들 수 있어요."
               }
             ]
@@ -1367,6 +1747,26 @@
             "chunks": [
               {
                 "en": "I wish I could fly to my friend.",
+                "ko": "친구에게 날아갈 수 있으면 좋겠어요.",
+                "direct_chunks": [
+                  {
+                    "en": "I",
+                    "ko": "저는"
+                  },
+                  {
+                    "en": "wish I could fly to my friend.",
+                    "ko": "친구에게 날아갈 수 있으면 좋겠어요."
+                  }
+                ]
+              }
+            ],
+            "direct_chunks": [
+              {
+                "en": "I",
+                "ko": "저는"
+              },
+              {
+                "en": "wish I could fly to my friend.",
                 "ko": "친구에게 날아갈 수 있으면 좋겠어요."
               }
             ]
@@ -1401,6 +1801,26 @@
             "chunks": [
               {
                 "en": "I can help you write a letter.",
+                "ko": "편지 쓰는 것을 도울 수 있어요.",
+                "direct_chunks": [
+                  {
+                    "en": "I",
+                    "ko": "저는"
+                  },
+                  {
+                    "en": "can help you write a letter.",
+                    "ko": "편지 쓰는 것을 도울 수 있어요."
+                  }
+                ]
+              }
+            ],
+            "direct_chunks": [
+              {
+                "en": "I",
+                "ko": "저는"
+              },
+              {
+                "en": "can help you write a letter.",
                 "ko": "편지 쓰는 것을 도울 수 있어요."
               }
             ]
@@ -1473,6 +1893,26 @@
             "chunks": [
               {
                 "en": "I hope she writes back.",
+                "ko": "답장이 오면 좋겠어요.",
+                "direct_chunks": [
+                  {
+                    "en": "I",
+                    "ko": "저는"
+                  },
+                  {
+                    "en": "hope she writes back.",
+                    "ko": "답장이 오면 좋겠어요."
+                  }
+                ]
+              }
+            ],
+            "direct_chunks": [
+              {
+                "en": "I",
+                "ko": "저는"
+              },
+              {
+                "en": "hope she writes back.",
                 "ko": "답장이 오면 좋겠어요."
               }
             ]
@@ -1551,6 +1991,26 @@
             "chunks": [
               {
                 "en": "I stopped to help a runner who fell.",
+                "ko": "넘어진 선수를 돕기 위해 멈췄어요.",
+                "direct_chunks": [
+                  {
+                    "en": "I",
+                    "ko": "저는"
+                  },
+                  {
+                    "en": "stopped to help a runner who fell.",
+                    "ko": "넘어진 선수를 돕기 위해 멈췄어요."
+                  }
+                ]
+              }
+            ],
+            "direct_chunks": [
+              {
+                "en": "I",
+                "ko": "저는"
+              },
+              {
+                "en": "stopped to help a runner who fell.",
                 "ko": "넘어진 선수를 돕기 위해 멈췄어요."
               }
             ]
@@ -1773,6 +2233,26 @@
             "chunks": [
               {
                 "en": "I am glad it has found its owner.",
+                "ko": "주인을 찾아서 기뻐요.",
+                "direct_chunks": [
+                  {
+                    "en": "I",
+                    "ko": "저는"
+                  },
+                  {
+                    "en": "am glad it has found its owner.",
+                    "ko": "주인을 찾아서 기뻐요."
+                  }
+                ]
+              }
+            ],
+            "direct_chunks": [
+              {
+                "en": "I",
+                "ko": "저는"
+              },
+              {
+                "en": "am glad it has found its owner.",
                 "ko": "주인을 찾아서 기뻐요."
               }
             ]
@@ -1905,6 +2385,26 @@
             "chunks": [
               {
                 "en": "I will signal the ship from the shore.",
+                "ko": "해안에서 배에 신호를 보낼게요.",
+                "direct_chunks": [
+                  {
+                    "en": "I",
+                    "ko": "저는"
+                  },
+                  {
+                    "en": "will signal the ship from the shore.",
+                    "ko": "해안에서 배에 신호를 보낼게요."
+                  }
+                ]
+              }
+            ],
+            "direct_chunks": [
+              {
+                "en": "I",
+                "ko": "저는"
+              },
+              {
+                "en": "will signal the ship from the shore.",
                 "ko": "해안에서 배에 신호를 보낼게요."
               }
             ]
@@ -2037,6 +2537,26 @@
             "chunks": [
               {
                 "en": "I can offer her a trial lesson.",
+                "ko": "체험 수업을 제공할 수 있어요.",
+                "direct_chunks": [
+                  {
+                    "en": "I",
+                    "ko": "저는"
+                  },
+                  {
+                    "en": "can offer her a trial lesson.",
+                    "ko": "체험 수업을 제공할 수 있어요."
+                  }
+                ]
+              }
+            ],
+            "direct_chunks": [
+              {
+                "en": "I",
+                "ko": "저는"
+              },
+              {
+                "en": "can offer her a trial lesson.",
                 "ko": "체험 수업을 제공할 수 있어요."
               }
             ]
@@ -2055,6 +2575,26 @@
             "chunks": [
               {
                 "en": "I want to try it before I decide.",
+                "ko": "결정하기 전에 해 보고 싶어요.",
+                "direct_chunks": [
+                  {
+                    "en": "I",
+                    "ko": "저는"
+                  },
+                  {
+                    "en": "want to try it before I decide.",
+                    "ko": "결정하기 전에 해 보고 싶어요."
+                  }
+                ]
+              }
+            ],
+            "direct_chunks": [
+              {
+                "en": "I",
+                "ko": "저는"
+              },
+              {
+                "en": "want to try it before I decide.",
                 "ko": "결정하기 전에 해 보고 싶어요."
               }
             ]
@@ -2117,6 +2657,26 @@
             "chunks": [
               {
                 "en": "I heard Robin crying near the bell.",
+                "ko": "종 근처에서 로빈이 우는 것을 들었어요.",
+                "direct_chunks": [
+                  {
+                    "en": "I",
+                    "ko": "저는"
+                  },
+                  {
+                    "en": "heard Robin crying near the bell.",
+                    "ko": "종 근처에서 로빈이 우는 것을 들었어요."
+                  }
+                ]
+              }
+            ],
+            "direct_chunks": [
+              {
+                "en": "I",
+                "ko": "저는"
+              },
+              {
+                "en": "heard Robin crying near the bell.",
                 "ko": "종 근처에서 로빈이 우는 것을 들었어요."
               }
             ]
@@ -2169,6 +2729,26 @@
             "chunks": [
               {
                 "en": "I can make the bell sound softer.",
+                "ko": "종소리를 더 부드럽게 만들 수 있어요.",
+                "direct_chunks": [
+                  {
+                    "en": "I",
+                    "ko": "저는"
+                  },
+                  {
+                    "en": "can make the bell sound softer.",
+                    "ko": "종소리를 더 부드럽게 만들 수 있어요."
+                  }
+                ]
+              }
+            ],
+            "direct_chunks": [
+              {
+                "en": "I",
+                "ko": "저는"
+              },
+              {
+                "en": "can make the bell sound softer.",
                 "ko": "종소리를 더 부드럽게 만들 수 있어요."
               }
             ]
@@ -2433,6 +3013,26 @@
             "chunks": [
               {
                 "en": "I said that she was worried, not angry.",
+                "ko": "화난 것이 아니라 걱정한다고 말했어요.",
+                "direct_chunks": [
+                  {
+                    "en": "I",
+                    "ko": "저는"
+                  },
+                  {
+                    "en": "said that she was worried, not angry.",
+                    "ko": "화난 것이 아니라 걱정한다고 말했어요."
+                  }
+                ]
+              }
+            ],
+            "direct_chunks": [
+              {
+                "en": "I",
+                "ko": "저는"
+              },
+              {
+                "en": "said that she was worried, not angry.",
                 "ko": "화난 것이 아니라 걱정한다고 말했어요."
               }
             ]
@@ -2451,6 +3051,26 @@
             "chunks": [
               {
                 "en": "I asked when my mother would return.",
+                "ko": "엄마가 언제 돌아올지 물었어요.",
+                "direct_chunks": [
+                  {
+                    "en": "I",
+                    "ko": "저는"
+                  },
+                  {
+                    "en": "asked when my mother would return.",
+                    "ko": "엄마가 언제 돌아올지 물었어요."
+                  }
+                ]
+              }
+            ],
+            "direct_chunks": [
+              {
+                "en": "I",
+                "ko": "저는"
+              },
+              {
+                "en": "asked when my mother would return.",
                 "ko": "엄마가 언제 돌아올지 물었어요."
               }
             ]
@@ -2487,6 +3107,26 @@
             "chunks": [
               {
                 "en": "I know where her mother is waiting.",
+                "ko": "엄마가 어디에서 기다리는지 알아요.",
+                "direct_chunks": [
+                  {
+                    "en": "I",
+                    "ko": "저는"
+                  },
+                  {
+                    "en": "know where her mother is waiting.",
+                    "ko": "엄마가 어디에서 기다리는지 알아요."
+                  }
+                ]
+              }
+            ],
+            "direct_chunks": [
+              {
+                "en": "I",
+                "ko": "저는"
+              },
+              {
+                "en": "know where her mother is waiting.",
                 "ko": "엄마가 어디에서 기다리는지 알아요."
               }
             ]
@@ -2601,6 +3241,26 @@
             "chunks": [
               {
                 "en": "I want to read, learn, and ask questions.",
+                "ko": "읽고 배우고 질문하고 싶어요.",
+                "direct_chunks": [
+                  {
+                    "en": "I",
+                    "ko": "저는"
+                  },
+                  {
+                    "en": "want to read, learn, and ask questions.",
+                    "ko": "읽고 배우고 질문하고 싶어요."
+                  }
+                ]
+              }
+            ],
+            "direct_chunks": [
+              {
+                "en": "I",
+                "ko": "저는"
+              },
+              {
+                "en": "want to read, learn, and ask questions.",
                 "ko": "읽고 배우고 질문하고 싶어요."
               }
             ]

@@ -21,7 +21,6 @@ window.chapterFields = {
         7,
         14
       ],
-      "belle": [8, 8],
       "meadow": [
         28,
         12

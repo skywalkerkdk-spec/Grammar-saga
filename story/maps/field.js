@@ -166,6 +166,7 @@ window.openChapterField = function(container, map, hero, targets, options={}) {
     pin.style.left=(tx+.5)*size+'px';
     pin.style.top=(ty+.72)*size+'px';
     pin.style.zIndex=String(10+ty*10);
+    if (target.caption) pin.classList.add('c2-field-extra');
     if (target.art) pin.append(target.art());
     if (target.image) {
       const sprite=document.createElement('img');
@@ -174,7 +175,7 @@ window.openChapterField = function(container, map, hero, targets, options={}) {
       pin.append(sprite);
     }
     const label=document.createElement('span');
-    label.textContent=target.label;
+    label.textContent=target.caption||target.label;
     pin.append(label);
     world.append(pin);
   }

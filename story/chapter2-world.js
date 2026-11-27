@@ -211,7 +211,7 @@ window.createChapterWorld = function(api, data) {
     const stage=event.stages[cursor(event.id)];
     return stage?.town===town&&(!npc||stage.npc===npc);
   });
-  function dailyLine(npc,back) {
+  function dailyLine(npc,back,portrait) {
     const record=daily.get(npc.id);
     if(!record)return;
     const seen=new Set();
@@ -225,7 +225,7 @@ window.createChapterWorld = function(api, data) {
     if(!queue.length)return;
     const index=queue.shift();
     bags[npc.id]=queue;save();
-    show(label(npc),[localized(lines[index],npc.id)],null,back,{dock:true,skip:false});
+    show(label(npc),[localized(lines[index],npc.id)],null,back,{dock:true,field:portrait,skip:false});
   }
   function resident(npc,back) {
     const body=panel(label(npc),back,'주민 목록으로');
@@ -295,18 +295,23 @@ window.createChapterWorld = function(api, data) {
     const line=close.finale.find(item=>item.id==='phase'+(index+1));
     return line&&localized(line);
   }
-  function meetBelle(portrait,back) {
-    const npc=residents.get('g1_extra_6');
-    const regional=active(npc.town,npc.id).find(event=>event.id==='regional_1');
-    if(regional)openQuest(regional,cursor(regional.id),back,portrait);
+  function meetResident(id,portrait,back) {
+    const npc=residents.get(id);
+    if(!npc)return;
+    const routes=active(npc.town,id);
+    const event=routes.find(route=>cursor(route.id)>0)||
+      routes.find(route=>route.group==='지역')||routes[0];
+    if(event)openQuest(event,cursor(event.id),back,portrait);
+    else if(daily.has(id))dailyLine(npc,null,portrait);
     else {
       const greeting={
-        en:'Fresh bread is on the counter. Take a moment to rest.',
-        ko:'갓 구운 빵이 계산대에 있어요. 잠깐 쉬어 가세요.',
-        chunks:[{en:'Fresh bread is on the counter.',ko:'갓 구운 빵이 계산대에 있어요.'},{en:'Take a moment to rest.',ko:'잠깐 쉬어 가세요.'}],
+        en:'I am staying in this town. We may speak again later.',
+        ko:'이 마을에 머물고 있어요. 나중에 다시 이야기할 수도 있겠군요.',
+        chunks:[{en:'I am staying in this town.',ko:'이 마을에 머물고 있어요.'},{en:'We may speak again later.',ko:'나중에 다시 이야기할 수도 있겠군요.'}],
       };
-      show(label(npc),[localized(greeting,npc.id)],null,null,{field:portrait,skip:false});
+      show(label(npc),[localized(greeting,id)],null,null,{field:portrait,skip:false});
     }
   }
-  return {town,journal,finaleOpening,finaleClosing,finalePhase,meetBelle};
+  const residentsForTown=id=>townResidents.get(id)||[];
+  return {town,journal,finaleOpening,finaleClosing,finalePhase,meetResident,residentsForTown};
 };

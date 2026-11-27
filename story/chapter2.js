@@ -5,11 +5,15 @@
   const modes = { literal:'직독직해', natural:'자연스러운 해석', english:'영어 전용' };
   const preferencesKey = 'grammar-saga.chapter2.dialogue';
   let story;
+  let naming;
   let episodes = new Map();
   let specialQuests = new Map();
   let specialPalette;
   let libraryData;
   let expansion;
+  let serialReading;
+  let chapterWorld;
+  const hideoutDungeons=new Map();
   let dataReady=false;
   let dialogue;
   let reading = {mode:'literal', color:true, slash:true};
@@ -63,7 +67,7 @@
       if (field?.open) dialogue=field;
     };
     const finish=() => { dismiss(); done?.(); back?.(); };
-    const leave=() => { dismiss(); back?.(); };
+    const leave=() => { dismiss(); (options.cancel||back)?.(); };
     dialogue.addEventListener('cancel', event => {
       event.preventDefault();
       if (field && index===lines.length-1) finish();
@@ -203,6 +207,67 @@
     return body;
   }
 
+  function worldProgress() {
+    const world=SV.chapter2World ||= {version:1};
+    world.flags ||= {};
+    return world;
+  }
+
+  function worldFlag(id) {
+    if (id==='sanctuary_of_silence_cleared') {
+      return !!finaleDungeon && twCleared(finaleDungeon.id);
+    }
+    return !!worldProgress().flags?.[id];
+  }
+
+  function worldPanel(title,back,backLabel) {
+    const body=hubPanel(title,back);
+    if (backLabel) body.querySelector('button').textContent=backLabel;
+    return body;
+  }
+
+  function saveWorld() {
+    saveNow();
+    try {
+      return JSON.stringify(JSON.parse(lsg('sg_save_'+G.name)||'{}').chapter2World)===JSON.stringify(SV.chapter2World);
+    } catch { return false; }
+  }
+
+  async function loadSerialReading() {
+    const catalogues=await Promise.all([
+      'LIBRARY_SERIAL_BOOKS','LIBRARY_SERIAL_EXPANSION_A','LIBRARY_SERIAL_EXPANSION_B',
+    ].map(file=>loadData('story/'+file+'.json')));
+    serialReading=window.createChapterReading({
+      node,button,show,library,panel:worldPanel,chapter:worldProgress,pages:registeredCount,
+      recovered:twCleared,flag:worldFlag,save:saveWorld,player:()=>G.name,
+      townName:id=>townFor(episodes.get(id)),
+      field:(body,map,targets)=>window.openChapterField(body,map,isRpgM()?rhero():lhero(),targets),
+    },catalogues);
+  }
+
+  async function loadChapterWorld() {
+    const files=['TOWN_NETWORK','TOWN_EVENTS','TOWN_UNIQUE_EVENTS','TOWN_RELATIONSHIP_STORIES',
+      'REGIONAL_STORIES_REVISED','RESIDENT_DAILY_DIALOGUE','DEMON_ARMY_INTRIGUE','DEMON_ARMY_RESOLUTIONS',
+      'DEMON_ARMY_MAIN_ARC','COMPANION_AND_OFFICER_DEPTH','BOOK_SECRETS_AND_MERCHANTS',
+      'CHAPTER2_CLOSURE_AND_EXPLORATION','CHAPTER2_FINAL_EXPANSION','CHAPTER2_REVIEW_AND_COMPANIONS'];
+    const data=Object.fromEntries(await Promise.all(files.map(async key=>[key,await loadData('story/'+key+'.json')])));
+    chapterWorld=window.createChapterWorld({
+      node,button,show,panel:worldPanel,save:saveWorld,state:worldProgress,flag:worldFlag,
+      recovered:twCleared,available:wmUnlocked,visit:visitTown,shuffle,pages:registeredCount,
+      speakerName:key=>naming.characters[key]||Object.values(naming.characters).find(name=>name.en===key)||
+        (key==='Subject'?{en:G.name,ko:'모험가'}:null),
+      townName:id=>id==='library'?'그래머 대도서관':townFor(episodes.get(id)),
+      companion:key=>{
+        const unit=companionIds[key];
+        return unit==='tank'||(unit==='pet'?!!PETS[SV.pet]:DUNGEONS.some(d=>twCleared(d.id)&&d.need?.includes(unit)));
+      },
+      volumeRead:id=>!!worldProgress().reading?.read?.[id],startHideout,
+      field:(body,map,targets)=>window.openChapterField(body,map,isRpgM()?rhero():lhero(),targets),
+      koreanVisible:()=>reading.mode!=='english',
+    },data);
+    registerHideouts(data.CHAPTER2_FINAL_EXPANSION.lairs);
+  }
+
   function library() {
     const title=libraryData ? displayName(libraryData.name_en,libraryData.name_ko) : '그래머 대도서관';
     const body=hubPanel(title);
@@ -214,6 +279,7 @@
     menu.append(button(seen.intro?'오프닝 다시 보기':'Chapter II 오프닝',()=>show('The Lost Pages',story.intro,()=>update(null,{intro:true}),library)),
       button(seen.library?'렉시온 대화 다시 보기':'렉시온과 대화',()=>show(librarian,story.library_intro,()=>update(null,{library:true}),library)));
     for (const room of libraryData?.rooms || []) menu.append(button(displayName(room.en,room.ko),()=>libraryRoom(room.id)));
+    if (serialReading) menu.append(button('대도서관 열람실',serialReading.readingRoom));
     body.append(menu);
   }
 
@@ -299,6 +365,8 @@
       }
     } else if (id==='journal') {
       body.append(button('특별 퀘스트 일지',()=>specialJournal(undefined,back)));
+      if (serialReading) body.append(button('모험가의 수첩',()=>serialReading.notebook(back)));
+      if (chapterWorld) body.append(button('이야기 일지',()=>chapterWorld.journal(back)));
       for (const companion of expansion?.companions || []) {
         const seen=episodeState(companion.quest.town_id).seenEvents?.['companion:'+companion.character_key];
         body.append(node('p',displayName(companion.character_key,companion.name_ko)+' · '+(seen?companion.quest.title_en:'동료 기록 미발견')));
@@ -540,6 +608,10 @@
       });
       document.querySelector('#app .speaker')?.after(entry);
     }
+    if (chapterWorld) {
+      const residents=button('다른 주민 만나기',()=>chapterWorld.town(episode.id,closeDialogue));
+      document.querySelector('#app .speaker')?.after(residents);
+    }
     townEvents(episode,cleared);
     if (!cleared || !representative) return;
     cards[representative.index].append(button(saved.rewardClaimed?'마을 완료 대화 다시 보기':'페이지와 기념품 받기',()=>{
@@ -570,11 +642,13 @@
     decorateSpecial();
     const app=document.getElementById('app');
     decorateFinale(app);
+    recordHideoutClear();
     if (G.scr==='dsel' && !app.querySelector('#c2-library')) {
       const entry=button('Chapter II · 그래머 대도서관',library);
       entry.id='c2-library';
       const host=app.querySelector('.card') || app;
       host.prepend(entry);
+      if (serialReading) entry.after(button('모험가의 수첩',()=>serialReading.notebook()));
     }
     const episode=episodes.get(G.scr==='town' ? G.tw?.id : G.dg?.id);
     if (!episode || app.querySelector('[data-c2]')) return;
@@ -976,6 +1050,74 @@
     body.append(button('동료 기록 남기기',()=>{rememberEpisode(episode.id,key);closeDialogue();render();}));
   }
 
+  function registerHideouts(lairs) {
+    for (const lair of lairs) {
+      const townIds=lair.unlock.all_verified.map(rule=>rule.split('_')[0]);
+      const source=GRMAP[townIds[0]];
+      if (!source || DUNGEONS.some(d=>d.id===lair.id)) throw new Error('Invalid hideout '+lair.id);
+      const dungeon={id:lair.id,name:displayName(lair.title_en,lair.title_ko),
+        mon:source.boss.mon,bg:source.bg,mix:true,full:true,open:false,
+        need:['healer','paladin','dealer','shaman','trader','item'],enc:true,
+        size:townIds.length,form:'1~5',storyRewardOnly:true,
+        formed:'확인한 단서를 지키고 간부를 물리치세요.',
+        sample:lair.boss.name_en,next:'대도서관 이야기 일지에서 귀환 보고를 할 수 있습니다.',
+      };
+      DUNGEONS.push(dungeon);
+      hideoutDungeons.set(lair.id,{lair,dungeon,townIds});
+    }
+    const previous=genRun;
+    genRun=function(dungeon){
+      const entry=hideoutDungeons.get(dungeon.id);
+      if(!entry)return previous.apply(this,arguments);
+      return entry.townIds.map((id,i)=>{
+        const question=genRunG({id}).find(item=>item.type==='gq'&&!item.boss);
+        return {...question,boss:true,big:true,mon:dungeon.mon,
+          mname:displayName(entry.lair.boss.name_en,entry.lair.boss.name_ko),
+          hp0:Math.round(100*(1-i/entry.townIds.length)),
+          hp1:Math.round(100*(1-(i+1)/entry.townIds.length)),talk:'',taunt:'',kill:''};
+      });
+    };
+  }
+
+  const hideoutArt=['nbg_05.webp','nbg_11.webp','nbg_04.webp','nbg_24.webp','nbg_12.webp'];
+
+  function startHideout(id,back) {
+    const entry=hideoutDungeons.get(id);
+    if(!entry||!worldFlag(id+'_briefing_complete')||!entry.lair.unlock.all_verified.every(worldFlag))return;
+    const body=worldPanel(entry.dungeon.name,back,'이야기 일지로');
+    const running=peekRun();
+    if(running?.id===id)body.append(button('던전 이어서 하기',()=>{closeDialogue();if(loadRun())render();}));
+    else if(running)body.append(node('p','기존 던전의 이어하기 기록이 있습니다.'));
+    else body.append(button('던전에 들어가기',()=>{
+      const room=worldPanel(entry.dungeon.name,back,'이야기 일지로');
+      const map={
+        image:hideoutArt[[...hideoutDungeons.keys()].indexOf(id)],spawn:[8,7],points:{boss:[8,3]},
+        tiles:['#################','#################','#################','######.....######',
+          '######.....######','#####.......#####','####.........####','####.........####','#################'],
+      };
+      window.openChapterField(room,map,isRpgM()?rhero():lhero(),[{
+        id:'boss',label:entry.lair.boss.name_en+' · '+entry.lair.boss.name_ko,
+        art:()=>{
+          const portrait=node('div',undefined,'c2-field-monster');
+          portrait.innerHTML=sp(entry.dungeon.mon,'','MON');fill(portrait);return portrait;
+        },
+        action:()=>{
+          closeDialogue();
+          G.dg=entry.dungeon;G.mates=G.dg.need.slice();G.pets=1;
+          G.rpg=false;G.clearPaid=false;G.fails=0;G.scr='formed';render();
+        },
+      }]);
+    }));
+  }
+
+  function recordHideoutClear() {
+    if(G.scr!=='clear'||!G.clearPaid)return;
+    const entry=hideoutDungeons.get(G.dg?.id);
+    if(!entry||worldFlag(entry.lair.reward.id))return;
+    worldProgress().flags[entry.lair.reward.id]=true;
+    saveWorld();
+  }
+
   function startFinale(back) {
     if (!finaleDungeon || registeredCount()!==18) return;
     const finale=expansion.finale;
@@ -989,7 +1131,7 @@
       ready.append(node('p','기존 던전의 이어하기 기록이 남아 있습니다. 해당 모험을 끝낸 뒤 성역에 입장할 수 있습니다.'));
       return;
     }
-    ready.append(button('성역 입장',()=>show(finaleDungeon.name,sceneLines([...finale.opening,...finale.confrontation]),()=>{
+    ready.append(button('성역 입장',()=>show(finaleDungeon.name,[...sceneLines(finale.opening),...(chapterWorld?.finaleOpening()||[]),...sceneLines(finale.confrontation)],()=>{
       G.dg=finaleDungeon;
       G.mates=finaleDungeon.need.slice();
       G.pets=1;
@@ -1003,7 +1145,7 @@
   function showEnding(back) {
     const finale=expansion.finale;
     const title=displayName(finale.reward.title_en,finale.reward.title_ko);
-    show(title,sceneLines([...finale.ending,...finale.epilogue]),()=>{if (!progress().seenEvents?.finaleEnding) update(null,{finaleEnding:true,finaleTitle:finale.reward.title_en});},back,{art:{image:'end2.jpg'}});
+    show(title,[...sceneLines(finale.ending),...(chapterWorld?.finaleClosing()||[]),...sceneLines(finale.epilogue)],()=>{if (!progress().seenEvents?.finaleEnding) update(null,{finaleEnding:true,finaleTitle:finale.reward.title_en});},back,{art:{image:'end2.jpg'}});
   }
 
   function registerFinale() {
@@ -1025,9 +1167,9 @@
     genRun=function(d) {
       if (d.id!==finaleDungeon.id) return existingRun.apply(this,arguments);
       const questions=[];
-      for (const phase of finale.phases) for (const id of phase.town_ids) {
+      for (const [index,phase] of finale.phases.entries()) for (const id of phase.town_ids) {
         const question=genRunG({id}).find(item=>item.type==='gq'&&!item.boss);
-        questions.push({...question,phase:phase.title_en});
+        questions.push({...question,phase:phase.title_en,phaseLine:id===phase.town_ids[0]?chapterWorld?.finalePhase(index):null});
       }
       return questions.map((question,i)=>({
         ...question,mon,mname:displayName(finale.villain.name_en,finale.villain.name_ko),
@@ -1044,6 +1186,8 @@
     if (G.scr==='battle' && !G.rvm && G.run?.[G.ei]?.phase && !app.querySelector('[data-c2-phase]')) {
       const phase=node('p',G.run[G.ei].phase,'c2-phase');
       phase.dataset.c2Phase='';
+      const line=G.run[G.ei].phaseLine;
+      if (line) phase.append(' ',button('단계 대화',()=>show(G.run[G.ei].phase,[line])));
       host.prepend(phase);
     }
     if (G.scr==='clear' && G.clearPaid && !app.querySelector('[data-c2-ending]')) {
@@ -1148,6 +1292,29 @@
     return merged;
   }
 
+  function mergeWorld(local, online={}) {
+    const reading={...online.reading,...local.reading,
+      lettersPermission:!!(online.reading?.lettersPermission||local.reading?.lettersPermission),
+      read:{...online.reading?.read,...local.reading?.read}};
+    const entries={...online.notebook?.entries};
+    const deleted={...online.notebook?.deleted};
+    for (const [id,time] of Object.entries(local.notebook?.deleted||{})) {
+      deleted[id]=Math.max(deleted[id]||0,time);
+    }
+    for (const [id,note] of Object.entries(local.notebook?.entries||{})) {
+      if (!entries[id] || note.updated>=entries[id].updated) entries[id]=note;
+    }
+    for (const [id,time] of Object.entries(deleted)) {
+      if (entries[id]?.updated<=time) delete entries[id];
+    }
+    const stages={...online.stages};
+    for (const [id,stage] of Object.entries(local.stages||{})) {
+      stages[id]=Math.max(stages[id]||0,stage);
+    }
+    return {...online,...local,reading,stages,notebook:{version:1,entries,deleted},
+      flags:{...online.flags,...local.flags},souvenirs:{...online.souvenirs,...local.souvenirs}};
+  }
+
   const baseMergeSave=mergeSave;
   mergeSave=function(name,remote) {
     const key='sg_save_'+name;
@@ -1158,7 +1325,7 @@
     const chosen=JSON.parse(lsg(key)||'null');
     if (!chosen) return localNewer;
     let added=false;
-    for (const [field,merge] of [['chapter2',mergeChapter],['specialQuests',mergeSpecial]]) {
+    for (const [field,merge] of [['chapter2',mergeChapter],['specialQuests',mergeSpecial],['chapter2World',mergeWorld]]) {
       if (!local[field]) {
         if (localNewer && remote[field]) chosen[field]=remote[field];
         continue;
@@ -1194,6 +1361,7 @@
     .then(([data,registry])=>{
       validate(data,registry);
       story=data;
+      naming=registry;
       episodes=new Map(data.episodes.map(episode=>[episode.id,episode]));
       const parts=[
         ['SPECIAL_QUESTS.json',special=>{
@@ -1203,9 +1371,12 @@
         }],
         ['LIBRARY_DATA.json',libraryReady],
         ['CHAPTER2_EXPANSION.json',expansionReady],
+        ['serial catalogues',loadSerialReading],
+        ['world narratives',loadChapterWorld],
       ];
       return Promise.allSettled(parts.map(async ([file,apply])=>{
-        apply(await loadData('story/'+file));
+        if (file==='serial catalogues'||file==='world narratives') await apply();
+        else apply(await loadData('story/'+file));
       })).then(results=>{
         results.forEach((result,i)=>{
           if (result.status==='rejected') console.error('Chapter II:',parts[i][0],result.reason);

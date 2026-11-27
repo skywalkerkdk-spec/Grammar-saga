@@ -160,6 +160,23 @@ window.createChapterWorld = function(api, data) {
     });
   }
 
+  function nextStep(event,index) {
+    const stage=event.stages[index];
+    if(!stage)return null;
+    const npc=residents.get(stage.npc);
+    return {
+      town:stage.town,npcId:stage.npc,locked:!canVisit(stage.town),
+      text:npc ? `${api.townName(stage.town)}에서 ${npc.en}에게 말을 걸어 보세요.`
+        : `${api.townName(stage.town)}에서 ‘${event.title}’${stage.task?'의 단서를 확인하세요.':'을 이어가세요.'}`,
+    };
+  }
+  function guidance() {
+    const event=events.find(item=>item.id===state().trackedStory);
+    if(!event||!event.requires()||flag(event.finish))return null;
+    const next=nextStep(event,cursor(event.id));
+    return next&&{...next,title:event.title};
+  }
+
   function openQuest(event,index,back,portrait) {
     if(index>cursor(event.id)||!event.requires())return;
     const stage=event.stages[index];
@@ -168,6 +185,7 @@ window.createChapterWorld = function(api, data) {
     const proceed=()=>{
       if(!replay&&index===cursor(event.id)){
         stageStore()[event.id]=index+1;
+        state().trackedStory=event.id;
         if(index===event.stages.length-1){
           state().flags[event.finish]=true;
           if(event.souvenir)(state().souvenirs ||= {})[event.souvenir.id]=event.souvenir.ko;
@@ -190,7 +208,9 @@ window.createChapterWorld = function(api, data) {
       body.append(row,status);
     };
     const openEvidence=()=>{
-      if(stage.lines.length)show(event.title,stage.lines,stage.task?null:proceed,stage.task?ask:null,{skip:false,cancel:back,dock:!!stage.npc,field:portrait,confirm:true});
+      if(stage.lines.length)show(event.title,stage.lines,stage.task?null:proceed,stage.task?ask:null,{skip:false,cancel:back,dock:!!stage.npc,field:portrait,confirm:true,
+        nextHint:stage.task?'이 대화를 마치면 단서를 확인하는 문제가 나옵니다.'
+          : nextStep(event,index+1)?.text||'이야기가 마무리됩니다.'});
       else ask();
     };
     if(stage.field&&api.field){
@@ -299,7 +319,7 @@ window.createChapterWorld = function(api, data) {
     const npc=residents.get(id);
     if(!npc)return;
     const routes=active(npc.town,id);
-    const event=routes.find(route=>cursor(route.id)>0)||
+    const event=routes.find(route=>route.id===state().trackedStory)||routes.find(route=>cursor(route.id)>0)||
       routes.find(route=>route.group==='지역')||routes[0];
     if(event)openQuest(event,cursor(event.id),back,portrait);
     else if(daily.has(id))dailyLine(npc,null,portrait);
@@ -313,5 +333,5 @@ window.createChapterWorld = function(api, data) {
     }
   }
   const residentsForTown=id=>townResidents.get(id)||[];
-  return {town,journal,finaleOpening,finaleClosing,finalePhase,meetResident,residentsForTown};
+  return {town,journal,finaleOpening,finaleClosing,finalePhase,meetResident,residentsForTown,guidance};
 };

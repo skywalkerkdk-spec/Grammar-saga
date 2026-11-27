@@ -165,6 +165,11 @@
       if (!docked || options.confirm || index<lines.length-1) actions.append(button('닫기',leave));
       if (docked) section.replaceChildren(content,controls,actions);
       else section.replaceChildren(node('h2',title),node('p',`${index+1} / ${lines.length}`),controls,content,actions);
+      if (options.nextHint && index===lines.length-1) {
+        const hint=node('p',options.nextHint,'c2-next-step');
+        hint.setAttribute('aria-label','다음 이야기 안내');
+        actions.before(hint);
+      }
       if (options.art?.image) {
         const art=node('img',undefined,'c2-scene-art');
         art.alt='';
@@ -526,6 +531,31 @@
     body.append(actions);
   }
 
+  function showTownGuidance(body,episode) {
+    const guide=chapterWorld?.guidance();
+    if(!guide)return;
+    const notice=node('div',undefined,'c2-next-step');
+    notice.append(node('strong',guide.title),node('p',guide.text));
+    if(guide.locked)notice.append(node('p','이 마을을 개방하면 계속할 수 있어요.'));
+    else if(guide.town===episode.id&&guide.npcId){
+      notice.append(button('다음 주민에게 가기',()=>{
+        const select=body.querySelector('select[aria-label="탐험 목적지"]');
+        if(!select)return;
+        select.value=guide.npcId;
+        select.dispatchEvent(new Event('change'));
+      }));
+    }else if(guide.town==='library'){
+      notice.append(button('대도서관으로',library));
+    }else if(guide.town!==episode.id){
+      const target=episodes.get(guide.town);
+      if(target)notice.append(button('다음 마을로 이동',()=>{
+        if(!wmUnlocked(target.id))return;
+        closeDialogue();twOpen(target.id);openTownField(target);
+      }));
+    }else notice.append(button('이야기 이어가기',()=>chapterWorld.town(episode.id,()=>openTownField(episode))));
+    body.append(notice);
+  }
+
   function townResidentsOnMap(episode,map,targets,back) {
     if(!chapterWorld)return {map,targets};
     const points={...map.points};
@@ -555,6 +585,7 @@
     const body=hubPanel(townFor(episode),closeDialogue);
     body.querySelector('button').textContent='마을 이야기로';
     townFieldActions(body,episode,()=>villageField(episode,map));
+    showTownGuidance(body,episode);
     const targets=residentTargets(episode,index=>`story/maps/villages/${episode.id}-${index}.webp`);
     const layout=townResidentsOnMap(episode,map,targets,()=>villageField(episode,map));
     const positions=G.c2VillagePositions ||= {};
@@ -578,7 +609,7 @@
       } else closeDialogue();
     });
     body.querySelector('button').textContent=isTown?'비빌 이야기로':'비빌로 돌아가기';
-    if(isTown)townFieldActions(body,episode,()=>bevilleField('town'));
+    if(isTown){townFieldActions(body,episode,()=>bevilleField('town'));showTownGuidance(body,episode);}
     const start=window.chapterFields.meadow.spawn;
     const position=isTown ? G.c2TownPosition : state?.position;
     let at=position||map.spawn;

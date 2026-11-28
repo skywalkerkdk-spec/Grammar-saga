@@ -49,6 +49,8 @@ with ThreadingHTTPServer(('127.0.0.1',0),partial(Q,directory=root)) as srv:
             pg.locator('.c2-actions button',has_text=key).first.click();pg.wait_for_timeout(400)
         finish(pg)
         st=pg.evaluate("SV.chapter2World.stages.sj_route_wishing_coin")
-        assert st==2,'수호자를 이기면 보고 단계(2)로 넘어가야 함: %s'%st
-        print('서쪽 길 의뢰 브라우저 흐름 통과 / 오류',errs)
+        assert st==1,'도깨비를 물리쳐도 던전을 클리어하기 전엔 보고 단계가 아님: %s'%st
+        go('도깨비의 동굴',20000);finish(pg)
+        assert pg.evaluate("G.scr")=='formed' and pg.evaluate("G.dg.id")=='sj','던전 입구에서 이프헤이븐 던전 파티 결성 화면으로 가야 함'
+        print('서쪽 길 의뢰(단서→도깨비→던전 입구) 브라우저 흐름 통과 / 오류',errs)
         assert not errs,errs

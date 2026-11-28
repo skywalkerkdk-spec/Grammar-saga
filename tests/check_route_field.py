@@ -34,9 +34,9 @@ with ThreadingHTTPServer(('127.0.0.1',0),partial(Q,directory=root)) as srv:
             pg.get_by_role('button',name='마을 탐험').click();pg.wait_for_timeout(800)
         def go(label,wait=5000):
             pg.locator('select[aria-label="탐험 목적지"]').select_option(label=label);pg.wait_for_timeout(wait)
-        town(None);go('서쪽 다리 길')
+        town(None);go('서쪽 산길')
         assert pg.locator('[role=status]').filter(has_text='아직 갈 일이 없는 길').count()==1,'의뢰 전에는 길이 닫혀 있어야 함'
-        town(1);go('서쪽 다리 길');finish(pg)
+        town(1);go('서쪽 산길');finish(pg)
         assert pg.locator('select[aria-label="탐험 목적지"] option',has_text='젖은 발자국').count()==1,'필드가 열려야 함'
         go('어쩌면 도깨비',20000)
         assert pg.locator('[role=status]').filter(has_text='단서가 부족').count()==1,'단서 전에는 수호자와 싸울 수 없음'
